@@ -31,11 +31,46 @@ See COPYRIGHT and LICENSE files for more details.
 
 <%= toolbar title: t(:label_overview) %>
 
-<div class="menu-blocks--container" data-test-selector="menu-blocks--container">
-  <% @menu_nodes.each do |menu_node| -%>
-    <%= link_to menu_node.url, { class: 'menu-block', 'data-test-selector': 'menu-block' } do %>
-      <%= op_icon("menu-block--icon icon3 icon-#{(menu_node.icon || '')}") %>
-      <span class="menu-block--title"> <%= menu_node.caption %> </span>
+<div class="row">
+  <% @menu_nodes.each_slice(2) do |menu_node_pair| %>
+    <% menu_node_pair.each do |menu_node| %>
+      <div class="col-xxl-3 col-sm-4 project-card">
+        <div class="card card-height-100">
+          <div class="card-body">
+            <div class="d-flex flex-column h-100">
+              <div class="d-flex mb-2 align-items-center">
+                <div class="flex-shrink-0 me-3">
+                  <div class="avatar-sm">
+                    <span class="avatar-title bg-warning-subtle rounded p-2">
+                      <%= op_icon("menu-block--icon icon3 icon-#{(menu_node.icon || '')}") %>
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <h5 class="mb-1 fs-15">
+                    <%= link_to menu_node.url, class: 'text-body' do %>
+                      <span class="menu-block--title"> <%= menu_node.caption %> </span>
+                    <% end %>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end card body -->
+          <!-- end card footer -->
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
     <% end %>
   <% end %>
 </div>
+<!-- end row -->
+
+<style>
+.menu-block--icon:before {
+    font-size: 29px;
+    padding: 0;
+    color:#ff8d00;
+}
+</style>
