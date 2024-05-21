@@ -1,0 +1,11 @@
+<% if @newest_projects.empty? %>
+  <p class="widget-box--additional-info">
+    <%= t('homescreen.additional.no_visible_projects') %>
+  </p>
+<% else  %>
+  <div class="d-flex flex-wrap gap-2 fs-16">
+    <% @newest_projects.each do |project| %>
+      <%= link_to project, project_path(project), title: short_project_description(project), class: "badge fw-medium bg-secondary-subtle text-secondary" %>
+    <% end %>
+  </div>
+<% end %>

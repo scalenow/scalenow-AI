@@ -1,0 +1,243 @@
+---
+fr:
+  good_job:
+    actions:
+      destroy: Détruire
+      discard: Mettre au rebut
+      force_discard: Forcer le rejet
+      inspect: Inspecter
+      reschedule: Reprogrammer
+      retry: Recommencez
+    batches:
+      index:
+        older_batches: Lots plus anciens
+        pending_migrations: GoodJob a des migrations de bases de données en attente.
+        title: Lots
+      jobs:
+        actions:
+          confirm_destroy: Voulez-vous vraiment détruire ce job ?
+          confirm_discard: Voulez-vous vraiment mettre au rebut ce job ?
+          confirm_reschedule: Voulez-vous vraiment replanifier ce job ?
+          confirm_retry: Voulez-vous vraiment réessayer ce job ?
+          destroy: Détruire le job
+          discard: Mettre au rebut le job
+          reschedule: Replanifier le job
+          retry: Réessayer le job
+          title: Actions
+        no_jobs_found: Aucun job trouvé.
+      show:
+        attributes: Attributs
+        batched_jobs: Jobs groupés
+        callback_jobs: Jobs de rappel
+      table:
+        no_batches_found: Aucun lot trouvé.
+    cron_entries:
+      actions:
+        confirm_disable: Voulez-vous vraiment désactiver cette entrée cron ?
+        confirm_enable: Voulez-vous vraiment activer cette entrée cron ?
+        confirm_enqueue: Voulez-vous vraiment mettre en file d'attente cette entrée cron ?
+        disable: Désactiver l'entrée cron
+        enable: Activer l'entrée cron
+        enqueue: Mettre en file d'attente l'entrée cron maintenant
+      disable:
+        notice: L'entrée Cron a été désactivée.
+      enable:
+        notice: L'entrée Cron a été activée.
+      enqueue:
+        notice: L'entrée Cron a été mise en file d'attente.
+      index:
+        no_cron_schedules_found: Aucune planification cron trouvée.
+        title: Entrées Cron
+      pending_migrations: Nécessite une migration de la base de données GoodJob en attente.
+      show:
+        cron_entry_key: Clé d'entrée Cron
+    datetime:
+      distance_in_words:
+        about_x_hours:
+          one: environ 1 heure
+          other: environ %{count} heures
+        about_x_months:
+          one: environ 1 heure
+          other: environ %{count} heures
+        about_x_years:
+          one: environ 1 an
+          other: environ %{count} ans
+        almost_x_years:
+          one: presque 1 an
+          other: presque %{count} ans
+        half_a_minute: une demi-minute
+        less_than_x_minutes:
+          one: moins d'une minute
+          other: moins de %{count} minutes
+        less_than_x_seconds:
+          one: moins d'une seconde
+          other: moins de %{count} secondes
+        over_x_years:
+          one: plus d'un an
+          other: plus de %{count} ans
+        x_days:
+          one: 1 jour
+          other: "%{count} jours"
+        x_minutes:
+          one: 1 minute
+          other: "%{count} minutes"
+        x_months:
+          one: 1 mois
+          other: "%{count} mois"
+        x_seconds:
+          one: 1 seconde
+          other: "%{count} secondes"
+        x_years:
+          one: 1 an
+          other: "%{count} ans"
+    duration:
+      hours: "%{hour}h %{min}m"
+      less_than_10_seconds: "%{sec}s"
+      milliseconds: "%{ms}ms"
+      minutes: "%{min}m %{sec}s"
+      seconds: "%{sec}s"
+    error_event:
+      discarded: Mis au rebut
+      handled: manipulé
+      interrupted: Interrompu
+      retried: Réessayé
+      retry_stopped: Nouvelle tentative arrêtée
+      unhandled: Non géré
+    helpers:
+      relative_time:
+        future: dans %{time}
+        past: il y a %{time}
+    jobs:
+      actions:
+        confirm_destroy: Voulez-vous vraiment détruire le job ?
+        confirm_discard: Voulez-vous vraiment mettre au rebut le job ?
+        confirm_force_discard: 'Êtes-vous sûr de vouloir forcer l''abandon de cette tâche ? Le travail sera marqué comme abandonné mais le travail en cours d''exécution ne sera pas arrêté - il ne sera cependant pas réessayé en cas d''échec.
+
+          '
+        confirm_reschedule: Voulez-vous vraiment replanifier le job ?
+        confirm_retry: Voulez-vous vraiment réessayer le job ?
+        destroy: Détruire le job
+        discard: Mettre au rebut le job
+        force_discard: Forcer l'abandon du travail
+        reschedule: Replanifier le job
+        retry: Réessayer le job
+      destroy:
+        notice: Le job a été détruit
+      discard:
+        notice: Le job a été mis au rebut
+      executions:
+        in_queue: Dans la file d'attente
+        runtime: Durée
+        title: Exécutions
+      force_discard:
+        notice: Le travail a été abandonné de force. Il continuera à fonctionner mais il ne sera pas réessayé en cas d'échec
+      index:
+        job_pagination: Pagination du job
+        older_jobs: Jobs plus anciens
+      reschedule:
+        notice: Le job a été replanifié
+      retry:
+        notice: Le job a été réessayé
+      show:
+        jobs: Jobs
+      table:
+        actions:
+          apply_to_all:
+            one: Appliquer à ce job
+            other: Appliquer aux %{count} jobs
+          confirm_destroy_all: Voulez-vous vraiment détruire les jobs sélectionnés ?
+          confirm_discard_all: Voulez-vous vraiment mettre au rebut les jobs sélectionnés?
+          confirm_reschedule_all: Voulez-vous vraiment replanifier les jobs sélectionnées ?
+          confirm_retry_all: Voulez-vous vraiment réessayer les jobs sélectionnées ?
+          destroy_all: Tout détruire
+          discard_all: Tout mettre au rebut
+          reschedule_all: Tout replanifier
+          retry_all: Tout réessayer
+          title: Actions
+        no_jobs_found: Aucun job trouvé.
+        toggle_actions: Afficher / cacher les actions
+        toggle_all_jobs: Sélectionner tous les jobs
+    models:
+      batch:
+        created: Créé
+        created_at: Créé à
+        discarded: Mis au rebut
+        discarded_at: Mis au rebut à
+        enqueued: En file d'attente
+        enqueued_at: En file d'attente à
+        finished: Terminé
+        finished_at: Terminé à
+        jobs: Jobs
+        name: Nom
+      cron:
+        class: Classe
+        last_run: Dernière exécution
+        next_scheduled: Prochaine exécution
+        schedule: Planification
+      job:
+        arguments: Paramètres
+        attempts: Tentatives
+        priority: Priorité
+        queue: File d'attente
+    number:
+      format:
+        delimiter: " "
+        separator: ","
+      human:
+        decimal_units:
+          delimiter: " "
+          format: "%n%u"
+          precision: 3
+          separator: ","
+          units:
+            billion: B
+            million: M
+            quadrillion: q
+            thousand: k
+            trillion: J
+            unit: ''
+    processes:
+      index:
+        cron_enabled: Cron activé
+        no_good_job_processes_found: Aucun processus GoodJob trouvé.
+        process: Processus
+        schedulers: Schedulers
+        started: Lancé
+        title: Processus
+        updated: Mis à jour
+    shared:
+      boolean:
+        'false': Non
+        'true': Oui
+      error: Erreur
+      filter:
+        all: Tous
+        all_jobs: Tous les jobs
+        all_queues: Toutes les files d'attente
+        clear: Réinitialiser
+        job_name: Nom du job
+        placeholder: Recherche par classe, ID de job, paramètres de job et texte d'erreur.
+        queue_name: Nom de la file d'attente
+        search: Rechercher
+      navbar:
+        batches: Lots
+        cron_schedules: Cron
+        jobs: Jobs
+        live_poll: En direct
+        name: "GoodJob 👍"
+        processes: Processus
+        theme:
+          auto: Auto
+          dark: Sombre
+          light: Lumière
+          theme: Thème
+      secondary_navbar:
+        inspiration: N'oublie pas, toi aussi tu fais du bon boulot !
+        last_updated: Dernière mise à jour
+    status:
+      discarded: Mis au rebut
+      queued: À la file
+      retried: Réessayés
+      running: En cours
+      scheduled: Planifiés
+      succeeded: Réussis

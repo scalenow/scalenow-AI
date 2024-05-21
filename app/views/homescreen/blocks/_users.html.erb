@@ -1,0 +1,15 @@
+<% unless @newest_users.empty? %>
+  <div class="vstack gap-3">
+    <% @newest_users.each do |user| %>
+      <div class="d-flex align-items-center">
+        <div class="avatar-xs flex-shrink-0 me-3">
+          <%= avatar(user, class: "op-top-menu-user-avatar") %>
+        </div>
+
+        <div class="flex-grow-1">
+          <h5 class="fs-13 mb-0"><%= link_to user, user_path(user), title: user.name, class: "text-body d-block" %></h5>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<%= render(Primer::BaseComponent.new(**@system_arguments)) do %>
+  <%= render(
+          Primer::Beta::IconButton.new(
+            scheme: :default,
+            id: "zenModeButton",
+            icon: ZEN_MODE_BUTTON_ICON,
+            aria: { label: ZEN_MODE_BUTTON_LABEL },
+            data: { target: "zen-mode-button.button", action: "click:zen-mode-button#performAction" }
+          )
+        ) %>
+<% end %>

@@ -1,0 +1,16 @@
+{
+  "name": "open_project/page_header",
+  "selectors": [
+    ".PageHeader",
+    ".PageHeader-contextBar",
+    ".PageHeader-titleBar",
+    ".PageHeader-title",
+    ".PageHeader-title--large",
+    ".PageHeader-description",
+    ".PageHeader-actions",
+    ".PageHeader--singleAction .PageHeader-action",
+    ".PageHeader-breadcrumbs",
+    ".PageHeader-leadingAction",
+    ".PageHeader-parentLink"
+  ]
+}

@@ -1,0 +1,18 @@
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/cgi-0.4.1/ext/cgi/escape
+/home/dell/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/cgi-0.4.1/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-3yjlrf sitelibdir\=./.gem.20240508-85353-3yjlrf clean
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/cgi-0.4.1/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-3yjlrf sitelibdir\=./.gem.20240508-85353-3yjlrf
+compiling escape.c
+linking shared-object cgi/escape.so
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/cgi-0.4.1/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-3yjlrf sitelibdir\=./.gem.20240508-85353-3yjlrf install
+/usr/bin/install -c -m 0755 escape.so ./.gem.20240508-85353-3yjlrf/cgi
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/cgi-0.4.1/ext/cgi/escape
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-3yjlrf sitelibdir\=./.gem.20240508-85353-3yjlrf clean

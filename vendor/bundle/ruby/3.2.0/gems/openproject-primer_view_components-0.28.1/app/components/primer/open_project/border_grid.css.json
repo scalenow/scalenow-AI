@@ -1,0 +1,11 @@
+{
+  "name": "open_project/border_grid",
+  "selectors": [
+    ".BorderGrid",
+    ".BorderGrid .BorderGrid-cell",
+    ".BorderGrid--spacious",
+    ".BorderGrid--spacious .BorderGrid-cell",
+    ".BorderGrid-row",
+    ".BorderGrid-cell"
+  ]
+}

@@ -1,0 +1,42 @@
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/rbtree3-0.7.1
+/home/dell/.rbenv/versions/3.2.3/bin/ruby extconf.rb
+checking for rb_exec_recursive() in ruby.h... yes
+creating Makefile
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/rbtree3-0.7.1
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-mm8vsn sitelibdir\=./.gem.20240508-85353-mm8vsn clean
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/rbtree3-0.7.1
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-mm8vsn sitelibdir\=./.gem.20240508-85353-mm8vsn
+compiling dict.c
+compiling rbtree.c
+rbtree.c: In function ‘rbtree_argc_error’:
+rbtree.c:116:1: warning: old-style function definition [-Wold-style-definition]
+  116 | rbtree_argc_error()
+      | ^~~~~~~~~~~~~~~~~
+rbtree.c: In function ‘rbtree_pretty_print’:
+rbtree.c:1527:5: warning: ‘rb_iterate’ is deprecated: by: rb_block_call since 1.9 [-Wdeprecated-declarations]
+ 1527 |     return rb_iterate(pp_object_group, (VALUE)&pp_arg,
+      |     ^~~~~~
+In file included from /home/dell/.rbenv/versions/3.2.3/include/ruby-3.2.0/ruby/ruby.h:41,
+                 from /home/dell/.rbenv/versions/3.2.3/include/ruby-3.2.0/ruby.h:38,
+                 from rbtree.c:5:
+/home/dell/.rbenv/versions/3.2.3/include/ruby-3.2.0/ruby/internal/iterator.h:283:7: note: declared here
+  283 | VALUE rb_iterate(VALUE (*func1)(VALUE), VALUE data1, rb_block_call_func_t proc, VALUE data2);
+      |       ^~~~~~~~~~
+rbtree.c: In function ‘Init_rbtree’:
+rbtree.c:1653:6: warning: old-style function definition [-Wold-style-definition]
+ 1653 | void Init_rbtree()
+      |      ^~~~~~~~~~~
+rbtree.c: At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+linking shared-object rbtree.so
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/rbtree3-0.7.1
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-mm8vsn sitelibdir\=./.gem.20240508-85353-mm8vsn install
+/usr/bin/install -c -m 0755 rbtree.so ./.gem.20240508-85353-mm8vsn
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/rbtree3-0.7.1
+make DESTDIR\= sitearchdir\=./.gem.20240508-85353-mm8vsn sitelibdir\=./.gem.20240508-85353-mm8vsn clean

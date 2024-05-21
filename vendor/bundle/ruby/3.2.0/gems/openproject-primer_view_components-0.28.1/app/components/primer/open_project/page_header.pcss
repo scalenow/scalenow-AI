@@ -1,0 +1,73 @@
+/* OP PageHeader */
+
+.PageHeader {
+  display: flex;
+  padding-bottom: var(--stack-padding-condensed);
+  margin-bottom: var(--stack-gap-normal);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-muted);
+  flex-flow: column;
+}
+
+.PageHeader-contextBar {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.PageHeader-titleBar {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center; /* Keep back button vertically aligned. */
+  margin-bottom: var(--space-xsmall);
+}
+
+.PageHeader-title {
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--base-text-weight-normal);
+  flex: 1 1 auto;
+}
+
+.PageHeader-title--large {
+  font-size: var(--text-title-size-large);
+}
+
+/* One-liner of supporting text */
+.PageHeader-description {
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-muted);
+  flex: 1 100%;
+}
+
+.PageHeader-actions {
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+}
+
+.PageHeader--singleAction .PageHeader-action {
+  @media (max-width: 543.98px) {
+    position: absolute;
+    top: 10px;
+
+    /* Normally, the actions are hidden on mobile, except for this special case of a single action */
+    display: flex !important;
+  }
+}
+
+.PageHeader-breadcrumbs {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--base-size-8);
+  padding-bottom: var(--base-size-4);
+}
+
+.PageHeader-leadingAction {
+  margin-top: 2px; /* to center align with label */
+  margin-right: var(--base-size-4);
+}
+
+.PageHeader-parentLink {
+  flex: 1 1 auto;
+}
