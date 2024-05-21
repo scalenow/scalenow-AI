@@ -17,12 +17,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <div class="text-center mt-sm-5 mb-4 text-white-50">
-            <div>
-              <a href="<%=root_path %>" class="d-inline-block auth-logo">
-                <img src="../../../frontend/src/assets/images/logo-light.png" alt="" height="20">
-              </a>
-            </div>
+          <div class="text-center mb-4">
+            <a href="<%=root_path %>" class="d-inline-block op-logo--link" style="height: 60px;"></a>
             <!-- <p class="mt-3 fs-15 fw-medium">Premium Admin & Dashboard Template</p> -->
           </div>
         </div>
@@ -36,14 +32,14 @@
             <div class="card-body p-4">
               <div class="text-center mt-2">
                 <h5 class="text-primary">Welcome Back !</h5>
-                <p class="text-muted">Sign in to continue to ScaleNow-AI.</p>
+                <p class="text-muted">Sign in to continue to scalenow-AI.</p>
               </div>
               <div class="p-2 mt-4">
                 <%= styled_form_tag({action: "login" }, autocomplete: 'off' , class: '-wide-labels user-login--form' ) do %>
 
                   <div class="mb-3">
                     <%= styled_label_tag 'username' , User.human_attribute_name(:login), class: "form-label" %>
-                    <%= styled_text_field_tag 'username' , params[:username], autofocus: params[:username].blank?, autocapitalize: 'none' , class: "form-control" , id: "username" , placeholder: "Enter username" %>
+                    <%= styled_text_field_tag 'username' , params[:username], autofocus: params[:username].blank?, autocapitalize: 'none' , class: "form-control ps-3 pe-3" , id: "username" , placeholder: "Enter username" %>
                     <!-- <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" placeholder="Enter username"> -->
                   </div>
@@ -56,8 +52,8 @@
                     <%= styled_label_tag 'password' , User.human_attribute_name(:password), class: "form-label" %>
 
                     <div class="position-relative auth-pass-inputgroup mb-3">
-                      <%= styled_password_field_tag 'password' , nil, autofocus: !params[:username].blank?, class: "form-control pe-5 password-input", placeholder: "Enter password", id: "password-input" %>
-                      <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon">
+                      <%= styled_password_field_tag 'password' , nil, autofocus: !params[:username].blank?, class: "form-control ps-3 pe-3 password-input", placeholder: "Enter password", id: "password-input" %>
+                      <button class="btn btn-link text-decoration-none text-muted password-addon show-password-button" type="button" id="password-addon">
                         <i class="ri-eye-fill align-middle"></i>
                       </button>
                     </div>
@@ -86,7 +82,7 @@
                   </div>
 
                   <div class="mt-4">
-                    <%= submit_tag t(:button_login), name: :login, class: 'btn btn-secondary w-100', data: { disable_with: t(:label_loading) } %>
+                    <%= submit_tag t(:button_login), name: :login, class: 'btn custom-primary-button w-100', data: { disable_with: t(:label_loading) } %>
                     <!-- <button class="btn btn-secondary w-100" type="submit">Sign In</button> -->
                   </div>
 
@@ -94,17 +90,17 @@
                     <div class="signin-other-title">
                       <h5 class="fs-13 mb-4 title">Sign In with</h5>
                     </div>
-                    <div>
-                      <button type="button" class="btn btn-primary btn-icon waves-effect waves-light">
+                    <div class="social-media-login">
+                      <button type="button" class="btn custom-primary-button btn-icon waves-effect waves-light">
                         <i class="ri-facebook-fill fs-16"></i>
                       </button>
-                      <button type="button" class="btn btn-danger btn-icon waves-effect waves-light">
+                      <button type="button" class="btn custom-danger-button btn-icon waves-effect waves-light">
                         <i class="ri-google-fill fs-16"></i>
                       </button>
-                      <button type="button" class="btn btn-dark btn-icon waves-effect waves-light">
+                      <button type="button" class="btn custom-dark-button btn-icon waves-effect waves-light">
                         <i class="ri-github-fill fs-16"></i>
                       </button>
-                      <button type="button" class="btn btn-info btn-icon waves-effect waves-light">
+                      <button type="button" class="btn custom-info-button btn-icon waves-effect waves-light">
                         <i class="ri-twitter-fill fs-16"></i>
                       </button>
                     </div>
@@ -117,8 +113,14 @@
           <!-- end card -->
 
           <div class="mt-4 text-center">
-            <p class="mb-0">Don't have an account ? <a href="auth-signup-basic.html"
-                class="fw-semibold text-primary text-decoration-underline"> Signup </a> </p>
+            <% if Setting::SelfRegistration.enabled? %>
+              <p class="mb-0">Don't have an account ?
+                <%= link_to "Signup",
+                            '',
+                            title: t(:label_register),
+                            class: 'login-form--footer-link registration-modal--activation-link fw-semibold text-primary text-decoration-underline' %>
+              </p>
+            <% end %>
           </div>
 
         </div>
@@ -135,10 +137,10 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="text-center">
-            <p class="mb-0 text-muted">&copy;
-              <!-- <script>document.write(new Date().getFullYear())</script> Velzon. Crafted with <i
-                class="mdi mdi-heart text-danger"></i> by Themesbrand -->
-            </p>
+            <!-- <p class="mb-0 text-muted">&copy;
+              <script>document.write(new Date().getFullYear())</script> Velzon. Crafted with <i
+                class="mdi mdi-heart text-danger"></i> by Themesbrand
+            </p> -->
           </div>
         </div>
       </div>
@@ -148,3 +150,9 @@
 </div>
 <!-- end auth-page-wrapper -->
 
+<section data-augmented-model-wrapper
+         data-activation-selector=".registration-modal--activation-link"
+         data-modal-class-name="registration-modal -primary">
+  <% @user ||= User.new %>
+  <%= render partial: '/account/register' %>
+</section>

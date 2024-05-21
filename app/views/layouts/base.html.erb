@@ -97,7 +97,7 @@ See COPYRIGHT and LICENSE files for more details.
     <% end %>
     <div class="content-overlay"></div>
     <main id="content-wrapper" class="<%= initial_classes %> content-page">
-      <% if show_decoration %>
+      <% if show_decoration && User.current.logged? %>
         <header class="op-app-header<%= ' op-app-header_development' if OpenProject::Configuration.development_highlight_enabled? %> align-items-center custom-header">
           <div class="op-app-header--start">
             <h1 class="hidden-for-sighted">

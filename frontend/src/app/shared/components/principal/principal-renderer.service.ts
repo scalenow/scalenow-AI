@@ -140,17 +140,6 @@ export class PrincipalRendererService {
       this.renderUserAvatar(principal, fallback, options);
     }
 
-    // Create span for name
-    const nameSpan = document.createElement('span');
-    nameSpan.classList.add('op-principal--name');
-    nameSpan.textContent = principal.name;
-
-    // Append name after avatar
-    jQuery('.op-app-header .op-principal--name').remove();
-    jQuery('.op-app-header .op-principal--avatar').after(nameSpan);
-    // fallback.insertAdjacentElement("afterend", nameSpan)
-    // debugger;
-
     return fallback;
   }
 

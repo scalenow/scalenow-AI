@@ -59,7 +59,7 @@ module Redmine::MenuManager::TopMenuHelper
   def render_global_search_input
     angular_component_tag "opce-global-search",
                           inputs: {
-                            placeholder: "Search in Scalenow-AI"
+                            placeholder: "Search in scalenow-AI"
                           }
   end
 
