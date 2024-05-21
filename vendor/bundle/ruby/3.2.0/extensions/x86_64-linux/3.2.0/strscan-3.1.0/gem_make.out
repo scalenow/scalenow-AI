@@ -5,16 +5,16 @@ checking for rb_reg_onig_match() in ruby.h... no
 creating Makefile
 
 current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
-make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv clean
+make DESTDIR\= sitearchdir\=./.gem.20240521-37930-drm70a sitelibdir\=./.gem.20240521-37930-drm70a clean
 
 current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
-make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv
+make DESTDIR\= sitearchdir\=./.gem.20240521-37930-drm70a sitelibdir\=./.gem.20240521-37930-drm70a
 compiling strscan.c
 linking shared-object strscan.so
 
 current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
-make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv install
-/usr/bin/install -m 0755 strscan.so ./.gem.20240521-36135-rbuxlv
+make DESTDIR\= sitearchdir\=./.gem.20240521-37930-drm70a sitelibdir\=./.gem.20240521-37930-drm70a install
+/usr/bin/install -m 0755 strscan.so ./.gem.20240521-37930-drm70a
 
 current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
-make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv clean
+make DESTDIR\= sitearchdir\=./.gem.20240521-37930-drm70a sitelibdir\=./.gem.20240521-37930-drm70a clean
