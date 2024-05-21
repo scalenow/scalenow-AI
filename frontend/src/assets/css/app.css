@@ -16281,3 +16281,59 @@ span.flatpickr-weekday {
   z-index: 9;
   padding: 0 !important;
 }
+
+.show-password-button {
+  position: absolute !important;
+  top: 0px !important;
+  right: 6px !important;
+  padding: 7px !important;
+}
+
+.custom-primary-button {
+  background-color: #687cfe !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.custom-primary-button:hover {
+  background-color: #5869d8 !important;
+}
+
+.custom-danger-button {
+  background-color: #f7666e !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.custom-danger-button:hover {
+  background-color: #d2575e !important;
+}
+
+.custom-dark-button {
+  background-color: #272a3a !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.custom-dark-button:hover {
+  background-color: #343a40 !important;
+}
+
+.custom-info-button {
+  background-color: #0ac7fb !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.custom-info-button:hover {
+  background-color: #09a9d5 !important;
+}
+
+.social-media-login {
+  pointer-events: none;
+}
+
+.social-media-login button i {
+  margin-left: -4px;
+  opacity: 1;
+}
