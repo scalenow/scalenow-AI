@@ -1,0 +1,20 @@
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
+/home/dell/.rvm/rubies/ruby-3.2.3/bin/ruby extconf.rb
+checking for onig_region_memsize() in ruby.h... yes
+checking for rb_reg_onig_match() in ruby.h... no
+creating Makefile
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv clean
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv
+compiling strscan.c
+linking shared-object strscan.so
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv install
+/usr/bin/install -m 0755 strscan.so ./.gem.20240521-36135-rbuxlv
+
+current directory: /home/dell/openproject/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.0/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20240521-36135-rbuxlv sitelibdir\=./.gem.20240521-36135-rbuxlv clean
