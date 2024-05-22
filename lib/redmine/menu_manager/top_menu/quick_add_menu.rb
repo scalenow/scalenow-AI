@@ -95,11 +95,11 @@ module Redmine::MenuManager::TopMenu::QuickAddMenu
       if in_project_context?
         link_to type_name,
                 new_project_work_packages_path(project_id: @project.identifier, type: type_id),
-                class: "__hl_inline_type_#{type_id} op-menu--item-action"
+                class: "op-menu--item-action"
       else
         link_to type_name,
                 new_work_packages_path(type: type_id),
-                class: "__hl_inline_type_#{type_id} op-menu--item-action"
+                class: "op-menu--item-action"
       end
     end
   end

@@ -66,39 +66,41 @@ See COPYRIGHT and LICENSE files for more details.
 <% main_menu = render_main_menu(local_assigns.fetch(:menu_name, nil), @project) %>
 <% side_displayed = content_for?(:sidebar) || content_for?(:main_menu) || !main_menu.blank? %>
 <% initial_classes = initial_menu_classes(side_displayed, show_decoration) %>
-<div id="layout-wrapper">
-  <div id="main" class="<%= initial_classes %>">
-    <% if (side_displayed && show_decoration) %>
-      <div
-        id="main-menu"
-        class="main-menu"
-        data-controller="menus--main"
-        data-application-target="dynamic"
-      >
-        <h1 class="hidden-for-sighted"><%= t(:label_main_menu) %></h1>
-        <main-menu-resizer></main-menu-resizer>
-        <div id="menu-sidebar">
-          <div class="navbar-brand-box">
-            <div class="op-app-header--center">
-              <%= render_top_menu_center %>
+<div id="wrapper" style=<%= initial_menu_styles(side_displayed) %> class="<%= initial_classes %>">
+  <div class="d-flex">
+    <div class="col-xxl-2 col-md-3 first-container">
+      <% if (side_displayed && show_decoration) %>
+        <div
+          id="main-menu"
+          class="main-menu"
+          data-controller="menus--main"
+          data-application-target="dynamic"
+        >
+          <h1 class="hidden-for-sighted"><%= t(:label_main_menu) %></h1>
+          <!-- <main-menu-resizer></main-menu-resizer> -->
+          <div id="menu-sidebar">
+            <div class="navbar-brand-box">
+              <div class="op-app-header--center">
+                <%= render_top_menu_center %>
+              </div>
+            </div>
+
+            <%= main_menu %>
+            <%= content_for :main_menu %>
+            <%= call_hook :view_layouts_base_main_menu %>
+            <!-- Sidebar -->
+            <div id="sidebar" data-menus--main-target="sidebar">
+              <%= content_for :sidebar %>
+              <%= call_hook :view_layouts_base_sidebar %>
             </div>
           </div>
-
-          <%= main_menu %>
-          <%= content_for :main_menu %>
-          <%= call_hook :view_layouts_base_main_menu %>
-          <!-- Sidebar -->
-          <div id="sidebar" data-menus--main-target="sidebar">
-            <%= content_for :sidebar %>
-            <%= call_hook :view_layouts_base_sidebar %>
-          </div>
         </div>
-      </div>
-    <% end %>
-    <div class="content-overlay"></div>
-    <main id="content-wrapper" class="<%= initial_classes %> content-page">
+      <% end %>
+    </div>
+
+    <div class="col-xxl-10 col-md-9 second-container">
       <% if show_decoration && User.current.logged? %>
-        <header class="op-app-header<%= ' op-app-header_development' if OpenProject::Configuration.development_highlight_enabled? %> align-items-center custom-header">
+        <header class="op-app-header<%= ' op-app-header_development' if OpenProject::Configuration.development_highlight_enabled? %> align-items-center">
           <div class="op-app-header--start">
             <h1 class="hidden-for-sighted">
               <%= t(:label_top_menu) %>
@@ -111,47 +113,55 @@ See COPYRIGHT and LICENSE files for more details.
             </a>
             <%= render_top_menu_left %>
           </div>
-    
+
           <div class="op-app-header--end">
             <%= call_hook :view_layouts_base_top_menu %>
             <%= render_top_menu_right %>
           </div>
         </header>
       <% end %>
-      <div class="content-page-style">
-        <%= render_primer_banner_message %>
-        <% if show_decoration %>
-          <div id="breadcrumb" class="<%= initial_classes %><%= show_breadcrumb ? ' -show' : '' %>">
-            <%= you_are_here_info %>
-            <div id="full_breadcrumbs">
-              <%= full_breadcrumbs %>
-            </div>
-            <%= call_hook :view_layouts_base_breadcrumb %>
+
+      <div id="main" class="<%= initial_classes %>">
+        <div class="content-overlay"></div>
+        <main id="content-wrapper" class="<%= initial_classes %>">
+          <div class="">
+            <%= render_primer_banner_message %>
+            <% if show_decoration %>
+              <div id="breadcrumb" class="<%= initial_classes %><%= show_breadcrumb ? ' -show' : '' %>">
+                <%= you_are_here_info %>
+                <div id="full_breadcrumbs">
+                  <%= full_breadcrumbs %>
+                </div>
+                <%= call_hook :view_layouts_base_breadcrumb %>
+              </div>
+            <% end %>
+            <%= render_flash_messages %>
+            <% if show_onboarding_modal? %>
+              <section data-augmented-model-wrapper
+                      data-modal-initialize-now="true"
+                      data-modal-class-name="onboarding-modal">
+                <%= render partial: '/onboarding/configuration_modal' %>
+              </section>
+            <% end %>
+            <%= content_tag :div,
+                            id: 'content',
+                            class: initial_classes,
+                            data: stimulus_content_data do %>
+              <h1 class="hidden-for-sighted"><%= t(:label_content) %></h1>
+              <%= content_for :content_body %>
+              <% unless local_assigns[:no_layout_yield] %>
+                <%= yield %>
+              <% end %>
+              <%= call_hook :view_layouts_base_content %>
+            <% end %>
           </div>
-        <% end %>
-        <%= render_flash_messages %>
-        <% if show_onboarding_modal? %>
-          <section data-augmented-model-wrapper
-                  data-modal-initialize-now="true"
-                  data-modal-class-name="onboarding-modal">
-            <%= render partial: '/onboarding/configuration_modal' %>
-          </section>
-        <% end %>
-        <%= content_tag :div,
-                        id: 'content',
-                        class: initial_classes,
-                        data: stimulus_content_data do %>
-          <h1 class="hidden-for-sighted"><%= t(:label_content) %></h1>
-          <%= content_for :content_body %>
-          <% unless local_assigns[:no_layout_yield] %>
-            <%= yield %>
-          <% end %>
-          <%= call_hook :view_layouts_base_content %>
-        <% end %>
+        </main>
       </div>
-    </main>
+      <div id="ajax-indicator" style="display:none;"><span><%= t(:label_loading) %></span></div>
+    </div>
   </div>
-  <div id="ajax-indicator" style="display:none;"><span><%= t(:label_loading) %></span></div>
+
+
 </div>
 <%# Properly decides main menu expanded state and width before its drawn. Fixes flickering side menu
         where menu is first expanded, then being collapsed in angular. %>

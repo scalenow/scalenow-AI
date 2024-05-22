@@ -32,7 +32,7 @@ class HomescreenController < ApplicationController
   layout "global"
 
   def index
-    @newest_projects = Project.visible.newest.take(5)
+    @newest_projects = Project.visible.newest
     @newest_users = User.active.newest
     @news = News.latest(count: 3)
     @announcement = Announcement.active_and_current
