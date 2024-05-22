@@ -46,6 +46,10 @@ class AdminController < ApplicationController
         (condition && !condition.call) ||
         hidden_admin_menu_items.include?(name.to_s)
     end
+    # Get list of images from administration_images directory
+    @images = Dir.glob(Rails.root.join('app', 'assets', 'images', 'administration_images', '*')).map do |path|
+      File.basename(path)
+    end
 
     if @menu_nodes.count == 1
       redirect_to @menu_nodes.first.url
