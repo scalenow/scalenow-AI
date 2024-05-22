@@ -14,5 +14,6 @@ Rails.application.configure do
     favicon.ico
     locales/*.js
     openapi-explorer.min.js
+    jpg
   )
 end
