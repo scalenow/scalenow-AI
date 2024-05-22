@@ -190,6 +190,5 @@ export class MainMenuToggleService {
 
   private toggleClassHidden():void {
     this.hideElements.toggleClass('hidden-navigation', !this.showNavigation);
-    jQuery('.op-app-header').toggleClass('toggle-header-width', this.showNavigation);
   }
 }

@@ -42,19 +42,15 @@ const featureTeaserImage = '14_0_features.svg';
 
 @Component({
   template: `
-    <div class="op-new-features text-center">
-      <p class="widget-box--additional-info text-left">
+    <div class="op-new-features">
+      <p class="widget-box--additional-info">
         {{ text.descriptionNewFeatures }}
       </p>
-      <div class="widget-box--description text-left">
+      <div class="widget-box--description">
         <p [innerHtml]="currentNewFeatureHtml"></p>
-        <img
-          class="widget-box--teaser-image op-new-features--teaser-image"
-          role="presentation"
-          [src]="new_features_image"/>
       </div>
 
-      <a [href]="teaserWebsiteUrl" target="_blank" class="btn" style="color: #fff; background-color: #d96c4f; border: none;">View More</a>
+      <a [href]="teaserWebsiteUrl" target="_blank" class="btn custom-secondary-button">View More</a>
     </div>
   `,
   selector: homescreenNewFeaturesBlockSelector,

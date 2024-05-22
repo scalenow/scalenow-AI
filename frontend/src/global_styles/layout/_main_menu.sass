@@ -31,7 +31,7 @@ $arrow-left-width: 40px
 
 @mixin main-menu-hover
   background: #fff
-  color: #687cfe
+  color: darkgray
   border: 1px solid var(--main-menu-hover-border-color)
 
 @mixin main-menu-selected
@@ -42,9 +42,8 @@ $arrow-left-width: 40px
   width: var(--main-menu-width)
   min-width: var(--main-menu-width)
   overflow-x: hidden
-  border-right-style: solid
-  border-right-width: 1px
-  border-right-color: var(--main-menu-border-color)
+  border: 1px solid var(--main-menu-border-color)
+  border-radius: 0.25rem
   background-color: #fff
 
   #menu-sidebar
@@ -208,7 +207,6 @@ a.main-menu--parent-node
 // logic for showing either parent or child menu
 .main-menu
   ul.menu_root
-    margin-top: 70px
     &.closed
       li
         display: none
@@ -237,7 +235,7 @@ a.main-menu--parent-node
 .hidden-navigation
   .main-menu
     width: var(--main-menu-folded-width)
-    min-width: var(--main-menu-folded-width)
+    min-width: 60px
     ul
       &.menu_root
         > li
@@ -251,6 +249,19 @@ a.main-menu--parent-node
             -ms-text-overflow: clip
           .toggler
             display: none
+
+    .op-logo
+      width: 16px
+
+  .first-container
+    width: 8%
+    #menu-sidebar
+      padding-left: 6px
+      .op-app-header--center
+        padding-right: 12px
+
+  .second-container
+    width: 92%
 
   #sidebar,
   .main-menu--children
