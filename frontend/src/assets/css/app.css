@@ -16322,6 +16322,26 @@ span.flatpickr-weekday {
   background-color: #d96c4f !important;
 }
 
+.custom-success-button {
+  background-color: #3cd188 !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+.custom-success-button:hover {
+  background-color: #33b274 !important;
+}
+
+.custom-light-button {
+  background-color: #f3f6f9 !important;
+  color: #000 !important;
+  border: 0 !important;
+}
+
+.custom-light-button:hover {
+  background-color: #ced4da !important;
+}
+
 .social-media-login {
   pointer-events: none;
 }
@@ -16370,4 +16390,8 @@ body {
   .hidden-navigation .second-container {
     padding-right: 36px !important;
   }
+}
+
+.rounded-border {
+  border-radius: 33px !important;
 }

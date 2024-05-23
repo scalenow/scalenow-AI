@@ -1,4 +1,4 @@
-<button
+<!-- <button
   *ngIf="title && collapsible"
   class="op-sidemenu--title"
   type="button"
@@ -9,7 +9,7 @@
         [ngClass]="collapsed ? 'icon-arrow-down1' : 'icon-arrow-up1'"
         aria-hidden="true">
   </span>
-</button>
+</button> -->
 
 <div
   *ngIf="title && !collapsible"
@@ -20,6 +20,7 @@
 
 <ul
   class="op-sidemenu--items"
+  style="padding: 0 !important;"
   [ngClass]="{'op-sidemenu--items_collapsed' : collapsed, 'searchable-menu--search-ul': searchable}"
 >
   <li
