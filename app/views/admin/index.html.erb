@@ -31,45 +31,40 @@ See COPYRIGHT and LICENSE files for more details.
 <div class="row">
   <% @menu_nodes.sort_by(&:caption).zip(@images).each_slice(4) do |menu_node_group| %>
     <% menu_node_group.each do |menu_node, image| %>
-      <div class="col-md-4 project-card"> <!-- Adjusted column width for 4 per row -->
-        <%= link_to menu_node.url, class: 'text-body', style: 'text-decoration: none;' do %> <!-- Wrapped entire card -->
+      <div class="col-md-3 project-card">
+        <%= link_to menu_node.url, class: 'text-body', style: 'text-decoration: none;' do %>
           <div class="card card-rounded-square">
-            <div class="card-body d-flex flex-column text-center"> <!-- Center content -->
-              <div class="mb-auto"></div> <!-- Pushes content down -->
+            <div class="card-body d-flex flex-column text-center">
+              <div class="mb-auto"></div>
               <h5 class="mt-5 fs-15 d-flex align-items-center justify-content-center">
                 <%= op_icon("menu-block--icon icon3 icon-#{(menu_node.icon || '')}") %>
                 <span class="menu-block--title ml-2"> <%= menu_node.caption %> </span>
               </h5>
-              <div class="mt-2 img-box"> <!-- Div for the image -->
-                <%= image_tag "administration_images/#{image}", class: 'img-fluid card-image', alt: "#{image}" %> <!-- Display each image with a custom class -->
+              <div class="mt-2 img-box">
+                <%= image_tag "administration_images/#{image}", class: 'img-fluid card-image', alt: "#{image}" %>
               </div>
-              <div class="mt-auto"></div> <!-- Keeps content pushed down -->
+              <div class="mt-auto"></div>
             </div>
-            <!-- end card body -->
-            <!-- end card footer -->
           </div>
         <% end %>
-        <!-- end card -->
       </div>
-      <!-- end col -->
     <% end %>
   <% end %>
 </div>
-<!-- end row -->
 
 <style>
 .card-rounded-square {
   position: relative;
   width: 100%;
-  padding-top: 75%; /* Maintain aspect ratio */
-  border-radius: 33px; /* Rounded corners */
+  padding-top: 70%; /* Adjusted aspect ratio */
+  border-radius: 33px;
   border: 2px solid black;
-  overflow: hidden; /* Ensure content fits within the rounded square */
+  overflow: hidden;
 }
 
 .card {
-  height: 300px;
-  cursor: pointer; /* Indicate that the entire card is clickable */
+  height: 250px; /* Reduced height */
+  cursor: pointer;
 }
 
 .card-rounded-square .card-body {
@@ -83,12 +78,12 @@ See COPYRIGHT and LICENSE files for more details.
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0; /* Adjust padding to make card smaller */
+  padding: 0;
 }
 
 .img-box {
-  height: 222px;
-  width: 270px;
+  height: 200px; /* Reduced height */
+  width: 240px; /* Reduced width */
 }
 
 .img-box img {
@@ -103,6 +98,6 @@ See COPYRIGHT and LICENSE files for more details.
 }
 
 .ml-2 {
-  margin-left: 0.5rem; /* Bootstrap class for margin-left */
+  margin-left: 0.5rem;
 }
 </style>
