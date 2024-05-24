@@ -259,8 +259,8 @@ thead.-sticky th
 
 .generic-table--header-outer,
 .generic-table--sort-header-outer
-  padding:      0 12px 0 6px
-  line-height:  var(--generic-table--header-height)
+  padding: 0 5px
+  line-height:  36px
   height:  var(--generic-table--header-height)
   z-index:      1
   border-bottom: 1px solid var(--table-border-color)
@@ -303,6 +303,9 @@ thead.-sticky th
   min-width: 40px
   max-width: 300px
   display: flex
+  background-color: #ededed
+  border-radius: 33px
+  padding: 0 10px
 
   & > a
     flex: 1 1
@@ -312,17 +315,17 @@ thead.-sticky th
 
   & > op-icon
     flex: 0 0 0
-    padding-left: 15px
+    padding-left: 12px
 
   #startDate
-    margin-left: $work-package--start-date-display-field-padding-left
+    margin-left: 0
 
 .generic-table--sort-header-outer
   .dropdown-indicator
     width: 1em
     overflow: visible
     min-width: 1em
-    visibility: hidden
+    visibility: visible
     position: relative
 
   &:hover .dropdown-indicator
