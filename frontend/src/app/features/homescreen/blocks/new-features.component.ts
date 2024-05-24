@@ -50,7 +50,7 @@ const featureTeaserImage = '14_0_features.svg';
         <p [innerHtml]="currentNewFeatureHtml"></p>
       </div>
 
-      <a [href]="teaserWebsiteUrl" target="_blank" class="btn custom-secondary-button">View More</a>
+      <a [href]="teaserWebsiteUrl" target="_blank" class="btn custom-secondary-button rounded-border">View More</a>
     </div>
   `,
   selector: homescreenNewFeaturesBlockSelector,
@@ -87,7 +87,7 @@ export class HomescreenNewFeaturesBlockComponent {
 
   public get teaserWebsiteUrl() {
     const url = this.translated('learn_about_link');
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+    return this.domSanitizer.bypassSecurityTrustResourceUrl('#');
   }
 
   public get currentNewFeatureHtml():string {
