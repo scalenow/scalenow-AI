@@ -13,13 +13,13 @@
     <%= static_link_to (EnterpriseToken.active? ? :enterprise_support : :enterprise_support_as_community) %>
   </li>
   <li>
-    <%= link_to(t('label_openproject_website'), "#{OpenProject::Static::Links.links[:website][:href]}/?utm_source=unknown&utm_medium=op-instance&utm_campaign=website-home-screen",
+    <%= link_to(t('label_openproject_website'), "#",
                 { aria: {label: t('label_openproject_website')},
                   target: '_blank',
                   title: t('label_openproject_website')}) %>
   </li>
   <li>
-    <%= link_to(t('homescreen.links.newsletter'), "#{OpenProject::Static::Links.links[:newsletter][:href]}/?utm_source=unknown&utm_medium=op-instance&utm_campaign=newsletter-home-screen",
+    <%= link_to(t('homescreen.links.newsletter'), "#",
           { aria: {label: t('homescreen.links.newsletter')},
             target: '_blank',
             title: t('homescreen.links.newsletter')}) %>
