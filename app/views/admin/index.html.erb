@@ -56,14 +56,15 @@ See COPYRIGHT and LICENSE files for more details.
 .card-rounded-square {
   position: relative;
   width: 100%;
-  padding-top: 70%; /* Adjusted aspect ratio */
+  padding-top: 100%; /* Set aspect ratio to 1:1 for a square */
   border-radius: 33px;
   border: 2px solid black;
   overflow: hidden;
 }
 
 .card {
-  height: 250px; /* Reduced height */
+  height: 0; /* Removed fixed height */
+  padding-top: 100%; /* Set height equal to width for square */
   cursor: pointer;
 }
 
@@ -82,8 +83,8 @@ See COPYRIGHT and LICENSE files for more details.
 }
 
 .img-box {
-  height: 200px; /* Reduced height */
-  width: 240px; /* Reduced width */
+  height: 50%; /* Adjust height */
+  width: 70%; /* Adjust width */
 }
 
 .img-box img {
