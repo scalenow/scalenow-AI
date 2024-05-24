@@ -34,8 +34,9 @@ See COPYRIGHT and LICENSE files for more details.
   data-modal-class-name="onboarding-modal"
 >
   <%= link_to t(:label_introduction_video),
-              '',
+              '#',
               title: t(:label_introduction_video),
-              class: 'op-menu--item-action onboarding-modal--activation-link' %>
+              class: 'op-menu--item-action' %>
+              <!-- class: 'op-menu--item-action onboarding-modal--activation-link' %> -->
   <%= render partial: '/onboarding/onboarding_video_modal' %>
 </li>

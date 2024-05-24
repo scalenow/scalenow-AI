@@ -90,15 +90,18 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     end
     if EnterpriseToken.show_banners?
       result << static_link_item(:upsale,
-                                 href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=ee-upsale-help-menu")
+                                 href_suffix: "")
+      # result << static_link_item(:upsale,
+      #                            href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=ee-upsale-help-menu")
     end
     result << static_link_item(:user_guides)
     result << content_tag(:li, class: "op-menu--item") do
       link_to I18n.t("label_videos"),
-              OpenProject::Configuration.youtube_channel,
+              "#",
               title: I18n.t("label_videos"),
               class: "op-menu--item-action",
               target: "_blank", rel: "noopener"
+      # OpenProject::Configuration.youtube_channel,
     end
     result << static_link_item(:shortcuts)
     result << static_link_item(:forums)
@@ -127,11 +130,13 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     result << static_link_item(:digital_accessibility)
     result << static_link_item(
       :website,
-      href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=website-help-menu"
+      href_suffix: ""
+      # href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=website-help-menu"
     )
     result << static_link_item(
       :newsletter,
-      href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=newsletter-help-menu"
+      href_suffix: ""
+      # href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=newsletter-help-menu"
     )
     result << static_link_item(:blog)
     result << static_link_item(:release_notes)
@@ -146,10 +151,11 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     label = I18n.t(link[:label])
     content_tag(:li, class: "op-menu--item") do
       link_to label,
-              "#{link[:href]}#{options[:href_suffix]}",
+              "#",
               title: label,
               target: "_blank",
               class: "op-menu--item-action", rel: "noopener"
+      # "#{link[:href]}#{options[:href_suffix]}",
     end
   end
 end
