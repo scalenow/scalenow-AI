@@ -2881,12 +2881,10 @@ code {
 }
 
 #status {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin: -20px 0 0 -20px;
+  width: auto !important;
+  height: auto !important;
+  position: initial !important;
+  margin: 0 !important;
 }
 
 :is([type=tel], [type=url], [type=email], [type=number])::-webkit-input-placeholder {
