@@ -6,7 +6,7 @@
   <button
     slot="trigger"
     type="button"
-    class="button rounded-border"
+    class="button rounded-border mr-2"
     (click)="toggleOpen()"
     [title]="text.toggle_title"
     data-test-selector="project-include-button"
@@ -90,7 +90,7 @@
         <div class="spot-action-bar--right">
           <button
             [disabled]="(loading$ | async)"
-            class="button spot-action-bar--action"
+            class="button spot-action-bar--action rounded-border"
             type="button"
             (click)="clearSelection()"
           >
@@ -98,7 +98,7 @@
           </button>
           <button
             [disabled]="(loading$ | async)"
-            class="button -primary spot-action-bar--action"
+            class="button -primary spot-action-bar--action custom-secondary-button rounded-border"
           >
             {{ text.apply }}
           </button>
