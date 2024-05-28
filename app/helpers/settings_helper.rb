@@ -106,10 +106,13 @@ module SettingsHelper
   end
 
   def setting_number_field(setting, options = {})
+    # Ensure form-control class is added to the options
+    options[:class] = [options[:class], 'form-control'].compact.join(' ')
+    
     setting_field_wrapper(setting, options) do
       styled_number_field_tag("settings[#{setting}]",
                               Setting.send(setting),
-                              disabled_setting_option(setting).merge(options))
+                              disabled_setting_option(setting).merge(options).merge(id: "settings_#{setting}"))
     end
   end
 
@@ -154,9 +157,24 @@ module SettingsHelper
       end
   end
 
+  # def setting_check_box(setting, options = {})
+  #   setting_label(setting, options) +
+  #     wrap_field_outer(options) do
+  #       hidden = with_empty_unless_writable(setting) do
+  #         tag(:input, type: "hidden", name: "settings[#{setting}]", value: 0, id: "settings_#{setting}_hidden")
+  #       end
+
+  #       hidden +
+  #         styled_check_box_tag("settings[#{setting}]",
+  #                              1,
+  #                              Setting.send(:"#{setting}?"),
+  #                              disabled_setting_option(setting).merge(options))
+  #     end
+  # end
+
   def setting_check_box(setting, options = {})
-    setting_label(setting, options) +
-      wrap_field_outer(options) do
+    setting_label(setting, options.merge(class: 'form-check-label', for: "settings_#{setting}")) +
+      wrap_field_outer(options.merge(class: 'form-check mb-3')) do
         hidden = with_empty_unless_writable(setting) do
           tag(:input, type: "hidden", name: "settings[#{setting}]", value: 0, id: "settings_#{setting}_hidden")
         end
@@ -165,7 +183,7 @@ module SettingsHelper
           styled_check_box_tag("settings[#{setting}]",
                                1,
                                Setting.send(:"#{setting}?"),
-                               disabled_setting_option(setting).merge(options))
+                               disabled_setting_option(setting).merge(options).merge(class: 'form-check-input', id: "settings_#{setting}"))
       end
   end
 

@@ -6,7 +6,8 @@
 
 <%= labelled_tabular_form_for @announcement,
              :url => {:action => :update},
-             :html => {:method => :put} do |f|%>
+             :html => {:method => :put} do |f| %>
+  <div class="form-custom">
   <div class="form--field">
     <%= f.text_area :text,
                     :cols => 80,
@@ -15,12 +16,37 @@
                     container_class: '-xxwide',
                     with_text_formatting: true %>
   </div>
-  <div class="form--field">
-    <%= f.date_picker :show_until, label: t('announcements.show_until') %>
+  <div class="form--fields-container d-flex form-custom-1">
+    <div class="form--field d-flex">
+      <%= f.date_picker :show_until, label: t('announcements.show_until') %>
+    </div>
+    <div class="form--field d-flex aaa">
+      <%= f.check_box :active, label: t(:label_active) %>
+    </div>
   </div>
-  <div class="form--field">
-    <%= f.check_box :active, label: t(:label_active) %>
-  </div>
+
   <hr class="form-separator">
   <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
+  </div>
+  <% end %>
+
+<style>
+  .form-custom {
+      background: #fff;
+      padding: 30px;
+  }
+
+  .form-custom-1 .form--label {
+    width: 20%; 
+    max-width: 20%;
+  }
+
+  .form-custom-1 .form--field-container{
+    width: 60%;
+    max-width: 60%;
+  }
+  .aaa .form--label {
+      width: 10%;
+      max-width: 10%;
+  }
+</style>
