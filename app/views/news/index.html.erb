@@ -35,7 +35,7 @@ See COPYRIGHT and LICENSE files for more details.
   <% if managable %>
     <li class="toolbar-item">
       <%= link_to new_project_news_path(@project),
-          { class: 'button -primary',
+          { class: 'button -primary custom-secondary-button rounded-border',
             id: 'new_news_link',
             aria: {label: t(:label_news_new)},
             title: t(:label_news_new)} do %>
@@ -47,17 +47,25 @@ See COPYRIGHT and LICENSE files for more details.
 <% end %>
 
 <% if @newss.any? %>
-  <% @newss.each do |news| %>
-   <div class="news">
-    <h3 class="news--header"><%= avatar(news.author) %><%= link_to_project(news.project) + ': ' unless news.project == @project %>
-      <%= link_to h(news.title), news_path(news) %>
-      <%= "(#{t(:label_x_comments, count: news.comments_count)})" if news.comments_count > 0 %></h3>
-    <p class="author additional-information"><%= authoring news.created_at, news.author %></p>
-    <div class="wiki op-uc-container">
-      <%= format_text(news.summary.present? ? news.summary : truncate(news.description, length: 150, escape: false), object: news) %>
-    </div>
-   </div>
-  <% end %>
+  <div class="row">
+    <% @newss.each do |news| %>
+      <div class="col-lg-6 col-sm-6">
+        <div class="card rounded-border" style="height: 180px;">
+          <div class="card-body">
+            <div class="news">
+              <h3 class="news--header"><%= avatar(news.author) %><%= link_to_project(news.project) + ': ' unless news.project == @project %>
+                <%= link_to h(news.title), news_path(news) %>
+                <%= "(#{t(:label_x_comments, count: news.comments_count)})" if news.comments_count > 0 %></h3>
+              <p class="author additional-information"><%= authoring news.created_at, news.author %></p>
+              <div class="wiki op-uc-container">
+                <%= format_text(news.summary.present? ? news.summary : truncate(news.description, length: 150, escape: false), object: news) %>
+              </div>
+            </div>
+          </div> <!-- end card body -->
+        </div> <!-- end card -->
+      </div> <!-- end col -->
+    <% end %>
+  </div> <!-- end row -->
 <% else %>
   <% if managable %>
     <%= no_results_box(action_url:     new_project_news_path(@project),

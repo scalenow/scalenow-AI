@@ -146,7 +146,7 @@ module Members
     end
 
     def status
-      helpers.translate_user_status(model.principal.status)
+      content_tag "span", helpers.translate_user_status(model.principal.status), class: "badge bg-success-subtle text-success text-uppercase"
     end
 
     def shared_work_packages? = member.shared_work_package_ids.present?
