@@ -11,7 +11,7 @@ $grid--widget-padding: 20px 20px 20px 20px
 body.widget-grid-layout
   #content-wrapper,
   #content
-    background-color: var(--grid-background-color)
+    background-color: #fbf7f4
 
 .grid--container
   @include grid--commons
@@ -30,6 +30,7 @@ body.widget-grid-layout
     z-index: 10
     @include widget-box--style
     margin: 0
+    border-radius: 33px
 
     &:hover
       @include widget-box--hover-style
@@ -216,7 +217,7 @@ body.widget-grid-layout
     justify-content: center
     align-items: center
     padding: 0
-    border-radius: initial
+    border-radius: 12px
 
     &:before
       font-size: 0.75rem
