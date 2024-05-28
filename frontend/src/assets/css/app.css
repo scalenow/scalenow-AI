@@ -16393,3 +16393,28 @@ body {
 .rounded-border {
   border-radius: 33px !important;
 }
+
+.breadcrumb-item:after {
+  border-color: #000 !important;
+}
+
+.custom-breadcumb-style {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  padding-top: 3px;
+  font-size: 18px !important;
+}
+
+.Button--primary {
+  background-color: #ff7f5d !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 33px !important;
+}
+
+.Button--primary:hover {
+  background-color: #d96c4f !important;
+}
