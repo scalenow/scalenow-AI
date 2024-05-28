@@ -44,14 +44,6 @@ See COPYRIGHT and LICENSE files for more details.
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="form--field mb-3 api_checkbox api_number_field">
-          <%= setting_check_box :apiv3_write_readonly_attributes %>
-          <div class="form--field-instructions">
-            <p><%= t(:setting_apiv3_write_readonly_attributes_instructions_html, api_documentation_link: static_link_to(:api_docs)) %></p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -93,7 +85,7 @@ See COPYRIGHT and LICENSE files for more details.
     </div>
   </section>
 
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
+  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
 <% end %>
 
 <style>
@@ -112,5 +104,6 @@ See COPYRIGHT and LICENSE files for more details.
    .form-custom {
     background: #fff;
     padding: 12px;
+    border-radius: 33px;
    }
 </style>
