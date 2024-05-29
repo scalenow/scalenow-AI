@@ -9,7 +9,7 @@ module Primer
     LINK_SCHEME = :link
     SCHEME_MAPPINGS = {
       DEFAULT_SCHEME => "",
-      :primary => "btn-primary",
+      :primary => "custom-secondary-button",
       :danger => "btn-danger",
       :outline => "btn-outline",
       :invisible => "btn-invisible",
@@ -100,7 +100,7 @@ module Primer
         system_arguments[:classes],
         SCHEME_MAPPINGS[fetch_or_fallback(SCHEME_OPTIONS, scheme, DEFAULT_SCHEME)],
         SIZE_MAPPINGS[fetch_or_fallback(SIZE_OPTIONS, variant || size, DEFAULT_SIZE)],
-        "btn" => !link?,
+        "btn rounded-border" => !link?,
         "btn-block" => block,
         "BtnGroup-item" => group_item
       )

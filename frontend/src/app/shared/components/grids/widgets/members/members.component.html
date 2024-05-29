@@ -42,7 +42,7 @@
 <div class="op-members-widget--grid--widget-footer">
   <a *ngIf="membersAddable$ | async"
      [href]="projectMembershipsPath + '?show_add_members=true'"
-     class="button -primary custom-secondary-button rounded-border">
+     class="button -primary custom-secondary-button rounded-border mt-2">
     <i class="button--icon icon-add" aria-hidden="true"></i>
     <span class="button--text"
           [textContent]="text.add">
@@ -51,7 +51,7 @@
 
   <a *ngIf="!noMembers"
      [href]="projectMembershipsPath"
-     class="button -highlight-inverted rounded-border">
+     class="button -highlight-inverted rounded-border mt-2">
     <i class="button--icon icon-group" aria-hidden="true"></i>
     <span class="button--text"
           [textContent]="text.viewAll">
