@@ -26,7 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: t(:label_api_access_key_type) %>
+<div class="custom-toolbar-title">
+  <%= toolbar title: t(:label_api_access_key_type) %>
+</div>
+
 
 <%= styled_form_tag(admin_settings_api_path, method: :patch) do %>
   <section class="form--section form-custom">
@@ -45,9 +48,7 @@ See COPYRIGHT and LICENSE files for more details.
         </div>
       </div>
     </div>
-  </section>
 
-  <section class="form--section form-custom ">
     <fieldset class="form--fieldset">
       <legend class="form--fieldset-legend"><%= I18n.t("setting_apiv3_docs") %></legend>
     </fieldset>
@@ -61,9 +62,7 @@ See COPYRIGHT and LICENSE files for more details.
         </div>
       </div>
     </div>
-  </section>
 
-  <section class="form--section form-custom ">
     <fieldset class="form--fieldset">
       <legend class="form--fieldset-legend">Cross-Origin Resource Sharing (CORS)</legend>
     </fieldset>
@@ -83,12 +82,16 @@ See COPYRIGHT and LICENSE files for more details.
         </div>
       </div>
     </div>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
   </section>
 
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
 <% end %>
 
 <style>
+  .custom-toolbar-title .title-container h2 {
+    color: #ff7f5d;
+  }
+
   .form--section .api_checkbox .form--label{
     max-width: 95%;
   }
@@ -105,5 +108,8 @@ See COPYRIGHT and LICENSE files for more details.
     background: #fff;
     padding: 12px;
     border-radius: 33px;
+    border: 2px solid #000;
    }
+
+
 </style>

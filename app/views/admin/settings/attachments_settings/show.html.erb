@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: t(:'attributes.attachments') %>
+<div class="custom-toolbar-title">
+  <%= toolbar title: t(:'attributes.attachments') %>
+</div>
 
 <%= styled_form_tag(
       admin_settings_attachments_path,
@@ -45,14 +47,19 @@ See COPYRIGHT and LICENSE files for more details.
             ) %>
       </div>
     </div>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
   </section>
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
 <% end %>
 
 <style>
+  .custom-toolbar-title .title-container h2 {
+    color: #ff7f5d;
+  }
+
   .form-custom {
       background: #fff;
       padding: 30px;
       border-radius: 33px;
+      border: 2px solid #000;
   }
 </style>
