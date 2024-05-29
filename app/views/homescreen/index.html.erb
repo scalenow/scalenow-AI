@@ -107,7 +107,7 @@ See COPYRIGHT and LICENSE files for more details.
 
             <div class="card">
               <div class="card-header align-items-center d-flex border-bottom-dashed">
-                <h4 class="card-title mb-0 flex-grow-1">New Features</h4>
+                <h4 class="card-title mb-0 flex-grow-1 color-orange">New Features</h4>
               </div>
 
               <div class="card-body">
@@ -119,7 +119,7 @@ See COPYRIGHT and LICENSE files for more details.
           <div class="col-xl-3 col-lg-4">
             <div class="card">
               <div class="card-header align-items-center d-flex border-bottom-dashed">
-                <h4 class="card-title mb-0 flex-grow-1">Projects<br></h4>
+                <h4 class="card-title mb-0 flex-grow-1 color-orange">Projects<br></h4>
               </div>
               <div class="card-body">
                 <div data-simplebar="init" style="height: 235px;" class="mx-n3 px-3 simplebar-scrollable-y">
@@ -149,12 +149,31 @@ See COPYRIGHT and LICENSE files for more details.
                     <div class="simplebar-scrollbar" style="height: 194px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
                   </div>
                 </div>
+
+                <div class="widget-box--blocks--buttons mt-3">
+                  <% if User.current.allowed_globally?(:add_project) %>
+                    <%= link_to new_project_path,
+                          { class: 'button -primary custom-secondary-button rounded-border mb-2 mr-2',
+                            aria: {label: t(:label_project_new)},
+                            title: t(:label_project_new)} do %>
+                      <%= op_icon('button--icon icon-add') %>
+                      <span class="button--text"><%= Project.model_name.human %></span>
+                    <% end %>
+                  <% end %>
+                
+                  <%# If any project exists %>
+                  <% unless @newest_projects.empty? %>
+                    <%= link_to t(:label_project_view_all), projects_path,
+                                class: 'button -highlight-inverted rounded-border mb-2',
+                                title: t(:label_project_view_all) %>
+                  <% end %>
+                </div>
               </div> <!-- end card body -->
             </div> <!-- end card -->
 
             <div class="card">
               <div class="card-header align-items-center d-flex border-bottom-dashed">
-                <h4 class="card-title mb-0 flex-grow-1">Users<br></h4>
+                <h4 class="card-title mb-0 flex-grow-1 color-orange">Users<br></h4>
               </div>
               <div class="card-body">
                 <div data-simplebar="init" style="height: 235px;" class="mx-n3 px-3 simplebar-scrollable-y">
@@ -183,6 +202,15 @@ See COPYRIGHT and LICENSE files for more details.
                   <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
                     <div class="simplebar-scrollbar" style="height: 194px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
                   </div>
+                </div>
+
+                <div class="widget-box--buttons mt-3 ml-3">
+                  <% if User.current.admin? %>
+                    <%= link_to new_user_path, class: 'button -primary custom-secondary-button rounded-border m-0' do %>
+                      <%= op_icon('button--icon icon-add') %>
+                      <span class="button--text"><%= t(:label_invite_user) %></span>
+                    <% end %>
+                  <% end %>
                 </div>
               </div> <!-- end card body -->
             </div> <!-- end card -->

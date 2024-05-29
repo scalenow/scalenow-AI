@@ -16418,3 +16418,22 @@ body {
 .Button--primary:hover {
   background-color: #d96c4f !important;
 }
+
+.card {
+  border: 1px solid #eaeaea !important;
+  border-radius: 33px !important;
+  box-shadow: none !important;
+}
+
+.card:hover {
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-header:first-child {
+  border-radius: 33px 33px 0 0 !important;
+}
+
+.color-orange,
+#project-custom-fields-sidebar h4 {
+  color: #ff7f5d !important;
+}
