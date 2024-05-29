@@ -2,7 +2,9 @@
 
 <%= error_messages_for 'announcement' %>
 
-<%= toolbar title: "#{t(:label_announcement)} (#{notice_annoucement_active})" %>
+<div class="custom-toolbar-title">
+  <%= toolbar title: "#{t(:label_announcement)} (#{notice_annoucement_active})" %>
+</div>
 
 <%= labelled_tabular_form_for @announcement,
              :url => {:action => :update},
@@ -31,10 +33,15 @@
   <% end %>
 
 <style>
+  .custom-toolbar-title .title-container h2 {
+    color: #ff7f5d;
+  }
+
   .form-custom {
       background: #fff;
       padding: 30px;
       border-radius: 33px;
+      border: 2px solid #000;
   }
 
   .form-custom-1 .form--label {
