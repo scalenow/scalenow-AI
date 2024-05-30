@@ -320,6 +320,15 @@ export class WorkPackagesCalendarComponent extends UntilDestroyedMixin implement
 
       const exclusiveEnd = moment(endDate).add(1, 'days').format('YYYY-MM-DD');
 
+      const typeToBgClassMap: { [key: number]: string } = {
+        1: "bg-primary-subtle",
+        2: "bg-success-subtle",
+        3: "bg-warning-subtle",
+        7: "bg-danger-subtle"
+      };
+      
+      const bgClass = typeToBgClassMap[Number(workPackage.type.id)] || `__hl_background_type_${workPackage.type.id || ''}`;      
+
       return {
         title: workPackage.subject,
         start: startDate,
@@ -327,7 +336,7 @@ export class WorkPackagesCalendarComponent extends UntilDestroyedMixin implement
         durationEditable: this.workPackagesCalendar.eventDurationEditable(workPackage),
         end: exclusiveEnd,
         allDay: true,
-        className: `__hl_background_type_${workPackage.type.id || ''}`,
+        className: bgClass,
         workPackage,
       };
     });
