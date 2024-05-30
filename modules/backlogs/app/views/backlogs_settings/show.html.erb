@@ -30,6 +30,7 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title t(:label_administration), t(:label_backlogs) %>
 
 <%= form_tag(:admin_backlogs_settings, method: :put, name: 'admin_backlogs_form') do %>
+  <section class="form--section form-custom">
   <div class="form--field">
     <%= styled_label_tag("settings[story_types]", t(:backlogs_story_type)) %>
     <div class="form--field-container">
@@ -65,5 +66,15 @@ See COPYRIGHT and LICENSE files for more details.
     </div>
   </div>
 
-  <%= styled_submit_tag t(:button_apply), class: '-primary' %>
+  <%= styled_submit_tag t(:button_apply), class: '-primary custom-secondary-button rounded-border' %>
+  </section>
 <% end %>
+
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+</style>
