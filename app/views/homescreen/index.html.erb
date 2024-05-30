@@ -220,7 +220,7 @@ See COPYRIGHT and LICENSE files for more details.
                       <% @homescreen[:links].each do |link| %>
                         <% title = I18n.t(link[:label], scope: 'homescreen.links') %>
                         <a class="homescreen--links--item" href="#" target="_blank" title="<%= title %>">
-                          <%= image_tag "homescreen_images/#{link[:label]}.png", style: 'max-height:60px;max-width:100px;' %>
+                          <%= op_icon(link[:icon]) %>
                           <%= title %>
                         </a>
                       <% end %>
