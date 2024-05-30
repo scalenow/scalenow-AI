@@ -1,13 +1,28 @@
 <% html_title t(:label_administration), t("admin.enterprise.upgrade_to_ee") %>
 
-<%= toolbar title: t("admin.enterprise.upgrade_to_ee") %>
+<div class="custom-toolbar-title">
+  <%= toolbar title: t("admin.enterprise.upgrade_to_ee") %>
+</div>
 
 <%= error_messages_for 'token' %>
+<section class="form--section form-custom">
+  <% if @current_token.present? %>
+    <%= render partial: "current" %>
+  <% else %>
+    <%= render partial: "info" %>
+  <% end %>
 
-<% if @current_token.present? %>
-  <%= render partial: "current" %>
-<% else %>
-  <%= render partial: "info" %>
-<% end %>
+  <%= render partial: "form" %>
+</section>
 
-<%= render partial: "form" %>
+<style>
+  .custom-toolbar-title .title-container h2 {
+    color: #ff7f5d;
+  }
+  .form-custom {
+    background: #fff;
+    padding: 30px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+</style>

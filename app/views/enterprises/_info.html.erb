@@ -39,7 +39,7 @@ See COPYRIGHT and LICENSE files for more details.
 
   <div class='upsale-actions'>
     <a href="#"
-       class="button -highlight-inverted"
+       class="button -highlight-inverted custom-secondary-button rounded-border"
        data-cb-type="checkout"
        data-cb-plan-id="<%= OpenProject::Configuration.enterprise_plan %>">
       <%= t('admin.enterprise.book_now') %>
@@ -49,7 +49,7 @@ See COPYRIGHT and LICENSE files for more details.
     <%= link_to t(quote_link[:label]),
                 quote_link[:href],
                 target: '_blank',
-                class: 'button -highlight-inverted'%>
+                class: 'button -highlight-inverted custom-secondary-button rounded-border'%>
   </div>
 
   <%= static_link_to :contact %>
