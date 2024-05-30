@@ -10687,6 +10687,7 @@ button.gridjs-sort-asc, button.gridjs-sort-desc {
   background-color: #ff7f5d !important;
   border-color: #ff7f5d !important;
   color: #fff !important;
+  box-shadow: none !important;
 }
 .fc .fc-button-primary {
   text-transform: capitalize;
