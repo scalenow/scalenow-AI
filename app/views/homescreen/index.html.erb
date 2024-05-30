@@ -106,11 +106,8 @@ See COPYRIGHT and LICENSE files for more details.
             </div> <!-- end row -->
 
             <div class="card">
-              <div class="card-header align-items-center d-flex border-bottom-dashed">
-                <h4 class="card-title mb-0 flex-grow-1 color-orange">New Features</h4>
-              </div>
-
               <div class="card-body">
+                <h2 class="editable-toolbar-title--fixed color-orange mb-3">New Features</h2>
                 <%= render partial: "homescreen/blocks/new_features" , locals: {} %>
               </div> <!-- end card body -->
             </div> <!-- end card -->
@@ -164,7 +161,7 @@ See COPYRIGHT and LICENSE files for more details.
                   <%# If any project exists %>
                   <% unless @newest_projects.empty? %>
                     <%= link_to t(:label_project_view_all), projects_path,
-                                class: 'button -highlight-inverted rounded-border mb-2',
+                                class: 'button -highlight-inverted custom-secondary-button rounded-border mb-2',
                                 title: t(:label_project_view_all) %>
                   <% end %>
                 </div>
@@ -223,7 +220,7 @@ See COPYRIGHT and LICENSE files for more details.
                       <% @homescreen[:links].each do |link| %>
                         <% title = I18n.t(link[:label], scope: 'homescreen.links') %>
                         <a class="homescreen--links--item" href="#" target="_blank" title="<%= title %>">
-                          <%= op_icon(link[:icon]) %>
+                          <%= image_tag "homescreen_images/#{link[:label]}.png", style: 'max-height:60px;max-width:100px;' %>
                           <%= title %>
                         </a>
                       <% end %>

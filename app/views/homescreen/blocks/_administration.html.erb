@@ -48,7 +48,7 @@
 </ul>
 
 <%= content_tag :div, class: 'security-badge--container' do %>
-  <%= content_tag :object, nil, data: security_badge_url, type: "image/svg+xml", style: "pointer-events: none;" %>
+  <%= content_tag :object, nil, data: security_badge_url, type: "image/svg+xml", style: "pointer-events: none;", class: "rounded-border" %>
   <%= link_to '',
               '#',
               title: t(:label_what_is_this),
