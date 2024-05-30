@@ -324,10 +324,13 @@ export class WorkPackagesCalendarComponent extends UntilDestroyedMixin implement
         1: "bg-primary-subtle",
         2: "bg-success-subtle",
         3: "bg-warning-subtle",
+        4: "bg-5C7CFA-subtle",
+        5: "bg-845EF7-subtle",
+        6: "bg-info-subtle",
         7: "bg-danger-subtle"
       };
-      
-      const bgClass = typeToBgClassMap[Number(workPackage.type.id)] || `__hl_background_type_${workPackage.type.id || ''}`;      
+
+      const bgClass = typeToBgClassMap[Number(workPackage.type.id)] || "bg-primary-subtle" || "";
 
       return {
         title: workPackage.subject,

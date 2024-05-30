@@ -146,6 +146,9 @@ table.generic-table
     tr:not(.-no-highlighting)
       border-bottom: 1px solid var(--table-border-color)
 
+    tr:nth-child(even)
+      background-color: #fafafa
+
     @media screen
       td:not(.-no-ellipsis)
         @include text-shortener
