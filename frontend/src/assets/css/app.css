@@ -16484,3 +16484,7 @@ body {
 #project-custom-fields-sidebar h4 {
   color: #ff7f5d !important;
 }
+
+.manual-table tbody tr:nth-child(even) {
+  background-color: #fafafa
+}
