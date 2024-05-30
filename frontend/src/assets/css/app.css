@@ -10797,21 +10797,21 @@ button.gridjs-sort-asc, button.gridjs-sort-desc {
 
 .fc-daygrid-event-harness .fc-daygrid-event.bg-info-subtle .fc-event-title,
 .fc-daygrid-event-harness .fc-daygrid-event.bg-info-subtle .fc-event-main {
-  color: #0ac7fb !important;
+  color: #00B0F0 !important;
 }
 
 .fc-timegrid-event-harness .fc-timegrid-event.bg-info-subtle .fc-event-title {
-  color: #0ac7fb !important;
+  color: #00B0F0 !important;
 }
 
 .fc-list-table .fc-list-event.bg-info-subtle {
-  color: #0ac7fb !important;
+  color: #00B0F0 !important;
 }
 .fc-list-table .fc-list-event.bg-info-subtle .fc-list-event-title > a {
-  color: #0ac7fb !important;
+  color: #00B0F0 !important;
 }
 .fc-list-table .fc-list-event.bg-info-subtle .fc-list-event-dot {
-  border-color: #0ac7fb;
+  border-color: #00B0F0;
 }
 
 .fc-daygrid-event-harness .fc-daygrid-event.bg-warning-subtle .fc-event-title,
@@ -10892,6 +10892,52 @@ button.gridjs-sort-asc, button.gridjs-sort-desc {
 
 .fc-daygrid-event-harness .fc-daygrid-event.bg-dark-subtle .fc-event-main, .fc-daygrid-event-harness .fc-daygrid-event.bg-dark-subtle .fc-event-title {
   color: var(--vz-dark-text-emphasis) !important;
+}
+
+.fc-daygrid-event-harness .fc-daygrid-event.bg-5C7CFA-subtle .fc-event-title,
+.fc-daygrid-event-harness .fc-daygrid-event.bg-5C7CFA-subtle .fc-event-main {
+  color: #5C7CFA !important;
+}
+
+.fc-timegrid-event-harness .fc-timegrid-event.bg-5C7CFA-subtle .fc-event-title {
+  color: #5C7CFA !important;
+}
+
+.fc-list-table .fc-list-event.bg-5C7CFA-subtle {
+  color: #5C7CFA !important;
+}
+.fc-list-table .fc-list-event.bg-5C7CFA-subtle .fc-list-event-title > a {
+  color: #5C7CFA !important;
+}
+.fc-list-table .fc-list-event.bg-5C7CFA-subtle .fc-list-event-dot {
+  border-color: #5C7CFA;
+}
+
+.bg-5C7CFA-subtle {
+  background-color: rgb(88 166 255 / 15%) !important;
+}
+
+.fc-daygrid-event-harness .fc-daygrid-event.bg-845EF7-subtle .fc-event-title,
+.fc-daygrid-event-harness .fc-daygrid-event.bg-845EF7-subtle .fc-event-main {
+  color: #845EF7 !important;
+}
+
+.fc-timegrid-event-harness .fc-timegrid-event.bg-845EF7-subtle .fc-event-title {
+  color: #845EF7 !important;
+}
+
+.fc-list-table .fc-list-event.bg-845EF7-subtle {
+  color: #845EF7 !important;
+}
+.fc-list-table .fc-list-event.bg-845EF7-subtle .fc-list-event-title > a {
+  color: #845EF7 !important;
+}
+.fc-list-table .fc-list-event.bg-845EF7-subtle .fc-list-event-dot {
+  border-color: #845EF7;
+}
+
+.bg-845EF7-subtle {
+  background-color: rgb(132 94 247 / 15%) !important;
 }
 
 .fc-direction-ltr {
@@ -16421,7 +16467,7 @@ body {
 }
 
 .card {
-  border: 1px solid #eaeaea !important;
+  border: 1px solid #000 !important;
   border-radius: 33px !important;
   box-shadow: none !important;
 }
