@@ -27,15 +27,54 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<li class="op-activity-list--item">
-  <div class="op-activity-list--item-title">
+<tr>
+  <%= content_tag('td', helpers.format_activity_day(@day)) %>
+
+  <td>
     <% if @event.event_path %>
-      <%= link_to @event.event_title.squish, @event.event_path %>
+      <%= link_to helpers.truncate_formatted_text(@event.event_title.squish, length: 30), @event.event_path %>
     <% else %>
-      <%= @event.event_title %>
+      <%= helpers.truncate_formatted_text(@event.event_title.squish, length: 30) %>
     <% end %>
     <%= project_suffix %>
-  </div>
+  </td>
+
+  <td>
+    <% if description.present? -%>
+      <%= helpers.truncate_formatted_text(description, length: 30) %>
+    <% end -%>
+  </td>
+
+  <td>
+    <% if comment.present? -%>
+      <ul style="margin-left: 1rem;">
+        <li>
+          <strong><%= t('label_comment_added') %></strong>
+          <p><%= helpers.truncate_formatted_text(comment, length: 30) %></p>
+        </li>
+      </ul>
+    <% end -%>
+  </td>
+
+  <td>
+    <% if display_details? -%>
+      <ul style="margin-left: 1rem;">
+        <% rendered_details.each do |detail| -%>
+          <li><%= detail %></li>
+        <% end -%>
+        <% if time_entry_url.present? -%>
+          <li><%= link_to "Details", @event.event_url %></li>
+        <% end -%>
+      </ul>
+    <% elsif noop? -%>
+      <ul style="margin-left: 1rem;">
+        <li>
+          <em><%= I18n.t(:"journals.changes_retracted") %></em>
+        </li>
+      </ul>
+    <% end -%>
+  </td>
+
   <%=
     render(Activities::ItemSubtitleComponent.new(
       user: display_user? && @event.event_author,
@@ -46,33 +85,4 @@ See COPYRIGHT and LICENSE files for more details.
       journable_type: @event.journal.journable_type)
     )
   %>
-  <% if comment.present? -%>
-    <ul class="op-activity-list--item-details">
-      <li class="op-activity-list--item-detail">
-        <strong><%= t('label_comment_added') %></strong>
-        <p class="op-uc-p"><%= helpers.truncate_formatted_text(comment) %></p>
-      </li>
-    </ul>
-  <% end -%>
-  <% if description.present? -%>
-    <div class="op-activity-list--item-description">
-      <%= helpers.truncate_formatted_text(description) %>
-    </div>
-  <% end -%>
-  <% if display_details? -%>
-    <ul class="op-activity-list--item-details">
-      <% rendered_details.each do |detail| -%>
-        <li class="op-activity-list--item-detail"><%= detail %></li>
-      <% end -%>
-      <% if time_entry_url.present? -%>
-        <li class="op-activity-list--item-detail"><%= link_to "Details", @event.event_url %></li>
-      <% end -%>
-    </ul>
-  <% elsif noop? -%>
-    <ul class="op-activity-list--item-details">
-      <li class="op-activity-list--item-detail">
-        <em><%= I18n.t(:"journals.changes_retracted") %></em>
-      </li>
-    </ul>
-  <% end -%>
-</li>
+</tr>
