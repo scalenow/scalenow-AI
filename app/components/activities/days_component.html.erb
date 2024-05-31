@@ -27,17 +27,31 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<div class="op-activity-days">
-  <% events_by_day_sorted_by_newest_first.each do |day, events| %>
-    <%= content_tag(@header_tag, helpers.format_activity_day(day), class: 'op-activity-days--header') %>
+<div class="op-activity-days px-3">
+  <div class="table-responsive table-card mt-2 mb-1 manual-table">
+    <table class="table align-middle table-nowrap" id="customerTable">
+      <thead class="table-light">
+        <tr>
+          <th>Date</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>comments</th>
+          <th>Details</th>
+          <th>Activity Log</th>
+        </tr>
+      </thead>
 
-    <ul class="op-activity-list">
-      <%=
-        render(Activities::ItemComponent.with_collection(events,
-                                                         current_project: @current_project,
-                                                         display_user: @display_user,
-                                                         activity_page: @activity_page))
-      %>
-    </ul>
-  <% end -%>
+      <tbody class="list form-check-all">
+        <% events_by_day_sorted_by_newest_first.each do |day, events| %>
+          <%=
+            render(Activities::ItemComponent.with_collection(events,
+                                                            day: day,
+                                                            current_project: @current_project,
+                                                            display_user: @display_user,
+                                                            activity_page: @activity_page))
+          %>
+        <% end -%>
+      </tbody>
+    </table>
+  </div>
 </div>

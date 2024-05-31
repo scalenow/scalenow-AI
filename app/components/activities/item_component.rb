@@ -32,9 +32,10 @@ class Activities::ItemComponent < ViewComponent::Base # rubocop:disable OpenProj
   with_collection_parameter :event
   strip_trailing_whitespace
 
-  def initialize(event:, current_project: nil, display_user: true, activity_page: nil)
+  def initialize(event:, day:, current_project: nil, display_user: true, activity_page: nil)
     super()
     @event = event
+    @day = day
     @current_project = current_project
     @display_user = display_user
     @activity_page = activity_page
