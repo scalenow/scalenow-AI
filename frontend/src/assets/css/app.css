@@ -16446,13 +16446,12 @@ body {
 }
 
 .custom-breadcumb-style {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 22px;
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
-  padding-top: 3px;
-  font-size: 18px !important;
+  padding-top: 7px;
+  font-size: 22px !important;
 }
 
 .Button--primary {
