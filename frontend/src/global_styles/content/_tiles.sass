@@ -34,24 +34,19 @@
   grid-gap: 1rem
 
   &--tile
-    border-radius: 10px
-    display: grid
-    grid-template: auto / 1fr auto
-    grid-row-gap: 5px
-    justify-items: left
-    background: #f7fafc
+    border-radius: 33px
+    background: #fff
     min-height: 150px
     padding: 1rem
-    border: 1px solid var(--button--border-color)
+    border: 1px solid #000
 
     &:disabled
       background: #fafafa
 
     &:hover
       text-decoration: none
-      border: 1px solid grey
-      border-radius: 10px !important
       cursor: pointer
+      box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.1)
 
     &.-disabled
       @include button-disabled
@@ -65,12 +60,12 @@
 
   &--image
     display: block
-    margin-top: auto
-    margin-bottom: auto
+    margin: auto
+    max-width: 90%
+    max-height: 190px
 
   &--title
     padding-top: 0
-    padding-bottom: 5px
     color: var(--accent-color--major1)
     display: block
     text-align: left
@@ -81,6 +76,7 @@
     text-align: left
     width: 90%
     font-weight: normal
+    line-height: 22px
 
 @media screen and (max-width: $breakpoint-md)
   .op-tile-block

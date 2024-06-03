@@ -37,16 +37,15 @@
 
 .work-packages-full-view
   &--split-container
-    display: flex
-    flex-shrink: 8
-    border-top: 1px solid var(--color-border-muted)
-    overflow: visible
-    height: 100%
-    // Important for Firefox to let 'flex-shrink' work correctly.
-    min-height: 0
+    // display: flex
+    // flex-shrink: 8
+    // border-top: 1px solid var(--color-border-muted)
+    // overflow: visible
+    // height: 100%
+    // // Important for Firefox to let 'flex-shrink' work correctly.
+    // min-height: 0
 
   &--split-left
-    border-right: 1px solid var(--color-border-muted)
     overflow-y: auto
     overflow-x: hidden
     flex: 2
@@ -79,14 +78,12 @@
       display: grid
       grid-template-rows: auto auto 1fr
       height: 100%
-      padding: 5px 0 10px 15px
 
     .tabcontent
       height: 100%
       overflow-y: auto
       overflow-x: hidden
       @include styled-scroll-bar
-      padding-right: 8px
 
     .work-package-details-activities-activity-contents ul.work-package-details-activities-messages
       padding-left: 0
