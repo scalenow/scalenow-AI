@@ -27,16 +27,28 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 <% html_title t(:label_administration), t(:project_module_costs) %>
-<div class="form--field">
-  <%= styled_label_tag :label_currency, t(:label_currency) %>
-  <div class="form--field-container">
-    <%= styled_text_field_tag 'settings[costs_currency]', @settings['costs_currency'], container_class: '-xslim' %>
+<section class="form--section form-custom">
+  <div class="form--field">
+    <%= styled_label_tag :label_currency, t(:label_currency) %>
+    <div class="form--field-container">
+      <%= styled_text_field_tag 'settings[costs_currency]', @settings['costs_currency'], container_class: '-xslim' %>
+    </div>
   </div>
-</div>
 
-<div class="form--field">
-  <%= styled_label_tag :label_currency_format, t(:label_currency_format) %>
-  <div class="form--field-container">
-    <%=  styled_text_field_tag 'settings[costs_currency_format]', @settings['costs_currency_format'], container_class: '-xslim' %>
+  <div class="form--field">
+    <%= styled_label_tag :label_currency_format, t(:label_currency_format) %>
+    <div class="form--field-container">
+      <%=  styled_text_field_tag 'settings[costs_currency_format]', @settings['costs_currency_format'], container_class: '-xslim' %>
+    </div>
   </div>
-</div>
+  <%= styled_submit_tag t(:button_apply), class: '-primary custom-secondary-button rounded-border' %>
+</section>
+
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+</style>
