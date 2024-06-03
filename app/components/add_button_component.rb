@@ -71,7 +71,7 @@ class AddButtonComponent < ApplicationComponent
   end
 
   def link_css_class
-    "button -primary"
+    "button -primary custom-secondary-button rounded-border"
   end
 
   def icon

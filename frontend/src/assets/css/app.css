@@ -16387,6 +16387,17 @@ span.flatpickr-weekday {
   background-color: #ced4da !important;
 }
 
+.custom-soft-info-button {
+  background-color: #daf7fe !important;
+  color: #0ac7fb !important;
+  border: 0 !important;
+}
+
+.custom-soft-info-button:hover {
+  background-color: #0ac7fb !important;
+  color: #fff !important;
+}
+
 .social-media-login {
   pointer-events: none;
 }
