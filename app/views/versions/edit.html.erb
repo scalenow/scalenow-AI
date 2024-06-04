@@ -27,13 +27,15 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% html_title t("label_roadmap_edit", name: @version.name) %>
-<%= toolbar title: Version.model_name.human %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title t("label_roadmap_edit", name: @version.name) %>
+  <%= toolbar title: Version.model_name.human, title_class: "color-orange" %>
 
-<%= labelled_tabular_form_for @version do |f| %>
+  <%= labelled_tabular_form_for @version do |f| %>
 
-  <%= render partial: 'form', locals: { f: f,
-                                        project: @project } %>
+    <%= render partial: 'form', locals: { f: f,
+                                          project: @project } %>
 
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+  <% end %>
+</div>

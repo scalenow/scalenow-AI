@@ -28,20 +28,20 @@
 
 #rb
   #backlogs_container
-    width: 100%
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-between
+    // width: 100%
+    // display: flex
+    // flex-wrap: wrap
+    // justify-content: space-between
   #owner_backlogs_container
-    min-width: 420px
-    order: 2
-    width: 49%
-    flex: 0 0 49%
+    // min-width: 420px
+    // order: 2
+    // width: 49%
+    // flex: 0 0 49%
   #sprint_backlogs_container
-    min-width: 420px
-    width: 49%
-    flex: 0 0 49%
-    min-height: 230px
+    // min-width: 420px
+    // width: 49%
+    // flex: 0 0 49%
+    // min-height: 230px
   #owner_backlogs_container .backlog .header > .add_new_story
     height: 28px
     line-height: 31px
@@ -52,9 +52,9 @@
     top: 1px
     width: 100px
   #backlogs_container .backlog
-    border: 1px solid var(--color-border-muted)
+    // border: 1px solid var(--color-border-muted)
     display: block
-    margin: 0 0 10px 0
+    margin: 0 0 20px 0
     width: 100%
 
 /*
@@ -69,12 +69,13 @@
 
 #rb
   #backlogs_container .backlog .header
-    background-color: #eee
+    background-color: #f3f6f9
+    border-bottom: 1px solid #e9ebec
     height: 30px
     position: relative
     width: 100%
   .backlog .header .backlog-menu
-    border-right: 1px solid var(--color-border-muted)
+    // border-right: 1px solid var(--color-border-muted)
     cursor: pointer
     height: 30px
     overflow: visible
@@ -94,15 +95,16 @@
           display: block
     .items
       display: none
-      background-color: #EEEEEE
+      background-color: #fff
       border: 1px solid var(--color-border-muted)
       position: absolute
       top: 30px
-      right: -2px
+      right: -1px
       list-style: none
       margin: 0
       padding: 0
       z-index: 1000
+      border-radius: 8px
     .item
       display: block
       width: 160px
@@ -114,14 +116,14 @@
       overflow: hidden
       white-space: nowrap
       &.hover, &:hover
-        background-color: #999
+        background-color: #eff2f7
       a
         display: block
         height: 100%
         padding: 6px
         width: 100%
+        color: #272a3a
       &.hover a, &:hover a
-        color: #FFFFFF
         text-decoration: none
   #backlogs_container
     .backlog
@@ -208,8 +210,9 @@
       overflow: hidden
       position: relative
       width: 100%
+      border-bottom: 1px solid #e9ebec
       &.odd
-        background-color: #F6F7F8
+        background-color: #fafafa
       &.even
         background-color: #FFF
       &.error.icon-bug
@@ -220,15 +223,15 @@
           color: red
           pointer-events: none
       &.hover, &:hover
-        background-color: rgb(254, 248, 168)
+        background-color: #eee
       &.closed
         text-decoration: line-through
       .id
         float: left
-        margin-left: 1em
-        margin-right: 1em
-        padding: 5px 2px 4px 2px
-        width: 4em
+        margin-left: 0.8em
+        margin-right: 0.3em
+        padding: 5px 0
+        width: 3em
         text-align: right
         white-space: nowrap
       .type_id .t
@@ -244,12 +247,12 @@
         min-height: 1em
       .status_id
         float: right
-        padding: 5px 2px 4px 2px
-        margin-left: 1em
+        padding: 5px 0
+        margin-right: 1.3em
         width: 68px
       .story_points
         float: right
-        padding: 5px 1rem 4px 2px
+        padding: 5px 8px 0 0
         width: 3.5rem
         min-height: 14px
         height: 2rem

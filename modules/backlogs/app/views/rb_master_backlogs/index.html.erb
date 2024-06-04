@@ -30,10 +30,10 @@ See COPYRIGHT and LICENSE files for more details.
 <div class='contextual'></div>
 <% html_title t(:label_backlogs) %>
 
-<%= toolbar title: t(:label_backlogs) do %>
+<%= toolbar title: t(:label_backlogs), title_class: "color-orange" do %>
     <li class="toolbar-item">
       <%= link_to_if_authorized({ controller: '/versions', action: 'new', project_id: @project },
-                                { class: 'button -primary',
+                                { class: 'button -primary custom-secondary-button rounded-border',
                                   aria: { label: t(:label_version_new) },
                                   title: t(:label_version_new) }) do %>
           <%= op_icon('button--icon icon-add') %>
@@ -50,12 +50,13 @@ See COPYRIGHT and LICENSE files for more details.
 <% end %>
 
 <div id="rb">
-  <div id="backlogs_container" class="clearfix">
-    <div id="owner_backlogs_container">
-      <%= render partial: 'backlog', collection: @owner_backlogs %>
-    </div>
-    <div id="sprint_backlogs_container">
+  <div id="backlogs_container" class="clearfix row">
+    <div id="sprint_backlogs_container" class="col-6">
       <%= render partial: 'backlog', collection: @sprint_backlogs %>
+    </div>
+
+    <div id="owner_backlogs_container" class="col-6">
+      <%= render partial: 'backlog', collection: @owner_backlogs %>
     </div>
   </div>
 

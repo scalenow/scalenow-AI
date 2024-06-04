@@ -59,6 +59,8 @@
 
 #rb #taskboard
   overflow-x: auto
+  table
+    width: 100%
   #assigned_to_id_options
     display: none
   .swimlane
@@ -68,16 +70,18 @@
     width: 107px
     /* Must be the same as min-width */
   #board_header
-    background-color: #EBEBEB
-    border: 1px solid var(--color-border-muted)
+    background-color: #f3f6f9
+    // border: 1px solid var(--color-border-muted)
     margin-bottom: 0
-    margin-right: 10px
+    margin-right: 0
+    tr
+      border-bottom: 1px solid #e9ebec
     td
-      background-color: #EBEBEB
-      border-right: 1px dotted #CFCFCF
+      // background-color: #f3f6f9
+      // border-right: 1px dotted #CFCFCF
       color: black
       font-weight: var(--base-text-weight-bold)
-      text-align: center
+      text-align: left
       vertical-align: middle
       padding-top: 0
       padding-bottom: 0
@@ -87,26 +91,30 @@
         width: 241px
 
   .board
-    background-color: #FCFCFC
-    border: 1px solid var(--color-border-muted)
-    border-top: none
-    margin-right: 10px
+    // background-color: #FCFCFC
+    // border: 1px solid var(--color-border-muted)
+    // border-top: none
+    margin-right: 0
     /* IE7 table fix */
     table-layout: fixed
     border-collapse: collapse
     empty-cells: show
+    tr
+      border-bottom: 1px solid #e9ebec
+    tr:nth-child(odd)
+      background-color: #fafafa
     tr:hover
-      background-color: #ffffff
+      background-color: #eff2f7
     td
-      border-right: 1px dotted #CFCFCF
-      border-bottom: 1px dotted #CFCFCF
+      // border-right: 1px dotted #CFCFCF
+      // border-bottom: 1px dotted #CFCFCF
       vertical-align: top
       &:first-child
         min-width: 210px
         padding: 5px
         width: 210px
     tr:last-child td
-      border-bottom: none
+      // border-bottom: none
     .add_new
       margin: 0
       min-width: 30px
@@ -116,9 +124,9 @@
       width: 30px
       &.clickable:hover
         cursor: pointer
-        background-color: #ffffcc
+        background-color: #eee
   .story, .label_sprint_impediments
-    background-color: #F8F6A5
+    background-color: #eee
     border: none
     display: block
     min-height: 100px
@@ -206,15 +214,19 @@
 /* dialog */
 
 .task_editor_dialog.ui-dialog
+  background-color: #fff !important
+  border: 1px solid #000 !important
+  border-radius: 33px
+  width: 320px !important
   .ui-widget-header
     background: none
-    background-color: #FFFFFF
+    // background-color: #FFFFFF
     opacity: 0.5
     filter: alpha(opacity = 50)
   .ui-dialog-title
-    float: right
+    // float: right
     margin-right: 0
-    color: var(--body-font-color)
+    color: #000
   &.ui-widget-content
     background: none
     border: none
@@ -222,6 +234,17 @@
     background: none
     background-color: none
     border: none
+
+.ui-dialog-buttonset
+  button
+    border-radius: 33px
+  .button.-primary
+    background-color: #ff7f5d
+    color: #fff
+    border: 0
+    padding: 8px 12px
+    &:hover
+      background-color: #d96c4f
 
 .ui-dialog-titlebar-close
   overflow: hidden
@@ -250,10 +273,10 @@
     margin-bottom: 10px
     width: 100%
   .subject
-    height: 65px
-    width: 272px
+    // height: 65px
+    // width: 272px
   .remaining_hours, .blocks
-    width: 268px
+    // width: 268px
 
 /* compact view */
 
@@ -285,10 +308,13 @@
     text-align: right
     width: 180px
     clear: both
+    background-color: #eee
+    padding: 0 0 0 2px
     .id
       float: right
     .status
       float: left
+      margin-left: 1px
 
 .story,
 .label_sprint_impediments

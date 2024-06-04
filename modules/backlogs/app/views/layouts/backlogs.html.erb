@@ -34,10 +34,12 @@ See COPYRIGHT and LICENSE files for more details.
 <% end %>
 
 <% content_for :content_body do %>
-  <openproject-base></openproject-base>
-  <%# Allow projection pages to show rails rendered content after initialization %>
-  <div data-controller="backlogs" data-application-target="dynamic" id="projected-content" hidden>
-    <%= yield %>
+  <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+    <openproject-base></openproject-base>
+    <%# Allow projection pages to show rails rendered content after initialization %>
+    <div data-controller="backlogs" data-application-target="dynamic" id="projected-content" hidden>
+      <%= yield %>
+    </div>
   </div>
 <% end -%>
 

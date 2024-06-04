@@ -28,7 +28,7 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title @sprint.name %>
-<%= toolbar title: @sprint.name do %>
+<%= toolbar title: @sprint.name, title_class: "color-orange" do %>
   <li class="toolbar-item toolbar-input-group" id="col_width">
     <div>
       <label for="col_width_input"><%= t('backlogs.column_width') %></label>
@@ -56,7 +56,7 @@ See COPYRIGHT and LICENSE files for more details.
     </table>
 
     <table id="impediments" class="board" cellspacing="0">
-      <tr>
+      <tr class="bg-white">
         <td><div class="label_sprint_impediments"><%= t(:label_sprint_impediments) %></div></td>
         <% if User.current.allowed_in_project?(:add_work_packages, @project) %>
           <td class="add_new clickable">+</td>

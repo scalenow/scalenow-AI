@@ -27,7 +27,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<h2>
+<h2 class="color-orange">
   <%= "#{@sprint.name}: #{@sprint.start_date.present? ? I18n.l(@sprint.start_date) : ''} - #{@sprint.effective_date.present? ? I18n.l(@sprint.effective_date) : ''}" %>
 </h2>
 
@@ -37,7 +37,7 @@ See COPYRIGHT and LICENSE files for more details.
   <div class="burndown_chart autoscroll" id="burndown_<%= @burndown.sprint_id %>" style="width:900px;height:450px;"><div class="loading"><%= t('backlogs.generating_chart') %></div></div>
 
   <fieldset class="burndown_control form--fieldset">
-      <legend class="form--fieldset-legend"><%= t('backlogs.chart_options') %></legend>
+      <legend class="form--fieldset-legend color-orange"><%= t('backlogs.chart_options') %></legend>
       <%= burndown_series_checkboxes(@burndown) %>
   </fieldset>
 <% else %>
