@@ -27,50 +27,52 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<%= toolbar title: t(:label_roadmap) do %>
-  <li class="toolbar-item">
-    <%= link_to_if_authorized({ controller: '/versions', action: 'new', project_id: @project },
-                { class: 'button -primary',
-                  aria: { label: t(:label_version_new) },
-                  title: t(:label_version_new) }) do %>
-        <%= op_icon('button--icon icon-add') %>
-        <span class="button--text"><%= t('activerecord.models.version') %></span>
-    <% end %>
-  </li>
-<% end %>
-
-<% if @versions.empty? %>
-  <%= no_results_box %>
-<% else %>
-  <div id="roadmap">
-    <% @versions.each do |version| %>
-      <h3 class="version icon-context icon-modules">
-        <%= link_to_version(version, name: h(version.name), id: "version-#{version.name}") %>
-      </h3>
-      <%= render partial: 'versions/overview', locals: {version: version} %>
-      <%= render(partial: "wiki/text", locals: { page: version.wiki_page }) if version.wiki_page %>
-      <% if (issues = @wps_by_version[version]) && issues.size > 0 %>
-      <form>
-        <fieldset class="form--fieldset -collapsible">
-          <legend class="form--fieldset-legend" ><%= t(:label_related_work_packages) %></legend>
-          <div>
-            <ul>
-              <%- issues.each do |issue| -%>
-                <li><%= link_to_work_package(issue, project: (@project != issue.project)) %></li>
-              <%- end -%>
-            </ul>
-          </div>
-        </fieldset>
-      </form>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_roadmap), title_class: "color-orange" do %>
+    <li class="toolbar-item">
+      <%= link_to_if_authorized({ controller: '/versions', action: 'new', project_id: @project },
+                  { class: 'button -primary custom-secondary-button rounded-border',
+                    aria: { label: t(:label_version_new) },
+                    title: t(:label_version_new) }) do %>
+          <%= op_icon('button--icon icon-add') %>
+          <span class="button--text"><%= t('activerecord.models.version') %></span>
       <% end %>
-      <%= call_hook :view_projects_roadmap_version_bottom, version: version %>
-    <% end %>
-  </div>
-<% end %>
+    </li>
+  <% end %>
 
-<% content_for :sidebar do %>
-  <%= render partial: 'roadmap_filter' %>
-  <%= render partial: 'roadmap_version_links' %>
-<% end %>
+  <% if @versions.empty? %>
+    <%= no_results_box %>
+  <% else %>
+    <div id="roadmap">
+      <% @versions.each do |version| %>
+        <h3 class="version icon-context icon-modules">
+          <%= link_to_version(version, name: h(version.name), id: "version-#{version.name}") %>
+        </h3>
+        <%= render partial: 'versions/overview', locals: {version: version} %>
+        <%= render(partial: "wiki/text", locals: { page: version.wiki_page }) if version.wiki_page %>
+        <% if (issues = @wps_by_version[version]) && issues.size > 0 %>
+        <form>
+          <fieldset class="form--fieldset -collapsible">
+            <legend class="form--fieldset-legend" ><%= t(:label_related_work_packages) %></legend>
+            <div>
+              <ul>
+                <%- issues.each do |issue| -%>
+                  <li><%= link_to_work_package(issue, project: (@project != issue.project)) %></li>
+                <%- end -%>
+              </ul>
+            </div>
+          </fieldset>
+        </form>
+        <% end %>
+        <%= call_hook :view_projects_roadmap_version_bottom, version: version %>
+      <% end %>
+    </div>
+  <% end %>
 
-<% html_title(t(:label_roadmap)) %>
+  <% content_for :sidebar do %>
+    <%= render partial: 'roadmap_filter' %>
+    <%= render partial: 'roadmap_version_links' %>
+  <% end %>
+
+  <% html_title(t(:label_roadmap)) %>
+</div>

@@ -26,14 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<% html_title t("label_version_new") %>
 
-<%= toolbar title: t(:label_version_new) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title t("label_version_new") %>
 
-<%= labelled_tabular_form_for [@project, @version] do |f| %>
+  <%= toolbar title: t(:label_version_new), title_class: "color-orange" %>
 
-  <%= render partial: 'versions/form', locals: { f: f,
-                                                 project: @project } %>
+  <%= labelled_tabular_form_for [@project, @version] do |f| %>
 
-  <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
+    <%= render partial: 'versions/form', locals: { f: f,
+                                                  project: @project } %>
+
+    <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+  <% end %>
+</div>

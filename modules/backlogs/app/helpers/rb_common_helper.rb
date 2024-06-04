@@ -206,7 +206,7 @@ module RbCommonHelper
   def show_burndown_link(project, sprint)
     link_to(I18n.t("backlogs.show_burndown_chart"),
             backlogs_project_sprint_burndown_chart_path(project.identifier, sprint),
-            class: "show_burndown_chart button",
+            class: "show_burndown_chart button rounded-border",
             target: :_blank, rel: :noopener)
   end
 
