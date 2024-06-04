@@ -52,13 +52,13 @@ See COPYRIGHT and LICENSE files for more details.
       link_to(
         { action: 'delete_token' },
         method: :post,
-        class: 'button -primary',
+        class: 'button -primary custom-secondary-button rounded-border',
         aria: {label: label},
         title: label
       ) do
     %>
       <%= op_icon("button--icon icon-delete") %>
-      <span class="button--text"><%= t('backup.label_backup_token') %></span>
+      <span class="button--text custom-secondary-button rounded-border"><%= t('backup.label_backup_token') %></span>
     <% end %>
   </li>
   <% end %>

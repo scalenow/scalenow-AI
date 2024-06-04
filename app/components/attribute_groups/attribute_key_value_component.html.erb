@@ -27,13 +27,12 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<div class="attributes-key-value--key"><%= key %></div>
-<div class="attributes-key-value--value-container">
-  <div class="attributes-key-value--value -text">
+<div class="attributes-key-value--key-value-container">
+  <div class="attributes-key-value--key"><%= key %></div>
+  <div class="attributes-key-value--value">
     <% if value %>
       <span><%= value %></span>
     <% end %>
-
     <%= content %>
   </div>
 </div>

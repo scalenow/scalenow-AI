@@ -26,10 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: t(:label_general) %>
+<div class="custom-toolbar-title">
+  <%= toolbar title: t(:label_general) %>
+</div>
 
 <%= styled_form_tag(admin_settings_update_general_path, method: :patch) do %>
-  <section class="form--section">
+  <section class="form--section form-custom">
     <div class="form--field"><%= setting_text_field :app_title, size: 30, container_class: '-middle' %></div>
     <div class="form--field">
       <%= setting_text_field :per_page_options, size: 20, container_class: '-slim' %>
@@ -47,41 +49,78 @@ See COPYRIGHT and LICENSE files for more details.
         <%= t(:label_example) %>: <%= @guessed_host %>
       </span>
     </div>
-    <div class="form--field"><%= setting_check_box :cache_formatted_text %></div>
-    <div class="form--field"><%= setting_check_box :feeds_enabled, size: 6 %></div>
-    <div class="form--field"><%= setting_text_field :feeds_limit, size: 6, container_class: '-xslim' %></div>
-    <div class="form--field"><%= setting_text_field :work_packages_projects_export_limit, size: 6, container_class: '-xslim' %></div>
-    <div class="form--field">
+<div class="form-block-a">
+     <div class="d-flex flex-nowrap"> <div class="form--field"><%= setting_check_box :cache_formatted_text %></div>
+      <div class="form--field"><%= setting_check_box :feeds_enabled, size: 6 %></div></div>
+      <div class="d-flex flex-nowrap"> 
+    <div class="form--field col-md-6"><%= setting_text_field :feeds_limit, size: 6, container_class: '-xslim' %></div>
+    <div class="form--field col-md-6"><%= setting_text_field :work_packages_projects_export_limit, size: 6, container_class: '-xslim' %></div>
+    </div>
+    <div class="d-flex flex-nowrap"> 
+    <div class="form--field col-md-6">
       <%= setting_text_field :file_max_size_displayed, size: 6, unit: t(:"number.human.storage_units.units.kb"), container_class: '-xslim' %>
     </div>
-    <div class="form--field"><%= setting_text_field :diff_max_lines_displayed, size: 6, container_class: '-xslim' %></div>
-
+   
+    <div class="form--field col-md-6"><%= setting_text_field :diff_max_lines_displayed, size: 6, container_class: '-xslim' %></div>
+    </div>
     <% if OpenProject::Configuration.security_badge_displayed? %>
-    <div class="form--field">
+    <div class="form--field aaa" >
+    <div class="d-flex flex-nowrap">
       <%= setting_check_box :security_badge_displayed %>
-      <span class="form--field-instructions">
+      </div>
+      <span class="form--field-instructions" style="padding-left: 103px; max-width: 100% !important;">
         <%= t(:text_notice_security_badge_displayed_html,
               information_panel_label: t(:label_information),
               more_info_url: ::OpenProject::Static::Links[:security_badge_documentation][:href],
               information_panel_path: info_admin_index_path) %>
       </span>
+      
     </div>
     <% end %>
     <%= call_hook(:view_settings_general_form) %>
     <fieldset class="form--fieldset">
-      <legend class="form--fieldset-legend"><%= t(:setting_welcome_text) %></legend>
+    
+      <legend class="form--fieldset-legend"><%= t(:setting_welcome_text) %></legend><br>
       <div class="form--field"><%= setting_text_field :welcome_title, size: 30, container_class: '-wide' %></div>
-      <div class="form--field -visible-overflow">
+
+      <div class="form--field -visible-overflow no-wrapa">
         <%= setting_text_area :welcome_text,
                               cols: 60,
                               rows: 5,
-                              class: 'wiki-edit',
+                              class: 'wiki-edit ',
                               id: 'settings_welcome_text',
                               with_text_formatting: true,
                               container_class: '-xxwide' %>
       </div>
       <div class="form--field"><%= setting_check_box :welcome_on_homescreen %></div>
+      </div>
     </fieldset>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
   </section>
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
 <% end %>
+
+<style>
+  .custom-toolbar-title .title-container h2 {
+    color: #ff7f5d;
+  }
+
+  .form-custom {
+    background: #fff;
+    padding: 30px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+  .form-block-a .form--field {
+    flex-wrap: nowrap;
+  }
+  .form-block-a .form--label{
+    min-width: 242px !important;
+  }
+  .form-block-a .form--field.aaa {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .no-wrapa{
+    flex-wrap: wrap !important;
+  }
+</style>

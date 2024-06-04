@@ -28,7 +28,7 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title(t(:label_administration), t(:label_information_plural)) -%>
-
+<section class="form--section form-custom">
 <%= call_hook(:view_admin_info_top) %>
 
 <%= render(AttributeGroups::AttributeGroupComponent.new) do |component|
@@ -100,3 +100,13 @@ end %>
 <% end %>
 
 <%= call_hook(:view_admin_info_bottom) %>
+</section>
+
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+</style>
