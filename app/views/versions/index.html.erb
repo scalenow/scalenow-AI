@@ -59,7 +59,7 @@ See COPYRIGHT and LICENSE files for more details.
                       <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
                         <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;">
                           <div class="simplebar-content" style="padding: 0px 16px;">
-                            <h5 class="version icon-context icon-modules">
+                            <h5 class="version icon-context icon-modules mb-1">
                               <%= link_to_version(version, name: h(version.name), id: "version-#{version.name}", class: "color-orange") %>
                             </h5>
                             <%= render partial: 'versions/overview', locals: {version: version, is_index_page: "index"} %>
