@@ -16498,3 +16498,7 @@ body {
 .manual-table tbody tr:nth-child(even) {
   background-color: #fafafa
 }
+
+h5.version.icon-modules::before {
+  padding-right: 4px;
+}

@@ -1,5 +1,3 @@
-<%= render 'homescreen/blocks/header', title: t('homescreen.blocks.community') %>
-
 <ul class="widget-box--arrow-links">
   <li>
     <%= static_link_to :user_guides %>
@@ -13,10 +11,10 @@
     <%= static_link_to (EnterpriseToken.active? ? :enterprise_support : :enterprise_support_as_community) %>
   </li>
   <li>
-    <%= link_to(t('label_openproject_website'), "#",
-                { aria: {label: t('label_openproject_website')},
+    <%= link_to('scalenow-AI website', "#",
+                { aria: {label: 'scalenow-AI website'},
                   target: '_blank',
-                  title: t('label_openproject_website')}) %>
+                  title: 'scalenow-AI website'}) %>
   </li>
   <li>
     <%= link_to(t('homescreen.links.newsletter'), "#",
@@ -25,7 +23,10 @@
             title: t('homescreen.links.newsletter')}) %>
   </li>
   <li>
-    <%= static_link_to :blog %>
+    <%= link_to('scalenow-AI blog', "#",
+                { aria: {label: 'scalenow-AI blog'},
+                  target: '_blank',
+                  title: 'scalenow-AI blog'}) %>
   </li>
   <li>
     <%= static_link_to :release_notes %>

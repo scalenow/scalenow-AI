@@ -27,7 +27,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+<!-- <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;"> -->
   <%= toolbar title: @version.name, title_class: "color-orange" do %>
     <% if authorize_for(:versions, :edit) %>
       <li class="toolbar-item">
@@ -63,12 +63,12 @@ See COPYRIGHT and LICENSE files for more details.
   <% end %>
 
   <div class="widget-boxes -grid">
-    <div class="widget-box -thin">
-      <%= render partial: 'versions/overview', locals: { version: @version } %>
+    <div class="widget-box -thin bg-white rounded-border" style="border: 1px solid #000;">
+      <%= render partial: 'versions/overview', locals: { version: @version, is_index_page: "show" } %>
     </div>
 
     <% if @version.estimated_hours > 0 || User.current.allowed_in_project?(:view_time_entries, @project) %>
-      <div class="widget-box -thin">
+      <div class="widget-box -thin bg-white rounded-border" style="border: 1px solid #000;">
         <fieldset class="form--fieldset">
           <legend class="form--fieldset-legend"><%= t(:label_estimates_and_time) %></legend>
           <table>
@@ -88,13 +88,13 @@ See COPYRIGHT and LICENSE files for more details.
     <% end %>
 
     <% if @version.wiki_page %>
-      <div class="widget-box -thin -wider">
+      <div class="widget-box -thin -wider bg-white rounded-border" style="border: 1px solid #000;">
         <%= render(partial: "wiki/text", locals: { page: @version.wiki_page }) if @version.wiki_page %>
       </div>
     <% end %>
 
     <% if @issues.present? %>
-      <div class="widget-box -thin -wider">
+      <div class="widget-box -thin -wider bg-white rounded-border" style="border: 1px solid #000;">
         <% if @issues.present? %>
           <fieldset class="form--fieldset related_issues">
             <legend class="form--fieldset-legend"><%= t(:label_related_work_packages) %></legend>
@@ -109,7 +109,7 @@ See COPYRIGHT and LICENSE files for more details.
     <% end %>
 
     <% if @version.work_packages.count > 0 %>
-      <div class="widget-box -thin -wider">
+      <div class="widget-box -thin -wider bg-white rounded-border" style="border: 1px solid #000;">
         <wp-overview-graph
           global-scope='<%= @version.systemwide? %>'
           initial-filters='<%= version_wp_overview_graph_initial_filters(@version) %>'>
@@ -120,4 +120,4 @@ See COPYRIGHT and LICENSE files for more details.
   <%= call_hook :view_versions_show_bottom, version: @version %>
 
   <% html_title h(@version.name) %>
-</div>
+<!-- </div> -->

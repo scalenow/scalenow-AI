@@ -353,11 +353,14 @@ module ApplicationHelper
     percent_sign = options[:hide_percent_sign] ? "" : "%"
 
     content_tag :span do
-      progress = content_tag :span, class: "progress-bar", style: "width: #{width}" do
+      progress = content_tag :span, class: "d-flex justify-content-between" do
+        content_tag(:span, "#{total_progress}") +
+        content_tag(:span, "#{legend}#{percent_sign}")
+      end
+      progress += content_tag :span, class: "progress-bar", style: "width: #{width}" do
         concat content_tag(:span, "", class: "inner-progress closed", style: "width: #{closed}%")
         concat content_tag(:span, "", class: "inner-progress done",   style: "width: #{done}%")
       end
-      progress + content_tag(:span, "#{legend}#{percent_sign} #{total_progress}", class: "progress-bar-legend")
     end
   end
 
