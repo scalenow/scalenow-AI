@@ -58,7 +58,7 @@ $search-input-height: 30px
     .ng-select-container
       background: #f3f3f9
       border-radius: 33px
-      border: 0
+      border: 1px solid
 
       &:focus-within
         @include spot-focus
@@ -96,6 +96,9 @@ $search-input-height: 30px
       background: white
       border-radius: 4px
       color: var(--header-search-field-font-color)
+
+      .ng-select-container
+        border-radius: 4px
 
       .ng-placeholder,
       .ng-clear-wrapper,

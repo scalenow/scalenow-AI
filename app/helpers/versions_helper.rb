@@ -54,8 +54,23 @@ module VersionsHelper
     formatted_dates =
       %i[start_date due_date]
         .filter { |attr| version.send(attr) }
-        .map { |attr| "#{Version.human_attribute_name(attr)} #{format_date(version.send(attr))}" }
-    safe_join(formatted_dates, "<br>".html_safe)
+        .map { |attr| "#{format_date(version.send(attr))}" }
+
+    return "<div class='row gy-3'>
+      <div class='col-6'>
+        <div>
+          <p class='mb-1'>Start Date</p>
+          <h5 class='fs-14'>#{formatted_dates[0]}</h5>
+        </div>
+      </div>
+      <div class='col-6'>
+        <div>
+          <p class='mb-1'>Deadline</p>
+          <h5 class='fs-14'>#{formatted_dates[1]}</h5>
+        </div>
+      </div>
+    </div>".html_safe
+    # safe_join(formatted_dates, "<br>".html_safe)
   end
 
   def link_to_version_id(version)

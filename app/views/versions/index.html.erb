@@ -27,7 +27,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+<!-- <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;"> -->
   <%= toolbar title: t(:label_roadmap), title_class: "color-orange" do %>
     <li class="toolbar-item">
       <%= link_to_if_authorized({ controller: '/versions', action: 'new', project_id: @project },
@@ -44,28 +44,62 @@ See COPYRIGHT and LICENSE files for more details.
     <%= no_results_box %>
   <% else %>
     <div id="roadmap">
-      <% @versions.each do |version| %>
-        <h3 class="version icon-context icon-modules">
-          <%= link_to_version(version, name: h(version.name), id: "version-#{version.name}") %>
-        </h3>
-        <%= render partial: 'versions/overview', locals: {version: version} %>
-        <%= render(partial: "wiki/text", locals: { page: version.wiki_page }) if version.wiki_page %>
-        <% if (issues = @wps_by_version[version]) && issues.size > 0 %>
-        <form>
-          <fieldset class="form--fieldset -collapsible">
-            <legend class="form--fieldset-legend" ><%= t(:label_related_work_packages) %></legend>
-            <div>
-              <ul>
-                <%- issues.each do |issue| -%>
-                  <li><%= link_to_work_package(issue, project: (@project != issue.project)) %></li>
-                <%- end -%>
-              </ul>
+      <div class="row">
+        <% @versions.each do |version| %>
+          <div class="col-xxl-6 col-lg-6 col-md-6 project-card">
+            <div class="card card-height-100">
+              <div class="card-body">
+                <div data-simplebar="init" style="height: 270px;" class="mx-n3 px-3 simplebar-scrollable-y">
+                  <div class="simplebar-wrapper" style="margin: 0px -16px;">
+                    <div class="simplebar-height-auto-observer-wrapper">
+                      <div class="simplebar-height-auto-observer"></div>
+                    </div>
+                
+                    <div class="simplebar-mask">
+                      <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                        <div class="simplebar-content-wrapper" tabindex="0" role="region" aria-label="scrollable content" style="height: 100%; overflow: hidden scroll;">
+                          <div class="simplebar-content" style="padding: 0px 16px;">
+                            <h5 class="version icon-context icon-modules">
+                              <%= link_to_version(version, name: h(version.name), id: "version-#{version.name}", class: "color-orange") %>
+                            </h5>
+                            <%= render partial: 'versions/overview', locals: {version: version, is_index_page: "index"} %>
+                            <%= render(partial: "wiki/text", locals: { page: version.wiki_page }) if version.wiki_page %>
+                            <% if (issues = @wps_by_version[version]) && issues.size > 0 %>
+                              <form>
+                                <fieldset class="form--fieldset -collapsible m-0 p-0">
+                                  <legend class="form--fieldset-legend" ><%= t(:label_related_work_packages) %></legend>
+                                  <div>
+                                    <ul>
+                                      <%- issues.each do |issue| -%>
+                                        <li><%= link_to_work_package(issue, project: (@project != issue.project)) %></li>
+                                      <%- end -%>
+                                    </ul>
+                                  </div>
+                                </fieldset>
+                              </form>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <div class="simplebar-placeholder" style="width: 228px; height: 284px;"></div>
+                  </div>
+                
+                  <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                    <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                  </div>
+                
+                  <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                    <div class="simplebar-scrollbar" style="height: 194px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </fieldset>
-        </form>
+          </div>
+          <%= call_hook :view_projects_roadmap_version_bottom, version: version %>
         <% end %>
-        <%= call_hook :view_projects_roadmap_version_bottom, version: version %>
-      <% end %>
+      </div>
     </div>
   <% end %>
 
@@ -75,4 +109,4 @@ See COPYRIGHT and LICENSE files for more details.
   <% end %>
 
   <% html_title(t(:label_roadmap)) %>
-</div>
+<!-- </div> -->
