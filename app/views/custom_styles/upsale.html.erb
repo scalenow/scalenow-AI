@@ -28,12 +28,22 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title t(:label_administration), t(:label_custom_style) %>
+<div class="form-custom">
+    <%= render template: 'common/upsale',
+            locals: {
+                feature_title: t(:label_custom_style),
+                feature_description: t('admin.custom_styles.customize'),
+                feature_more_info: t('admin.custom_styles.enterprise_more_info'),
+                feature_reference: 'enterprise-custom-styles',
+                feature_video: 'enterprise/custom-design.mp4'
+            } %>
+</div>
 
-<%= render template: 'common/upsale',
-           locals: {
-               feature_title: t(:label_custom_style),
-               feature_description: t('admin.custom_styles.customize'),
-               feature_more_info: t('admin.custom_styles.enterprise_more_info'),
-               feature_reference: 'enterprise-custom-styles',
-               feature_video: 'enterprise/custom-design.mp4'
-           } %>
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+</style>

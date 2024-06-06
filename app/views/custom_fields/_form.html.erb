@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<section class="form--section" id="custom_field_form">
+<section class="form--section form-custom" id="custom_field_form">
   <div class="form--field -required" id="custom_field_name_attributes">
     <%= f.text_field :name, required: true, container_class: '-middle' %>
   </div>
@@ -157,9 +157,7 @@ See COPYRIGHT and LICENSE files for more details.
     </div>
   </div>
   <%= call_hook(:view_custom_fields_form_upper_box, custom_field: @custom_field, form: f) %>
-</section>
 
-<section class="form--section">
   <% case @custom_field.class.name
      when "WorkPackageCustomField" %>
     <div class="form--field">
@@ -243,4 +241,15 @@ See COPYRIGHT and LICENSE files for more details.
     </div>
   <% end %>
   <%= call_hook(:"view_custom_fields_form_#{@custom_field.type.to_s.underscore}", custom_field: @custom_field, form: f) %>
+
+  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
 </section>
+
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+</style>

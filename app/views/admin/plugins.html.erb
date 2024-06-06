@@ -27,7 +27,11 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 <% html_title t(:label_administration), t(:label_plugins) %>
-<%= toolbar title: t(:label_plugins) %>
+
+<div class="custom-toolbar-title">
+  <%= toolbar title: t(:label_plugins) %>
+</div>
+
 <% if @plugins.any? %>
   <div class="generic-table--container">
     <div class="generic-table--results-container">
@@ -91,3 +95,9 @@ See COPYRIGHT and LICENSE files for more details.
   <%= no_results_box display_action: true,
                      action_url: OpenProject::Static::Links.url_for(:integrations) %>
 <% end %>
+
+<style>
+  .custom-toolbar-title .title-container h2 {
+    color: #ff7f5d;
+  }
+</style>
