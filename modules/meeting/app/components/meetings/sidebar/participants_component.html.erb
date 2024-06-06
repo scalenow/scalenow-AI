@@ -6,7 +6,7 @@
           heading.with_column(flex: 1) do
             flex_layout(align_items: :center) do |title|
               title.with_column(mr: 2) do
-                render(Primer::Beta::Heading.new(tag: :h4)) { Meeting.human_attribute_name(:participants) }
+                render(Primer::Beta::Heading.new(tag: :h4, classes: "color-orange")) { Meeting.human_attribute_name(:participants) }
               end
 
               title.with_column do

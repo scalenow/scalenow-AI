@@ -4,7 +4,7 @@
       details_container.with_row do
         flex_layout(align_items: :center, justify_content: :space_between) do |heading|
           heading.with_column(flex: 1) do
-            render(Primer::Beta::Heading.new(tag: :h4)) { t("label_meeting_details") }
+            render(Primer::Beta::Heading.new(tag: :h4, classes: "color-orange")) { t("label_meeting_details") }
           end
 
           if @meeting.editable?

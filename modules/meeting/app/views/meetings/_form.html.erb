@@ -30,7 +30,6 @@ See COPYRIGHT and LICENSE files for more details.
 <%= error_messages_for 'meeting' %>
 
 <section class="form--section">
-
   <div class="form--field -required">
     <%= f.text_field :title, :required => true, :size => 60, container_class: '-wide' %>
   </div>
@@ -71,7 +70,7 @@ See COPYRIGHT and LICENSE files for more details.
       <div class="form--field-container">
         <div class="op-tile-block">
           <label class="op-tile-block--tile form--radio-button-container -wide"
-                 for="meeting_type_dynamic"
+                 for="meeting_type_StructuredMeeting"
                  data-test-selector="op-tile-block">
             <div class="op-tile-block--content">
               <%= styled_radio_button_tag 'meeting[type]',
@@ -80,9 +79,9 @@ See COPYRIGHT and LICENSE files for more details.
                                           no_label: true,
                                           class: 'radio-button' %>
               <div>
-              <span data-test-selector="op-tile-block-title" class="op-tile-block--title">
-                <%= t('meeting.types.structured') %>
-              </span>
+                <span data-test-selector="op-tile-block-title" class="op-tile-block--title">
+                  <%= t('meeting.types.structured') %>
+                </span>
                 <p class="op-tile-block--description">
                   <%= t('meeting.types.structured_text') %>
                   <% if local_assigns[:copy] %>
@@ -90,11 +89,12 @@ See COPYRIGHT and LICENSE files for more details.
                     <strong><%= t('meeting.types.structured_text_copy') %></strong>
                   <% end %>
                 </p>
+                <%= image_tag "meeting_images/dynamic_meeting.png", class: "op-tile-block--image m-0" %>
               </div>
             </div>
           </label>
           <label class="op-tile-block--tile form--radio-button-container -wide"
-                 for="meeting_type_classic"
+                 for="meeting_type_Meeting"
                  data-test-selector="op-tile-block">
             <div class="op-tile-block--content">
               <%= styled_radio_button_tag 'meeting[type]',
@@ -103,12 +103,13 @@ See COPYRIGHT and LICENSE files for more details.
                                           no_label: true,
                                           class: 'radio-button' %>
               <div>
-              <span data-test-selector="op-tile-block-title" class="op-tile-block--title">
-                <%= t('meeting.types.classic') %>
-              </span>
+                <span data-test-selector="op-tile-block-title" class="op-tile-block--title">
+                  <%= t('meeting.types.classic') %>
+                </span>
                 <p class="op-tile-block--description">
                   <%= t('meeting.types.classic_text') %>
                 </p>
+                <%= image_tag "meeting_images/classic_meeting.png", class: "op-tile-block--image m-0" %>
               </div>
             </div>
           </label>

@@ -16448,7 +16448,7 @@ body {
   }
 }
 
-.rounded-border {
+.rounded-border, .Button--secondary {
   border-radius: 33px !important;
 }
 
@@ -16501,4 +16501,36 @@ body {
 
 h5.version.icon-modules::before {
   padding-right: 4px;
+}
+
+.Box-body {
+  border: 0 !important;
+}
+
+#meetings-sidebar-details-component {
+  margin-top: 24px;
+}
+
+#meetings-header-component,
+#meetings-sidebar-details-component,
+#meetings-sidebar-state-component,
+#meetings-sidebar-participants-component {
+  background-color: #fff;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #000;
+  border-radius: 33px;
+}
+
+.BorderGrid--spacious .BorderGrid-cell {
+  padding: 0;
+  border: 0;
+}
+
+.State--open {
+  background-color: #ff7f5d !important;
+}
+
+.fc .fc-scroller {
+  scrollbar-width: none;
 }

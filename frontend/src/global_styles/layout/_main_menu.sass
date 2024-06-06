@@ -268,24 +268,27 @@ a.main-menu--parent-node
     display: none
 
 #sidebar
-  margin: 30px 0 0 0
+  margin: 10px 0 0 0
 
 #sidebar, #menu-sidebar .sidebar
   padding: 0 17px 0 17px
   width: auto
-  color: var(--main-menu-font-color)
+  color: #000
   font-family: var(--body-font-family)
   font-style: normal
 
   a, a:link
     &:not(.searchable-menu--item-link):not(.searchable-menu--category-icon)
-      color: var(--main-menu-font-color)
+      color: #000
       display: inline
       position: static
-      text-decoration: underline
 
   a:hover
-    text-decoration: underline
+    color: darkgray !important
+
+  a:before
+    content: "-"
+    margin-right: 10px
 
   label
     color: black
