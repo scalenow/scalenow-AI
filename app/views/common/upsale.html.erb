@@ -41,7 +41,7 @@
     <%= t('admin.enterprise.upgrade_info') %>
     </p>
     <%= link_to(OpenProject::Static::Links.links[:contact_us][:href],
-                { class: 'button',
+                { class: 'button custom-secondary-button rounded-border',
                   aria: {label: t('admin.enterprise.buttons.contact')},
                   target: '_blank',
                   title: t('admin.enterprise.buttons.contact')}) do %>
@@ -49,7 +49,7 @@
     <% end %>
 
     <%= link_to(OpenProject::Static::Links.links[:pricing][:href],
-                { class: 'button -primary',
+                { class: 'button -primary custom-secondary-button rounded-border',
                   aria: {label: t('admin.enterprise.buttons.upgrade')},
                   target: '_blank',
                   title: t('admin.enterprise.buttons.upgrade')}) do %>

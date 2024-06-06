@@ -43,10 +43,21 @@ See COPYRIGHT and LICENSE files for more details.
                                 'admin--users-password-auth-selected-value': @user.ldap_auth_source_id.blank?,
                               },
                               as: :user do |f| %>
+  <div class="form-custom">
   <%= render partial: 'simple_form', locals: { f: f, auth_sources: @ldap_auth_sources, user: @user } %>
 
   <p>
-    <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark' %>
-    <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark' %>
+    <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
+    <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
   </p>
+  </div>
 <% end %>
+
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+   }
+</style>

@@ -43,7 +43,7 @@ See COPYRIGHT and LICENSE files for more details.
 <%= toolbar title: t(:label_user_plural), title_class: 'no-padding-bottom', subtitle: users_info do %>
   <li class="toolbar-item">
     <%= link_to new_user_path,
-        { class: 'button -primary',
+        { class: 'button -primary custom-secondary-button rounded-border',
           aria: { label: t(:label_user_new) },
           title: t(:label_user_new) } do %>
       <%= op_icon('button--icon icon-add') %>
@@ -53,6 +53,28 @@ See COPYRIGHT and LICENSE files for more details.
   <%= call_hook(:user_admin_action_menu) %>
 <% end %>
 
-<%= render Users::UserFilterComponent.new(params, groups: @groups, status: @status) %>
+<div class="form-custom">
+  <%= render Users::UserFilterComponent.new(params, groups: @groups, status: @status) %>
+</div>
+
 &nbsp;
-<%= render Users::TableComponent.new(rows: @users, current_user: ) %>
+<div class="form-custom">
+  <%= render Users::TableComponent.new(rows: @users, current_user: ) %>
+</div>
+
+<style>
+  .title-container h2 {
+    color: #ff7f5d;
+  }
+
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+   }
+
+   .advanced-filters--container, .simple-filters--container {
+    border: 1px solid white;
+}
+</style>
