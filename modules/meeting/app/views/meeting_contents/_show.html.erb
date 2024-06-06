@@ -49,23 +49,23 @@ See COPYRIGHT and LICENSE files for more details.
     </div>
   <% end -%>
 
-<div data-meeting-content-target="renderedText"
-     hidden>
-  <% if saved_meeting_content_text_present?(content) -%>
-    <div class="wiki op-uc-container">
-      <%= format_text(content.text, :object => @meeting) %>
-    </div>
-  <% else -%>
-    <%= no_results_box %>
-  <% end -%>
-</div>
+  <div data-meeting-content-target="renderedText"
+      hidden>
+    <% if saved_meeting_content_text_present?(content) -%>
+      <div class="wiki op-uc-container">
+        <%= format_text(content.text, :object => @meeting) %>
+      </div>
+    <% else -%>
+      <%= no_results_box %>
+    <% end -%>
+  </div>
 
-<%# We cannot render attachments for journaled content %>
+  <%# We cannot render attachments for journaled content %>
   <% unless local_assigns[:journaled_version] %>
     <% resource = ::API::V3::MeetingContents::MeetingContentRepresenter.new(content, current_user: current_user, embed_links: true) %>
     <%= list_attachments(resource,
-                         data: {
-                           'meeting-content-target': "attachments"
-                         }) %>
+                        data: {
+                          'meeting-content-target': "attachments"
+                        }) %>
   <% end %>
 </div>

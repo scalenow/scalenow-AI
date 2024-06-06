@@ -27,19 +27,19 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<%= toolbar title: t(:label_meeting),
-            link_to: link_to(@meeting),
+<%= toolbar title: "#{t(:label_meeting)}: #{@meeting.title}",
+            title_class: "color-orange",
             html: { class: 'meeting--main-toolbar -with-dropdown' } do %>
   <% unless User.current.anonymous? %>
     <li class="toolbar-item hidden-for-tablet">
-      <div class="button">
+      <div class="button rounded-border">
         <%= watcher_link @meeting, User.current %>
       </div>
     </li>
   <% end %>
   <% if authorize_for(:meetings, :edit) %>
     <li class="toolbar-item">
-      <%= link_to({ :controller => '/meetings', :action => 'edit', :id => @meeting }, class: 'button', :accesskey => accesskey(:edit)) do %>
+      <%= link_to({ :controller => '/meetings', :action => 'edit', :id => @meeting }, class: 'button rounded-border', :accesskey => accesskey(:edit)) do %>
         <%= op_icon('button--icon icon-edit') %>
         <span class="button--text"><%= t(:button_edit) %></span>
       <% end %>
@@ -51,7 +51,7 @@ See COPYRIGHT and LICENSE files for more details.
       href="#"
       aria-haspopup="true"
       title="<%= t(:label_more) %>"
-      class="button"
+      class="button rounded-border"
       data-test-selector="meetings-more-dropdown-menu"
     >
       <%= op_icon('button--icon icon-show-more') %>
@@ -92,11 +92,11 @@ See COPYRIGHT and LICENSE files for more details.
   </li>
 <% end %>
 
-<div class="meeting details box">
+<div class="meeting details box bg-white rounded-border mb-4">
   <div class="grid-block wrap">
     <div class="grid-content small-12 block--author">
       <%= avatar(@meeting.author) %>
-      <p class="author"><%= authoring @meeting.created_at, @meeting.author %></p>
+      <p class="author pl-2"><%= authoring @meeting.created_at, @meeting.author %></p>
     </div>
     <div class="grid-content small-6">
       <p>
@@ -121,14 +121,20 @@ See COPYRIGHT and LICENSE files for more details.
   </div>
 </div>
 
-<%= render_tabs [{ :name => 'agenda', :action => :create_meeting_agendas, :partial => 'meeting_contents/show', :path => meeting_agenda_path(@meeting), :label => :label_meeting_agenda, :content => @meeting.agenda || @meeting.build_agenda, :content_type => "meeting_agenda" },
-                 { :name => 'minutes', :action => :create_meeting_minutes, :partial => 'meeting_contents/show', :path => meeting_minutes_path(@meeting), :label => :label_meeting_minutes, :content => @meeting.minutes || @meeting.build_minutes, :content_type => "meeting_minutes" }] %>
+<div class="bg-white p-3 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= render_tabs [
+    { :name => 'agenda', :action => :create_meeting_agendas, :partial => 'meeting_contents/show', :path => meeting_agenda_path(@meeting), :label => :label_meeting_agenda, :content => @meeting.agenda || @meeting.build_agenda, :content_type => "meeting_agenda" },
+    { :name => 'minutes', :action => :create_meeting_minutes, :partial => 'meeting_contents/show', :path => meeting_minutes_path(@meeting), :label => :label_meeting_minutes, :content => @meeting.minutes || @meeting.build_minutes, :content_type => "meeting_minutes" }  
+  ] %>
+</div>
 
 <% if @meeting.journals.changing.present? %>
-  <div id="history">
-    <h3><%= t(:label_history) %></h3>
-    <% @meeting.journals.each do |journal| %>
-      <%= render_meeting_journal @meeting, journal %>
-    <% end %>
+  <div class="bg-white p-3 mb-4 rounded-border" style="border: 1px solid #000;">
+    <div id="history" class="m-0 p-0">
+      <h3><%= t(:label_history) %></h3>
+      <% @meeting.journals.each do |journal| %>
+        <%= render_meeting_journal @meeting, journal %>
+      <% end %>
+    </div>
   </div>
 <% end %>

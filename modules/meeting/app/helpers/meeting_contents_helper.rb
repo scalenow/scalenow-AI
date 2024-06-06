@@ -65,7 +65,7 @@ module MeetingContentsHelper
                                 meeting_id: meeting },
                               method: :put,
                               data: { confirm: I18n.t(:text_meeting_closing_are_you_sure) },
-                              class: "meetings--close-meeting-button button") do
+                              class: "meetings--close-meeting-button button rounded-border") do
           text_with_icon(I18n.t(:label_meeting_close), "icon-locked")
         end
       end
@@ -75,7 +75,7 @@ module MeetingContentsHelper
                                 action: "close",
                                 meeting_id: meeting },
                               method: :put,
-                              class: "button") do
+                              class: "button rounded-border") do
           text_with_icon(I18n.t(:label_meeting_agenda_close), "icon-locked")
         end
       end
@@ -90,7 +90,7 @@ module MeetingContentsHelper
                               action: "open",
                               meeting_id: meeting },
                             method: :put,
-                            class: "button",
+                            class: "button rounded-border",
                             data: { confirm: I18n.t(:text_meeting_agenda_open_are_you_sure) }) do
         text_with_icon(I18n.t(:label_meeting_open), "icon-unlocked")
       end
@@ -100,7 +100,7 @@ module MeetingContentsHelper
   def meeting_content_edit_link(_content_type)
     content_tag :li, "", class: "toolbar-item" do
       link_to "",
-              class: "button button--edit-agenda",
+              class: "button button--edit-agenda rounded-border",
               data: {
                 action: "meeting-content#enableEditState",
                 "meeting-content-target": "editButton"
@@ -118,7 +118,7 @@ module MeetingContentsHelper
                               meeting_id: meeting },
                             aria: { label: t(:label_history) },
                             title: t(:label_history),
-                            class: "button") do
+                            class: "button rounded-border") do
         text_with_icon(I18n.t(:label_history), "icon-activity-history")
       end
     end

@@ -30,10 +30,10 @@ See COPYRIGHT and LICENSE files for more details.
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
   <% html_title "#{t(:label_meeting_diff)}: #{@meeting.title}" %>
   <%= toolbar title: t(:"label_#{@content_type}"), title_class: "color-orange",
-              link_to: link_to(@meeting, @meeting) do %>
+              link_to: link_to(@meeting, @meeting, class: "color-orange") do %>
     <% if authorize_for(@content_type.pluralize, :history) %>
       <li class="toolbar-item">
-        <%= link_to({controller: "/#{@content_type.pluralize}", action: 'history', meeting_id: @meeting }, class: 'button rounded-border) do %>
+        <%= link_to({controller: "/#{@content_type.pluralize}", action: 'history', meeting_id: @meeting }, class: 'button rounded-border') do %>
           <%= op_icon('button--icon icon-wiki') %>
           <span class="button--text"><%= t(:label_history) %></span>
         <% end %>
