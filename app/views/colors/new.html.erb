@@ -34,6 +34,17 @@ See COPYRIGHT and LICENSE files for more details.
             url: colors_url,
             html: {method: 'post'},
             as: :color do |f| %>
-  <%= render partial: 'form',
-             locals: {f: f, color: @color} %>
+    <div class="form-custom">
+        <%= render partial: 'form',
+                locals: {f: f, color: @color} %>
+    </div>
 <% end %>
+
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+   }
+</style>
