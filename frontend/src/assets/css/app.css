@@ -16496,8 +16496,26 @@ body {
 }
 
 .manual-table tbody tr:nth-child(even) {
-  background-color: #fafafa
+  background-color: #fafafa;
 }
+
+/* table.fc-scrollgrid tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+table.fc-scrollgrid thead tr th {
+  background-color: #f3f6f9;
+}
+
+table.fc-scrollgrid th.fc-timeline-slot,
+table.fc-scrollgrid td {
+  border: 0 !important;
+}
+
+table.fc-scrollgrid thead tr,
+table.fc-scrollgrid tbody tr {
+  border-bottom: 1px solid #e9ebec !important;
+} */
 
 h5.version.icon-modules::before {
   padding-right: 4px;
@@ -16531,6 +16549,6 @@ h5.version.icon-modules::before {
   background-color: #ff7f5d !important;
 }
 
-.fc .fc-scroller {
+.fc-scroller {
   scrollbar-width: none;
 }

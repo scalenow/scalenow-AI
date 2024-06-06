@@ -1,7 +1,7 @@
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     if show_state?
-      header.with_title(data: { 'test-selector': 'project-query-name'}) { page_title }
+      header.with_title(data: { 'test-selector': 'project-query-name'}, classes: "color-orange") { page_title }
       header.with_breadcrumbs(breadcrumb_items)
 
       if query_saveable?
@@ -94,7 +94,7 @@
 
 
     else
-      header.with_title(data: { 'test-selector': 'project-query-name'}) do
+      header.with_title(data: { 'test-selector': 'project-query-name'}, classes: "color-orange") do
         primer_form_with(model: query,
                          url: projects_queries_path,
                          scope: 'query',
