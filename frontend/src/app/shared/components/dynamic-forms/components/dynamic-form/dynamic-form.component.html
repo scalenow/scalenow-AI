@@ -13,15 +13,15 @@
     class="op-form--fieldset"
   ></formly-form>
 
-  <div class="op-form--submit"
+  <div class="op-form--submit m-0"
        *ngIf="handleSubmit">
     <button type="submit"
-            class="button -primary"
+            class="button -primary custom-secondary-button rounded-border m-0 mr-2 px-3"
             [disabled]="inFlight">
       {{text.save}}
     </button>
     <button type="button"
-            class="button"
+            class="button rounded-border m-0 px-3"
             (click)="handleCancel()">
       {{text.cancel}}
     </button>
