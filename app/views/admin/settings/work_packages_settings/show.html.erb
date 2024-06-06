@@ -35,9 +35,18 @@ See COPYRIGHT and LICENSE files for more details.
 
 <%= styled_form_tag({ action: :update }, method: :patch) do %>
   <section class="form--section form-custom">
-    <div class="form--field"><%= setting_check_box :cross_project_work_package_relations %></div>
-    <div class="form--field"><%= setting_check_box :display_subprojects_work_packages %></div>
-    <div class="form--field"><%= setting_check_box :work_package_startdate_is_adddate %></div>
+    <div class="inline-checkboxes">
+      <div class="form--field">
+        <%= setting_check_box :cross_project_work_package_relations %>
+      </div>
+      <div class="form--field">
+        <%= setting_check_box :display_subprojects_work_packages %>
+      </div>
+      <div class="form--field">
+        <%= setting_check_box :work_package_startdate_is_adddate %>
+      </div>
+    </div>
+
     <div class="form--field">
       <%= setting_select :work_package_done_ratio,
                          WorkPackage::DONE_RATIO_OPTIONS.collect { |i| [t("setting_work_package_done_ratio_#{i}"), i] },
@@ -107,5 +116,15 @@ See COPYRIGHT and LICENSE files for more details.
     padding: 12px;
     border-radius: 33px;
     border: 2px solid #000;
+  }
+
+  .inline-checkboxes {
+    display: flex;
+    gap: 10px; /* Adjust the gap as needed */
+    align-items: center;
+  }
+
+  .inline-checkboxes .form--field {
+      margin: 0;
   }
 </style>
