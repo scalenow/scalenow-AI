@@ -35,7 +35,7 @@ class Widget::Controls::SaveAs < Widget::Controls
       link_name = I18n.t(:button_save_as)
       icon = "icon-save"
     end
-    button = link_to(link_name, "#", id: "query-icon-save-as", class: "button icon-context #{icon}")
+    button = link_to(link_name, "#", id: "query-icon-save-as", class: "button icon-context #{icon}  rounded-border")
     write(button + render_popup)
   end
 
@@ -89,13 +89,13 @@ class Widget::Controls::SaveAs < Widget::Controls
     save = link_to(I18n.t(:button_save),
                    "#",
                    id: "query-icon-save-button",
-                   class: "button -primary icon-context icon-save",
+                   class: "button -primary icon-context icon-save custom-secondary-button rounded-border",
                    "data-target": url_for(**save_url_params))
 
     cancel = link_to(I18n.t(:button_cancel),
                      "#",
                      id: "query-icon-save-as-cancel",
-                     class: "button icon-context icon-cancel")
+                     class: "button icon-context icon-cancel rounded-border")
     save + cancel
   end
 
