@@ -31,7 +31,7 @@ class Widget::Controls::Apply < Widget::Controls
     write link_to(I18n.t(:button_apply),
                   "#",
                   id: "query-icon-apply-button",
-                  class: "button -primary",
+                  class: "button -primary custom-secondary-button rounded-border px-3",
                   "data-target": url_for(action: "index", set_filter: "1"))
   end
 end

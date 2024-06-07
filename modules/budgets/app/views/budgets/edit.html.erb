@@ -27,7 +27,9 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% html_title "#{t(:label_edit)} #{t(:label_budget_id, id: @budget.id)}: #{@budget.subject}" %>
-<%= toolbar title: t(:label_budget_id, id: @budget.id) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+	<% html_title "#{t(:label_edit)} #{t(:label_budget_id, id: @budget.id)}: #{@budget.subject}" %>
+	<%= toolbar title: t(:label_budget_id, id: @budget.id), title_class: "color-orange" %>
 
-<%= render :partial => 'edit' %>
+	<%= render :partial => 'edit' %>
+</div>

@@ -351,9 +351,10 @@ module ApplicationHelper
     legend = options[:legend] || ""
     total_progress = options[:hide_total_progress] ? "" : t(:total_progress)
     percent_sign = options[:hide_percent_sign] ? "" : "%"
+    custom_class = options[:class] || ""
 
     content_tag :span do
-      progress = content_tag :span, class: "d-flex justify-content-between" do
+      progress = content_tag :span, class: "d-flex justify-content-between #{custom_class}" do
         content_tag(:span, "#{total_progress}") +
         content_tag(:span, "#{legend}#{percent_sign}")
       end

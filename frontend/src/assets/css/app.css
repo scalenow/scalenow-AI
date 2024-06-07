@@ -16581,3 +16581,21 @@ h5.version.icon-modules::before {
 .work-packages-partitioned-page--content-right .-grid.task-page {
   grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
 }
+
+.budget .attributes-group--attributes {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.budget .attributes-key-value--key {
+  flex-grow: 0;
+}
+
+.budget-progress-bar {
+  width: 160px;
+}
+
+.budget .op-uc-container {
+  padding: 0;
+}
