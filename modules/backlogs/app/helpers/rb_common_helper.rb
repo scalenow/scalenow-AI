@@ -40,7 +40,7 @@ module RbCommonHelper
   end
 
   def build_inline_style(task)
-    is_assigned_task?(task) ? color_style(task) : ""
+    # is_assigned_task?(task) ? color_style(task) : ""
   end
 
   def color_style(task)

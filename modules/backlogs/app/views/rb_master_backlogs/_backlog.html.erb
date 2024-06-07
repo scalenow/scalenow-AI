@@ -31,7 +31,7 @@ See COPYRIGHT and LICENSE files for more details.
   folded = current_user.backlogs_preference(:versions_default_fold_state) == "closed"
   editable = User.current.allowed_in_project?(:edit_work_packages, @project)
 %>
-<div class="backlog" id="backlog_<%= backlog.sprint.id %>">
+<div class="backlog bg-white rounded-border p-4 mb-4" id="backlog_<%= backlog.sprint.id %>" style="border: 1px solid #000;">
   <div class="header">
     <% icon = folded ? 'icon-arrow-down1' : 'icon-arrow-up1' %>
     <div class="toggler <%= icon %> icon-small<%= ' closed' if folded %>"> </div>

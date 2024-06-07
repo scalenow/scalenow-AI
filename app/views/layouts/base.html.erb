@@ -69,8 +69,8 @@ See COPYRIGHT and LICENSE files for more details.
 <% initial_classes = initial_menu_classes(side_displayed, show_decoration) %>
 <div id="wrapper" style=<%= initial_menu_styles(side_displayed) %> class="<%= initial_classes %>">
   <div class="d-flex">
-    <div class="col-xxl-2 col-md-3 first-container" style="<%= !User.current.logged? ? 'width: 0%' : '' %>">
-      <% if (side_displayed && show_decoration) %>
+    <% if (side_displayed && show_decoration) %>
+      <div class="col-xxl-2 col-md-3 first-container" style="<%= !User.current.logged? ? 'width: 0%' : '' %>">
         <div
           id="main-menu"
           class="main-menu"
@@ -96,10 +96,10 @@ See COPYRIGHT and LICENSE files for more details.
             </div>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
-    <div class="col-xxl-10 col-md-9 second-container" style="<%= !User.current.logged? ? 'width: 100%; padding: 0 !important;' : '' %>">
+    <div class="col-xxl-10 col-md-9 second-container" style="<%= !User.current.logged? || !(side_displayed && show_decoration) ? 'width: 100%; padding: 0 !important;' : '' %>">
       <% if show_decoration && User.current.logged? %>
         <header class="op-app-header<%= ' op-app-header_development' if OpenProject::Configuration.development_highlight_enabled? %> align-items-center">
           <div class="op-app-header--start">
@@ -116,7 +116,10 @@ See COPYRIGHT and LICENSE files for more details.
           </div>
 
           <div class="">
-            <a href="/"><%= image_tag "scalenowai-logo.png", alt: "logo", style: "width: 200px;" %></a>
+            <a href="/">
+              <%= image_tag "scalenowai-logo.png", alt: "logo", style: "width: 200px;", id: "desktop-view-logo" %>
+              <%= image_tag "scale-now-logo.png", alt: "logo", style: "height: 40px;", id: "mobile-view-logo" %>
+            </a>
           </div>
 
           <div class="op-app-header--end">

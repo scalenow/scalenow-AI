@@ -35,7 +35,7 @@ See COPYRIGHT and LICENSE files for more details.
                    'prevent_edit'
                  end
 %>
-<div class="model work_package impediment <%= color_contrast_class(impediment) %> <%= prevent_edit %> <%= mark_if_closed(impediment) %><%= color_contrast_class(impediment) %>"
+<div class="model work_package impediment <%= prevent_edit %> <%= mark_if_closed(impediment) %><%= color_contrast_class(impediment) %>"
      id="work_package_<%= impediment.id %>"
      <%= build_inline_style(impediment) %>>
   <div class="id">

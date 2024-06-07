@@ -6,9 +6,9 @@
   <ul class="project-list">
     <% @newest_projects.each do |project| %>
       <li class="pt-1 pb-2">
-        <h5 class="fs-14">
+        <p class="fs-14 m-0">
           <%= link_to project, project_path(project), title: short_project_description(project), class: "text-body" %>
-        </h5>
+        </p>
       </li>
     <% end %>
   </ul>
