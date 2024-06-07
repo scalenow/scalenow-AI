@@ -16552,3 +16552,32 @@ h5.version.icon-modules::before {
 .fc-scroller {
   scrollbar-width: none;
 }
+
+#desktop-view-logo {
+  display:block;
+}
+
+#mobile-view-logo {
+  display:none
+}
+
+@media all and (max-width: 768px) {
+  #desktop-view-logo {
+    display: none;
+  }
+
+  #mobile-view-logo {
+    display: block;
+  }
+}
+
+.-grid.task-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.work-packages-partitioned-page--content-right .-grid.task-page {
+  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+}

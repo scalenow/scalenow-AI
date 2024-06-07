@@ -31,7 +31,7 @@ See COPYRIGHT and LICENSE files for more details.
  %>
 
 <% html_title(t(:label_news_plural)) -%>
-<%= toolbar title: t(:label_news_plural) do %>
+<%= toolbar title: t(:label_news_plural), title_class: "color-orange" do %>
   <% if managable %>
     <li class="toolbar-item">
       <%= link_to new_project_news_path(@project),

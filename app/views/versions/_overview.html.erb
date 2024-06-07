@@ -37,7 +37,7 @@ See COPYRIGHT and LICENSE files for more details.
 <% end %>
 
 <% if !version.completed? && version.due_date %>
-  <p><strong><%= due_date_distance_in_words(version.effective_date) %></strong></p>
+  <p class="mt-2"><strong><%= due_date_distance_in_words(version.effective_date) %></strong></p>
 <% end %>
 
 <% if version.custom_values.any? %>

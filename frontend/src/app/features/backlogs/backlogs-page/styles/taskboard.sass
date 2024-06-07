@@ -27,13 +27,12 @@
  */
 
 @mixin story-header
-  background-color: #FFFFFF
+  background-color: #eee
   font-size: 1rem - rem-calc(5px)
   opacity: 0.8
   filter: alpha(opacity = 80)
   overflow: hidden
-  padding-bottom: 1px
-  padding-right: 3px
+  padding: 0
 
 @mixin story-footer
   float: left
@@ -145,12 +144,12 @@
     &.closed .subject
       text-decoration: line-through
   .work_package, .placeholder
-    background-color: #AFAFAF
+    background-color: #eee !important
     border: none
     cursor: move
     display: block
     font-size: 10px
-    height: 85px
+    height: 100px
     padding: 5px
     margin: 5px 0px
     position: relative
@@ -169,7 +168,7 @@
       display: none
     .remaining_hours.editable
       border: 2px solid #FFFFFF
-      background-color: #EE0000
+      background-color: #ff7f5d
       bottom: -5px
       color: #FFFFFF
       font-size: 9px
@@ -251,7 +250,6 @@
 
 .dark
   #task_editor label, .subject, .assigned_to_id, div
-    color: #FFFFFF
     option
       color: var(--body-font-color)
 
@@ -308,7 +306,6 @@
     text-align: right
     width: 180px
     clear: both
-    background-color: #eee
     padding: 0 0 0 2px
     .id
       float: right
@@ -332,7 +329,7 @@
     background-color: transparent
   .subject.editable
     font-size: 1rem - rem-calc(3px)
-    height: 42px
+    height: 52px
     line-height: 13px
     margin-top: 0
     overflow: hidden
