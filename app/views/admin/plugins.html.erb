@@ -33,7 +33,7 @@ See COPYRIGHT and LICENSE files for more details.
 </div>
 
 <% if @plugins.any? %>
-  <div class="generic-table--container">
+  <div class="generic-table--container form-custom">
     <div class="generic-table--results-container">
       <table class="generic-table plugins">
         <colgroup>
@@ -92,12 +92,22 @@ See COPYRIGHT and LICENSE files for more details.
     </div>
   </div>
 <% else %>
-  <%= no_results_box display_action: true,
-                     action_url: OpenProject::Static::Links.url_for(:integrations) %>
+  <div class="form-custom">
+    <%= no_results_box display_action: true,
+                      action_url: OpenProject::Static::Links.url_for(:integrations) %>
+
+  </div>
 <% end %>
 
 <style>
   .custom-toolbar-title .title-container h2 {
     color: #ff7f5d;
+  }
+
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
   }
 </style>
