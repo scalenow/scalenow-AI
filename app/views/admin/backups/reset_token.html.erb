@@ -43,11 +43,11 @@ See COPYRIGHT and LICENSE files for more details.
     class: '-wide-labels confirm_required request-for-confirmation form danger-zone'
   }
 ) do |f| %>
-  <div class='wiki'>
-    <section class="form--section">
-      <h3 class="form--section-title">
-        <%= t("backup.reset_token.heading_#{action}") %>
-      </h3>
+    <section class="form--section form-custom">
+    <br>
+    <h3 class="form--section-title light-orange-bg">
+      <%= t("backup.reset_token.heading_#{action}") %>
+    </h3>
 
       <p>
         <%= t("backup.reset_token.implications") %>
@@ -69,11 +69,24 @@ See COPYRIGHT and LICENSE files for more details.
       </p>
       <div class="danger-zone--verification">
         <input type="text" name="login_verification"/>
-        <%= styled_button_tag '', class: '-primary', disabled: true do
+        <%= styled_button_tag '', class: '-primary custom-secondary-button rounded-border', disabled: true do
           concat content_tag :i, '', class: "button--icon icon-#{icon}"
           concat content_tag :span, t("backup.reset_token.action_#{action}"), class: 'button--text'
         end %>
       </div>
     </section>
-  </div>
 <% end %>
+
+<style>
+  .form-custom {
+    background: #fff;
+    padding: 12px;
+    border-radius: 33px;
+    border: 2px solid #000;
+  }
+
+  .light-orange-bg {
+    padding: 10px; /* Optional: Add padding for better appearance */
+    border-radius: 5px; /* Optional: Add rounded corners */
+  }
+</style>
