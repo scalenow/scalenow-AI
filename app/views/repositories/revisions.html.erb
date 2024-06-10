@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: t(:label_revision_plural) do %>
+
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+<%= toolbar title: t(:label_revision_plural), title_class: "color-orange" do %>
   <%= form_tag({ action: 'revision', id: @project }, { method: :get }) do %>
     <li class="toolbar-item">
       <%= label_tag :rev, t(:label_revision), class: 'hidden-for-sighted' %>

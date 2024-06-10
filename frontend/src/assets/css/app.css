@@ -16599,3 +16599,22 @@ h5.version.icon-modules::before {
 .budget .op-uc-container {
   padding: 0;
 }
+
+.project-modules-form .form--field {
+  flex-flow: nowrap;
+  flex-wrap: nowrap;
+}
+
+#meeting-agenda-items-list-component .Box {
+  padding: 0 16px;
+  border-radius: 33px;
+  border: 1px solid #000;
+}
+
+#meeting-agenda-items-list-component .Box > ul:not(.op-uc-list) {
+  padding: 0;
+}
+
+#meeting-agenda-items-list-component .Box li:first-child {
+  border: 0;
+}

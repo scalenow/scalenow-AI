@@ -29,7 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <persistent-toggle data-identifier="repository.checkout_instructions"></persistent-toggle>
 <%= toolbar title: t('repositories.named_repository',
-                     vendor_name: @repository.class.vendor_name) do %>
+                     vendor_name: @repository.class.vendor_name), title_class: "color-orange" do %>
   <% if @instructions && @instructions.available? %>
   <li class="toolbar-item toolbar-input-group hidden-for-mobile">
     <div class="toolbar-input-group--affix -prepend">
@@ -77,10 +77,7 @@ See COPYRIGHT and LICENSE files for more details.
   <% end %>
 <% end %>
 
-
 <% if @instructions %>
   <%= render partial: 'checkout_instructions',
              locals: { repository: @repository, instructions: @instructions } %>
 <% end %>
-
-
