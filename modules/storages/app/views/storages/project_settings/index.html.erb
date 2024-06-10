@@ -29,21 +29,23 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), t("project_module_storages") %>
 
-<% if ::Storages::Storage.any? %>
-  <%= toolbar title: t("storages.page_titles.project_settings.index") do %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% if ::Storages::Storage.any? %>
+    <%= toolbar title: t("storages.page_titles.project_settings.index"), title_class: "color-orange" do %>
 
-    <li class="toolbar-item">
-      <%= link_to new_project_settings_project_storage_path,
-                  { class: 'button -primary',
-                    aria: { label: t(:'storages.label_new_storage') },
-                    title: t(:'storages.label_new_storage') } do %>
-        <%= op_icon('button--icon icon-add') %>
-        <span class="button--text"><%= ::Storages::Storage.model_name.human %></span>
-      <% end %>
-    </li>
+      <li class="toolbar-item">
+        <%= link_to new_project_settings_project_storage_path,
+                    { class: 'button -primary custom-secondary-button rounded-border',
+                      aria: { label: t(:'storages.label_new_storage') },
+                      title: t(:'storages.label_new_storage') } do %>
+          <%= op_icon('button--icon icon-add') %>
+          <span class="button--text"><%= ::Storages::Storage.model_name.human %></span>
+        <% end %>
+      </li>
+    <% end %>
+
+    <%= render(::Storages::ProjectStorages::TableComponent.new(rows: @project_storages)) %>
+  <% else %>
+    <%= render partial: '/storages/project_settings/toast_no_storage_set_up' %>
   <% end %>
-
-  <%= render(::Storages::ProjectStorages::TableComponent.new(rows: @project_storages)) %>
-<% else %>
-  <%= render partial: '/storages/project_settings/toast_no_storage_set_up' %>
-<% end %>
+</div>

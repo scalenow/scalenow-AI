@@ -27,81 +27,83 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<%= toolbar title: t(:label_work_package_category_plural) do -%>
-  <% if current_user.allowed_in_project?(:manage_categories, @project)  %>
-    <li class="toolbar-item">
-      <%= link_to_if_authorized({ controller: '/categories', action: 'new', project_id: @project },
-                                { aria: { label: t(:label_work_package_category_new) },
-                                  title: t(:label_work_package_category_new),
-                                  class: 'button -primary'}) do %>
-        <%= op_icon('icon-add button--icon') %>
-        <span class="button--text"><%= t('activerecord.models.category') %></span>
-      <% end %>
-    </li>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_work_package_category_plural), title_class: "color-orange" do -%>
+    <% if current_user.allowed_in_project?(:manage_categories, @project)  %>
+      <li class="toolbar-item">
+        <%= link_to_if_authorized({ controller: '/categories', action: 'new', project_id: @project },
+                                  { aria: { label: t(:label_work_package_category_new) },
+                                    title: t(:label_work_package_category_new),
+                                    class: 'button -primary custom-secondary-button rounded-border'}) do %>
+          <%= op_icon('icon-add button--icon') %>
+          <span class="button--text"><%= t('activerecord.models.category') %></span>
+        <% end %>
+      </li>
+    <% end %>
   <% end %>
-<% end %>
 
-<% if @project.categories.any? %>
-  <div class="generic-table--container">
-    <div class="generic-table--results-container">
-      <table class="generic-table">
-        <colgroup>
-          <col opHighlightCol>
-          <col opHighlightCol>
-          <col>
-        </colgroup>
-        <thead>
-          <tr>
-            <th>
-              <div class="generic-table--sort-header-outer">
-                <div class="generic-table--sort-header">
-                  <span>
-                    <%= Category.model_name.human %>
-                  </span>
+  <% if @project.categories.any? %>
+    <div class="generic-table--container">
+      <div class="generic-table--results-container">
+        <table class="generic-table">
+          <colgroup>
+            <col opHighlightCol>
+            <col opHighlightCol>
+            <col>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>
+                <div class="generic-table--sort-header-outer">
+                  <div class="generic-table--sort-header">
+                    <span>
+                      <%= Category.model_name.human %>
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </th>
-            <th>
-              <div class="generic-table--sort-header-outer">
-                <div class="generic-table--sort-header">
-                  <span>
-                    <%= Category.human_attribute_name(:assigned_to) %>
-                  </span>
+              </th>
+              <th>
+                <div class="generic-table--sort-header-outer">
+                  <div class="generic-table--sort-header">
+                    <span>
+                      <%= Category.human_attribute_name(:assigned_to) %>
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </th>
-            <th><div class="generic-table--empty-header"></div></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for category in @project.categories %>
-            <% unless category.new_record? %>
-              <tr>
-                <td><%=h(category.name) %></td>
-                <td><%=h(category.assigned_to.name) if category.assigned_to %></td>
-                <td class="buttons">
-                  <%= link_to_if_authorized '',
-                                            { controller: '/categories', action: 'edit', id: category },
-                                            class: 'icon icon-edit',
-                                            title: t(:button_edit) %>
-                  <%= link_to_if_authorized '',
-                                            { controller: '/categories', action: 'destroy', id: category },
-                                            data: { confirm: t(:text_are_you_sure) },
-                                            method: :delete,
-                                            class: 'icon icon-delete',
-                                            title: t(:button_delete) %>
-                </td>
-              </tr>
+              </th>
+              <th><div class="generic-table--empty-header"></div></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for category in @project.categories %>
+              <% unless category.new_record? %>
+                <tr>
+                  <td><%=h(category.name) %></td>
+                  <td><%=h(category.assigned_to.name) if category.assigned_to %></td>
+                  <td class="buttons">
+                    <%= link_to_if_authorized '',
+                                              { controller: '/categories', action: 'edit', id: category },
+                                              class: 'icon icon-edit',
+                                              title: t(:button_edit) %>
+                    <%= link_to_if_authorized '',
+                                              { controller: '/categories', action: 'destroy', id: category },
+                                              data: { confirm: t(:text_are_you_sure) },
+                                              method: :delete,
+                                              class: 'icon icon-delete',
+                                              title: t(:button_delete) %>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
 
+      </div>
     </div>
-  </div>
-<% else %>
-  <%= no_results_box action_url: new_project_category_path(@project),
-                     display_action: authorize_for('categories', 'new'),
-                     custom_title: t('projects.settings.categories.no_results_title_text'),
-                     custom_action_text: t('projects.settings.categories.no_results_content_text') %>
-<% end %>
+  <% else %>
+    <%= no_results_box action_url: new_project_category_path(@project),
+                      display_action: authorize_for('categories', 'new'),
+                      custom_title: t('projects.settings.categories.no_results_title_text'),
+                      custom_action_text: t('projects.settings.categories.no_results_content_text') %>
+  <% end %>
+</div>

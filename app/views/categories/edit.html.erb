@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: Category.model_name.human %>
-<%= labelled_tabular_form_for @category, as: :category do |f| %>
-  <%= render partial: 'categories/form', locals: { f: f } %>
-  <%= f.button t(:button_save), class: 'button -primary -with-icon icon-checkmark' %>
-<% end %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: Category.model_name.human, title_class: "color-orange" %>
+  <%= labelled_tabular_form_for @category, as: :category do |f| %>
+    <%= render partial: 'categories/form', locals: { f: f } %>
+    <%= f.button t(:button_save), class: 'button -primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+  <% end %>
+</div>

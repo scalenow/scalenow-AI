@@ -31,7 +31,7 @@ See COPYRIGHT and LICENSE files for more details.
   <% if User.current.allowed_in_project?(:add_subprojects, @project) %>
     <li class="toolbar-item">
       <%= link_to new_project_path(parent_id: @project.id),
-                  { class: 'button -primary',
+                  { class: 'button -primary custom-secondary-button rounded-border',
                     aria: {label: t(:label_subproject_new)},
                     title: t(:label_subproject_new)} do %>
         <%= op_icon('button--icon icon-add') %>
@@ -40,14 +40,14 @@ See COPYRIGHT and LICENSE files for more details.
     </li>
   <% end %>
   <li class="toolbar-item hidden-for-tablet">
-    <%= link_to project_identifier_path(@project), class: 'button' do %>
+    <%= link_to project_identifier_path(@project), class: 'button rounded-border' do %>
       <%= op_icon('button--icon icon-edit') %>
       <span class="button--text"><%= t('projects.settings.change_identifier') %></span>
     <% end %>
   </li>
   <% if @project.copy_allowed? %>
     <li class="toolbar-item hidden-for-tablet">
-      <%= link_to copy_project_path(@project), class: 'button copy', accesskey: accesskey(:copy) do %>
+      <%= link_to copy_project_path(@project), class: 'button copy rounded-border', accesskey: accesskey(:copy) do %>
         <%= op_icon('button--icon icon-copy') %>
         <span class="button--text"><%= t(:button_copy) %></span>
       <% end %>
@@ -59,7 +59,7 @@ See COPYRIGHT and LICENSE files for more details.
                   data: { confirm: t('project.archive.are_you_sure', name: @project.name) },
                   method: :post,
                   title: t(:label_archive_project),
-                  class: 'button') do %>
+                  class: 'button rounded-border') do %>
         <%= op_icon('button--icon icon-locked') %>
         <span class="button--text"><%= t(:button_archive) %></span>
       <% end %>
@@ -71,14 +71,14 @@ See COPYRIGHT and LICENSE files for more details.
       <%= link_to(project_templated_path(@project),
                   method: @project.templated ? :delete : :post,
                   title: t("project.template.#{label}"),
-                  class: 'button') do %>
+                  class: 'button rounded-border') do %>
         <%= op_icon('button--icon icon-duplicate') unless @project.templated %>
         <span class="button--text"><%= t("project.template.#{label}") %></span>
       <% end %>
     </li>
     <li class="toolbar-item">
       <%= link_to confirm_destroy_project_path(@project),
-                  class: 'button delete',
+                  class: 'button delete rounded-border',
                   title: t(:label_delete_project) do %>
         <%= op_icon('button--icon icon-delete') %>
         <span class="button--text"><%= t(:button_delete) %></span>

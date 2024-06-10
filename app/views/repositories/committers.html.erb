@@ -26,64 +26,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: t(:label_repository) %>
-<%= simple_format(t(:text_repository_usernames_mapping)) %>
-<% if @committers.empty? %>
-  <% no_results_box %>
-<% else %>
-  <%= form_tag({}) do %>
-    <div class="generic-table--container">
-      <div class="generic-table--results-container">
-        <table class="generic-table">
-          <colgroup>
-            <col opHighlightCol>
-            <col opHighlightCol>
-          </colgroup>
-          <thead>
-            <tr>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= User.human_attribute_name(:login) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= User.model_name.human %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% i = 0 -%>
-            <% @committers.each do |committer, user_id| -%>
-              <tr>
-                <td><%=h committer %></td>
-                <td>
-                  <%= hidden_field_tag "committers[#{i}][]", committer %>
-                  <%= select_tag "committers[#{i}][]", content_tag('option', "-- #{t(:actionview_instancetag_blank_option)} --", value: '') + options_from_collection_for_select(@users, 'id', 'name', user_id.to_i) %>
-                </td>
-              </tr>
-              <% i += 1 -%>
-            <% end -%>
-          </tbody>
-        </table>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_repository), title_class: "color-orange" %>
+  <%= simple_format(t(:text_repository_usernames_mapping)) %>
+  <% if @committers.empty? %>
+    <% no_results_box %>
+  <% else %>
+    <%= form_tag({}) do %>
+      <div class="generic-table--container">
+        <div class="generic-table--results-container">
+          <table class="generic-table">
+            <colgroup>
+              <col opHighlightCol>
+              <col opHighlightCol>
+            </colgroup>
+            <thead>
+              <tr>
+                <th>
+                  <div class="generic-table--sort-header-outer">
+                    <div class="generic-table--sort-header">
+                      <span>
+                        <%= User.human_attribute_name(:login) %>
+                      </span>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div class="generic-table--sort-header-outer">
+                    <div class="generic-table--sort-header">
+                      <span>
+                        <%= User.model_name.human %>
+                      </span>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% i = 0 -%>
+              <% @committers.each do |committer, user_id| -%>
+                <tr>
+                  <td><%=h committer %></td>
+                  <td>
+                    <%= hidden_field_tag "committers[#{i}][]", committer %>
+                    <%= select_tag "committers[#{i}][]", content_tag('option', "-- #{t(:actionview_instancetag_blank_option)} --", value: '') + options_from_collection_for_select(@users, 'id', 'name', user_id.to_i) %>
+                  </td>
+                </tr>
+                <% i += 1 -%>
+              <% end -%>
+            </tbody>
+          </table>
+
+        </div>
       </div>
-    </div>
-    <hr class="form--separator" />
-    <p>
-      <%= submit_tag t(:button_update), class: 'button -primary' %>
-      <%= link_to project_settings_repository_path(@project.id), class: 'button' do %>
-        <span class="button--text"><%= t(:button_cancel) %></span>
-      <% end %>
-    </p>
+      <hr class="form--separator" />
+      <p>
+        <%= submit_tag t(:button_update), class: 'button -primary custom-secondary-button rounded-border m-0 px-3' %>
+        <%= link_to project_settings_repository_path(@project.id), class: 'button rounded-border m-0 px-3' do %>
+          <span class="button--text"><%= t(:button_cancel) %></span>
+        <% end %>
+      </p>
+    <% end %>
   <% end %>
-<% end %>
+</div>

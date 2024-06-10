@@ -44,11 +44,11 @@ See COPYRIGHT and LICENSE files for more details.
 </div>
 
 <div class="form--field">
-  <%= styled_button_tag class: "-primary" do %>
+  <%= styled_button_tag class: "-primary custom-secondary-button rounded-border m-0 mr-2" do %>
     <%= spot_icon('checkmark') %>
     <%= content_tag :span, submit_button_label %>
   <% end %>
-  <%= link_to project_settings_project_storages_path(@project), class: 'button' do %>
+  <%= link_to project_settings_project_storages_path(@project), class: 'button rounded-border m-0' do %>
     <%= spot_icon('cancel') %>
     <%= content_tag :span, t(:button_cancel) %>
   <% end %>

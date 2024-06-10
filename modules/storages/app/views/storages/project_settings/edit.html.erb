@@ -27,16 +27,18 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% html_title t(:label_administration), t("project_module_storages"), t('label_edit_x', x: @object.storage.name) %>
-<% local_assigns[:additional_breadcrumb] = t('storages.label_edit_storage') %>
-<%= toolbar title: t("storages.page_titles.project_settings.edit") %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title t(:label_administration), t("project_module_storages"), t('label_edit_x', x: @object.storage.name) %>
+  <% local_assigns[:additional_breadcrumb] = t('storages.label_edit_storage') %>
+  <%= toolbar title: t("storages.page_titles.project_settings.edit"), title_class: "color-orange" %>
 
-<%= error_messages_for @project_storage %>
+  <%= error_messages_for @project_storage %>
 
-<%= labelled_tabular_form_for @project_storage, url: project_settings_project_storage_path(project_id: @project_storage.project, id: @project_storage) do |f| -%>
-  <section class="form--section">
-    <%= render partial: '/storages/project_settings/project_folder_form',
-               locals: { f: f, available_storages: @available_storages, submit_button_label: t('button_save') }
-    %>
-  </section>
-<% end %>
+  <%= labelled_tabular_form_for @project_storage, url: project_settings_project_storage_path(project_id: @project_storage.project, id: @project_storage) do |f| -%>
+    <section class="form--section">
+      <%= render partial: '/storages/project_settings/project_folder_form',
+                locals: { f: f, available_storages: @available_storages, submit_button_label: t('button_save') }
+      %>
+    </section>
+  <% end %>
+</div>

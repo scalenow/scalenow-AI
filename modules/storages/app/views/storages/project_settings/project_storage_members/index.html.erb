@@ -28,19 +28,21 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 <% html_title t(:label_administration), t("project_module_storages"), @storage.name %>
 
-<%
-    breadcrumb_paths(
-      ActionController::Base.helpers
-        .link_to(t("project_module_storages"), project_settings_project_storages_path(@project)),
-      default_breadcrumb
-    )
-%>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%
+      breadcrumb_paths(
+        ActionController::Base.helpers
+          .link_to(t("project_module_storages"), project_settings_project_storages_path(@project)),
+        default_breadcrumb
+      )
+  %>
 
-<%= toolbar title: t("storages.page_titles.project_storage_members.title") %>
+  <%= toolbar title: t("storages.page_titles.project_storage_members.title"), title_class: "color-orange" %>
 
-<%= content_tag(:p,
-  t("storages.page_titles.project_storage_members.subtitle",
-    storage_name_link: link_to(@storage.name, edit_admin_settings_storage_path(@storage))).html_safe
-) %>
+  <%= content_tag(:p,
+    t("storages.page_titles.project_storage_members.subtitle",
+      storage_name_link: link_to(@storage.name, edit_admin_settings_storage_path(@storage))).html_safe
+  ) %>
 
-<%= render(::Storages::ProjectStorages::Members::TableComponent.new(rows: @memberships, storage: @storage)) %>
+  <%= render(::Storages::ProjectStorages::Members::TableComponent.new(rows: @memberships, storage: @storage)) %>
+</div>
