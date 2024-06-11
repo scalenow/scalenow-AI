@@ -131,7 +131,7 @@ See COPYRIGHT and LICENSE files for more details.
 
       <div id="main" class="<%= initial_classes %>">
         <div class="content-overlay"></div>
-        <main id="content-wrapper" class="<%= initial_classes %>" style="<%= !User.current.logged? ? 'height: 100% !important;' : '' %>">
+        <main id="content-wrapper" class="<%= initial_classes %>" style="padding-top: 24px; <%= !User.current.logged? ? 'height: 100% !important;' : '' %>">
           <div class="">
             <%= render_primer_banner_message %>
             <% if show_decoration %>
@@ -210,6 +210,12 @@ See COPYRIGHT and LICENSE files for more details.
         passwordField.attr('type', 'text');
       } else {
         passwordField.attr('type', 'password');
+      }
+    });
+
+    $('#content-wrapper').on('scroll', function() {
+      if ($(this).length) {
+        $(this).css('padding-top', Math.max(0, 24 - $(this).scrollTop()) + 'px');
       }
     });
   }(jQuery));

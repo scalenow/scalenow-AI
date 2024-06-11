@@ -48,14 +48,14 @@
   <div class="spot-action-bar">
     <div class="spot-action-bar--right">
       <button
-        class="button button_no-margin spot-modal--cancel-button spot-action-bar--action"
+        class="button button_no-margin spot-modal--cancel-button spot-action-bar--action rounded-border"
         data-test-selector="confirmation-modal--cancel"
         (click)="closeMe($event)"
         [textContent]="text.button_cancel"
         [attr.title]="text.button_cancel"
       ></button>
       <button
-        class="button button_no-margin -primary spot-action-bar--action"
+        class="button button_no-margin -primary spot-action-bar--action custom-secondary-button rounded-border px-3"
         data-test-selector="confirmation-modal--confirmed"
         (click)="create()"
         [disabled]="!this.selectedAttribute || inFlight"

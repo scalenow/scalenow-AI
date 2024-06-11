@@ -71,7 +71,6 @@
       i::before
         color: var(--accent-color)
 
-
 @media screen and (max-width: $breakpoint-sm)
   .homescreen--links
     padding: 20px
@@ -79,5 +78,10 @@
 
     .homescreen--links--item
       flex: auto
-      margin: 20px 0
       width: 50%
+
+@media screen and (max-width: $breakpoint-md)
+  .homescreen--links
+    display: flex
+    justify-content: space-between
+    padding: 0
