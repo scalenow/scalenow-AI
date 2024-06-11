@@ -37,6 +37,7 @@ See COPYRIGHT and LICENSE files for more details.
     </p>
   </div>
 </div>
+
 <br>
 <%= styled_form_tag(
       admin_settings_working_days_path,
@@ -88,5 +89,16 @@ See COPYRIGHT and LICENSE files for more details.
     padding: 12px;
     border-radius: 33px;
     border: 2px solid #000;
+  }
+
+  .op-toast.-warning {
+    background-color: #f3f6f9 !important; /* Override all other styles with !important */
+    border: 1px solid black;
+    border-radius: 33px;
+  }
+
+  .fc-event td {
+    background-color: #f3f6f9 !important;
+    color: black !important; /* Ensure the text color is black */
   }
 </style>
