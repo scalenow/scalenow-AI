@@ -215,20 +215,18 @@ See COPYRIGHT and LICENSE files for more details.
 
             <div class="card">
               <div class="card-body">
-                <div class="d-flex flex-wrap gap-2 fs-16">
-                  <% if show_homescreen_links? && @homescreen[:links].any? %>
-                    <section class="homescreen--links">
-                      <% @homescreen[:links].each do |link| %>
-                        <% title = I18n.t(link[:label], scope: 'homescreen.links') %>
-                        <a class="homescreen--links--item" href="#" target="_blank" title="<%= title %>">
-                          <%= op_icon(link[:icon]) %>
-                          <%= title %>
-                        </a>
-                      <% end %>
-                    </section>
-                  <% end %>
-                  <%= call_hook :homescreen_after_links %>
-                </div>
+                <% if show_homescreen_links? && @homescreen[:links].any? %>
+                  <section class="homescreen--links">
+                    <% @homescreen[:links].each do |link| %>
+                      <% title = I18n.t(link[:label], scope: 'homescreen.links') %>
+                      <a class="homescreen--links--item" href="#" target="_blank" title="<%= title %>">
+                        <%= op_icon(link[:icon]) %>
+                        <%= title %>
+                      </a>
+                    <% end %>
+                  </section>
+                <% end %>
+                <%= call_hook :homescreen_after_links %>
               </div> <!-- end card body -->
             </div> <!-- end card -->
           </div> <!-- end col -->

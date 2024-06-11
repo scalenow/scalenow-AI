@@ -16409,7 +16409,7 @@ span.flatpickr-weekday {
 
 body {
   background-color: #fbf7f4 !important;
-  padding: 25px !important;
+  padding: 25px;
 }
 
 .project-list {
@@ -16569,8 +16569,17 @@ h5.version.icon-modules::before {
   #mobile-view-logo {
     display: block;
   }
+
+  .-grid.task-page {
+    grid-template-columns: repeat(auto-fit, minmax(45%, 1fr)) !important;
+  }
 }
 
+@media all and (max-width: 576px) {
+  .-grid.task-page {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr)) !important;
+  }
+}
 .-grid.task-page {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
@@ -16617,4 +16626,8 @@ h5.version.icon-modules::before {
 
 #meeting-agenda-items-list-component .Box li:first-child {
   border: 0;
+}
+
+#content-wrapper {
+  transition: padding-top 0.3s ease;
 }
