@@ -65,23 +65,41 @@
   </edit-form>
 
   <div *ngIf="!isNewResource(workPackage)"
-       class="op-wp-single-card--content">
+       class="op-wp-single-card--content d-flex flex-column">
 
-    <span
-      class="op-wp-single-card--content-project-name"
-      [ngClass]="{'op-wp-single-card--content-project-name_hideable': showInfoButton || showRemoveButton}"
-    >
-      - {{wpProjectName(workPackage)}}
-    </span>
-    <a class="op-wp-single-card--content-id"
-       [href]="fullWorkPackageLink(workPackage)"
-       [ngClass]="uiStateLinkClass"
-       (click)="emitStateLinkClicked($event, workPackage)"
-    >
-      #{{workPackage.id}}
-    </a>
-
-    <span class="op-wp-single-card--content-subject-line">
+    <div class="d-flex">
+      <div class="op-wp-single-card--content-status-baseline"
+        [ngClass]="!showStatusButton ? 'm-0' : ''"
+      >
+        <wp-status-button *ngIf="showStatusButton"
+                          [workPackage]="workPackage"
+                          [small]="true"
+                          class="op-wp-single-card--content-status"
+        >
+        </wp-status-button>
+        <span
+          *ngIf="baselineIcon(workPackage) !== ''"
+          class="spot-icon spot-icon_1 spot-icon_flex op-wp-single-card--content-baseline"
+          [ngClass]="baselineMode==='added' ? 'spot-icon_flex spot-icon_arrow-in op-table-baseline--icon-added' : (baselineMode==='removed' ? 'spot-icon_arrow-out op-table-baseline--icon-removed' : 'spot-icon_delta-triangle op-table-baseline--icon-changed')"
+          title="{{ baselineMode==='added' ? text.baseLineIconAdded : (baselineMode==='removed' ? text.baseLineIconRemoved : text.baseLineIconChanged) }}"
+        >
+        </span>
+      </div>
+      <a class="op-wp-single-card--content-id"
+      [href]="fullWorkPackageLink(workPackage)"
+      [ngClass]="uiStateLinkClass"
+      (click)="emitStateLinkClicked($event, workPackage)"
+      >
+        #{{workPackage.id}}
+      </a>
+      <span
+        class="op-wp-single-card--content-project-name"
+        [ngClass]="{'op-wp-single-card--content-project-name_hideable': showInfoButton || showRemoveButton}"
+      >
+        - {{wpProjectName(workPackage)}}
+      </span>
+    </div>
+    <span class="op-wp-single-card--content-subject-line d-flex flex-column gap-2 mt-2">
       <span
         *ngIf="showAsInlineCard && showStartDate"
         class="op-wp-single-card--content-inline-date"
@@ -126,39 +144,25 @@
     <img *ngIf="this.cardCoverImageShown(workPackage) && !showAsInlineCard"
          [src]="this.bcfSnapshotPath(workPackage)"
          class="op-wp-single-card--content-cover-image">
-    <div class="op-wp-single-card--content-status-baseline">
-      <wp-status-button *ngIf="showStatusButton"
-                        [workPackage]="workPackage"
-                        [small]="true"
-                        class="op-wp-single-card--content-status"
-      >
-      </wp-status-button>
-      <span
-        *ngIf="baselineIcon(workPackage) !== ''"
-        class="spot-icon spot-icon_1 spot-icon_flex op-wp-single-card--content-baseline"
-        [ngClass]="baselineMode==='added' ? 'spot-icon_flex spot-icon_arrow-in op-table-baseline--icon-added' : (baselineMode==='removed' ? 'spot-icon_arrow-out op-table-baseline--icon-removed' : 'spot-icon_delta-triangle op-table-baseline--icon-changed')"
-        title="{{ baselineMode==='added' ? text.baseLineIconAdded : (baselineMode==='removed' ? text.baseLineIconRemoved : text.baseLineIconChanged) }}"
-      >
-      </span>
-
+    <div class="d-flex flex-column gap-2 mt-2">
+      <op-principal
+        *ngIf="workPackage.assignee"
+        [principal]="workPackage.assignee"
+        [hideName]="false"
+        [link]="false"
+        size="mini"
+        class="op-wp-single-card--content-assignee"
+        data-test-selector="op-wp-single-card--content-assignee"
+      ></op-principal>
+      <display-field
+        *ngIf="!showAsInlineCard"
+        [resource]="workPackage"
+        [displayFieldOptions]="{ writable: false, dateFormat: 'MMM DD, YYYY', placeholder: '' }"
+        [displayClass]="combinedDateDisplayField"
+        fieldName="dueDate"
+        class="op-wp-single-card--content-dates"
+        containerType="single-view">
+      </display-field>
     </div>
-    <op-principal
-      *ngIf="workPackage.assignee"
-      [principal]="workPackage.assignee"
-      [hideName]="true"
-      [link]="false"
-      size="mini"
-      class="op-wp-single-card--content-assignee"
-      data-test-selector="op-wp-single-card--content-assignee"
-    ></op-principal>
-    <display-field
-      *ngIf="!showAsInlineCard"
-      [resource]="workPackage"
-      [displayFieldOptions]="{ writable: false, dateFormat: 'MMM DD, YYYY', placeholder: '' }"
-      [displayClass]="combinedDateDisplayField"
-      fieldName="dueDate"
-      class="op-wp-single-card--content-dates"
-      containerType="single-view">
-    </display-field>
   </div>
 </div>

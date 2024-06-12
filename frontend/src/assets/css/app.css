@@ -16631,3 +16631,26 @@ h5.version.icon-modules::before {
 #content-wrapper {
   transition: padding-top 0.3s ease;
 }
+
+.hidden-navigation .main-menu li {
+  position: relative;
+}
+
+.hidden-navigation .main-menu ul.main-menu--children {
+  display: none !important;
+}
+
+.hidden-navigation .main-menu li:hover > ul.main-menu--children {
+  display: block !important;
+  position: absolute;
+  z-index: 9999;
+  background-color: #fff;
+  width: auto;
+  height: auto !important;
+  border: 1px solid #000;
+  border-radius: 33px;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 84px;
+}
