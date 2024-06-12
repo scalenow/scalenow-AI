@@ -27,41 +27,43 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% content_for :header_tags do %>
-  <%= call_hook :placeholder_users_show_head %>
-<% end %>
-<% html_title t(:label_administration), t(:label_placeholder_user_plural) -%>
-<%= toolbar title: "#{avatar @placeholder_user} #{h(@placeholder_user.name)}".html_safe do %>
-  <% if current_user.allowed_globally?(:manage_placeholder_user) %>
-    <li class="toolbar-item">
-      <%= link_to edit_placeholder_user_path(@placeholder_user), class: 'button', accesskey: accesskey(:edit) do %>
-        <%= op_icon('button--icon icon-edit') %>
-        <span class="button--text"><%= t(:button_edit) %></span>
-      <% end %>
-    </li>
-    <%= render partial: 'placeholder_users/toolbar_delete' %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% content_for :header_tags do %>
+    <%= call_hook :placeholder_users_show_head %>
   <% end %>
-<% end %>
-
-<div class="grid-block grid-block_double-column">
-  <div class="grid-content">
-    <%= call_hook :view_account_left_top, placeholder_user: @placeholder_user %>
-
-    <%= call_hook :view_account_left_middle, placeholder_user: @placeholder_user %>
-
-    <% unless @memberships.empty? %>
-      <h3><%=t(:label_project_plural)%></h3>
-      <ul>
-        <% for membership in @memberships %>
-          <li>
-            <%= link_to_project(membership.project) %>
-            (<%=h membership.roles.sort.collect(&:to_s).join(', ') %>, <%= format_date(membership.created_at) %>)
-          </li>
+  <% html_title t(:label_administration), t(:label_placeholder_user_plural) -%>
+  <%= toolbar title: "#{avatar @placeholder_user} #{h(@placeholder_user.name)}".html_safe, title_class: "color-orange" do %>
+    <% if current_user.allowed_globally?(:manage_placeholder_user) %>
+      <li class="toolbar-item">
+        <%= link_to edit_placeholder_user_path(@placeholder_user), class: 'button rounded-border', accesskey: accesskey(:edit) do %>
+          <%= op_icon('button--icon icon-edit') %>
+          <span class="button--text"><%= t(:button_edit) %></span>
         <% end %>
-      </ul>
+      </li>
+      <%= render partial: 'placeholder_users/toolbar_delete' %>
     <% end %>
-    <%= call_hook :view_account_left_bottom, placeholder_user: @placeholder_user %>
-  </div>
-</div>
+  <% end %>
 
-<% html_title h(@placeholder_user.name) %>
+  <div class="grid-block grid-block_double-column">
+    <div class="grid-content">
+      <%= call_hook :view_account_left_top, placeholder_user: @placeholder_user %>
+
+      <%= call_hook :view_account_left_middle, placeholder_user: @placeholder_user %>
+
+      <% unless @memberships.empty? %>
+        <h3><%=t(:label_project_plural)%></h3>
+        <ul>
+          <% for membership in @memberships %>
+            <li>
+              <%= link_to_project(membership.project) %>
+              (<%=h membership.roles.sort.collect(&:to_s).join(', ') %>, <%= format_date(membership.created_at) %>)
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= call_hook :view_account_left_bottom, placeholder_user: @placeholder_user %>
+    </div>
+  </div>
+
+  <% html_title h(@placeholder_user.name) %>
+</div>

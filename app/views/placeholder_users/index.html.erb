@@ -29,36 +29,37 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title t(:label_administration), t(:label_placeholder_user_plural) -%>
 <% has_ee = EnterpriseToken.allows_to?(:placeholder_users) %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% if has_ee %>
+    <%= toolbar title: t(:label_placeholder_user_plural), title_class: 'color-orange no-padding-bottom' do %>
+      <li class="toolbar-item">
+        <%= link_to new_placeholder_user_path,
+                    { class: 'button -primary custom-secondary-button rounded-border',
+                      aria: { label: t(:label_placeholder_user_new) },
+                      title: t(:label_placeholder_user_new) } do %>
+          <%= op_icon('button--icon icon-add') %>
+          <span class="button--text"><%= t('activerecord.models.placeholder_user') %></span>
+        <% end %>
+      </li>
 
-<% if has_ee %>
-  <%= toolbar title: t(:label_placeholder_user_plural), title_class: 'no-padding-bottom' do %>
-    <li class="toolbar-item">
-      <%= link_to new_placeholder_user_path,
-                  { class: 'button -primary',
-                    aria: { label: t(:label_placeholder_user_new) },
-                    title: t(:label_placeholder_user_new) } do %>
-        <%= op_icon('button--icon icon-add') %>
-        <span class="button--text"><%= t('activerecord.models.placeholder_user') %></span>
-      <% end %>
-    </li>
+      <%= call_hook(:placeholder_user_admin_action_menu) %>
+    <% end %>
 
-    <%= call_hook(:placeholder_user_admin_action_menu) %>
   <% end %>
 
-<% end %>
 
-
-<% if has_ee %>
-  <%= render PlaceholderUsers::PlaceholderUserFilterComponent.new(params) %>
-  &nbsp;
-  <%= render PlaceholderUsers::TableComponent.new(rows: @placeholder_users) %>
-<% else %>
-  <%= render template: 'common/upsale',
-        locals: {
-          feature_title: I18n.t('placeholder_users.upsale.title'),
-          feature_description: I18n.t('placeholder_users.upsale.description'),
-          feature_reference: 'placeholder_users',
-          feature_video: 'enterprise/placeholder_users.mp4'
-        }
-  %>
-<% end %>
+  <% if has_ee %>
+    <%= render PlaceholderUsers::PlaceholderUserFilterComponent.new(params) %>
+    &nbsp;
+    <%= render PlaceholderUsers::TableComponent.new(rows: @placeholder_users) %>
+  <% else %>
+    <%= render template: 'common/upsale',
+          locals: {
+            feature_title: I18n.t('placeholder_users.upsale.title'),
+            feature_description: I18n.t('placeholder_users.upsale.description'),
+            feature_reference: 'placeholder_users',
+            feature_video: 'enterprise/placeholder_users.mp4'
+          }
+    %>
+  <% end %>
+</div>

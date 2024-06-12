@@ -104,10 +104,13 @@ See COPYRIGHT and LICENSE files for more details.
                             </label>
                         <% end %>
                       </div>
-                      <p><%= submit_tag t(:button_change), class: 'memberships--edit-submit-button button -primary -small' %>
+                      <p>
+                        <%= submit_tag t(:button_change),
+                                        class: 'memberships--edit-submit-button button -primary -small custom-secondary-button rounded-border m-0 mr-2 px-3' %>
                         <%= link_to_function t(:button_cancel),
                                              "jQuery('.member-#{membership.id}--edit-toggle-item').toggle();",
-                  class: 'button -small' %></p>
+                                             class: 'button -small rounded-border m-0 px-3' %>
+                      </p>
                     <% end %>
                   </td>
                   <%= call_individual_principals_memberships_hook(@individual_principal,
@@ -164,7 +167,7 @@ See COPYRIGHT and LICENSE files for more details.
               <%= labeled_check_box_tags 'membership[role_ids][]', roles %>
             </div>
           </div>
-          <div><%= styled_button_tag t(:button_add), class: '-primary -with-icon icon-checkmark' %></div>
+          <div><%= styled_button_tag t(:button_add), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %></div>
         </fieldset>
       <% end %>
     <% end %>

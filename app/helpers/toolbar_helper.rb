@@ -26,8 +26,8 @@ module ToolbarHelper
     end
   end
 
-  def breadcrumb_toolbar(*elements, subtitle: "", html: {}, &)
-    toolbar(title: safe_join(elements, " &raquo ".html_safe), subtitle:, html:, &)
+  def breadcrumb_toolbar(*elements, subtitle: "", html: {}, title_class: "", &)
+    toolbar(title: safe_join(elements, " &raquo ".html_safe), subtitle:, html:, title_class:, &)
   end
 
   protected
