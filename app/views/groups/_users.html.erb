@@ -28,7 +28,6 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="grid-block -visible-overflow">
-
   <div class="grid-content medium-6">
     <% if @group.users.any? %>
       <div class="generic-table--container">
@@ -62,7 +61,7 @@ See COPYRIGHT and LICENSE files for more details.
           </div>
           <div>
             <%= styled_button_tag t(:button_add),
-                                  class: '-primary -with-icon icon-checkmark' %>
+                                  class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
           </div>
         </fieldset>
       <% end %>

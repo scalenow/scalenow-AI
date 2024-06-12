@@ -27,18 +27,20 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% html_title t(:label_administration), t("label_placeholder_user_new") %>
-<% local_assigns[:additional_breadcrumb] = t(:label_placeholder_user_new) %>
-<%= render partial: 'toolbar', locals: { new_user: true,
-                                         :@placeholder_user => @placeholder_user } %>
-<%= labelled_tabular_form_for @placeholder_user,
-                              url: { action: "create" },
-                              html: { class: nil, autocomplete: 'off' },
-                              as: :placeholder_user do |f| %>
-  <%= render partial: 'form', locals: { f: f, placeholder_user: @placeholder_user } %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title t(:label_administration), t("label_placeholder_user_new") %>
+  <% local_assigns[:additional_breadcrumb] = t(:label_placeholder_user_new) %>
+  <%= render partial: 'toolbar', locals: { new_user: true,
+                                          :@placeholder_user => @placeholder_user } %>
+  <%= labelled_tabular_form_for @placeholder_user,
+                                url: { action: "create" },
+                                html: { class: nil, autocomplete: 'off' },
+                                as: :placeholder_user do |f| %>
+    <%= render partial: 'form', locals: { f: f, placeholder_user: @placeholder_user } %>
 
-  <p>
-    <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark' %>
-    <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark' %>
-  </p>
-<% end %>
+    <p>
+      <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
+      <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+    </p>
+  <% end %>
+</div>

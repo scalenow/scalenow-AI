@@ -107,7 +107,7 @@ module UsersHelper
 
   def change_user_status_buttons(user)
     build_change_user_status_action(user) do |title, name|
-      button_tag(class: "button", name:, type: "submit", title:) do
+      button_tag(class: "button rounded-border", name:, type: "submit", title:) do
         concat op_icon("button--icon icon-#{change_user_status_icons[name]}")
         concat content_tag(:span, title, class: "button--text")
       end

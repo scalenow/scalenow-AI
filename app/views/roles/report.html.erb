@@ -26,97 +26,102 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= breadcrumb_toolbar t(:label_permissions_report) %>
-<% local_assigns[:additional_breadcrumb] = t(:label_permissions_report) %>
-<% html_title t(:label_administration), t(:label_permissions_report) %>
 
-<% (@calls || []).select(&:failure?).each do |call| %>
-  <%= error_messages_for(call.result) %>
-<% end %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= breadcrumb_toolbar t(:label_permissions_report), title_class: "color-orange" %>
+  <% local_assigns[:additional_breadcrumb] = t(:label_permissions_report) %>
+  <% html_title t(:label_administration), t(:label_permissions_report) %>
 
-<%= form_tag(roles_path, method: :put, id: 'permissions_form') do %>
-  <%= hidden_field_tag 'permissions[0]', '', id: nil %>
+  <% (@calls || []).select(&:failure?).each do |call| %>
+    <%= error_messages_for(call.result) %>
+  <% end %>
 
-  <% group_permissions_by_module(@permissions).each do |mod, mod_permissions| %>
-    <% module_name = mod.blank? ? "form--" + I18n.t('attributes.project') : "form--" + l_or_humanize(mod, prefix: 'project_module_').gsub(' ','_') %>
-    <% escaped_name = module_name.parameterize %>
-    <fieldset class="form--fieldset -collapsible" id= "<%= escaped_name %>">
-      <legend class="form--fieldset-legend" >
-        <%= mod.blank? ? I18n.t('attributes.project') : l_or_humanize(mod, prefix: 'project_module_') %>
-      </legend>
-      <div class="form--toolbar">
-        <span class="form--toolbar-item">
-          (<%= check_all_links escaped_name %>)
-        </span>
-      </div>
+  <%= form_tag(roles_path, method: :put, id: 'permissions_form') do %>
+    <%= hidden_field_tag 'permissions[0]', '', id: nil %>
 
-      <div class="generic-table--container">
-        <div class="generic-table--results-container">
-          <table class="generic-table">
-            <colgroup>
-              <col opHighlightCol>
-              <col opHighlightCol>
-              <col opHighlightCol>
-              <col opHighlightCol>
-              <col opHighlightCol>
-              <col opHighlightCol>
-            </colgroup>
-            <thead>
-              <tr>
-                <th>
-                  <div class="generic-table--sort-header-outer">
-                    <div class="generic-table--sort-header">
-                      <span>
-                        <%=t(:label_permissions)%>
-                      </span>
-                    </div>
-                  </div>
-                </th>
-                <% @roles.each do |role| %>
+    <% group_permissions_by_module(@permissions).each do |mod, mod_permissions| %>
+      <% module_name = mod.blank? ? "form--" + I18n.t('attributes.project') : "form--" + l_or_humanize(mod, prefix: 'project_module_').gsub(' ','_') %>
+      <% escaped_name = module_name.parameterize %>
+      <fieldset class="form--fieldset -collapsible" id= "<%= escaped_name %>">
+        <legend class="form--fieldset-legend" >
+          <%= mod.blank? ? I18n.t('attributes.project') : l_or_humanize(mod, prefix: 'project_module_') %>
+        </legend>
+        <div class="form--toolbar">
+          <span class="form--toolbar-item">
+            (<%= check_all_links escaped_name %>)
+          </span>
+        </div>
+
+        <div class="generic-table--container">
+          <div class="generic-table--results-container">
+            <table class="generic-table">
+              <colgroup>
+                <col opHighlightCol>
+                <col opHighlightCol>
+                <col opHighlightCol>
+                <col opHighlightCol>
+                <col opHighlightCol>
+                <col opHighlightCol>
+              </colgroup>
+              <thead>
+                <tr>
                   <th>
                     <div class="generic-table--sort-header-outer">
                       <div class="generic-table--sort-header">
                         <span>
-                          <%= content_tag(role.builtin? ? 'em' : 'span', h(role.name)) %>
-                          <%= link_to_function(
-                                icon_wrapper('icon-context icon-checkmark',"#{t(:button_check_all)}/#{t(:button_uncheck_all)}"),
-                                "OpenProject.helpers.toggleCheckboxesBySelector('input.role-#{role.id}')",
-                                class: 'no-decoration-on-hover',
-                                title: "#{t(:button_check_all)}/#{t(:button_uncheck_all)}") %>
+                          <%=t(:label_permissions)%>
                         </span>
                       </div>
                     </div>
                   </th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% mod_permissions.each do |permission| %>
-                <tr class="permission-<%= permission.name %>">
-                  <td>
-                    <%= link_to_function(
-                          icon_wrapper('icon-context icon-checkmark',"#{t(:button_check_all)}/#{t(:button_uncheck_all)}"),
-                          "OpenProject.helpers.toggleCheckboxesBySelector('.permission-#{permission.name} input')",
-                          class: 'no-decoration-on-hover',
-                          title: "#{t(:button_check_all)}/#{t(:button_uncheck_all)}") %>
-                    <%= l_or_humanize(permission.name, prefix: 'permission_') %>
-                  </td>
                   <% @roles.each do |role| %>
-                    <td>
-                      <% if setable_permissions(role).include? permission %>
-                        <%= check_box_tag "permissions[#{role.id}][]", permission.name, (role.permissions.include? permission.name), id: nil, class: "role-#{role.id}" %>
-                      <% end %>
-                    </td>
+                    <th>
+                      <div class="generic-table--sort-header-outer">
+                        <div class="generic-table--sort-header">
+                          <span>
+                            <%= content_tag(role.builtin? ? 'em' : 'span', h(role.name)) %>
+                            <%= link_to_function(
+                                  icon_wrapper('icon-context icon-checkmark',"#{t(:button_check_all)}/#{t(:button_uncheck_all)}"),
+                                  "OpenProject.helpers.toggleCheckboxesBySelector('input.role-#{role.id}')",
+                                  class: 'no-decoration-on-hover',
+                                  title: "#{t(:button_check_all)}/#{t(:button_uncheck_all)}") %>
+                          </span>
+                        </div>
+                      </div>
+                    </th>
                   <% end %>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% mod_permissions.each do |permission| %>
+                  <tr class="permission-<%= permission.name %>">
+                    <td>
+                      <%= link_to_function(
+                            icon_wrapper('icon-context icon-checkmark',"#{t(:button_check_all)}/#{t(:button_uncheck_all)}"),
+                            "OpenProject.helpers.toggleCheckboxesBySelector('.permission-#{permission.name} input')",
+                            class: 'no-decoration-on-hover',
+                            title: "#{t(:button_check_all)}/#{t(:button_uncheck_all)}") %>
+                      <%= l_or_humanize(permission.name, prefix: 'permission_') %>
+                    </td>
+                    <% @roles.each do |role| %>
+                      <td>
+                        <% if setable_permissions(role).include? permission %>
+                          <%= check_box_tag "permissions[#{role.id}][]", permission.name, (role.permissions.include? permission.name), id: nil, class: "role-#{role.id}" %>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
 
+          </div>
         </div>
-      </div>
-    </fieldset>
-  <% end %>
+      </fieldset>
+    <% end %>
 
-  <p><%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %></p>
-<% end %>
+    <p class="m-0">
+      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+    </p>
+  <% end %>
+</div>

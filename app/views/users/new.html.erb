@@ -27,37 +27,30 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% html_title t(:label_administration), t("label_user_new") %>
-<% local_assigns[:additional_breadcrumb] = t(:label_user_new) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title t(:label_administration), t("label_user_new") %>
+  <% local_assigns[:additional_breadcrumb] = t(:label_user_new) %>
 
-<%= toolbar title: t(:label_user_new) %>
+  <%= toolbar title: t(:label_user_new), title_class: "color-orange" %>
 
-<%= error_messages_for @user %>
+  <%= error_messages_for @user %>
 
-<%= labelled_tabular_form_for @user,
-                              url: { action: "create" },
-                              html: { class: nil, autocomplete: 'off' },
-                              data: {
-                                controller: 'admin--users',
-                                'application-target': 'dynamic',
-                                'admin--users-password-auth-selected-value': @user.ldap_auth_source_id.blank?,
-                              },
-                              as: :user do |f| %>
-  <div class="form-custom">
-  <%= render partial: 'simple_form', locals: { f: f, auth_sources: @ldap_auth_sources, user: @user } %>
+  <%= labelled_tabular_form_for @user,
+                                url: { action: "create" },
+                                html: { class: nil, autocomplete: 'off' },
+                                data: {
+                                  controller: 'admin--users',
+                                  'application-target': 'dynamic',
+                                  'admin--users-password-auth-selected-value': @user.ldap_auth_source_id.blank?,
+                                },
+                                as: :user do |f| %>
+    <div class="form-custom">
+      <%= render partial: 'simple_form', locals: { f: f, auth_sources: @ldap_auth_sources, user: @user } %>
 
-  <p>
-    <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
-    <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
-  </p>
-  </div>
-<% end %>
-
-<style>
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-   }
-</style>
+      <p class="m-0">
+        <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
+        <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+      </p>
+    </div>
+  <% end %>
+</div>

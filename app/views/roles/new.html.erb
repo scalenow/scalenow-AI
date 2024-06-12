@@ -28,12 +28,13 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title t(:label_administration), t(:label_role_new) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+    <% local_assigns[:additional_breadcrumb] = t(:label_role_new) %>
+    <%= breadcrumb_toolbar t(:label_role_new), title_class: "color-orange" %>
 
-<% local_assigns[:additional_breadcrumb] = t(:label_role_new) %>
-<%= breadcrumb_toolbar t(:label_role_new) %>
-
-<%= labelled_tabular_form_for @role, :url => { :action => 'create' }, :html => {:id => 'role_form'}, :as => :role do |f| %>
-<%= render partial: 'form', locals: { f: f, role: @role, roles: @roles } %>
-<br/>
-<%= styled_button_tag t(:button_create), class: '-with-icon icon-checkmark' %>
-<% end %>
+    <%= labelled_tabular_form_for @role, :url => { :action => 'create' }, :html => {:id => 'role_form'}, :as => :role do |f| %>
+    <%= render partial: 'form', locals: { f: f, role: @role, roles: @roles } %>
+    <br/>
+    <%= styled_button_tag t(:button_create), class: '-with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+    <% end %>
+</div>

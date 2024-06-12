@@ -26,18 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<div class="custom-toolbar-title">
-  <%= toolbar title: @plugin.name %>
-</div>
 
-<div id="settings">
-  <%= styled_form_tag({controller: '/admin/settings', action: 'update_plugin' }) do %>
-    <%= render partial: @partial, locals: {settings: @settings}%>
-  <% end %>
-</div>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: @plugin.name, title_class: "color-orange" %>
 
-<style>
-  .custom-toolbar-title .title-container h2 {
-    color: #ff7f5d;
-  }
-</style>
+  <div id="settings">
+    <%= styled_form_tag({controller: '/admin/settings', action: 'update_plugin' }) do %>
+      <%= render partial: @partial, locals: {settings: @settings}%>
+    <% end %>
+  </div>
+</div>
