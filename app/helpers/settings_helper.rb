@@ -78,7 +78,7 @@ module SettingsHelper
   def setting_multiselect(setting, choices, options = {})
     direction = options.delete(:direction) || :vertical
     setting_label(setting, options) +
-      content_tag(:span, class: "form--field-container -#{direction}") do
+      content_tag(:span, class: "form--field-container -#{direction} #{options[:classes]}") do
         hidden = with_empty_unless_writable(setting) do
           hidden_field_tag("settings[#{setting}][]", "")
         end

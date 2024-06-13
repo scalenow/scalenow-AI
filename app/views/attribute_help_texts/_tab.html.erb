@@ -1,6 +1,6 @@
 <% entries = @texts_by_type[tab[:name]] || [] %>
 <% if entries.any? %>
-  <div class="generic-table--container form-custom">
+  <div class="generic-table--container">
     <div class="generic-table--results-container">
       <table class="generic-table">
         <colgroup>
@@ -68,12 +68,3 @@
 <% else %>
   <%= no_results_box %>
 <% end %>
-
-<style>
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-   }
-</style>

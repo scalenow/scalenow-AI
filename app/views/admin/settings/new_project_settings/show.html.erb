@@ -26,14 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: t(:label_project_new) %>
-<div class="form-custom">
+
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_project_new), title_class: "color-orange" %>
   <%= styled_form_tag(admin_settings_new_project_path, method: :patch) do %>
     <fieldset class="form--fieldset">
       <div class="form--field"><%= setting_check_box :default_projects_public %></div>
       <div class="form--field">
         <%= setting_multiselect(:default_projects_modules,
-          OpenProject::AccessControl.available_project_modules.collect {|m| [l_or_humanize(m, prefix: "project_module_"), m.to_s]}) %>
+          OpenProject::AccessControl.available_project_modules.collect {|m| [l_or_humanize(m, prefix: "project_module_"), m.to_s]}, classes: "horizontal-checkboxes") %>
       </div>
       <div class="form--field"><%= setting_select :new_project_user_role_id,
                         Role.givable.collect {|r| [r.name, r.id.to_s]},
@@ -41,15 +42,6 @@ See COPYRIGHT and LICENSE files for more details.
                         container_class: '-middle' %></div>
     </fieldset>
 
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
   <% end %>
 </div>
-
-<style>
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-  }
-</style>

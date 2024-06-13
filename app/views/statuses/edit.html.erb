@@ -27,11 +27,13 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% html_title t(:label_administration), "#{t(:label_edit)} #{Status.model_name.human} #{h @status.name}" %>
-<% local_assigns[:additional_breadcrumb] =  @status.name %>
-<%= breadcrumb_toolbar @status.name %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title t(:label_administration), "#{t(:label_edit)} #{Status.model_name.human} #{h @status.name}" %>
+  <% local_assigns[:additional_breadcrumb] =  @status.name %>
+  <%= breadcrumb_toolbar @status.name, title_class: "color-orange" %>
 
-<%= labelled_tabular_form_for(@status) do |f| %>
-  <%= render partial: 'form', locals: { f: f } %>
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
+  <%= labelled_tabular_form_for(@status) do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+  <% end %>
+</div>

@@ -33,7 +33,7 @@ See COPYRIGHT and LICENSE files for more details.
 %>
 
 <%= error_messages_for :enumeration %>
-<section class="form--section form-custom">
+<section class="form--section m-0">
   <%= f.hidden_field 'type' %>
   <div class="form--field -required"><%= f.text_field 'name', required: true, container_class: '-middle' %></div>
   <div class="form--field"><%= f.check_box 'active' %></div>
@@ -48,18 +48,5 @@ See COPYRIGHT and LICENSE files for more details.
                    label: @enumeration.color_label
                }  %>
   <% end %>
-  <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
+  <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
 </section>
-
-<style>
-  .title-container h2 {
-    color: #ff7f5d;
-  }
-
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-   }
-</style>

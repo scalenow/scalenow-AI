@@ -16654,3 +16654,14 @@ h5.version.icon-modules::before {
   top: 0;
   left: 84px;
 }
+
+.horizontal-checkboxes {
+  display: flex !important;
+  flex-wrap: wrap;
+}
+
+.horizontal-checkboxes .form--label-with-check-box {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 160px;
+}
