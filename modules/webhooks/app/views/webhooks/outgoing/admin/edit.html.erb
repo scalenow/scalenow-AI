@@ -5,18 +5,17 @@
   t('webhooks.outgoing.label_edit')
   ]
 %>
-
-<%= toolbar title: t('webhooks.outgoing.label_edit') %>
-
-<%= error_messages_for @webhook %>
-
-<%= labelled_tabular_form_for @webhook,
-                              url: { action: :update },
-                              as: 'webhook',
-                              html: { class: 'form', autocomplete: 'off' } do |f| %>
-  <%= render partial: "form", locals: { f: f, webhook: @webhook } %>
-  <p>
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-    <%= link_to t(:button_cancel), { action: :index }, class: 'button -with-icon icon-cancel' %>
-  </p>
-<% end %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t('webhooks.outgoing.label_edit'), title_class: "color-orange" %>
+  <%= error_messages_for @webhook %>
+  <%= labelled_tabular_form_for @webhook,
+                                url: { action: :update },
+                                as: 'webhook',
+                                html: { class: 'form', autocomplete: 'off' } do |f| %>
+    <%= render partial: "form", locals: { f: f, webhook: @webhook } %>
+    <p>
+      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
+      <%= link_to t(:button_cancel), { action: :index }, class: 'button -with-icon icon-cancel rounded-border m-0 px-3' %>
+    </p>
+  <% end %>
+</div>

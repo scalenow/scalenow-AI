@@ -27,13 +27,15 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% html_title t(:label_administration), "#{t(:label_edit)} #{t(:label_ldap_auth_source)} #{@ldap_auth_source.name}" %>
-<% local_assigns[:additional_breadcrumb] = @ldap_auth_source.name %>
-<%= toolbar title: "#{t(:label_ldap_auth_source)}" %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title t(:label_administration), "#{t(:label_edit)} #{t(:label_ldap_auth_source)} #{@ldap_auth_source.name}" %>
+  <% local_assigns[:additional_breadcrumb] = @ldap_auth_source.name %>
+  <%= toolbar title: "#{t(:label_ldap_auth_source)}", title_class: "color-orange" %>
 
-<%= labelled_tabular_form_for @ldap_auth_source do |f| %>
-  <%= render partial: 'form', locals: { f: f } %>
-  <% unless @ldap_auth_source.seeded_from_env? %>
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
+  <%= labelled_tabular_form_for @ldap_auth_source do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <% unless @ldap_auth_source.seeded_from_env? %>
+      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

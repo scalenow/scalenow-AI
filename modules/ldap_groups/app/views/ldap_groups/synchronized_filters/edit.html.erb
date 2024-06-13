@@ -1,16 +1,16 @@
 <% local_assigns[:additional_breadcrumb] = h(@filter.name) %>
 <% html_title(t(:label_administration), t(:label_edit_x, x: @filter.name)) -%>
 
-<%= toolbar title: t(:label_edit_x, x: @filter.name) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_edit_x, x: @filter.name), title_class: "color-orange" %>
+  <%= labelled_tabular_form_for @filter,
+                                as: :synchronized_filter,
+                                url: { action: :update } do |f| %>
 
-<%= labelled_tabular_form_for @filter,
-                              as: :synchronized_filter,
-                              url: { action: :update } do |f| %>
-
-  <%= render partial: 'form', locals: { f: f } %>
-
-  <p>
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-    <%= link_to t(:button_cancel), { action: :show }, class: 'button -with-icon icon-cancel' %>
-  </p>
-<% end %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <p class="m-0">
+      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
+      <%= link_to t(:button_cancel), { action: :show }, class: 'button -with-icon icon-cancel rounded-border m-0' %>
+    </p>
+  <% end %>
+</div>

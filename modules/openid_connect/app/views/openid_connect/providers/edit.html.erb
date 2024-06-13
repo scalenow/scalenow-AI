@@ -1,17 +1,16 @@
 <% page_title = t('openid_connect.providers.label_edit', name: @provider.name) %>
 <% local_assigns[:additional_breadcrumb] = @provider.name %>
-
 <% html_title(t(:label_administration), page_title) -%>
 
-<%= toolbar title: page_title %>
-
-<%= error_messages_for @provider %>
-
-<%= labelled_tabular_form_for @provider,
-                              html: { class: 'form', autocomplete: 'off' } do |f| %>
-  <%= render partial: "form", locals: { f: f } %>
-  <p>
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-    <%= link_to t(:button_cancel), { action: :index }, class: 'button -with-icon icon-cancel' %>
-  </p>
-<% end %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: page_title, title_class: "color-orange" %>
+  <%= error_messages_for @provider %>
+  <%= labelled_tabular_form_for @provider,
+                                html: { class: 'form', autocomplete: 'off' } do |f| %>
+    <%= render partial: "form", locals: { f: f } %>
+    <p class="m-0">
+      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
+      <%= link_to t(:button_cancel), { action: :index }, class: 'button -with-icon icon-cancel rounded-border m-0 px-3' %>
+    </p>
+  <% end %>
+</div>

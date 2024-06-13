@@ -1,60 +1,44 @@
 <% html_title t(:label_administration), t(:label_announcement) %>
-
-<%= error_messages_for 'announcement' %>
-
-<div class="custom-toolbar-title">
-  <%= toolbar title: "#{t(:label_announcement)} (#{notice_annoucement_active})" %>
-</div>
-
-<%= labelled_tabular_form_for @announcement,
-             :url => {:action => :update},
-             :html => {:method => :put} do |f| %>
-  <div class="form-custom">
-  <div class="form--field">
-    <%= f.text_area :text,
-                    :cols => 80,
-                    :rows => 5,
-                    label: t(:label_text),
-                    container_class: '-xxwide',
-                    with_text_formatting: true %>
-  </div>
-  <div class="form--fields-container d-flex form-custom-1">
-    <div class="form--field d-flex">
-      <%= f.date_picker :show_until, label: t('announcements.show_until') %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= error_messages_for 'announcement' %>
+  <%= toolbar title: "#{t(:label_announcement)} (#{notice_annoucement_active})", title_class: "color-orange" %>
+  <%= labelled_tabular_form_for @announcement,
+              :url => {:action => :update},
+              :html => {:method => :put} do |f| %>
+    <div class="form--field">
+      <%= f.text_area :text,
+                      :cols => 80,
+                      :rows => 5,
+                      label: t(:label_text),
+                      container_class: '-xxwide',
+                      with_text_formatting: true %>
     </div>
-    <div class="form--field d-flex aaa">
-      <%= f.check_box :active, label: t(:label_active) %>
-    </div>
-  </div>
 
-  <hr class="form-separator">
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
-  </div>
+    <div class="form--fields-container d-flex form-custom-1">
+      <div class="form--field d-flex">
+        <%= f.date_picker :show_until, label: t('announcements.show_until') %>
+      </div>
+      <div class="form--field d-flex aaa">
+        <%= f.check_box :active, label: t(:label_active) %>
+      </div>
+    </div>
+
+    <hr class="form-separator">
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
   <% end %>
 
-<style>
-  .custom-toolbar-title .title-container h2 {
-    color: #ff7f5d;
-  }
-
-  .form-custom {
-      background: #fff;
-      padding: 30px;
-      border-radius: 33px;
-      border: 2px solid #000;
-  }
-
-  .form-custom-1 .form--label {
-    width: 20%; 
-    max-width: 20%;
-  }
-
-  .form-custom-1 .form--field-container{
-    width: 60%;
-    max-width: 60%;
-  }
-  .aaa .form--label {
+  <style>
+    .form-custom-1 .form--label {
+      width: 20%; 
+      max-width: 20%;
+    }
+    .form-custom-1 .form--field-container{
+      width: 60%;
+      max-width: 60%;
+    }
+    .aaa .form--label {
       width: 10%;
       max-width: 10%;
-  }
-</style>
+    }
+  </style>
+</div>
