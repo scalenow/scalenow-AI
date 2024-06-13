@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<%= toolbar title: t(:label_project_list_plural) %>
-<div class="form-custom">
+
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_project_list_plural), title_class: "color-orange" %>
   <%= styled_form_tag(admin_settings_projects_path, method: :patch) do %>
     <fieldset class="form--fieldset">
       <% unless EnterpriseToken.allows_to?(:custom_fields_in_projects_list) %>
@@ -82,15 +83,6 @@ See COPYRIGHT and LICENSE files for more details.
         </div>
       </div>
     </fieldset>
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
   <% end %>
 </div>
-
-<style>
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-  }
-</style>

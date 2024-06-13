@@ -26,40 +26,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<div class="custom-toolbar-title">
-  <%= toolbar title: t(:'attributes.attachments') %>
-</div>
 
-<%= styled_form_tag(
-      admin_settings_attachments_path,
-      method: :patch
-    ) do %>
-  <section class="form--section form-custom">
-    <div class="form--field">
-      <%= setting_text_field :attachment_max_size, size: 6, unit: t(:"number.human.storage_units.units.kb"), container_class: '-slim' %>
-    </div>
-    <div class="form--field">
-      <%= setting_text_area :attachment_whitelist, rows: 5, container_class: '-wide' %>
-      <div class="form--field-instructions">
-        <%= t('settings.attachments.whitelist_text_html',
-              ext_example: '*.jpg',
-              mime_example: 'image/jpeg',
-            ) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:'attributes.attachments'), title_class: "color-orange" %>
+  <%= styled_form_tag(
+        admin_settings_attachments_path,
+        method: :patch
+      ) do %>
+    <section class="form--section m-0">
+      <div class="form--field">
+        <%= setting_text_field :attachment_max_size, size: 6, unit: t(:"number.human.storage_units.units.kb"), container_class: '-slim' %>
       </div>
-    </div>
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
-  </section>
-<% end %>
-
-<style>
-  .custom-toolbar-title .title-container h2 {
-    color: #ff7f5d;
-  }
-
-  .form-custom {
-      background: #fff;
-      padding: 30px;
-      border-radius: 33px;
-      border: 2px solid #000;
-  }
-</style>
+      <div class="form--field">
+        <%= setting_text_area :attachment_whitelist, rows: 5, container_class: '-wide' %>
+        <div class="form--field-instructions">
+          <%= t('settings.attachments.whitelist_text_html',
+                ext_example: '*.jpg',
+                mime_example: 'image/jpeg',
+              ) %>
+        </div>
+      </div>
+      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+    </section>
+  <% end %>
+</div>

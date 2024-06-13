@@ -28,15 +28,19 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title t(:label_administration), "#{t(:label_edit)} #{Enumeration.model_name.human} #{h @enumeration.name}" %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% local_assigns[:additional_breadcrumb] =  @enumeration %>
+  <%= breadcrumb_toolbar @enumeration, title_class: "color-orange" %>
 
-<% local_assigns[:additional_breadcrumb] =  @enumeration %>
-<%= breadcrumb_toolbar @enumeration %>
+  <%= labelled_tabular_form_for @enumeration do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+  <% end %>
+    
+  <div class="d-flex mt-3">
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
 
-<%= labelled_tabular_form_for @enumeration do |f| %>
-  <%= render partial: 'form', locals: { f: f } %>
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
-
-<%= styled_form_tag(enumeration_path(@enumeration), method: :delete) do %>
-  <%= styled_submit_tag t(:button_delete) %>
-<% end %>
+    <%= styled_form_tag(enumeration_path(@enumeration), method: :delete) do %>
+      <%= styled_submit_tag t(:button_delete), data: {confirm: "Are you sure?"}, class: "rounded-border m-0 px-3" %>
+    <% end %>
+  </div>
+</div>

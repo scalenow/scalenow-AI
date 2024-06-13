@@ -27,22 +27,24 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% content_controller 'admin--custom-fields',
-                      dynamic: true,
-                      'admin--custom-fields-format-value': @custom_field.field_format
-%>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% content_controller 'admin--custom-fields',
+                        dynamic: true,
+                        'admin--custom-fields-format-value': @custom_field.field_format
+  %>
 
-<% html_title t(:label_administration), "#{t(:label_edit)} #{CustomField.model_name.human} #{h @custom_field.name}" %>
+  <% html_title t(:label_administration), "#{t(:label_edit)} #{CustomField.model_name.human} #{h @custom_field.name}" %>
 
-<% local_assigns[:additional_breadcrumb] =  link_to(I18n.t(@custom_field.type_name), custom_fields_path(tab: @custom_field.type)),
-                       @custom_field.name %>
-<%= breadcrumb_toolbar @custom_field.name %>
+  <% local_assigns[:additional_breadcrumb] =  link_to(I18n.t(@custom_field.type_name), custom_fields_path(tab: @custom_field.type)),
+                        @custom_field.name %>
+  <%= breadcrumb_toolbar @custom_field.name, title_class: "color-orange" %>
 
-<%= error_messages_for 'custom_field' %>
+  <%= error_messages_for 'custom_field' %>
 
-<%= labelled_tabular_form_for @custom_field, as: :custom_field,
-                              url: custom_field_path(@custom_field),
-                              html: {method: :put, id: 'custom_field_form'} do |f| %>
-  <%= render partial: 'form', locals: { f: f } %>
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
+  <%= labelled_tabular_form_for @custom_field, as: :custom_field,
+                                url: custom_field_path(@custom_field),
+                                html: {method: :put, id: 'custom_field_form'} do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%#= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+  <% end %>
+</div>

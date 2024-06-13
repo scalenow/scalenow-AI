@@ -1,5 +1,6 @@
 <% html_title t('antivirus_scan.quarantined_attachments.title') %>
 
-<%= render ::Admin::QuarantinedAttachments::IndexPageHeaderComponent.new %>
-
-<%= render ::Admin::QuarantinedAttachments::TableComponent.new(rows: @attachments) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+	<%= render ::Admin::QuarantinedAttachments::IndexPageHeaderComponent.new %>
+	<%= render ::Admin::QuarantinedAttachments::TableComponent.new(rows: @attachments) %>
+</div>

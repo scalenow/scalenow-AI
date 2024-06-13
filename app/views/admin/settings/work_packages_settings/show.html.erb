@@ -29,102 +29,91 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), t(:label_work_package_tracking) -%>
 
-<div class="custom-toolbar-title">
-  <%= toolbar title: t(:label_work_package_tracking) %>
-</div>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_work_package_tracking), title_class: "color-orange" %>
 
-<%= styled_form_tag({ action: :update }, method: :patch) do %>
-  <section class="form--section form-custom">
-    <div class="inline-checkboxes">
-      <div class="form--field">
-        <%= setting_check_box :cross_project_work_package_relations %>
-      </div>
-      <div class="form--field">
-        <%= setting_check_box :display_subprojects_work_packages %>
-      </div>
-      <div class="form--field">
-        <%= setting_check_box :work_package_startdate_is_adddate %>
-      </div>
-    </div>
-
-    <div class="form--field">
-      <%= setting_select :work_package_done_ratio,
-                         WorkPackage::DONE_RATIO_OPTIONS.collect { |i| [t("setting_work_package_done_ratio_#{i}"), i] },
-                         container_class: "-middle" %>
-      <div class="form--field-instructions"><%= t("setting_work_package_done_ratio_explanation_html") %></div>
-    </div>
-    <div class="form--field settings--highlighting-mode">
-      <%= setting_select(:work_package_list_default_highlighting_mode,
-                         Query::Highlighting::QUERY_HIGHLIGHTING_MODES.map do |mode|
-                           [t("settings.highlighting.mode_long.#{mode}"), mode]
-                         end,
-                         Hash.new.tap do |options|
-                           options[:container_class] = "-middle"
-                           options[:disabled] = "disabled" unless EnterpriseToken.allows_to?(:conditional_highlighting)
-                         end) %>
-      <%= render partial: "enterprise_feature_hint",
-                 locals: {
-                   ee_feature: :conditional_highlighting,
-                   explanation: t("js.work_packages.table_configuration.upsale.attribute_highlighting"),
-                   link_out: {
-                     href: "https://www.openproject.org/enterprise-edition/?op_edtion=community-edition&op_referrer=settings-wp-attribute-highlighting#attribute-highlighting",
-                     caption: t("js.work_packages.table_configuration.upsale.check_out_link")
-                   }
-                 } %>
-    </div>
-    <% if EnterpriseToken.allows_to? :conditional_highlighting %>
-      <div class="form--field -indented -vertical settings--highlighted-attributes" style="<%= "display: none" unless Setting[:work_package_list_default_highlighting_mode] == "inline" %>">
-        <%= setting_multiselect(:work_package_list_default_highlighted_attributes,
-                                Query.available_columns(nil).select(&:highlightable).map do |column|
-                                  [column.caption, column.name.to_s]
-                                end) %>
-      </div>
-    <% end %>
-
-    <fieldset class="form--fieldset">
-      <legend class="form--fieldset-legend"><%= t(:setting_column_options) %></legend>
-
-      <div class="form--field -full-width">
-        <div class="form--field-container">
-          <div class="form--text-field-container -xwide">
-            <%= angular_component_tag "opce-draggable-autocompleter",
-                                      inputs: {
-                                        options: work_packages_columns_options,
-                                        selected: selected_work_packages_columns_options,
-                                        protected: protected_work_packages_columns_options,
-                                        name: "settings[work_package_list_default_columns][]",
-                                        id: "setting_column_options",
-                                        inputLabel: I18n.t(:"queries.configure_view.columns.input_label"),
-                                        inputPlaceholder: I18n.t(:"queries.configure_view.columns.input_placeholder"),
-                                        dragAreaLabel: I18n.t(:"queries.configure_view.columns.drag_area_label")
-                                      } %>
-          </div>
+  <%= styled_form_tag({ action: :update }, method: :patch) do %>
+    <section class="form--section m-0">
+      <div class="inline-checkboxes">
+        <div class="form--field">
+          <%= setting_check_box :cross_project_work_package_relations %>
+        </div>
+        <div class="form--field">
+          <%= setting_check_box :display_subprojects_work_packages %>
+        </div>
+        <div class="form--field">
+          <%= setting_check_box :work_package_startdate_is_adddate %>
         </div>
       </div>
-    </fieldset>
-    <%= styled_button_tag t(:button_save), class: "-primary -with-icon icon-checkmark custom-secondary-button rounded-border" %>
-  </section>
-<% end %>
 
-<style>
-  .custom-toolbar-title .title-container h2 {
-    color: #ff7f5d;
-  }
+      <div class="form--field">
+        <%= setting_select :work_package_done_ratio,
+                          WorkPackage::DONE_RATIO_OPTIONS.collect { |i| [t("setting_work_package_done_ratio_#{i}"), i] },
+                          container_class: "-middle" %>
+        <div class="form--field-instructions"><%= t("setting_work_package_done_ratio_explanation_html") %></div>
+      </div>
+      <div class="form--field settings--highlighting-mode">
+        <%= setting_select(:work_package_list_default_highlighting_mode,
+                          Query::Highlighting::QUERY_HIGHLIGHTING_MODES.map do |mode|
+                            [t("settings.highlighting.mode_long.#{mode}"), mode]
+                          end,
+                          Hash.new.tap do |options|
+                            options[:container_class] = "-middle"
+                            options[:disabled] = "disabled" unless EnterpriseToken.allows_to?(:conditional_highlighting)
+                          end) %>
+        <%= render partial: "enterprise_feature_hint",
+                  locals: {
+                    ee_feature: :conditional_highlighting,
+                    explanation: t("js.work_packages.table_configuration.upsale.attribute_highlighting"),
+                    link_out: {
+                      href: "https://www.openproject.org/enterprise-edition/?op_edtion=community-edition&op_referrer=settings-wp-attribute-highlighting#attribute-highlighting",
+                      caption: t("js.work_packages.table_configuration.upsale.check_out_link")
+                    }
+                  } %>
+      </div>
+      <% if EnterpriseToken.allows_to? :conditional_highlighting %>
+        <div class="form--field -indented -vertical settings--highlighted-attributes" style="<%= "display: none" unless Setting[:work_package_list_default_highlighting_mode] == "inline" %>">
+          <%= setting_multiselect(:work_package_list_default_highlighted_attributes,
+                                  Query.available_columns(nil).select(&:highlightable).map do |column|
+                                    [column.caption, column.name.to_s]
+                                  end) %>
+        </div>
+      <% end %>
 
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-  }
+      <fieldset class="form--fieldset">
+        <legend class="form--fieldset-legend"><%= t(:setting_column_options) %></legend>
 
-  .inline-checkboxes {
-    display: flex;
-    gap: 10px; /* Adjust the gap as needed */
-    align-items: center;
-  }
+        <div class="form--field -full-width">
+          <div class="form--field-container">
+            <div class="form--text-field-container -xwide">
+              <%= angular_component_tag "opce-draggable-autocompleter",
+                                        inputs: {
+                                          options: work_packages_columns_options,
+                                          selected: selected_work_packages_columns_options,
+                                          protected: protected_work_packages_columns_options,
+                                          name: "settings[work_package_list_default_columns][]",
+                                          id: "setting_column_options",
+                                          inputLabel: I18n.t(:"queries.configure_view.columns.input_label"),
+                                          inputPlaceholder: I18n.t(:"queries.configure_view.columns.input_placeholder"),
+                                          dragAreaLabel: I18n.t(:"queries.configure_view.columns.drag_area_label")
+                                        } %>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <%= styled_button_tag t(:button_save), class: "-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0" %>
+    </section>
+  <% end %>
 
-  .inline-checkboxes .form--field {
+  <style>
+    .inline-checkboxes {
+      display: flex;
+      gap: 10px; /* Adjust the gap as needed */
+      align-items: center;
+    }
+
+    .inline-checkboxes .form--field {
       margin: 0;
-  }
-</style>
+    }
+  </style>
+</div>

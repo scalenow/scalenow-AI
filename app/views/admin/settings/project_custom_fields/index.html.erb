@@ -28,24 +28,11 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 <% html_title t(:label_administration), t("settings.project_attributes.heading") %>
 
-<div data-turbo="true">
-  <%= render(Settings::ProjectCustomFields::HeaderComponent.new()) %>
-  <div class="form-custom">
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <div data-turbo="true">
+    <%= render(Settings::ProjectCustomFields::HeaderComponent.new()) %>
     <%= render(Settings::ProjectCustomFieldSections::IndexComponent.new(
       project_custom_field_sections: @project_custom_field_sections
     )) %>
   </div>
 </div>
-
-<style>
-  h1 {
-    color: #ff7f5d;
-  }
-
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-  }
-</style>

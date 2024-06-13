@@ -42,9 +42,9 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% if (@custom_fields_by_type[tab[:name]] || []).any? %>
   <div class="generic-table--container">
-    <div class="generic-table--results-container form-custom">
+    <div class="generic-table--results-container">
       <% if tab[:name] == 'WorkPackageCustomField' %>
-        <div class="op-toast -info">
+        <div class="op-toast -info mb-2">
           <div class="op-toast--content">
             <p><%= t('text_custom_field_hint_activate_per_project_and_type') %></p>
           </div>
@@ -180,18 +180,3 @@ See COPYRIGHT and LICENSE files for more details.
 <% else %>
   <%= no_results_box(action_url: new_custom_field_path(type: tab[:name]), display_action: true) %>
 <% end %>
-
-<style>
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-  }
-
-  .op-toast.-info {
-  background-color: #f6f8fa !important; /* Override all other styles with !important */
-  border: none;
-}
-
-</style>

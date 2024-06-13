@@ -2,8 +2,8 @@
 <% breadcrumb_paths link_to(t('two_factor_authentication.label_two_factor_authentication'), index_path),
                     t('two_factor_authentication.devices.confirm_device') -%>
 
-<%= styled_form_tag(confirm_path, method: :post, id: 'login-form', class: 'form -bordered', autocomplete: "off") do %>
-  <h2><%= title %></h2>
+<%= styled_form_tag(confirm_path, method: :post, id: 'login-form', class: 'form -bordered bg-white rounded-border', style: "border: 1px solid #000;", autocomplete: "off") do %>
+  <h2 class="color-orange"><%= title %></h2>
   <p><%= message.html_safe %></p>
   <hr class="form--separator">
   <%= back_url_hidden_field_tag %>
@@ -14,6 +14,6 @@
     </div>
   </div>
   <div class="login-form--footer">
-    <input type="submit" name="login" value="<%= t 'button_continue' %>" class="button -primary button_no-margin" tabindex="2" />
+    <input type="submit" name="login" value="<%= t 'button_continue' %>" class="button -primary button_no-margin custom-secondary-button rounded-border px-3" tabindex="2" />
   </div>
 <% end %>

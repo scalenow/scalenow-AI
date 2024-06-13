@@ -28,13 +28,14 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title t(:label_administration), t('custom_actions.edit', name: @custom_action.name) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% local_assigns[:additional_breadcrumb] = t('custom_actions.edit', name: @custom_action.name) %>
+  <%= breadcrumb_toolbar t('custom_actions.edit', name: @custom_action.name), title_class: "color-orange" %>
 
-<% local_assigns[:additional_breadcrumb] = t('custom_actions.edit', name: @custom_action.name) %>
-<%= breadcrumb_toolbar t('custom_actions.edit', name: @custom_action.name) %>
+  <%= error_messages_for @custom_action %>
 
-<%= error_messages_for @custom_action %>
-
-<%= labelled_tabular_form_for @custom_action do |f| %>
-  <%= render partial: 'form', locals: { f: f } %>
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
+  <%= labelled_tabular_form_for @custom_action do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+  <% end %>
+</div>
