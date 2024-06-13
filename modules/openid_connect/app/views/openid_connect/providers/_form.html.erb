@@ -1,5 +1,5 @@
 <% if @provider.persisted? && @provider.name == 'azure' && @provider.tenant.empty? %>
-  <div class="op-toast -warning">
+  <div class="op-toast -warning" style="border-radius: 8px;">
     <div class="op-toast--content">
       <p><%= I18n.t('openid_connect.setting_instructions.azure_deprecation_warning') %></p>
     </div>

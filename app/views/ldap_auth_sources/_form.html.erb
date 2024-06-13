@@ -35,16 +35,16 @@ See COPYRIGHT and LICENSE files for more details.
 <%= error_messages_for :ldap_auth_source %>
 
 <% if @ldap_auth_source.new_record? %>
-  <div class="op-toast -info">
+  <div class="op-toast -info" style="border-radius: 8px;">
     <a title="close" class="op-toast--close icon-context icon-close"></a>
-    <div class="op-toast--content">
+    <div class="op-toast--content" style= "pointer-events: none;">
       <%= t('ldap_auth_sources.technical_warning_html') %>
     </div>
   </div>
 <% end %>
 
 <% if @ldap_auth_source.seeded_from_env? %>
-  <div class="op-toast -warning">
+  <div class="op-toast -warning" style="border-radius: 8px;">
     <div class="op-toast--content">
       <%= t(:label_seeded_from_env_warning) %>
       <br/>

@@ -27,18 +27,19 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<%= toolbar title: t(:label_languages) %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_languages), title_class: "color-orange" %>
+  <%= styled_form_tag(admin_settings_update_languages_path, method: :patch) do %>
 
-<%= styled_form_tag(admin_settings_update_languages_path, method: :patch) do %>
+    <section class="form--section m-0">
+      <div class="form--field" id="setting_available_languages">
+        <%= setting_multiselect :available_languages, highlight_default_language(all_lang_options_for_select), classes: "horizontal-checkboxes" %>
+      </div>
+    </section>
 
-  <section class="form--section">
-    <div class="form--field" id="setting_available_languages">
-      <%= setting_multiselect :available_languages, highlight_default_language(all_lang_options_for_select) %>
-    </div>
-  </section>
-
-  <%= styled_button_tag t(:button_save),
-                        class: '-primary -with-icon icon-checkmark',
-                        disabled: !Setting.available_languages_writable?
-  %>
-<% end %>
+    <%= styled_button_tag t(:button_save),
+                          class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3',
+                          disabled: !Setting.available_languages_writable?
+    %>
+  <% end %>
+</div>

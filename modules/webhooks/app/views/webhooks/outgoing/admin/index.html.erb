@@ -1,21 +1,23 @@
-<% html_title(t(:label_administration), t('webhooks.plural')) -%>
-<% local_assigns[:additional_breadcrumb] = t('webhooks.plural') %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <% html_title(t(:label_administration), t('webhooks.plural')) -%>
+  <% local_assigns[:additional_breadcrumb] = t('webhooks.plural') %>
 
-<%= toolbar title: t('webhooks.plural') do %>
-  <li class="toolbar-item">
-    <%= link_to new_admin_outgoing_webhook_path,
-          { class: 'button -primary',
-            aria: {label: t('webhooks.outgoing.label_add_new')},
-            title: t('webhooks.outgoing.label_add_new')} do %>
-      <%= op_icon('button--icon icon-add') %>
-      <span class="button--text"><%= t('webhooks.singular') %></span>
-    <% end %>
-  </li>
-<% end %>
+  <%= toolbar title: t('webhooks.plural'), title_class: "color-orange" do %>
+    <li class="toolbar-item">
+      <%= link_to new_admin_outgoing_webhook_path,
+            { class: 'button -primary custom-secondary-button rounded-border',
+              aria: {label: t('webhooks.outgoing.label_add_new')},
+              title: t('webhooks.outgoing.label_add_new')} do %>
+        <%= op_icon('button--icon icon-add') %>
+        <span class="button--text"><%= t('webhooks.singular') %></span>
+      <% end %>
+    </li>
+  <% end %>
 
-<p>
-  <%= t('webhooks.outgoing.explanation.text',
-        link: link_to(t(:'webhooks.outgoing.explanation.link'), admin_settings_aggregation_path, target: '_blank')).html_safe %>
-</p>
+  <p>
+    <%= t('webhooks.outgoing.explanation.text',
+          link: link_to(t(:'webhooks.outgoing.explanation.link'), admin_settings_aggregation_path, target: '_blank')).html_safe %>
+  </p>
 
-<%= render ::Webhooks::Outgoing::Webhooks::TableComponent.new(rows: @webhooks) %>
+  <%= render ::Webhooks::Outgoing::Webhooks::TableComponent.new(rows: @webhooks) %>
+</div>

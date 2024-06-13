@@ -28,24 +28,24 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title t(:label_administration), t(:label_incoming_emails) -%>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= toolbar title: t(:label_incoming_emails), title_class: "color-orange" %>
+  <%= styled_form_tag(admin_settings_incoming_mails_path, method: :patch) do %>
+    <section class="form--section m-0">
+      <div class="form--field">
+        <%= setting_text_area :mail_handler_body_delimiters, rows: 5, container_class: '-wide' %>
+        <div class="form--field-instructions"><%= t(:text_line_separated) %></div>
+      </div>
+      <div class="form--field">
+        <%= setting_text_field :mail_handler_body_delimiter_regex, container_class: '-wide' %>
+        <div class="form--field-instructions"><%= t(:text_regexp_multiline) %></div>
+      </div>
+      <div class="form--field">
+        <%= setting_text_area :mail_handler_ignore_filenames, rows: 5, container_class: '-wide' %>
+        <div class="form--field-instructions"><%= t('incoming_mails.ignore_filenames') %></div>
+      </div>
+    </section>
 
-<%= toolbar title: t(:label_incoming_emails) %>
-
-<%= styled_form_tag(admin_settings_incoming_mails_path, method: :patch) do %>
-  <section class="form--section">
-    <div class="form--field">
-      <%= setting_text_area :mail_handler_body_delimiters, rows: 5, container_class: '-wide' %>
-      <div class="form--field-instructions"><%= t(:text_line_separated) %></div>
-    </div>
-    <div class="form--field">
-      <%= setting_text_field :mail_handler_body_delimiter_regex, container_class: '-wide' %>
-      <div class="form--field-instructions"><%= t(:text_regexp_multiline) %></div>
-    </div>
-    <div class="form--field">
-      <%= setting_text_area :mail_handler_ignore_filenames, rows: 5, container_class: '-wide' %>
-      <div class="form--field-instructions"><%= t('incoming_mails.ignore_filenames') %></div>
-    </div>
-  </section>
-
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark' %>
-<% end %>
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+  <% end %>
+</div>
