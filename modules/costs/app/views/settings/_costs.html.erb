@@ -27,7 +27,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 <% html_title t(:label_administration), t(:project_module_costs) %>
-<section class="form--section form-custom">
+<section class="form--section m-0">
   <div class="form--field">
     <%= styled_label_tag :label_currency, t(:label_currency) %>
     <div class="form--field-container">
@@ -41,14 +41,5 @@ See COPYRIGHT and LICENSE files for more details.
       <%=  styled_text_field_tag 'settings[costs_currency_format]', @settings['costs_currency_format'], container_class: '-xslim' %>
     </div>
   </div>
-  <%= styled_submit_tag t(:button_apply), class: '-primary custom-secondary-button rounded-border' %>
+  <%= styled_submit_tag t(:button_apply), class: '-primary custom-secondary-button rounded-border m-0 px-3' %>
 </section>
-
-<style>
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-  }
-</style>

@@ -29,13 +29,13 @@ See COPYRIGHT and LICENSE files for more details.
 
 <%= error_messages_for 'color' %>
 
-<%= toolbar title: (color.new_record? ? t('.label_new_color') : t('.label_edit_color')) do %>
+<%= toolbar title: (color.new_record? ? t('.label_new_color') : t('.label_edit_color')), title_class: "color-orange" do %>
   <% if color.persisted? %>
   <li class="toolbar-item">
     <%= link_to color_path(color),
                 method: :delete,
                 data: { confirm: t('text_are_you_sure') },
-                class: "button -danger" do %>
+                class: "button -danger rounded-border" do %>
       <%= op_icon 'button--icon icon-delete' %>
       <span class="button--text"><%= t :button_delete %></span>
     <% end %>
@@ -64,5 +64,5 @@ See COPYRIGHT and LICENSE files for more details.
   </div>
 </fieldset>
 
-<%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border' %>
-<%= link_to t(:button_cancel), colors_path, class: 'button -with-icon icon-cancel custom-secondary-button rounded-border' %>
+<%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2' %>
+<%= link_to t(:button_cancel), colors_path, class: 'button -with-icon icon-cancel custom-secondary-button rounded-border m-0' %>

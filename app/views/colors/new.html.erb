@@ -30,21 +30,13 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title t(:label_administration), t('.label_new_color') %>
 <% local_assigns[:additional_breadcrumb] = t('.label_new_color') %>
 
-<%= labelled_tabular_form_for @color,
-            url: colors_url,
-            html: {method: 'post'},
-            as: :color do |f| %>
-    <div class="form-custom">
-        <%= render partial: 'form',
-                locals: {f: f, color: @color} %>
-    </div>
-<% end %>
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%= labelled_tabular_form_for @color,
+              url: colors_url,
+              html: {method: 'post'},
+              as: :color do |f| %>
 
-<style>
-  .form-custom {
-    background: #fff;
-    padding: 12px;
-    border-radius: 33px;
-    border: 2px solid #000;
-   }
-</style>
+    <%= render partial: 'form',
+              locals: {f: f, color: @color} %>
+  <% end %>
+</div>
