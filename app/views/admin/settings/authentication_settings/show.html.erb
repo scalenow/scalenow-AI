@@ -30,46 +30,46 @@ See COPYRIGHT and LICENSE files for more details.
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
   <%= toolbar title: t(:label_authentication), title_class: "color-orange" %>
   <%= styled_form_tag(admin_settings_authentication_path, method: :patch) do %>
-    <section class="form--section m-0">
+    <section class="form--section m-0 p-0">
       <fieldset class="form--fieldset">
-        <legend class="form--fieldset-legend"><%= I18n.t(:general, scope: [:settings]) %></legend>
-        <div class="row align-items-center">
-          <div class="col-md-4">
-            <div class="form--field mb-3 d-flex flex-nowrap api_checkbox"><%= setting_check_box :login_required %></div>
-          </div>
-          <div class="col-md-8">
-            <div class="form--field col-md-6 mb-3 d-flex flex-nowrap api_number_field api_number_field_1"><%= setting_select :self_registration, [[t(:label_disabled), Setting::SelfRegistration.disabled.to_s],
-                                                      [t(:label_registration_activation_by_email), Setting::SelfRegistration.by_email.to_s],
-                                                      [t(:label_registration_manual_activation), Setting::SelfRegistration.manual.to_s],
-                                                      [t(:label_registration_automatic_activation), Setting::SelfRegistration.automatic.to_s]],
-                                                      container_class: '-middle' %>
-            </div>
-          </div>
-            <div class="col-md-4">
-              <div class="form--fields-container d-flex align-items-center">
-                <div class="form--field mb-3 d-flex flex-nowrap api_checkbox">
-                  <%= setting_check_box :email_login, title: I18n.t("tooltip.setting_email_login") %>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <span class="activation-block mb-3 d-flex flex-nowrap api_number_field api_number_field_2">
-                <%= render Settings::NumericSettingComponent.new("invitation_expiration_days", unit: "days") %>
-              </span>
-            </div>
+        <legend class="form--fieldset-legend">
+          <%= I18n.t(:general, scope: [:settings]) %>
+        </legend>
 
-        </fieldset>
+        <div class="row auth-settings">
+          <div class="form--field col-md-5 col-sm-12">
+            <%= setting_check_box :login_required %>
+          </div>
+
+          <div class="form--field col-md-7 col-sm-12">
+            <%= setting_select :self_registration, [[t(:label_disabled), Setting::SelfRegistration.disabled.to_s],
+                                                    [t(:label_registration_activation_by_email), Setting::SelfRegistration.by_email.to_s],
+                                                    [t(:label_registration_manual_activation), Setting::SelfRegistration.manual.to_s],
+                                                    [t(:label_registration_automatic_activation), Setting::SelfRegistration.automatic.to_s]],
+                                                    container_class: '-middle' %>
+          </div>
+
+          <div class="form--field col-md-5 col-sm-12">
+            <%= setting_check_box :email_login, title: I18n.t("tooltip.setting_email_login") %>
+          </div>
+
+          <%= render Settings::NumericSettingComponent.new("invitation_expiration_days", unit: "days") %>
+        </div>
+      </fieldset>
 
       <fieldset class="form--fieldset">
         <fieldset id="registration_footer" class="form--fieldset">
-          <legend class="form--fieldset-legend"><%= I18n.t(:setting_registration_footer) %></legend>
+          <legend class="form--fieldset-legend">
+            <%= I18n.t(:setting_registration_footer) %>
+          </legend>
           <%= render Settings::TextSettingComponent.new(I18n.locale, name: "registration_footer") %>
         </fieldset>
       </fieldset>
 
-
       <fieldset class="form--fieldset">
-        <legend class="form--fieldset-legend"><%= I18n.t(:passwords, scope: [:settings]) %></legend>
+        <legend class="form--fieldset-legend">
+          <%= I18n.t(:passwords, scope: [:settings]) %>
+        </legend>
         <% if !OpenProject::Configuration.disable_password_login? %>
           <div class="form--field -wide-label ">
             <%= setting_text_field :password_min_length, size: 6, container_class: '-xslim' %>
@@ -79,42 +79,35 @@ See COPYRIGHT and LICENSE files for more details.
             <% rules = OpenProject::Passwords::Evaluator.known_rules.map do |rule|
               [t("label_password_rule_#{rule}"), rule]
             end %>
-            <%= setting_multiselect :password_active_rules, rules %>
+            <%= setting_multiselect :password_active_rules, rules, classes: "horizontal-checkboxes" %>
           </div>
 
-          <div class="d-checkbox">
-            <div class="d-flex flex-nowrap">
-              <div class="form--field -wide-label col-md-5">
-                <%= setting_text_field :password_min_adhered_rules, size: 6, container_class: '-xslim' %>
-              </div>
-
-              <div class="form--field -wide-label col-md-7">
-                <%= setting_text_field :password_days_valid, size: 6, container_class: '-xslim' %>
-                <span class="form--field-instructions">
-                  <%= t(:text_hint_disable_with_0) %>
-                </span>
-              </div>
+          <div class="row auth-settings">
+            <div class="form--field -wide-label col-md-6 col-sm-12">
+              <%= setting_text_field :password_min_adhered_rules, size: 6, container_class: '-xslim' %>
             </div>
 
-            <div class="d-flex flex-nowrap">
-              <div class="form--field -wide-label col-md-5">
-                <%= setting_text_field :password_count_former_banned, size: 6, container_class: '-xslim' %>
-              </div>
+            <div class="form--field -wide-label col-md-6 col-sm-12">
+              <%= setting_text_field :password_days_valid, size: 6, container_class: '-xslim' %>
+              <span class="form--field-instructions">
+                <%= t(:text_hint_disable_with_0) %>
+              </span>
+            </div>
 
-              <div class="form--field -wide-label col-md-7">
-                <%= setting_check_box :lost_password, label: :label_password_lost %>
-              </div>
+            <div class="form--field -wide-label col-md-6 col-sm-12">
+              <%= setting_text_field :password_count_former_banned, size: 6, container_class: '-xslim' %>
+            </div>
+
+            <div class="form--field -wide-label col-md-6 col-sm-12">
+              <%= setting_check_box :lost_password, label: :label_password_lost %>
             </div>
           </div>
         <% else %>
           <div class="form--field -wide-label">
             <label><b><%= I18n.t :note %>: </b>
-              <%=
-                url = 'https://www.openproject.org/docs/installation-and-operations/configuration/#disable-password-login'
-
+              <%= url = 'https://www.openproject.org/docs/installation-and-operations/configuration/#disable-password-login'
                 explanation = I18n.t :note_password_login_disabled,
-                                    configuration: "<a target=\"_blank\" href=\"#{url}\"> #{I18n.t('label_configuration')}</a>"
-
+                                configuration: "<a target=\"_blank\" href=\"#{url}\"> #{I18n.t('label_configuration')}</a>"
                 explanation.html_safe
               %>
             </label>
@@ -128,15 +121,15 @@ See COPYRIGHT and LICENSE files for more details.
             <%= I18n.t(:brute_force_prevention, scope: [:settings]) %>
           </legend>
 
-          <div class="d-flex flex-nowrap">
-            <div class="form--field -wide-label col-md-6">
+          <div class="row auth-settings">
+            <div class="form--field -wide-label col-md-6 col-sm-12">
               <%= setting_text_field :brute_force_block_after_failed_logins, container_class: '-xslim' %>
               <span class="form--field-instructions">
                 <%= t(:text_hint_disable_with_0) %>
               </span>
             </div>
 
-            <div class="form--field -wide-label col-md-6">
+            <div class="form--field -wide-label col-md-6 col-sm-12">
               <%= setting_text_field :brute_force_block_minutes, unit: t(:label_minute_plural), container_class: '-xslim' %>
             </div>
           </div>
@@ -148,8 +141,9 @@ See COPYRIGHT and LICENSE files for more details.
           <%= I18n.t(:session, scope: [:settings]) %>
         </legend>
 
-        <div class="d-flex flex-nowrap">
-          <div class="form--field -wide-label"><%= setting_select :autologin,
+        <div class="session-settings">
+          <div class="form--field -wide-label">
+            <%= setting_select :autologin,
                     ([[t(:label_disabled), 0]] +
                       Settings::Definition[:autologin].allowed.collect do |days|
                         [t('datetime.distance_in_words.x_days', count: days),
@@ -157,13 +151,11 @@ See COPYRIGHT and LICENSE files for more details.
                       end),
                       container_class: '-xslim' %>
           </div>
-        </div>
 
-        <div class="d-flex flex-nowrap">
-          <div class="form--field -wide-label col-md-6">
+          <div class="form--field -wide-label">
             <%= setting_check_box :session_ttl_enabled %>
           </div>
-          <div class="form--field -wide-label col-md-6" id="settings_session_ttl_container" style="display:none;">
+          <div class="form--field -wide-label" id="settings_session_ttl_container" style="display:none;">
             <%= setting_text_field :session_ttl, unit: t(:label_minute_plural), container_class: '-xslim' %>
             <span class="form--field-instructions">
               <%= I18n.t('setting_session_ttl_hint') %>
@@ -192,39 +184,55 @@ See COPYRIGHT and LICENSE files for more details.
   <% end %>
 
   <style>
-    .form--section .api_checkbox .form--label{
-      max-width: 95%;
+    .auth-settings .form--label,
+    .auth-settings .form--field-container {
+      flex: 0 0 50% !important;
+      max-width: 100% !important;
     }
 
-    .form--section .api_checkbox .form--field-container{
-      max-width: 6%;
+    .auth-settings .form--field-instructions {
+      margin-left: 50% !important;
     }
 
-    .api_number_field  .form--field-instructions{
-      margin-left: 0;
-      padding-top: 10px;
-      width: 100%;
-      max-width: 100%;
+    .session-settings .form--field-instructions {
+      margin-left: 30% !important;
     }
 
-    .api_number_field_1 .form--label {
-      min-width: 125px !important;
+    .session-settings .form--label {
+      flex: 0 0 30% !important;
+      max-width: 100% !important;
     }
 
-    .api_number_field_2 .form--label {
-      min-width: 100px !important;
+    .session-settings .form--field-container {
+      flex: 0 0 60% !important;
+      max-width: 100% !important;
     }
 
-    .activation-block  .form--field {
-      flex-wrap: nowrap;
+    @media all and (max-width: 543px) {
+      #settings_session_ttl_container .form--label,
+      #settings_session_ttl_container .form--field-container {
+        flex: 0 0 100% !important;
+      }
+
+      .session-settings .form--field-instructions {
+        margin-left: 0 !important;
+      }
     }
 
-    .activation-block .form--label {
-      min-width: 218px !important;
-    }
+    @media all and (max-width: 374px) {
+      .auth-settings .form--label,
+      .auth-settings .form--field-container {
+        flex: 0 0 100% !important;
+      }
 
-    span.form--field-container.-vertical {
-      display: flex;
+      .auth-settings .form--field-instructions {
+        margin-left: 0 !important;
+      }
+
+      .session-settings .form--label,
+      .session-settings .form--field-container {
+        flex: 0 0 100% !important;
+      }
     }
   </style>
 </div>
