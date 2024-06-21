@@ -12606,11 +12606,22 @@ span.flatpickr-weekday {
   }
 }
 
-.auth-one-bg {
-  background-image: url("../images/auth-one-bg.jpg");
-  background-position: center;
-  background-size: cover;
+@media (max-width: 767px) {
+  #auth-particles {
+    background-size: contain !important;
+  }
+  .auth-box-margin {
+    margin-top: 0 !important;
+  }
 }
+
+.auth-one-bg {
+  background-image: url("../images/scalenowai-logo.png") !important;
+  background-position: top !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+}
+
 .auth-one-bg .bg-overlay {
   background: -webkit-gradient(linear, left top, right top, from(#4a62fe), to(#687cfe));
   background: linear-gradient(to right, #4a62fe, #687cfe);
