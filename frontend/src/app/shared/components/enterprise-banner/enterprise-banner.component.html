@@ -33,7 +33,7 @@
       <div class="op-enterprise-banner--buttons" *ngIf="!collapsed">
         <a
           *ngIf="moreInfoLink"
-          [attr.href]="moreInfoLink"
+          [attr.href]="'#'"
           class="op-enterprise-banner--info-button"
           target=”_blank”>
           <span class="spot-icon spot-icon_external-link"></span>
@@ -41,9 +41,9 @@
         </a>
 
         <a
-          [href]="pricingUrl"
+          [href]="'#'"
           target=”_blank”
-          class="button -primary">
+          class="button -primary custom-secondary-button rounded-border">
           <span class="spot-icon spot-icon_enterprise-addons"></span>
           {{ text.upgrade }}
         </a>
@@ -51,7 +51,7 @@
         <a
           [attr.href]="text.more_info_link"
           target=”_blank”
-          class="button -primary">
+          class="button -primary custom-secondary-button rounded-border">
           {{ text.button_trial }}
         </a>
 
