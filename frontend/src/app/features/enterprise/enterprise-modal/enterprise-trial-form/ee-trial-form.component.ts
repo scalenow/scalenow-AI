@@ -42,7 +42,7 @@ import { localizeLink } from 'core-app/shared/helpers/i18n/localized-link';
 import { ConfigurationService } from 'core-app/core/config/configuration.service';
 import { IEnterpriseData } from 'core-app/features/enterprise/enterprise-trial.model';
 
-const newsletterURL = 'https://www.openproject.org/newsletter/';
+const newsletterURL = '#';
 
 @Component({
   selector: 'enterprise-trial-form',
@@ -74,12 +74,12 @@ export class EETrialFormComponent {
   public text = {
     general_consent: this.I18n.t('js.admin.enterprise.trial.form.general_consent', {
       link_terms: localizeLink({
-        en: 'https://www.openproject.org/terms-of-service/',
-        de: 'https://www.openproject.org/de/nutzungsbedingungen/',
+        en: '#',
+        de: '#',
       }),
       link_privacy: localizeLink({
-        en: 'https://www.openproject.org/data-privacy-and-security/',
-        de: 'https://www.openproject.org/de/datenschutz/',
+        en: '#',
+        de: '#',
       }),
     }),
     label_test_ee: this.I18n.t('js.admin.enterprise.trial.form.test_ee'),
