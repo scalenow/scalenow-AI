@@ -290,10 +290,9 @@ group :ldap do
 end
 
 gem "listen", "~> 3.9.0" # Use for event-based reloaders
+gem "letter_opener_web"
+
 group :development do
-
-  # gem "letter_opener_web"
-
   gem "spring"
   gem "spring-commands-rspec"
   gem "spring-commands-rubocop"
