@@ -1,6 +1,0 @@
-{
-  "name": "open_project/drag_handle",
-  "selectors": [
-    ".DragHandle"
-  ]
-}
