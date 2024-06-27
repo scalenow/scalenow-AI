@@ -27,6 +27,7 @@
 #++
 
 Rails.application.routes.draw do
+  get '/ai', to: "ai#index", as: "ai"
   root to: "homescreen#index", as: "home"
   rails_relative_url_root = OpenProject::Configuration["rails_relative_url_root"] || ""
 

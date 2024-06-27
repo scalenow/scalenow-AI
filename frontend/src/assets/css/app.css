@@ -16676,3 +16676,7 @@ h5.version.icon-modules::before {
   flex-shrink: 0;
   flex-basis: 160px;
 }
+
+.spot-icon_ai:before {
+  content: url(../images/ai.svg);
+}
