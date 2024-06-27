@@ -1,1 +1,0 @@
-{"version":3,"sources":["drag_handle.pcss"],"names":[],"mappings":"AAEA,YAEI,gDAA2B,CAD3B,WAEJ","file":"drag_handle.css","sourcesContent":["/* CSS for DragHandle  */\n\n.DragHandle {\n    cursor: move;\n    color: var(--fgColor-muted);\n}\n"]}

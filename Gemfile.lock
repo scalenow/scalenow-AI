@@ -671,6 +671,13 @@ GEM
       addressable (~> 2.8)
       childprocess (~> 5.0)
     lefthook (1.6.9)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
+    letter_opener_web (3.0.0)
+      actionmailer (>= 6.1)
+      letter_opener (~> 1.9)
+      railties (>= 6.1)
+      rexml
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -1224,6 +1231,7 @@ DEPENDENCIES
   ladle
   launchy (~> 3.0.0)
   lefthook
+  letter_opener_web
   listen (~> 3.9.0)
   lograge (~> 0.14.0)
   lookbook (~> 2.2.1)

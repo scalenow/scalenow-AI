@@ -1,8 +1,0 @@
---protected
---no-private
---output-dir doc
---markup markdown
--
-CHANGELOG.md
-LICENSE
-README.md

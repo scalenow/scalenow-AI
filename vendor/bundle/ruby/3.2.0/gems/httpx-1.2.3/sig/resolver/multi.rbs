@@ -1,7 +1,0 @@
-module HTTPX
-  module Resolver
-    class Multi
-      def early_resolve: (Connection connection, ?hostname: String) -> void
-    end
-  end
-end
