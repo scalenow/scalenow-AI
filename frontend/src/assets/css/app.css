@@ -16702,7 +16702,7 @@ h5.version.icon-modules::before {
 }
 
 .ai-menu a:before {
-  content: url(../images/ai.svg);
+  content: url(../images/ai.png);
 }
 
 .ai-menu:hover {
