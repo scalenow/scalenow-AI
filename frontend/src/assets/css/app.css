@@ -16568,8 +16568,12 @@ h5.version.icon-modules::before {
   display:block;
 }
 
-#mobile-view-logo {
-  display:none
+/* #mobile-view-logo {
+  display:none;
+} */
+
+.op-app-header--end .ai-menu {
+  display: none;
 }
 
 @media all and (max-width: 768px) {
@@ -16577,8 +16581,21 @@ h5.version.icon-modules::before {
     display: none;
   }
 
-  #mobile-view-logo {
+  /* #mobile-view-logo {
     display: block;
+  } */
+
+  .op-app-header--start .ai-menu {
+    display: none;
+  }
+
+  .op-app-header--end .ai-menu {
+    display: flex;
+  }
+
+  .ng-select .ng-select-container,
+  .top-menu-search {
+    width: 65% !important;
   }
 
   .-grid.task-page {

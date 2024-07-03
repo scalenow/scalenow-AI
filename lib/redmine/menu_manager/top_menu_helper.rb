@@ -71,6 +71,7 @@ module Redmine::MenuManager::TopMenuHelper
 
   def render_top_menu_right
     capture do
+      concat render_ai_menu
       concat render_main_top_menu_nodes
       concat render_projects_top_menu_node
       concat render_quick_add_menu
