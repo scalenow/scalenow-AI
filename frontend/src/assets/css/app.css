@@ -16677,6 +16677,18 @@ h5.version.icon-modules::before {
   flex-basis: 160px;
 }
 
-.spot-icon_ai:before {
+.ai-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.ai-menu a:before {
   content: url(../images/ai.svg);
+}
+
+.ai-menu:hover {
+  background-color: rgba(255, 127, 93, 0.12);
+  border-radius: 33px;
 }

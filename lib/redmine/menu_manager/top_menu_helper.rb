@@ -38,7 +38,7 @@ module Redmine::MenuManager::TopMenuHelper
   end
 
   def top_menu_left_menu_items
-    [render_top_menu_search]
+    [render_top_menu_search, render_ai_menu]
   end
 
   def render_top_menu_center
@@ -53,6 +53,12 @@ module Redmine::MenuManager::TopMenuHelper
   def render_top_menu_search
     content_tag :div, class: "op-app-search" do
       render_global_search_input
+    end
+  end
+
+  def render_ai_menu
+    content_tag :div, class: "ai-menu" do
+      link_to '', ai_path, style: 'padding-top: 6px', title: "AI"
     end
   end
 

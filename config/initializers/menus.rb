@@ -132,13 +132,6 @@ Redmine::MenuManager.map :global_menu do |menu|
             icon: "home",
             first: true
 
-  # AI
-  menu.push :ai,
-            { controller: "/ai", action: "index" },
-            icon: "ai",
-            after: :home,
-            html: { class: "text-uppercase" }
-
   # Projects
   menu.push :projects,
             { controller: "/projects", project_id: nil, action: "index" },
