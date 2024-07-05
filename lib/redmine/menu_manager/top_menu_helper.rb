@@ -58,7 +58,9 @@ module Redmine::MenuManager::TopMenuHelper
 
   def render_ai_menu
     content_tag :div, class: "ai-menu" do
-      link_to '', ai_path, style: 'padding-top: 6px', title: "AI"
+      link_to ai_path, title: "AI" do
+        image_tag "ai.png", width: 30, height: 30
+      end
     end
   end
 

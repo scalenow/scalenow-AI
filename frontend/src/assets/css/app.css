@@ -16701,9 +16701,9 @@ h5.version.icon-modules::before {
   padding: 0 16px;
 }
 
-.ai-menu a:before {
+/* .ai-menu a:before {
   content: url(../images/ai.png);
-}
+} */
 
 .ai-menu:hover {
   background-color: rgba(255, 127, 93, 0.12);
