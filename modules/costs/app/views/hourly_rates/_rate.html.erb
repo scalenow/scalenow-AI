@@ -46,7 +46,8 @@ See COPYRIGHT and LICENSE files for more details.
                                 index: id_or_index,
                                 class: 'date costs-date-picker',
                                 no_label: true,
-                                no_field_container: true %>
+                                no_field_container: true,
+                                required: templated ? false : true %>
     </td>
     <td class="currency">
       <span class="inline-label">
@@ -56,7 +57,7 @@ See COPYRIGHT and LICENSE files for more details.
                                  no_label: true,
                                  no_field_container: true,
                                  value: rate.rate ? unitless_currency_number(rate.rate.round(2)) : "",
-                                 required: true %>
+                                 required: templated ? false : true %>
         <span class="form-label">
           <%= Setting.plugin_costs['costs_currency'] %>
         </span>
