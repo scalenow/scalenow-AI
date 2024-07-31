@@ -37,7 +37,7 @@ See COPYRIGHT and LICENSE files for more details.
   <p><strong><%= t(:label_current_default_rate) %>:</strong> <%= number_to_currency(default_rate.rate)%></p>
   <% end %>
 
-  <div id="rates-form-container" data-item-count="<%= @rates.count %>">
+  <costs-subform item-count="<%= @rates.count %>">
     <%= labelled_tabular_form_for @user, url: {action: 'update', project_id: @project}, method: :put do |f| %>
       <%= back_url_hidden_field_tag %>
       <%= error_messages_for 'user' %>
@@ -95,48 +95,5 @@ See COPYRIGHT and LICENSE files for more details.
         <%= styled_button_tag t(:button_save), class: '-with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
       </div>
     <% end %>
-  </div>  
+  </costs-subform>
 </div>
-
-<%= nonced_javascript_tag do %>
-  (function($) {
-    $(document).ready(function() {
-      const formContainer = $('#rates-form-container');
-      const container = $('#rates_body');
-      const templateEl = container.find('.subform-row-template').first();
-      templateEl.hide();
-      const template = templateEl[0].outerHTML;
-      let rowIndex = parseInt(formContainer.data('item-count'));
-
-      // Delete row handler
-      container.on('click', '.delete-row-button', function(evt) {
-        evt.preventDefault();
-        $(this).closest('.subform-row').remove();
-        return false;
-      });
-
-      // Add new row handler
-      formContainer.on('click', '.add-row-button', function(evt) {
-        evt.preventDefault();
-        const row = $(template.replace(/INDEX/g, rowIndex.toString()));
-        row.removeClass('subform-row-template').show();
-        row.find('input.costs-date-picker').prop('required', true);
-        row.find('input[id^="cost_type_new_rate_attributes"]').prop('required', true);
-
-        container.append(row);
-        rowIndex += 1;
-
-        // Assuming OpenProject.getPluginContext() is available globally
-        OpenProject.getPluginContext().then(function(pluginContext) {
-          pluginContext.bootstrap(row[0]);
-        });
-
-        setTimeout(function() {
-          container.find('.subform-row:last-child input:first').focus();
-        }, 10);
-
-        return false;
-      });
-    });
-  }(jQuery));
-<% end %>
