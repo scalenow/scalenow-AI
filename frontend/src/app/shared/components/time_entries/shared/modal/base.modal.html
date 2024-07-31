@@ -22,7 +22,7 @@
   <div class="spot-action-bar">
     <div class="spot-action-bar--left">
       <button
-        class="button button_no-margin -danger spot-action-bar--action"
+        class="button button_no-margin -danger spot-action-bar--action rounded-border px-3"
         *ngIf="deleteAllowed"
         (click)="destroy()"
         [textContent]="text.delete"
@@ -31,14 +31,14 @@
     </div>
     <div class="spot-action-bar--right">
       <button
-        class="button button_no-margin spot-modal--cancel-button spot-action-bar--action"
+        class="button button_no-margin spot-modal--cancel-button spot-action-bar--action rounded-border px-3"
         *ngIf="saveAllowed"
         (click)="closeMe($event)"
         [textContent]="text.cancel"
         [attr.title]="text.cancel"
       ></button>
       <button
-        class="button -primary button_no-margin spot-action-bar--action"
+        class="button -primary button_no-margin spot-action-bar--action custom-secondary-button rounded-border px-3"
         *ngIf="saveAllowed"
         (click)="saveEntry()"
         [attr.title]="text.save"
