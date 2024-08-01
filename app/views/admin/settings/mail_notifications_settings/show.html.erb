@@ -60,7 +60,7 @@ See COPYRIGHT and LICENSE files for more details.
 
     <%
       email_methods = [:smtp, :sendmail]
-      email_methods << :letter_opener if Rails.env.development?
+      # email_methods << :letter_opener if Rails.env.development?
     %>
     <%= content_tag :fieldset, id: "mail_configuration", class: "form--fieldset" do %>
       <legend class="form--fieldset-legend"><%= t(:text_setup_mail_configuration) %></legend>

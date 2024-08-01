@@ -108,7 +108,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Send mails to browser window
-  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.delivery_method = :smtp
 
   # Set email preview locations to rspec
   config.action_mailer.preview_paths << Rails.root.join("spec/mailers/previews")

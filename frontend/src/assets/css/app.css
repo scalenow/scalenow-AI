@@ -16709,3 +16709,9 @@ h5.version.icon-modules::before {
   background-color: rgba(255, 127, 93, 0.12);
   border-radius: 33px;
 }
+
+.task-page .widget-box {
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  scrollbar-width: none !important;
+}

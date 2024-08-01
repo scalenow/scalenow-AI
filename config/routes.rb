@@ -685,7 +685,7 @@ Rails.application.routes.draw do
   end
 
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    # mount LetterOpenerWeb::Engine, at: "/letter_opener"
     mount GoodJob::Engine => "good_job"
   end
 end
