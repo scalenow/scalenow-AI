@@ -23,7 +23,7 @@ Rails.application.config.after_initialize do
     # Valid for iframes
     frame_src = %w['self' https://player.vimeo.com]
     frame_src << OpenProject::Configuration[:security_badge_url]
-    frame_src << "http://62.72.0.2:8501/"
+    frame_src << "https://scalenowai.com.au:8501/"
 
     # Default src
     default_src = %w('self') + OpenProject::Configuration.remote_storage_hosts
