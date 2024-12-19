@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -50,6 +50,8 @@ uk:
         duration_in_minutes: "хв"
         description: "Примітки"
         presenter: "Доповідач"
+      meeting_section:
+        title: "Назва "
     errors:
       messages:
         invalid_time_format: "не є допустимим часом. Необхідний формат: HH:MM"
@@ -58,9 +60,23 @@ uk:
       meeting_agenda_item: "Порядок денний"
       meeting_agenda: "Порядок денний"
       meeting_minutes: "Хвилини"
+      meeting_section: "Розділ"
   activity:
     filter:
       meeting: "Наради"
+    item:
+      meeting_agenda_item:
+        duration:
+          added: "встановлено значення %{value}"
+          added_html: "встановлено значення <i>%{value}</i>"
+          removed: "вилучено"
+          updated: "змінено %{old_value} на %{value}"
+          updated_html: "змінено з <i>%{old_value}</i> на <i>%{value}</i>"
+        position:
+          updated: "перевпорядковано"
+        work_package:
+          updated: "змінено з %{old_value} на %{value}"
+          updated_html: "змінено з <i>%{old_value}</i> на <i>%{value}</i>"
   description_attended: "Участь"
   description_invite: "Запрошені"
   events:
@@ -101,12 +117,15 @@ uk:
     attachments:
       text: "Прикріплені файли доступні всім учасникам наради. Ви також можете перетягнути їх у примітки до пунктів порядку денного."
     copy:
-      title: "Копіювати нараду «%{title}»"
+      title: "Копіювати нараду: %{title}"
       attachments: "Копіювати вкладення"
       attachments_text: "Скопіюйте всі прикріплені файли до нової наради"
       agenda: "Копіювати порядок денний"
       agenda_text: "Копіювати порядок денний старої наради"
     email:
+      send_emails: "Надіслати електронні листи учасникам"
+      send_invitation_emails: >
+        Надішліть запрошення електронною поштою вибраним вище учасникам. Це можна будь-коли зробити вручну.
       open_meeting_link: "Відкрити зустріч"
       invited:
         summary: "%{actor} надіслав запрошення на зустріч %{title}"
@@ -124,8 +143,14 @@ uk:
       structured_text: "Організуйте нараду у вигляді переліку пунктів порядку денного, за бажанням пов’язавши їх із пакетом робіт."
       structured_text_copy: "Зараз копіювання наради стосується лише докладних даних про неї, але не пов’язаних пунктів її порядку денного"
     copied: "Скопійовано з наради #%{id} "
+  meeting_section:
+    untitled_title: "Розділ без назви"
+    delete_confirmation: "Видалення цього розділу також призведе до видалення його елементів порядку денного. Ви впевнені?"
+    placeholder_title: "Новий розділ"
+    empty_text: "Перетягніть елементи сюди або створіть новий"
   notice_successful_notification: "Повідомлення успішно надіслано"
   notice_timezone_missing: Часовий пояс не встановлено і %{zone} передбачається. Щоб вибрати часовий пояс, натисніть тут.
+  notice_meeting_updated: "Цю сторінку оновив інший користувач. Перезавантажте її, щоб побачити зміни."
   permission_create_meetings: "Створюйте зустрічі"
   permission_edit_meetings: "Редагувати зустрічі"
   permission_delete_meetings: "Видалити зустрічі"
@@ -157,6 +182,7 @@ uk:
   label_meeting_delete: "Видалити зустріч"
   label_meeting_created_by: "Створено "
   label_meeting_last_updated: "Востаннє оновлено"
+  label_meeting_reload: "Перезавантажити"
   label_agenda_items: "Пункти порядку денного"
   label_agenda_items_reordered: "перевпорядковано"
   label_agenda_item_remove: "Зняти з порядку денного"

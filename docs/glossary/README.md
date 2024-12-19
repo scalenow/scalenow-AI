@@ -56,7 +56,7 @@ In OpenProject, authentication is an important element to guarantee a data prote
 - [See answers to frequently asked questions (FAQ) for authentication](../system-admin-guide/authentication/authentication-faq/)
 - [See our blog post on multi-factor authentication to improve data security](https://www.openproject.org/blog/multi-factor-authentication-for-data-security/)
 - [Read more about Two-factor authentication (2FA) in OpenProject](../system-admin-guide/authentication/two-factor-authentication/)
-- [Read more about LDAP Authentication in OpenProject](../system-admin-guide/authentication/ldap-authentication/)
+- [Read more about LDAP Authentication in OpenProject](../system-admin-guide/authentication/ldap-connections/)
 
 ## B
 
@@ -83,6 +83,10 @@ A board in OpenProject is a view that allows you to see your work packages as ca
 
 ## C
 
+### CAPTCHA
+
+A CAPTCHA (Completely Automated Public Turing test to tell Computers and Humans Apart) is a security mechanism used on websites to determine whether the user is a human or a bot. OpenProject offers [reCAPTCHA](../system-admin-guide/authentication/recaptcha/) and [Cloudflare Turnstile](../system-admin-guide/authentication/recaptcha/#cloudflare-turnstile-configuration) that system administrators can configure for their instance.
+
 ### Classic project management
 
 Classic project management is a structured and sequential approach to project management. It often follows a hierarchical structure with a project manager overseeing team coordination, and is associated with methodologies like Waterfall. OpenProject supports classic project management as well as [agile project management](#agile-project-management), and works best for [hybrid project management](#hybrid-project-management).
@@ -102,6 +106,10 @@ OpenProject can be installed either [on-premises](#on-premises) (available for b
 
 Community edition is defined as the main and free-of-charge edition of OpenProject software. It is installed [on-premises](#on-premises) and therefore self-managed. Benefit from a wide range of features and data sovereignty in a free and open source project management software. The Community edition is actively maintained and is continuously being further developed. [Read more about OpenProject Community edition](https://www.openproject.org/community-edition/).
 
+### Connection validation
+
+The connection validation in OpenProject is available for the storage integrations with [Nextcloud](#nextcloud-integration) and [OneDrive/SharePoint](#onedrivesharepoint-integration). It is a manually triggered test to check the connection between OpenProject and the respective storage. [Read more about health status checks for OpenProject's external file storages](../system-admin-guide/files/external-file-storages/health-status/).
+
 ### Custom action
 
 A custom action in OpenProject is defined as customizable buttons which trigger a certain action upon work packages. Custom actions are included in the [Enterprise](#enterprise-add-on) edition of OpenProject and part of automated *workflows*. Custom actions support you to easily update several work package attributes at once – with a single click.
@@ -114,11 +122,12 @@ A custom action in OpenProject is defined as customizable buttons which trigger 
 
 ### Custom field
 
-In OpenProject, a custom field is defined as an additional field which can be added to existing fields. Custom fields can be created for the following resources: [work packages](#work-package), [spent time](#time-and-costs), [projects](#project), [versions](#versions), [users](#user), and [groups](#group).
+In OpenProject, a custom field is defined as an additional field which can be added to existing fields. Custom fields can be created for the following resources: [work packages](#work-package), [spent time](#time-and-costs), [versions](#versions), [users](#user), and [groups](#group).
 
 ![Custom fields in OpenProject](glossary-openproject-custom-field.png)
 
 **More information on custom fields in OpenProject**
+
 - [Read how to enable custom fields in projects to use them in work packages](../user-guide/projects/project-settings/custom-fields/)
 - [Read how to create custom fields as a system admin in OpenProject](../system-admin-guide/custom-fields/)
 
@@ -128,13 +137,17 @@ A custom query in OpenProject consists of saved [filters](#filters), sort criter
 
 ## D
 
+### Dark mode
+
+The dark mode for OpenProject is a personal setting to display the application in a dark [theme](#theme). Other available modes are the regular light mode and the (light) [high contrast mode](#high-contrast-mode). [Read in our documentation how to enable dark mode](../user-guide/account-settings/#select-the-dark-mode).
+
 ### Dashboard
 
 A dashboard is defined as an overview page in a software. In OpenProject, you have several options to create dashboards:
 
 1. You have the [My Page](#my-page), which shows your personal customized [widgets](#widget) on one page, for example a calendar or work package reports.
 
-2. You have the [project overview](#project-overview) dashboard, which gives you an overview of your project. Please note that only project admins can add and remove widgets to the project overview. 
+2. You have the [project overview](#project-overview) dashboard, which gives you an overview of your project. Please note that only project admins can add and remove widgets to the project overview.
 
 In addition to those overview dashboard options, you can create a [custom query](#custom-query) to save a filtered work package view, which might serve you as kind of a dashboard as well.
 
@@ -164,7 +177,7 @@ File storages can be configured in the System Administration and then be selecte
 
 ### Filters
 
-Filters are essential for task and project management in OpenProject. You have several filtering options applicable to a [work package table](#work-package-table). Filter options can be saved via [custom queries](#custom-query). A filtered work packages table view (e.g. only open work packages) can be saved and therefore work as a [dashboard](#dashboard). 
+Filters are essential for task and project management in OpenProject. You have several filtering options applicable to a [work package table](#work-package-table). Filter options can be saved via [custom queries](#custom-query). A filtered work packages table view (e.g. only open work packages) can be saved and therefore work as a [dashboard](#dashboard).
 
 ### Forum
 
@@ -188,7 +201,7 @@ A Group in OpenProject is defined as a list of users which can be added as a mem
 
 ### High contrast mode
 
-OpenProject offers a high contrast mode to make it easier for visually impaired people to use the software. This mode can be selected in the personal [account settings](../getting-started/my-account/#my-account) and will only affect the individual user's experience.
+OpenProject offers a high contrast mode to make it easier for visually impaired people to use the software. This mode can be selected in the personal [account settings](../user-guide/account-settings/) and will only affect the individual user's experience.
 
 ### Home page
 
@@ -205,6 +218,15 @@ Hybrid project management is an approach that combines elements of both classic 
 In OpenProject, you can choose from several integrations, such as the [Excel synchronization](#excel-synchronization) or the [Nextcloud integration](#nextcloud-integration). In contrast to a plugin, an integration refers to cross features between two software products (e.g., OpenProject and Nextcloud), where both pieces of software have code that is responsible for interacting with the other software, through e.g., an API. Whereas a [plugin](#plugin) is installed on top of / as part of the OpenProject installation. You'll need to actively install it. [See all available plugins and integrations for OpenProject](../system-admin-guide/integrations/).
 
 ## M
+
+### Macro
+
+Macros in OpenProject are dynamic shortcuts that help automate repetitive tasks. They work in editors like [work package](#work-package) descriptions, [wikis](#wiki) or [forums](#forum). For example, users can type 'workPackageValue:1234:subject' into a work package description and once saved, OpenProject will display the title of the work package with the ID 1234.
+
+**More information on macros in OpenProject**
+- [See a list of all possible work package attributes that can be used as macros in OpenProject](../user-guide/wysiwyg/#available-attributes-for-work-packages)
+- [Read a blog article with detailed descriptions and examples on how to use macros in OpenProject](https://www.openproject.org/blog/how-to-use-macros/)
+- [Learn about options for using macros in OpenProject's wikis](../user-guide/wiki/#macros)
 
 ### Meetings
 
@@ -251,10 +273,15 @@ OpenProject offers a OneDrive/SharePoint [integration](#integration) as an [Ente
 OpenProject on-premises is a self-hosted version of OpenProject. As opposed to the Cloud version, you install, run and maintain the hardware locally and manage the software application there. The on-premises [Community Edition](#community-edition) is free of charge.
 
 **More information on OpenProject on-premises**
+
 - [See our pricing side about your options for OpenProject](https://www.openproject.org/pricing/)
 - [Read a blog article comparing on-premises and cloud](https://www.openproject.org/blog/why-self-hosting-software/)
 - [Read how to activate the Enterprise on-premises edition](../enterprise-guide/enterprise-on-premises-guide/activate-enterprise-on-premises/)
 - [Read how to start a trial for Enterprise on-premises](../enterprise-guide/enterprise-on-premises-guide/enterprise-on-premises-trial/)
+
+### OpenID Connect (OIDC)
+
+OpenID Connect (OIDC) is an authentication protocol built on OAuth 2.0 that enables secure, simple, and standardized user identity verification. OpenProject Enterprise offers user interfaces for OIDC as well as for [SAML](#saml), so that administrators can set Single Sign-On (SSO) options for their users. [Read more about OpenID providers for OpenProject in our system admin guide](../system-admin-guide/authentication/openid-providers/).
 
 ## P
 
@@ -266,9 +293,10 @@ A phase in OpenProject is defined as a [work package type](#work-package-types),
 
 In OpenProject, you can choose from several plugins or [integrations](#integration), or add your own plugins to the Community. In contrast to an integration, a plugin is installed on top of / as part of the OpenProject installation. As an open source software, OpenProject is open to Community-created plugins. Please note that we do not guarantee error-free and seamless use of those plugins.
 
-Your activated plugins are listed together with your [modules](#module) in your instance under --> Administration --> Plugins. 
+Your activated plugins are listed together with your [modules](#module) in your instance under --> Administration --> Plugins.
 
 **More information on plugins in OpenProject**
+
 - [See all available plugins and integrations for OpenProject](../system-admin-guide/integrations/)
 - [Read how to create an OpenProject plugin](../development/create-openproject-plugin/)
 
@@ -284,9 +312,13 @@ In OpenProject, a [project](../user-guide/projects/) is defined as an individual
 - an overarching team working on one topic or
 - separate products or customers.
 
+### Project attribute
+
+A project attribute in OpenProject is a [custom field](#custom-field) that applies to an entire project. It is displayed in the right-hand column on the project overview page and can be divided into sections for a better structure. Project attributes can be activated and deactivated either on the respective [project overview](#project-overview) page or, for managing multiple projects at once, in the global administration.
+
 ### Project folder
 
-Project folders help collaborating in the most efficient way. They can be used with OpenProject's [Nextcloud integration](#nextcloud-integration) or with OpenProject's [OneDrive/SharePoint integration](#onedrivesharepoint-integration). [Read more about project folders in OpenProject](../user-guide/projects/project-settings/file-storages/#project-folders).
+Project folders help collaborating in the most efficient way. They can be used with OpenProject's [Nextcloud integration](#nextcloud-integration) or with OpenProject's [OneDrive/SharePoint integration](#onedrivesharepoint-integration). [Read more about project folders in OpenProject](../user-guide/projects/project-settings/files/#project-folders).
 
 ### Project identifier
 
@@ -346,6 +378,10 @@ In product management, the RICE score indicates the level of prioritization of a
 
 ## S
 
+### SAML
+
+SAML (Security Assertion Markup Language) is an open standard for exchanging authentication and authorization data between parties, typically an identity provider (IdP) and a service provider (SP). OpenProject Enterprise offers user interfaces for SAML as well as for [OpenID Connect](#openid-connect-oidc), so that administrators can set Single Sign-On (SSO) options for their users. [Read more about SAML providers for OpenProject in our system admin guide](../system-admin-guide/authentication/saml/).
+
 ### Share work packages
 
 OpenProject offers the possibility to share work packages with external groups or users that are not [members](#member) of the project. This feature is an [Enterprise add-on](#enterprise-add-on). Every user with whom a work package is shared must either already be a user of the instance or be newly created. The latter requires special rights. [Read more about OpenProject's feature to share work packages with project non-members](../user-guide/work-packages/share-work-packages/).
@@ -358,7 +394,7 @@ Story points is a term known in Scrum. They are defined as numbers assigned to a
 
 ### Team planner
 
-The team planner in OpenProject is defined as a [module](#module) ([Enterprise add-on](#enterprise-add-on)) that helps you get a complete overview of what each [member](#member) of your team is working on in a weekly or bi-weekly view. You can use it to track the current progress of [work packages](#work-package) your team is working on, schedule new tasks, reschedule them or even reassign them to different members. [Read more about the OpenProject team planner](../user-guide/team-planner/).
+The team planner in OpenProject is defined as a [module](#module) ([Enterprise add-on](#enterprise-add-on)) that helps you get a complete overview of what each [member](#member) of your team is working on – in different timeframes. You can use it to track the current progress of [work packages](#work-package) your team is working on, schedule new tasks, reschedule them or even reassign them to different members. [Read more about the OpenProject team planner](../user-guide/team-planner/).
 
 ### Time and costs
 
@@ -368,6 +404,10 @@ Time and costs in OpenProject is defined as a [module](#module) which allows use
 
 The time tracking button in OpenProject is a feature to track time spent on work packages in real time. [Read more about logging time via the time tracking button in OpenProject](../user-guide/time-and-costs/time-tracking/#log-time-via-the-time-tracking-button).
 
+### Theme
+
+A theme is a visual customization setting that changes the overall look and feel of the application. In OpenProject, [Enterprise customers can set a custom color theme along with a custom logo](../system-admin-guide/design/). Please note: Users of all versions can choose a personal mode (e.g. [high contrast mode](#high-contrast-mode) or [dark mode](#dark-mode)), but the theme is set globally by an administrator in the design settings.
+
 ## U
 
 ### User
@@ -376,7 +416,7 @@ In OpenProject, a user is defined as a person who uses OpenProject, described by
 
 ### User guide
 
-The OpenProject [user guide](../user-guide/) is an in-depth guide of all features in OpenProject. It offers users detailed information about how to use OpenProject's features, [modules](#module), [integrations](#integration) and more. For more technical information on how to configure your OpenProject instance, see our [system admin guide](../system-admin-guide/). 
+The OpenProject [user guide](../user-guide/) is an in-depth guide of all features in OpenProject. It offers users detailed information about how to use OpenProject's features, [modules](#module), [integrations](#integration) and more. For more technical information on how to configure your OpenProject instance, see our [system admin guide](../system-admin-guide/).
 
 ## V
 
@@ -396,9 +436,12 @@ In OpenProject, a wiki is defined as a [module](#module) that allows to use wiki
 
 ![A wiki module in OpenProject](glossary-openproject-wiki.png)
 
-### Work and Remaining Work
+### Work, Remaining Work and % Complete
 
-In OpenProject, 'Work' refers to a work package attribute indicating the estimated hours needed to complete a task. You can edit the value for work manually, as well as the value for the work package attribute '**Remaining work**'. To make it easier for project managers to work with work package hierarchies, OpenProject also displays a value (in blue) for the total amount of work in the Work field for parent work packages – next to the value for the dedicated work package. This **total work value** is the sum of the work value of the parent work package and all the work values of its children. The same principle applies to the work package attribute Remaining Work. [Read in our user guide about how to configure a work package](../user-guide/work-packages/work-package-table-configuration/)
+In OpenProject, '**Work**' refers to a work package attribute indicating the estimated hours and days needed to complete a task.  
+'**Remaining work**' is a work package attribute that shows how much work is left to finish the work package. It is automatically calculated if you work with [status-based progress reporting](../user-guide/time-and-costs/progress-tracking/#status-based-progress-reporting). And '**% Complete**' is an automatically calculated work package attribute that shows in percentage how much work is already completed. All three attributes are important for [progress reporting with OpenProject](https://www.openproject.org/blog/changes-progress-work-estimates/).
+
+To make it easier for project managers to work with work package hierarchies, OpenProject also displays a value (in blue) for the total amount of work in the Work field for parent work packages – next to the value for the dedicated work package. This **total work value** is the sum of the work value of the parent work package and all the work values of its children. The same principle applies to the work package attribute Remaining Work. [Read in our user guide about how to configure a work package](../user-guide/work-packages/work-package-table-configuration/)
 
 ### Workflow
 
@@ -413,6 +456,7 @@ In OpenProject, a [work package](../user-guide/work-packages/#overview) is defin
 ![A work package in OpenProject](glossary-openproject-work-package.png)
 
 **More information on work packages in OpenProject**
+
 - [Read our user guide on work packages](../user-guide/work-packages/)
 - [Read a blog article on how to work with work packages](https://www.openproject.org/blog/how-to-work-with-work-packages/)
 
@@ -437,3 +481,7 @@ Work package types are the different items a work package can represent. Each wo
 ### Work package view
 
 A list of work packages is considered a view. The containing work packages in any view can be displayed a number of different ways. Examples for most used work package views are the [table view](#work-package-table), the full screen view or the split screen view. You can also display work packages  in a card view and use them in a [board](#board) to use agile methods. [Read more about work package views in OpenProject](../user-guide/work-packages/work-package-views/#work-packages-views).
+
+### WYSIWYG editor
+
+WYSIWYG stands for 'What you see is what you get'. A WYSIWYG editor is a content editing interface that allows users to create and edit content so that it visually resembles the final result. In OpenProject, you can use WYSIWYG editors in [wikis](#wiki), [forums](#forum) and [work package](#work-package) descriptions and comments.

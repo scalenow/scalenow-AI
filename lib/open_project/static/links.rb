@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -170,12 +170,16 @@ module OpenProject
               label: "homescreen.links.blog"
             },
             blog_article_progress_changes: {
-              href: "https://www.openproject.org/blog/changes-progress-work-estimates/",
+              href: "https://www.openproject.org/blog/updates-to-progress-tracking-in-14-4-based-on-user-feedback/",
               label: "Significant changes to progress and work estimates"
             },
             release_notes: {
               href: "https://www.openproject.org/docs/release-notes/",
               label: :label_release_notes
+            },
+            release_notes_14_0_1: {
+              href: "https://www.openproject.org/docs/release-notes/14-0-1/",
+              label: "Release notes for OpenProject 14.0.1"
             },
             data_privacy: {
               href: "https://www.openproject.org/legal/privacy/",
@@ -264,6 +268,20 @@ module OpenProject
               },
               status_read_only: {
                 href: "https://www.openproject.org/docs/system-admin-guide/manage-work-packages/work-package-status/#create-a-new-work-package-status"
+              }
+            },
+            sysadmin_docs: {
+              saml: {
+                href: "https://www.openproject.org/docs/system-admin-guide/authentication/saml/"
+              },
+              oidc: {
+                href: "https://www.openproject.org/docs/installation-and-operations/misc/custom-openid-connect-providers/"
+              },
+              oidc_claims: {
+                href: "https://www.openproject.org/docs/installation-and-operations/misc/custom-openid-connect-providers/#claims"
+              },
+              oidc_acr_values: {
+                href: "https://www.openproject.org/docs/installation-and-operations/misc/custom-openid-connect-providers/#non-essential-claims"
               }
             },
             storage_docs: {

@@ -98,11 +98,6 @@ export class OPContextMenuService {
     this.portalHostElement.style.display = 'block';
     this.active = menu;
 
-    const dropdownMenu = this.portalHostElement.querySelector('ul.dropdown-menu') as HTMLElement | null;
-    if (dropdownMenu) {
-      dropdownMenu.style.display = 'block';
-    }
-
     setTimeout(() => {
       this.reposition(event);
       // Focus on the first element

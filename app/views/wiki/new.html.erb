@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -27,23 +27,23 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<% html_title t("create_new_page") %>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title t("create_new_page") %>
+<%= labelled_tabular_form_for @page,
+                              as: :page,
+                              url: create_project_wiki_index_path(project_id: @project),
+                              html: { method: :post, multipart: true, id: 'wiki_form' } do |f| %>
 
-  <%= labelled_tabular_form_for @page,
-                                as: :page,
-                                url: create_project_wiki_index_path(project_id: @project),
-                                html: { method: :post, multipart: true, id: 'wiki_form' } do |f| %>
+  <%= render partial: 'page_form', locals: {f: f}  %>
 
-    <%= render partial: 'page_form', locals: {f: f}  %>
+<% end %>
 
-  <% end %>
+<div id="preview"></div>
 
-  <div id="preview"></div>
+<% content_for :header_tags do %>
+  <%= robot_exclusion_tag %>
+<% end %>
 
-  <% content_for :header_tags do %>
-    <%= robot_exclusion_tag %>
-  <% end %>
-
-  <% html_title @page.title %>
+<% html_title @page.title %>
 </div>

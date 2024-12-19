@@ -1,6 +1,6 @@
-// -- copyright
+//-- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -175,12 +175,12 @@ export class AttachmentsResourceService extends ResourceStoreService<IAttachment
    */
   private getUploadTarget(resource:HalResource):string {
     return this.getDirectUploadLink(resource)
-      || AttachmentsResourceService.getAttachmentsSelfLink(resource)
+      || AttachmentsResourceService.getAddAttachmentsLink(resource)
       || this.apiV3Service.attachments.path;
   }
 
   private getDirectUploadLink(resource:HalResource):string|null {
-    const links = resource.$links as unknown&{ prepareAttachment:HalLink };
+    const links = resource.$links as { prepareAttachment:HalLink };
 
     if (links.prepareAttachment) {
       return links.prepareAttachment.href as string;
@@ -194,8 +194,21 @@ export class AttachmentsResourceService extends ResourceStoreService<IAttachment
   }
 
   private static getAttachmentsSelfLink(resource:HalResource):string|null {
-    const attachments = resource.attachments as unknown&{ href?:string };
+    if (isNewResource(resource)) {
+      return null;
+    }
+
+    const attachments = resource.attachments as { href?:string };
     return attachments?.href || null;
+  }
+
+  private static getAddAttachmentsLink(resource:HalResource):string|null {
+    if (isNewResource(resource)) {
+      return null;
+    }
+
+    const link = resource.addAttachment as { href?:string };
+    return link?.href || null;
   }
 
   protected createStore():ResourceStore<IAttachment> {

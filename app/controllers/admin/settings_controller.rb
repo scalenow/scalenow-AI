@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -61,6 +61,18 @@ module Admin
     def show_plugin
       @partial = @plugin.settings[:partial]
       @settings = Setting["plugin_#{@plugin.id}"]
+
+      page_title_key = @plugin.settings[:page_title_key]
+      @page_title = page_title_key ? I18n.t(page_title_key) : @plugin.name
+
+      additional_breadcrumb_elements = @plugin.settings[:breadcrumb_elements]
+      if additional_breadcrumb_elements.present?
+        @breadcrumb_elements = if additional_breadcrumb_elements.respond_to?(:call)
+                                 instance_exec(&additional_breadcrumb_elements)
+                               else
+                                 additional_breadcrumb_elements
+                               end
+      end
     end
 
     def update_plugin
@@ -70,7 +82,7 @@ module Admin
     end
 
     def show_local_breadcrumb
-      true
+      false
     end
 
     def default_breadcrumb
@@ -90,7 +102,17 @@ module Admin
     end
 
     def settings_params
-      permitted_params.settings.to_h
+      permitted_params.settings(*extra_permitted_filters).to_h
+    end
+
+    # Override to allow additional permitted parameters.
+    #
+    # Useful when the format of the setting in the parameters is different from
+    # the expected format in the setting definition, for instance a setting is
+    # an array in the definition but is passed as a string to be split in the
+    # parameters.
+    def extra_permitted_filters
+      nil
     end
 
     def update_service

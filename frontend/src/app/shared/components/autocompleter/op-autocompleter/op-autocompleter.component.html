@@ -180,26 +180,33 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="resource ==='users' || resource ==='assignee' || resource === 'principals'">
-    <div class="op-autocompleter--option-principal-wrapper">
-      <op-principal
-        *ngIf="item && item.href"
-        [principal]="item"
-        [hideName]="true"
-        class="op-autocompleter--option-principal-avatar"
-        size="mini"
-      ></op-principal>
-      <span [ngOptionHighlight]="search" class="ellipsis">{{ item.name }}</span>
-    </div>
+    <op-principal
+      *ngIf="item && item.href"
+      [principal]="item"
+      [hideName]="true"
+      class="op-autocompleter--option-principal-avatar"
+      size="mini"
+    ></op-principal>
+    <span [ngOptionHighlight]="search">{{ item.name }}</span>
+    <span
+      class="op-autocompleter__option-principal-email"
+      *ngIf="item.email"
+      [ngOptionHighlight]="search">{{ item.email }}</span>
   </ng-container>
 
   <ng-container
     *ngSwitchCase="resource ==='subproject' || resource ==='version' || resource ==='status' || resource ==='default' || !resource">
     <span [ngOptionHighlight]="search">{{ item.name }}</span>
+    <span
+      class="op-autocompleter__option-principal-email"
+      *ngIf="item.email"
+      [ngOptionHighlight]="search">{{ item.email }}</span>
   </ng-container>
 </ng-template>
 
 <ng-template let-item let-search="search" let-clear="clear" #defaultLabel>
   <ng-container *ngIf="resource === 'work_packages'">
+    <span class="ng-value-icon left" (click)="clear(item)">×</span>
     <span
       *ngIf="item.id"
       class="ng-value-label"

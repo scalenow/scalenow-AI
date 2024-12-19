@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -68,6 +68,8 @@ RSpec.describe "adding a new budget", :js do
       # change cost type
       select "Foobar", from: "budget_new_material_budget_item_attributes_0_cost_type_id"
 
+      expect(page).to have_content "bars"
+
       click_on "Create"
 
       expect(page).to have_content "Successful creation"
@@ -120,7 +122,7 @@ RSpec.describe "adding a new budget", :js do
         new_budget_page.add_labor_costs! "0,5", user_name: user.name, comment: "attendance", expected_costs: "12,50 EUR"
 
         page.find('[data-test-selector="budgets-create-button"]').click
-        expect(page).to have_content(I18n.t(:notice_successful_create, locale: :de))
+        expect_and_dismiss_flash(message: I18n.t(:notice_successful_create, locale: :de))
 
         expect(new_budget_page.unit_costs_at(1)).to have_content "175,00 EUR"
         expect(new_budget_page.unit_costs_at(2)).to have_content "50.025,00 EUR"

@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -43,11 +43,13 @@ fil:
         start_time: "Start time"
         start_time_hour: "Start time"
       meeting_agenda_item:
-        title: "Title"
-        author: "Author"
+        title: "Pamagat"
+        author: "May-akda"
         duration_in_minutes: "min"
-        description: "Notes"
+        description: "Ang mga tala"
         presenter: "Presenter"
+      meeting_section:
+        title: "Pamagat"
     errors:
       messages:
         invalid_time_format: "ay hindi balidong oras. Ang hinihinging format ay: HH:MM"
@@ -56,9 +58,23 @@ fil:
       meeting_agenda_item: "Agenda item"
       meeting_agenda: "Agenda"
       meeting_minutes: "Minutes"
+      meeting_section: "Section"
   activity:
     filter:
       meeting: "Mga Pagpupulong"
+    item:
+      meeting_agenda_item:
+        duration:
+          added: "set to %{value}"
+          added_html: "set to <i>%{value}</i>"
+          removed: "removed"
+          updated: "changed from %{old_value} to %{value}"
+          updated_html: "changed from <i>%{old_value}</i> to <i>%{value}</i>"
+        position:
+          updated: "reordered"
+        work_package:
+          updated: "changed from %{old_value} to %{value}"
+          updated_html: "changed from <i>%{old_value}</i> to <i>%{value}</i>"
   description_attended: "dumalo"
   description_invite: "maimbitahan"
   events:
@@ -99,12 +115,15 @@ fil:
     attachments:
       text: "Attached files are available to all meeting participants. You can also drag and drop these into agenda item notes."
     copy:
-      title: "Copy meeting %{title}"
+      title: "Copy meeting: %{title}"
       attachments: "Copy attachments"
       attachments_text: "Copy over all attached files to the new meeting"
       agenda: "Copy agenda"
       agenda_text: "Copy the agenda of the old meeting"
     email:
+      send_emails: "Email participants"
+      send_invitation_emails: >
+        Send an email invitation immediately to the participants selected above. You can also do this manually at any time later.
       open_meeting_link: "Open meeting"
       invited:
         summary: "%{actor} has sent you an invitation for the meeting %{title}"
@@ -122,8 +141,14 @@ fil:
       structured_text: "Organize your meeting as a list of agenda items, optionally linking them to a work package."
       structured_text_copy: "Copying a meeting will currently not copy the associated meeting agenda items, just the details"
     copied: "Copied from Meeting #%{id}"
+  meeting_section:
+    untitled_title: "Untitled section"
+    delete_confirmation: "Deleting the section will also delete all of its agenda items. Are you sure you want to do this?"
+    placeholder_title: "New section"
+    empty_text: "Drag items here or create a new one"
   notice_successful_notification: "Ang abiso ay naipadala ng matagumpay"
   notice_timezone_missing: Walang nakatakdang time zone at ang %{zone} ay ipinagpalagay na siyang time zone. Para piliin ang iyong time zone, mangyaring magclick dito.
+  notice_meeting_updated: "This page has been updated by someone else. Reload to view changes."
   permission_create_meetings: "Lumikha ng mga pulong"
   permission_edit_meetings: "I-edit ang mga pulong"
   permission_delete_meetings: "Burahin ang mga pulong"
@@ -155,6 +180,7 @@ fil:
   label_meeting_delete: "Delete meeting"
   label_meeting_created_by: "Nilikha ni"
   label_meeting_last_updated: "Last updated"
+  label_meeting_reload: "Reload"
   label_agenda_items: "Agenda items"
   label_agenda_items_reordered: "reordered"
   label_agenda_item_remove: "Remove from agenda"
@@ -170,7 +196,7 @@ fil:
   text_agenda_item_title: 'Agenda item "%{title}"'
   text_agenda_work_package_deleted: 'Agenda item for deleted work package'
   text_deleted_agenda_item: 'Deleted agenda item'
-  label_initial_meeting_details: "Meeting"
+  label_initial_meeting_details: "Pagpupulong"
   label_meeting_details: "Meeting details"
   label_meeting_details_edit: "Edit meeting details"
   label_meeting_state: "Meeting status"

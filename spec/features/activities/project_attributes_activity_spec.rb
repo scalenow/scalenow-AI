@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -31,9 +31,9 @@ require "spec_helper"
 RSpec.describe "Project attributes activity", :js, :with_cuprite do
   let(:user) do
     create(:user, member_with_permissions: {
-        project => %i[view_work_packages edit_work_packages],
-        project2 => %i[view_work_packages edit_work_packages]
-      })
+             project => %i[view_work_packages edit_work_packages],
+             project2 => %i[view_work_packages edit_work_packages]
+           })
   end
   let(:parent_project) { create(:project, name: "parent") }
   let(:project) { create(:project, parent: parent_project, active: false) }
@@ -123,7 +123,7 @@ RSpec.describe "Project attributes activity", :js, :with_cuprite do
       expect(page).to have_css("li", text: "#{user_project_custom_field.name} set to #{current_user.name}")
       expect(page).to have_css("li", text: "#{int_project_custom_field.name} set to 42")
       expect(page).to have_css("li", text: "#{float_project_custom_field.name} set to 3.14159")
-      expect(page).to have_css("li", text: "#{text_project_custom_field.name} set to\na new text CF value")
+      expect(page).to have_css("li", text: "#{text_project_custom_field.name} set (Details)")
       expect(page).to have_css("li", text: "#{string_project_custom_field.name} set to a new string CF value")
       expect(page).to have_css("li", text: "#{date_project_custom_field.name} set to 01/31/2023")
     end

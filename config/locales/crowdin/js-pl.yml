@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -66,7 +66,7 @@ pl:
     button_back_to_list_view: "Wróć do widoku listy"
     button_cancel: "Anuluj"
     button_close: "Zamknij"
-    button_change_project: "Zmień projekt"
+    button_change_project: "Przenieś do innego projektu"
     button_check_all: "Zaznacz wszystko"
     button_configure-form: "Skonfiguruj formularz"
     button_confirm: "Potwierdź"
@@ -74,7 +74,7 @@ pl:
     button_copy: "Kopiuj"
     button_copy_to_clipboard: "Skopiuj do schowka"
     button_copy_link_to_clipboard: "Kopiuj link do schowka"
-    button_copy_to_other_project: "Kopiuj do innego projektu"
+    button_copy_to_other_project: "Zduplikuj w innym projekcie"
     button_custom-fields: "Pola niestandardowe"
     button_delete: "Usuń"
     button_delete_watcher: "Usuń obserwatora"
@@ -138,6 +138,8 @@ pl:
     description_select_work_package: "Zaznacz zestaw Zadań #%{id}"
     description_subwork_package: "Otwórz zadanie-dziecko #%{id}"
     editor:
+      revisions: "Pokaż lokalne modyfikacje"
+      no_revisions: "Nie znaleziono żadnych lokalnych modyfikacji"
       preview: "Przełącz tryb podglądu"
       source_code: "Przełącz tryb źródła Markdown"
       error_saving_failed: "Zapisywanie dokumentu nie powiodło się, błąd: %{error}"
@@ -150,6 +152,7 @@ pl:
         attribute_reference:
           macro_help_tooltip: "Ten segment tekstowy jest renderowany dynamicznie przez makro."
           not_found: "Nie można znaleźć żądanego zasobu"
+          nested_macro: "To makro odwołuje się rekurencyjnie do %{model} %{id}."
           invalid_attribute: "Wybrany atrybut „%{name}” nie istnieje."
         child_pages:
           button: "Łącza do stron podrzędnych"
@@ -274,6 +277,11 @@ pl:
         warning: >
           Zmiany mogą wejść w życie po pewnym czasie. Gdy wszystkie odpowiednie pakiety robocze zostaną zaktualizowane, otrzymasz powiadomienie.
           Czy na pewno chcesz kontynuować?
+      work_packages_settings:
+        warning_progress_calculation_mode_change_from_status_to_field_html: >-
+          Zmiana trybu obliczania postępu z opartego na statusie na oparty na pracy spowoduje, że pole <i>% ukończenia</i> będzie można dowolnie edytować. Jeśli opcjonalnie wprowadzisz wartości <i>Praca</i> lub <i>Pozostała praca</i>, zostaną one również powiązane z wartością <i>% ukończenia</i>. Zmiana wartości <i>Pozostała praca</i> może wówczas skutkować zaktualizowaniem wartości <i>% ukończenia</i>.
+        warning_progress_calculation_mode_change_from_field_to_status_html: >-
+          Zmiana trybu obliczania postępu z opartego na pracy na oparty na statusie spowoduje, że wszystkie istniejące wartości <i>% ukończenia</i> zostaną utracone i zastąpione wartościami powiązanymi z poszczególnymi statusami. Istniejące wartości <i>Pozostała praca</i> mogą również zostać obliczone ponownie w celu odzwierciedlenia tej zmiany. Działanie to jest nieodwracalne.
     custom_actions:
       date:
         specific: "wł"
@@ -348,11 +356,10 @@ pl:
           learn_about: "Dowiedz się więcej o nowych funkcjach"
           #Include the version to invalidate outdated translations in other locales.
           #Otherwise, e.g. chinese might still have the translations for 10.0 in the 12.0 release.
-          "14_0":
+          "15_0":
             standard:
-              learn_about_link: https://www.openproject.org/blog/openproject-14-0-release/
               new_features_html: >
-                Wersja zawiera różne nowe funkcje i ulepszenia: <br> <ul class="%{list_styling_class}"> <li>Wdrożenie raportowania postępów w hierarchiach pakietów roboczych.</li> <li>Zarządzanie atrybutami projektu w uporządkowany sposób na stronie przeglądu projektu.</li> <li>Usprawniony widok pól niestandardowych na liście projektów i w przeglądzie projektu.</li> <li>Ujednolicone nagłówki stron z eleganckim wyglądem Primer.</li> <li>Ulepszenie spotkań dzięki nowym funkcjom, takim jak przesyłanie załączników, osoby odpowiedzialne i historia spotkań.</li> <li>Automatyczne alerty o magazynach plików w złej kondycji i uzyskiwanie kontroli przy użyciu opcji przełączania.</li> <li>Kopiowanie automatycznie zarządzanego folderu projektu dla usług OneDrive/SharePoint podczas kopiowania projektów.</li> <li>Prośba do administratorów o usunięcie udostępnień pakietów roboczych podczas odwoływania członkostwa w projekcie.</li> <li>Lepsze planowanie dzięki 4- i 8-tygodniowym trybom wyświetlania w planiście zespołu.</li> </ul>
+                Ta wersja wprowadza różne funkcje i ulepszenia, takie jak: <br> <ul class="%{list_styling_class}"> <li>Usprawnienie komunikacji dzięki lepiej zorganizowanej karcie Aktywność, ładowaniu wiadomości i powiadomień w czasie rzeczywistym, reakcjom emoji itd.</li> <li>Korzystanie z łatwych ustawień uwierzytelniania logowania jednokrotnego przy użyciu SAML i OIDC w administracji Enterprise Cloud.</li> <li>Korzystanie z nowej „standardowej roli globalnej” i włączanie uprawnień do wyświetlania adresów e-mail.</li> <li>Łatwiejsza nawigacja na listach projektów dzięki nagłówkom tabel szybkich działań.</li> <li>Uproszczone ustawienia projektu z mniejszą liczbą potrzebnych zmiennych projektu paska bocznego.</li> <li>Ograniczenie ręcznego czyszczenia podczas dodawania niestandardowego pola do typu — koniec z automatycznym stosowaniem do wszystkich projektów.</li> <li>Lepsza przejrzystość nawigacji — nazwa „Moje konto” została zmieniona na „Ustawienia konta”.</li> </ul>
     ical_sharing_modal:
       title: "Subskrybuj kalendarz"
       inital_setup_error_message: "Podczas pobierania danych wystąpił błąd."
@@ -378,6 +385,7 @@ pl:
     label_added_time_by: 'Dodany przez <a href="%{authorLink}">%{author}</a> o %{age}'
     label_ago: "dni temu"
     label_all: "wszystkie"
+    label_all_uppercase: "Wszystko"
     label_all_work_packages: "wszystkie pakiety pracy"
     label_and: "i"
     label_ascending: "Rosnąco"
@@ -392,6 +400,7 @@ pl:
     label_create: "Utwórz"
     label_create_work_package: "Utwórz nowy pakiet roboczy"
     label_created_by: "Utworzony przez"
+    label_current: "bieżący"
     label_date: "Data"
     label_date_with_format: "Wprowadź %{date_attribute} w następującym formacie: %{format}"
     label_deactivate: "Wyłącz"
@@ -419,6 +428,7 @@ pl:
     label_expand_project_menu: "Rozwiń menu projektu"
     label_export: "Eksportuj"
     label_export_preparing: "Eksport jest przygotowywany i zostanie wkrótce pobrany."
+    label_favorites: "Ulubione"
     label_filename: "Plik"
     label_filesize: "Rozmiar"
     label_general: "Ogólne"
@@ -597,17 +607,19 @@ pl:
       title: "Powiadomienia"
       no_unread: "Brak nieprzeczytanych powiadomień"
       reasons:
-        mentioned: "wzmianka"
-        watched: "obserwator"
-        assigned: "przypisana osoba"
-        responsible: "osoba odpowiedzialna"
-        created: "utworzono"
-        scheduled: "zaplanowano"
-        commented: "skomentowano"
-        processed: "przetworzono"
-        prioritized: "priorytetowo"
+        mentioned: "Wzmianka"
+        watched: "Obserwator"
+        assigned: "Przypisana osoba"
+        #The enum value is named 'responsible' in the database and that is what is transported through the API
+        #up to the frontend.
+        responsible: "Osoba odpowiedzialna"
+        created: "Utworzono"
+        scheduled: "Zaplanowany"
+        commented: "Skomentował"
+        processed: "Przetworzono"
+        prioritized: "Ma priorytet"
         dateAlert: "Alert dotyczący daty"
-        shared: "udostępniono"
+        shared: "Udostępniono"
       date_alerts:
         milestone_date: "Data  kamienia milowego"
         overdue: "Przekroczony termin"
@@ -619,11 +631,6 @@ pl:
         upsale:
           title: "Alerty dotyczące dat"
           description: "Dzięki alertom dotyczącym dat będziesz otrzymywać powiadomienia o zbliżających się terminach rozpoczęcia lub zakończenia pracy, dzięki czemu nigdy nie przegapisz ani nie zapomnisz ważnego terminu."
-      facets:
-        unread: "Nieprzeczytane"
-        unread_title: "Pokaż nieprzeczytane"
-        all: "Wszystko"
-        all_title: "Pokaż wszystkie"
       center:
         label_actor_and: "i"
         and_more_users:
@@ -636,25 +643,17 @@ pl:
           with_current_filter: "Obecnie brak powiadomień w tym widoku"
         mark_all_read: "Oznacz wszystko jako przeczytane"
         mark_as_read: "Oznacz jako przeczytane"
-        text_update_date: "%{date} dodał"
+        text_update_date_by: "%{date} przez"
         total_count_warning: "Wyświetlono najnowsze powiadomienia: %{newest_count}. Nie wyświetlono %{more_count}."
         empty_state:
           no_notification: "Wygląda na to, że jesteś już na bieżąco."
           no_notification_with_current_project_filter: "Wygląda na to, że wszystko jest na bieżąco w wybranym projekcie."
           no_notification_with_current_filter: "Wygląda na to, że wszystko jest na bieżąco dla filtru: %{filter}."
+          no_notification_for_filter: "Wygląda na to, że wszystko jest na bieżąco dla tego filtru."
           no_selection: "Kliknij powiadomienie, aby wyświetlić wszystkie szczegóły aktywności."
         new_notifications:
           message: "Masz nowe powiadomienia."
           link_text: "Kliknij tutaj, aby je załadować."
-      menu:
-        accountable: "Osoba odpowiedzialna"
-        by_project: "Nieprzeczytane wg projektu"
-        by_reason: "Przyczyna"
-        inbox: "Inbox"
-        mentioned: "Wzmianka"
-        watched: "Obserwator"
-        date_alert: "Data ostrzeżenia"
-        shared: "Udostępniono"
       settings:
         change_notification_settings: 'Możesz zmodyfikować <a target="_blank" href="%{url}">ustawienia powiadomień</a>, aby upewnić się, że nigdy nie przegapisz ważnej aktualizacji.'
         title: "Ustawienia powiadomień"
@@ -719,7 +718,6 @@ pl:
     project:
       required_outside_context: >
         Wybierz projekt, w którym chcesz utworzyć pakiet roboczy, aby zobaczyć wszystkie atrybuty. Możesz wybrać tylko projekty, które mają aktywowany powyższy typ.
-      details_activity: "Szczegóły projektu"
       context: "Kontekst projektu"
       click_to_switch_to_project: "Projekt: %{projectname}"
       confirm_template_load: "Przełączenie szablonu spowoduje ponowne załadowanie strony i utracisz wszystkie dane wprowadzone do tego formularza. Kontynuować?"
@@ -888,6 +886,11 @@ pl:
       preformatted_text: "Tekst wstępnie sformatowany"
       wiki_link: "Adres strony Wiki"
       image: "Obraz"
+    sharing:
+      share: "Udostępnij"
+      selected_count: "Wybrano %{count}"
+      selection:
+        mixed: "Mieszane"
     work_packages:
       bulk_actions:
         move: "Masowa zmiana projektu"
@@ -998,11 +1001,13 @@ pl:
         workAlternative: "Szacowany czas"
         remainingTime: "Pozostała praca"
       default_queries:
+        manually_sorted: "Nowe ręcznie sortowane zapytanie"
         latest_activity: "Ostatnia aktywność"
         created_by_me: "Utworzone przeze mnie"
         assigned_to_me: "Przypisane do mnie"
         recently_created: "Utworzone niedawno"
         all_open: "Wszystkie otwarte"
+        overdue: "Przekroczony termin"
         summary: "Podsumowanie"
         shared_with_users: "Udostępnione użytkownikom"
         shared_with_me: "Udostępnione dla mnie"
@@ -1043,12 +1048,8 @@ pl:
         is_parent: "Daty tego pakietu roboczego są automatycznie odejmowane od jego elementów podrzędnych. Włącz funkcję Planowanie ręczne, aby ustawić daty."
         is_switched_from_manual_to_automatic: "Po przełączeniu planowania z ręcznego na automatyczne konieczne może być ponowne obliczenie dat tego pakietu roboczego ze względu na jego powiązania z innymi pakietami roboczymi."
       sharing:
-        share: "Udostępnij"
         title: "Udostępnij pakiet roboczy"
-        show_all_users: "Pokaż wszystkich udostępnionych użytkowników"
-        selected_count: "Wybrano %{count}"
-        selection:
-          mixed: "Mieszane"
+        show_all_users: "Pokaż wszystkich użytkowników, którym udostępniono pakiet roboczy"
         upsale:
           description: "Udostępnij pakiety robocze użytkownikom, którzy nie są członkami projektu."
       table:
@@ -1191,6 +1192,11 @@ pl:
         one: "1 dzień"
         other: "%{count} dni"
         zero: "0 dni"
+      word:
+        one: "1 słowo"
+        few: "%{count} słowa"
+        many: "%{count} słów"
+        other: "%{count} słowa"
     zen_mode:
       button_activate: "Włącz tryb zen"
       button_deactivate: "Wyłącz tryb zen"
@@ -1275,6 +1281,14 @@ pl:
           placeholder: "Symbolu zastępczego można teraz użyć w %{project}. Tymczasem możesz już planować z tym użytkownikiem i na przykład przypisać pakiety robocze."
           group: "Grupa jest teraz częścią %{project}. Tymczasem możesz już planować z tą grupą i na przykład przypisać pakiety robocze."
         next_button: "Kontynuuj"
+    exclusion_info:
+      modal:
+        title: "Status wyłączono z sum hierarchii"
+        content: >-
+          Status „%{status_name}” został skonfigurowany tak, aby był wyłączony z sum hierarchii Praca, Pozostała praca i % ukończenia. Sumy nie uwzględniają tej wartości.
+    favorite_projects:
+      no_results: "Nie masz żadnych ulubionych projektów"
+      no_results_subtext: "Dodaj jeden lub wiele projektów jako ulubione w ich przeglądzie lub na liście projektów."
     include_projects:
       toggle_title: "Uwzględnij projekty"
       title: "Projekty"
@@ -1332,8 +1346,12 @@ pl:
         remove: "Usuń"
       drop_modal:
         focus_grab: "To jest kotwica fokusu okien modalnych. Naciśnij klawisze Shift+Tab, aby wrócić do elementu wyzwalającego okna modalne."
-        Close: "Zamknij"
+        close: "Zamknij okno modalne"
     open_project_storage_modal:
+      waiting_title:
+        timeout: "Limit czasu"
       waiting_subtitle:
         network_off: "Występuje problem z siecią."
         network_on: "Sieć znów działa. Staramy się."
+        timeout: >
+          OpenProject nie mógł Ci zapewnić dostępu do folderu projektu w oczekiwanym czasie. Spróbuj ponownie.<br><br> Jeśli problem nie ustąpi, skontaktuj się z administratorem OpenProject w celu sprawdzenia <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">stanu konfiguracji magazynu plików</a>.

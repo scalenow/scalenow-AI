@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -40,7 +40,7 @@ class Members::DeleteService < BaseServices::Delete
   protected
 
   def after_perform(service_call)
-    super(service_call).tap do |call|
+    super.tap do |call|
       member = call.result
 
       cleanup_for_group(member)
@@ -59,5 +59,14 @@ class Members::DeleteService < BaseServices::Delete
     Groups::CleanupInheritedRolesService
       .new(member.principal, current_user: user, contract_class: EmptyContract)
       .call
+  end
+
+  def default_contract_class
+    # We have different contracts for project roles and global roles
+    if model.project_role?
+      "#{namespace}::DeleteFromProjectContract".constantize
+    else
+      "#{namespace}::DeleteGloballyContract".constantize
+    end
   end
 end

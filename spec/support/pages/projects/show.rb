@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -47,12 +47,13 @@ module Pages
         within("#menu-sidebar", &)
       end
 
-      def toast_type
-        :rails
-      end
-
       def visit_page
         visit path
+      end
+
+      def expect_no_visible_sidebar
+        expect_angular_frontend_initialized
+        expect(page).to have_no_css(".op-grid-page--grid-container")
       end
 
       def within_async_loaded_sidebar(&)

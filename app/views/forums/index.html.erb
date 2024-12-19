@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -26,141 +26,141 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
+<% html_title t(:label_forum_plural) %>
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title t(:label_forum_plural) %>
-  <%= toolbar title: t(:label_forum_plural), title_class: "color-orange" do %>
-    <% if User.current.allowed_in_project?(:manage_forums, @project) %>
-      <li class="toolbar-item">
-        <%= link_to(new_project_forum_path(@project),
-                    { aria: { label: t(:label_forum_new) },
-                      title: t(:label_forum_new),
-                      class: 'button -primary custom-secondary-button rounded-border' }) do %>
-          <%= op_icon('button--icon icon-add') %>
-          <span class="button--text"><%= t('activerecord.models.forum') %></span>
-        <% end %>
-      </li>
-    <% end  %>
-  <% end %>
+<%= toolbar title: t(:label_forum_plural), title_class: "color-orange" do %>
+  <% if User.current.allowed_in_project?(:manage_forums, @project) %>
+    <li class="toolbar-item">
+      <%= link_to(new_project_forum_path(@project),
+                  { aria: { label: t(:label_forum_new) },
+                    title: t(:label_forum_new),
+                    class: 'button -primary custom-secondary-button rounded-border' }) do %>
+        <%= op_icon('button--icon icon-add') %>
+        <span class="button--text"><%= t('activerecord.models.forum') %></span>
+      <% end %>
+    </li>
+  <% end  %>
+<% end %>
 
-  <% if @forums.empty? %>
-    <%= no_results_box(action_url: new_project_forum_path(@project)) %>
-  <% else %>
-    <div class="generic-table--container">
-      <div class="generic-table--results-container">
-        <table class="generic-table boards">
-          <colgroup>
-            <col opHighlightCol>
-            <col opHighlightCol>
-            <col opHighlightCol>
-            <col opHighlightCol>
+<% if @forums.empty? %>
+  <%= no_results_box(action_url: new_project_forum_path(@project)) %>
+<% else %>
+  <div class="generic-table--container">
+    <div class="generic-table--results-container">
+      <table class="generic-table boards" data-controller="table-highlighting">
+        <colgroup>
+          <col>
+          <col>
+          <col>
+          <col>
+          <% if User.current.allowed_in_project?(:manage_forums, @project) %>
+            <col>
+            <col data-highlight="false">
+          <% end %>
+        </colgroup>
+        <thead>
+          <tr>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= Forum.model_name.human %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= t(:label_topic_plural) %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= t(:label_message_plural) %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= t(:label_message_last) %>
+                  </span>
+                </div>
+              </div>
+            </th>
             <% if User.current.allowed_in_project?(:manage_forums, @project) %>
-              <col opHighlightCol>
-              <col>
-            <% end %>
-          </colgroup>
-          <thead>
+              <th>
+                <div class="generic-table--sort-header-outer">
+                  <div class="generic-table--sort-header">
+                        <span>
+                          <%=t(:button_sort)%>
+                        </span>
+                  </div>
+                </div>
+              </th>
+              <th><div class="generic-table--empty-header"></div></th>
+            <% end  %>
+          </tr>
+        </thead>
+        <tbody>
+          <% for forum in @forums %>
             <tr>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= Forum.model_name.human %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= t(:label_topic_plural) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= t(:label_message_plural) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= t(:label_message_last) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
+              <td class="-no-ellipsis">
+                <%= link_to h(forum.name), { action: 'show', id: forum }, class: "forum"  %><br />
+                <%= format_text(forum.description) %>
+              </td>
+              <td><%= forum.topics_count %></td>
+              <td><%= forum.messages_count %></td>
+              <td>
+                <% if forum.last_message %>
+                  <% forum.last_message %>
+                  <%= authoring forum.last_message.created_at, forum.last_message.author %><br />
+                  <%= link_to_message forum.last_message, no_root: true %>
+                <% end %>
+              </td>
               <% if User.current.allowed_in_project?(:manage_forums, @project) %>
-                <th>
-                  <div class="generic-table--sort-header-outer">
-                    <div class="generic-table--sort-header">
-                          <span>
-                            <%=t(:button_sort)%>
-                          </span>
-                    </div>
-                  </div>
-                </th>
-                <th><div class="generic-table--empty-header"></div></th>
-              <% end  %>
-            </tr>
-          </thead>
-          <tbody>
-            <% for forum in @forums %>
-              <tr>
-                <td class="-no-ellipsis">
-                  <%= link_to h(forum.name), { action: 'show', id: forum }, class: "forum"  %><br />
-                  <%= format_text(forum.description) %>
-                </td>
-                <td><%= forum.topics_count %></td>
-                <td><%= forum.messages_count %></td>
-                <td>
-                  <% if forum.last_message %>
-                    <% forum.last_message %>
-                    <%= authoring forum.last_message.created_at, forum.last_message.author %><br />
-                    <%= link_to_message forum.last_message, no_root: true %>
+                <td class="small-icons">
+                  <% if authorize_for 'forums', 'edit' %>
+                    <%= reorder_links 'forum', controller: '/forums',
+                                      action: 'move',
+                                      project_id: @project,
+                                      id: forum %>
                   <% end %>
                 </td>
-                <% if User.current.allowed_in_project?(:manage_forums, @project) %>
-                  <td class="small-icons">
-                    <% if authorize_for 'forums', 'edit' %>
-                      <%= reorder_links 'forum', controller: '/forums',
-                                        action: 'move',
-                                        project_id: @project,
-                                        id: forum %>
-                    <% end %>
-                  </td>
-                  <td class="buttons">
-                    <%= link_to_if_authorized '',
-                                              { controller: '/forums', action: 'edit', project_id: @project, id: forum },
-                                              class: 'icon icon-edit',
-                                              title: t(:button_edit) %>
-                    <%= link_to_if_authorized '',
-                                              { controller: '/forums', action: 'destroy', project_id: @project, id: forum },
-                                              data: { confirm: t(:text_are_you_sure) },
-                                              method: :delete,
-                                              class: 'icon icon-delete',
-                                              title: t(:button_delete) %>
-                  </td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+                <td class="buttons">
+                  <%= link_to_if_authorized '',
+                                            { controller: '/forums', action: 'edit', project_id: @project, id: forum },
+                                            class: 'icon icon-edit',
+                                            title: t(:button_edit) %>
+                  <%= link_to_if_authorized '',
+                                            { controller: '/forums', action: 'destroy', project_id: @project, id: forum },
+                                            data: { confirm: t(:text_are_you_sure) },
+                                            method: :delete,
+                                            class: 'icon icon-delete',
+                                            title: t(:button_delete) %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
-      </div>
     </div>
-  <% end %>
-  <%= other_formats_links do |f| %>
-    <%= f.link_to 'Atom', url: { controller: '/activities', action: 'index', id: @project, show_messages: 1, key: User.current.rss_key } %>
-  <% end %>
+  </div>
+<% end %>
+<%= other_formats_links do |f| %>
+  <%= f.link_to 'Atom', url: { controller: '/activities', action: 'index', id: @project, show_messages: 1, key: User.current.rss_key } %>
+<% end %>
 
-  <% content_for :header_tags do %>
-    <%= auto_discovery_link_tag(:atom, { controller: '/activities', action: 'index', id: @project, format: 'atom', show_messages: 1, key: User.current.rss_key }) %>
-  <% end %>
+<% content_for :header_tags do %>
+  <%= auto_discovery_link_tag(:atom, { controller: '/activities', action: 'index', id: @project, format: 'atom', show_messages: 1, key: User.current.rss_key }) %>
+<% end %>
 </div>

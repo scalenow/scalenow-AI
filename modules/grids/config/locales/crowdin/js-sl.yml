@@ -27,9 +27,6 @@ sl:
         project_description:
           title: 'Opis projekta'
           no_results: "Opis še ni bil napisan. Lahko ga dodate v 'Projektnih nastavitvah'. "
-        project_details:
-          title: 'Podrobnosti projekta'
-          no_results: 'Za projekte niso bila definirana nobena polja po meri. '
         project_status:
           title: 'Status projekta'
           not_started: 'Ni začeto'
@@ -42,6 +39,9 @@ sl:
         subprojects:
           title: 'Podprojekti'
           no_results: 'Ni podprojektov. '
+        project_favorites:
+          title: 'Favorite projects'
+          no_results: 'You currently have no favorite projects. Click on the star icon in the project dashboard to add one to your favorites.'
         time_entries_current_user:
           title: 'Moj porabljen čas'
           displayed_days: 'Dnevi prikazani v gradniku:'

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -99,7 +99,7 @@ class WorkPackages::UpdateAncestorsService
       # or the derived remaining hours, depending on the % Complete mode
       # currently active.
       #
-      %i[estimated_hours remaining_hours] => :derive_total_estimated_and_remaining_hours,
+      %i[estimated_hours remaining_hours status status_id] => :derive_total_estimated_and_remaining_hours,
       %i[estimated_hours remaining_hours done_ratio status status_id] => :derive_done_ratio,
       %i[ignore_non_working_days] => :derive_ignore_non_working_days
     }.each do |derivative_attributes, method|
@@ -120,13 +120,43 @@ class WorkPackages::UpdateAncestorsService
   end
 
   def compute_derived_done_ratio(work_package, loader)
+    return if no_children?(work_package, loader)
+
+    case Setting.total_percent_complete_mode
+    when "work_weighted_average"
+      calculate_work_weighted_average_percent_complete(work_package)
+    when "simple_average"
+      calculate_simple_average_percent_complete(work_package, loader)
+    end
+  end
+
+  def calculate_work_weighted_average_percent_complete(work_package)
     return if work_package.derived_estimated_hours.nil? || work_package.derived_remaining_hours.nil?
     return if work_package.derived_estimated_hours.zero?
-    return if no_children?(work_package, loader)
 
     work_done = (work_package.derived_estimated_hours - work_package.derived_remaining_hours)
     progress = (work_done.to_f / work_package.derived_estimated_hours) * 100
     progress.round
+  end
+
+  def calculate_simple_average_percent_complete(work_package, loader)
+    all_done_ratios = children_done_ratio_values(work_package, loader)
+
+    if work_package.done_ratio.present? && !work_package.status.excluded_from_totals
+      all_done_ratios << work_package.done_ratio
+    end
+
+    return if all_done_ratios.empty?
+
+    progress = all_done_ratios.sum.to_f / all_done_ratios.count
+    progress.round
+  end
+
+  def children_done_ratio_values(work_package, loader)
+    loader
+      .children_of(work_package)
+      .filter(&:included_in_totals_calculation?)
+      .map { |child| child.derived_done_ratio || child.done_ratio || 0 }
   end
 
   # Sets the ignore_non_working_days to true if any descendant has its value set to true.
@@ -155,7 +185,9 @@ class WorkPackages::UpdateAncestorsService
     return if no_children?(work_package, loader)
 
     work_packages = [work_package] + loader.descendants_of(work_package)
-    values = work_packages.filter_map(&attribute)
+    values = work_packages
+      .filter(&:included_in_totals_calculation?)
+      .filter_map(&attribute)
     return if values.empty?
 
     values.sum.to_f

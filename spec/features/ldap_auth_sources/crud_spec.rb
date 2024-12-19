@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -42,9 +42,7 @@ RSpec.describe "CRUD LDAP connections", :js, :with_cuprite do
     expect(page).to have_text "LDAP connections"
     expect(page).to have_text "There is currently nothing to display."
 
-    page.within(".toolbar") do
-      click_link "LDAP connection"
-    end
+    page.find_test_selector("op-admin-ldap-connection--button-new", text: "LDAP connection").click
 
     expect(page).to have_current_path new_ldap_auth_source_path
 
@@ -54,7 +52,7 @@ RSpec.describe "CRUD LDAP connections", :js, :with_cuprite do
 
     click_on "Create"
 
-    ldap_page.expect_and_dismiss_toaster message: "Successful creation."
+    expect_and_dismiss_flash message: "Successful creation."
     expect(page).to have_css("td.name", text: "My LDAP connection")
     expect(page).to have_css("td.host", text: "localhost")
 
@@ -73,7 +71,7 @@ RSpec.describe "CRUD LDAP connections", :js, :with_cuprite do
       accept_prompt { click_on "Delete" }
     end
 
-    ldap_page.expect_and_dismiss_toaster message: "Successful deletion."
+    expect_and_dismiss_flash message: "Successful deletion."
 
     expect(page).to have_no_text "My LDAP connection"
     expect(page).to have_text "Admin connection"
@@ -90,7 +88,7 @@ RSpec.describe "CRUD LDAP connections", :js, :with_cuprite do
     fill_in "ldap_auth_source_name", with: "Updated Admin connection"
     click_on "Save"
 
-    ldap_page.expect_and_dismiss_toaster message: "Successful update."
+    expect_flash(message: "Successful update.")
     expect(page).to have_css("td.name", text: "Updated Admin connection")
   end
 

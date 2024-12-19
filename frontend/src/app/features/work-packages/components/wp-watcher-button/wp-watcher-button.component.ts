@@ -1,6 +1,6 @@
-// -- copyright
+//-- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -110,7 +110,7 @@ export class WorkPackageWatcherButtonComponent extends UntilDestroyedMixin imple
     if (this.isWatched) {
       this.buttonTitle = this.I18n.t('js.label_unwatch_work_package');
       this.buttonText = this.I18n.t('js.label_unwatch');
-      this.buttonClass = '-active ';
+      this.buttonClass = '-active';
       this.buttonId = 'unwatch-button';
       this.watchIconClass = 'icon-watched';
     } else {

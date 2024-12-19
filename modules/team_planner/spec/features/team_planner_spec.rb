@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -43,7 +43,7 @@ RSpec.describe "Team planner",
     end
 
     expect(page).to have_content "There is currently nothing to display."
-    click_on "Create", match: :first
+    page.find_test_selector("add-team-planner-button").click
 
     team_planner.expect_title
 

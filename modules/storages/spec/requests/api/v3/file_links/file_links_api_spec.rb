@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -219,15 +219,6 @@ RSpec.describe "API v3 file links resource" do
       end
     end
 
-    context "if storages module is deactivated for the work package's project" do
-      before(:all) { disable_module(project, "storages") }
-      after(:all) { enable_module(project, "storages") }
-
-      it_behaves_like "API V3 collection response", 0, 0, "FileLink", "Collection" do
-        let(:elements) { [] }
-      end
-    end
-
     describe "with filter by storage" do
       let!(:another_project_storage) { create(:project_storage, project:, storage: another_storage) }
       let(:path) { "#{api_v3_paths.file_links(work_package.id)}?filters=#{CGI.escape(filters.to_json)}" }
@@ -256,7 +247,7 @@ RSpec.describe "API v3 file links resource" do
       let(:path) { "#{api_v3_paths.file_links(work_package.id)}?filters=#{CGI.escape(filters.to_json)}" }
 
       it "return a 400 HTTP error" do
-        expect(last_response.status).to be 400
+        expect(last_response).to have_http_status :bad_request
       end
     end
   end
@@ -517,9 +508,9 @@ RSpec.describe "API v3 file links resource" do
       it_behaves_like "not found"
     end
 
-    context "if file link is in a work package, while the storages module is deactivated in its project." do
-      before(:all) { disable_module(project, "storages") }
-      after(:all) { enable_module(project, "storages") }
+    context "if file link is in a work package, while the work_package_tracking module is deactivated in its project." do
+      before(:all) { disable_module(project, "work_package_tracking") }
+      after(:all) { enable_module(project, "work_package_tracking") }
 
       it_behaves_like "not found"
     end
@@ -645,7 +636,7 @@ RSpec.describe "API v3 file links resource" do
         let(:error) { :not_found }
 
         it "fails with outbound request failure" do
-          expect(last_response.status).to be(500)
+          expect(last_response).to have_http_status(:internal_server_error)
 
           body = JSON.parse(last_response.body)
           expect(body["message"]).to eq(I18n.t("api_v3.errors.code_500_outbound_request_failure", status_code: 404))

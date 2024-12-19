@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -257,7 +257,7 @@ RSpec.describe "Enterprise trial management",
 
     it "can confirm that trial regularly" do
       find_test_selector("op-ee-trial-waiting-resend-link", text: "Resend").click
-      expect(page).to have_css(".op-toast.-success", text: "Email has been resent.", wait: 20)
+      expect(page).to have_css(".op-toast", text: "Email has been resent.", wait: 20)
 
       expect(page).to have_text "foo@foocorp.example"
       expect(page).to have_text "email sent - waiting for confirmation"
@@ -276,7 +276,7 @@ RSpec.describe "Enterprise trial management",
       # advance to close
       click_on "Continue"
 
-      expect(page).to have_css(".op-toast.-success", text: "Successful update.", wait: 10)
+      expect_and_dismiss_flash(message: "Successful update.")
       expect(page).to have_css(".attributes-key-value--value-container", text: "OpenProject Test")
       expect(page).to have_css(".attributes-key-value--value-container", text: "01/01/2020")
       expect(page).to have_css(".attributes-key-value--value-container", text: "01/02/2020")

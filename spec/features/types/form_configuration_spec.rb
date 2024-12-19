@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -32,7 +32,7 @@ RSpec.describe "form configuration", :js do
   shared_let(:admin) { create(:admin) }
   let(:type) { create(:type) }
 
-  let(:project) { create(:project, types: [type]) }
+  let!(:project) { create(:project, types: [type]) }
   let(:category) { create(:category, project:) }
   let(:work_package) do
     create(:work_package,
@@ -91,7 +91,7 @@ RSpec.describe "form configuration", :js do
 
         # Save configuration
         form.save_changes
-        expect(page).to have_css(".op-toast.-success", text: "Successful update.", wait: 10)
+        expect_flash(message: "Successful update.")
 
         form.expect_empty
 
@@ -128,7 +128,7 @@ RSpec.describe "form configuration", :js do
                           { key: :assignee, translation: "Assignee" },
                           { key: :responsible, translation: "Accountable" }
 
-        form.expect_group "estimates_and_time",
+        form.expect_group "estimates_and_progress",
                           "Estimates and progress",
                           { key: :estimated_time, translation: "Work" },
                           { key: :remaining_time, translation: "Remaining work" },
@@ -171,7 +171,7 @@ RSpec.describe "form configuration", :js do
 
         # Save configuration
         form.save_changes
-        expect(page).to have_css(".op-toast.-success", text: "Successful update.", wait: 10)
+        expect_flash(message: "Successful update.")
 
         # Expect configuration to be correct now
         form.expect_no_attribute("assignee", "Cool Stuff")
@@ -180,7 +180,7 @@ RSpec.describe "form configuration", :js do
                           "Cool Stuff",
                           { key: :responsible, translation: "Accountable" }
 
-        form.expect_group "estimates_and_time",
+        form.expect_group "estimates_and_progress",
                           "Estimates and progress",
                           { key: :estimated_time, translation: "Work" },
                           { key: :remaining_time, translation: "Remaining work" },
@@ -200,7 +200,7 @@ RSpec.describe "form configuration", :js do
         # Test the actual type backend
         type.reload
         expect(type.attribute_groups.map(&:key))
-          .to include("Cool Stuff", :estimates_and_time, "Whatever", "New Group")
+          .to include("Cool Stuff", :estimates_and_progress, "Whatever", "New Group")
 
         # Visit work package with that type
         wp_page.visit!
@@ -227,7 +227,7 @@ RSpec.describe "form configuration", :js do
 
         wp_page.expect_group("Estimates and progress") do
           wp_page.expect_attributes estimated_time: "-"
-          wp_page.expect_attributes spent_time: "0 h"
+          wp_page.expect_attributes spent_time: "0h"
         end
 
         # New work package has the same configuration
@@ -269,7 +269,7 @@ RSpec.describe "form configuration", :js do
         form.expect_attribute(key: cf_identifier)
 
         form.save_changes
-        expect(page).to have_css(".op-toast.-success", text: "Successful update.", wait: 10)
+        expect_flash(message: "Successful update.")
       end
     end
 
@@ -299,25 +299,12 @@ RSpec.describe "form configuration", :js do
         form.expect_attribute(key: cf_identifier)
 
         form.save_changes
-        expect(page).to have_css(".op-toast.-success", text: "Successful update.", wait: 10)
+        expect_flash(message: "Successful update.")
       end
 
       context "if inactive in project" do
         it "can be added to the type, but is not shown" do
           add_cf_to_group
-          # Disable in project, should be invisible
-          # This step is necessary, since we auto-activate custom fields
-          # when adding them to the form configuration
-          project_settings_page.visit_tab!("custom_fields")
-
-          expect(page).to have_css(".custom-field-#{custom_field.id} td", text: "MyNumber")
-          expect(page).to have_css(".custom-field-#{custom_field.id} td", text: type.name)
-
-          id_checkbox = find("#project_work_package_custom_field_ids_#{custom_field.id}")
-          expect(id_checkbox).to be_checked
-          id_checkbox.set(false)
-
-          click_button "Save"
 
           # Visit work package with that type
           wp_page.visit!

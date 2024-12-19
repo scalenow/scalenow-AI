@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -52,8 +52,7 @@ RSpec.describe "Types", :js, :with_cuprite do
 
     click_button "Create"
 
-    expect(page)
-      .to have_css(".errorExplanation", text: "Name has already been taken.")
+    expect_flash(type: :error, message: "Name has already been taken.")
 
     # Values are retained
     expect(page)
@@ -123,9 +122,7 @@ RSpec.describe "Types", :js, :with_cuprite do
       end
 
       it "renders an error message with links to the archived project in the projects list" do
-        within ".op-toast.-error" do
-          expect(page).to have_link(project.name)
-        end
+        expect_flash type: :error, message: project.name
       end
     end
   end

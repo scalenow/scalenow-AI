@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -49,7 +49,7 @@ RSpec.describe "Showing of file links in work package", :js do
 
   before do
     Storages::Peripherals::Registry.stub(
-      "#{storage.short_provider_type}.queries.auth_check",
+      "#{storage}.queries.auth_check",
       ->(_) { authorization_state }
     )
 

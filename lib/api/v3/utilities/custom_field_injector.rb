@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -34,27 +34,31 @@ module API
           "string" => "String",
           "empty" => "String",
           "text" => "Formattable",
+          "link" => "Link",
           "int" => "Integer",
           "float" => "Float",
           "date" => "Date",
           "bool" => "Boolean",
           "user" => "User",
           "version" => "Version",
-          "list" => "CustomOption"
+          "list" => "CustomOption",
+          "hierarchy" => "CustomField::Hierarchy::Item"
         }.freeze
 
-        LINK_FORMATS = %w(list user version).freeze
+        LINK_FORMATS = %w(list user version hierarchy).freeze
 
         NAMESPACE_MAP = {
           "user" => ["users", "groups", "placeholder_users"],
           "version" => "versions",
-          "list" => "custom_options"
+          "list" => "custom_options",
+          "hierarchy" => "hierarchical_items"
         }.freeze
 
         REPRESENTER_MAP = {
           "user" => "::API::V3::Principals::PrincipalRepresenterFactory",
           "version" => "::API::V3::Versions::VersionRepresenter",
-          "list" => "::API::V3::CustomOptions::CustomOptionRepresenter"
+          "list" => "::API::V3::CustomOptions::CustomOptionRepresenter",
+          "hierarchy" => "::API::V3::CustomFields::Hierarchy::HierarchyItemRepresenter"
         }.freeze
 
         class << self
@@ -384,7 +388,7 @@ module API
             custom_fields = if current_user.admin?
                               represented.available_custom_fields
                             else
-                              represented.available_custom_fields.select(&:visible?)
+                              represented.available_custom_fields.reject(&:admin_only?)
                             end
 
             custom_field_class(custom_fields)

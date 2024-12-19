@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -56,8 +56,6 @@ class Version < ApplicationRecord
   }
 
   scope :systemwide, -> { where(sharing: "system") }
-
-  scope :order_by_name, -> { order(Arel.sql("LOWER(#{Version.table_name}.name) ASC")) }
 
   def self.with_status_open
     where(status: "open")

@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -29,18 +29,26 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% edit_label = "#{t(:label_edit)} #{@application.class.model_name.human} #{h(@application.name)}" %>
 <% html_title(t(:label_administration), edit_label) -%>
-<% local_assigns[:additional_breadcrumb] = h(@application.name) %>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= breadcrumb_toolbar(edit_label, title_class: "color-orange") %>
-  <%= labelled_tabular_form_for @application,
-                                url: { action: "update" },
-                                html: { class: nil, autocomplete: 'off' },
-                                as: :application do |f| %>
-    <%= render partial: 'form', locals: { f: f } %>
+<%=
+  render Primer::OpenProject::PageHeader.new do |header|
+    header.with_title(classes: "color-orange") { h(@application.name) }
+    header.with_breadcrumbs([{ href: admin_index_path, text: t(:label_administration) },
+                             { href: admin_settings_authentication_path, text: t(:label_authentication) },
+                             { href: oauth_applications_path, text: t("oauth.application.plural") },
+                             h(@application.name)])
+  end
+%>
 
-    <p class="m-0">
-      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
-    </p>
-  <% end %>
+<%= labelled_tabular_form_for @application,
+                              url: { action: "update" },
+                              html: { class: nil, autocomplete: 'off' },
+                              as: :application do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+
+  <p class="m-0">
+    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+  </p>
+<% end %>
 </div>

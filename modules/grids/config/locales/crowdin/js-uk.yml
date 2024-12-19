@@ -27,9 +27,6 @@ uk:
         project_description:
           title: 'Опис проекту'
           no_results: "Опис ще не створено. Можна вказати в налаштуваннях проекту."
-        project_details:
-          title: 'Деталі проекту'
-          no_results: 'У проектів немає жодних власних полів.'
         project_status:
           title: 'Статус Проекту'
           not_started: 'Не почато'
@@ -42,6 +39,9 @@ uk:
         subprojects:
           title: 'Підпроекти'
           no_results: 'Немає підпроектів.'
+        project_favorites:
+          title: 'Обрані проєкти'
+          no_results: 'Зараз у вас немає обраних проєктів. Натисніть значок зірочки на панелі керування проєктом, щоб додати його в обране.'
         time_entries_current_user:
           title: 'Мій витрачений час'
           displayed_days: 'Днів, доступних у віджеті:'

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -32,8 +32,8 @@ RSpec.describe User, "default time zone" do
   let(:user) { create(:user) }
 
   context "with no system default set" do
-    it "is not set" do
-      expect(user.pref.time_zone).to be_nil
+    it "is still set to Etc/UTC as that will be calculated with internally" do
+      expect(user.pref.time_zone).to eq "Etc/UTC"
     end
   end
 

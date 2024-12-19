@@ -8,17 +8,21 @@ keywords: project attributes, project settings, enable, disable, project admin
 
 # Project attributes
 
-**[Project attributes]**(#project-attributes) are a set of project-level custom fields that let you display certain types of information relevant to your project in the [Project overview](../../../project-overview) page. 
+**Project attributes** are a set of project-level custom fields that let you display certain types of information relevant to your project in the [Project overview](../../../project-overview) page.
 
-This guide is aimed at project administrators who want to enable or disable certain project attributes for their project. 
+This guide is aimed at project administrators who want to enable or disable certain project attributes for their project.
 
->**Note:**  If you are an instance admin and would like to create, modify or add project attributes, please read our [admin guide to project attributes](../../../../system-admin-guide/projects/project-attributes).
+> [!NOTE]
+> Alongside the project administrators, other users can also be given the permission to enable/disable project attributes by enabling the **Select project attributes** permission for their roles.
 
-Navigate to **Project settings** → **Project attributes**. 
+> [!TIP]
+> If you are an instance admin and would like to create, modify or add project attributes, please read our [admin guide to project attributes](../../../../system-admin-guide/projects/project-attributes).
+
+Navigate to **Project settings** → **Project attributes**.
 
 ![Project attribute list in Project settings](open_project_user_guide_project_settings_project_attributes_list.png)
 
-Here, you will see a list of all existing project attributes and sections. 
+Here, you will see a list of all existing project attributes and sections.
 
 You can use the **On/Off toggle** of each project attribute to enable or disable it in your project. Disabled project attributes are not visible in the [Project Overview](../../../project-overview) page.
 
@@ -26,4 +30,5 @@ You can also use the **Enable all** and **Disable all** buttons visible to the r
 
 If your instance has a particularly long list of project attributes, you can use the search bar at the top to find specific ones.
 
->**Note**: The project settings page for project attributes only lets you enable or disable certain attributes. It does *not* let you set the values for each. To do this, go to the [Project Overview](../../../project-overview) page.
+> [!TIP]
+> The project settings page for project attributes only lets you enable or disable certain attributes. It does *not* let you set the values for each. To do this, go to the [Project Overview](../../../project-overview) page.

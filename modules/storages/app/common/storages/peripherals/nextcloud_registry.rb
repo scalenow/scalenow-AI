@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -33,12 +33,12 @@ module Storages
     NextcloudRegistry = Dry::Container::Namespace.new("nextcloud") do
       namespace("queries") do
         register(:auth_check, StorageInteraction::Nextcloud::AuthCheckQuery)
+        register(:capabilities, StorageInteraction::Nextcloud::CapabilitiesQuery)
         register(:download_link, StorageInteraction::Nextcloud::DownloadLinkQuery)
-        register(:file_ids, StorageInteraction::Nextcloud::FileIdsQuery)
         register(:file_info, StorageInteraction::Nextcloud::FileInfoQuery)
         register(:files_info, StorageInteraction::Nextcloud::FilesInfoQuery)
         register(:files, StorageInteraction::Nextcloud::FilesQuery)
-        register(:folder_files_file_ids_deep_query, StorageInteraction::Nextcloud::FolderFilesFileIdsDeepQuery)
+        register(:file_path_to_id_map, StorageInteraction::Nextcloud::FilePathToIdMapQuery)
         register(:propfind, StorageInteraction::Nextcloud::Internal::PropfindQuery)
         register(:group_users, StorageInteraction::Nextcloud::GroupUsersQuery)
         register(:upload_link, StorageInteraction::Nextcloud::UploadLinkQuery)
@@ -63,6 +63,11 @@ module Storages
 
       namespace("models") do
         register(:managed_folder_identifier, ManagedFolderIdentifier::Nextcloud)
+      end
+
+      namespace("authentication") do
+        register(:userless, StorageInteraction::AuthenticationStrategies::NextcloudStrategies::UserLess, call: false)
+        register(:user_bound, StorageInteraction::AuthenticationStrategies::NextcloudStrategies::UserBound)
       end
     end
   end

@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -27,7 +27,14 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: t(:label_api_access_key_type), title_class: "color-orange" %>
+  <%=
+    render(Primer::OpenProject::PageHeader.new) do |header|
+      header.with_title(classes: "color-orange") { t(:label_api_access_key_type) }
+      header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
+                              { href: admin_settings_api_path, text: t("menus.admin.api_and_webhooks") },
+                              t(:label_api_access_key_type)])
+    end
+  %>
 
   <%= styled_form_tag(admin_settings_api_path, method: :patch) do %>
     <section class="form--section m-0">
@@ -42,6 +49,16 @@ See COPYRIGHT and LICENSE files for more details.
             <%= setting_number_field :apiv3_max_page_size, min: 50 %>
             <div class="form--field-instructions">
               <p><%= t(:setting_apiv3_max_page_instructions_html) %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form--field">
+            <%= setting_check_box :apiv3_write_readonly_attributes, container_class: '-slim' %>
+            <div class="form--field-instructions">
+              <p><%= t(:setting_apiv3_write_readonly_attributes_instructions_html,
+                      api_documentation_link: static_link_to(:api_docs)
+                    ) %></p>
             </div>
           </div>
         </div>

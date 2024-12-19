@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -161,7 +161,7 @@ See COPYRIGHT and LICENSE files for more details.
         <%= Meeting.human_attribute_name(:start_time) %>
         <label lang="en">
           <%= t(:label_time_zone) %>
-          <%= Time.zone.to_s %>
+          <%= formatted_time_zone_offset %>
         </label>
       </label>
       <%= f.text_field :start_time_hour,
@@ -170,7 +170,7 @@ See COPYRIGHT and LICENSE files for more details.
                        type: 'time',
                        no_label: true,
                        step: 5.minutes,
-                       suffix: Time.zone.to_s,
+                       suffix: formatted_time_zone_offset,
                        container_class: '-xslim' %>
     </div>
   </div>
@@ -192,4 +192,16 @@ See COPYRIGHT and LICENSE files for more details.
   </div>
 
   <%= render partial: 'meetings/participants_section' %>
+
+  <div class="form--field">
+    <%= styled_label_tag 'send_notfications', t(:"meeting.email.send_emails") %>
+    <div class="form--field-container">
+      <%= styled_check_box_tag 'send_notifications',
+                               1,
+                               false %>
+    </div>
+    <div class="form--field-instructions">
+      <%= t(:"meeting.email.send_invitation_emails") %>
+    </div>
+  </div>
 </section>

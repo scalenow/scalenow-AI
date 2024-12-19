@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -30,7 +30,9 @@ class Projects::Settings::CustomFieldsController < Projects::SettingsController
   menu_item :settings_custom_fields
 
   def show
-    @wp_custom_fields = WorkPackageCustomField.order("lower(name)")
+    @wp_custom_fields = WorkPackageCustomField
+                          .order("lower(name)")
+                          .where.not(field_format: "hierarchy") # TODO: Remove after enabling hierarchy fields
   end
 
   def update

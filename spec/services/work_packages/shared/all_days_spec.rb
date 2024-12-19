@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -166,8 +166,9 @@ RSpec.describe WorkPackages::Shared::AllDays do
       end
 
       context "with lag" do
-        include_examples "soonest working day with lag", date: Date.new(2022, 12, 24), lag: 7,
-                                                           expected: Date.new(2022, 12, 31)
+        include_examples "soonest working day with lag", date: Date.new(2022, 12, 24),
+                                                         lag: 7,
+                                                         expected: Date.new(2022, 12, 31)
       end
     end
   end

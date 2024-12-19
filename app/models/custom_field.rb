@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -41,6 +41,13 @@ class CustomField < ApplicationRecord
            inverse_of: "custom_field"
   accepts_nested_attributes_for :custom_options
 
+  has_one :hierarchy_root,
+          class_name: "CustomField::Hierarchy::Item",
+          dependent: :destroy,
+          inverse_of: "custom_field"
+
+  scope :hierarchy_root_and_children, -> { includes(hierarchy_root: { children: :children }) }
+
   acts_as_list scope: [:type]
 
   validates :field_format, presence: true
@@ -69,12 +76,15 @@ class CustomField < ApplicationRecord
   validates :min_length, numericality: { less_than_or_equal_to: :max_length, message: :smaller_than_or_equal_to_max_length },
                          unless: Proc.new { |cf| cf.max_length.blank? }
 
+  validates :multi_value, absence: true, unless: :multi_value_possible?
+  validates :allow_non_open_versions, absence: true, unless: :allow_non_open_versions_possible?
+
   before_validation :check_searchability
   after_destroy :destroy_help_text
 
   # make sure int, float, date, and bool are not searchable
   def check_searchability
-    self.searchable = false if %w(int float date bool).include?(field_format)
+    self.searchable = false if %w(int float date bool user version).include?(field_format)
     true
   end
 
@@ -184,7 +194,7 @@ class CustomField < ApplicationRecord
     return if value.blank?
 
     case field_format
-    when "string", "text", "list"
+    when "string", "text", "list", "link"
       value
     when "date"
       begin
@@ -265,6 +275,10 @@ class CustomField < ApplicationRecord
     field_format == "list"
   end
 
+  def user?
+    field_format == "user"
+  end
+
   def version?
     field_format == "version"
   end
@@ -277,22 +291,16 @@ class CustomField < ApplicationRecord
     field_format == "bool"
   end
 
-  def multi_value?
-    multi_value
+  def field_format_hierarchy?
+    field_format == "hierarchy"
   end
 
   def multi_value_possible?
-    %w[version user list].include?(field_format) &&
-      [ProjectCustomField, WorkPackageCustomField, TimeEntryCustomField, VersionCustomField].include?(self.class)
-  end
-
-  def allow_non_open_versions?
-    allow_non_open_versions
+    version? || user? || list? || field_format_hierarchy?
   end
 
   def allow_non_open_versions_possible?
-    version? &&
-      [ProjectCustomField, WorkPackageCustomField, TimeEntryCustomField, VersionCustomField].include?(self.class)
+    version?
   end
 
   ##

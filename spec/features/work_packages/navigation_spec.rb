@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -148,20 +148,20 @@ RSpec.describe "Work package navigation", :js, :selenium do
   it "loading an unknown work package ID" do
     visit "/work_packages/999999999"
 
-    page404 = Pages::Page.new
-    page404.expect_toast type: :error, message: I18n.t(:notice_file_not_found)
+    expect_flash type: :error, message: I18n.t(:notice_file_not_found)
 
     visit "/projects/#{project.identifier}/work_packages/999999999"
-    page404.expect_and_dismiss_toaster type: :error, message: I18n.t("api_v3.errors.not_found.work_package")
+    global_work_packages = Pages::WorkPackagesTable.new
+    global_work_packages.expect_toast type: :error, message: I18n.t("api_v3.errors.not_found.work_package")
   end
 
   # Regression #29994
   it "access the work package views directly from a non-angular view" do
     visit project_path(project)
 
-    find("#main-menu-work-packages ~ .toggler").click
-    expect(page).to have_css(".op-view-select--search-results")
-    find(".op-sidemenu--item-action", text: query.name).click
+    page.find_test_selector("main-menu-toggler--work_packages").click
+    expect(page).to have_test_selector("op-submenu--body")
+    find(".op-submenu--item-action", text: query.name).click
 
     expect(page).to have_no_css(".title-container", text: "Overview")
     expect(page).to have_field("editable-toolbar-title", with: query.name)
@@ -259,7 +259,7 @@ RSpec.describe "Work package navigation", :js, :selenium do
       visit "/projects/#{project.identifier}/work_packages?#{url_query}"
 
       wp_table.expect_toast message: "Your view is erroneous and could not be processed.", type: :error
-      expect(page).to have_css "li", text: "Bad request: id is invalid"
+      expect(page).to have_css "li", text: "The requested resource could not be found"
     end
   end
 end

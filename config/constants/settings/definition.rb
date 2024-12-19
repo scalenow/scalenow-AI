@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -23,7 +23,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
-# See docs/COPYRIGHT.rdoc for more details.
+# See COPYRIGHT and LICENSE files for more details.
 #++
 
 module Settings
@@ -63,7 +63,8 @@ module Settings
         default: 1000
       },
       apiv3_write_readonly_attributes: {
-        description: "Allow overriding readonly attributes (e.g. createdAt, updatedAt, author) during the creation of resources via the REST API",
+        description: "Allow overriding readonly attributes (e.g. createdAt, updatedAt, author) " +
+          "during the creation of resources via the REST API",
         default: false
       },
       app_title: {
@@ -153,7 +154,7 @@ module Settings
         format: :array,
         # Manually managed list with languages that have ~50+ translation ratio in Crowdin
         # https://crowdin.com/project/openproject
-        default: %w[ca cs de el en es fr hu id it ja ko lt nl no pl pt-BR pt-PT ro ru sk sl sv tr uk zh-CN zh-TW].freeze,
+        default: %w[ca cs de el en es fr hu id it ja ko lt nl no pl pt-BR pt-PT ro ru sk sl sv tr uk vi zh-CN zh-TW].freeze,
         allowed: -> { Redmine::I18n.all_languages }
       },
       avatar_link_expiry_seconds: {
@@ -230,6 +231,11 @@ module Settings
         default: nil,
         writable: false
       },
+      total_percent_complete_mode: {
+        description: "Mode in which the total % Complete for work packages in a hierarchy is calculated",
+        default: "work_weighted_average",
+        allowed: %w[work_weighted_average simple_average]
+      },
       commit_fix_keywords: {
         description: "Keywords to look for in commit for fixing work packages",
         default: "fixes,closes"
@@ -303,6 +309,12 @@ module Settings
           "%B %d, %Y"
         ].freeze
       },
+      days_per_month: {
+        description: "This will define what is considered a “month” when displaying duration in a more natural way " \
+                     "(for example, if a month is 20 days, 60 days would be 3 months.",
+        default: 20,
+        format: :integer
+      },
       default_auto_hide_popups: {
         description: "Whether to automatically hide success notifications by default",
         default: true
@@ -330,6 +342,9 @@ module Settings
         default: false
       },
       demo_view_of_type_team_planner_seeded: {
+        default: false
+      },
+      demo_view_of_type_gantt_seeded: {
         default: false
       },
       development_highlight_enabled: {
@@ -375,6 +390,11 @@ module Settings
       drop_old_sessions_on_login: {
         description: "Destroy all sessions for current_user on login",
         default: false
+      },
+      duration_format: {
+        description: "Format for displaying durations",
+        default: "hours_only",
+        allowed: %w[days_and_hours hours_only]
       },
       edition: {
         format: :string,
@@ -424,8 +444,8 @@ module Settings
         default: false
       },
       enabled_projects_columns: {
-        default: %w[project_status public created_at latest_activity_at required_disk_space],
-        allowed: -> { Queries::Projects::ProjectQuery.new.available_selects.map { |s| s.attribute.to_s } }
+        default: %w[favored name project_status public created_at latest_activity_at required_disk_space],
+        allowed: -> { ProjectQuery.new.available_selects.map { |s| s.attribute.to_s } }
       },
       enabled_scm: {
         default: %w[subversion git]
@@ -516,7 +536,22 @@ module Settings
         default: 7.days
       },
       host_name: {
-        default: "localhost:3000"
+        format: :string,
+        default: -> { "#{ENV.fetch('HOST', 'localhost')}:#{ENV.fetch('PORT', 3000)}" },
+        default_by_env: {
+          # We do not want to set a localhost host name in production
+          production: nil
+        }
+      },
+      additional_host_names: {
+        description: "Additional allowed host names for the application.",
+        default: []
+      },
+      hours_per_day: {
+        description: "This will define what is considered a “day” when displaying duration in a more natural way " \
+                     "(for example, if a day is 8 hours, 32 hours would be 4 days).",
+        default: 8,
+        format: :integer
       },
       # Health check configuration
       health_checks_authentication_password: {
@@ -711,6 +746,11 @@ module Settings
       per_page_options: {
         default: "20, 100"
       },
+      percent_complete_on_status_closed: {
+        description: "Describes how % complete should change when setting a work package status to a closed one",
+        default: "no_change",
+        allowed: %w[no_change set_100p]
+      },
       plain_text_mail: {
         default: false
       },
@@ -725,7 +765,7 @@ module Settings
         writable: false
       },
       rails_cache_store: {
-        description: "Set cache store implemenation to use with OpenProject",
+        description: "Set cache store implementation to use with OpenProject",
         format: :symbol,
         default: :file_store,
         writable: false,
@@ -735,6 +775,12 @@ module Settings
         description: "Set a URL prefix / base path to run OpenProject under, e.g., host.tld/openproject",
         default: "",
         writable: false
+      },
+      show_work_package_attachments: {
+        description: "Show work package attachments by default.",
+        format: :boolean,
+        default: true,
+        writable: true
       },
       https: {
         description: "Set assumed connection security for the Rails processes",
@@ -761,14 +807,14 @@ module Settings
         default: 3
       },
       httpx_operation_timeout: {
-        description: '',
+        description: "",
         format: :float,
         writable: false,
         allowed: (0..),
         default: 10
       },
       httpx_request_timeout: {
-        description: '',
+        description: "",
         format: :float,
         writable: false,
         allowed: (0..),
@@ -830,9 +876,6 @@ module Settings
       repositories_encodings: {
         default: nil,
         format: :string
-      },
-      repository_authentication_caching_enabled: {
-        default: true
       },
       repository_checkout_data: {
         default: {
@@ -904,7 +947,8 @@ module Settings
         description: "Provide an LDAP connection and sync settings through ENV",
         writable: false,
         default: nil,
-        format: :hash
+        format: :hash,
+        string_values: true
       },
       self_registration: {
         default: 2
@@ -1009,6 +1053,10 @@ module Settings
         default: "",
         env_alias: "SMTP_PASSWORD"
       },
+      smtp_timeout: {
+        format: :integer,
+        default: 5
+      },
       software_name: {
         description: "Override software application name",
         default: "OpenProject"
@@ -1078,7 +1126,7 @@ module Settings
         description: "Web worker count and threads configuration",
         default: {
           "workers" => 2,
-          "timeout" => 120,
+          "timeout" => Rails.env.production? ? 120 : 0,
           "wait_timeout" => 10,
           "min_threads" => 4,
           "max_threads" => 16
@@ -1120,7 +1168,7 @@ module Settings
       },
       work_package_list_default_columns: {
         default: %w[id subject type status assigned_to priority],
-        allowed: -> { Query.new.displayable_columns.map(&:name).map(&:to_s) }
+        allowed: -> { Query.new.displayable_columns.map { |c| c.name.to_s } }
       },
       work_package_startdate_is_adddate: {
         default: false
@@ -1139,28 +1187,36 @@ module Settings
 
     attr_accessor :name,
                   :format,
-                  :env_alias
+                  :env_alias,
+                  :string_values
 
     attr_writer :value,
                 :description,
                 :allowed
 
-    def initialize(name,
+    def initialize(name, # rubocop:disable Metrics/AbcSize
                    default:,
+                   default_by_env: {},
                    description: nil,
                    format: nil,
                    writable: true,
                    allowed: nil,
-                   env_alias: nil)
+                   env_alias: nil,
+                   string_values: false)
       self.name = name.to_s
-      @default = default.is_a?(Hash) ? default.deep_stringify_keys : default
-      @default.freeze
-      self.value = @default.dup
+      self.value = derive_default default_by_env.fetch(Rails.env.to_sym, default)
       self.format = format ? format.to_sym : deduce_format(value)
       self.writable = writable
       self.allowed = allowed
       self.env_alias = env_alias
       self.description = description.presence || :"setting_#{name}"
+      self.string_values = string_values
+    end
+
+    def derive_default(default)
+      @default = default.is_a?(Hash) ? default.deep_stringify_keys : default
+      @default.freeze
+      @default.dup
     end
 
     def default
@@ -1251,11 +1307,13 @@ module Settings
       #  from the ENV OPENPROJECT_2FA as well.
       def add(name,
               default:,
+              default_by_env: {},
               format: nil,
               description: nil,
               writable: true,
               allowed: nil,
-              env_alias: nil)
+              env_alias: nil,
+              string_values: false)
         name = name.to_sym
         return if exists?(name)
 
@@ -1263,9 +1321,11 @@ module Settings
                          format:,
                          description:,
                          default:,
+                         default_by_env:,
                          writable:,
                          allowed:,
-                         env_alias:)
+                         env_alias:,
+                         string_values:)
         override_value(definition)
         all[name] = definition
       end
@@ -1351,7 +1411,13 @@ module Settings
       def merge_hash_config(definition)
         merged_hash = {}
         each_env_var_hash_override(definition) do |env_var_name, env_var_value, env_var_hash_part|
-          value = extract_hash_from_env(env_var_name, env_var_value, env_var_hash_part)
+          value =
+            if definition.string_values
+              path_to_hash(*hash_path(env_var_hash_part), env_var_value)
+            else
+              extract_hash_from_env(env_var_name, env_var_value, env_var_hash_part)
+            end
+
           merged_hash.deep_merge!(value)
         end
         return if merged_hash.empty?

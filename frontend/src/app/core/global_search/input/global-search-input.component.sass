@@ -25,6 +25,8 @@ $search-input-height: 30px
     font-size: var(--header-item-font-size)
     color: var(--header-item-font-color)
 
+    &.-input-focused
+      color: var(--body-font-color) !important
     &:hover
       text-decoration: none
 
@@ -36,9 +38,6 @@ $search-input-height: 30px
         background-color: rgba(255, 127, 93, 0.12)
         border-radius: 33px
 
-    &.-input-focused
-      color: var(--header-search-field-font-color)
-
   &--loading
     top: var(--header-height) - 11px  // display directly under ng-input field
     height: 46px                // ng-option height + 1px border
@@ -49,6 +48,8 @@ $search-input-height: 30px
     font-size: 0.9rem
     -webkit-transition: width 0.2s ease-in-out
     transition: width 0.2s ease-in-out
+    .ng-input input.global-search--input
+      color: var(--header-item-font-color) !important
     &::-ms-clear
       margin-right: 5px
       width: 20px
@@ -94,7 +95,8 @@ $search-input-height: 30px
       background: white
       border-radius: 4px
       color: var(--header-search-field-font-color)
-
+      .ng-input input.global-search--input, .ng-clear-wrapper
+        color: var(--body-font-color) !important
       .ng-select-container
         border-radius: 4px
 
@@ -105,7 +107,7 @@ $search-input-height: 30px
 
     .ng-dropdown-header
       border-bottom: none
-      color: $spot-color-basic-gray-2
+      color: var(--fgColor-muted)
       line-height: 1rem
       margin-top: 0.5rem
       padding: 0.5rem 0.75rem
@@ -120,7 +122,7 @@ $search-input-height: 30px
       height: auto
 
     .ng-option
-      border-bottom: 1px solid var(--color-border-muted)
+      border-bottom: 1px solid var(--borderColor-default)
       white-space: normal
       padding: 5px 10px
       // We do not want the default highlighting of ng-select to take place as
@@ -133,6 +135,8 @@ $search-input-height: 30px
         border-bottom: none
       &.ng-option-disabled
         display: none
+      &.ng-option-marked
+        background-color: var(--control-transparent-bgColor-hover) !important
 
     &.-markable
       .ng-option

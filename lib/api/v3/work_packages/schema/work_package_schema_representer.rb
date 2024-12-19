@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -91,6 +91,11 @@ module API
             { href: @base_schema_link } if @base_schema_link
           end
 
+          link :attachments do
+            next if represented.work_package.hide_attachments?
+            { href: nil }
+          end
+
           # Needs to not be cached as the queries in the attribute
           # groups might contain information (e.g. project names) whose
           # visibility needs to be checked per user
@@ -169,7 +174,7 @@ module API
                  name_source: :remaining_hours,
                  type: "Duration",
                  required: false,
-                 writable: ->(*) { !WorkPackage.use_status_for_done_ratio? }
+                 writable: ->(*) { WorkPackage.work_based_mode? }
 
           schema :derived_remaining_time,
                  name_source: :derived_remaining_hours,
@@ -181,9 +186,9 @@ module API
                  type: "Duration",
                  required: false,
                  show_if: ->(*) {
-                            current_user.allowed_in_project?(:view_time_entries, represented.project) ||
-                            current_user.allowed_in_any_work_package?(:view_own_time_entries, in_project: represented.project)
-                          }
+                   current_user.allowed_in_project?(:view_time_entries, represented.project) ||
+                     current_user.allowed_in_any_work_package?(:view_own_time_entries, in_project: represented.project)
+                 }
 
           schema :percentage_done,
                  type: "Integer",

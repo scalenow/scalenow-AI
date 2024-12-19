@@ -1,6 +1,6 @@
-// -- copyright
+//-- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -83,6 +83,13 @@ export function initializeGlobalListeners():void {
       // (especially jquery-ui and its datepicker) from routing to <base url>/#
       performAnchorHijacking(evt, linkElement);
     });
+
+  // Listen for 'zenModeToggled' event to toggle Zen Mode styling on the body.
+  // Adds 'zen-mode' class if active; removes it if not.
+  window.addEventListener('zenModeToggled', (event:CustomEvent) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
+    document.body.classList.toggle('zen-mode', event.detail.active);
+  });
 
   // Jump to the element given by location.hash, if present
   const { hash } = window.location;

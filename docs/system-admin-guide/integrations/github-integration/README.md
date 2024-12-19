@@ -96,17 +96,18 @@ The role needs two permissions and should only receive those two: "View work pac
 
 ![GitHub user added as member to project with respective role](github-project-member.png)
 
-Once the user is created you need to generate an OpenProject API token for it
-to use later on the GitHub side of things. For this you have to:
+Once the user is created you need to generate an OpenProject API token for this user (you will need it on the GitHub side). For this you have to:
 
 1. Login as the newly created user
-2. Go to My Account (click on Avatar in top right corner)
-3. Go to Access Token
-4. Click on generate in the API row
+2. Go to [Account settings](../../../user-guide/account-settings/) (click on the Avatar in the top right corner and select *Account settings*)
+3. Go to [*Access Tokens*](../../../user-guide/account-settings/#access-tokens)
+4. Click on **+ API token**
 
-Copy the generated key. You can then configure the necessary webhook in GitHub.
+> Make sure you copy the generated key and securely save it, as you will not be able to retrieve it later.
 
-In addition, in *Project settings* and *Modules* you will need to activate the GitHub module so that all information pulling through from GitHub will be shown in the work packages.
+You can then configure the necessary webhook in GitHub. 
+
+Finally you will need to activate the GitHub module under [Project settings](../../../user-guide/projects/project-settings/modules/) so that all information pulling through from GitHub will be shown in the work packages.
 
 ![GitHub-module](Github-module-2647262.png)
 
@@ -126,9 +127,8 @@ The **Payload URL** must point to your OpenProject server's GitHub webhook endpo
 
 Now you need the API key you copied earlier. Append it to the *Payload URL* as a simple GET parameter named `key`. In the end the URL should look something like this:
 
-```
-https://myopenproject.com/webhooks/github?key=42
-```
+`https://myopenproject.com/webhooks/github?key=42`
+
 _Earlier version may have used the `api_key` parameter. In OpenProject 10.4, it is `key`._
 
 Now the integration is set up on both sides and you can use it.

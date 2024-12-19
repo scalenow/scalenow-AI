@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -42,12 +42,12 @@ RSpec.describe "Working Days", :js, :with_cuprite do
   CHART
 
   let(:dialog) { Components::ConfirmationDialog.new }
-  let(:datepicker) { Components::Datepicker.new }
+  let(:datepicker) { Components::DatepickerModal.new }
 
   current_user { admin }
 
   before do
-    visit admin_settings_working_days_path
+    visit admin_settings_working_days_and_hours_path
   end
 
   describe "week days" do
@@ -101,7 +101,7 @@ RSpec.describe "Working Days", :js, :with_cuprite do
         dialog.confirm
       end
 
-      expect(page).to have_css(".op-toast.-success", text: "Successful update.")
+      expect_flash(message: "Successful update.")
       expect(page).to have_unchecked_field "Monday"
       expect(page).to have_unchecked_field "Friday"
       expect(page).to have_unchecked_field "Saturday"
@@ -141,8 +141,7 @@ RSpec.describe "Working Days", :js, :with_cuprite do
         dialog.confirm
       end
 
-      expect(page).to have_css(".op-toast.-error",
-                               text: "At least one day of the week must be defined as a working day.")
+      expect_flash(type: :error, message: "At least one day of the week must be defined as a working day.")
       # Restore the checkboxes to their valid state
       expect(page).to have_checked_field "Monday"
       expect(page).to have_checked_field "Tuesday"
@@ -172,8 +171,8 @@ RSpec.describe "Working Days", :js, :with_cuprite do
       # Not executing the background jobs
       dialog.confirm
 
-      expect(page).to have_css(".op-toast.-error",
-                               text: "The previous changes to the working days configuration have not been applied yet.")
+      expect_flash(type: :error,
+                   message: "The previous changes to the working days configuration have not been applied yet.")
     end
   end
 
@@ -187,24 +186,25 @@ RSpec.describe "Working Days", :js, :with_cuprite do
     end
 
     it "can add non-working days" do
-      click_on "Non-working day"
+      datepicker.open_modal!
 
       # Check if a date is correctly highlighted after selecting it in different time zones
       datepicker.select_day 5
-      datepicker.expect_day "5"
+      expect(datepicker).to have_day_selected("5")
 
       # It can cancel and reopen
       within_test_selector("op-datepicker-modal") do
         click_on "Cancel"
       end
-      click_on "Non-working day"
+
+      datepicker.open_modal!
 
       within_test_selector("op-datepicker-modal") do
         fill_in "name", with: "My holiday"
       end
 
       date1 = NonWorkingDay.maximum(:date).next_week(:monday).next_occurring(:monday)
-      datepicker.set_date date1
+      datepicker.set_date_input(date1)
 
       within_test_selector("op-datepicker-modal") do
         click_on "Add"
@@ -220,7 +220,7 @@ RSpec.describe "Working Days", :js, :with_cuprite do
       end
 
       date2 = NonWorkingDay.maximum(:date).next_week(:monday).next_occurring(:tuesday)
-      datepicker.set_date date2
+      datepicker.set_date_input(date2)
 
       within_test_selector("op-datepicker-modal") do
         click_on "Add"
@@ -229,7 +229,7 @@ RSpec.describe "Working Days", :js, :with_cuprite do
       click_on "Apply changes"
       click_on "Save and reschedule"
 
-      expect(page).to have_css(".op-toast.-success", text: "Successful update.")
+      expect_flash(message: "Successful update.")
 
       nwd1 = NonWorkingDay.find_by(name: "My holiday")
       expect(nwd1.date).to eq date1
@@ -238,12 +238,12 @@ RSpec.describe "Working Days", :js, :with_cuprite do
       expect(nwd2.date).to eq date2
 
       # Check if date and name are entered then close the datepicker
-      click_on "Non-working day"
-
+      datepicker.open_modal!
       within_test_selector("op-datepicker-modal") do
         click_on "Add"
       end
-      expect(page).to have_css(".flatpickr-calendar")
+
+      expect(page).to have_css(".flatpickr-calendar", wait: 5)
       datepicker.expect_visible
 
       within_test_selector("op-datepicker-modal") do
@@ -284,7 +284,7 @@ RSpec.describe "Working Days", :js, :with_cuprite do
       # rubocop:disable RSpec/AnyInstance
       allow_any_instance_of(NonWorkingDay)
         .to receive(:errors)
-        .and_return(errors)
+              .and_return(errors)
       # rubocop:enable RSpec/AnyInstance
 
       delete_button = page.first(".op-non-working-days-list--delete-icon .icon-delete", visible: :all)
@@ -299,5 +299,16 @@ RSpec.describe "Working Days", :js, :with_cuprite do
       expect(page).to have_no_css("tr", text: non_working_days.second.date.strftime("%B %-d, %Y"))
       expect(page).to have_css("tr", text: non_working_days.last.date.strftime("%B %-d, %Y"))
     end
+  end
+
+  it "doesn't open a confirmation dialog if no working/non-working days have been modified" do
+    create(:non_working_day, date: Date.new(Date.current.year, 6, 10))
+    create(:non_working_day, date: Date.new(Date.current.year, 8, 20))
+    create(:non_working_day, date: Date.new(Date.current.year, 9, 25))
+
+    click_on "Apply changes"
+
+    # No dialog and saved successfully
+    expect_flash(message: "Successful update.")
   end
 end

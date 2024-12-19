@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -28,8 +28,12 @@
 
 module Notifications
   class ScheduleReminderMailsJob < ApplicationJob
+    include Cron::QuarterHourScheduleJob
+
     def perform
-      User.having_reminder_mail_to_send(job_scheduled_at)
+      return unless lower_boundary.present? && upper_boundary.present?
+
+      User.having_reminder_mail_to_send(lower_boundary, upper_boundary)
           .pluck(:id)
           .each do |user_id|
         Mails::ReminderJob.perform_later(user_id)

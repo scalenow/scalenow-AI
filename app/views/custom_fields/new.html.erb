@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -27,23 +27,27 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<% html_title t(:label_administration), t(:label_custom_field_new) %>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% content_controller 'admin--custom-fields',
-                        dynamic: true,
-                        'admin--custom-fields-format-value': @custom_field.field_format
-  %>
+<%=
+  render(Primer::OpenProject::PageHeader.new(test_selector: "custom-fields--page-header")) do |header|
+    header.with_title(classes: "color-orange") { t(:label_custom_field_new) }
+    header.with_breadcrumbs([{ href: admin_index_path, text: t(:label_administration) },
+                             { href: custom_fields_path, text: t(:label_custom_field_plural) },
+                             { href: custom_fields_path(tab: @custom_field.type), text: I18n.t(@custom_field.type_name) },
+                             t(:label_custom_field_new)])
+  end
+%>
 
-  <% html_title t(:label_administration), t(:label_custom_field_new) %>
-  <% local_assigns[:additional_breadcrumb] = link_to(I18n.t(@custom_field.type_name), custom_fields_path(tab: @custom_field.type)),
-                        t(:label_custom_field_new) %>
-  <%= breadcrumb_toolbar t(:label_custom_field_new), title_class: "color-orange" %>
-  <%= error_messages_for 'custom_field' %>
 
-  <%= labelled_tabular_form_for @custom_field, as: :custom_field,
-                                              url: custom_fields_path,
-                                              html: {id: 'custom_field_form', class: "-wide-labels"} do |f| %>
-    <%= render partial: 'form', locals: { f: f } %>
-    <%= hidden_field_tag 'type', @custom_field.type %>
-    <%#= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
-  <% end %>
+<%= error_messages_for 'custom_field' %>
+
+<%= labelled_tabular_form_for @custom_field, as: :custom_field,
+                                             url: custom_fields_path,
+                                             html: {id: 'custom_field_form', class: "-wide-labels"} do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= hidden_field_tag 'type', @custom_field.type %>
+  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+<% end %>
 </div>

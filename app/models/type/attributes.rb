@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -146,7 +146,9 @@ module Type::Attributes
     end
 
     def add_custom_fields_to_form_attributes(attributes)
-      WorkPackageCustomField.includes(:custom_options).all.find_each do |field|
+      WorkPackageCustomField.includes(:custom_options)
+                            .where.not(field_format: "hierarchy") # TODO: Remove after enabling hierarchy fields
+                            .find_each do |field|
         attributes[field.attribute_name] = {
           required: field.is_required,
           has_default: field.default_value.present?,
@@ -209,9 +211,14 @@ module Type::Attributes
   ##
   # Returns whether the custom field is active in the given project.
   def custom_field_in_project?(attribute, project)
-    project
-      .all_work_package_custom_fields.pluck(:id)
-      .map { |id| "custom_field_#{id}" }
+    custom_fields_in_project = RequestStore.fetch(:"custom_field_in_project_#{project.id}") do
+      project
+        .all_work_package_custom_fields
+        .pluck(:id)
+        .map { |id| "custom_field_#{id}" }
+    end
+
+    custom_fields_in_project
       .include? attribute
   end
 end

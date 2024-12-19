@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -29,16 +29,22 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title(t('users.sessions.title')) -%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: t('users.sessions.title'), title_class: "color-orange" -%>
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title(classes: "color-orange") { t('users.sessions.title') }
+    header.with_breadcrumbs([{ href: my_account_path, text: t(:label_my_account) },
+                             t('users.sessions.title')])
+  end
+%>
 
-  <p><%= t('users.sessions.instructions') %></p>
+<p><%= t('users.sessions.instructions') %></p>
 
-  <%= render ::Users::Sessions::TableComponent.new(rows: @sessions, current_session: session) %>
+<%= render ::Users::Sessions::TableComponent.new(rows: @sessions, current_session: session) %>
 
-  <% if Setting::Autologin.enabled? && @autologin_tokens.any? %>
-    <h3><%= t('users.sessions.remembered_devices') %></h3>
-    <p><%= t('users.sessions.remembered_devices_caption') %></p>
+<% if Setting::Autologin.enabled? && @autologin_tokens.any? %>
+  <h3><%= t('users.sessions.remembered_devices') %></h3>
+  <p><%= t('users.sessions.remembered_devices_caption') %></p>
 
-    <%= render ::Users::AutoLoginTokens::TableComponent.new(rows: @autologin_tokens, current_token: @current_token) %>
-  <% end %>
+  <%= render ::Users::AutoLoginTokens::TableComponent.new(rows: @autologin_tokens, current_token: @current_token) %>
+<% end %>
 </div>

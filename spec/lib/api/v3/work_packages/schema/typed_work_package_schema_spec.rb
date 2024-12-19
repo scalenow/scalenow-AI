@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -58,12 +58,22 @@ RSpec.describe API::V3::WorkPackages::Schema::TypedWorkPackageSchema do
   end
 
   describe "#writable?" do
-    it "percentage done is not writable" do
+    it "percentage done is writable in work-based progress calculation mode",
+       with_settings: { work_package_done_ratio: "field" } do
+      expect(subject).to be_writable(:done_ratio)
+    end
+
+    it "percentage done is not writable in status-based progress calculation mode",
+       with_settings: { work_package_done_ratio: "status" } do
       expect(subject).not_to be_writable(:done_ratio)
     end
 
     it "work is writable" do
       expect(subject).to be_writable(:estimated_hours)
+    end
+
+    it "remaining work is writable" do
+      expect(subject).to be_writable(:remaining_hours)
     end
 
     it "start date is writable" do

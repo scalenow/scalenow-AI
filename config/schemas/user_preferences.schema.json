@@ -6,15 +6,12 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "hide_mail": {
-                    "type": "boolean"
-                },
                 "time_zone": {
                     "type": ["string", "null"]
                 },
                 "theme": {
                   "type": "string",
-                  "enum": ["light", "light_high_contrast"]
+                  "enum": ["light", "light_high_contrast", "dark"]
                 },
                 "warn_on_leaving_unsaved": {
                     "type": "boolean"

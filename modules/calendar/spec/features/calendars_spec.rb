@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -80,7 +80,7 @@ RSpec.describe "Work package calendars", :js do
     expect(page).to have_text "There is currently nothing to display."
 
     # Open a new calendar from there
-    find(".toolbar-item a", text: "Calendar").click
+    find('[data-test-selector="add-calendar-button"]', text: "Calendar").click
 
     loading_indicator_saveguard
 

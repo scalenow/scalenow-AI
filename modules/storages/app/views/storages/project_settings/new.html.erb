@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,29 +28,29 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title t(:label_administration), t("project_module_storages") %>
-  <% local_assigns[:additional_breadcrumb] = t('storages.label_new_storage') %>
-  <%= toolbar title: t("storages.page_titles.project_settings.new"), title_class: "color-orange" %>
+<% html_title t(:label_administration), t("project_module_storages") %>
+<% local_assigns[:additional_breadcrumb] = t('storages.label_new_storage') %>
+<%= toolbar title: t("storages.page_titles.project_settings.new"), title_class: "color-orange" %>
 
-  <section class="form--section">
-    <% if @available_storages.any? %>
-      <% if @project_storage.storage.blank? %>
-        <%= labelled_tabular_form_for @project_storage,
-                                      url: new_project_settings_project_storage_path,
-                                      html: { method: :get } do |f| -%>
-          <%= render partial: '/storages/project_settings/storage_select_form',
-                    locals: { f: f, available_storages: @available_storages, submit_button_label: t('button_continue') }
-          %>
-        <% end %>
-      <% else %>
-        <%= labelled_tabular_form_for @project_storage, url: project_settings_project_storages_path do |f| -%>
-          <%= render partial: '/storages/project_settings/project_folder_form',
-                    locals: { f: f, submit_button_label: t('button_add') }
-          %>
-        <% end %>
+<section class="form--section">
+  <% if @available_storages.any? %>
+    <% if @project_storage.storage.blank? %>
+      <%= labelled_tabular_form_for @project_storage,
+                                    url: new_project_settings_project_storage_path,
+                                    html: { method: :get } do |f| -%>
+        <%= render partial: '/storages/project_settings/storage_select_form',
+                   locals: { f: f, available_storages: @available_storages, submit_button_label: t('button_continue') }
+        %>
       <% end %>
     <% else %>
-      <%= render partial: '/storages/project_settings/toast_all_available_storages_already_added' %>
+      <%= labelled_tabular_form_for @project_storage, url: project_settings_project_storages_path do |f| -%>
+        <%= render partial: '/storages/project_settings/project_folder_form',
+                   locals: { f: f, submit_button_label: t('button_add') }
+        %>
+      <% end %>
     <% end %>
-  </section>
+  <% else %>
+    <%= render partial: '/storages/project_settings/toast_all_available_storages_already_added' %>
+  <% end %>
+</section>
 </div>

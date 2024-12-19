@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -112,7 +112,7 @@ RSpec.describe "Wysiwyg child pages spec", :js do
         # Save wiki page
         click_on "Save"
 
-        expect(page).to have_css(".op-toast.-success")
+        expect_and_dismiss_flash(message: "Successful update.")
 
         within("#content") do
           expect(page).to have_css(".pages-hierarchy")
@@ -145,7 +145,7 @@ RSpec.describe "Wysiwyg child pages spec", :js do
         # Save wiki page
         click_on "Save"
 
-        expect(page).to have_css(".op-toast.-success")
+        expect_and_dismiss_flash(message: "Successful update.")
 
         within("#content") do
           expect(page).to have_css(".pages-hierarchy")

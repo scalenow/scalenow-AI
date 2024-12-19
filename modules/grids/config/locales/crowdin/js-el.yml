@@ -27,9 +27,6 @@ el:
         project_description:
           title: 'Περιγραφή έργου'
           no_results: "Δεν έχει γραφτεί ακόμα περιγραφή. Μπορεί να παρασχεθεί μια στις 'Ρυθμίσεις έργου'."
-        project_details:
-          title: 'Λεπτομέρειες έργου'
-          no_results: 'Δεν έχουν οριστεί προσαρμοσμένα πεδία για έργα.'
         project_status:
           title: 'Κατάσταση έργου'
           not_started: 'Not started'
@@ -42,6 +39,9 @@ el:
         subprojects:
           title: 'Υποέργα'
           no_results: 'Δεν υπάρχουν υποέργα.'
+        project_favorites:
+          title: 'Favorite projects'
+          no_results: 'You currently have no favorite projects. Click on the star icon in the project dashboard to add one to your favorites.'
         time_entries_current_user:
           title: 'Ο δικός μου χρόνος που δαπανήθηκε'
           displayed_days: 'Ημέρες που εμφανίζονται στο widget:'

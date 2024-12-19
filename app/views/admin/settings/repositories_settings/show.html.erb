@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -27,9 +27,19 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<% html_title t(:label_administration), t(:label_repository_plural) %>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: t(:label_repository_plural), title_class: "color-orange" %>
-  <%= styled_form_tag(admin_settings_update_repositories_path, method: :patch) do %>
+  <%=
+    render(Primer::OpenProject::PageHeader.new) do |header|
+      header.with_title(classes: "color-orange") { t(:label_repository_plural) }
+      header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
+                              { href: admin_settings_general_path, text: t(:label_system_settings) },
+                              t(:label_repository_plural)])
+    end
+  %>
+
+  <%= styled_form_tag(admin_settings_repositories_path, method: :patch) do %>
     <section class="form--section m-0">
       <div class="form--field">
         <%= setting_check_box :autofetch_changesets %>
@@ -92,7 +102,6 @@ See COPYRIGHT and LICENSE files for more details.
       </div>
       <div class="form--field"><%= setting_text_field :repository_log_display_limit, size: 6, container_class: '-xslim' %></div>
       <div class="form--field"><%= setting_text_field :repository_truncate_at, size: 6, container_class: '-xslim' %></div>
-      <div class="form--field"><%= setting_check_box :repository_authentication_caching_enabled %></div>
     </section>
     <%= render partial: 'repositories_checkout' %>
     <fieldset class="form--fieldset">

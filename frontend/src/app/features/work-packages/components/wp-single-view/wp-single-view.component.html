@@ -2,25 +2,26 @@
      class="work-package--single-view"
      [ngClass]="{'work-package--single-view_with-columns': showTwoColumnLayout()}"
      data-selector="wp-single-view">
-  
+
   <div class="card">
     <div class="card-body">
-      <div class="wp-new--subject-wrapper" *ngIf="isNewResource">
+      <div class="wp-new--subject-wrapper"
+          *ngIf="isNewResource">
         <op-editable-attribute-field [resource]="workPackage"
-                                      [wrapperClasses]="'-no-label'"
-                                      [fieldName]="'subject'"></op-editable-attribute-field>
+                                    [wrapperClasses]="'-no-label'"
+                                    [fieldName]="'subject'"></op-editable-attribute-field>
       </div>
-    
+
       <div class="wp-info-wrapper">
         <wp-status-button *ngIf="!isNewResource"
                           [workPackage]="workPackage">
         </wp-status-button>
         <attribute-help-text [attribute]="'status'"
-                              [attributeScope]="'WorkPackage'"
-                              *ngIf="!isNewResource"></attribute-help-text>
-    
+                            [attributeScope]="'WorkPackage'"
+                            *ngIf="!isNewResource"></attribute-help-text>
+
         <div class="work-packages--info-row"
-              *ngIf="!isNewResource">
+            *ngIf="!isNewResource">
           <span [textContent]="idLabel"></span>:
           <span [textContent]="text.infoRow.createdBy"></span>
           <!-- The space has to be in an extra span
@@ -34,18 +35,18 @@
           <op-date-time [dateTimeValue]="workPackage.updatedAt"></op-date-time>
           <span>.</span>
         </div>
-    
+
         <wp-custom-actions [workPackage]="workPackage" class="custom-actions"></wp-custom-actions>
       </div>
-    
+
       <div class="attributes-group -project-context __overflowing_element_container __overflowing_project_context"
-            *ngIf="projectContext && projectContext.field"
-            data-overflowing-identifier=".__overflowing_project_context">
+          *ngIf="projectContext && projectContext.field"
+          data-overflowing-identifier=".__overflowing_project_context">
         <div>
           <p class="wp-project-context--warning" [textContent]="text.project.required"></p>
           <div class="attributes-key-value"
-                [ngClass]="{'-span-all-columns': descriptor.spanAll }"
-                *ngFor="let descriptor of projectContext.field; trackBy:trackByName">
+              [ngClass]="{'-span-all-columns': descriptor.spanAll }"
+              *ngFor="let descriptor of projectContext.field; trackBy:trackByName">
             <div class="attributes-key-value--key">
               <wp-replacement-label [fieldName]="descriptor.name">
                 {{ descriptor.label }}
@@ -53,11 +54,11 @@
                       *ngIf="descriptor.field.required && descriptor.field.writable">*</span>
               </wp-replacement-label>
               <attribute-help-text [attribute]="descriptor.name"
-                                    [attributeScope]="'WorkPackage'"></attribute-help-text>
+                                  [attributeScope]="'WorkPackage'"></attribute-help-text>
             </div>
             <div class="attributes-key-value--value-container">
               <op-editable-attribute-field [resource]="workPackage"
-                                            [fieldName]="descriptor.name"></op-editable-attribute-field>
+                                          [fieldName]="descriptor.name"></op-editable-attribute-field>
             </div>
           </div>
         </div>
@@ -71,13 +72,13 @@
           <span [innerHTML]="switchToProjectText"></span>
         </div>
       </div>
-    
+
       <ng-container *ngFor="let component of prependedAttributeGroupComponents()">
         <ndc-dynamic [ndcDynamicComponent]="component"
                     [ndcDynamicInputs]="{ workPackage: workPackage }">
         </ndc-dynamic>
       </ng-container>
-    
+
       <div class="attributes-group description-group">
         <div class="single-attribute work-packages--details--description">
           <op-editable-attribute-field [fieldName]="'description'"
@@ -128,7 +129,9 @@
       class="work-packages--storages widget-box -thin bg-white rounded-border m-0"
       style="border: 1px solid #000;"
     >
-      <div>
+      <div
+        *ngIf="workPackage.$links.attachments"
+      >
         <div class="op-tab-content--header">
           <span class="op-tab-content--header-text color-orange" [textContent]="text.attachments.label"></span>
         </div>

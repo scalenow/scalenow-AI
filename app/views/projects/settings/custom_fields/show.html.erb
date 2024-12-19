@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,39 +28,39 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: t(:label_custom_field_plural), title_class: "color-orange" , html: { class: '-minimum-title' } do -%>
-    <%= render partial: 'projects/settings/form_toolbar', locals: { form_name: "modules-form" } %>
+<%= toolbar title: t(:label_custom_field_plural), title_class: "color-orange" , html: { class: '-minimum-title' } do -%>
+  <%= render partial: 'projects/settings/form_toolbar', locals: { form_name: "modules-form" } %>
 
-    <% if current_user.admin? %>
-      <li class="toolbar-item -no-grow">
-        <%= link_to new_custom_field_path(type: 'WorkPackageCustomField'),
-                    { class: 'button -primary custom-secondary-button rounded-border',
-                      aria: {label: t(:label_custom_field_new)},
-                      title: t(:label_custom_field_new)} do %>
-          <%= op_icon('button--icon icon-add') %>
-          <span class="button--text"><%= CustomField.model_name.human %></span>
-        <% end %>
-      </li>
-    <% end %>
+  <% if current_user.admin? %>
+    <li class="toolbar-item -no-grow">
+      <%= link_to new_custom_field_path(type: 'WorkPackageCustomField'),
+                  { class: 'button -primary custom-secondary-button rounded-border',
+                    aria: {label: t(:label_custom_field_new)},
+                    title: t(:label_custom_field_new)} do %>
+        <%= op_icon('button--icon icon-add') %>
+        <span class="button--text"><%= CustomField.model_name.human %></span>
+      <% end %>
+    </li>
   <% end %>
+<% end %>
 
-  <% if @wp_custom_fields.any? %>
-    <%= labelled_tabular_form_for @project,
-                                  url: project_settings_custom_fields_path(@project),
-                                  html: { id: 'modules-form' } do |form| %>
+<% if @wp_custom_fields.any? %>
+  <%= labelled_tabular_form_for @project,
+                                url: project_settings_custom_fields_path(@project),
+                                html: { id: 'modules-form' } do |form| %>
 
-      <%= render partial: 'form',
-                locals: {
-                  project: @project,
-                  form: form,
-                  work_package_custom_fields: @wp_custom_fields
-                } %>
+    <%= render partial: 'form',
+              locals: {
+                 project: @project,
+                 form: form,
+                 work_package_custom_fields: @wp_custom_fields
+              } %>
 
-      <div class="generic-table--action-buttons">
-        <%= form.button t(:button_save), class: 'button -primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
-      </div>
-    <% end %>
-  <% else %>
-    <%= no_results_box custom_title: t('projects.settings.custom_fields.no_results_title_text') %>
+    <div class="generic-table--action-buttons">
+      <%= form.button t(:button_save), class: 'button -primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+    </div>
   <% end %>
+<% else %>
+  <%= no_results_box custom_title: t('projects.settings.custom_fields.no_results_title_text') %>
+<% end %>
 </div>

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -40,6 +40,10 @@ module Costs
              settings: {
                default: { "costs_currency" => "EUR", "costs_currency_format" => "%n %u" },
                partial: "settings/costs",
+               page_title_key: :label_setting_plural,
+               breadcrumb_elements: -> {
+                 [{ href: admin_settings_show_plugin_path(:costs), text: I18n.t(:project_module_costs) }]
+               },
                menu_item: :costs_setting
              } do
       project_module :costs do
@@ -282,8 +286,8 @@ module Costs
     end
 
     config.to_prepare do
+      Enumeration.register_subclass(TimeEntryActivity)
       OpenProject::ProjectLatestActivity.register on: "TimeEntry"
-
       Costs::Patches::MembersPatch.mixin!
 
       ##

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -30,26 +30,27 @@ class Meeting < ApplicationRecord
   include VirtualAttribute
   include OpenProject::Journal::AttachmentHelper
 
-  self.table_name = 'meetings'
+  self.table_name = "meetings"
 
   belongs_to :project
-  belongs_to :author, class_name: 'User'
-  has_one :agenda, dependent: :destroy, class_name: 'MeetingAgenda'
-  has_one :minutes, dependent: :destroy, class_name: 'MeetingMinutes'
-  has_many :contents, -> { readonly }, class_name: 'MeetingContent'
+  belongs_to :author, class_name: "User"
+  has_one :agenda, dependent: :destroy, class_name: "MeetingAgenda"
+  has_one :minutes, dependent: :destroy, class_name: "MeetingMinutes"
+  has_many :contents, -> { readonly }, class_name: "MeetingContent"
 
   has_many :participants,
            dependent: :destroy,
-           class_name: 'MeetingParticipant',
+           class_name: "MeetingParticipant",
            after_add: :send_participant_added_mail
 
-  has_many :agenda_items, dependent: :destroy, class_name: 'MeetingAgendaItem'
+  has_many :sections, dependent: :destroy, class_name: "MeetingSection"
+  has_many :agenda_items, dependent: :destroy, class_name: "MeetingAgendaItem"
 
   default_scope do
     order("#{Meeting.table_name}.start_time DESC")
   end
-  scope :from_tomorrow, -> { where(['start_time >= ?', Date.tomorrow.beginning_of_day]) }
-  scope :from_today, -> { where(['start_time >= ?', Time.zone.today.beginning_of_day]) }
+  scope :from_tomorrow, -> { where(["start_time >= ?", Date.tomorrow.beginning_of_day]) }
+  scope :from_today, -> { where(["start_time >= ?", Time.zone.today.beginning_of_day]) }
   scope :with_users_by_date, -> {
     order("#{Meeting.table_name}.title ASC")
       .includes({ participants: :user }, :author)
@@ -109,20 +110,19 @@ class Meeting < ApplicationRecord
     closed: 5
   }
 
-  # => {"agenda_items_7"=>{"title"=>["New agenda item edited", "New agenda item edited again"], "duration_in_minutes"=>["5", "3"], "notes"=>["Notes added as well", "Notes edited"]}}
+  ##
+  # Cache key for detecting changes to be shown to the user
+  def changed_hash
+    parts = Meeting
+      .unscoped
+      .where(id:)
+      .left_joins(:agenda_items, :sections)
+      .pick(MeetingAgendaItem.arel_table[:updated_at].maximum, MeetingSection.arel_table[:updated_at].maximum)
 
-#   => {"project_id"=>[nil, 14],
-#  "user_id"=>[nil, 9],
-#  "work_package_id"=>[nil, 48211],
-#  "hours"=>[nil, 1.0],
-#  "comments"=>[nil, "Alex"],
-#  "activity_id"=>[nil, 8],
-#  "spent_on"=>[nil, Mon, 31 Jul 2023],
-#  "tyear"=>[nil, 2023],
-#  "tmonth"=>[nil, 7],
-#  "tweek"=>[nil, 31],
-#  "costs"=>[nil, 0.0],
-#  "logged_by_id"=>[nil, 9]}
+    parts << lock_version
+
+    OpenProject::Cache::CacheKey.expand(parts)
+  end
 
   ##
   # Return the computed start_time when changed
@@ -214,7 +214,7 @@ class Meeting < ApplicationRecord
       attachments = agenda.attachments.map { |a| [a, a.copy] }
       original_text = String(agenda.text)
       minutes = create_minutes(text: original_text,
-                               journal_notes: I18n.t('events.meeting_minutes_created'),
+                               journal_notes: I18n.t("events.meeting_minutes_created"),
                                attachments: attachments.map(&:last))
 
       # substitute attachment references in text to use the respective copied attachments
@@ -233,7 +233,7 @@ class Meeting < ApplicationRecord
 
   def participants_attributes=(attrs)
     attrs.each do |participant|
-      participant['_destroy'] = true if !(participant[:attended] || participant[:invited])
+      participant["_destroy"] = true if !(participant[:attended] || participant[:invited])
     end
     self.original_participants_attributes = attrs
   end
@@ -253,14 +253,15 @@ class Meeting < ApplicationRecord
 
   def set_initial_values
     # set defaults
-    write_attribute(:start_time, Date.tomorrow + 10.hours) if start_time.nil?
+    # Start date is set to tomorrow at 10 AM (Current users local time)
+    write_attribute(:start_time, User.current.time_zone.now.at_midnight + 34.hours) if start_time.nil?
     self.duration ||= 1
     update_derived_fields
   end
 
   def update_derived_fields
-    @start_date = start_time.to_date.iso8601
-    @start_time_hour = start_time.strftime('%H:%M')
+    @start_date = format_time_as_date(start_time, format: "%Y-%m-%d")
+    @start_time_hour = format_time(start_time, include_date: false, format: "%H:%M")
   end
 
   private
@@ -319,7 +320,7 @@ class Meeting < ApplicationRecord
   ##
   # Enforce HH::MM time parsing for the given input string
   def parsed_start_time_hour
-    Time.strptime(@start_time_hour, '%H:%M')
+    Time.strptime(@start_time_hour, "%H:%M")
   rescue ArgumentError
     nil
   end
@@ -331,7 +332,7 @@ class Meeting < ApplicationRecord
   end
 
   def send_participant_added_mail(participant)
-    if persisted?
+    if persisted? && Journal::NotificationConfiguration.active?
       MeetingMailer.invited(self, participant.user, User.current).deliver_later
     end
   end

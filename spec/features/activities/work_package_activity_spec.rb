@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -45,27 +45,27 @@ RSpec.describe "Work package activity", :js, :with_cuprite do
   TABLE
 
   let(:parent_page) { Pages::FullWorkPackage.new(parent) }
+  let(:popover) { Components::WorkPackages::ProgressPopover.new }
 
   current_user { admin }
 
   context "when the progress values are changed" do
     before do
-      wp_page = Pages::FullWorkPackage.new(parent)
-      wp_page.visit!
-      wp_page.update_attributes estimatedTime: "10" # rubocop:disable Rails/ActiveRecordAliases
-      wp_page.expect_and_dismiss_toaster(message: "Successful update.")
-      wp_page.update_attributes remainingTime: "5" # rubocop:disable Rails/ActiveRecordAliases
-      wp_page.expect_and_dismiss_toaster(message: "Successful update.")
+      parent_page.visit!
+      popover.open
+      popover.set_values(work: "100", remaining_time: "5")
+      popover.save
+      parent_page.expect_and_dismiss_toaster(message: "Successful update.")
     end
 
-    it "displays changed attributes in the activity tab" do
+    it "displays changed attributes in the activity tab", :aggregate_failures do
       within("activity-entry", text: admin.name) do
-        expect(page).to have_list_item(text: "% Complete set to 50%")
-        expect(page).to have_list_item(text: "Work set to 10.00")
-        expect(page).to have_list_item(text: "Remaining work set to 5.00")
-        expect(page).to have_list_item(text: "Total work set to 20.00")
-        expect(page).to have_list_item(text: "Total remaining work set to 8.00")
-        expect(page).to have_list_item(text: "Total % complete set to 60%")
+        expect(page).to have_list_item(text: "% Complete set to 95%")
+        expect(page).to have_list_item(text: "Work set to 100h")
+        expect(page).to have_list_item(text: "Remaining work set to 5h")
+        expect(page).to have_list_item(text: "Total work set to 110h")
+        expect(page).to have_list_item(text: "Total remaining work set to 8h")
+        expect(page).to have_list_item(text: "Total % complete set to 93%")
       end
     end
   end

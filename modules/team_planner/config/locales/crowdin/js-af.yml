@@ -4,11 +4,11 @@ af:
     team_planner:
       add_existing: 'Add existing'
       add_existing_title: 'Add existing work packages'
-      create_label: 'Team planner'
+      create_label: 'Spanbeplanner'
       create_title: 'Create new team planner'
       unsaved_title: 'Unnamed team planner'
       no_data: 'Add assignees to set up your team planner.'
-      add_assignee: 'Add assignee'
+      add_assignee: 'Assignee'
       remove_assignee: 'Remove assignee'
       two_weeks: '2-week'
       one_week: '1-week'

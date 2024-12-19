@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -52,7 +52,7 @@ RSpec.describe CreateTypeService do
 
         it "does include the progress attribute group" do
           expect(service_call.result.attribute_groups.map(&:key))
-            .to eql %i[people estimates_and_time details costs]
+            .to eql %i[people estimates_and_progress details costs]
         end
       end
     end

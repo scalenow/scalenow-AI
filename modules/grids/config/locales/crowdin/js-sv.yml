@@ -27,9 +27,6 @@ sv:
         project_description:
           title: 'Projektbeskrivning'
           no_results: "Ingen beskrivning har skrivits ännu. Den kan anges i 'Projektinställningar'."
-        project_details:
-          title: 'Projektinformation'
-          no_results: 'Inga anpassade fält har definierats för projekt.'
         project_status:
           title: 'Projektstatus'
           not_started: 'Inte påbörjad'
@@ -42,6 +39,9 @@ sv:
         subprojects:
           title: 'Delprojekt'
           no_results: 'Inga delprojekt.'
+        project_favorites:
+          title: 'Favorite projects'
+          no_results: 'You currently have no favorite projects. Click on the star icon in the project dashboard to add one to your favorites.'
         time_entries_current_user:
           title: 'My spent time'
           displayed_days: 'Dagar som visas i widgeten:'

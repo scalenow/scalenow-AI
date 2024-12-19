@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -27,28 +27,35 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<% html_title t(:label_administration), t("label_user_new") %>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title t(:label_administration), t("label_user_new") %>
-  <% local_assigns[:additional_breadcrumb] = t(:label_user_new) %>
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title(classes: "color-orange") { t(:label_user_new) }
+    header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
+                             { href: admin_settings_users_path, text: t(:label_user_and_permission) },
+                             { href: users_path, text: t(:label_user_plural) },
+                             t(:label_user_new)])
+  end
+%>
 
-  <%= toolbar title: t(:label_user_new), title_class: "color-orange" %>
+<%= error_messages_for @user %>
 
-  <%= error_messages_for @user %>
+<%= labelled_tabular_form_for @user,
+                              url: { action: "create" },
+                              html: { class: nil, autocomplete: 'off' },
+                              data: {
+                                controller: 'admin--users',
+                                'application-target': 'dynamic',
+                                'admin--users-password-auth-selected-value': @user.ldap_auth_source_id.blank?,
+                              },
+                              as: :user do |f| %>
+  <%= render partial: 'simple_form', locals: { f: f, auth_sources: @ldap_auth_sources, user: @user } %>
 
-  <%= labelled_tabular_form_for @user,
-                                url: { action: "create" },
-                                html: { class: nil, autocomplete: 'off' },
-                                data: {
-                                  controller: 'admin--users',
-                                  'application-target': 'dynamic',
-                                  'admin--users-password-auth-selected-value': @user.ldap_auth_source_id.blank?,
-                                },
-                                as: :user do |f| %>
-    <%= render partial: 'simple_form', locals: { f: f, auth_sources: @ldap_auth_sources, user: @user } %>
-
-    <p class="m-0">
-      <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
-      <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
-    </p>
-  <% end %>
+  <p class="m-0">
+    <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2 px-3' %>
+    <%= styled_button_tag t(:button_create_and_continue), name: 'continue', class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+  </p>
+<% end %>
 </div>

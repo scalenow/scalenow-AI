@@ -13,15 +13,11 @@ In a decision to move OpenProject towards the [Hotwire approach](https://hotwire
 
 This guide will outline how to add controllers and the conventions around it. This is _not_ a documentation of stimulus itself. Use their documentation instead: https://stimulus.hotwired.dev
 
-
-
 ## Adding controllers
 
 All controllers live under `frontend/src/stimulus/controllers/`. The naming convention is `<controller-name>.controller.ts`, meaning to dasherize the name of the controller. This makes it easier to generate names and classes using common IDEs.
 
 If you want to add a common pattern, manually register the controller under `frontend/src/stimulus/setup.ts`. Often you'll want to have a dynamically loaded controller instead though.
-
-
 
 ### Dynamically loaded controllers
 
@@ -32,8 +28,6 @@ In DOM, you'll tell the application the controller is dynamically loaded using t
 ```html
 <div data-controller="users" data-application-target="dynamic"></div>
 ```
-
-
 
 #### Namespacing dynamic controllers
 
@@ -46,19 +40,14 @@ If you want to organize your dynamic controllers in a subfolder, use the [double
 <div data-controller="admin--settings" data-application-target="dynamic"></div>
 ```
 
-
-
 You need to take care to prefix all actions, values etc. with the exact same pattern, e.g., `data-admin--settings-target="foobar"`.
-
-
 
 ### Requiring a page controller
 
-If you have a single controller used in a partial, we have added a helper to use in a partial in order to append a controller to the `#content`tag. This is useful if your template doesn't have a single DOM root. For example, to load the dynamic `project-storage-form` controller and provide a custom value to it:
+If you have a single controller used in a partial, we have added a helper to use in a partial in order to append a controller to the `#content-wrapper` tag. This is useful if your template doesn't have a single DOM root. For example, to load the dynamic `project-storage-form` controller and provide a custom value to it:
 
 ```erb
 <% content_controller 'project-storage-form',
                       dynamic: true,
                       'project-storage-form-folder-mode-value': @project_storage.project_folder_mode %>
 ```
-

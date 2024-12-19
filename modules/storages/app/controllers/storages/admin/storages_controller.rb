@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -32,7 +32,7 @@
 class Storages::Admin::StoragesController < ApplicationController
   using Storages::Peripherals::ServiceResultRefinements
 
-  include FlashMessagesHelper
+  include FlashMessagesOutputSafetyHelper
   include OpTurbo::ComponentStream
 
   # See https://guides.rubyonrails.org/layouts_and_rendering.html for reference on layout
@@ -50,13 +50,8 @@ class Storages::Admin::StoragesController < ApplicationController
   before_action :ensure_valid_provider_type_selected, only: %i[select_provider]
   before_action :require_ee_token_for_one_drive, only: %i[select_provider]
 
-  # menu_item is defined in the Redmine::MenuManager::MenuController
-  # module, included from ApplicationController.
-  # The menu item is defined in the engine.rb
-  menu_item :storages_admin_settings
+  menu_item :external_file_storages
 
-  # Index page with a list of Storages objects
-  # Called by: Global app/config/routes.rb to serve Web page
   def index
     @storages = Storages::Storage.all
   end
@@ -78,10 +73,9 @@ class Storages::Admin::StoragesController < ApplicationController
                  .call
                  .result
 
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
+    update_via_turbo_stream(component: Storages::Admin::Forms::GeneralInfoFormComponent.new(@storage))
+
+    respond_with_turbo_streams(&:html)
   end
 
   def upsale; end
@@ -100,7 +94,7 @@ class Storages::Admin::StoragesController < ApplicationController
     end
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     service_result = Storages::Storages::CreateService
                        .new(user: current_user)
                        .call(permitted_storage_params)
@@ -109,44 +103,63 @@ class Storages::Admin::StoragesController < ApplicationController
     @oauth_application = oauth_application(service_result)
 
     service_result.on_failure do
-      respond_to do |format|
-        format.turbo_stream { render :new }
-      end
+      update_via_turbo_stream(component: Storages::Admin::Forms::GeneralInfoFormComponent.new(@storage))
     end
 
     service_result.on_success do
       if @storage.provider_type_one_drive?
         prepare_storage_for_access_management_form
+        update_via_turbo_stream(component: Storages::Admin::Forms::AccessManagementFormComponent.new(@storage))
       end
 
-      respond_to do |format|
-        format.turbo_stream
+      update_via_turbo_stream(component: Storages::Admin::GeneralInfoComponent.new(@storage))
+
+      if @storage.provider_type_nextcloud?
+        update_via_turbo_stream(
+          component: Storages::Admin::OAuthApplicationInfoCopyComponent.new(
+            oauth_application: @oauth_application,
+            storage: @storage,
+            submit_button_options: { data: { turbo_stream: true } }
+          )
+        )
       end
     end
+
+    respond_with_turbo_streams
   end
 
   def show_oauth_application
     @oauth_application = @storage.oauth_application
 
-    respond_to do |format|
-      format.turbo_stream
+    update_via_turbo_stream(
+      component: Storages::Admin::OAuthApplicationInfoComponent.new(oauth_application: @oauth_application,
+                                                                    storage: @storage)
+    )
+
+    if @storage.oauth_client.blank?
+      update_via_turbo_stream(
+        component: Storages::Admin::Forms::OAuthClientFormComponent.new(oauth_client: @storage.build_oauth_client,
+                                                                        storage: @storage)
+      )
     end
+
+    respond_with_turbo_streams
   end
 
-  # Edit page is very similar to new page, except that we don't need to set
-  # default attribute values because the object already exists;
-  # Called by: Global app/config/routes.rb to serve Web page
   def edit; end
 
   def edit_host
-    respond_to do |format|
-      format.turbo_stream
-    end
+    update_via_turbo_stream(
+      component: Storages::Admin::Forms::GeneralInfoFormComponent.new(
+        @storage,
+        form_method: :patch,
+        cancel_button_path: edit_admin_settings_storage_path(@storage)
+      )
+    )
+
+    respond_with_turbo_streams
   end
 
-  # Update is similar to create above
-  # See also: create above
-  # Called by: Global app/config/routes.rb to serve Web page
   def update
     service_result = ::Storages::Storages::UpdateService
                        .new(user: current_user, model: @storage)
@@ -154,13 +167,19 @@ class Storages::Admin::StoragesController < ApplicationController
     @storage = service_result.result
 
     if service_result.success?
-      respond_to do |format|
-        format.turbo_stream
-      end
+      respond_to { |format| format.turbo_stream }
     else
-      respond_to do |format|
+      update_via_turbo_stream(
+        component: Storages::Admin::Forms::GeneralInfoFormComponent.new(
+          @storage,
+          form_method: :patch,
+          cancel_button_path: edit_admin_settings_storage_path(@storage)
+        )
+      )
+
+      respond_with_turbo_streams do |format|
+        # FIXME: This should be a partial stream update
         format.html { render :edit }
-        format.turbo_stream { render :edit_host }
       end
     end
   end
@@ -169,12 +188,10 @@ class Storages::Admin::StoragesController < ApplicationController
     return head :bad_request unless %w[1 0].include?(permitted_storage_params[:health_notifications_enabled])
 
     if @storage.update(health_notifications_enabled: permitted_storage_params[:health_notifications_enabled])
-      update_via_turbo_stream(component: Storages::Admin::Sidebar::HealthNotificationsComponent.new(storage: @storage))
+      update_via_turbo_stream(component: Storages::Admin::SidePanel::HealthNotificationsComponent.new(storage: @storage))
       respond_with_turbo_streams
     else
-      flash.now[:primer_banner] = {
-        message: I18n.t("storages.health_email_notifications.error_could_not_be_saved"), scheme: :danger
-      }
+      flash.now[:error] = I18n.t("storages.health_email_notifications.error_could_not_be_saved")
       render :edit
     end
   end
@@ -190,11 +207,11 @@ class Storages::Admin::StoragesController < ApplicationController
 
     # rubocop:disable Rails/ActionControllerFlashBeforeRender
     service_result.on_failure do
-      flash[:primer_banner] = { message: join_flash_messages(service_result.errors.full_messages), scheme: :danger }
+      flash[:error] = service_result.errors.full_messages
     end
 
     service_result.on_success do
-      flash[:primer_banner] = { message: I18n.t(:notice_successful_delete), scheme: :success }
+      flash[:notice] = I18n.t(:notice_successful_delete)
     end
     # rubocop:enable Rails/ActionControllerFlashBeforeRender
 
@@ -207,8 +224,21 @@ class Storages::Admin::StoragesController < ApplicationController
     @oauth_application = service_result.result
 
     if service_result.success?
-      render :replace_oauth_application
+      update_via_turbo_stream(component: Storages::Admin::GeneralInfoComponent.new(@storage))
+
+      update_via_turbo_stream(
+        component: Storages::Admin::OAuthApplicationInfoCopyComponent.new(
+          oauth_application: @oauth_application,
+          storage: @storage,
+          submit_button_options: {
+            data: { turbo_stream: true }
+          }
+        )
+      )
+
+      respond_with_turbo_streams
     else
+      # FIXME: This should be a partial stream update
       render :edit
     end
   end
@@ -233,7 +263,7 @@ class Storages::Admin::StoragesController < ApplicationController
   def ensure_valid_provider_type_selected
     short_provider_type = params[:provider]
     if short_provider_type.blank? || (@provider_type = ::Storages::Storage::PROVIDER_TYPE_SHORT_NAMES[short_provider_type]).blank?
-      flash[:primer_banner] = { message: I18n.t("storages.error_invalid_provider_type"), scheme: :danger }
+      flash[:error] = I18n.t("storages.error_invalid_provider_type")
       redirect_to admin_settings_storages_path
     end
   end

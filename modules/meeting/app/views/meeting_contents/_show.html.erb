@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -64,8 +64,8 @@ See COPYRIGHT and LICENSE files for more details.
   <% unless local_assigns[:journaled_version] %>
     <% resource = ::API::V3::MeetingContents::MeetingContentRepresenter.new(content, current_user: current_user, embed_links: true) %>
     <%= list_attachments(resource,
-                        data: {
-                          'meeting-content-target': "attachments"
-                        }) %>
+                         data: {
+                           'meeting-content-target': "attachments"
+                         }) %>
   <% end %>
 </div>

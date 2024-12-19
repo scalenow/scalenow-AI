@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -83,7 +83,7 @@ class TypesController < ApplicationController
       .new(@type, current_user)
       .call(permitted_type_params) do |call|
       call.on_success do
-        redirect_to_type_tab_path(@type, update_success_message)
+        redirect_to_type_tab_path(@type, t(:notice_successful_update))
       end
 
       call.on_failure do |result|
@@ -139,14 +139,6 @@ class TypesController < ApplicationController
                 notice:)
   end
 
-  def default_breadcrumb
-    if action_name == "index"
-      t(:label_work_package_types)
-    else
-      ActionController::Base.helpers.link_to(t(:label_work_package_types), types_path)
-    end
-  end
-
   def render_edit_tab(type)
     @tab = params[:tab]
     @projects = Project.all
@@ -156,15 +148,7 @@ class TypesController < ApplicationController
   end
 
   def show_local_breadcrumb
-    true
-  end
-
-  def update_success_message
-    if params[:tab].in?(%w[form_configuration projects])
-      t(:notice_successful_update_custom_fields_added_to_type)
-    else
-      t(:notice_successful_update)
-    end
+    false
   end
 
   def destroy_error_message

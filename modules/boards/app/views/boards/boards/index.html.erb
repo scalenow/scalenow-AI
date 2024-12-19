@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -27,16 +27,29 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<% html_title(t('boards.label_boards')) -%>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title(t('boards.label_boards')) -%>
+<%=
+  render Primer::OpenProject::PageHeader.new do |header|
+    header.with_title(classes: "color-orange") { t("boards.label_boards") }
+    header.with_breadcrumbs([*([ href: home_path, text: organization_name ] unless @project),
+                             *([ href: project_overview_path(@project.id), text: @project.name ] if @project),
+                             t("boards.label_boards")])
+  end
+%>
 
-  <%= toolbar title: t('boards.label_boards'), title_class: "color-orange" do %>
-    <%= render Boards::AddButtonComponent.new(current_project: @project) %>
-  <% end %>
+<%=
+  render Primer::OpenProject::SubHeader.new do |subheader|
+    subheader.with_action_component do
+       render Boards::AddButtonComponent.new(current_project: @project)
+    end
+  end
+%>
 
-  <% if @board_grids.empty? -%>
-    <%= no_results_box %>
-  <% else -%>
-    <%= render Boards::TableComponent.new(rows: @board_grids, current_user: User.current, current_project: @project) %>
-  <% end -%>
+<% if @board_grids.empty? -%>
+  <%= no_results_box %>
+<% else -%>
+  <%= render Boards::TableComponent.new(rows: @board_grids, current_user: User.current, current_project: @project) %>
+<% end -%>
 </div>

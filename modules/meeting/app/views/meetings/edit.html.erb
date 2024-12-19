@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -30,11 +30,11 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title "#{t(:label_meeting_edit)}: #{@meeting.title}" %>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: "#{t(:label_meeting)} ##{@meeting.id}", title_class: "color-orange" %>
-  <%= labelled_tabular_form_for @meeting, :url => {:controller => '/meetings', :action => 'update'}, :html => {:id => 'meeting-form', :method => :put} do |f| -%>
-    <%= render :partial => 'form', :locals => {:f => f} %>
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border px-3 m-0 mr-2' %>
-  <%= link_to t(:button_cancel), { :action => 'show', :id => @meeting },
-        class: 'button -with-icon icon-cancel rounded-border px-3 m-0' %>
-  <% end if @project %>
+<%= toolbar title: "#{t(:label_meeting)} ##{@meeting.id}", title_class: "color-orange" %>
+<%= labelled_tabular_form_for @meeting, :url => {:controller => '/meetings', :action => 'update'}, :html => {:id => 'meeting-form', :method => :put} do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+<%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border px-3 m-0 mr-2' %>
+<%= link_to t(:button_cancel), { :action => 'show', :id => @meeting },
+      class: 'button -with-icon icon-cancel rounded-border px-3 m-0' %>
+<% end if @project %>
 </div>

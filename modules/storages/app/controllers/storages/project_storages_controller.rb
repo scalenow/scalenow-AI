@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -36,6 +38,7 @@ class Storages::ProjectStoragesController < ApplicationController
   before_action :find_model_object
   before_action :find_project_by_project_id
   before_action :render_403, unless: -> { User.current.allowed_in_project?(:view_file_links, @project) }
+  no_authorization_required! :open
 
   # rubocop:disable Metrics/AbcSize
   def open
@@ -44,7 +47,7 @@ class Storages::ProjectStoragesController < ApplicationController
       # check if user "see" project_folder
       if @object.project_folder_id.present?
         ::Storages::Peripherals::Registry
-          .resolve("#{@storage.short_provider_type}.queries.file_info")
+          .resolve("#{@storage}.queries.file_info")
           .call(storage: @storage, auth_strategy:, file_id: @object.project_folder_id)
           .match(
             on_success: user_can_read_project_folder,
@@ -115,14 +118,12 @@ class Storages::ProjectStoragesController < ApplicationController
   def redirect_to_project_overview_with_modal
     redirect_to(
       project_overview_path(project_id: @project.identifier),
-      flash: {
-        modal: {
-          type: "Storages::OpenProjectStorageModalComponent",
-          parameters: {
-            project_storage_open_url: request.path,
-            redirect_url: api_v3_project_storage_open,
-            state: :waiting
-          }
+      op_modal: {
+        component: Storages::OpenProjectStorageModalComponent.name,
+        parameters: {
+          project_storage_open_url: request.path,
+          redirect_url: api_v3_project_storage_open,
+          state: :waiting
         }
       }
     )

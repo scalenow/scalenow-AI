@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -99,7 +99,7 @@ RSpec.describe "Work package create uses attributes from filters", :js, :seleniu
       split_page.save!
 
       wp_table.expect_and_dismiss_toaster(
-        message: "Successful creation. Click here to open this work package in fullscreen view."
+        message: "Successful creation."
       )
       wp = WorkPackage.last
       expect(wp.subject).to eq "Foobar!"
@@ -140,7 +140,7 @@ RSpec.describe "Work package create uses attributes from filters", :js, :seleniu
       subject_field.submit_by_enter
 
       wp_table.expect_toast(
-        message: "Successful creation. Click here to open this work package in fullscreen view."
+        message: "Successful creation."
       )
       wp_table.dismiss_toaster!
 
@@ -203,7 +203,7 @@ RSpec.describe "Work package create uses attributes from filters", :js, :seleniu
       subject_field.submit_by_enter
 
       wp_table.expect_toast(
-        message: "Successful creation. Click here to open this work package in fullscreen view."
+        message: "Successful creation."
       )
       wp_table.dismiss_toaster!
 

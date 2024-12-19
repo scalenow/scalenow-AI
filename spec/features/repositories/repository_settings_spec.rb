@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -193,8 +193,7 @@ RSpec.describe "Repository Settings", :js do
 
       click_button(I18n.t(:button_save))
       expect(page).to have_css('[name="repository[login]"][value="foobar"]')
-      expect(page).to have_css(".op-toast",
-                               text: I18n.t("repositories.update_settings_successful"))
+      expect_flash(message: I18n.t("repositories.update_settings_successful"))
     end
   end
 end
