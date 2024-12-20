@@ -29,6 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), t(:label_working_days_and_hours) %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     header.with_title(test_selector: "op-working-days-admin-settings--title") { t(:label_working_days_and_hours) }
@@ -98,3 +99,11 @@ See COPYRIGHT and LICENSE files for more details.
 
   <%= styled_button_tag t(:button_apply_changes), class: "-primary -with-icon icon-checkmark" %>
 <% end %>
+</div>
+
+<style>
+  .fc-event td {
+    background-color: #f3f6f9 !important;
+    color: #000 !important;
+  }
+</style>

@@ -1,6 +1,6 @@
 <%= form_tag update_design_colors_path, method: :post, class: "form" do %>
-  <section class="form--section">
-    <fieldset class="form--fieldset">
+  <section class="form--section m-0">
+    <fieldset class="form--fieldset m-0">
       <legend class="form--fieldset-legend"><%= I18n.t(:label_interface_colors) %></legend>
       <p> <%= t('label_interface_colors_description') %> </p>
       <% DesignColor.setables.each do |design_color|  %>
@@ -28,7 +28,7 @@
           </div>
         </div>
       <% end %>
-      <button type="submit" class="button -hide-when-collapsed" data-test-selector="interface-colors-button"><%= I18n.t(:button_save) %></button>
+      <button type="submit" class="button -primary -hide-when-collapsed px-3" data-test-selector="interface-colors-button"><%= I18n.t(:button_save) %></button>
     </fieldset>
   </section>
   <%# Fill in the computed css variables in the inputs as their defaults %>

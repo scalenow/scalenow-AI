@@ -171,24 +171,35 @@ module Redmine::MenuManager::TopMenuHelper
     render partial:
   end
 
-  def render_module_top_menu_node(item_groups = module_top_menu_item_groups)
-    unless item_groups.empty?
-      render Primer::Alpha::ActionMenu.new(classes: "op-app-menu--item",
-                                           menu_id: "op-app-header--modules-menu",
-                                           anchor_align: :end) do |menu|
-        menu.with_show_button(icon: "op-grid-menu",
-                              scheme: :invisible,
-                              classes: "op-app-menu--item-action op-app-header--primer-button hidden-for-mobile",
-                              title: I18n.t("label_modules"),
-                              test_selector: "op-app-header--modules-menu-button",
-                              "aria-label": I18n.t("label_modules"))
-
-        item_groups.each do |item_group|
-          render_menu_item_group(menu, item_group)
-        end
-      end
+  def render_module_top_menu_node(items = more_top_menu_items)
+    unless items.empty?
+      render_menu_dropdown_with_items(
+        label: "",
+        label_options: { icon: "bx bx-category-alt fs-22", title: I18n.t("label_modules") },
+        items:,
+        options: { drop_down_id: "more-menu", drop_down_class: "drop-down--modules ", menu_item_class: "hidden-for-mobile" }
+      )
     end
   end
+
+  # def render_module_top_menu_node(item_groups = module_top_menu_item_groups)
+  #   unless item_groups.empty?
+  #     render Primer::Alpha::ActionMenu.new(classes: "op-app-menu--item",
+  #                                          menu_id: "op-app-header--modules-menu",
+  #                                          anchor_align: :end) do |menu|
+  #       menu.with_show_button(icon: "op-grid-menu",
+  #                             scheme: :invisible,
+  #                             classes: "op-app-menu--item-action op-app-header--primer-button hidden-for-mobile",
+  #                             title: I18n.t("label_modules"),
+  #                             test_selector: "op-app-header--modules-menu-button",
+  #                             "aria-label": I18n.t("label_modules"))
+
+  #       item_groups.each do |item_group|
+  #         render_menu_item_group(menu, item_group)
+  #       end
+  #     end
+  #   end
+  # end
 
   def render_menu_item_group(menu, item_group)
     menu.with_group do |menu_group|

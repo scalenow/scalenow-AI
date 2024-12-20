@@ -29,6 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), t(:label_github_integration), t(:label_deploy_target_plural) %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     header.with_title { t(:label_github_integration) }
@@ -51,3 +52,4 @@ See COPYRIGHT and LICENSE files for more details.
 %>
 
 <%= render DeployTargets::TableComponent.new(rows: @deploy_targets, current_user: ) %>
+</div>

@@ -28,6 +28,7 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 <% html_title t(:label_administration), t(:label_experimental) %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     header.with_title { t(:label_experimental) }
@@ -67,3 +68,4 @@ See COPYRIGHT and LICENSE files for more details.
                           confirm: t("settings.experimental.save_confirmation")
                         } %>
 <% end %>
+</div>

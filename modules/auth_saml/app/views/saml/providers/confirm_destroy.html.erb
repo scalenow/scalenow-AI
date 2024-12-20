@@ -26,11 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
+
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%= styled_form_tag(saml_provider_path(@provider),
                     class: 'danger-zone',
                     method: :delete) do %>
   <section class="form--section">
-    <h3 class="form--section-title">
+    <h3 class="form--section-title rounded-border">
       <%= t('saml.delete_title') %>
     </h3>
     <p>
@@ -58,9 +60,10 @@ See COPYRIGHT and LICENSE files for more details.
       end %>
       <%= link_to saml_providers_path,
                   title: t(:button_cancel),
-                  class: 'button -with-icon icon-cancel' do %>
+                  class: 'button -with-icon icon-cancel rounded-border pt-2' do %>
         <%= t(:button_cancel) %>
       <% end %>
     </div>
   </section>
 <% end %>
+</div>

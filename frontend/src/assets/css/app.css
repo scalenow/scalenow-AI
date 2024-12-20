@@ -16467,8 +16467,8 @@ body {
   border-color: #000 !important;
 }
 
-.custom-breadcumb-style {
-  font-size: 22px;
+.breadcrumb-item {
+  font-size: 22px !important;
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
@@ -16714,4 +16714,14 @@ h5.version.icon-modules::before {
   overflow-x: hidden !important;
   overflow-y: visible !important;
   scrollbar-width: none !important;
+}
+
+.PageHeader-title {
+  color: #ff7f5d !important;
+}
+
+.main-menu ul .main-menu--children li a:not(.Button):before {
+  content: '-';
+  margin-left: 10px;
+  margin-right: 10px;
 }

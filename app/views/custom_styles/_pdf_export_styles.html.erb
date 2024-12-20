@@ -89,8 +89,8 @@ See COPYRIGHT and LICENSE files for more details.
   </section>
 <% end %>
 <%= form_tag update_custom_style_export_cover_text_color_path, html: { multipart: true, class: "form -vertical" } do |f| %>
-  <section class="form--section">
-    <fieldset class="form--fieldset">
+  <section class="form--section m-0">
+    <fieldset class="form--fieldset m-0">
       <legend class="form--fieldset-legend"><%= I18n.t(:label_custom_export_cover_overlay) %></legend>
       <div class="form--field">
         <label class="form--label"><%= I18n.t(:label_custom_export_cover_text_color) %>:</label>
@@ -116,7 +116,7 @@ See COPYRIGHT and LICENSE files for more details.
           <% end %>
         </div>
       </div>
-      <button type="submit" class="button -hide-when-collapsed" data-test-selector="text-color-change"><%= I18n.t(:button_save) %></button>
+      <button type="submit" class="button -primary -hide-when-collapsed px-3" data-test-selector="text-color-change"><%= I18n.t(:button_save) %></button>
     </fieldset>
   </section>
 <% end %>
