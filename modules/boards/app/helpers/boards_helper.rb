@@ -22,7 +22,7 @@ module BoardsHelper
     BoardTypeAttributes.new(type_name,
                             I18n.t("boards.board_type_attributes.#{type_name}"),
                             I18n.t("boards.board_type_descriptions.#{type_name}"),
-                            "assets/images/board_creation_modal/#{image_name}.svg",
+                            "assets/images/board_creation_modal/#{image_name}.png",
                             disabled)
   end
 

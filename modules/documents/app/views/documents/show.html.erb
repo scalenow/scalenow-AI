@@ -29,7 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <% html_title h(@document.title) -%>
-<%= toolbar title: @document.title,
+<%= toolbar title: @document.title, title_class: "color-orange",
             subtitle: "#{@document.category.name} - #{format_date @document.created_at}" do %>
   <% if authorize_for(:documents, :edit) %>
     <li class="toolbar-item">

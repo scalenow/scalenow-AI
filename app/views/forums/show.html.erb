@@ -27,9 +27,10 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <div id="add-message" style="display:none;">
   <% if authorize_for('messages', 'new') %>
-    <h2><%= link_to h(@forum.name), project_forum_path(@project, @forum) %> &#187; <%= t(:label_message_new) %></h2>
+    <h2><%= link_to h(@forum.name), project_forum_path(@project, @forum), class: "color-orange" %> &#187; <%= t(:label_message_new) %></h2>
     <%= labelled_tabular_form_for Message.new(project: @project),
                                   url: forum_topics_path(@forum),
                                   html: {multipart: true,
@@ -38,15 +39,15 @@ See COPYRIGHT and LICENSE files for more details.
       <%= render partial: 'messages/form', locals: {f: f} %>
 
       <hr class="form--separator"/>
-      <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark' %>
-      <%= link_to t(:button_cancel), '', class: 'cancel-add-message-button button -with-icon icon-cancel' %>
+      <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark mb-3' %>
+      <%= link_to t(:button_cancel), '', class: 'cancel-add-message-button button -with-icon icon-cancel rounded-border mb-3' %>
       <% csp_onclick('jQuery("#add-message").hide();', '.cancel-add-message-button') %>
     <% end %>
     <div id="preview"></div>
   <% end %>
 </div>
 
-<%= toolbar title: @forum.name, subtitle: format_text(@forum.description) do %>
+<%= toolbar title: @forum.name, subtitle: format_text(@forum.description), title_class: "color-orange" do %>
   <% if authorize_for(:messages, :new) %>
     <li class="toolbar-item">
       <%= link_to({controller: '/messages', action: 'new', forum_id: @forum},
@@ -148,3 +149,4 @@ See COPYRIGHT and LICENSE files for more details.
 <% content_for :header_tags do %>
   <%= auto_discovery_link_tag(:atom, {format: 'atom', key: User.current.rss_key}, title: "#{@project}: #{@forum}") %>
 <% end %>
+</div>

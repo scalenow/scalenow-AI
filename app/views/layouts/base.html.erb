@@ -101,7 +101,7 @@ See COPYRIGHT and LICENSE files for more details.
       </div>
     <% end %>
     <div class="col-xxl-10 col-md-9 second-container" style="<%= !User.current.logged? || !(side_displayed && show_decoration) ? 'width: 100%; padding: 0 !important;' : '' %>">
-    <% if side_displayed && show_decoration %>
+    <% if show_decoration && User.current.logged? %>
       <header class="op-app-header<%= ' op-app-header_development' if OpenProject::Configuration.development_highlight_enabled? %>">
         <div class="op-app-header--start">
           <h1 class="hidden-for-sighted">
@@ -131,7 +131,7 @@ See COPYRIGHT and LICENSE files for more details.
       </header>
     <% end %>
     <div class="content-overlay"></div>
-    <%= content_tag :main, id: "content-wrapper", class: initial_classes, data: stimulus_content_data do %>
+    <%= content_tag :main, id: "content-wrapper", class: initial_classes, style: "#{!User.current.logged? ? 'height: 100% !important;' : ''}", data: stimulus_content_data do %>
       <%= render partial: "layouts/flashes" %>
       <% if show_onboarding_modal? %>
         <section data-augmented-model-wrapper

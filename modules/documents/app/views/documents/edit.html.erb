@@ -28,7 +28,7 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-<%= toolbar title: Document.model_name.human %>
+<%= toolbar title: Document.model_name.human, title_class: "color-orange" %>
 
 <%= labelled_tabular_form_for @document, url: document_path(@document), method: 'PATCH' do |f| -%>
   <%= render partial: "documents/form", locals: { f: f } %>

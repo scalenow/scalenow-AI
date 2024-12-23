@@ -88,7 +88,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% end %>
 
-<h3><%= t('backlogs.rebuild_positions') %></h3>
+<h3 class="mt-3"><%= t('backlogs.rebuild_positions') %></h3>
 
 <%= styled_form_tag(controller: '/projects/settings/backlogs', action: "rebuild_positions", id: @project) do %>
   <p class="m-0"><%= styled_button_tag t('backlogs.rebuild'), class: '-primary custom-secondary-button rounded-border m-0 px-3' %></p>

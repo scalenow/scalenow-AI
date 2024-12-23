@@ -16368,14 +16368,20 @@ span.flatpickr-weekday {
   background-color: #09a9d5 !important;
 }
 
-.custom-secondary-button {
+.custom-secondary-button, .btn-primary {
   background-color: #ff7f5d !important;
   color: #fff !important;
   border: 0 !important;
 }
 
-.custom-secondary-button:hover {
+.custom-secondary-button:hover, .btn-primary:hover {
   background-color: #d96c4f !important;
+}
+
+.btn-primary {
+  border-radius: 33px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }
 
 .custom-success-button {

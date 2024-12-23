@@ -32,11 +32,12 @@ See COPYRIGHT and LICENSE files for more details.
      link_to(h(@forum.name), project_forum_path(@project, @forum)))
 %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <% content_controller 'forum-messages',
                       dynamic: true %>
 
 <% title avatar(@topic.author) + h(@topic.subject) %>
-<%= toolbar title: title do %>
+<%= toolbar title: title, title_class: "color-orange" do %>
   <li class="toolbar-item hidden-for-tablet">
     <%= watcher_link(@topic, User.current) %>
   </li>
@@ -45,7 +46,7 @@ See COPYRIGHT and LICENSE files for more details.
       <%= link_to(
             { action: 'quote', id: @topic },
             data: { 'action': 'forum-messages#quote' },
-            class: 'boards--quote-button button'
+            class: 'boards--quote-button button rounded-border'
           ) do %>
         <%= op_icon('button--icon icon-quote') %>
         <span class="button--text"><%= t(:button_quote) %></span>
@@ -54,7 +55,7 @@ See COPYRIGHT and LICENSE files for more details.
   </li>
   <li class="toolbar-item">
     <% if @message.editable_by?(User.current) %>
-      <%= link_to(edit_topic_path(@topic), accesskey: accesskey(:edit), class: 'button') do %>
+      <%= link_to(edit_topic_path(@topic), accesskey: accesskey(:edit), class: 'button rounded-border') do %>
         <%= op_icon('button--icon icon-edit') %>
         <span class="button--text"><%= t(:button_edit) %></span>
       <% end %>
@@ -62,7 +63,7 @@ See COPYRIGHT and LICENSE files for more details.
   </li>
   <li class="toolbar-item">
     <% if @message.destroyable_by?(User.current) %>
-      <%= link_to(topic_path(@topic), method: :delete, data: { confirm: t(:text_are_you_sure) }, class: 'button') do %>
+      <%= link_to(topic_path(@topic), method: :delete, data: { confirm: t(:text_are_you_sure) }, class: 'button rounded-border') do %>
         <%= op_icon('button--icon icon-delete') %>
         <span class="button--text"><%= t(:button_delete) %></span>
       <% end %>

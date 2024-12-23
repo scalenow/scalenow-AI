@@ -49,7 +49,7 @@ class Activities::ItemSubtitleComponent < ViewComponent::Base
   end
 
   def datetime_html
-    helpers.format_time(@datetime, false)
+    helpers.format_time(@datetime)
   end
 
   def time_entry?

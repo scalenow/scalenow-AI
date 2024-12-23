@@ -28,7 +28,7 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-<%= toolbar title: t(:label_document_plural) do %>
+<%= toolbar title: t(:label_document_plural), title_class: "color-orange" do %>
   <% if authorize_for(:documents, :new) %>
     <li class="toolbar-item">
       <%= link_to({:controller => '/documents', :action => 'new', :project_id => @project},

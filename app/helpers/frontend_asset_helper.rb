@@ -30,7 +30,7 @@ module FrontendAssetHelper
   CLI_DEFAULT_PROXY = begin
     host = ENV.fetch("FE_HOST", "localhost")
     port = ENV.fetch("FE_PORT", 4200)
-    "http://#{host}:#{port}"
+    ""
   end
   CLI_PROXY = ENV.fetch("OPENPROJECT_CLI_PROXY", CLI_DEFAULT_PROXY)
 
