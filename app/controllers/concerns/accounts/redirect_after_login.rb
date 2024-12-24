@@ -38,7 +38,8 @@ module Accounts::RedirectAfterLogin
 
       first_login_redirect
     else
-      default_redirect
+      # default_redirect
+      redirect_back_or_default root_path
     end
   end
 
