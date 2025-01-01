@@ -16621,7 +16621,8 @@ h5.version.icon-modules::before {
   gap: 24px;
 }
 
-.work-packages-partitioned-page--content-right .-grid.task-page {
+.work-packages-partitioned-page--content-right .-grid.task-page,
+#content-bodyRight .op-work-package-split-view .-grid.task-page {
   grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
 }
 
