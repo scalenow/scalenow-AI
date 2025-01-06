@@ -27,6 +27,10 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<% breadcrumb_paths(t(:label_login)) %>
+<% html_title t(:label_login) %>
+<%= call_hook :view_account_login_top %>
+
 <!-- <%= back_url_hidden_field_tag %> -->
 <div class="auth-page-wrapper pt-5">
   <!-- auth page bg -->
@@ -115,8 +119,8 @@ See COPYRIGHT and LICENSE files for more details.
                     <!-- <button class="btn btn-secondary w-100" type="submit">Sign In</button> -->
                   </div>
 
-                  <div class="mt-4 text-center">
-                    <div class="signin-other-title">
+                  <div class="text-center">
+                    <%# <div class="signin-other-title">
                       <h5 class="fs-13 mb-4 title">Sign In with</h5>
                     </div>
                     <div class="social-media-login">
@@ -132,7 +136,8 @@ See COPYRIGHT and LICENSE files for more details.
                       <button type="button" class="btn custom-info-button btn-icon waves-effect waves-light">
                         <i class="ri-twitter-fill fs-16"></i>
                       </button>
-                    </div>
+                    </div> %>
+                    <%= render partial: 'account/auth_providers' %>
                   </div>
                 <% end %>
               </div>
@@ -141,7 +146,7 @@ See COPYRIGHT and LICENSE files for more details.
           </div>
           <!-- end card -->
 
-          <div class="mt-4 text-center">
+          <div class="my-4 text-center">
             <% if Setting::SelfRegistration.enabled? %>
               <p class="mb-0">Don't have an account ?
                 <%= link_to "Signup",
@@ -151,7 +156,7 @@ See COPYRIGHT and LICENSE files for more details.
               </p>
             <% end %>
           </div>
-
+          <%= render partial: 'announcements/show' %>
         </div>
       </div>
       <!-- end row -->
@@ -185,3 +190,5 @@ See COPYRIGHT and LICENSE files for more details.
   <% @user ||= User.new %>
   <%= render partial: '/account/register' %>
 </section>
+
+<%= call_hook :view_account_login_bottom %>
