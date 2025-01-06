@@ -16547,9 +16547,7 @@ h5.version.icon-modules::before {
 }
 
 #meetings-header-component,
-#meetings-sidebar-details-component,
-#meetings-sidebar-state-component,
-#meetings-sidebar-participants-component {
+#meetings-side-panel-component .BorderGrid .BorderGrid-cell > div {
   background-color: #fff;
   padding: 24px;
   margin-bottom: 24px;
@@ -16557,13 +16555,30 @@ h5.version.icon-modules::before {
   border-radius: 33px;
 }
 
-.BorderGrid--spacious .BorderGrid-cell {
-  padding: 0;
+#meetings-header-component .PageHeader {
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+#meetings-side-panel-component .BorderGrid {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#meetings-side-panel-component .BorderGrid .BorderGrid-cell {
+  padding-bottom: 0;
+  padding-top: 0;
   border: 0;
+}
+
+.SidePanel-sectionHeader h4 {
+  color: #ff7f5d;
 }
 
 .State--open {
   background-color: #ff7f5d !important;
+  box-shadow: var(--boxShadow-thin) #ff7f5d !important;
 }
 
 .fc-scroller {
@@ -16653,6 +16668,7 @@ h5.version.icon-modules::before {
   padding: 0 16px;
   border-radius: 33px;
   border: 1px solid #000;
+  margin-top: 0 !important;
 }
 
 #meeting-agenda-items-list-component .Box > ul:not(.op-uc-list) {
@@ -16731,4 +16747,12 @@ h5.version.icon-modules::before {
   content: '-';
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.Overlay {
+  scrollbar-width: none;
+}
+
+.spot-modal--cancel-button, .Overlay-footer .btn {
+  border-radius: 33px !important;
 }
