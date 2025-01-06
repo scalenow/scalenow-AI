@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -43,10 +43,10 @@ module Type::AttributeGroups
       {
         assignee: :people,
         responsible: :people,
-        estimated_time: :estimates_and_time,
-        remaining_time: :estimates_and_time,
-        percentage_done: :estimates_and_time,
-        spent_time: :estimates_and_time,
+        estimated_time: :estimates_and_progress,
+        remaining_time: :estimates_and_progress,
+        percentage_done: :estimates_and_progress,
+        spent_time: :estimates_and_progress,
         priority: :details
       }
     end
@@ -55,7 +55,7 @@ module Type::AttributeGroups
     mattr_accessor :default_groups do
       {
         people: :label_people,
-        estimates_and_time: :label_estimates_and_time,
+        estimates_and_progress: :label_estimates_and_progress,
         details: :label_details,
         other: :label_other,
         children: :"activerecord.attributes.work_package.children"
@@ -117,7 +117,7 @@ module Type::AttributeGroups
   # the default group map.
   def default_attribute_groups
     values = work_package_attributes_by_default_group_key
-    values.reject! { |k, _| k == :estimates_and_time } if is_milestone?
+    values.reject! { |k, _| k == :estimates_and_progress } if is_milestone?
 
     default_groups.keys.each_with_object([]) do |groupkey, array|
       members = values[groupkey]

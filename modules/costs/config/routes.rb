@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -61,4 +61,11 @@ Rails.application.routes.draw do
 
   # TODO: this is a duplicate from a route defined under project/:project_id, check whether we really want to do that
   resources :hourly_rates, only: %i[edit update]
+
+  scope :admin do
+    resource :costs,
+             only: %i[show update],
+             controller: :costs_settings,
+             as: "admin_costs_settings"
+  end
 end

@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -26,89 +26,101 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
+<% html_title t(:label_administration), t("label_role_plural") %>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title t(:label_administration), t("label_role_plural") %>
-  <%= toolbar title: Role.model_name.human(count: 2), title_class: "color-orange" do %>
-    <li class="toolbar-item">
-      <%= link_to({ action: 'new'},
-            { class: 'button -primary custom-secondary-button rounded-border',
-              aria: {label: t(:label_role_new)},
-              title: t(:label_role_new)}) do %>
-        <%= op_icon('button--icon icon-add') %>
-        <span class="button--text"><%= Role.model_name.human %></span>
-      <% end %>
-    </li>
-  <% end %>
+<%=
+  render Primer::OpenProject::PageHeader.new do |header|
+    header.with_title(classes: "color-orange") { Role.model_name.human(count: 2) }
+    header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
+                             { href: admin_settings_users_path, text: t(:label_user_and_permission) },
+                             t(:label_role_and_permissions)])
+  end
+%>
 
-  <div class="generic-table--container">
-    <div class="generic-table--results-container">
-      <table class="generic-table">
-        <colgroup>
-          <col opHighlightCol>
-          <col opHighlightCol>
-          <col opHighlightCol>
-          <col>
-        </colgroup>
-        <thead>
+<%=
+  render(Primer::OpenProject::SubHeader.new) do |subheader|
+    subheader.with_action_button(scheme: :primary,
+                                 aria: { label: I18n.t(:label_role_new) },
+                                 title: I18n.t(:label_role_new),
+                                 tag: :a,
+                                 test_selector: "roles--create-button",
+                                 href: new_role_path) do |button|
+      button.with_leading_visual_icon(icon: :plus)
+      Role.model_name.human
+    end
+  end
+%>
+
+<div class="generic-table--container">
+  <div class="generic-table--results-container">
+    <table class="generic-table" data-controller="table-highlighting">
+      <colgroup>
+        <col>
+        <col>
+        <col>
+        <col data-highlight="false">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>
+            <div class="generic-table--sort-header-outer">
+              <div class="generic-table--sort-header">
+                <span>
+                  <%= Role.model_name.human %>
+                </span>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="generic-table--sort-header-outer">
+              <div class="generic-table--sort-header">
+                <span>
+                  <%=t(:label_global)%>
+                </span>
+              </div>
+            </div>
+          </th>
+          <th>
+            <div class="generic-table--sort-header-outer">
+              <div class="generic-table--sort-header">
+                <span>
+                  <%=t(:button_sort)%>
+                </span>
+              </div>
+            </div>
+          </th>
+          <th><div class="generic-table--empty-header"></div></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for role in @roles %>
           <tr>
-            <th>
-              <div class="generic-table--sort-header-outer">
-                <div class="generic-table--sort-header">
-                  <span>
-                    <%= Role.model_name.human %>
-                  </span>
-                </div>
-              </div>
-            </th>
-            <th>
-              <div class="generic-table--sort-header-outer">
-                <div class="generic-table--sort-header">
-                  <span>
-                    <%=t(:label_global)%>
-                  </span>
-                </div>
-              </div>
-            </th>
-            <th>
-              <div class="generic-table--sort-header-outer">
-                <div class="generic-table--sort-header">
-                  <span>
-                    <%=t(:button_sort)%>
-                  </span>
-                </div>
-              </div>
-            </th>
-            <th><div class="generic-table--empty-header"></div></th>
+            <td>
+              <%= content_tag(role.builtin? ? 'em' : 'span', link_to(role.name, :action => 'edit', :id => role)) %>
+            </td>
+            <td>
+              <%= icon_wrapper('icon-context icon-checkmark', I18n.t(:general_text_Yes)) if role.is_a?(GlobalRole) %>
+            </td>
+            <td>
+              <% unless role.builtin? %>
+                <%= reorder_links('role', {:action => 'update', :id => role}, :method => :put) %>
+              <% end %>
+            </td>
+            <td class="buttons">
+              <%= link_to('', role_path(role),
+                                       method: :delete,
+                                       data: { confirm: t(:text_are_you_sure) },
+                                       class: 'icon icon-delete',
+                                       title: t(:button_delete)) unless role.builtin? %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% for role in @roles %>
-            <tr>
-              <td>
-                <%= content_tag(role.builtin? ? 'em' : 'span', link_to(role.name, :action => 'edit', :id => role)) %>
-              </td>
-              <td>
-                <%= icon_wrapper('icon-context icon-checkmark', I18n.t(:general_text_Yes)) if role.is_a?(GlobalRole) %>
-              </td>
-              <td>
-                <% unless role.builtin? %>
-                  <%= reorder_links('role', {:action => 'update', :id => role}, :method => :put) %>
-                <% end %>
-              </td>
-              <td class="buttons">
-                <%= link_to('', role_path(role),
-                                        method: :delete,
-                                        data: { confirm: t(:text_are_you_sure) },
-                                        class: 'icon icon-delete',
-                                        title: t(:button_delete)) unless role.builtin? %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+        <% end %>
+      </tbody>
+    </table>
 
-    </div>
   </div>
-  <%= pagination_links_full @roles %>
+</div>
+
+<%= pagination_links_full @roles %>
 </div>

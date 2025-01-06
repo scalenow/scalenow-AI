@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,30 +28,30 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title h(@document.title) -%>
-  <%= toolbar title: @document.title,
-              subtitle: "#{@document.category.name} - #{format_date @document.created_at}" do %>
-    <% if authorize_for(:documents, :edit) %>
-      <li class="toolbar-item">
-        <%= link_to({controller: '/documents', action: 'edit', id: @document}, class: 'button rounded-border', accesskey: accesskey(:edit)) do %>
-          <%= op_icon('button--icon icon-edit') %>
-          <span class="button--text"><%= t(:button_edit) %></span>
-        <% end %>
-      </li>
-    <% end %>
-    <% if authorize_for(:documents, :destroy) %>
-      <li class="toolbar-item">
-        <%= link_to({controller: '/documents', action: 'destroy', id: @document}, class: 'button rounded-border ml-2', data: { confirm: t(:text_are_you_sure) }, method: :delete) do %>
-          <%= op_icon('button--icon icon-delete') %>
-          <span class="button--text"><%= t(:button_delete) %></span>
-        <% end %>
-      </li>
-    <% end %>
+<% html_title h(@document.title) -%>
+<%= toolbar title: @document.title, title_class: "color-orange",
+            subtitle: "#{@document.category.name} - #{format_date @document.created_at}" do %>
+  <% if authorize_for(:documents, :edit) %>
+    <li class="toolbar-item">
+      <%= link_to({controller: '/documents', action: 'edit', id: @document}, class: 'button rounded-border', accesskey: accesskey(:edit)) do %>
+        <%= op_icon('button--icon icon-edit') %>
+        <span class="button--text"><%= t(:button_edit) %></span>
+      <% end %>
+    </li>
   <% end %>
+  <% if authorize_for(:documents, :destroy) %>
+    <li class="toolbar-item">
+      <%= link_to({controller: '/documents', action: 'destroy', id: @document}, class: 'button rounded-border ml-2', data: { confirm: t(:text_are_you_sure) }, method: :delete) do %>
+        <%= op_icon('button--icon icon-delete') %>
+        <span class="button--text"><%= t(:button_delete) %></span>
+      <% end %>
+    </li>
+  <% end %>
+<% end %>
 
-  <div class="wiki op-uc-container">
-    <%= format_text @document.description, attachments: @document.attachments %>
-  </div>
+<div class="wiki op-uc-container">
+  <%= format_text @document.description, attachments: @document.attachments %>
+</div>
 
-  <%= list_attachments(api_v3_document_resource(@document)) %>
+<%= list_attachments(api_v3_document_resource(@document)) %>
 </div>

@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -30,31 +30,39 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title t(:label_administration), t(:label_color_plural) %>
 
 <div class="bg-white p-3 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: t(:label_color_plural), title_class: "color-orange" do %>
-    <li class="toolbar-item">
-      <%= link_to new_color_path,
-            { class: 'button -primary custom-secondary-button rounded-border',
-              aria: {label: t('.label_new_color')},
-              title: t('.label_new_color')} do %>
-        <%= op_icon('button--icon icon-add') %>
-        <span class="button--text"><%= t('activerecord.attributes.type.color') %></span>
-      <% end %>
-    </li>
-  <% end %>
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title(classes: "color-orange") { t(:label_color_plural) }
+    header.with_breadcrumbs([{ href: admin_index_path, text: t(:label_administration) },
+                             t(:label_color_plural)])
+  end
+%>
+<%=
+  render(Primer::OpenProject::SubHeader.new) do |subheader|
+    subheader.with_action_button(scheme: :primary,
+                                 aria: { label: I18n.t("colors.index.label_new_color") },
+                                 title: I18n.t("colors.index.label_new_color"),
+                                 tag: :a,
+                                 href: new_color_path) do |button|
+      button.with_leading_visual_icon(icon: :plus)
+      t("activerecord.attributes.type.color")
+    end
+  end
+%>
 
-  <% if @colors.any? %>
-    <div class="color--preview-patch-field">
-      <% @colors.each do |color| %>
-        <%= content_tag :div,
-            class: 'color--preview-patch',
-            style: "background-color: #{color.hexcode}" do %>
-          <%= link_to color.name,
-                      edit_color_path(color),
-                      class: color.bright? ? '-bright' : '-dark' %>
-        <% end %>
+<% if @colors.any? %>
+  <div class="color--preview-patch-field">
+    <% @colors.each do |color| %>
+      <%= content_tag :div,
+          class: 'color--preview-patch',
+          style: "background-color: #{color.hexcode}" do %>
+        <%= link_to color.name,
+                    edit_color_path(color),
+                    class: color.bright? ? '-bright' : '-dark' %>
       <% end %>
-    </div>
-  <% else %>
-    <%= no_results_box(action_url: new_color_path, display_action: true) unless @colors.any? %>
-  <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <%= no_results_box(action_url: new_color_path, display_action: true) unless @colors.any? %>
+<% end %>
 </div>

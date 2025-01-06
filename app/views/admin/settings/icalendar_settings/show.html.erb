@@ -1,6 +1,6 @@
 <%# -- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,7 +28,15 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: t(:label_calendar_subscriptions), title_class: "color-orange" %>
+  <%=
+    render(Primer::OpenProject::PageHeader.new) do |header|
+      header.with_title(classes: "color-orange") { t(:label_calendar_subscriptions) }
+      header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
+                              { href: admin_settings_working_days_and_hours_path, text: t(:label_calendars_and_dates) },
+                              t(:label_calendar_subscriptions)])
+    end
+  %>
+
   <%= styled_form_tag(
         admin_settings_icalendar_path,
         method: :patch,

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -27,6 +27,8 @@
 #++
 
 class Meeting::StartTime < ApplicationForm
+  include Redmine::I18n
+
   form do |meeting_form|
     meeting_form.text_field(
       name: :start_time_hour,
@@ -36,7 +38,7 @@ class Meeting::StartTime < ApplicationForm
       label: Meeting.human_attribute_name(:start_time),
       leading_visual: { icon: :clock },
       required: true,
-      caption: Time.zone.to_s[/\((.*?)\)/m, 1]
+      caption: formatted_time_zone_offset
     )
   end
 

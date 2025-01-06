@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -101,7 +101,7 @@ module Redmine::MenuManager::TopMenuHelper
     return "".html_safe if Setting.notifications_hidden?
 
     content_tag("li", class: "op-app-menu--item", title: I18n.t("mail.notification.center")) do
-      angular_component_tag "op-in-app-notification-bell",
+      angular_component_tag "opce-in-app-notification-bell",
                             inputs: {
                               interval: Setting.notifications_polling_interval
                             }
@@ -182,6 +182,41 @@ module Redmine::MenuManager::TopMenuHelper
     end
   end
 
+  # def render_module_top_menu_node(item_groups = module_top_menu_item_groups)
+  #   unless item_groups.empty?
+  #     render Primer::Alpha::ActionMenu.new(classes: "op-app-menu--item",
+  #                                          menu_id: "op-app-header--modules-menu",
+  #                                          anchor_align: :end) do |menu|
+  #       menu.with_show_button(icon: "op-grid-menu",
+  #                             scheme: :invisible,
+  #                             classes: "op-app-menu--item-action op-app-header--primer-button hidden-for-mobile",
+  #                             title: I18n.t("label_modules"),
+  #                             test_selector: "op-app-header--modules-menu-button",
+  #                             "aria-label": I18n.t("label_modules"))
+
+  #       item_groups.each do |item_group|
+  #         render_menu_item_group(menu, item_group)
+  #       end
+  #     end
+  #   end
+  # end
+
+  def render_menu_item_group(menu, item_group)
+    menu.with_group do |menu_group|
+      menu_group.with_heading(title: item_group[:title], align_items: :flex_start) if item_group[:title]
+
+      item_group[:items].each do |item|
+        menu_group.with_item(
+          href: url_for(item.url),
+          label: item.caption,
+          test_selector: "op-menu--item-action"
+        ) do |menu_item|
+          menu_item.with_leading_visual_icon(icon: item.icon) if item.icon
+        end
+      end
+    end
+  end
+
   def render_main_top_menu_nodes(items = main_top_menu_items)
     items.map do |item|
       render_menu_node(item)
@@ -198,6 +233,27 @@ module Redmine::MenuManager::TopMenuHelper
     split_top_menu_into_main_or_more_menus[:modules]
   end
 
+  def module_top_menu_item_groups
+    items = more_top_menu_items
+    item_groups = []
+
+    # add untitled group, if no heading is present
+    unless items.first.heading?
+      item_groups = [{ title: nil, items: [] }]
+    end
+
+    # create item groups
+    items.reduce(item_groups) do |groups, item|
+      if item.heading?
+        groups << { title: item.caption, items: [] }
+      else
+        groups.last[:items] << item
+      end
+
+      groups
+    end
+  end
+
   def project_menu_items
     split_top_menu_into_main_or_more_menus[:projects]
   end
@@ -208,7 +264,7 @@ module Redmine::MenuManager::TopMenuHelper
 
   # Split the :top_menu into separate :main and :modules items
   def split_top_menu_into_main_or_more_menus
-    @top_menu_split ||= begin
+    @split_top_menu_into_main_or_more_menus ||= begin
       items = Hash.new { |h, k| h[k] = [] }
       first_level_menu_items_for(:top_menu) do |item|
         if item.name == :help

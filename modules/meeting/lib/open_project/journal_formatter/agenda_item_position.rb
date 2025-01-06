@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -27,7 +27,7 @@
 #++
 
 class OpenProject::JournalFormatter::AgendaItemPosition < JournalFormatter::Base
-  def render(_key, values, options = { html: true })
+  def render(_key, _values, options = { html: true })
     label_text = I18n.t(:label_agenda_items)
     label_text = content_tag(:strong, label_text) if options[:html]
 

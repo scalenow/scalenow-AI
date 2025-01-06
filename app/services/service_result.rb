@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -33,6 +35,7 @@ class ServiceResult
   attr_accessor :success,
                 :result,
                 :errors,
+                :message,
                 :dependent_results
 
   attr_writer :state
@@ -187,6 +190,24 @@ class ServiceResult
       [result]
     else
       []
+    end
+  end
+
+  def deconstruct_keys(keys)
+    if keys
+      value = {}
+      keys.each do |key|
+        case key
+        when :success then value[key] = success?
+        when :failure then value[key] = failure?
+        when :result then value[key] = result
+        when :errors then value[key] = errors
+        end
+      end
+
+      value
+    else
+      { success: success?, failure: failure?, result:, errors: }
     end
   end
 

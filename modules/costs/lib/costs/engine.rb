@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -37,11 +37,7 @@ module Costs
     register "costs",
              author_url: "https://www.openproject.org",
              bundled: true,
-             settings: {
-               default: { "costs_currency" => "EUR", "costs_currency_format" => "%n %u" },
-               partial: "settings/costs",
-               menu_item: :costs_setting
-             } do
+             settings: { menu_item: :costs_settings } do
       project_module :costs do
         permission :view_time_entries,
                    {},
@@ -121,11 +117,38 @@ module Costs
 
       # Menu extensions
       menu :admin_menu,
+           :admin_costs,
+           { controller: "/costs_settings", action: :show },
+           if: Proc.new { User.current.admin? },
+           caption: :project_module_costs,
+           after: :enterprise,
+           icon: "op-cost-reports"
+
+      menu :admin_menu,
+           :costs_settings,
+           { controller: "/costs_settings", action: :show },
+           if: Proc.new { User.current.admin? },
+           caption: :label_setting_plural,
+           parent: :admin_costs
+
+      menu :admin_menu,
            :cost_types,
            { controller: "/cost_types", action: "index" },
            if: ->(*) { User.current.admin? },
            parent: :admin_costs,
            caption: :label_cost_type_plural
+    end
+
+    initializer "costs.settings" do
+      ::Settings::Definition.add "costs_currency", default: "EUR", format: :string
+      ::Settings::Definition.add "costs_currency_format", default: "%n %u", format: :string
+      ::Settings::Definition.add "allow_tracking_start_and_end_times", default: false, format: :boolean
+      ::Settings::Definition.add "enforce_tracking_start_and_end_times", default: false, format: :boolean
+    end
+
+    initializer "costs.feature_decisions" do
+      OpenProject::FeatureDecisions.add :track_start_and_end_times_for_time_entries,
+                                        description: "Allows admins to enable tracking start and end times for time entries"
     end
 
     activity_provider :time_entries, class_name: "Activities::TimeEntryActivityProvider", default: false
@@ -282,8 +305,8 @@ module Costs
     end
 
     config.to_prepare do
+      Enumeration.register_subclass(TimeEntryActivity)
       OpenProject::ProjectLatestActivity.register on: "TimeEntry"
-
       Costs::Patches::MembersPatch.mixin!
 
       ##

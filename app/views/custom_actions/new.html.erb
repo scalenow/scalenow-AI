@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,14 +28,22 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title t(:label_administration), t('custom_actions.new') %>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% local_assigns[:additional_breadcrumb] = t('custom_actions.new') %>
-  <%= breadcrumb_toolbar t('custom_actions.new'), title_class: "color-orange" %>
+<%=
+  render Primer::OpenProject::PageHeader.new do |header|
+    header.with_title(classes: "color-orange") { t("custom_actions.new") }
+    header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
+                             { href: admin_settings_work_packages_general_path, text: t(:label_work_package_plural) },
+                             { href: custom_actions_path, text: t("custom_actions.plural") },
+                             t("custom_actions.new") ])
+  end
+%>
 
-  <%= error_messages_for @custom_action %>
+<%= error_messages_for @custom_action %>
 
-  <%= labelled_tabular_form_for @custom_action do |f| %>
-    <%= render partial: 'form', locals: { f: f } %>
-    <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
-  <% end %>
+<%= labelled_tabular_form_for @custom_action do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= styled_button_tag t(:button_create), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+<% end %>
 </div>

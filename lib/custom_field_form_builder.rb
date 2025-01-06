@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -57,6 +57,7 @@ class CustomFieldFormBuilder < TabularFormBuilder
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def custom_field_input(options = {})
     field = custom_field.attribute_name
 
@@ -64,7 +65,7 @@ class CustomFieldFormBuilder < TabularFormBuilder
                                   name: custom_field_field_name,
                                   id: custom_field_field_id)
 
-    field_format = OpenProject::CustomFieldFormat.find_by_name(custom_field.field_format)
+    field_format = OpenProject::CustomFieldFormat.find_by(name: custom_field.field_format)
 
     case field_format.try(:edit_as)
     when "date"
@@ -79,6 +80,8 @@ class CustomFieldFormBuilder < TabularFormBuilder
       text_field(field, input_options)
     end
   end
+
+  # rubocop:enable Metrics/AbcSize
 
   def custom_field_input_list(field, input_options)
     customized = Array(custom_value).first&.customized

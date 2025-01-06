@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -58,7 +58,7 @@ class EnumerationsController < ApplicationController
       flash[:notice] = I18n.t(:notice_successful_create)
       redirect_to action: "index", type: @enumeration.type
     else
-      render action: "new"
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -70,7 +70,7 @@ class EnumerationsController < ApplicationController
       flash[:notice] = I18n.t(:notice_successful_update)
       redirect_to enumerations_path(type: @enumeration.type)
     else
-      render action: "edit"
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
@@ -96,39 +96,25 @@ class EnumerationsController < ApplicationController
       redirect_to enumerations_path
     else
       flash.now[:error] = I18n.t(:error_type_could_not_be_saved)
-      render action: "edit"
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
   protected
 
-  def default_breadcrumb
-    if action_name == "index"
-      t(:label_enumerations)
-    else
-      ActionController::Base.helpers.link_to(t(:label_enumerations), enumerations_path)
-    end
+  def show_local_breadcrumb
+    false
   end
 
-  def show_local_breadcrumb
-    true
-  end
+  def default_breadcrumb; end
 
   def find_enumeration
     @enumeration = Enumeration.find(params[:id])
   end
 
   ##
-  # Find an enumeration class with the given Name
-  # this should be fail save for nonsense names or names
-  # which are no enumerations to prevent remote code execution attacks.
-  # params: type (string)
+  # Find an enumeration class with the given name
   def enumeration_class(type)
-    klass = type.to_s.constantize
-    raise NameError unless klass.ancestors.include? Enumeration
-
-    klass
-  rescue NameError
-    nil
+    Enumeration.registered_subclasses.detect { |cls| cls.name == type }
   end
 end

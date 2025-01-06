@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -42,8 +42,8 @@ RSpec.describe WorkPackages::SetScheduleService, "working days" do
 
   context "with a single successor" do
     context "when moving successor will cover non-working days" do
-      let_schedule(<<~CHART)
-        days          | MTWTFSS |
+      let_work_packages(<<~CHART)
+        subject       | MTWTFSS | properties
         work_package  | XX      |
         follower      |   XXX   | follows work_package
       CHART
@@ -56,8 +56,8 @@ RSpec.describe WorkPackages::SetScheduleService, "working days" do
       end
 
       it "extends to a later due date to keep the same duration" do
-        expect_schedule(subject.all_results, <<~CHART)
-          days          | MTWTFSS   |
+        expect_work_packages(subject.all_results, <<~CHART)
+          subject       | MTWTFSS   |
           work_package  | XXXX      |
           follower      |     X..XX |
         CHART

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -36,7 +36,7 @@ module Pages
     attr_reader :filters
 
     def initialize(project)
-      super(project)
+      super
 
       @filters = ::Components::WorkPackages::Filters.new
     end
@@ -172,15 +172,11 @@ module Pages
     end
 
     def expect_create_button
-      within ".toolbar-items" do
-        expect(page).to have_link text: "Team planner"
-      end
+      expect(page).to have_test_selector "add-team-planner-button"
     end
 
     def expect_no_create_button
-      within ".toolbar-items" do
-        expect(page).to have_no_link text: "Team planner"
-      end
+      expect(page).not_to have_test_selector "add-team-planner-button"
     end
 
     def expect_views_listed_in_order(*queries)
@@ -192,9 +188,7 @@ module Pages
     end
 
     def click_on_create_button
-      within ".toolbar-items" do
-        click_link "Team planner"
-      end
+      page.find_test_selector("add-team-planner-button").click
     end
 
     def click_on_cancel_button
@@ -217,7 +211,7 @@ module Pages
     end
 
     def set_favoured
-      check "Favoured"
+      check "Favorite"
     end
 
     def click_on_submit
@@ -232,6 +226,7 @@ module Pages
         page.find("#{page.test_selector('tp-add-assignee')} input")
         select_user_to_add(name)
       end
+      expect_and_dismiss_toaster
     end
 
     def search_assignee(name)
@@ -347,7 +342,7 @@ module Pages
     end
 
     def expect_no_menu_item(name)
-      expect(page).to have_no_css(".op-sidemenu--item-title", text: name)
+      expect(page).to have_no_css(".op-submenu--item-title", text: name)
     end
 
     def y_distance(from:, to:)

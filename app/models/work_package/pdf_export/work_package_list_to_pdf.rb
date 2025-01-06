@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -40,15 +42,20 @@
 require "open3"
 
 class WorkPackage::PDFExport::WorkPackageListToPdf < WorkPackage::Exports::QueryExporter
-  include WorkPackage::PDFExport::Common
-  include WorkPackage::PDFExport::Attachments
-  include WorkPackage::PDFExport::OverviewTable
-  include WorkPackage::PDFExport::SumsTable
-  include WorkPackage::PDFExport::WorkPackageDetail
-  include WorkPackage::PDFExport::TableOfContents
-  include WorkPackage::PDFExport::Page
-  include WorkPackage::PDFExport::Style
-  include WorkPackage::PDFExport::Cover
+  include WorkPackage::PDFExport::Common::Common
+  include WorkPackage::PDFExport::Common::Logo
+  include WorkPackage::PDFExport::Common::Attachments
+  include WorkPackage::PDFExport::Export::ExportCommon
+  include WorkPackage::PDFExport::Export::WorkPackageDetail
+  include WorkPackage::PDFExport::Export::Page
+  include WorkPackage::PDFExport::Export::Style
+  include WorkPackage::PDFExport::Export::OverviewTable
+  include WorkPackage::PDFExport::Export::SumsTable
+  include WorkPackage::PDFExport::Export::WorkPackageDetail
+  include WorkPackage::PDFExport::Export::TableOfContents
+  include WorkPackage::PDFExport::Export::Style
+  include WorkPackage::PDFExport::Export::Cover
+  include WorkPackage::PDFExport::Export::Gantt
 
   attr_accessor :pdf,
                 :options
@@ -72,7 +79,7 @@ class WorkPackage::PDFExport::WorkPackageListToPdf < WorkPackage::Exports::Query
   rescue Prawn::Errors::CannotFit
     error(I18n.t(:error_pdf_export_too_many_columns))
   rescue StandardError => e
-    Rails.logger.error { "Failed to generated PDF export: #{e}." }
+    Rails.logger.error { "Failed to generate PDF export: #{e}." }
     error(I18n.t(:error_pdf_failed_to_export, error: e.message[0..300]))
   end
 
@@ -106,10 +113,14 @@ class WorkPackage::PDFExport::WorkPackageListToPdf < WorkPackage::Exports::Query
 
   def render_work_packages_pdfs(work_packages, filename)
     write_cover_page! if with_cover?
-    write_title!
-    write_work_packages_toc! work_packages, @id_wp_meta_map if wants_report?
-    write_work_packages_overview! work_packages unless wants_report?
-    write_work_packages_sums! work_packages if with_sums_table? && wants_report?
+    if wants_gantt?
+      write_work_packages_gantt! work_packages, @id_wp_meta_map
+    else
+      write_title!
+      write_work_packages_toc! work_packages, @id_wp_meta_map if wants_report?
+      write_work_packages_overview! work_packages unless wants_report?
+      write_work_packages_sums! work_packages if with_sums_table? && wants_report?
+    end
     if should_be_batched?(work_packages)
       render_batched(work_packages, filename)
     else
@@ -243,6 +254,6 @@ class WorkPackage::PDFExport::WorkPackageListToPdf < WorkPackage::Exports::Query
   end
 
   def with_images?
-    options[:show_images]
+    @with_images ||= ActiveModel::Type::Boolean.new.cast(options[:show_images])
   end
 end

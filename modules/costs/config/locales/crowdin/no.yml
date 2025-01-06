@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -46,7 +46,7 @@
         default_rates: "Standard satser"
     models:
       cost_type:
-        one: "Type kostnader"
+        one: "Kostnadstype"
         other: "Kostnadstyper"
       rate: "Sats"
     errors:
@@ -56,7 +56,7 @@
           nullify_is_not_valid_for_cost_entries: "Kostnadsoppføringer kan ikke tilordnes et prosjekt."
   attributes:
     comment: "Kommentar"
-    cost_type: "Type kostnader"
+    cost_type: "Kostnadstype"
     costs: "Kostnader"
     current_rate: "Nåværende sats"
     hours: "Timer"
@@ -85,8 +85,6 @@
   label_cost_type_plural: "Kostnadstyper"
   label_cost_type_specific: "Kostnadstype #%{id}: %{name}"
   label_costs_per_page: "Kostnader per side"
-  label_currency: "Valuta"
-  label_currency_format: "Formatet på valuta"
   label_current_default_rate: "Nåværende standardsats"
   label_date_on: "på"
   label_deleted_cost_types: "Slettede kostnadstyper"
@@ -111,6 +109,7 @@
   label_rate: "Sats"
   label_rate_plural: "Satser"
   label_status_finished: "Fullført"
+  label_show: "Vis"
   label_units: "Kostenheter"
   label_user: "Bruker"
   label_until: "fram til"
@@ -119,7 +118,7 @@
   notice_something_wrong: "Noe gikk galt. Prøv på nytt."
   notice_successful_restore: "Vellykket gjenoppretting."
   notice_successful_lock: "Låst vellykket."
-  notice_cost_logged_successfully: 'Enhetskostnaden er logget.'
+  notice_cost_logged_successfully: "Enhetskostnaden er logget."
   permission_edit_cost_entries: "Rediger bokførte enhetskostnader"
   permission_edit_own_cost_entries: "Rediger egne bokførte enhetskostnader"
   permission_edit_hourly_rates: "Rediger timesatser"
@@ -134,8 +133,12 @@
   permission_view_own_hourly_rate: "Vis egen timesats"
   permission_view_own_time_entries: "Vis egen tidsbruk"
   project_module_costs: "Tid og kostnader"
+  setting_allow_tracking_start_and_end_times: "Allow users to track start and end time on time records"
+  setting_costs_currency: "Currency"
+  setting_costs_currency_format: "Format of currency"
+  setting_enforce_tracking_start_and_end_times: "Force users to set start and end time on time records"
   text_assign_time_and_cost_entries_to_project: "Overfør rapporterte timer og kostnader til prosjektet"
-  text_destroy_cost_entries_question: "%{hours} timer er ført på arbeidspakkene du er i ferd med å slette. Hva vil du gjøre ?"
+  text_destroy_cost_entries_question: "%{cost_entries} ble rapportert på arbeidspakkene du er i ferd med å slette. Hva vil du gjøre ?"
   text_destroy_time_and_cost_entries: "Slett rapporterte timer og kostnader"
   text_destroy_time_and_cost_entries_question: "%{hours} timer, %{cost_entries} ble rapportert på arbeidspakkene du er i ferd med å slette. Hva ønsker du å gjøre?"
   text_reassign_time_and_cost_entries: "Overfør rapporterte timer og kostnader til denne arbeidspakken:"

@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -26,45 +26,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% if @custom_errors.present? %>
-    <% @custom_errors.each do |err| %>
-      <div class="flash error"><%= err %></div>
-    <% end %>
+<% if @custom_errors.present? %>
+  <% @custom_errors.each do |err| %>
+    <div class="flash error"><%= err %></div>
   <% end %>
+<% end %>
 
-  <% html_title (@query.persisted? ? "#{t(:label_cost_report)}: #{@query.name}" : t(:label_new_report)) %>
+<% html_title (@query.persisted? ? "#{t(:label_cost_report)}: #{@query.name}" : t(:label_new_report)) %>
 
-  <div class="toolbar-container">
-    <div class="toolbar">
-      <div class="title-container">
-        <h2 id="ur_caption">
-          <%= render_widget Widget::Controls::QueryName, @query, :can_rename => allowed_in_report?(:rename, @query, current_user) %>
-        </h2>
-      </div>
-      <ul class="toolbar-items">
-        <% if User.current.allowed_in_any_work_package?(:export_work_packages, in_project: @project) %>
-          <li class="toolbar-item">
-            <%= link_to(t(:export_to_excel),
-                        { controller: "cost_reports" ,
-                          action: :index,
-                          format: 'xls',
-                          project_id: @project },
-                        class: "button icon-export-xls-descr custom-secondary-button rounded-border") %>
-          </li>
-        <% end %>
-        <%= call_hook(:view_cost_report_toolbar) %>
-      </ul>
-    </div>
-  </div>
+<%= render CostReports::IndexPageHeaderComponent.new(query: @query, project: @project) %>
 
-  <%= render_widget Widget::Settings, @query, :cost_types => @cost_types, :selected_type_id => @unit_id %>
+<%= render_widget Widget::Settings, @query, :cost_types => @cost_types, :selected_type_id => @unit_id %>
 
-  <div id="result-table">
-    <%= render_widget Widget::Table, @query %>
-  </div>
-  <p class="footnote m-0">
-    <%= t(:text_costs_are_rounded_note) %>
-    <%= "<br />#{t(:information_restricted_depending_on_permission)}".html_safe unless User.current.admin?%>
-  </p>
+<div id="result-table">
+  <%= render_widget Widget::Table, @query %>
+</div>
+<p class="footnote m-0">
+  <%= t(:text_costs_are_rounded_note) %>
+  <% unless User.current.admin? %>
+    <br/>
+    <%= t(:information_restricted_depending_on_permission) %>
+  <% end %>
+</p>
 </div>

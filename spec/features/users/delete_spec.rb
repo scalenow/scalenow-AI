@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -30,6 +30,8 @@ require "spec_helper"
 
 RSpec.describe "user deletion:", :js, :with_cuprite do
   let(:dialog) { Components::PasswordConfirmationDialog.new }
+
+  include Flash::Expectations
 
   before do
     page.set_rack_session(user_id: current_user.id, updated_at: Time.now)
@@ -150,6 +152,8 @@ RSpec.describe "user deletion:", :js, :with_cuprite do
       find_by_id("settings_users_deletable_by_self").set(true)
 
       click_on "Save"
+
+      expect_flash message: "Successful update."
 
       expect(Setting.users_deletable_by_admins?).to be true
       expect(Setting.users_deletable_by_self?).to be true

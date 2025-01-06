@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -48,6 +48,8 @@ es:
         duration_in_minutes: "min"
         description: "Notas"
         presenter: "Responsable"
+      meeting_section:
+        title: "Título"
     errors:
       messages:
         invalid_time_format: "no es una hora válida. Formato requerido: HH:MM"
@@ -56,9 +58,23 @@ es:
       meeting_agenda_item: "Puntos de Agenda"
       meeting_agenda: "Agenda"
       meeting_minutes: "Minutas"
+      meeting_section: "Sección"
   activity:
     filter:
       meeting: "Reuniones"
+    item:
+      meeting_agenda_item:
+        duration:
+          added: "fijado en %{value}"
+          added_html: "fijado en <i>%{value}</i>"
+          removed: "eliminado"
+          updated: "cambiado de %{old_value} a %{value}"
+          updated_html: "cambiado de <i>%{old_value}</i> a <i>%{value}</i>"
+        position:
+          updated: "reordenado"
+        work_package:
+          updated: "cambiado de %{old_value} a %{value}"
+          updated_html: "cambiado de <i>%{old_value}</i> a <i>%{value}</i>"
   description_attended: "ha asistido"
   description_invite: "invitado"
   events:
@@ -72,13 +88,19 @@ es:
   label_meeting: "Reunión"
   label_meeting_plural: "Reuniones"
   label_meeting_new: "Nueva reunión"
+  label_meeting_new_dynamic: "Nueva reunión dinámica"
+  label_meeting_create: "Crear reunión"
+  label_meeting_copy: "Copiar reunión"
   label_meeting_edit: "Editar reunión"
   label_meeting_agenda: "Agenda"
   label_meeting_minutes: "Minutas"
   label_meeting_close: "Cerrar"
   label_meeting_open: "Abrir"
+  label_meeting_index_delete: "Eliminar"
+  label_meeting_open_this_meeting: "Abrir esta reunión"
   label_meeting_agenda_close: "Cerrar la agenda para comenzar la minuta"
   label_meeting_date_time: "Fecha/hora"
+  label_meeting_date_and_time: "Fecha y hora"
   label_meeting_diff: "Diferencia"
   label_upcoming_meetings: "Próximas reuniones"
   label_past_meetings: "Reuniones anteriores"
@@ -103,8 +125,14 @@ es:
       attachments: "Copiar adjuntos"
       attachments_text: "Copie todos los archivos adjuntos a la nueva reunión"
       agenda: "Copiar agenda"
+      agenda_items: "Copiar elementos de agenda"
       agenda_text: "Copiar la agenda de la reunión anterior"
+      participants: "Copie la lista de participantes"
     email:
+      send_emails: "Envíe un correo electrónico a los participantes"
+      send_invitation_emails: >
+        Envíe inmediatamente una invitación por correo electrónico a los participantes seleccionados anteriormente. También puede hacerlo manualmente en cualquier momento posterior.
+      send_invitation_emails_structured: "Envíe inmediatamente una invitación por correo electrónico a todos los participantes. También puede hacerlo manualmente en cualquier momento posterior."
       open_meeting_link: "Abrir reunión"
       invited:
         summary: "%{actor} te ha enviado una invitación para la reunión %{title}"
@@ -122,8 +150,14 @@ es:
       structured_text: "Organice su reunión como una lista de temas del orden del día, enlazándolos opcionalmente a un paquete de trabajo."
       structured_text_copy: "Copiar una reunión no copiará actualmente los elementos asociados de la agenda de la reunión, solo los detalles"
     copied: "Copiado de la reunión %{id}"
+  meeting_section:
+    untitled_title: "Sección sin título"
+    delete_confirmation: "Al eliminar esta sección también se eliminarán todos sus puntos de agenda. ¿Seguro que desea hacerlo?"
+    placeholder_title: "Nueva sección"
+    empty_text: "Arrastre los elementos aquí o cree uno nuevo"
   notice_successful_notification: "Notificación enviada correctamente"
   notice_timezone_missing: No se ha establecido zona horaria y se asume %{zone}. Para elegir su zona horaria, por favor, haga clic aquí.
+  notice_meeting_updated: "Esta página ha sido actualizada por otra persona. Recárguela para ver los cambios."
   permission_create_meetings: "Crear reuniones"
   permission_edit_meetings: "Editar reuniones"
   permission_delete_meetings: "Eliminar reuniones"
@@ -155,6 +189,7 @@ es:
   label_meeting_delete: "Eliminar reunión"
   label_meeting_created_by: "Creado por"
   label_meeting_last_updated: "Última actualización"
+  label_meeting_reload: "Recargar"
   label_agenda_items: "Puntos del orden del día"
   label_agenda_items_reordered: "reordenados"
   label_agenda_item_remove: "Quitar del orden del día"

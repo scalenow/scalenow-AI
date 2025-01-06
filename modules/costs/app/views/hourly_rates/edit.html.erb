@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -30,70 +30,72 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title t(:label_administration), "#{t(:label_edit)} #{I18n.t((@project.nil? ? :caption_default_rate_history_for : :caption_rate_history_for), user: ' ')} #{@user.name}" %>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title_class: "color-orange", title: (@project.nil? ? t(:caption_default_rate_history_for, user: @user.name) :  t(:caption_rate_history_for_project, user: @user.name, project: @project.name) ) %>
+<%= toolbar title_class: "color-orange", title: (@project.nil? ? t(:caption_default_rate_history_for, user: @user.name) :  t(:caption_rate_history_for_project, user: @user.name, project: @project.name) ) %>
 
-  <%- default_rate = @user.current_default_rate -%>
-  <% if default_rate%>
-  <p><strong><%= t(:label_current_default_rate) %>:</strong> <%= number_to_currency(default_rate.rate)%></p>
-  <% end %>
+<%- default_rate = @user.current_default_rate -%>
+<% if default_rate%>
+<p><strong><%= t(:label_current_default_rate) %>:</strong> <%= number_to_currency(default_rate.rate)%></p>
+<% end %>
 
-  <costs-subform item-count="<%= @rates.count %>">
-    <%= labelled_tabular_form_for @user, url: {action: 'update', project_id: @project}, method: :put do |f| %>
-      <%= back_url_hidden_field_tag %>
-      <%= error_messages_for 'user' %>
-      <%- @rates.each do |rate| -%>
-        <%- @rate = rate -%>
-        <%= error_messages_for 'rate' %>
-      <%- end -%>
-      <div class="generic-table--container">
-        <div class="generic-table--results-container">
-          <table class="generic-table rates" width="200px">
-            <colgroup>
-              <col opHighlightCol>
-              <col opHighlightCol>
-              <col>
-            </colgroup>
-            <thead>
-              <tr>
-                <th>
-                  <div class="generic-table--sort-header-outer">
-                    <div class="generic-table--sort-header">
-                      <span>
-                        <%= Rate.human_attribute_name(:valid_from) %>
-                      </span>
-                    </div>
-                  </div>
-                </th>
-                <th class="currency">
-                  <div class="generic-table--sort-header-outer">
-                    <div class="generic-table--sort-header">
-                      <span>
-                        <%= Rate.model_name.human %>
-                      </span>
-                    </div>
-                  </div>
-                </th>
-                <th><div class="generic-table--empty-header"></div></th>
-              </tr>
-            </thead>
-            <tbody id="rates_body" class="subform-container">
-              <%= render partial: "hourly_rates/rate", object: HourlyRate.new(valid_from: Date.current), locals: { templated: true } %>
-              <%- @rates.each_with_index do |rate, index| -%>
-                <%= render partial: 'rate', object: rate, locals: {index: index} %>
-              <%- end -%>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="wp-inline-create-button">
-        <a href="#" class="add-row-button wp-inline-create--add-link">
-          <%= op_icon('icon icon-add') %>
-          <%= t(:button_add_rate) %>
-        </a>
-      </div>
-      <div class="generic-table--action-buttons">
-        <%= styled_button_tag t(:button_save), class: '-with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
-      </div>
-    <% end %>
-  </costs-subform>
+<%= labelled_tabular_form_for @user,
+                              url: {action: 'update', project_id: @project},
+                              data: { controller: 'subform', 'application-target': 'dynamic' },
+                              method: :put do |f| %>
+  <%= back_url_hidden_field_tag %>
+  <%= error_messages_for 'user' %>
+  <%- @rates.each do |rate| -%>
+    <%- @rate = rate -%>
+    <%= error_messages_for 'rate' %>
+  <%- end -%>
+  <div class="generic-table--container">
+    <div class="generic-table--results-container">
+      <table class="generic-table rates">
+        <colgroup>
+          <col>
+          <col>
+          <col data-highlight="false">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= Rate.human_attribute_name(:valid_from) %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th class="currency">
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= Rate.model_name.human %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th><div class="generic-table--empty-header"></div></th>
+          </tr>
+        </thead>
+        <tbody id="rates_body" class="subform-container" data-subform-target="table">
+          <%= render partial: "hourly_rates/rate", object: HourlyRate.new(valid_from: Date.current), locals: { templated: true } %>
+          <%- @rates.each_with_index do |rate, index| -%>
+            <%= render partial: 'rate', object: rate, locals: {index: index} %>
+          <%- end -%>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  <div class="wp-inline-create-button">
+    <a href="#" class="add-row-button wp-inline-create--add-link" data-action="subform#addRow">
+      <%= op_icon('icon icon-add') %>
+        <%= t(:button_add_rate) %>
+    </a>
+  </div>
+  <div class="generic-table--action-buttons">
+    <%= styled_button_tag t(:button_save), class: '-with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+  </div>
+<% end %>
 </div>

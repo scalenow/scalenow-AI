@@ -1,7 +1,15 @@
 <% html_title t(:label_administration), t(:label_announcement) %>
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%=
+    render(Primer::OpenProject::PageHeader.new) do |header|
+      header.with_title(classes: "color-orange") { "#{t(:label_announcement)} (#{notice_annoucement_active})" }
+      header.with_breadcrumbs([{ href: admin_index_path, text: t(:label_administration) },
+                              t(:label_announcement)])
+    end
+  %>
+
   <%= error_messages_for 'announcement' %>
-  <%= toolbar title: "#{t(:label_announcement)} (#{notice_annoucement_active})", title_class: "color-orange" %>
+
   <%= labelled_tabular_form_for @announcement,
               :url => {:action => :update},
               :html => {:method => :put} do |f| %>

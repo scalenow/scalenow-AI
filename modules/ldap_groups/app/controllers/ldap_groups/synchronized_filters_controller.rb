@@ -24,7 +24,7 @@ module LdapGroups
         flash[:notice] = I18n.t(:notice_successful_create)
         redirect_to ldap_groups_synchronized_groups_path
       else
-        render action: :new
+        render action: :new, status: :unprocessable_entity
       end
     rescue ActionController::ParameterMissing
       render_400
@@ -35,7 +35,7 @@ module LdapGroups
         flash[:notice] = I18n.t(:notice_successful_update)
         redirect_to action: :show
       else
-        render action: :edit
+        render action: :edit, status: :unprocessable_entity
       end
     rescue ActionController::ParameterMissing
       render_400
@@ -90,12 +90,10 @@ module LdapGroups
         .permit(:filter_string, :name, :ldap_auth_source_id, :group_name_attribute, :sync_users, :base_dn)
     end
 
-    def default_breadcrumb
-      ActionController::Base.helpers.link_to(t("ldap_groups.synchronized_groups.plural"), ldap_groups_synchronized_groups_path)
-    end
+    def default_breadcrumb; end
 
     def show_local_breadcrumb
-      true
+      false
     end
   end
 end

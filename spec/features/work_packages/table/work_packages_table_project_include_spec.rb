@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -89,7 +89,7 @@ RSpec.describe "Work package project include", :js do
       subject_field.submit_by_enter
 
       work_package_view.expect_and_dismiss_toaster(
-        message: "Successful creation. Click here to open this work package in fullscreen view."
+        message: "Successful creation."
       )
 
       work_package_view.expect_work_package_subject "Foobar!"

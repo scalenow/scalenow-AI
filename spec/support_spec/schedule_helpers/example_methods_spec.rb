@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -105,8 +105,6 @@ RSpec.describe ScheduleHelpers::ExampleMethods do
   end
 
   describe "change_schedule" do
-    include ActiveSupport::Testing::TimeHelpers
-
     let(:fake_today) { Date.new(2022, 6, 16) } # Thursday 16 June 2022
     let(:monday) { Date.new(2022, 6, 20) } # Monday 20 June
     let(:tuesday) { Date.new(2022, 6, 21) }

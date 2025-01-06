@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -82,6 +82,7 @@ RSpec.describe "wiki pages", :js, with_settings: { journal_aggregation_time_minu
     find(".ck-content").base.send_keys(content_first_version)
     click_button "Save"
 
+    expect_and_dismiss_flash(message: "Successful creation.")
     expect(page).to have_css(".title-container", text: "New page")
     expect(page).to have_css(".wiki-content", text: content_first_version)
 

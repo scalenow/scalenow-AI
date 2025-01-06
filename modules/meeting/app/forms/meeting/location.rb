@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -33,7 +33,7 @@ class Meeting::Location < ApplicationForm
       placeholder: Meeting.human_attribute_name(:location),
       label: Meeting.human_attribute_name(:location),
       visually_hide_label: false,
-      leading_visual: { icon: :link }
+      leading_visual: { icon: :location }
     )
   end
 end

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -38,8 +38,11 @@ class HourlyRatesController < ApplicationController
   before_action :find_optional_project, only: %i[show edit update]
   before_action :find_project, only: [:set_rate]
 
-  # #show, #edit have their own authorization
+  # #show, #edit and #update have their own authorization
   before_action :authorize, except: %i[show edit update]
+  no_authorization_required! :show,
+                             :edit,
+                             :update
 
   # TODO: this should be an index
   def show
@@ -54,7 +57,7 @@ class HourlyRatesController < ApplicationController
     end
   end
 
-  def edit
+  def edit # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     # TODO: split into edit and update
     # remove code where appropriate
     if @project
@@ -75,14 +78,14 @@ class HourlyRatesController < ApplicationController
       @rates << @user.rates.build(valid_from: Date.today, project: @project) if @rates.empty?
     end
 
-    render action: "edit", layout: !request.xhr?
+    render action: :edit, layout: !request.xhr?
   end
 
   current_menu_item :edit do
     :budgets
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     # TODO: copied over from edit
     # remove code where appropriate
     if @project
@@ -120,7 +123,7 @@ class HourlyRatesController < ApplicationController
                  .sort { |a, b| b.valid_from || Date.today <=> a.valid_from || Date.today }
         @rates << @user.rates.build(valid_from: Date.today, project: @project) if @rates.empty?
       end
-      render action: "edit", layout: !request.xhr?
+      render action: :edit, layout: !request.xhr?
     end
   end
 

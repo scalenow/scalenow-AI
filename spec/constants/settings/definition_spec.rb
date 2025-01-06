@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -23,7 +23,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
-# See docs/COPYRIGHT.rdoc for more details.
+# See COPYRIGHT and LICENSE files for more details.
 #++
 
 require "spec_helper"
@@ -91,6 +91,15 @@ RSpec.describe Settings::Definition, :settings_reset do
          with_env: { "OPENPROJECT_DEFAULT_LANGUAGE" => "de" } do
         reset(:default_language)
         expect(all[:default_language].value).to eql "de"
+      end
+
+      it "picks double underscore over single underscore if both are defined in ENV",
+         with_env: {
+           "OPENPROJECT_WELCOME__TITLE" => "double underscore",
+           "OPENPROJECT_WELCOME_TITLE" => "single underscore"
+         } do
+        reset(:welcome_title)
+        expect(all[:welcome_title].value).to eql "double underscore"
       end
 
       it "allows overriding configuration from ENV without OPENPROJECT_ prefix",

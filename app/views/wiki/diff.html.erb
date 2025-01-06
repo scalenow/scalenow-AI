@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,24 +28,24 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% breadcrumb_paths(*(@page.ancestors.reverse.collect { |parent| link_to h(parent.breadcrumb_title), {id: parent, project_id: parent.project}} + [h(@page.breadcrumb_title)] )) %>
-  <%= toolbar title: h(@page.title), title_class: "color-orange" do %>
-    <li class="toolbar-item">
-      <%= link_to({action: 'history', id: @page}, class: 'button rounded-border') do %>
-        <%= op_icon('button--icon icon-wiki') %>
-        <span class="button--text"><%= t(:label_history) %></span>
-      <% end %>
-    </li>
-  <% end %>
+<% breadcrumb_paths(*(@page.ancestors.reverse.collect { |parent| link_to h(parent.breadcrumb_title), {id: parent, project_id: parent.project}} + [h(@page.breadcrumb_title)] )) %>
+<%= toolbar title: h(@page.title), title_class: "color-orange" do %>
+  <li class="toolbar-item">
+    <%= link_to({action: 'history', id: @page}, class: 'button rounded-border') do %>
+      <%= op_icon('button--icon icon-wiki') %>
+      <span class="button--text"><%= t(:label_history) %></span>
+    <% end %>
+  </li>
+<% end %>
 
-  <p>
-    <%= Version.model_name.human %> <%= link_to @diff.content_from.version, action: 'show', id: @page, project_id: @page.project, version: @diff.content_from.version %>/<%= @page.version %>
-    <em>(<%= @diff.content_from.user ? link_to_user(@diff.content_from.user) : t(:label_user_anonymous) %>, <%= format_time(@diff.content_from.created_at) %>)</em>
-    &#8594;
-    <%= Version.model_name.human %> <%= link_to @diff.content_to.version, action: 'show', id: @page, project_id: @page.project, version: @diff.content_to.version %>/<%= @page.version %>
-    <em>(<%= @diff.content_to.user ? link_to_user(@diff.content_to.user) : t(:label_user_anonymous) %>, <%= format_time(@diff.content_to.created_at) %>)</em>
-  </p>
-  <div class="text-diff">
-    <%= nl2br @html_diff %>
-  </div>
+<p>
+  <%= Version.model_name.human %> <%= link_to @diff.content_from.version, action: 'show', id: @page, project_id: @page.project, version: @diff.content_from.version %>/<%= @page.version %>
+  <em>(<%= @diff.content_from.user ? link_to_user(@diff.content_from.user) : t(:label_user_anonymous) %>, <%= format_time(@diff.content_from.created_at) %>)</em>
+  &#8594;
+  <%= Version.model_name.human %> <%= link_to @diff.content_to.version, action: 'show', id: @page, project_id: @page.project, version: @diff.content_to.version %>/<%= @page.version %>
+  <em>(<%= @diff.content_to.user ? link_to_user(@diff.content_to.user) : t(:label_user_anonymous) %>, <%= format_time(@diff.content_to.created_at) %>)</em>
+</p>
+<div class="text-diff">
+  <%= @html_diff.html_safe %>
+</div>
 </div>

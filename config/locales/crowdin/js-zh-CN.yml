@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -66,7 +66,7 @@ zh-CN:
     button_back_to_list_view: "返回列表视图"
     button_cancel: "取消"
     button_close: "关闭"
-    button_change_project: "更改项目"
+    button_change_project: "移动到另一个项目"
     button_check_all: "全选"
     button_configure-form: "配置表单"
     button_confirm: "确认"
@@ -105,6 +105,7 @@ zh-CN:
     button_update: "更新"
     button_export-pdf: "下载 PDF"
     button_export-atom: "下载 Atom"
+    button_generate_pdf: "生成 PDF"
     button_create: "创建"
     card:
       add_new: "添加新卡"
@@ -138,6 +139,8 @@ zh-CN:
     description_select_work_package: "选择工作包 #%{id}"
     description_subwork_package: "子工作包 #%{id}"
     editor:
+      revisions: "显示本地修改"
+      no_revisions: "未找到本地修改"
       preview: "切换预览模式"
       source_code: "切换 Markdown 模式"
       error_saving_failed: "保存文档失败，出现以下错误：%{error}"
@@ -150,6 +153,7 @@ zh-CN:
         attribute_reference:
           macro_help_tooltip: "此文本段正由宏动态呈现。"
           not_found: "无法找到请求的资源"
+          nested_macro: "该宏递归引用 %{model} %{id}。"
           invalid_attribute: "所选属性 '%{name}' 不存在。"
         child_pages:
           button: "链接至子页面"
@@ -273,6 +277,11 @@ zh-CN:
         change_description: "更改一周中哪些天被视为工作日或非工作日可能会影响此实例中所有项目中所有工作包的开始和结束日期。"
         warning: >
           更改可能需要一些时间才能生效。当更新完所有相关工作包时，您将收到通知。
+      work_packages_settings:
+        warning_progress_calculation_mode_change_from_status_to_field_html: >-
+          将进度计算模式从基于状态改为基于工时，将使<i>完成 %</i>字段可自由编辑。如果您选择输入<i>工时</i>或<i>剩余工时</i>的值，它们也将与<i>完成 %</i>相关联。更改<i>剩余工时</i>就可以更新<i>完成 %</i>。
+        warning_progress_calculation_mode_change_from_field_to_status_html: >-
+          将进度计算模式从基于工时的方式改为基于状态，将会导致所有现有的 <i>%完整的</i> 值丢失，并被与每个状态相关的值所替代。 <i>剩余工时</i> 的现有值也可能被重新计算，以反映这种变化。此操作不可逆转。
     custom_actions:
       date:
         specific: "于"
@@ -347,11 +356,10 @@ zh-CN:
           learn_about: "详细了解新功能"
           #Include the version to invalidate outdated translations in other locales.
           #Otherwise, e.g. chinese might still have the translations for 10.0 in the 12.0 release.
-          "14_0":
+          "15_1":
             standard:
-              learn_about_link: https://www.openproject.org/blog/openproject-14-0-release/
               new_features_html: >
-                该版本包含各种新功能和改进： <br> <ul class="%{list_styling_class}"> <li>跨工作包层次实施进度报告。</li> <li>在项目概览页面以结构化方式管理项目属性。</li> <li>简化项目列表和项目概览中自定义字段的视图。</li> <li>采用时尚的 Primer 设计，统一页面标题。</li> <li>利用附件上传、负责和会议历史等新功能增强会议功能。</li> <li>对不健康的文件存储自动发出警报，并通过切换选项进行控制。</li> <li>复制项目时，为 OneDrive/SharePoint 复制自动管理的项目文件夹。</li> <li>撤销项目成员资格时，要求管理员删除工作包上的共享。</li> <li>通过团队计划器中的 4 周和 8 周显示模式增强计划性。</li> </ul>
+                该版本为您带来了多种新功能和改进，例如<br> <ul class="%{list_styling_class}"> <li>分层类型的自定义字段(企业附加组件)。</li> <li>重新设计工作包中的关系选项卡。</li> <li>重新设计会议索引页。</li> <li>在导出 PDF 工作包时手动分页。</li> <li>项目列表的禅模式。</li> </ul>
     ical_sharing_modal:
       title: "订阅日历"
       inital_setup_error_message: "获取数据时发生错误。"
@@ -377,6 +385,7 @@ zh-CN:
     label_added_time_by: '由 <a href=%{authorLink}>%{author}</a> 在 %{age} 添加'
     label_ago: "天前"
     label_all: "所有"
+    label_all_uppercase: "全部"
     label_all_work_packages: "所有工作包"
     label_and: "和"
     label_ascending: "升序"
@@ -391,6 +400,7 @@ zh-CN:
     label_create: "创建"
     label_create_work_package: "创建新工作包"
     label_created_by: "创建自"
+    label_current: "当前"
     label_date: "日期"
     label_date_with_format: "以%{format} 的格式输入 %{date_attribute}"
     label_deactivate: "停用"
@@ -418,6 +428,7 @@ zh-CN:
     label_expand_project_menu: "展开项目菜单"
     label_export: "导出"
     label_export_preparing: "导出文件已开始准备并将很快被下载。"
+    label_favorites: "收藏夹"
     label_filename: "文件"
     label_filesize: "大小"
     label_general: "通用"
@@ -568,7 +579,7 @@ zh-CN:
         wiki: "在 <b>维基</b> 中，您可以记录并与您的团队共享知识。"
         backlogs:
           overview: "在<b>待办清单</b>视图中管理您的工作。"
-          sprints: "右侧为产品待办清单和缺陷待办清单，左侧为各自的冲刺 (Sprint)。在这里，您可以创建<b>史诗、用户故事和缺陷</b>，通过拖放来确定优先级，以及将它们添加到冲刺 (Sprint) 中。"
+          sprints: "右侧为产品待办清单和缺陷待办清单，左侧为各自的冲刺 (Sprint)。在这里，您可以创建<b>长篇故事、用户故事和错误</b>，通过拖放来确定优先级，以及将它们添加到冲刺 (sprint) 中。"
           task_board_arrow: "要查看您的<b>任务面板</b>，请打开冲刺 (sprint) 下拉菜单…"
           task_board_select: "…并选择<b>任务面板</b>条目。"
           task_board: "任务面板可以将<b>此冲刺 (sprint) 的进度</b>可视化。点击用户故事旁边的加号 (+) 图标可添加新任务或障碍。<br>状态可以通过拖放更新。"
@@ -598,15 +609,17 @@ zh-CN:
       reasons:
         mentioned: "被提及"
         watched: "关注者"
-        assigned: "受理人"
+        assigned: "指定人"
+        #The enum value is named 'responsible' in the database and that is what is transported through the API
+        #up to the frontend.
         responsible: "负责人"
         created: "已创建"
-        scheduled: "已安排"
+        scheduled: "已计划"
         commented: "已评论"
         processed: "已处理"
-        prioritized: "已优先安排"
+        prioritized: "已优先"
         dateAlert: "日期提醒"
-        shared: "共享"
+        shared: "已共享"
       date_alerts:
         milestone_date: "里程碑日期"
         overdue: "逾期"
@@ -618,11 +631,6 @@ zh-CN:
         upsale:
           title: "日期提醒"
           description: "借助日期提醒，您将收到即将到来的开始或结束日期的通知，以免错过或忘记重要截止日期。"
-      facets:
-        unread: "未读"
-        unread_title: "显示未读信息"
-        all: "全部"
-        all_title: "全部显示"
       center:
         label_actor_and: "和"
         and_more_users:
@@ -632,25 +640,17 @@ zh-CN:
           with_current_filter: "目前此视图中没有通知"
         mark_all_read: "全部标记为已读"
         mark_as_read: "标记为已读"
-        text_update_date: "%{date}，"
+        text_update_date_by: "%{date}，"
         total_count_warning: "正在显示 %{newest_count} 条最新通知。还有 %{more_count} 条未显示。"
         empty_state:
           no_notification: "看起来您已查看所有通知。"
           no_notification_with_current_project_filter: "看起来您已查看所选项目的所有通知。"
           no_notification_with_current_filter: "看起来您已查看“%{filter}”筛选器的所有通知。"
+          no_notification_for_filter: "看起来你已经处理完了这个筛选器的所有内容。"
           no_selection: "点击通知可查看所有活动详细信息。"
         new_notifications:
           message: "有新的通知。"
           link_text: "点击此处加载。"
-      menu:
-        accountable: "负责人"
-        by_project: "按项目筛选未读通知"
-        by_reason: "原因"
-        inbox: "收件箱"
-        mentioned: "被提及"
-        watched: "关注者"
-        date_alert: "日期提醒"
-        shared: "共享"
       settings:
         change_notification_settings: '您可以修改您的<a target="_blank" href="%{url}">通知设置</a>，以确保您不会错过重要的更新。'
         title: "通知设置"
@@ -715,7 +715,6 @@ zh-CN:
     project:
       required_outside_context: >
         请选择要创建工作包的项目以查看所有属性。 您只能选择已激活上述类型的项目。
-      details_activity: "项目细节活动"
       context: "项目上下文"
       click_to_switch_to_project: "项目: %{projectname}"
       confirm_template_load: "切换模板将重新加载页面，您将丢失此表单上的所有输入。是否继续？"
@@ -750,7 +749,7 @@ zh-CN:
           wiki_page_added: "添加维基页面"
           wiki_page_updated: "更新维基页面"
           membership_added: "添加成员"
-          membership_updated: "成员已更新"
+          membership_updated: "更新成员"
         title: "电子邮件提醒"
         pause:
           label: "临时暂停每日电子邮件提醒"
@@ -884,6 +883,11 @@ zh-CN:
       preformatted_text: "预格式化文本"
       wiki_link: "链接到一个维基页面"
       image: "图片"
+    sharing:
+      share: "共享"
+      selected_count: "%{count} 已选择"
+      selection:
+        mixed: "混合"
     work_packages:
       bulk_actions:
         move: "批量更改项目"
@@ -994,11 +998,13 @@ zh-CN:
         workAlternative: "估算工时"
         remainingTime: "剩余的工作"
       default_queries:
+        manually_sorted: "新的手动排序查询"
         latest_activity: "最新活动"
         created_by_me: "我创建的"
         assigned_to_me: "分配给我"
         recently_created: "最近创建"
         all_open: "全部打开"
+        overdue: "逾期"
         summary: "摘要"
         shared_with_users: "与用户共享"
         shared_with_me: "与我分享"
@@ -1039,12 +1045,8 @@ zh-CN:
         is_parent: "此工作包的日期会自动从其子项推导出。可激活“手动计划”来设置日期。"
         is_switched_from_manual_to_automatic: "由于与其他工作包的关系，在从手动计划切换为自动计划后，此工作包的日期可能需要重新计算。"
       sharing:
-        share: "共享"
         title: "共享工作包"
-        show_all_users: "显示所有共享用户"
-        selected_count: "%{count} 已选择"
-        selection:
-          mixed: "混合"
+        show_all_users: "显示与之共享工作包的所有用户"
         upsale:
           description: "与非此项目成员的用户共享工作包。"
       table:
@@ -1181,6 +1183,8 @@ zh-CN:
         one: "1 天"
         other: "%{count} 天"
         zero: "0 天"
+      word:
+        other: " %{count} 个单词"
     zen_mode:
       button_activate: "激活 zen 模式"
       button_deactivate: "取消激活 zen 模式"
@@ -1227,9 +1231,9 @@ zh-CN:
           description: "基于所选项目中所分配角色的权限"
         placeholder:
           title: "占位符用户"
-          title_no_ee: "占位符用户（Enterprise edition 附加功能）"
+          title_no_ee: "占位符用户（Enterprise edition 特定功能）"
           description: "无法访问该项目并且未发送电子邮件。"
-          description_no_ee: '由于没有访问项目的权限，所以不会发送电子邮件。<br>请查看<a href="%{eeHref}" target="_blank">企业版</a>。'
+          description_no_ee: '无法访问该项目并且未发送电子邮件。<br>请参见 <a href="%{eeHref}" target="_blank">Enterprise edition</a>'
       principal:
         label:
           name_or_email: "用户名或电子邮件地址"
@@ -1265,6 +1269,14 @@ zh-CN:
           placeholder: "现在可以在 %{project} 中使用占位符。同时，您已经可以与该用户一起制定计划并分配工作包等。"
           group: "该组现已加入 %{project}。同时，您已经可以与该组一起制定计划并分配工作包等。"
         next_button: "继续"
+    exclusion_info:
+      modal:
+        title: "从层次结构总计中排除的状态"
+        content: >-
+          状态 "%{status_name}"已被配置为排除在 "工时"、"剩余工时 "和 "完成百分比 "的层次结构总计中。总计不考虑该值。
+    favorite_projects:
+      no_results: "您没有收藏的项目"
+      no_results_subtext: "通过项目概览或项目列表添加一个或多个项目作为收藏夹。"
     include_projects:
       toggle_title: "包含项目"
       title: "项目"
@@ -1322,8 +1334,12 @@ zh-CN:
         remove: "移除"
       drop_modal:
         focus_grab: "该信息是模态框的焦点锚点。按 Shift+Tab 可以返回到模态框的触发元素。"
-        Close: "关闭"
+        close: "关闭模式"
     open_project_storage_modal:
+      waiting_title:
+        timeout: "超时"
       waiting_subtitle:
         network_off: "网络有问题。"
         network_on: "网络已恢复。我们正在努力。"
+        timeout: >
+          OpenProject 无法让您在预期时间内访问项目文件夹。请再试一次。<br><br> 如果问题仍然存在，请联系 OpenProject 管理员检查<a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">文件存储设置的健康状态</a>。

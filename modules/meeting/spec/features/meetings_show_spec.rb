@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -43,12 +43,16 @@ RSpec.describe "Meetings", :js do
   current_user { user }
 
   describe "navigate to meeting page" do
+    before do
+      create(:meeting_participant, :invitee, user:, meeting:)
+    end
+
     let(:permissions) { %i[view_meetings] }
 
     it "can visit the meeting" do
       visit meetings_path(project)
 
-      find("td.title a", text: "Awesome meeting!", wait: 10).click
+      find("div.title a", text: "Awesome meeting!", wait: 10).click
       expect(page).to have_css("h2", text: "Meeting: Awesome meeting!")
 
       expect(page).to have_test_selector("op-meeting--meeting_agenda",
@@ -122,7 +126,7 @@ RSpec.describe "Meetings", :js do
 
           field.submit_by_enter
 
-          show_page.expect_and_dismiss_toaster message: "Successful update"
+          expect_and_dismiss_flash(message: "Successful update")
 
           meeting.reload
 

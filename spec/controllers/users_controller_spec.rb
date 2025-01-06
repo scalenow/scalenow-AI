@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -194,7 +194,7 @@ RSpec.describe UsersController do
       end
 
       it "returns 403 forbidden" do
-        expect(response.status).to eq 403
+        expect(response).to have_http_status :forbidden
       end
     end
 
@@ -401,7 +401,7 @@ RSpec.describe UsersController do
       let(:change_action) { :wtf }
 
       it "renders 400" do
-        expect(response.status).to eq(400)
+        expect(response).to have_http_status(:bad_request)
         expect(response).not_to render_template "users/change_status_info"
       end
     end
@@ -629,7 +629,6 @@ RSpec.describe UsersController do
             force_password_change: true
           },
           pref: {
-            hide_mail: "1",
             comments_sorting: "desc"
           }
         }
@@ -642,7 +641,7 @@ RSpec.describe UsersController do
       end
 
       it "redirects to the edit page" do
-        expect(response).to render_template :edit
+        expect(response).to redirect_to(action: :edit)
       end
 
       it "is assigned their new values" do
@@ -650,7 +649,6 @@ RSpec.describe UsersController do
         expect(some_user_from_db.firstname).to eq("Changed")
         expect(some_user_from_db.login).to eq("changed_login")
         expect(some_user_from_db.force_password_change).to be(true)
-        expect(some_user_from_db.pref[:hide_mail]).to be_truthy
         expect(some_user_from_db.pref[:comments_sorting]).to eq("desc")
       end
 
@@ -689,12 +687,9 @@ RSpec.describe UsersController do
           }
         end
 
-        it "is success" do
+        it "renders the edit template with errors", :aggregate_failures do
           expect(response)
-            .to have_http_status(:ok)
-        end
-
-        it "renders the edit template with errors" do
+            .to have_http_status(:unprocessable_entity)
           expect(response)
             .to have_rendered("edit")
           expect(assigns(:user).errors.first)
@@ -890,9 +885,9 @@ RSpec.describe UsersController do
         end
 
         context "when not login_required", with_settings: { login_required: false } do
-          it "responds with 404" do
+          it "responds with 200" do
             expect(response)
-              .to have_http_status(:not_found)
+              .to have_http_status(:ok)
           end
         end
 

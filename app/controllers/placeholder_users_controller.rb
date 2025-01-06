@@ -1,12 +1,12 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
 #
 # OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
-# Copyright (C) 2006-2017 Jean-Philippe Lang
+# Copyright (C) 2006-2013 Jean-Philippe Lang
 # Copyright (C) 2010-2013 the ChiliProject Team
 #
 # This program is free software; you can redistribute it and/or
@@ -30,6 +30,7 @@ class PlaceholderUsersController < ApplicationController
   include EnterpriseTrialHelper
   layout "admin"
   before_action :authorize_global, except: %i[show]
+  no_authorization_required! :show
 
   before_action :find_placeholder_user, only: %i[show
                                                  edit
@@ -78,7 +79,7 @@ class PlaceholderUsersController < ApplicationController
     @individual_principal = @placeholder_user
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     service = PlaceholderUsers::CreateService.new(user: User.current)
     service_result = service.call(permitted_params.placeholder_user)
     @placeholder_user = service_result.result
@@ -93,13 +94,13 @@ class PlaceholderUsersController < ApplicationController
     else
       respond_to do |format|
         format.html do
-          render action: :new
+          render action: :new, status: :unprocessable_entity
         end
       end
     end
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize
     service_result = PlaceholderUsers::UpdateService
       .new(user: User.current,
            model: @placeholder_user)
@@ -117,7 +118,7 @@ class PlaceholderUsersController < ApplicationController
 
       respond_to do |format|
         format.html do
-          render action: :edit
+          render action: :edit, status: :unprocessable_entity
         end
       end
     end
@@ -157,16 +158,7 @@ class PlaceholderUsersController < ApplicationController
     end
   end
 
-  def default_breadcrumb
-    if action_name == "index"
-      t("label_placeholder_user_plural")
-    else
-      ActionController::Base.helpers.link_to(t("label_placeholder_user_plural"),
-                                             placeholder_users_path)
-    end
-  end
-
   def show_local_breadcrumb
-    action_name != "show"
+    false
   end
 end

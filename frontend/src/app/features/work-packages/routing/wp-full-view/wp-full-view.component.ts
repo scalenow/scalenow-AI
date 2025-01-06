@@ -1,6 +1,6 @@
-// -- copyright
+//-- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -30,6 +30,7 @@ import { WorkPackageResource } from 'core-app/features/hal/resources/work-packag
 import { StateService } from '@uirouter/core';
 import {
   Component,
+  HostListener,
   Injector,
   OnInit,
 } from '@angular/core';
@@ -84,6 +85,14 @@ export class WorkPackagesFullViewComponent extends WorkPackageSingleViewBase imp
     private readonly configurationService:ConfigurationService,
   ) {
     super(injector, $state.params.workPackageId);
+  }
+
+  // enable other parts of the application to trigger an immediate update
+  // e.g. a stimulus controller
+  // currently used by the new activities tab which does it's own polling
+  @HostListener('document:ian-update-immediate')
+  triggerImmediateUpdate() {
+    this.storeService.reload();
   }
 
   ngOnInit():void {

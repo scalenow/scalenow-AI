@@ -1,6 +1,6 @@
-// -- copyright
+//-- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -104,14 +104,6 @@ export class HalResourceEditFieldHandler extends EditFieldHandler {
     // Set selection state if input element
     if (setClickOffset && target.tagName === 'INPUT') {
       setPosition(target as HTMLInputElement, setClickOffset);
-    }
-  }
-
-  public async onFocusOut() {
-    // In case of inline create or erroneous forms: do not save on focus loss
-    // const specialField = this.resource.shouldCloseOnFocusOut(this.fieldName);
-    if (this.resource.subject && this.withErrors && this.withErrors.length === 0) {
-      await this.handleUserSubmit();
     }
   }
 

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -89,6 +89,8 @@ module Queries::Filters::Shared
           :text
         when "date"
           :date
+        when "hierarchy"
+          :hierarchy
         else
           :string
         end
@@ -116,7 +118,10 @@ module Queries::Filters::Shared
       protected
 
       def condition
-        operator_strategy.sql_for_field(values_replaced, CustomValue.table_name, "value")
+        [
+          custom_field_context.where_subselect_conditions,
+          operator_strategy.sql_for_field(values_replaced, CustomValue.table_name, "value")
+        ].compact.join(" AND ")
       end
 
       def type_strategy_class

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -111,7 +111,7 @@ class ForumsController < ApplicationController
       flash[:notice] = t(:notice_successful_update)
     else
       flash.now[:error] = t("forum_could_not_be_saved")
-      render action: "edit"
+      render action: :edit, status: :unprocessable_entity
     end
     redirect_to action: "index"
   end

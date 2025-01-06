@@ -1,6 +1,6 @@
 // -- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -31,9 +31,11 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -75,13 +77,14 @@ import { IHalResourceLink } from 'core-app/core/state/hal-resource';
 import {
   LocationPickerModalComponent,
 } from 'core-app/shared/components/storages/location-picker-modal/location-picker-modal.component';
-import { ToastService } from 'core-app/shared/components/toaster/toast.service';
+import { IToast, ToastService } from 'core-app/shared/components/toaster/toast.service';
 import { StorageFilesResourceService } from 'core-app/core/state/storage-files/storage-files.service';
 import { IUploadFile, OpUploadService } from 'core-app/core/upload/upload.service';
 import { IUploadLink } from 'core-app/core/state/storage-files/upload-link.model';
 import { IStorageFile } from 'core-app/core/state/storage-files/storage-file.model';
 import { TimezoneService } from 'core-app/core/datetime/timezone.service';
 import { PathHelperService } from 'core-app/core/path-helper/path-helper.service';
+import { WorkPackageResource } from 'core-app/features/hal/resources/work-package-resource';
 import {
   UploadConflictModalComponent,
 } from 'core-app/shared/components/storages/upload-conflict-modal/upload-conflict-modal.component';
@@ -120,6 +123,10 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
   @Input() public allowLinking = true;
 
   @ViewChild('hiddenFileInput') public filePicker:ElementRef<HTMLInputElement>;
+
+  @Output() public fileRemoved = new EventEmitter<void>();
+
+  @Output() public fileAdded = new EventEmitter<void>();
 
   fileLinks:Observable<IFileLink[]>;
 
@@ -184,7 +191,7 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
       return this.pathHelperService.fileLinksPath();
     }
 
-    return (this.resource.$links as unknown&{ addFileLink:IHalResourceLink }).addFileLink.href;
+    return (this.resource.$links as { addFileLink:IHalResourceLink }).addFileLink.href;
   }
 
   private onGlobalDragLeave:(_event:DragEvent) => void = (_event) => {
@@ -231,21 +238,27 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
   ngOnInit():void {
     this.storage = this.storagesResourceService.requireEntity(this.projectStorage._links.storage.href);
 
-    this.fileLinks = this.collectionKey()
-      .pipe(
-        switchMap((key) => {
-          if (isNewResource(this.resource)) {
-            return this.fileLinkResourceService.collection(key);
-          }
+    this.fileLinks = this.storage.pipe(
+      take(1),
+      switchMap(() =>
+        this.collectionKey().pipe(
+          switchMap((key) => {
+            if (isNewResource(this.resource)) {
+              return this.fileLinkResourceService.collection(key);
+            }
+            return this.fileLinkResourceService.requireCollection(key);
+          }),
+          tap((fileLinks) => {
+            if (isNewResource(this.resource)) {
+              this.resource.fileLinks = { elements: fileLinks.map((a) => a._links?.self) };
+            }
+          }),
+        )),
+    );
 
-          return this.fileLinkResourceService.requireCollection(key);
-        }),
-        tap((fileLinks) => {
-          if (isNewResource(this.resource)) {
-            this.resource.fileLinks = { elements: fileLinks.map((a) => a._links?.self) };
-          }
-        }),
-      );
+    this.fileLinks.subscribe({ error: (err:string | HttpErrorResponse | IToast) =>
+        this.toastService.addError(err),
+    });
 
     this.disabled = combineLatest([
       this.storage,
@@ -291,7 +304,7 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
         switchMap((key) => this.fileLinkResourceService.remove(key, fileLink)),
       )
       .subscribe({
-        next: () => { /* Do nothing */ },
+        next: () => { this.fileRemoved.emit(); },
         error: (error:HttpErrorResponse) => this.toastService.addError(error),
       });
   }
@@ -311,6 +324,7 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
           collectionKey,
           fileLinks,
         };
+
         this.opModalService.show<FilePickerModalComponent>(FilePickerModalComponent, 'global', locals);
       });
   }
@@ -411,6 +425,7 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
       .subscribe({
         next: (collection) => {
           this.toastService.addSuccess(this.text.toast.successFileLinksCreated(collection.count));
+          this.fileAdded.emit();
         },
         error: (error) => {
           if (isUploadError) {
@@ -500,7 +515,7 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
   }
 
   private uploadResourceLink(storage:IStorage, fileName:string, location:string):IPrepareUploadLink {
-    const project = (this.resource.project as unknown&{ id:string }).id;
+    const project = (this.resource.project as { id:string }).id;
     const link = storage._links.prepareUpload.filter((value) => project === value.payload.projectId.toString());
     if (link.length === 0) {
       throw new Error('Cannot upload to this storage. Missing permissions in project.');
@@ -532,8 +547,8 @@ export class StorageComponent extends UntilDestroyedMixin implements OnInit, OnD
   }
 
   private fileLinkSelfLink(storage:IStorage):string {
-    const fileLinks = this.resource.fileLinks as unknown&{ href:string };
-    return `${fileLinks.href}?filters=[{"storage":{"operator":"=","values":["${storage.id}"]}}]`;
+    const fileLinks = (this.resource as WorkPackageResource).$links.fileLinks;
+    return `${fileLinks?.href}?pageSize=-1&filters=[{"storage":{"operator":"=","values":["${storage.id}"]}}]`;
   }
 
   public onDropFiles(event:DragEvent):void {

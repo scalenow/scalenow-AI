@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -60,7 +60,10 @@ class Source::SeedData
       default
     else
       references = [reference, *fallbacks].map(&:inspect)
-      message = "Nothing registered with #{'reference'.pluralize(references.count)} #{references.to_sentence(locale: false)}"
+      message = <<~STRING
+        Nothing registered with #{'reference'.pluralize(references.count)} #{references.to_sentence(locale: false)}
+        Perhaps you forgot to add the `attribute_names_for_lookups` for your seeder?
+      STRING
       raise ArgumentError, message
     end
   end

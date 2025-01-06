@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -43,12 +43,12 @@ RSpec.describe "News creation and commenting", :js, :with_cuprite do
            member_with_permissions: { project => %i[manage_news comment_news] })
   end
 
+  include Flash::Expectations
+
   it "allows creating new and commenting it all of which will result in notifications and mails" do
     visit project_news_index_path(project)
 
-    within ".toolbar-items" do
-      click_link "News"
-    end
+    find('[data-test-selector="add-news-button"]', text: "News").click
 
     # Create the news
     fill_in "Title", with: "My new news"
@@ -56,6 +56,7 @@ RSpec.describe "News creation and commenting", :js, :with_cuprite do
 
     perform_enqueued_jobs do
       click_button "Create"
+      wait_for_network_idle
     end
 
     # The new news is visible on the index page
@@ -82,7 +83,10 @@ RSpec.describe "News creation and commenting", :js, :with_cuprite do
 
     perform_enqueued_jobs do
       click_button "Add comment"
+      wait_for_network_idle
     end
+
+    expect_and_dismiss_flash message: "Comment added"
 
     # The new comment is visible on the show page
     expect(page)

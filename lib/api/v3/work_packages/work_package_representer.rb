@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -96,7 +96,7 @@ module API
 
           {
             href: api_v3_paths.time_entries,
-            title: "Log time on #{represented.subject}"
+            title: "Log time on work package '#{represented.subject}'"
           }
         end
 
@@ -107,7 +107,7 @@ module API
           {
             href: new_work_package_move_path(represented),
             type: "text/html",
-            title: "Move #{represented.subject}"
+            title: "Move work package '#{represented.subject}'"
           }
         end
 
@@ -117,7 +117,8 @@ module API
 
           {
             href: work_package_path(represented, "copy"),
-            title: "Copy #{represented.subject}"
+            type: "text/html",
+            title: "Copy work package '#{represented.subject}'"
           }
         end
 
@@ -129,6 +130,19 @@ module API
             href: work_package_path(id: represented.id, format: :pdf),
             type: "application/pdf",
             title: "Export as PDF"
+          }
+        end
+
+        link :generate_pdf,
+             cache_if: -> { export_work_packages_allowed? } do
+          next if represented.new_record?
+
+          next unless OpenProject::FeatureDecisions.generate_pdf_from_work_package_active?
+
+          {
+            href: generate_pdf_dialog_work_package_path(id: represented.id),
+            type: "application/pdf",
+            title: "Generate PDF"
           }
         end
 
@@ -409,7 +423,7 @@ module API
                    datetime_formatter.format_duration_from_hours(represented.remaining_hours,
                                                                  allow_nil: true)
                  end,
-                 writable: ->(*) { !WorkPackage.use_status_for_done_ratio? },
+                 writable: ->(*) { !WorkPackage.status_based_mode? },
                  render_nil: false
 
         property :derived_remaining_time,
@@ -418,7 +432,6 @@ module API
                    datetime_formatter.format_duration_from_hours(represented.derived_remaining_hours,
                                                                  allow_nil: true)
                  end,
-                 writable: ->(*) { !WorkPackage.use_status_for_done_ratio? },
                  render_nil: true
 
         property :duration,
@@ -580,6 +593,8 @@ module API
           super
         end
 
+        delegate :hide_attachments?, to: :represented
+
         # Permissions
         def current_user_watcher?
           @current_user_watcher ||= represented.watchers.any? { |w| w.user_id == current_user.id }
@@ -681,6 +696,7 @@ module API
 
         # Attachments need to be eager loaded for the description
         self.to_eager_load = %i[parent
+                                priority
                                 type
                                 watchers
                                 attachments
@@ -698,6 +714,7 @@ module API
            json_key_representer_parts,
            represented.cache_checksum,
            Setting.work_package_done_ratio,
+           Setting.show_work_package_attachments,
            Setting.feeds_enabled?]
         end
 

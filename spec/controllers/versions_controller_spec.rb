@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -243,7 +243,7 @@ RSpec.describe VersionsController do
     it "renders correctly" do
       login_as(user)
       get :new, params: { project_id: project.id }
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -314,8 +314,7 @@ RSpec.describe VersionsController do
       it { expect(version1.reload.effective_date).to eq(Date.today) }
     end
 
-    context "with valid params
-             with a redirect url" do
+    context "with valid params with a redirect url" do
       before do
         login_as(user)
         patch :update,
@@ -341,7 +340,7 @@ RSpec.describe VersionsController do
               }
       end
 
-      it { expect(response).to be_successful }
+      it { expect(response).to have_http_status(:unprocessable_entity) }
       it { expect(response).to render_template("edit") }
       it { expect(assigns(:version).errors.symbols_for(:name)).to contain_exactly(:blank) }
     end

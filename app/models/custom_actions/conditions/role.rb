@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -39,7 +39,7 @@ class CustomActions::Conditions::Role < CustomActions::Conditions::Base
 
     def roles_in_project(work_packages, user)
       with_request_store(projects_of(work_packages)) do |projects|
-        projects.map do |project|
+        projects.filter_map do |project|
           user.roles_for_project(project)
         end.flatten
       end

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -190,7 +190,7 @@ class Query < ApplicationRecord
   end
 
   def filter_for(field)
-    filter = (filters || []).detect { |f| f.field.to_s == field.to_s } || super(field)
+    filter = (filters || []).detect { |f| f.field.to_s == field.to_s } || super
 
     filter.context = self
 
@@ -359,7 +359,15 @@ class Query < ApplicationRecord
   end
 
   def group_by_statement
-    group_by_column.try(:groupable)
+    group_by_column&.groupable
+  end
+
+  def group_by_select
+    group_by_column&.groupable_select || group_by_statement
+  end
+
+  def group_by_join_statement
+    group_by_column&.groupable_join
   end
 
   def statement

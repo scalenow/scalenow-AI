@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -71,6 +71,31 @@ module TableHelpers
         expect(table_data.values_for_attribute(:remaining_hours)).to eq([3.0, nil])
         expect(table_data.work_package_identifiers).to eq(%i[work_package another_one])
       end
+
+      it "can read schedule column data from work packages" do
+        expected_table = <<~TABLE
+          | subject        |   MTWTFSS |
+          | work package 1 | XXX       |
+          | work package 2 |       ]   |
+        TABLE
+
+        columns = described_class.for(expected_table).columns
+        monday = Date.current.next_occurring(:monday)
+        work_package1 = build(:work_package, subject: "work package 1",
+                                             start_date: monday - 2, due_date: monday)
+        work_package2 = build(:work_package, subject: "work package 2",
+                                             start_date: nil, due_date: monday + 4)
+
+        table_data = described_class.from_work_packages([work_package1, work_package2], columns)
+        expect(table_data.work_packages_data.size).to eq(2)
+        expect(table_data.columns.size).to eq(2)
+        expect(table_data.headers).to eq(["subject", "MTWTFSS"])
+        expect(table_data.values_for_attribute(:start_date))
+          .to eq([monday - 2, nil])
+        expect(table_data.values_for_attribute(:due_date))
+          .to eq([monday, monday + 4])
+        expect(table_data.work_package_identifiers).to eq(%i[work_package1 work_package2])
+      end
     end
 
     describe "#headers" do
@@ -112,18 +137,43 @@ module TableHelpers
     end
 
     describe "#create_work_packages" do
+      let(:monday) { Date.current.next_occurring(:monday) }
+
       it "creates work packages out of the table data" do
         status = create(:status, name: "To do")
         table_representation = <<~TABLE
-          subject | status | work |
-          My wp   | To do  |   5h |
+          subject | status | work | MTWTFSS |
+          My wp   | To do  |   5h | XXX     |
         TABLE
 
         table_data = described_class.for(table_representation)
         table = table_data.create_work_packages
         expect(table.work_packages.count).to eq(1)
         expect(table.work_package(:my_wp))
-          .to have_attributes(subject: "My wp", status:, estimated_hours: 5.0)
+          .to have_attributes(
+            subject: "My wp",
+            status:,
+            estimated_hours: 5.0,
+            start_date: monday,
+            due_date: monday + 2.days
+          )
+      end
+
+      it "creates relations between work packages out of the table data" do
+        table_representation = <<~TABLE
+          subject  | properties
+          main     |
+          follower | follows main with lag 2
+        TABLE
+
+        table_data = described_class.for(table_representation)
+        table = table_data.create_work_packages
+        expect(table.work_packages.count).to eq(2)
+        main = table.work_package(:main)
+        follower = table.work_package(:follower)
+        expect(follower.follows_relations.count).to eq(1)
+        expect(follower.follows_relations.first.to).to eq(main)
+        expect(follower.follows_relations.first.lag).to eq(2)
       end
 
       it "raises an error if a given status name does not exist" do
@@ -143,6 +193,70 @@ module TableHelpers
         create(:status, name: "To do")
         expect { described_class.for(table_representation).create_work_packages }
           .not_to raise_error
+      end
+    end
+
+    describe "#order_like" do
+      it "orders the table data like the given table" do
+        table_representation = <<~TABLE
+          | subject      | remaining work |
+          | work package |             3h |
+          | another one  |                |
+        TABLE
+        table_data = described_class.for(table_representation)
+
+        other_table_representation = <<~TABLE
+          | subject      | remaining work |
+          | another one  |                |
+          | work package |             3h |
+        TABLE
+        other_table_data = described_class.for(other_table_representation)
+        expect(table_data.work_package_identifiers).to eq(%i[work_package another_one])
+
+        table_data.order_like!(other_table_data)
+        expect(table_data.work_package_identifiers).to eq(%i[another_one work_package])
+      end
+
+      it "ignores unknown rows from the given table" do
+        table_representation = <<~TABLE
+          | subject      | remaining work |
+          | work package |             3h |
+          | another one  |                |
+        TABLE
+        table_data = described_class.for(table_representation)
+
+        other_table_representation = <<~TABLE
+          | subject      | remaining work |
+          | another one  |                |
+          | work package |             3h |
+          | unknown one  |                |
+        TABLE
+        other_table_data = described_class.for(other_table_representation)
+        expect(table_data.work_package_identifiers).to eq(%i[work_package another_one])
+
+        table_data.order_like!(other_table_data)
+        expect(table_data.work_package_identifiers).to eq(%i[another_one work_package])
+      end
+
+      it "appends to the bottom the rows missing in the given table" do
+        table_representation = <<~TABLE
+          | subject      | remaining work |
+          | work package |             3h |
+          | extra one    |                |
+          | another one  |                |
+        TABLE
+        table_data = described_class.for(table_representation)
+
+        other_table_representation = <<~TABLE
+          | subject           | remaining work |
+          | another one       |                |
+          | work package      |             3h |
+        TABLE
+        other_table_data = described_class.for(other_table_representation)
+        expect(table_data.work_package_identifiers).to eq(%i[work_package extra_one another_one])
+
+        table_data.order_like!(other_table_data)
+        expect(table_data.work_package_identifiers).to eq(%i[another_one work_package extra_one])
       end
     end
   end

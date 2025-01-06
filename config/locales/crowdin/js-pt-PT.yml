@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -66,7 +66,7 @@ pt-PT:
     button_back_to_list_view: "Voltar à visualização de lista"
     button_cancel: "Cancelar"
     button_close: "Fechar"
-    button_change_project: "Alterar projeto"
+    button_change_project: "Mover para outro projeto"
     button_check_all: "Seleccionar Todos"
     button_configure-form: "Configurar formulário"
     button_confirm: "Confirmar"
@@ -74,7 +74,7 @@ pt-PT:
     button_copy: "Copiar"
     button_copy_to_clipboard: "Copiar para a Área de transferência"
     button_copy_link_to_clipboard: "Copiar link para a área de transferência"
-    button_copy_to_other_project: "Copiar para outro projeto"
+    button_copy_to_other_project: "Duplicar noutro projeto"
     button_custom-fields: "Campos personalizados"
     button_delete: "Eliminar"
     button_delete_watcher: "Eliminar observador"
@@ -105,6 +105,7 @@ pt-PT:
     button_update: "Atualizar"
     button_export-pdf: "Transferir PDF"
     button_export-atom: "Transferir Atom"
+    button_generate_pdf: "Gerar PDF"
     button_create: "Criar"
     card:
       add_new: "Adicionar novo cartão"
@@ -138,6 +139,8 @@ pt-PT:
     description_select_work_package: "Selecionar pacote de trabalho #%{id}"
     description_subwork_package: "Filho de pacote de trabalho #%{id}"
     editor:
+      revisions: "Mostrar modificações locais"
+      no_revisions: "Não foram encontradas modificações locais"
       preview: "Alternar modo de pré-visualização"
       source_code: "Alternar modo de fonte do Markdown"
       error_saving_failed: "Ao guardar o documento ocorreu o seguinte erro: %{error}"
@@ -150,6 +153,7 @@ pt-PT:
         attribute_reference:
           macro_help_tooltip: "Este segmento de texto está a ser dinamicamente processado por uma macro."
           not_found: "Não foi possível encontrar o recurso solicitado"
+          nested_macro: "Esta macro faz referência de forma recursiva a %{model} %{id}."
           invalid_attribute: "O atributo selecionado '%{name}' não existe."
         child_pages:
           button: "Links para páginas filho"
@@ -274,6 +278,11 @@ pt-PT:
         warning: >
           As alterações podem demorar algum tempo a entrar em vigor. Receberá uma notificação quando todos os pacotes de trabalho relevantes forem atualizados.
           Tem a certeza de que quer continuar?
+      work_packages_settings:
+        warning_progress_calculation_mode_change_from_status_to_field_html: >-
+          Se alterar o modo de cálculo do progresso de baseado no estado para baseado no trabalho, o campo <i>% de conclusão</i> poderá ser editado livremente. Se, opcionalmente, introduzir valores para <i>Trabalho</i> ou <i>Trabalho restante</i>, estes também serão associado a <i>% de conclusão</i>. Se alterar o <i>Trabalho restante</i>, pode atualizar a <i>% de conclusão</i>.
+        warning_progress_calculation_mode_change_from_field_to_status_html: >-
+          Se alterar o modo de cálculo do progresso de "baseado no trabalho" para "baseado no estado", todos os valores <i>% Completo</i> existentes serão perdidos e substituídos por valores associados a cada estado. Os valores existentes para <i>Trabalho restante</i> também podem ser recalculados para refletir esta alteração. Esta ação não é reversível.
     custom_actions:
       date:
         specific: "on"
@@ -348,11 +357,10 @@ pt-PT:
           learn_about: "Saiba mais sobre os novos recursos"
           #Include the version to invalidate outdated translations in other locales.
           #Otherwise, e.g. chinese might still have the translations for 10.0 in the 12.0 release.
-          "14_0":
+          "15_1":
             standard:
-              learn_about_link: https://www.openproject.org/blog/openproject-14-0-release/
               new_features_html: >
-                A versão contém várias funcionalidades e melhorias novas: <br> <ul class="%{list_styling_class}"> <li>Implemente relatórios de progresso em hierarquias de pacotes de trabalho.</li> <li>Faça a gestão dos atributos do projeto de uma forma estruturada na página de visão geral do projeto.</li> <li>Veja de forma simplificada os campos personalizados na lista de projetos e na visão geral do projeto.</li> <li>Cabeçalhos de página unificados com o design elegante do Primer.</li> <li>Melhore as reuniões com novas funcionalidades, como carregamentos de anexos, responsáveis e histórico de reuniões.</li> <li>Receba alertas automáticos para armazenamentos de ficheiros não saudáveis e controle através de opções que pode ativar/desativar.</li> <li>Copie automaticamente a pasta do projeto gerida para o OneDrive/SharePoint ao copiar projetos.</li> <li>Peça aos administradores para removerem as partilhas dos pacotes de trabalho quando revogar a adesão a um projeto.</li> <li>Melhore o planeamento com modos de visualização de 4 e 8 semanas no planeador da equipa.</li> </ul>
+                A versão oferece várias funcionalidades e melhorias, por exemplo, <br> <ul class="%{list_styling_class}"> <li>Campos personalizados de tipo hierárquico (suplemento Enterprise).</li> <li>Reformulação do separador Relações nos pacotes de trabalho.</li> <li>Reformulação da página de índice das Reuniões.</li> <li>Quebras de página manuais nas exportações de pacotes de trabalho em PDF.</li> <li>Modo Zen para listas de projetos.</li> </ul>
     ical_sharing_modal:
       title: "Subscrever o calendário"
       inital_setup_error_message: "Ocorreu um erro ao recuperar os dados."
@@ -378,6 +386,7 @@ pt-PT:
     label_added_time_by: 'Adicionado por <a href="%{authorLink}">%{author}</a> a %{age}'
     label_ago: "dias atrás"
     label_all: "todos"
+    label_all_uppercase: "Todos"
     label_all_work_packages: "todas as tarefas"
     label_and: "e"
     label_ascending: "Ascendente"
@@ -392,6 +401,7 @@ pt-PT:
     label_create: "Criar"
     label_create_work_package: "Criar nova tarefa"
     label_created_by: "Criado por"
+    label_current: "atual"
     label_date: "Data"
     label_date_with_format: "Digite o %{date_attribute} usando o seguinte formato: %{format}"
     label_deactivate: "Desativar"
@@ -419,6 +429,7 @@ pt-PT:
     label_expand_project_menu: "Expandir menu do projeto"
     label_export: "Exportar"
     label_export_preparing: "A exportação está a ser preparada e será descarregada brevemente."
+    label_favorites: "Favoritos"
     label_filename: "Ficheiro"
     label_filesize: "Tamanho"
     label_general: "Geral"
@@ -565,7 +576,7 @@ pt-PT:
         members: "Convide novos <b>membros</b> para participarem no seu projeto."
         quick_add_button: "Clique no ícone mais (+) no menu de navegação para <b>criar um novo projeto</b> ou <b>convidar colegas</b>."
         sidebar_arrow: "Use a seta de retorno no canto superior esquerdo para voltar ao <b>menu principal</b> do projeto."
-        welcome: "Acompanhe um tour de apresentação de 3 minutos para descobrir mais <b>recursos importantes</b>.<br> Recomendamos que conclua as etapas até ao final. Pode reiniciar o tour a qualquer momento."
+        welcome: "Faça uma visita guiada de 3 minutos para conhecer as <b>funcionalidades mais importantes</b>.<br> Recomendamos que conclua as etapas até ao final. Pode reiniciar a visita a qualquer momento."
         wiki: "Na <b>wiki</b> pode documentar e partilhar conhecimento com a sua equipa."
         backlogs:
           overview: "Faça a gestão do seu trabalho na vista de <b>backlogs</b>."
@@ -597,17 +608,19 @@ pt-PT:
       title: "Notificações"
       no_unread: "Nenhuma notificação não lida"
       reasons:
-        mentioned: "mentionado"
-        watched: "observador"
-        assigned: "responsável"
-        responsible: "responsável"
-        created: "criado"
-        scheduled: "agendado"
-        commented: "comentado"
-        processed: "processado"
-        prioritized: "priorizado"
+        mentioned: "Mencionado"
+        watched: "Observador"
+        assigned: "Pessoa atribuída"
+        #The enum value is named 'responsible' in the database and that is what is transported through the API
+        #up to the frontend.
+        responsible: "Responsável"
+        created: "Criado"
+        scheduled: "Agendado"
+        commented: "Comentado"
+        processed: "Processado"
+        prioritized: "Priorizado"
         dateAlert: "Alerta de data"
-        shared: "partilhado"
+        shared: "Partilhado"
       date_alerts:
         milestone_date: "Data do marco"
         overdue: "Em atraso"
@@ -619,40 +632,27 @@ pt-PT:
         upsale:
           title: "Alertas de data"
           description: "Com os alertas de data, receberá uma notificação sobre as próximas datas de início e conclusão, para que não nunca perca ou esqueça prazos importantes. "
-      facets:
-        unread: "Não lida"
-        unread_title: "Mostrar não lidas"
-        all: "Todos"
-        all_title: "Mostrar tudo"
       center:
         label_actor_and: "e"
         and_more_users:
-          one: "e %{count} outros"
+          one: "e 1 outro"
           other: "e %{count} outros"
         no_results:
           at_all: "Vão aparecer novas notificações aqui quando houver atividade que lhe interesse"
           with_current_filter: "Não há notificações nesta visualização neste momento"
         mark_all_read: "Marcar tudo como lido"
         mark_as_read: "Marcar como lida"
-        text_update_date: "%{date} por"
+        text_update_date_by: "%{date} por"
         total_count_warning: "A mostrar as %{newest_count} notificações mais recentes. Mas %{more_count} não estão visíveis."
         empty_state:
           no_notification: "Parece que tem tudo em dia."
           no_notification_with_current_project_filter: "Parece que está em dia com o projeto selecionado."
           no_notification_with_current_filter: "Parece que está em dia no filtro %{filter}."
+          no_notification_for_filter: "Parece que está em dia neste filtro."
           no_selection: "Clique numa notificação para ver todos os detalhes da atividade."
         new_notifications:
           message: "Há novas notificações."
           link_text: "Clique aqui para carregá-las."
-      menu:
-        accountable: "Responsável"
-        by_project: "Não lido por projeto"
-        by_reason: "Motivo"
-        inbox: "Caixa de entrada"
-        mentioned: "Mencionou"
-        watched: "Observador"
-        date_alert: "Alerta de data"
-        shared: "Compartilhado"
       settings:
         change_notification_settings: 'Pode modificar as suas <a target="_blank" href="%{url}">definições de notificações</a> para garantir que nunca perde uma atualização importante.'
         title: "Definições das notificações"
@@ -717,7 +717,6 @@ pt-PT:
     project:
       required_outside_context: >
         Por favor escolha um projeto onde criar o pacote de trabalho de forma a ver todos os atributos. Só pode selecionar projetos com o tipo acima ativado.
-      details_activity: "Atividade de detalhes do projeto"
       context: "Contexto do projeto"
       click_to_switch_to_project: "Projeto: %{projectname}"
       confirm_template_load: "Mudar o modelo irá recarregar a página e vai perder todas as entradas feitas neste formulário. Continuar?"
@@ -886,6 +885,11 @@ pt-PT:
       preformatted_text: "Texto pré-formatado"
       wiki_link: "Link para uma página Wiki"
       image: "Imagem"
+    sharing:
+      share: "Partilhar"
+      selected_count: "%{count} selecionado"
+      selection:
+        mixed: "Misturado"
     work_packages:
       bulk_actions:
         move: "Mudança em massa de projeto"
@@ -996,11 +1000,13 @@ pt-PT:
         workAlternative: "Tempo estimado"
         remainingTime: "Trabalho restante"
       default_queries:
+        manually_sorted: "Nova consulta ordenada manualmente"
         latest_activity: "Atividade mais recente"
         created_by_me: "Criado por mim"
         assigned_to_me: "Atribuído a mim"
         recently_created: "Criado recentemente"
         all_open: "Tudo aberto"
+        overdue: "Em atraso"
         summary: "Resumo"
         shared_with_users: "Partilhado com utilizadores"
         shared_with_me: "Partilhados comigo"
@@ -1041,12 +1047,8 @@ pt-PT:
         is_parent: "As datas deste pacote de trabalho são deduzidas automaticamente dos seus filhos. Ative o 'Agendamento manual' para definir as datas."
         is_switched_from_manual_to_automatic: "As datas deste pacote de trabalho podem precisar de ser recalculadas após mudar de agendamento manual para automático, devido a relações com outros pacotes de trabalho."
       sharing:
-        share: "Partilhe"
         title: "Partilhar pacote de trabalho"
-        show_all_users: "Mostrar todos os utilizadores partilhados"
-        selected_count: "%{count} selecionado"
-        selection:
-          mixed: "Misturado"
+        show_all_users: "Mostrar todos os utilizadores com quem o pacote de trabalho foi partilhado"
         upsale:
           description: "Partilhe pacotes de trabalho com utilizadores que não são membros do projeto."
       table:
@@ -1185,6 +1187,9 @@ pt-PT:
         one: "1 dia"
         other: "%{count} dias"
         zero: "0 dias"
+      word:
+        one: "1 palavra"
+        other: "%{count} palavras"
     zen_mode:
       button_activate: "Ativar modo zen"
       button_deactivate: "Desativar modo zen"
@@ -1269,6 +1274,14 @@ pt-PT:
           placeholder: "O espaço reservado agora pode ser usado em %{project}. Enquanto isso, já pode planear com este utilizador e atribuir pacotes de trabalho, por exemplo."
           group: "O grupo agora faz parte de %{project}. Enquanto isso, já pode planear com este grupo e atribuir pacotes de trabalho, por exemplo."
         next_button: "Continuar"
+    exclusion_info:
+      modal:
+        title: "Estado excluído dos totais da hierarquia"
+        content: >-
+          O estado "%{status_name}" foi configurado para ser excluído dos totais hierárquicos de Trabalho, Trabalho restante e % Completo. Os totais não levam em conta este valor.
+    favorite_projects:
+      no_results: "Não tem projetos favoritos"
+      no_results_subtext: "Adicione um ou vários projetos como favoritos através da sua visão geral ou numa lista de projetos."
     include_projects:
       toggle_title: "Incluir projetos"
       title: "Projetos"
@@ -1326,8 +1339,12 @@ pt-PT:
         remove: "Remover"
       drop_modal:
         focus_grab: "Esta é uma âncora de foco para modais. Pressione Shift+tab para voltar ao elemento de gatilho modal."
-        Close: "Fechar"
+        close: "Fechar modal"
     open_project_storage_modal:
+      waiting_title:
+        timeout: "Tempo esgotado"
       waiting_subtitle:
         network_off: "Há um problema de rede."
         network_on: "A rede está de volta. Estamos a tentar."
+        timeout: >
+          O OpenProject não pôde fornecer acesso à pasta do projeto dentro do período esperado de tempo, tente novamente.<br><br> Se esse problema continuar, entre em contacto com o administrador do OpenProject para verificar o <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">estado de funcionamento da configuração de armazenamento de ficheiros</a>.

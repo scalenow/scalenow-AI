@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -40,12 +40,6 @@ module Pages
       @project_identifier = project_identifier
     end
 
-    def visit!
-      super
-
-      self
-    end
-
     def path
       "/projects/#{project_identifier}/members"
     end
@@ -61,13 +55,14 @@ module Pages
     def search_for_name(name)
       fill_in "name", with: name
       find(".simple-filters--controls input[type=submit]").click
+      wait_for_reload
     end
 
     def expect_menu_item(text, selected: false)
       if selected
-        expect(page).to have_css(".op-sidemenu--item-action.selected", text:)
+        expect(page).to have_css(".op-submenu--item-action.selected", text:)
       else
-        expect(page).to have_css(".op-sidemenu--item-action", text:)
+        expect(page).to have_css(".op-submenu--item-action", text:)
       end
     end
 
@@ -188,6 +183,7 @@ module Pages
       Array(remove_roles).each { |role| uncheck role }
 
       click_on "Change"
+      wait_for_reload
     end
 
     def has_group_membership?(user_name)
@@ -270,6 +266,7 @@ module Pages
 
     def go_to_page!(number)
       find(".op-pagination--pages a", text: number.to_s).click
+      wait_for_reload
     end
   end
 end

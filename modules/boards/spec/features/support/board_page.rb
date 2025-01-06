@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -91,6 +91,7 @@ module Pages
       subject.send_keys :enter
 
       sleep 1
+      wait_for_network_idle
 
       expect_card(list_name, card_title)
     end
@@ -110,7 +111,7 @@ module Pages
 
       page.find(".menu-item", text: "Add existing").click
 
-      select_autocomplete(page.find(".wp-inline-create--reference-autocompleter"),
+      select_autocomplete(page.find("ng-select.wp-inline-create--reference-autocompleter"),
                           query: work_package.subject,
                           results_selector: "body",
                           select_text: "##{work_package.id}")
@@ -125,7 +126,7 @@ module Pages
 
       page.find(".menu-item", text: "Add existing").click
 
-      target_dropdown = search_autocomplete(page.find(".wp-inline-create--reference-autocompleter"),
+      target_dropdown = search_autocomplete(page.find("ng-select.wp-inline-create--reference-autocompleter"),
                                             query: work_package.subject,
                                             results_selector: ".work-packages-partitioned-query-space--container")
 
@@ -239,6 +240,10 @@ module Pages
       expect(page).to have_no_css(".boards-list--item", wait: 10)
     end
 
+    def expect_not_any_card
+      expect(page).to have_no_css('[data-test-selector="op-wp-single-card"]')
+    end
+
     def remove_list(name)
       click_list_dropdown name, "Delete list"
 
@@ -284,7 +289,7 @@ module Pages
       click_dropdown_entry "Delete"
 
       accept_alert_dialog!
-      expect_and_dismiss_toaster message: I18n.t("js.notice_successful_delete")
+      expect_and_dismiss_flash message: I18n.t("js.notice_successful_delete")
     end
 
     def back_to_index

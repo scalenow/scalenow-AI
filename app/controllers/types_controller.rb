@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -60,7 +60,7 @@ class TypesController < ApplicationController
     end
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     CreateTypeService
       .new(current_user)
       .call(permitted_type_params, copy_workflow_from: params[:copy_workflow_from]) do |call|
@@ -73,7 +73,7 @@ class TypesController < ApplicationController
       call.on_failure do |result|
         flash[:error] = result.errors.full_messages.join("\n")
         load_projects_and_types
-        render action: "new"
+        render action: :new, status: :unprocessable_entity
       end
     end
   end
@@ -83,12 +83,12 @@ class TypesController < ApplicationController
       .new(@type, current_user)
       .call(permitted_type_params) do |call|
       call.on_success do
-        redirect_to_type_tab_path(@type, update_success_message)
+        redirect_to_type_tab_path(@type, t(:notice_successful_update))
       end
 
       call.on_failure do |result|
         flash[:error] = result.errors.full_messages.join("\n")
-        render_edit_tab(@type)
+        render_edit_tab(@type, status: :unprocessable_entity)
       end
     end
   end
@@ -99,7 +99,7 @@ class TypesController < ApplicationController
       redirect_to types_path
     else
       flash.now[:error] = I18n.t(:error_type_could_not_be_saved)
-      render action: "edit"
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
@@ -139,32 +139,16 @@ class TypesController < ApplicationController
                 notice:)
   end
 
-  def default_breadcrumb
-    if action_name == "index"
-      t(:label_work_package_types)
-    else
-      ActionController::Base.helpers.link_to(t(:label_work_package_types), types_path)
-    end
-  end
-
-  def render_edit_tab(type)
+  def render_edit_tab(type, status: :ok)
     @tab = params[:tab]
     @projects = Project.all
     @type = type
 
-    render action: "edit"
+    render action: :edit, status:
   end
 
   def show_local_breadcrumb
-    true
-  end
-
-  def update_success_message
-    if params[:tab].in?(%w[form_configuration projects])
-      t(:notice_successful_update_custom_fields_added_to_type)
-    else
-      t(:notice_successful_update)
-    end
+    false
   end
 
   def destroy_error_message

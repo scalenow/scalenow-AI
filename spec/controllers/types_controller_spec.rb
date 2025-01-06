@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -53,7 +53,7 @@ RSpec.describe TypesController do
       describe "the access should be restricted" do
         before { get "index" }
 
-        it { expect(response.status).to eq(403) }
+        it { expect(response).to have_http_status(:forbidden) }
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe TypesController do
       describe "the access should be restricted" do
         before { get "new" }
 
-        it { expect(response.status).to eq(403) }
+        it { expect(response).to have_http_status(:forbidden) }
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe TypesController do
       describe "the access should be restricted" do
         before { get "edit", params: { id: "123" } }
 
-        it { expect(response.status).to eq(403) }
+        it { expect(response).to have_http_status(:forbidden) }
       end
     end
 
@@ -77,7 +77,7 @@ RSpec.describe TypesController do
       describe "the access should be restricted" do
         before { post "create" }
 
-        it { expect(response.status).to eq(403) }
+        it { expect(response).to have_http_status(:forbidden) }
       end
     end
 
@@ -85,7 +85,7 @@ RSpec.describe TypesController do
       describe "the access should be restricted" do
         before { delete "destroy", params: { id: "123" } }
 
-        it { expect(response.status).to eq(403) }
+        it { expect(response).to have_http_status(:forbidden) }
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe TypesController do
       describe "the access should be restricted" do
         before { post "update", params: { id: "123" } }
 
-        it { expect(response.status).to eq(403) }
+        it { expect(response).to have_http_status(:forbidden) }
       end
     end
 
@@ -101,7 +101,7 @@ RSpec.describe TypesController do
       describe "the access should be restricted" do
         before { post "move", params: { id: "123" } }
 
-        it { expect(response.status).to eq(403) }
+        it { expect(response).to have_http_status(:forbidden) }
       end
     end
   end
@@ -161,7 +161,7 @@ RSpec.describe TypesController do
           post :create, params:
         end
 
-        it { expect(response.status).to eq(200) }
+        it { expect(response).to have_http_status(:unprocessable_entity) }
 
         it "shows an error message" do
           expect(response.body).to have_content("Name can't be blank")
@@ -214,7 +214,7 @@ RSpec.describe TypesController do
         get "edit", params: { id: type.id, tab: :settings }
       end
 
-      it { expect(response).to be_successful }
+      it { expect(response).to have_http_status(:ok) }
       it { expect(response).to render_template "edit" }
       it { expect(response).to render_template "types/form/_settings" }
       it { expect(response.body).to have_css "input[@name='type[name]'][@value='My type']" }
@@ -233,7 +233,7 @@ RSpec.describe TypesController do
         get "edit", params: { id: type.id, tab: :projects }
       end
 
-      it { expect(response).to be_successful }
+      it { expect(response).to have_http_status(:ok) }
       it { expect(response).to render_template "edit" }
       it { expect(response).to render_template "types/form/_projects" }
 
@@ -242,7 +242,7 @@ RSpec.describe TypesController do
       }
     end
 
-    describe "POST update" do
+    describe "PATCH update" do
       let(:project2) { create(:project) }
       let(:type) do
         create(:type, name: "My type",
@@ -258,7 +258,7 @@ RSpec.describe TypesController do
         end
 
         before do
-          put :update, params:
+          patch :update, params:
         end
 
         it { expect(response).to be_redirect }
@@ -274,6 +274,21 @@ RSpec.describe TypesController do
         end
       end
 
+      describe "WITH the name being erroneously blank" do
+        let(:params) do
+          { "id" => type.id,
+            "type" => { name: "" },
+            "tab" => "settings" }
+        end
+
+        before do
+          patch :update, params:
+        end
+
+        it { expect(response).to have_http_status(:unprocessable_entity) }
+        it { expect(response).to render_template "edit" }
+      end
+
       describe "WITH projects removed" do
         let(:params) do
           { "id" => type.id,
@@ -282,7 +297,7 @@ RSpec.describe TypesController do
         end
 
         before do
-          put :update, params:
+          patch :update, params:
         end
 
         it { expect(response).to be_redirect }

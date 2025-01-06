@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -35,7 +35,7 @@ module Admin
 
       before_action :find_attachment, only: %i[destroy]
 
-      menu_item :attachment_quarantine
+      menu_item :attachments
 
       def index; end
 

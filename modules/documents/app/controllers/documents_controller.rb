@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -71,7 +71,7 @@ class DocumentsController < ApplicationController
       redirect_to project_documents_path(@project)
     else
       @document = call.result
-      render action: "new"
+      render action: :new, status: :unprocessable_entity
     end
   end
 
@@ -89,7 +89,7 @@ class DocumentsController < ApplicationController
       redirect_to action: "show", id: @document
     else
       @document = call.result
-      render action: "edit"
+      render action: :edit, status: :unprocessable_entity
     end
   end
 

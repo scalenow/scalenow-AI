@@ -2,7 +2,7 @@
 
 # -- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2023 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -44,18 +44,8 @@ class AddButtonComponent < ApplicationComponent
     raise "Implement the id for this component"
   end
 
-  def li_css_class
-    "toolbar-item"
-  end
-
   def title
     accessibility_label_text
-  end
-
-  def label
-    content_tag(:span,
-                label_text,
-                class: "button--text")
   end
 
   def aria_label
@@ -68,13 +58,5 @@ class AddButtonComponent < ApplicationComponent
 
   def label_text
     raise "Specify the label text to be used for this component"
-  end
-
-  def link_css_class
-    "button -primary custom-secondary-button rounded-border"
-  end
-
-  def icon
-    helpers.op_icon("button--icon icon-add")
   end
 end

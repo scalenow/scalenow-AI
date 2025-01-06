@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -90,14 +90,6 @@ class UserPreference < ApplicationRecord
     settings.fetch(:diff_type, "inline")
   end
 
-  def hide_mail
-    settings.fetch(:hide_mail, true)
-  end
-
-  def can_expose_mail?
-    !hide_mail
-  end
-
   def auto_hide_popups=(value)
     settings[:auto_hide_popups] = to_boolean(value)
   end
@@ -132,7 +124,11 @@ class UserPreference < ApplicationRecord
   end
 
   def time_zone
-    super.presence || Setting.user_default_timezone.presence
+    super.presence || Setting.user_default_timezone.presence || "Etc/UTC"
+  end
+
+  def time_zone?
+    settings["time_zone"].present?
   end
 
   def daily_reminders

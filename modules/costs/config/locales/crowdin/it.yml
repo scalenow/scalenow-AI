@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -85,8 +85,6 @@ it:
   label_cost_type_plural: "Tipo di costo"
   label_cost_type_specific: "Tipo di costo #%{id}: %{name}"
   label_costs_per_page: "Costi per pagina"
-  label_currency: "Valuta"
-  label_currency_format: "Formato della valuta"
   label_current_default_rate: "Tariffa predefinita corrente"
   label_date_on: "il"
   label_deleted_cost_types: "Tipi di costo eliminati"
@@ -111,6 +109,7 @@ it:
   label_rate: "Tariffa"
   label_rate_plural: "Tariffe"
   label_status_finished: "Terminato"
+  label_show: "Mostra"
   label_units: "Unità di costo"
   label_user: "Utente"
   label_until: "finché"
@@ -119,7 +118,7 @@ it:
   notice_something_wrong: "Qualcosa è andato storto. Si prega di riprovare."
   notice_successful_restore: "Ripristino eseguito con successo."
   notice_successful_lock: "Bloccato con successo."
-  notice_cost_logged_successfully: 'Costo unitario registrato con successo.'
+  notice_cost_logged_successfully: "Costo unitario registrato con successo."
   permission_edit_cost_entries: "Modifica unità di costo riservate"
   permission_edit_own_cost_entries: "Modifica le proprie unità di costo riservate"
   permission_edit_hourly_rates: "Modifica tariffe orarie"
@@ -134,6 +133,10 @@ it:
   permission_view_own_hourly_rate: "Visualizza propria tariffa oraria"
   permission_view_own_time_entries: "Visualizzare il proprio tempo trascorso"
   project_module_costs: "Tempi e costi"
+  setting_allow_tracking_start_and_end_times: "Consentire agli utenti di tenere traccia dell'ora di inizio e di fine nelle registrazioni temporali"
+  setting_costs_currency: "Valuta"
+  setting_costs_currency_format: "Formato della valuta"
+  setting_enforce_tracking_start_and_end_times: "Forza gli utenti a impostare l'ora di inizio e di fine nelle registrazioni temporali"
   text_assign_time_and_cost_entries_to_project: "Assegna orari e costi segnalati al progetto"
   text_destroy_cost_entries_question: "%{cost_entries} sono stati segnalati per la macro-attività (work package) che si sta per eliminare. Che cosa vuoi fare?"
   text_destroy_time_and_cost_entries: "Elimina orari e costi riportati"

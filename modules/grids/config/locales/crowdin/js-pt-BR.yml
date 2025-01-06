@@ -27,9 +27,6 @@ pt-BR:
         project_description:
           title: 'Descrição do projeto'
           no_results: "Nenhuma descrição foi escrita. Uma pode ser fornecida nas 'Configurações do Projeto'."
-        project_details:
-          title: 'Detalhes do projeto'
-          no_results: 'Nenhum campo personalizado foi definido para projetos.'
         project_status:
           title: 'Situação do projeto'
           not_started: 'Não iniciado'
@@ -42,6 +39,9 @@ pt-BR:
         subprojects:
           title: 'Subprojetos'
           no_results: 'Nenhum subprojeto.'
+        project_favorites:
+          title: 'Projetos favoritos'
+          no_results: 'No momento, você não possui projetos favoritos. Clique no ícone de estrela no painel do projeto para adicionar um aos seus favoritos.'
         time_entries_current_user:
           title: 'Meu tempo gasto'
           displayed_days: 'Dias exibidos no widget:'

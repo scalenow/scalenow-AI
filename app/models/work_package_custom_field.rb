@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -47,6 +47,11 @@ class WorkPackageCustomField < CustomField
         .or(where(is_for_all: true).references(:projects, :types))
         .includes(:projects, :types)
     end
+  }
+
+  scope :usable_as_custom_action, -> {
+    where.not(field_format: %w[hierarchy])
+         .order(:name)
   }
 
   def self.summable

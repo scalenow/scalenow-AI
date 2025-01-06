@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -66,7 +66,7 @@ module Storages
     validates_uniqueness_of :name
 
     scope :visible, ->(user = User.current) do
-      if user.allowed_in_any_project?(:manage_storages_in_project)
+      if user.allowed_in_any_project?(:manage_files_in_project)
         all
       else
         where(
@@ -82,6 +82,8 @@ module Storages
     end
 
     scope :automatic_management_enabled, -> { where("provider_fields->>'automatically_managed' = 'true'") }
+
+    scope :in_project, ->(project_id) { joins(project_storages: :project).where(project_storages: { project_id: }) }
 
     enum health_status: {
       pending: "pending",
@@ -108,7 +110,7 @@ module Storages
     def self.extract_part_from_piped_string(text, index)
       return if text.nil?
 
-      split_reason = text.split("|")
+      split_reason = text.split(/[|:]/)
       if split_reason.length > index
         split_reason[index].strip
       end
@@ -116,11 +118,7 @@ module Storages
 
     def health_notifications_should_be_sent?
       # it is a fallback for already created storages without health_notifications_enabled configured.
-      if health_notifications_enabled.nil?
-        automatic_management_enabled?
-      else
-        health_notifications_enabled
-      end
+      (health_notifications_enabled.nil? && automatic_management_enabled?) || health_notifications_enabled?
     end
 
     def automatically_managed?
@@ -147,6 +145,10 @@ module Storages
 
     alias automatic_management_enabled automatically_managed
 
+    def available_project_folder_modes
+      raise Errors::SubclassResponsibility
+    end
+
     def configured?
       configuration_checks.values.all?
     end
@@ -158,7 +160,11 @@ module Storages
     def uri
       return unless host
 
-      @uri ||= URI(host).normalize
+      @uri ||= if host.end_with?("/")
+                 URI(host).normalize
+               else
+                 URI("#{host}/").normalize
+               end
     end
 
     def connect_src
@@ -180,6 +186,10 @@ module Storages
 
     def short_provider_type
       @short_provider_type ||= self.class.shorten_provider_type(provider_type)
+    end
+
+    def to_s
+      short_provider_type
     end
 
     def provider_type_nextcloud?

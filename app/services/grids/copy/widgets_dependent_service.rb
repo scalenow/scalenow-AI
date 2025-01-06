@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -108,11 +108,11 @@ module Grids::Copy
     end
 
     def map_query_filters(filters, _params)
-      ::Queries::Copy::FiltersMapper
-        .new(state, filters)
-        .map_filters!
+      result = ::Queries::Copy::FiltersMapper
+        .new(state)
+        .map_filters(filters)
 
-      ServiceResult.success result: filters
+      ServiceResult.success(result:)
     end
 
     def duplicate_query(query_id, params)

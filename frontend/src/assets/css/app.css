@@ -16368,14 +16368,20 @@ span.flatpickr-weekday {
   background-color: #09a9d5 !important;
 }
 
-.custom-secondary-button {
+.custom-secondary-button, .btn-primary {
   background-color: #ff7f5d !important;
   color: #fff !important;
   border: 0 !important;
 }
 
-.custom-secondary-button:hover {
+.custom-secondary-button:hover, .btn-primary:hover {
   background-color: #d96c4f !important;
+}
+
+.btn-primary {
+  border-radius: 33px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 }
 
 .custom-success-button {
@@ -16467,8 +16473,8 @@ body {
   border-color: #000 !important;
 }
 
-.custom-breadcumb-style {
-  font-size: 22px;
+.breadcrumb-item {
+  font-size: 22px !important;
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
@@ -16541,9 +16547,7 @@ h5.version.icon-modules::before {
 }
 
 #meetings-header-component,
-#meetings-sidebar-details-component,
-#meetings-sidebar-state-component,
-#meetings-sidebar-participants-component {
+#meetings-side-panel-component .BorderGrid .BorderGrid-cell > div {
   background-color: #fff;
   padding: 24px;
   margin-bottom: 24px;
@@ -16551,13 +16555,30 @@ h5.version.icon-modules::before {
   border-radius: 33px;
 }
 
-.BorderGrid--spacious .BorderGrid-cell {
-  padding: 0;
+#meetings-header-component .PageHeader {
+  border-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+#meetings-side-panel-component .BorderGrid {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#meetings-side-panel-component .BorderGrid .BorderGrid-cell {
+  padding-bottom: 0;
+  padding-top: 0;
   border: 0;
+}
+
+.SidePanel-sectionHeader h4 {
+  color: #ff7f5d;
 }
 
 .State--open {
   background-color: #ff7f5d !important;
+  box-shadow: var(--boxShadow-thin) #ff7f5d !important;
 }
 
 .fc-scroller {
@@ -16615,7 +16636,8 @@ h5.version.icon-modules::before {
   gap: 24px;
 }
 
-.work-packages-partitioned-page--content-right .-grid.task-page {
+.work-packages-partitioned-page--content-right .-grid.task-page,
+#content-bodyRight .op-work-package-split-view .-grid.task-page {
   grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
 }
 
@@ -16646,6 +16668,7 @@ h5.version.icon-modules::before {
   padding: 0 16px;
   border-radius: 33px;
   border: 1px solid #000;
+  margin-top: 0 !important;
 }
 
 #meeting-agenda-items-list-component .Box > ul:not(.op-uc-list) {
@@ -16714,4 +16737,22 @@ h5.version.icon-modules::before {
   overflow-x: hidden !important;
   overflow-y: visible !important;
   scrollbar-width: none !important;
+}
+
+.PageHeader-title {
+  color: #ff7f5d !important;
+}
+
+.main-menu ul .main-menu--children li a:not(.Button):before {
+  content: '-';
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.Overlay {
+  scrollbar-width: none;
+}
+
+.spot-modal--cancel-button, .Overlay-footer .btn {
+  border-radius: 33px !important;
 }

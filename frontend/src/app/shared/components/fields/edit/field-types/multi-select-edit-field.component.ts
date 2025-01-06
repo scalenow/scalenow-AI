@@ -1,6 +1,6 @@
-// -- copyright
+//-- copyright
 // OpenProject is an open source project management software.
-// Copyright (C) 2012-2024 the OpenProject GmbH
+// Copyright (C) the OpenProject GmbH
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License version 3.
@@ -173,7 +173,7 @@ export class MultiSelectEditFieldComponent extends EditFieldComponent implements
       });
     }
 
-    this.availableOptions = availableValues || [];
+    this.availableOptions = this.filterInvalidValues(availableValues || []);
     this._selectedOption = this.buildSelectedOption();
     this.checkCurrentValueValidity();
 
@@ -205,6 +205,10 @@ export class MultiSelectEditFieldComponent extends EditFieldComponent implements
       this.setValues([]);
     }
     return Promise.resolve();
+  }
+
+  private filterInvalidValues(availableValues:HalResource[]) {
+    return availableValues.filter((value) => !!value.name);
   }
 
   private checkCurrentValueValidity() {

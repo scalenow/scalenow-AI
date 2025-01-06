@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -30,10 +30,10 @@ require "spec_helper"
 
 require_relative "../support/pages/meetings/index"
 
-RSpec.describe "Meetings new", :js, with_cuprite: false do
+RSpec.describe "Meetings new", :js, :with_cuprite do
   shared_let(:project) { create(:project, enabled_module_names: %w[meetings]) }
   shared_let(:admin) { create(:admin) }
-  let(:time_zone) { "utc" }
+  let(:time_zone) { "Etc/UTC" }
   let(:user) do
     create(:user,
            lastname: "First",
@@ -87,7 +87,6 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
           expect_angular_frontend_initialized # Wait for project dropdown to be ready
 
           new_page.set_title "Some title"
-          new_page.set_type "Classic"
           new_page.set_project project
 
           new_page.set_start_date "2013-03-28"
@@ -97,7 +96,7 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
 
           show_page = new_page.click_create
 
-          show_page.expect_toast(message: "Successful creation")
+          expect_flash(message: "Successful creation.")
 
           show_page.expect_invited(user, other_user)
 
@@ -134,7 +133,6 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
         before do
           new_page.visit!
           new_page.set_title "Some title"
-          new_page.set_type "Classic"
           new_page.set_start_date "2013-03-28"
           new_page.set_start_time "13:30"
           new_page.set_duration "1.5"
@@ -143,8 +141,8 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
         it "renders a validation error" do
           new_page.click_create
 
-          new_page.expect_toast(message: "#{Project.model_name.human} #{I18n.t('activerecord.errors.messages.blank')}",
-                                type: :error)
+          expect_flash(type: :error,
+                       message: "#{Project.model_name.human} #{I18n.t('activerecord.errors.messages.blank')}")
 
           new_page.expect_project_dropdown
         end
@@ -170,7 +168,6 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
         expect_angular_frontend_initialized # Wait for project dropdown to be ready
 
         new_page.set_title "Some title"
-        new_page.set_type "Classic"
 
         new_page.set_project project
 
@@ -178,7 +175,7 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
 
         show_page = new_page.click_create
 
-        show_page.expect_toast(message: "Successful creation")
+        expect_flash(message: "Successful creation.")
 
         # Not sure if that is then intended behaviour but that is what is currently programmed
         show_page.expect_invited(admin)
@@ -188,14 +185,12 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
         before do
           new_page.visit!
           new_page.set_title "Some title"
-          new_page.set_type "Classic"
         end
 
         it "renders a validation error" do
           new_page.click_create
 
-          new_page.expect_toast(message: "#{Project.model_name.human} #{I18n.t('activerecord.errors.messages.blank')}",
-                                type: :error)
+          expect(page).to have_text "#{Project.model_name.human} #{I18n.t('activerecord.errors.messages.blank')}"
           new_page.expect_project_dropdown
         end
       end
@@ -246,7 +241,6 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
           new_page.visit!
 
           new_page.set_title "Some title"
-          new_page.set_type "Classic"
           new_page.set_start_date "2013-03-28"
           new_page.set_start_time "13:30"
           new_page.set_duration "1.5"
@@ -254,7 +248,7 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
 
           show_page = new_page.click_create
 
-          show_page.expect_toast(message: "Successful creation")
+          expect_flash(message: "Successful creation.")
 
           show_page.expect_invited(user, other_user)
 
@@ -303,12 +297,11 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
       it "allows creating meeting in a project without members" do
         new_page.visit!
 
-        new_page.set_type "Classic"
         new_page.set_title "Some title"
 
         show_page = new_page.click_create
 
-        show_page.expect_toast(message: "Successful creation")
+        expect_flash(message: "Successful creation.")
 
         # Not sure if that is then intended behaviour but that is what is currently programmed
         show_page.expect_invited(admin)
@@ -333,11 +326,10 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
         new_page.visit!
 
         new_page.set_title "Some title"
-        new_page.set_type "Classic"
 
-        show_page = new_page.click_create
+        new_page.click_create
 
-        show_page.expect_toast(message: "Successful creation")
+        expect_flash(message: "Successful creation.")
 
         meeting = Meeting.last
 
@@ -345,7 +337,7 @@ RSpec.describe "Meetings new", :js, with_cuprite: false do
 
         field.submit_by_enter
 
-        show_page.expect_and_dismiss_toaster message: "Successful update"
+        expect_flash(message: "Successful update")
 
         meeting.reload
 

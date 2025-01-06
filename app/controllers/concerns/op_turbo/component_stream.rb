@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -30,7 +30,7 @@ module OpTurbo
   module ComponentStream
     extend ActiveSupport::Concern
 
-    def respond_to_with_turbo_streams(status: :ok, &format_block)
+    def respond_to_with_turbo_streams(status: turbo_status, &format_block)
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_streams, status:
@@ -39,6 +39,7 @@ module OpTurbo
         yield(format) if format_block
       end
     end
+
     alias_method :respond_with_turbo_streams, :respond_to_with_turbo_streams
 
     def update_via_turbo_stream(component:, status: :ok)
@@ -54,7 +55,7 @@ module OpTurbo
     end
 
     def modify_via_turbo_stream(component:, action:, status:)
-      @status = status
+      @turbo_status = status
       turbo_streams << component.render_as_turbo_stream(
         view_context:,
         action:
@@ -73,12 +74,27 @@ module OpTurbo
       turbo_streams << target_component.insert_as_turbo_stream(component:, view_context:, action: :before)
     end
 
+    def render_error_flash_message_via_turbo_stream(**kwargs)
+      update_flash_message_via_turbo_stream(**kwargs.merge(scheme: :danger, icon: :stop))
+    end
+
+    def update_flash_message_via_turbo_stream(message:, component: OpPrimer::FlashComponent, **)
+      instance = component.new(**).with_content(message)
+      turbo_streams << instance.render_as_turbo_stream(view_context:, action: :flash)
+    end
+
+    def scroll_into_view_via_turbo_stream(target, behavior: :auto, block: :start)
+      turbo_streams << OpTurbo::StreamComponent
+        .new(action: :scroll_into_view, target:, behavior:, block:)
+        .render_in(view_context)
+    end
+
     def turbo_streams
       @turbo_streams ||= []
     end
 
-    def status
-      @status ||= :ok
+    def turbo_status
+      @turbo_status ||= :ok
     end
   end
 end

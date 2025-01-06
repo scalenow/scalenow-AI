@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -29,6 +29,7 @@ module BasicData
   class ColorSeeder < ModelSeeder
     self.model_class = Color
     self.seed_data_model_key = "colors"
+    self.attribute_names_for_lookups = %i[name]
 
     def model_attributes(color_data)
       {

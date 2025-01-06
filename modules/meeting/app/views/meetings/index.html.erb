@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -26,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
+<% html_title t(:label_meeting_plural) %>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title t(:label_meeting_plural) %>
-  <%= toolbar title: t(:label_meeting_plural), title_class: "color-orange" do %>
-    <%= render Meetings::AddButtonComponent.new(current_project: @project) %>
-  <% end %>
-  <% if @meetings.empty? -%>
-    <%= no_results_box %>
-  <% else -%>
-    <%= render Meetings::TableComponent.new(rows: @meetings, current_project: @project) %>
-  <% end -%>
+<%= render(Meetings::IndexPageHeaderComponent.new(project: @project)) %>
+<%= render(Meetings::IndexSubHeaderComponent.new(query: @query, project: @project)) %>
+
+<% if @meetings.empty? -%>
+  <%= no_results_box %>
+<% else -%>
+  <%= render Meetings::TableComponent.new(rows: @meetings, current_project: @project) %>
+<% end -%>
 </div>

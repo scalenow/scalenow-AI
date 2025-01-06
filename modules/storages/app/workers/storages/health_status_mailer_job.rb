@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -39,6 +39,10 @@ module Storages
       key: -> { "#{self.class.name}-#{arguments.last[:storage].id}" }
     )
 
+    retry_on GoodJob::ActiveJobExtensions::Concurrency::ConcurrencyExceededError,
+             wait: 5.minutes,
+             attempts: 3
+
     discard_on ActiveJob::DeserializationError
 
     def perform(storage:)
@@ -46,7 +50,7 @@ module Storages
       return if storage.health_healthy?
 
       admin_users.each do |admin|
-        ::Storages::StoragesMailer.notify_unhealthy(admin, storage).deliver_later
+        StoragesMailer.notify_unhealthy(admin, storage).deliver_later
       end
 
       HealthStatusMailerJob.schedule(storage:)

@@ -5,6 +5,14 @@ import MainMenuController from './controllers/dynamic/menus/main.controller';
 import OpDisableWhenCheckedController from './controllers/disable-when-checked.controller';
 import PrintController from './controllers/print.controller';
 import RefreshOnFormChangesController from './controllers/refresh-on-form-changes.controller';
+import AsyncDialogController from './controllers/async-dialog.controller';
+import PollForChangesController from './controllers/poll-for-changes.controller';
+import TableHighlightingController from './controllers/table-highlighting.controller';
+import OpShowWhenCheckedController from './controllers/show-when-checked.controller';
+import OpShowWhenValueSelectedController from './controllers/show-when-value-selected.controller';
+import FlashController from './controllers/flash.controller';
+import OpProjectsZenModeController from './controllers/dynamic/projects/zen-mode.controller';
+import PasswordConfirmationDialogController from './controllers/password-confirmation-dialog.controller';
 
 declare global {
   interface Window {
@@ -21,8 +29,15 @@ instance.handleError = (error, message, detail) => {
 };
 
 instance.register('application', OpApplicationController);
-instance.register('menus--main', MainMenuController);
-
+instance.register('async-dialog', AsyncDialogController);
 instance.register('disable-when-checked', OpDisableWhenCheckedController);
+instance.register('flash', FlashController);
+instance.register('menus--main', MainMenuController);
+instance.register('password-confirmation-dialog', PasswordConfirmationDialogController);
+instance.register('poll-for-changes', PollForChangesController);
 instance.register('print', PrintController);
 instance.register('refresh-on-form-changes', RefreshOnFormChangesController);
+instance.register('show-when-checked', OpShowWhenCheckedController);
+instance.register('show-when-value-selected', OpShowWhenValueSelectedController);
+instance.register('table-highlighting', TableHighlightingController);
+instance.register('projects-zen-mode', OpProjectsZenModeController);

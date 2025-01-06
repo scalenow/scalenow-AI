@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -46,7 +46,9 @@ RSpec.describe "Meetings close" do
     login_as(user)
   end
 
-  context "with permission to close meetings", :js do
+  context "with permission to close meetings",
+          :js,
+          :with_cuprite do
     let(:permissions) { %i[view_meetings close_meeting_agendas] }
 
     it "can delete own and other`s meetings" do
@@ -56,11 +58,12 @@ RSpec.describe "Meetings close" do
 
       # Go to minutes, expect uneditable
       find(".op-tab-row--link", text: "MINUTES").click
-
       expect(page).to have_css(".button", text: "Close the agenda to begin the Minutes")
 
       # Close the meeting
       find(".op-tab-row--link", text: "AGENDA").click
+      wait_for_network_idle
+
       accept_confirm do
         find(".button", text: "Close").click
       end

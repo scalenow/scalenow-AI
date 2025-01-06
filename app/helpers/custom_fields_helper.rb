@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -63,16 +63,16 @@ module CustomFieldsHelper
   end
 
   # Return custom field html tag corresponding to its format
-  def custom_field_tag(name, custom_value)
+  def custom_field_tag(name, custom_value) # rubocop:disable Metrics/AbcSize,Metrics/PerceivedComplexity
     custom_field = custom_value.custom_field
     field_name = "#{name}[custom_field_values][#{custom_field.id}]"
     field_id = "#{name}_custom_field_values_#{custom_field.id}"
 
-    field_format = OpenProject::CustomFieldFormat.find_by_name(custom_field.field_format)
+    field_format = OpenProject::CustomFieldFormat.find_by(name: custom_field.field_format)
 
     tag = case field_format.try(:edit_as)
           when "date"
-            angular_component_tag "op-basic-single-date-picker",
+            angular_component_tag "opce-basic-single-date-picker",
                                   inputs: {
                                     required: custom_field.is_required,
                                     value: custom_value.value,
@@ -143,14 +143,14 @@ module CustomFieldsHelper
     custom_field_label_tag(name, custom_value) + custom_field_tag(name, custom_value)
   end
 
-  def custom_field_tag_for_bulk_edit(name, custom_field, project = nil)
+  def custom_field_tag_for_bulk_edit(name, custom_field, project = nil) # rubocop:disable Metrics/AbcSize
     field_name = "#{name}[custom_field_values][#{custom_field.id}]"
     field_id = "#{name}_custom_field_values_#{custom_field.id}"
-    field_format = OpenProject::CustomFieldFormat.find_by_name(custom_field.field_format)
+    field_format = OpenProject::CustomFieldFormat.find_by(name: custom_field.field_format)
 
     case field_format.try(:edit_as)
     when "date"
-      angular_component_tag "op-modal-single-date-picker",
+      angular_component_tag "opce-modal-single-date-picker",
                             inputs: {
                               id: field_id,
                               name: field_name
@@ -172,6 +172,19 @@ module CustomFieldsHelper
                         options_for_select(base_options + custom_field.possible_values_options(project)),
                         id: field_id,
                         multiple: custom_field.multi_value?)
+    when "hierarchy"
+      base_options = [[I18n.t(:label_no_change_option), ""]]
+      result = CustomFields::Hierarchy::HierarchicalItemService.new
+        .get_descendants(item: custom_field.hierarchy_root, include_self: false)
+        .either(
+          ->(items) { items },
+          ->(_) { [] }
+        )
+      options = base_options + result.map do |item|
+        label = item.short.present? ? "#{item.label} (#{item.short})" : item.label
+        [label, item.id]
+      end
+      styled_select_tag(field_name, options_for_select(options), id: field_id, multiple: custom_field.multi_value?)
     else
       styled_text_field_tag(field_name, "", id: field_id)
     end
@@ -186,28 +199,28 @@ module CustomFieldsHelper
 
   # Return a string used to display a custom value
   def format_value(value, custom_field)
-    custom_value = CustomValue.new(custom_field:,
-                                   value:)
-
-    custom_value.formatted_value
+    CustomValue.new(custom_field:, value:).formatted_value
   end
 
   # Return an array of custom field formats which can be used in select_tag
   def custom_field_formats_for_select(custom_field)
-    OpenProject::CustomFieldFormat
-      .all_for_field(custom_field)
-      .sort_by(&:order)
-      .reject { |format| format.label.nil? }
-      .map do |custom_field_format|
-        [label_for_custom_field_format(custom_field_format.name), custom_field_format.name]
-      end
+    OpenProject::CustomFieldFormat.all_for_field(custom_field)
+                                  .sort_by(&:order)
+                                  .reject { |format| format.label.nil? }
+                                  .map do |custom_field_format|
+      [label_for_custom_field_format(custom_field_format.name), custom_field_format.name]
+    end
   end
 
   def label_for_custom_field_format(format_string)
-    format = OpenProject::CustomFieldFormat.find_by_name(format_string)
+    format = OpenProject::CustomFieldFormat.find_by(name: format_string)
+    return "" if format.nil?
 
-    if format
-      format.label.is_a?(Proc) ? format.label.call : I18n.t(format.label)
-    end
+    label = format.label.is_a?(Proc) ? format.label.call : I18n.t(format.label)
+
+    show_enterprise_text = format_string == "hierarchy" && !EnterpriseToken.allows_to?(:custom_field_hierarchies)
+    suffix = show_enterprise_text ? " (#{I18n.t(:label_enterprise_addon)})" : ""
+
+    "#{label}#{suffix}"
   end
 end

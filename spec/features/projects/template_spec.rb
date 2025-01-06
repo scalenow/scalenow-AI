@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -44,6 +44,7 @@ RSpec.describe "Project templates", :js, :with_cuprite,
 
       # Make a template
       find(".button", text: "Set as template").click
+      expect_and_dismiss_flash(message: "Successful update.")
 
       expect(page).to have_css(".button", text: "Remove from templates")
       project.reload
@@ -132,7 +133,7 @@ RSpec.describe "Project templates", :js, :with_cuprite,
       page.find("button:not([disabled])", text: "Save").click
 
       expect(page).to have_content I18n.t(:label_copy_project)
-      expect(page).to have_content I18n.t("js.job_status.generic_messages.in_queue")
+      expect(page).to have_content I18n.t("job_status_dialog.generic_messages.in_queue")
 
       # Run background jobs twice: the background job which itself enqueues the mailer job
       GoodJob.perform_inline

@@ -1,6 +1,6 @@
 #-- copyright
 #OpenProject is an open source project management software.
-#Copyright (C) 2012-2024 the OpenProject GmbH
+#Copyright (C) the OpenProject GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
 #OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
@@ -85,8 +85,6 @@ tr:
   label_cost_type_plural: "Maliyet türleri"
   label_cost_type_specific: "Maliyet türü #%{id}: %{name}"
   label_costs_per_page: "Her sayfa için maliyet"
-  label_currency: "Kur"
-  label_currency_format: "Para biriminin biçimi"
   label_current_default_rate: "Güncel varsayılan oran"
   label_date_on: "açık"
   label_deleted_cost_types: "Silinmiş maliyet türleri"
@@ -111,6 +109,7 @@ tr:
   label_rate: "Oran"
   label_rate_plural: "Oranlar"
   label_status_finished: "Tamamlandı"
+  label_show: "Göster"
   label_units: "Maliyet birimleri"
   label_user: "Kullanıcı"
   label_until: "kadar"
@@ -119,7 +118,7 @@ tr:
   notice_something_wrong: "Bir şeyler yanlış gitti. Lütfen tekrar deneyin."
   notice_successful_restore: "Başarılı bir geri yükleme."
   notice_successful_lock: "Başarıyla kilitlendi."
-  notice_cost_logged_successfully: 'Birim maliyet başarıyla kaydedildi.'
+  notice_cost_logged_successfully: "Birim maliyet başarıyla kaydedildi."
   permission_edit_cost_entries: "Rezervasyon birimi maliyetlerini düzenle"
   permission_edit_own_cost_entries: "Kendi rezervasyonu birim maliyetlerini düzenleme"
   permission_edit_hourly_rates: "Saatlik oranları düzenleme"
@@ -134,6 +133,10 @@ tr:
   permission_view_own_hourly_rate: "Kendi saatlik ücreti görüntüleyin"
   permission_view_own_time_entries: "Kendi harcanan zamanı görüntüleyin"
   project_module_costs: "Zaman ve maliyetler"
+  setting_allow_tracking_start_and_end_times: "Allow users to track start and end time on time records"
+  setting_costs_currency: "Currency"
+  setting_costs_currency_format: "Format of currency"
+  setting_enforce_tracking_start_and_end_times: "Force users to set start and end time on time records"
   text_assign_time_and_cost_entries_to_project: "Raporlanan saatleri ve maliyetleri projeye tahsis edin"
   text_destroy_cost_entries_question: "%{cost_entries} silmek üzere olduğunuz iş paketleri hakkında rapor edildi. Ne yapmak istiyorsun ?"
   text_destroy_time_and_cost_entries: "Raporlanan saat ve masrafları sil"

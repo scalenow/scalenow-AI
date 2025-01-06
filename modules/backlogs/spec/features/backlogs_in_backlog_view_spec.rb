@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -185,8 +185,7 @@ RSpec.describe "Backlogs in backlog view", :js,
 
     click_button "Save"
 
-    backlogs_page
-      .expect_and_dismiss_toaster(message: "Successful update.")
+    expect_and_dismiss_flash(message: "Successful update.")
 
     backlogs_page
       .expect_backlog(sprint)
@@ -206,8 +205,7 @@ RSpec.describe "Backlogs in backlog view", :js,
 
     click_button "Save"
 
-    backlogs_page
-      .expect_and_dismiss_toaster(message: "Successful update.")
+    expect_and_dismiss_flash(message: "Successful update.")
 
     # Now works as a sprint instead of a backlog
     backlogs_page
@@ -228,8 +226,7 @@ RSpec.describe "Backlogs in backlog view", :js,
 
     click_button "Save"
 
-    backlogs_page
-      .expect_and_dismiss_toaster(message: "Successful update.")
+    expect_and_dismiss_flash(message: "Successful update.")
 
     # the disabled backlog/sprint is no longer visible
     expect(page)
@@ -250,8 +247,7 @@ RSpec.describe "Backlogs in backlog view", :js,
 
     click_button "Save"
 
-    backlogs_page
-      .expect_and_dismiss_toaster(message: "Successful update.")
+    expect_and_dismiss_flash(message: "Successful update.")
 
     # the disabled backlog/sprint is no longer visible
     expect(page)

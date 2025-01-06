@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,11 +28,12 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <% html_title t(:label_administration), t(:label_custom_style) %>
+
 <%= render template: 'common/upsale',
-        locals: {
-            feature_title: t(:label_custom_style),
-            feature_description: t('admin.custom_styles.customize'),
-            feature_more_info: t('admin.custom_styles.enterprise_more_info'),
-            feature_reference: 'enterprise-custom-styles',
-            feature_video: 'enterprise/custom-design.mp4'
-        } %>
+           locals: {
+               feature_title: t(:label_custom_style),
+               feature_description: t('admin.custom_styles.customize'),
+               feature_more_info: t('admin.custom_styles.enterprise_more_info'),
+               feature_reference: 'enterprise-custom-styles',
+               feature_video: 'enterprise/custom-design.mp4'
+           } %>

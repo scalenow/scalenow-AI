@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -73,6 +73,11 @@ RSpec.describe Principals::Scopes::Like do
     it "finds by mail" do
       expect(Principal.like("mail"))
         .to contain_exactly(mail, mail2)
+    end
+
+    it "does not finds by mail when mail disabled" do
+      expect(Principal.like("mail", email: false))
+        .to be_empty
     end
   end
 end

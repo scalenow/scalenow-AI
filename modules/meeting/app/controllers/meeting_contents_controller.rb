@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -58,7 +58,7 @@ class MeetingContentsController < ApplicationController
     render "meeting_contents/show"
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize
     call = attachable_update_call ::MeetingContents::UpdateService,
                                   model: @content,
                                   args: content_params
@@ -69,7 +69,7 @@ class MeetingContentsController < ApplicationController
     else
       flash.now[:error] = call.message
       params[:tab] ||= "minutes" if @meeting.agenda.present? && @meeting.agenda.locked?
-      render "meetings/show"
+      render "meetings/show", status: :unprocessable_entity
     end
   end
 

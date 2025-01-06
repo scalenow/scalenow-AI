@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -28,36 +28,36 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%= toolbar title: t(:label_version_plural), title_class: "color-orange" do %>
-    <% if current_user.allowed_in_project?(:manage_versions, @project) %>
-      <li class="toolbar-item">
-        <%= link_to_if_authorized({ controller: '/versions', action: 'new', project_id: @project },
-                                  { class: 'button -primary custom-secondary-button rounded-border',
-                                    aria: {label: t(:label_version_new)},
-                                    title: t(:label_version_new)}) do %>
-          <%= op_icon('button--icon icon-add') %>
-          <span class="button--text"><%= t('activerecord.models.version') %></span>
-        <% end %>
-      </li>
-    <% end %>
+<%= toolbar title: t(:label_version_plural), title_class: "color-orange" do %>
+  <% if current_user.allowed_in_project?(:manage_versions, @project) %>
+    <li class="toolbar-item">
+      <%= link_to_if_authorized({ controller: '/versions', action: 'new', project_id: @project },
+                                { class: 'button -primary custom-secondary-button rounded-border',
+                                  aria: {label: t(:label_version_new)},
+                                  title: t(:label_version_new)}) do %>
+        <%= op_icon('button--icon icon-add') %>
+        <span class="button--text"><%= t('activerecord.models.version') %></span>
+      <% end %>
+    </li>
   <% end %>
+<% end %>
 
-  <% if @versions.any? %>
-    <%= render Versions::TableComponent.new(rows: @versions, project: @project) %>
+<% if @versions.any? %>
+  <%= render Versions::TableComponent.new(rows: @versions, project: @project) %>
 
-    <% if @project.versions.any? %>
-      <div class="generic-table--action-buttons">
-        <%= link_to t(:label_close_versions),
-                    close_completed_project_versions_path(@project),
-                    method: :put,
-                    class: 'button rounded-border m-0' %>
-      </div>
-    <% end %>
-  <% else %>
-    <%= no_results_box action_url: new_project_version_path(@project),
-                      display_action: authorize_for('versions', 'new'),
-                      custom_title: t('projects.settings.versions.no_results_title_text'),
-                      custom_action_text: t('projects.settings.versions.no_results_content_text')
-    %>
+  <% if @project.versions.any? %>
+    <div class="generic-table--action-buttons">
+      <%= link_to t(:label_close_versions),
+                  close_completed_project_versions_path(@project),
+                  method: :put,
+                  class: 'button rounded-border m-0' %>
+    </div>
   <% end %>
+<% else %>
+  <%= no_results_box action_url: new_project_version_path(@project),
+                     display_action: authorize_for('versions', 'new'),
+                     custom_title: t('projects.settings.versions.no_results_title_text'),
+                     custom_action_text: t('projects.settings.versions.no_results_content_text')
+  %>
+<% end %>
 </div>

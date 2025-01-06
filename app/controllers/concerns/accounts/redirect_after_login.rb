@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -38,7 +38,8 @@ module Accounts::RedirectAfterLogin
 
       first_login_redirect
     else
-      default_redirect
+      # default_redirect
+      redirect_back_or_default root_path
     end
   end
 
@@ -46,7 +47,7 @@ module Accounts::RedirectAfterLogin
     if (url = OpenProject::Configuration.after_login_default_redirect_url)
       redirect_back_or_default url
     else
-      redirect_back_or_default root_path
+      redirect_back_or_default my_page_path
     end
   end
 

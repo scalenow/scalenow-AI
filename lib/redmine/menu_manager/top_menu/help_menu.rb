@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -49,7 +49,7 @@ module Redmine::MenuManager::TopMenu::HelpMenu
                                   title: I18n.t(:label_help),
                                   class: "op-app-menu--item-action",
                                   aria: { haspopup: "true" } do
-      spot_icon("help", size: "1_25", classnames: "op-app-help--icon")
+      render(Primer::Beta::Octicon.new(icon: "question", size: :medium))
     end
 
     render_menu_dropdown(
@@ -91,8 +91,6 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     if EnterpriseToken.show_banners?
       result << static_link_item(:upsale,
                                  href_suffix: "")
-      # result << static_link_item(:upsale,
-      #                            href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=ee-upsale-help-menu")
     end
     result << static_link_item(:user_guides)
     result << content_tag(:li, class: "op-menu--item") do
@@ -101,7 +99,6 @@ module Redmine::MenuManager::TopMenu::HelpMenu
               title: I18n.t("label_videos"),
               class: "op-menu--item-action",
               target: "_blank", rel: "noopener"
-      # OpenProject::Configuration.youtube_channel,
     end
     result << static_link_item(:shortcuts)
     result << static_link_item(:forums)
@@ -131,12 +128,10 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     result << static_link_item(
       :website,
       href_suffix: ""
-      # href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=website-help-menu"
     )
     result << static_link_item(
       :newsletter,
       href_suffix: ""
-      # href_suffix: "/?utm_source=unknown&utm_medium=op-instance&utm_campaign=newsletter-help-menu"
     )
     result << static_link_item(:blog)
     result << static_link_item(:release_notes)
@@ -155,7 +150,6 @@ module Redmine::MenuManager::TopMenu::HelpMenu
               title: label,
               target: "_blank",
               class: "op-menu--item-action", rel: "noopener"
-      # "#{link[:href]}#{options[:href_suffix]}",
     end
   end
 end

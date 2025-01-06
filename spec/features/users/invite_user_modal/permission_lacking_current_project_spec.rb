@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -29,6 +29,7 @@
 require "spec_helper"
 
 RSpec.describe "Inviting user in project the current user is lacking permission in", :js, :with_cuprite do
+  shared_let(:standard) { create(:standard_global_role) }
   let(:modal) do
     Components::Users::InviteUserModal.new project: invite_project,
                                            principal: other_user,

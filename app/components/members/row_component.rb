@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -50,8 +50,7 @@ module Members
     end
 
     def mail
-      return unless user?
-      return if principal.pref.hide_mail
+      return unless user? && user_is_allowed_to_see_email
 
       link = mail_to(principal.mail)
 
@@ -146,7 +145,7 @@ module Members
     end
 
     def status
-      content_tag "span", helpers.translate_user_status(model.principal.status), class: "badge bg-success-subtle text-success text-uppercase"
+      helpers.translate_user_status(model.principal.status)
     end
 
     def shared_work_packages? = member.shared_work_package_ids.present?
@@ -287,6 +286,10 @@ module Members
 
     def user?
       principal.is_a?(User)
+    end
+
+    def user_is_allowed_to_see_email
+      (principal == User.current) || User.current.allowed_globally?(:view_user_email)
     end
   end
 end

@@ -1,6 +1,6 @@
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -46,11 +46,13 @@ module API
       mount ::API::V3::Actions::ActionsAPI
       mount ::API::V3::Activities::ActivitiesAPI
       mount ::API::V3::Attachments::AttachmentsAPI
-      mount ::API::V3::Capabilities::CapabilitiesAPI
       mount ::API::V3::Backups::BackupsAPI
+      mount ::API::V3::Capabilities::CapabilitiesAPI
       mount ::API::V3::Categories::CategoriesAPI
       mount ::API::V3::Configuration::ConfigurationAPI
       mount ::API::V3::CustomActions::CustomActionsAPI
+      mount ::API::V3::CustomFields::CustomFieldsAPI
+      mount ::API::V3::CustomFields::Hierarchy::ItemAPI
       mount ::API::V3::CustomOptions::CustomOptionsAPI
       mount ::API::V3::Days::DaysAPI
       mount ::API::V3::Grids::GridsAPI
@@ -100,6 +102,12 @@ module API
         content_type "text/vnd.yaml"
 
         API::OpenAPI.spec.to_yaml
+      end
+
+      # Catch all unknown routes (therefore have it at the end of the file)
+      # and return a properly formatted 404 error.
+      route :any, "*path" do
+        raise API::Errors::NotFound
       end
     end
   end

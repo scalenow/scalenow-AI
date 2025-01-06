@@ -1,6 +1,6 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) 2012-2024 the OpenProject GmbH
+Copyright (C) the OpenProject GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License version 3.
@@ -27,133 +27,143 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <% html_title t(:label_administration), t("label_type_plural") %>
-  <%= toolbar title: t(:label_work_package_types), title_class: "color-orange" do %>
-    <li class="toolbar-item">
-      <%= link_to new_type_path,
-          { class: 'button -primary custom-secondary-button rounded-border',
-            aria: { label: t(:label_type_new) },
-            title: t(:label_type_new)} do %>
-        <%= op_icon('button--icon icon-add') %>
-        <span class="button--text">
-          <%= t('activerecord.attributes.work_package.type') %>
-        </button>
-      <% end %>
-    </li>
-  <% end %>
+<% html_title t(:label_administration), t("label_type_plural") %>
 
-  <% if @types.any? %>
-    <div class="generic-table--container">
-      <div class="generic-table--results-container">
-        <table class="generic-table">
-          <colgroup>
-            <col opHighlightCol>
-            <col>
-            <col opHighlightCol>
-            <col opHighlightCol>
-            <col opHighlightCol>
-            <col opHighlightCol>
-            <col opHighlightCol>
-            <col>
-          </colgroup>
-          <thead>
-            <tr>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= Type.human_attribute_name(:name) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th><div class="generic-table--empty-header"></div></th>
-              <!-- Missing workflow warning -->
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= Type.human_attribute_name(:color) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= t(:label_active_in_new_projects) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%= Type.human_attribute_name(:is_milestone) %>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th>
-                <div class="generic-table--sort-header-outer">
-                  <div class="generic-table--sort-header">
-                    <span>
-                      <%=t(:button_sort)%>
-                    </span>
-                  </div>
-                </div>
-              </th>
-              <th><div class="generic-table--empty-header"></div></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% for type in @types %>
-              <tr>
-                <td class="timelines-pet-name">
-                  <%= link_to type.name, edit_type_tab_path(type, tab: "settings") %>
-                </td>
-                <td>
-                  <% if type.workflows.empty? %>
-                  <span class="icon-context icon-warning">
-                    <%= t(:text_type_no_workflow) %>
-                    (<%= link_to t(:button_edit), { controller: '/workflows',
-                                                    action: 'edit',
-                                                    type_id: type} %>)
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+<%=
+  render Primer::OpenProject::PageHeader.new do |header|
+    header.with_title(classes: "color-orange") { t(:label_type_plural) }
+    header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
+                             { href: admin_settings_work_packages_general_path, text: t(:label_work_package_plural) },
+                             t(:label_type_plural)])
+  end
+%>
+<%=
+  render(Primer::OpenProject::SubHeader.new) do |subheader|
+    subheader.with_action_button(scheme: :primary,
+                                 aria: { label: I18n.t(:label_type_new) },
+                                 title: I18n.t(:label_type_new),
+                                 test_selector: "op-admin-types--button-new",
+                                 tag: :a,
+                                 href: new_type_path) do |button|
+      button.with_leading_visual_icon(icon: :plus)
+      t('activerecord.attributes.work_package.type')
+    end
+  end
+%>
+
+<% if @types.any? %>
+  <div class="generic-table--container">
+    <div class="generic-table--results-container">
+      <table class="generic-table" data-controller="table-highlighting">
+        <colgroup>
+          <col>
+          <col data-highlight="false">
+          <col>
+          <col>
+          <col>
+          <col>
+          <col>
+          <col data-highlight="false">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= Type.human_attribute_name(:name) %>
                   </span>
-                  <% end %>
-                </td>
-                <td class="timelines-pet-color">
-                  <%= icon_for_type type %>
-                </td>
-                <td class="timelines-pet-is_default">
-                  <%= checked_image(type.is_default) %>
-                </td>
-                <td class="timelines-pet-is_milestone">
-                  <%= checked_image(type.is_milestone) %>
-                </td>
-                <td class="timelines-pet-reorder">
-                  <%= reorder_links('type', {action: 'move', id: type}) %>
-                </td>
-                <td class="buttons">
-                  <% if !type.is_standard? %>
-                    <%= link_to '', type,
-                                    method: :delete,
-                                    data: { confirm: t(:text_are_you_sure) },
-                                    class: 'icon icon-delete',
-                                    title: t(:button_delete) %>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+                </div>
+              </div>
+            </th>
+            <th><div class="generic-table--empty-header"></div></th>
+             <!-- Missing workflow warning -->
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= Type.human_attribute_name(:color) %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= t(:label_active_in_new_projects) %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%= Type.human_attribute_name(:is_milestone) %>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="generic-table--sort-header-outer">
+                <div class="generic-table--sort-header">
+                  <span>
+                    <%=t(:button_sort)%>
+                  </span>
+                </div>
+              </div>
+            </th>
+            <th><div class="generic-table--empty-header"></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for type in @types %>
+            <tr>
+              <td class="timelines-pet-name">
+                <%= link_to type.name, edit_type_tab_path(type, tab: "settings") %>
+              </td>
+              <td>
+                <% if type.workflows.empty? %>
+                <span class="icon-context icon-warning">
+                  <%= t(:text_type_no_workflow) %>
+                  (<%= link_to t(:button_edit), { controller: '/workflows',
+                                                  action: 'edit',
+                                                  type_id: type} %>)
+                </span>
+                <% end %>
+              </td>
+              <td class="timelines-pet-color">
+                <%= icon_for_type type %>
+              </td>
+              <td class="timelines-pet-is_default">
+                <%= checked_image(type.is_default) %>
+              </td>
+              <td class="timelines-pet-is_milestone">
+                <%= checked_image(type.is_milestone) %>
+              </td>
+              <td class="timelines-pet-reorder">
+                <%= reorder_links('type', {action: 'move', id: type}) %>
+              </td>
+              <td class="buttons">
+                <% if !type.is_standard? %>
+                  <%= link_to '', type,
+                                  method: :delete,
+                                  data: { confirm: t(:text_are_you_sure) },
+                                  class: 'icon icon-delete',
+                                  title: t(:button_delete) %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
     </div>
-    <%= pagination_links_full @types %>
-  <% else %>
-    <%= no_results_box(action_url: new_type_path, display_action: true)%>
-  <% end %>
+  </div>
+  <%= pagination_links_full @types %>
+<% else %>
+  <%= no_results_box(action_url: new_type_path, display_action: true)%>
+<% end %>
 </div>

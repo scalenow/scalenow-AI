@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -107,7 +107,6 @@ RSpec.describe "Update ancestors", :js, :with_cuprite do
         wp_table.update_work_package_attributes(child, estimatedTime: child.estimated_hours + 1)
         parent.reload
         child.reload
-        # binding.irb
       end.to change(child, :remaining_hours).by(1) # remaining work increased as a side effect of increasing work
         .and change(parent, :derived_estimated_hours).by(1)
         .and change(parent, :derived_done_ratio).to(33) # 12h total work and 8h total remaining work => 33% complete
@@ -175,12 +174,14 @@ RSpec.describe "Update ancestors", :js, :with_cuprite do
       context_menu = wp_table.open_context_menu_for(second_child)
       context_menu.choose(I18n.t("js.relation_buttons.hierarchy_outdent"))
       wp_table.expect_and_dismiss_toaster message: "Successful update"
+      wait_for_network_idle
 
       expect_totals(parent, [child])
 
       context_menu = wp_table.open_context_menu_for(second_child)
       context_menu.choose(I18n.t("js.relation_buttons.hierarchy_indent"))
       wp_table.expect_and_dismiss_toaster message: "Successful update"
+      wait_for_network_idle
 
       expect_totals(parent, [child, second_child])
     end

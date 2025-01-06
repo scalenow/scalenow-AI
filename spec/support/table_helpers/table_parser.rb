@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -31,32 +31,49 @@
 module TableHelpers
   class TableParser
     def parse(representation)
-      headers, *rows = representation.split("\n")
-      headers = split(headers)
-      rows = rows.filter_map { |row| parse_row(row, headers) }
-      work_packages_data = rows.map.with_index do |row, index|
+      work_packages_data = parse_representation(representation)
+      populate_work_package_data(work_packages_data)
+    end
+
+    def parse_representation(representation)
+      headers, *rows = representation.split("\n").filter_map { |line| split_line_into_cells(line) }
+      rows.map.with_index do |cells, index|
+        if cells.size > headers.size
+          raise ArgumentError, "Too many cells in row #{index + 1}, have you forgotten some headers?"
+        end
+
+        cells << "" while cells.size < headers.size
         {
           attributes: {},
           index:,
-          row:
+          row: headers.zip(cells).to_h
         }
       end
-      headers.each do |header|
-        column = Column.for(header)
+    end
+
+    private
+
+    def populate_work_package_data(work_packages_data)
+      columns(work_packages_data).each do |column|
         column.read_and_update_work_packages_data(work_packages_data)
       end
       work_packages_data
     end
 
-    private
+    def headers(work_packages_data)
+      work_packages_data.first[:row].keys
+    end
 
-    def parse_row(row, headers)
-      case row
+    def columns(work_packages_data)
+      work_packages_data.first[:row].keys.map { |key| Column.for(key) }
+    end
+
+    def split_line_into_cells(line)
+      case line
       when "", /^\s*#/
         # noop
       else
-        values = split(row)
-        headers.zip(values).to_h
+        split(line)
       end
     end
 

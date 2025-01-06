@@ -66,6 +66,11 @@ export class CKEditorSetupService {
       openProject: this.createConfig(context),
       removePlugins: context.removePlugins,
       initialData,
+      ui: {
+        poweredBy: {
+          side: 'left',
+        },
+      },
       language: {
         ui: uiLocale,
         content: contentLanguage,
@@ -80,9 +85,11 @@ export class CKEditorSetupService {
 
         // Allow custom events on wrapper to set/get data for debugging
         jQuery(wrapper)
-          .on('op:ckeditor:setData', (event:unknown, data:string) => editor.setData(data))
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-return
+          .on('op:ckeditor:autosave', () => editor.config.get('autosave').save(editor))
+          .on('op:ckeditor:setData', (_, data:string) => editor.setData(data))
           .on('op:ckeditor:clear', () => editor.setData(' '))
-          .on('op:ckeditor:getData', (event:unknown, cb:(data:string) => void) => cb(editor.getData({ trim: false })));
+          .on('op:ckeditor:getData', (_, cb:(data:string) => void) => cb(editor.getData({ trim: false })));
 
         return watchdog;
       });
@@ -120,10 +127,16 @@ export class CKEditorSetupService {
     // @ts-ignore
     await import(/* webpackPrefetch: true; webpackChunkName: "ckeditor" */ 'core-vendor/ckeditor/ckeditor');
 
+    if (I18n.locale !== 'en') {
+      await this.loadLocale();
+    }
+  }
+
+  private async loadLocale():Promise<void> {
     try {
       await import(
         /* webpackPrefetch: true; webpackChunkName: "ckeditor-translation" */ `../../../../../../vendor/ckeditor/translations/${I18n.locale}.js`
-      ) as unknown;
+      );
       this.loadedLocale = I18n.locale;
     } catch (e:unknown) {
       console.warn(`Failed to load translation for CKEditor: ${e as string}`);
