@@ -189,6 +189,7 @@ export class MainMenuToggleService {
   }
 
   private toggleClassHidden():void {
+    this.hideElements = jQuery('.can-hide-navigation'); // Refresh the reference
     this.hideElements.toggleClass('hidden-navigation', !this.showNavigation);
   }
 }
