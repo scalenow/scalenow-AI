@@ -31,10 +31,10 @@ es:
           attributes:
             host:
               authorization_header_missing: no está completamente configurado. La instancia de Nextcloud no recibe la cabecera "Autorización", que es necesaria para la autorización basada en token Bearer de solicitudes API. Por favor, compruebe la configuración de tu servidor HTTP.
-              cannot_be_connected_to: no se ha podido acceder. Asegúrese de que se puede acceder al host y de que la aplicación de integración de OpenProject está instalada.
+              cannot_be_connected_to: no se ha podido acceder. Asegúrese de que se puede acceder al host y de que la aplicación de integración de scalenow-AI está instalada.
               minimal_nextcloud_version_unmet: no cumple los requisitos mínimos de versión (debe ser Nextcloud 23 o posteriores)
               not_nextcloud_server: no es un servidor de Nextcloud
-              op_application_not_installed: parece que no tienes la aplicación "Integración OpenProject" instalada. Por favor, instálala primero y vuelve a intentarlo.
+              op_application_not_installed: parece que no tienes la aplicación "Integración scalenow-AI" instalada. Por favor, instálala primero y vuelve a intentarlo.
             password:
               invalid_password: no es válido.
               unknown_error: no se ha podido validar. Compruebe su conexión de almacenamiento e inténtelo de nuevo.
@@ -91,15 +91,15 @@ es:
         rename_project_folder: 'Cambiar el nombre de la carpeta del proyecto gestionado:'
     errors:
       messages:
-        error: Se ha producido un error inesperado. Compruebe los registros de OpenProject para obtener más información o póngase en contacto con un administrador
-        unauthorized: OpenProject no pudo autenticarse con el proveedor de almacenamiento. Asegúrese de que tiene acceso al mismo.
+        error: Se ha producido un error inesperado. Compruebe los registros de scalenow-AI para obtener más información o póngase en contacto con un administrador
+        unauthorized: scalenow-AI no pudo autenticarse con el proveedor de almacenamiento. Asegúrese de que tiene acceso al mismo.
       models:
         copy_project_folders_service:
           conflict: La carpeta %{destination_path} ya existe. Interrumpiendo el proceso para evitar sobreescrituras.
-          error: Se ha producido un error inesperado. Compruebe los registros de OpenProject para obtener más información o póngase en contacto con un administrador.
-          forbidden: OpenProject no ha podido acceder a la carpeta de origen. Compruebe su configuración de permisos en el proveedor de almacenamiento
+          error: Se ha producido un error inesperado. Compruebe los registros de scalenow-AI para obtener más información o póngase en contacto con un administrador.
+          forbidden: scalenow-AI no ha podido acceder a la carpeta de origen. Compruebe su configuración de permisos en el proveedor de almacenamiento
           not_found: No se ha encontrado la ubicación de la plantilla de origen %{source_path}.
-          unauthorized: OpenProject no pudo autenticarse con el proveedor de almacenamiento. Compruebe su configuración de almacenamiento
+          unauthorized: scalenow-AI no pudo autenticarse con el proveedor de almacenamiento. Compruebe su configuración de almacenamiento
         nextcloud_sync_service:
           attributes:
             add_user_to_group:
@@ -120,15 +120,15 @@ es:
               conflict: 'El usuario %{user} no se ha podido eliminar del grupo %{group} por la siguiente razón: %{reason}'
               failed_to_remove: 'El usuario %{user} no se ha podido eliminar del grupo %{group} por la siguiente razón: %{reason}'
             rename_project_folder:
-              forbidden: El usuario de OpenProject no tiene acceso a la carpeta %{current_path}.
+              forbidden: El usuario de scalenow-AI no tiene acceso a la carpeta %{current_path}.
               not_found: "No se encontró %{current_path}."
             set_folders_permissions:
               permission_not_set: no se han podido establecer permisos en %{path}.
-          error: Se ha producido un error inesperado. Asegúrese de que su instancia de Nextcloud es accesible y compruebe los registros de los trabajadores de OpenProject para obtener más información.
+          error: Se ha producido un error inesperado. Asegúrese de que su instancia de Nextcloud es accesible y compruebe los registros de los trabajadores de scalenow-AI para obtener más información.
           group_does_not_exist: "%{group} no existe. Compruebe la configuración de su instancia de Nextcloud."
-          insufficient_privileges: OpenProject no tiene suficientes privilegios para añadir a %{user} a %{group}. Compruebe la configuración de su grupo en Nextcloud.
+          insufficient_privileges: scalenow-AI no tiene suficientes privilegios para añadir a %{user} a %{group}. Compruebe la configuración de su grupo en Nextcloud.
           not_allowed: Nextcloud bloquea la solicitud.
-          unauthorized: OpenProject no pudo sincronizarse con Nextcloud. Compruebe su almacenamiento y la configuración de Nextcloud.
+          unauthorized: scalenow-AI no pudo sincronizarse con Nextcloud. Compruebe su almacenamiento y la configuración de Nextcloud.
           user_does_not_exist: "%{user} no existe en Nextcloud."
         one_drive_sync_service:
           attributes:
@@ -138,16 +138,16 @@ es:
             hide_inactive_folders:
               permission_not_set: no se han podido establecer permisos en %{path}.
             remote_folders:
-              request_error: OpenProject no ha podido acceder a su unidad %{drive_id}. Compruebe si su configuración de almacenamiento es correcta.
+              request_error: scalenow-AI no ha podido acceder a su unidad %{drive_id}. Compruebe si su configuración de almacenamiento es correcta.
             rename_project_folder:
-              conflict: OpenProject no ha podido renombrar la carpeta %{current_path} a %{project_folder_name} puesto que ya existe una carpeta con el mismo nombre
-              forbidden: OpenProject no tiene acceso a %{current_path} para cambiarle el nombre.
+              conflict: scalenow-AI no ha podido renombrar la carpeta %{current_path} a %{project_folder_name} puesto que ya existe una carpeta con el mismo nombre
+              forbidden: scalenow-AI no tiene acceso a %{current_path} para cambiarle el nombre.
               not_found: "No se encontró %{current_path}."
             set_folders_permissions:
               permission_not_set: no se han podido establecer permisos en %{path}.
-          error: Se ha producido un error inesperado. Asegúrese de que su instancia de Nextcloud es accesible y compruebe los registros de los trabajadores de OpenProject para obtener más información.
-          not_allowed: OpenProject no tenía permiso para acceder a su unidad OneDrive. Compruebe los permisos establecidos en la aplicación Azure.
-          unauthorized: OpenProject no pudo sincronizarse con OneDrive. Compruebe su almacenamiento y la configuración de la aplicación Azure.
+          error: Se ha producido un error inesperado. Asegúrese de que su instancia de Nextcloud es accesible y compruebe los registros de los trabajadores de scalenow-AI para obtener más información.
+          not_allowed: scalenow-AI no tenía permiso para acceder a su unidad OneDrive. Compruebe los permisos establecidos en la aplicación Azure.
+          unauthorized: scalenow-AI no pudo sincronizarse con OneDrive. Compruebe su almacenamiento y la configuración de la aplicación Azure.
           user_does_not_exist: "%{user} no existe en Nextcloud."
         upload_link_service:
           not_found: No se ha podido encontrar la carpeta de destino %{folder} en %{storage_name}.
@@ -157,17 +157,17 @@ es:
       done_complete_setup: Hecho, configuración completada
       done_continue: Hecho, continuar
       open_storage: Abrir almacenamiento de archivos
-      replace_oauth_application: Reemplazar OpenProject OAuth
+      replace_oauth_application: Reemplazar scalenow-AI OAuth
       replace_oauth_client: Reemplazar %{provider_type} OAuth
       save_and_continue: Guardar y continuar
       select_folder: Seleccionar carpeta
     configuration_checks:
       oauth_client_incomplete:
-        nextcloud: Permitir a OpenProject acceder a los datos de Nextcloud usando OAuth.
-        one_drive: Permitir a OpenProject acceder a datos Azure usando OAuth para conectar OneDrive/Sharepoint.
+        nextcloud: Permitir a scalenow-AI acceder a los datos de Nextcloud usando OAuth.
+        one_drive: Permitir a scalenow-AI acceder a datos Azure usando OAuth para conectar OneDrive/Sharepoint.
       redirect_uri_incomplete:
         one_drive: Completa la configuración con la redirección URI correcta.
-    confirm_replace_oauth_application: Esta acción restablecerá las credenciales OAuth actuales. Después de confirmar tendrá que volver a introducir las credenciales en el proveedor de almacenamiento y todos los usuarios remotos tendrán que autorizarse contra OpenProject de nuevo. ¿Seguro que desea continuar?
+    confirm_replace_oauth_application: Esta acción restablecerá las credenciales OAuth actuales. Después de confirmar tendrá que volver a introducir las credenciales en el proveedor de almacenamiento y todos los usuarios remotos tendrán que autorizarse contra scalenow-AI de nuevo. ¿Seguro que desea continuar?
     confirm_replace_oauth_client: Esta acción restablecerá las credenciales OAuth actuales. Después de confirmar tendrá que introducir nuevas credenciales del proveedor de almacenamiento y todos los usuarios tendrán que autorizarse contra %{provider_type} de nuevo. ¿Seguro que desea continuar?
     delete_warning:
       input_delete_confirmation: Introduzca el nombre de almacenamiento de archivos %{file_storage} para confirmar la eliminación.
@@ -182,7 +182,7 @@ es:
     dependencies:
       nextcloud:
         group_folders_app: Carpetas de grupo
-        integration_app: Integración OpenProject
+        integration_app: Integración scalenow-AI
     enabled_in_projects:
       setup_incomplete_description: Este almacenamiento tiene una configuración incompleta. Complete la configuración antes de habilitarlo en varios proyectos.
       setup_incomplete_header: Configuración de almacenamiento incompleta
@@ -190,7 +190,7 @@ es:
     file_storage_view:
       access_management:
         automatic_management: Acceso y carpetas gestionados automáticamente
-        automatic_management_description: Deje que OpenProject cree carpetas por proyecto automáticamente y gestione su acceso de usuario. Esto es recomendable, ya que garantiza que cada miembro del equipo tenga siempre los permisos de acceso correctos.
+        automatic_management_description: Deje que scalenow-AI cree carpetas por proyecto automáticamente y gestione su acceso de usuario. Esto es recomendable, ya que garantiza que cada miembro del equipo tenga siempre los permisos de acceso correctos.
         description: Seleccione el tipo de gestión del acceso de los usuarios y de la creación de carpetas. Recomendamos utilizar el acceso gestionado automáticamente para tener una estructura más organizada y garantizar el acceso a todos los usuarios relevantes.
         manual_management: Acceso y carpetas gestionados manualmente
         manual_management_description: Cree y gestione manualmente carpetas por proyecto por su cuenta. Deberá asegurarse manualmente de que los usuarios pertinentes tienen acceso.
@@ -202,7 +202,7 @@ es:
       nextcloud_oauth: Nextcloud OAuth
       oauth_applications: Aplicaciones OAuth
       one_drive_oauth: Azure OAuth
-      openproject_oauth: OpenProject OAuth
+      openproject_oauth: scalenow-AI OAuth
       project_folders: Carpeta del proyecto
       redirect_uri: Redirigir URI
       storage_provider: Proveedor de almacenamiento
@@ -210,7 +210,7 @@ es:
       checked: Última comprobación %{datetime}
       connection_validation:
         action: Vuelva a comprobar la conexión
-        app_version_mismatch: La versión de la aplicación Integración OpenProject no es compatible. Actualice su servidor Nextcloud.
+        app_version_mismatch: La versión de la aplicación Integración scalenow-AI no es compatible. Actualice su servidor Nextcloud.
         client_id_wrong: El id de cliente OAuth 2 configurado no es válido. Por favor, compruebe la configuración.
         client_secret_wrong: El secreto de cliente OAuth 2 configurado no es válido. Por favor, compruebe la configuración.
         drive_id_wrong: No se ha podido encontrar el drive id configurado. Por favor, compruebe la configuración.
@@ -255,15 +255,15 @@ es:
       name: Dale un nombre a tu almacenamiento para que los usuarios puedan diferenciar entre múltiples almacenamientos.
       new_storage: Lea nuestra documentación sobre <a target='_blank' href='%{provider_link}'>crear una integración de almacenamiento de archivos de %{provider_name}</a> para más información.
       nextcloud:
-        application_link_text: aplicación “Integración OpenProject”
-        integration: Administración de Nextcloud / OpenProject
+        application_link_text: aplicación “Integración scalenow-AI”
+        integration: Administración de Nextcloud / scalenow-AI
         oauth_configuration: Copia estos valores de %{application_link_text}.
         provider_configuration: Por favor, asegúrate de tener privilegios de administración en tu instancia de Nextcloud y de que el %{application_link_text} esté instalado antes de realizar la configuración.
       no_specific_folder: Por defecto, cada usuario comenzará en su propia carpeta de inicio cuando cargue un archivo.
       no_storage_set_up: Aún no se han configurado los almacenamientos de archivos.
       not_logged_into_storage: Para seleccionar una carpeta de proyecto, inicie primero la sesión
       oauth_application_details: La clave secreta de cliente no será accesible una vez se cierre esta ventana. Por favor, copie estos valores en la configuración de %{oauth_application_details_link}
-      oauth_application_details_link_text: Configuración de integración de OpenProject Nextcloud
+      oauth_application_details_link_text: Configuración de integración de scalenow-AI Nextcloud
       one_drive:
         application_link_text: Portal de Azure
         copy_redirect_uri: Copiar URI de redirección
@@ -282,7 +282,7 @@ es:
       setting_up_storages: Para configurar almacenes de archivos, visite
       setting_up_storages_non_admin: Los administradores pueden configurar almacenes de archivos en Administración > Almacenes de archivos.
       type: 'Por favor, asegúrese de tener privilegios de administrador en su instancia de Nextcloud y tener la siguiente aplicación instalada antes de hacer la configuración:'
-      type_link_text: "“Integración OpenProject”"
+      type_link_text: "“Integración scalenow-AI”"
     label_active: Activo
     label_add_new_storage: Añadir nuevo almacenamiento
     label_automatic_folder: Nueva carpeta con permisos gestionados automáticamente
@@ -306,8 +306,8 @@ es:
     label_no_selected_folder: No hay carpeta seleccionada
     label_no_specific_folder: Ninguna carpeta específica
     label_oauth_client_id: ID de cliente OAuth
-    label_openproject_oauth_application_id: OpenProject OAuth Client ID
-    label_openproject_oauth_application_secret: OpenProject OAuth Client Secret
+    label_openproject_oauth_application_id: scalenow-AI OAuth Client ID
+    label_openproject_oauth_application_secret: scalenow-AI OAuth Client Secret
     label_project_folder: Carpeta del proyecto
     label_provider: Proveedor
     label_redirect_uri: Redirigir URI
@@ -352,8 +352,8 @@ es:
         subtitle: Añadir un archivo de almacenamiento externo para subir, enlazar y gestionar los archivos en los paquetes de trabajo.
       managed_project_folders:
         subtitle: |-
-          Deja que OpenProject cree carpetas por proyecto automáticamente. Esto es recomendable, ya que garantiza que cada miembro del equipo tenga siempre los permisos de acceso correctos.
-        subtitle_short: Permitir que OpenProject cree carpetas por proyecto automáticamente.
+          Deja que scalenow-AI cree carpetas por proyecto automáticamente. Esto es recomendable, ya que garantiza que cada miembro del equipo tenga siempre los permisos de acceso correctos.
+        subtitle_short: Permitir que scalenow-AI cree carpetas por proyecto automáticamente.
         title: Carpetas de proyecto administradas automáticamente
       project_settings:
         delete: Eliminar el almacenamiento de archivos
@@ -363,7 +363,7 @@ es:
       project_storage_members:
         subtitle: Compruebe el estado de conexión del almacenamiento %{storage_name_link} de todos los miembros del proyecto.
         title: Estado de conexión de los miembros
-    permission_header_explanation: 'Los permisos de archivos en almacenamientos externos se aplican sólo a carpetas y archivos dentro de carpetas de proyecto gestionadas automáticamente. Tenga en cuenta que no todos los permisos de archivo están soportados por todos los proveedores de almacenamiento. Por favor, compruebe la documentación sobre <a target=''_blank'' href=''https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#file-storages-permissions''>permisos de almacenamiento de archivos</a> para más información.'
+    permission_header_explanation: 'Los permisos de archivos en almacenamientos externos se aplican sólo a carpetas y archivos dentro de carpetas de proyecto gestionadas automáticamente. Tenga en cuenta que no todos los permisos de archivo están soportados por todos los proveedores de almacenamiento. Por favor, compruebe la documentación sobre <a target=''_blank'' href=''#''>permisos de almacenamiento de archivos</a> para más información.'
     provider_types:
       label: Tipo de proveedor
       nextcloud:
@@ -385,5 +385,5 @@ es:
     successful_storage_connection: '¡Almacenamiento conectado con éxito! Recuerda activar el almacenamiento en la pestaña Proyectos de cada proyecto deseado para usarlo.'
     upsale:
       description: |-
-        Integra tu OneDrive/SharePoint como almacenamiento de archivos con OpenProject. Sube archivos y vincúlalos directamente a paquetes de trabajo en un proyecto.
+        Integra tu OneDrive/SharePoint como almacenamiento de archivos con scalenow-AI. Sube archivos y vincúlalos directamente a paquetes de trabajo en un proyecto.
       title: Integración con OneDrive/SharePoint

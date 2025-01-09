@@ -71,7 +71,7 @@ lt:
         item_7:
           name: Struktūros inžinieriai
       welcome:
-        title: Jus sveikina OpenProject BIM versija!
+        title: Jus sveikina scalenow-AI BIM versija!
         text: |
           Išbandykite demonstracinius projektus, kad susipažintumėte su kai kuriais pavyzdžiais.
 
@@ -120,7 +120,7 @@ lt:
                 options:
                   name: Darbo pradžia
                   text: |
-                    Džiaugiamės, kad prisijungėte! Siūlome pabandyti kelis dalykus, kurie padės jums susipažinti su OpenProject.
+                    Džiaugiamės, kad prisijungėte! Siūlome pabandyti kelis dalykus, kurie padės jums susipažinti su scalenow-AI.
 
                     Prieš pradėdami turėtumėte žinoti, kad šis pavyzdinis projektas yra padalintas į du skirtingus projektus:
 
@@ -179,7 +179,7 @@ lt:
                 options:
                   name: Darbo pradžia
                   text: |
-                    Džiaugiamės, kad prisijungėte! Mes siūlome pabandyti kelis dalykus, kurie patės susipažinti su OpenProject.
+                    Džiaugiamės, kad prisijungėte! Mes siūlome pabandyti kelis dalykus, kurie patės susipažinti su scalenow-AI.
 
                     Čia rasite klasikinius vaidmenis, kelis procesus ir darbo paktus jūsų statybos projektui.
 
@@ -433,7 +433,7 @@ lt:
                 options:
                   name: Darbo pradžia
                   text: |
-                    Mes džiaugiamės, kad jūs prisikungėte! Siūlome pabandyti keletą dalykų, kad susipažintumėte su OpenProject.
+                    Mes džiaugiamės, kad jūs prisikungėte! Siūlome pabandyti keletą dalykų, kad susipažintumėte su scalenow-AI.
 
                     Šiame demonstraciniame projekte yra vaidmenys, procesai ir darbo paketai, kurie pritaikyti BIM.
 
@@ -709,7 +709,7 @@ lt:
                 options:
                   name: Darbo pradžia
                   text: |
-                    Mes džiaugiamės, kad jūs prisijungėte! Siūlome jums pabandyti kelis dalykus, kad susipažintumėte su OpenProject.
+                    Mes džiaugiamės, kad jūs prisijungėte! Siūlome jums pabandyti kelis dalykus, kad susipažintumėte su scalenow-AI.
 
                     Šis demonstracinis projektas rodo BCF tvarkymo funkcionalumą.
 

@@ -1,7 +1,7 @@
 #English strings go here for Rails i18n
 ko:
   plugin_openproject_recaptcha:
-    name: "OpenProject ReCaptcha"
+    name: "scalenow-AI ReCaptcha"
     description: "이 모듈은 로그인 시 recaptcha 확인을 제공합니다."
   recaptcha:
     label_recaptcha: "reCAPTCHA"
@@ -22,4 +22,4 @@ ko:
       type_hcaptcha: 'HCaptcha'
       type_turnstile: 'Cloudflare Turnstile™'
       captcha_description_html: >
-        reCAPTCHA는 OpenProject 인스턴스에 대해 활성화할 수 있는 Google의 무료 서비스입니다. 활성화하면, 캡차를 아직 확인하지 않은 모든 사용자가 로그인할 때 캡차 양식이 렌더링됩니다. <br/> reCAPTCHA와 해당 버전 관련 세부 정보 그리고 웹사이트 및 비밀 키를 생성하는 방법은 다음 링크를 참조하세요: %{recaptcha_link} <br/> HCaptcha는 reCAPTCHA를 사용하고 싶지 않은 경우 사용할 수 있는 Google의 무료 대체 서비스입니다. 자세한 내용은 다음 링크를 참조하세요: %{hcaptcha_link} <br/> Cloudflare Turnstile™은 동일한 수준의 보안을 제공하면서 사용자에게 보다 편리한 또 다른 대안입니다. 자세한 내용은 다음 링크를 참조하세요: %{turnstile_link}
+        reCAPTCHA는 scalenow-AI 인스턴스에 대해 활성화할 수 있는 Google의 무료 서비스입니다. 활성화하면, 캡차를 아직 확인하지 않은 모든 사용자가 로그인할 때 캡차 양식이 렌더링됩니다. <br/> reCAPTCHA와 해당 버전 관련 세부 정보 그리고 웹사이트 및 비밀 키를 생성하는 방법은 다음 링크를 참조하세요: %{recaptcha_link} <br/> HCaptcha는 reCAPTCHA를 사용하고 싶지 않은 경우 사용할 수 있는 Google의 무료 대체 서비스입니다. 자세한 내용은 다음 링크를 참조하세요: %{hcaptcha_link} <br/> Cloudflare Turnstile™은 동일한 수준의 보안을 제공하면서 사용자에게 보다 편리한 또 다른 대안입니다. 자세한 내용은 다음 링크를 참조하세요: %{turnstile_link}

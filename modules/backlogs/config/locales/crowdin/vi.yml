@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -21,8 +21,8 @@
 #++
 vi:
   plugin_openproject_backlogs:
-    name: "OpenProject Backlogs"
-    description: "Mô-đun này bổ sung các tính năng cho phép các nhóm agile làm việc với OpenProject trong các dự án Scrum."
+    name: "scalenow-AI Backlogs"
+    description: "Mô-đun này bổ sung các tính năng cho phép các nhóm agile làm việc với scalenow-AI trong các dự án Scrum."
   activerecord:
     attributes:
       work_package:

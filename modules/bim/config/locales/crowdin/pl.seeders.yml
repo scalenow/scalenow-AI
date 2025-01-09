@@ -71,7 +71,7 @@ pl:
         item_7:
           name: Inżynierowie budowlani
       welcome:
-        title: Witaj w OpenProject w wersji BIM!
+        title: Witaj w scalenow-AI w wersji BIM!
         text: |
           Zapoznaj się z projektami demonstracyjnymi, aby zacząć od kilku przykładów.
 
@@ -120,7 +120,7 @@ pl:
                 options:
                   name: Pierwsze kroki
                   text: |
-                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w OpenProject.
+                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w scalenow-AI.
 
                     Zanim jednak przejdziesz od razu do rzeczy, musisz wiedzieć, że ten przykładowy projekt jest podzielony na dwa różne projekty:
 
@@ -179,7 +179,7 @@ pl:
                 options:
                   name: Pierwsze kroki
                   text: |
-                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w OpenProject.
+                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w scalenow-AI.
 
                     Tutaj znajdziesz klasyczne role, niektóre przepływy pracy i pakiety robocze swojego projektu budowlanego.
 
@@ -433,7 +433,7 @@ pl:
                 options:
                   name: Pierwsze kroki
                   text: |
-                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w OpenProject.
+                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w scalenow-AI.
 
                     Ten projekt demonstracyjny oferuje wyspecjalizowane dla BIM role, przepływy pracy i pakiety robocze.
 
@@ -709,7 +709,7 @@ pl:
                 options:
                   name: Pierwsze kroki
                   text: |
-                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w OpenProject.
+                    Cieszymy się, że dołączasz! Sugerujemy wypróbowanie kilku rzeczy, aby rozpocząć pracę w scalenow-AI.
 
                     Ten projekt demonstracyjny przedstawia funkcje zarządzania BCF.
 

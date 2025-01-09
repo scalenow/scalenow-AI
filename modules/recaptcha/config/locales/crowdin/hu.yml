@@ -1,7 +1,7 @@
 #English strings go here for Rails i18n
 hu:
   plugin_openproject_recaptcha:
-    name: "OpenProject ReCaptcha"
+    name: "scalenow-AI ReCaptcha"
     description: "This module provides recaptcha checks during login."
   recaptcha:
     label_recaptcha: "reCAPTCHA"
@@ -22,4 +22,4 @@ hu:
       type_hcaptcha: 'HChaptcha'
       type_turnstile: 'Cloudflare Turnstile™'
       captcha_description_html: >
-        A reCAPTCHA a Google ingyenes szolgáltatása, amely engedélyezhető az Ön OpenProject példányában. Ha engedélyezett, a bejelentkezéskor egy captcha űrlap jelenik meg minden olyan felhasználó számára, aki még nem erősítette meg a captchát. <br/> A reCAPTCHA-ról és annak változatairól, valamint a weboldal és a titkos kulcsok létrehozásának módjáról az alábbi linken talál további részleteket: %{recaptcha_link} <br/> A HCaptcha egy Google-mentes alternatíva, amelyet használhat, ha nem szeretné a reCAPTCHA-t használni. További információkért lásd ezt a linket: %{hcaptcha_link} <br/> A Cloudflare Turnstile™ egy másik alternatíva, amely kényelmesebb a felhasználók számára, miközben ugyanolyan szintű biztonságot nyújt. További információért lásd ezt a linket: %{turnstile_link}
+        A reCAPTCHA a Google ingyenes szolgáltatása, amely engedélyezhető az Ön scalenow-AI példányában. Ha engedélyezett, a bejelentkezéskor egy captcha űrlap jelenik meg minden olyan felhasználó számára, aki még nem erősítette meg a captchát. <br/> A reCAPTCHA-ról és annak változatairól, valamint a weboldal és a titkos kulcsok létrehozásának módjáról az alábbi linken talál további részleteket: %{recaptcha_link} <br/> A HCaptcha egy Google-mentes alternatíva, amelyet használhat, ha nem szeretné a reCAPTCHA-t használni. További információkért lásd ezt a linket: %{hcaptcha_link} <br/> A Cloudflare Turnstile™ egy másik alternatíva, amely kényelmesebb a felhasználók számára, miközben ugyanolyan szintű biztonságot nyújt. További információért lásd ezt a linket: %{turnstile_link}

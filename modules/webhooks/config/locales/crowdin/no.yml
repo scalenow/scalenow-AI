@@ -1,7 +1,7 @@
 "no":
   plugin_openproject_webhooks:
-    name: "OpenProject Webhooks"
-    description: "Gir en plug-in API for å støtte OpenProject webhooks for bedre 3dje parts integrasjon."
+    name: "scalenow-AI Webhooks"
+    description: "Gir en plug-in API for å støtte scalenow-AI webhooks for bedre 3dje parts integrasjon."
   activerecord:
     attributes:
       webhooks/webhook:
@@ -32,7 +32,7 @@
         updated: "Oppdatert"
       explanation:
         text: >
-          Ved forekomst av en hendelse som oppretting av en arbeidspakke eller en oppdatering fra et prosjekt, vil OpenProject sende en POST-forespørsel til de konfigurerte nettendepunktene. Ofte blir hendelsen sendt etter at %{link} er godkjent.
+          Ved forekomst av en hendelse som oppretting av en arbeidspakke eller en oppdatering fra et prosjekt, vil scalenow-AI sende en POST-forespørsel til de konfigurerte nettendepunktene. Ofte blir hendelsen sendt etter at %{link} er godkjent.
         link: konfigurert summeringsperiode
       status:
         enabled: 'Webhook er aktivert'
@@ -63,4 +63,4 @@
           title: 'Valgte prosjekter'
         secret:
           description: >
-            Hvis angitt, brukes denne hemmelige verdien av OpenProject for å signere webhook-nyttelasten.
+            Hvis angitt, brukes denne hemmelige verdien av scalenow-AI for å signere webhook-nyttelasten.

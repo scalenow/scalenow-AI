@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -59,8 +59,8 @@ ja:
         main-menu-bg-selected-background: "選択時のメインメニュー"
         main-menu-bg-hover-background: "ホバー時のメインメニュー"
       custom_colors: "カスタム色"
-      customize: "Customize your OpenProject installation with your own logo and colors."
-      enterprise_notice: "As a special 'Thank you!' for their financial contribution to develop OpenProject, this tiny add-on is only available for Enterprise edition support subscribers."
+      customize: "Customize your scalenow-AI installation with your own logo and colors."
+      enterprise_notice: "As a special 'Thank you!' for their financial contribution to develop scalenow-AI, this tiny add-on is only available for Enterprise edition support subscribers."
       enterprise_more_info: "Note: the used logo will be publicly accessible."
       manage_colors: "色の選択オプションを編集"
       instructions:
@@ -130,41 +130,41 @@ ja:
     technical_warning_html: |
       この LDAP フォームには、LDAP / Active Directory の設定に関する技術的な知識が必要です。
       <br/>
-      <a href="https://www.openproject.org/help/administration/manage-ldap-authentication/">詳細な手順について</a>
+      <a href="#">詳細な手順について</a>
     attribute_texts:
       name: LDAP接続の任意の名称
       host: LDAPのホスト名または IP アドレス
       login_map: ユーザー固有のログイン情報を識別するために使用されるLDAPの属性キーです。通常は、`uid` または `samAccountName` になります。
-      generic_map: OpenProject`%{attribute}`属性にマップされているLDAPの属性キーです。
-      admin_map_html: "オプション: LDAPの属性キー。 <strong>存在する場合</strong> はOpenProjectユーザーを管理者としてマークします。疑わしい場合は空のままにします。"
+      generic_map: scalenow-AI`%{attribute}`属性にマップされているLDAPの属性キーです。
+      admin_map_html: "オプション: LDAPの属性キー。 <strong>存在する場合</strong> はscalenow-AIユーザーを管理者としてマークします。疑わしい場合は空のままにします。"
       system_user_dn_html: |
         読み取り専用アクセスに利用するシステムユーザの DN を入力します。
         <br/>
         例: uid=openproject,ou=system,dc=example,dc=com
       system_user_password: システムユーザーの Bind パスワードを入力してください
       base_dn: |
-        OpenProjectがユーザーとグループを探すように、サブツリーのベースDNをLDAPに入力します。
-        OpenProject は、このサブツリー内の指定されたユーザー名のみをフィルタリングします。
+        scalenow-AIがユーザーとグループを探すように、サブツリーのベースDNをLDAPに入力します。
+        scalenow-AI は、このサブツリー内の指定されたユーザー名のみをフィルタリングします。
         例: ou=users,dc=example,dc=com
       filter_string: |
         LDAPでフィルタされたユーザーに対して返された結果に適用するオプションのRFC4515フィルタを追加します。
-        これは、OpenProjectによって検出された認証とグループ同期のためのユーザーのセットを制限するために使用することができます。
+        これは、scalenow-AIによって検出された認証とグループ同期のためのユーザーのセットを制限するために使用することができます。
       filter_string_concat: |
 
-        OpenProjectはレコードを識別するために、ユーザーが提供するログイン属性を常にフィルタリングします。ここにフィルタを指定すると、
+        scalenow-AIはレコードを識別するために、ユーザーが提供するログイン属性を常にフィルタリングします。ここにフィルタを指定すると、
         ANDで連結されます。デフォルトではキャッチオール（objectClass = *）がフィルタとして使用されます。
       onthefly_register: |
-        チェックを入れると、OpenProjectは初回認証時に自動的にLDAPエントリーに新規ユーザー登録します。LDAPの既存ユーザーのみ許可する場合はチェックを外してください。
+        チェックを入れると、scalenow-AIは初回認証時に自動的にLDAPエントリーに新規ユーザー登録します。LDAPの既存ユーザーのみ許可する場合はチェックを外してください。
     connection_encryption: "接続の暗号化"
     encryption_details: "LDAPS / STARTLSオプション"
     system_account: "システムアカウント"
     system_account_legend: |
-      OpenProject は、LDAP ツリー内のユーザーとグループを検索するために、システムアカウントを介して読み取り専用アクセスを必要とします。
+      scalenow-AI は、LDAP ツリー内のユーザーとグループを検索するために、システムアカウントを介して読み取り専用アクセスを必要とします。
       次のセクションで、システムユーザのバインド資格情報を指定してください。
     ldap_details: "LDAPに関する詳細"
     user_settings: "属性のマッピング"
     user_settings_legend: |
-      以下のフィールドは、LDAPエントリからOpenProjectのユーザーの作成方法とアトリビュートマッピングに関連しています。
+      以下のフィールドは、LDAPエントリからscalenow-AIのユーザーの作成方法とアトリビュートマッピングに関連しています。
     tls_mode:
       plain: "なし"
       simple_tls: "LDAP"
@@ -506,7 +506,7 @@ ja:
     upsale:
       title: プレースホルダー ユーザー
       description: >
-        Placeholder users are a way to assign work packages to users who are not part of your project. They can be useful in a range of scenarios; for example, if you need to track tasks for a resource that is not yet named or available, or if you don’t want to give that person access to OpenProject but still want to track tasks assigned to them.
+        Placeholder users are a way to assign work packages to users who are not part of your project. They can be useful in a range of scenarios; for example, if you need to track tasks for a resource that is not yet named or available, or if you don’t want to give that person access to scalenow-AI but still want to track tasks assigned to them.
   prioritiies:
     edit:
       priority_color_text: |
@@ -935,7 +935,7 @@ ja:
         confirmation: "は%{attribute} と一致しません。"
         could_not_be_copied: "%{dependency} を（完全に）コピーできませんでした。"
         does_not_exist: "は存在しません。"
-        error_enterprise_only: "%{action} is only available in the OpenProject Enterprise edition"
+        error_enterprise_only: "%{action} is only available in the scalenow-AI Enterprise edition"
         error_unauthorized: "アクセスできません。"
         error_readonly: "書けませんでした。"
         error_conflict: "別のユーザーが同時にデータを更新しています。"
@@ -1433,7 +1433,7 @@ ja:
       heading_reset: "バックアップトークンをリセットする"
       heading_create: "バックアップトークンを作成する"
       implications: >
-        バックアップを有効にすると、必要な権限とこのバックアップトークンを持つすべてのユーザーが、この OpenProject にインストールされたすべてのデータを含むバックアップをダウンロードできるようになります。これには、他のすべてのユーザーのデータも含まれます。
+        バックアップを有効にすると、必要な権限とこのバックアップトークンを持つすべてのユーザーが、この scalenow-AI にインストールされたすべてのデータを含むバックアップをダウンロードできるようになります。これには、他のすべてのユーザーのデータも含まれます。
       info: >
         バックアップを作成するためには、バックアップトークンを生成する必要があります。バックアップを要求するたびに、このトークンを指定する必要があります。バックアップトークンを削除すると、このユーザーのバックアップを無効にすることができます。
       verification: >
@@ -1720,7 +1720,7 @@ ja:
   error_check_user_and_role: "ユーザーとロールを選択してください。"
   error_code: "エラー %{code}"
   error_color_could_not_be_saved: "色を保存できませんでした。"
-  error_cookie_missing: "OpenProject のcookieが見つかりません。cookieが有効であることを確認してください。そうしないとこのアプリケーションは正しく動作しません。"
+  error_cookie_missing: "scalenow-AI のcookieが見つかりません。cookieが有効であることを確認してください。そうしないとこのアプリケーションは正しく動作しません。"
   error_custom_option_not_found: "オプションが存在しません。"
   error_enterprise_activation_user_limit: "あなたのアカウントを有効にすることができませんでした（ユーザー制限に達しました）。アクセスするには管理者に連絡してください。"
   error_enterprise_token_invalid_domain: "The Enterprise edition is not active. Your Enterprise token's domain (%{actual}) does not match the system's host name (%{expected})."
@@ -1735,7 +1735,7 @@ ja:
   error_work_package_not_found_in_project: "ワークパッケージが見つからないか、このプロジェクトに属していません。"
   error_work_package_id_not_found: "The work package was not found."
   error_must_be_project_member: "プロジェクトのメンバーである必要があります。"
-  error_migrations_are_pending: "OpenProject のインストールはデータベースの移行が保留中です。前回のアップグレード時に移行の実行を行っていない可能性があります。アップグレードガイドを確認して、適切にインストールをアップグレードしてください。"
+  error_migrations_are_pending: "scalenow-AI のインストールはデータベースの移行が保留中です。前回のアップグレード時に移行の実行を行っていない可能性があります。アップグレードガイドを確認して、適切にインストールをアップグレードしてください。"
   error_migrations_visit_upgrade_guides: "アップグレードガイドのドキュメントをご覧ください"
   error_no_default_work_package_status: '｀ワークパッケージ目の既定のステータスが定義されていません。 設定をご確認してください（管理→作業項目ステータス）。'
   error_no_type_in_project: "このプロジェクトには関連付けられているワークパッケージの種類がありません。プロジェクトの設定をご確認してください。"
@@ -1903,7 +1903,7 @@ ja:
       no_visible_projects: "このインスタンスに表示されているプロジェクトはありません。"
       users: "このインスタンスの最新の登録ユーザー。"
     blocks:
-      community: "OpenProject コミュニティ"
+      community: "scalenow-AI コミュニティ"
       upsale:
         title: "Upgrade to Enterprise edition"
         more_info: "詳細情報"
@@ -1915,7 +1915,7 @@ ja:
       impressum: "法的情報"
       glossary: "用語集"
       shortcuts: "ショートカット"
-      blog: "OpenProject ブログ"
+      blog: "scalenow-AI ブログ"
       forums: "コミュニティ フォーラム"
       newsletter: "セキュリティアラート / ニュースレター"
   image_conversion:
@@ -1927,7 +1927,7 @@ ja:
       default_attribute_written: "Read-only attributes written"
       progress_mode_changed_to_status_based: "Progress calculation updated"
       status_changed: "Status '%{status_name}'"
-      system_update: "OpenProject system update:"
+      system_update: "scalenow-AI system update:"
       work_package_duplicate_closed: "Duplicate work package updated:"
       total_percent_complete_mode_changed_to_work_weighted_average: "Calculation of % Complete totals now weighted by Work."
       total_percent_complete_mode_changed_to_simple_average: "Calculation of % Complete totals now based on a simple average of only % Complete values."
@@ -1992,26 +1992,26 @@ ja:
       simple_revoke_confirmation: "Are you sure you want to revoke this token?"
       api:
         title: "API"
-        text_hint: "API tokens allow third-party applications to communicate with this OpenProject instance via REST APIs."
+        text_hint: "API tokens allow third-party applications to communicate with this scalenow-AI instance via REST APIs."
         static_token_name: "API token"
         disabled_text: "API tokens are not enabled by the administrator. Please contact your administrator to use this feature."
       ical:
         title: "iCalendar"
-        text_hint: 'iCalendar tokens allow users to <a href="%{path}" target="_blank">subscribe to OpenProject calendars</a> and view up-to-date work package information from external clients.'
+        text_hint: 'iCalendar tokens allow users to <a href="%{path}" target="_blank">subscribe to scalenow-AI calendars</a> and view up-to-date work package information from external clients.'
         disabled_text: "iCalendar subscriptions are not enabled by the administrator. Please contact your administrator to use this feature."
         empty_text_hint: "To add an iCalendar token, subscribe to a new or existing calendar from within the Calendar module of a project. You must have the necessary permissions."
       oauth:
         title: "OAuth"
-        text_hint: "OAuth tokens allow third-party applications to connect with this OpenProject instance."
+        text_hint: "OAuth tokens allow third-party applications to connect with this scalenow-AI instance."
         empty_text_hint: "There is no third-party application access configured and active for you. Please contact your administrator to activate this feature."
       rss:
         title: "RSS"
-        text_hint: "RSS tokens allow users to keep up with the latest changes in this OpenProject instance via an external RSS reader."
+        text_hint: "RSS tokens allow users to keep up with the latest changes in this scalenow-AI instance via an external RSS reader."
         static_token_name: "RSS token"
         disabled_text: "RSS tokens are not enabled by the administrator. Please contact your administrator to use this feature."
       storages:
         title: "File Storages"
-        text_hint: "File Storage tokens connect this OpenProject instance with an external File Storage."
+        text_hint: "File Storage tokens connect this scalenow-AI instance with an external File Storage."
         empty_text_hint: "There is no storage access linked to your account."
         revoke_token: "Do you really want to remove this token? You will need to login again on %{storage}"
         removed: "File Storage token successfully removed"
@@ -2179,7 +2179,7 @@ ja:
   label_custom_field_plural: "カスタムフィールド"
   label_custom_field_default_type: "空の種類"
   label_custom_style: "デザイン"
-  label_custom_style_description: "Choose how OpenProject looks to you with themes, select your default colors to use in the app and how exports look like."
+  label_custom_style_description: "Choose how scalenow-AI looks to you with themes, select your default colors to use in the app and how exports look like."
   label_dashboard: "ダッシュボード"
   label_database_version: "PostgreSQL バージョン"
   label_date: "日付"
@@ -2424,7 +2424,7 @@ ja:
   label_open_menu: "メニューを開く"
   label_open_work_packages: "未完了"
   label_open_work_packages_plural: "未完了"
-  label_openproject_website: "OpenProjectのWebサイト"
+  label_openproject_website: "scalenow-AIのWebサイト"
   label_optional_description: "説明"
   label_options: "オプション"
   label_other: "その他"
@@ -2798,8 +2798,8 @@ ja:
   mail_body_backup_token_reset_user_info: バックアップトークンがリセットされました。
   mail_body_backup_token_info: 以前のトークンは無効になりました。
   mail_body_backup_waiting_period: 新しいトークンは %{hours} 時間後に有効になります。
-  mail_body_backup_token_warning: これがあなたでなかった場合、すぐに OpenProject にログインして、再度リセットしてください。
-  mail_body_incoming_email_error: The email you sent to OpenProject could not be processed.
+  mail_body_backup_token_warning: これがあなたでなかった場合、すぐに scalenow-AI にログインして、再度リセットしてください。
+  mail_body_incoming_email_error: The email you sent to scalenow-AI could not be processed.
   mail_body_incoming_email_error_in_reply_to: "At %{received_at} %{from_email} wrote"
   mail_body_incoming_email_error_logs: "Logs"
   mail_body_lost_password: "パスワードを変更するには、以下のリンクをクリックしてください:"
@@ -2812,10 +2812,10 @@ ja:
   mail_body_register_user: "%{name}さん"
   mail_body_register_links_html: |
     Please feel free to browse our youtube channel (%{youtube_link}) where we provide a webinar (%{webinar_link})
-    and “Get started” videos (%{get_started_link}) to make your first steps in OpenProject as easy as possible.
+    and “Get started” videos (%{get_started_link}) to make your first steps in scalenow-AI as easy as possible.
     <br />
     If you have any further questions, consult our documentation (%{documentation_link}) or contact your administrator.
-  mail_body_register_closing: "あなたのOpenProjectチーム"
+  mail_body_register_closing: "あなたのscalenow-AIチーム"
   mail_body_register_ending: "連絡をお待ちしています！よろしくお願いいたします。"
   mail_body_reminder: "担当している %{count}件 のワークパッケージが %{days} 日内に期限を迎えます："
   mail_body_group_reminder: 'グループ "%{group}" に割り当てられた %{count} 件のワークパッケージが %{days} 日内に期限を迎えます'
@@ -2824,7 +2824,7 @@ ja:
   mail_subject_account_activation_request: "%{value} アカウントの承認要求"
   mail_subject_backup_ready: "バックアップの準備ができました"
   mail_subject_backup_token_reset: "バックアップトークンのリセット"
-  mail_subject_incoming_email_error: "An email you sent to OpenProject could not be processed"
+  mail_subject_incoming_email_error: "An email you sent to scalenow-AI could not be processed"
   mail_subject_lost_password: "%{value} パスワード再発行"
   mail_subject_register: "%{value} アカウント登録の確認"
   mail_subject_wiki_content_added: "Wikiページ'%{id}'が追加されました"
@@ -2853,14 +2853,14 @@ ja:
   mail_user_activation_limit_reached:
     subject: ユーザーのアクティブ化の上限に達しました。
     message: |
-      新しいユーザー（%{email}）が管理しているOpenProjectの環境（%{host})）上にアカウントを作成しようとしました。
+      新しいユーザー（%{email}）が管理しているscalenow-AIの環境（%{host})）上にアカウントを作成しようとしました。
       ユーザーの制限に達しているため、ユーザーは自分のアカウントをアクティブ化できません。
     steps:
       label: "ユーザーがサインインできるようにするには、次のいずれかを行います: "
       a: "お支払いプランをアップグレードします。 ([ここ](upgrade_url))" #here turned into a link
       b: "既存のユーザーをロックまたは削除する ([ここ](users_url))" #here turned into a link
   more_actions: "他の機能"
-  noscript_description: "OpenProjectを使用するためにJavaScriptを有効にする必要があります！"
+  noscript_description: "scalenow-AIを使用するためにJavaScriptを有効にする必要があります！"
   noscript_heading: "JavaScriptは無効されています。"
   noscript_learn_more: "もっと詳しく"
   notice_accessibility_mode: アクセシビリティモードを [アカウント設定](url) で有効にすることができます。
@@ -2930,7 +2930,7 @@ ja:
   notice_wont_delete_auth_source: The LDAP connection cannot be deleted as long as there are still users using it.
   notice_project_cannot_update_custom_fields: "プロジェクトの有効なカスタムフィールドを更新できません。プロジェクトは無効です: %{errors}"
   notice_attachment_migration_wiki_page: >
-    このページは、OpenProject の更新時に自動的に生成されました。%{container_type} "%{container_name}" と関連付けられていたすべての添付ファイルが含まれています。
+    このページは、scalenow-AI の更新時に自動的に生成されました。%{container_type} "%{container_name}" と関連付けられていたすべての添付ファイルが含まれています。
   #Default format for numbers
   number:
     format:
@@ -2952,7 +2952,7 @@ ja:
           tb: "TB"
   onboarding:
     heading_getting_started: "概要を取得"
-    text_getting_started_description: "Get a quick overview of project management and team collaboration with OpenProject. You can restart this video from the help menu."
+    text_getting_started_description: "Get a quick overview of project management and team collaboration with scalenow-AI. You can restart this video from the help menu."
     welcome: "Welcome to %{app_title}"
     select_language: "言語を選択してください"
   permission_add_work_package_notes: "注記の追加"
@@ -3026,7 +3026,7 @@ ja:
   permission_share_work_packages: "Share work packages"
   permission_manage_types: "ワークパッケージのタイプを選択"
   permission_view_project: "View projects"
-  permission_view_changesets: "OpenProject にリポジトリのリビジョンを表示"
+  permission_view_changesets: "scalenow-AI にリポジトリのリビジョンを表示"
   permission_view_commit_author_statistics: "コミット作成者の統計情報の閲覧"
   permission_view_dashboards: "View dashboards"
   permission_view_work_package_watchers: "ウォッチャー一覧の閲覧"
@@ -3130,7 +3130,7 @@ ja:
     destroy:
       confirmation: "続行した場合、管理リポジトリは削除されます。"
       info: "リポジトリの削除は復元できない操作です。"
-      info_not_managed: "注: これは、このリポジトリの内容を削除しません。OpenProject によって管理されていません。"
+      info_not_managed: "注: これは、このリポジトリの内容を削除しません。scalenow-AI によって管理されていません。"
       managed_path_note: "次のディレクトリが消去されます: %{path}"
       repository_verification: "リポジトリの削除を確認するため、プロジェクトの識別子 %{identifier} を入力してください。"
       subtitle: "プロジェクト %{project_name} の %{repository_type} を削除してもよろしいですか？"
@@ -3144,8 +3144,8 @@ ja:
       empty_repository: "リポジトリは存在しますが、空です。まだリビジョンを含んでいません。"
       exists_on_filesystem: "リポジトリのディレクトリは、既にファイルシステムに存在します。"
       filesystem_access_failed: "ファイルシステム上のリポジトリへのアクセス中にエラーが発生しました: %{message}"
-      not_manageable: "OpenProject によって、このリポジトリ ベンダーを管理できません。"
-      path_permission_failed: "次のパスを作成しようとしてエラーが発生しました: %{path}。OpenProject がそのフォルダーに書き込むことができることを確認してください。"
+      not_manageable: "scalenow-AI によって、このリポジトリ ベンダーを管理できません。"
+      path_permission_failed: "次のパスを作成しようとしてエラーが発生しました: %{path}。scalenow-AI がそのフォルダーに書き込むことができることを確認してください。"
       unauthorized: "リポジトリにアクセスする承認がないか、認証情報が有効ではありません。"
       unavailable: "リポジトリが利用できません。"
       exception_title: "リポジトリにアクセスできません: %{message}"
@@ -3162,9 +3162,9 @@ ja:
         path_encoding: "Git パス エンコーディングを上書き (デフォルト: UTF-8)"
       local_title: "既存のローカル Git リポジトリのリンク"
       local_url: "ローカル URL"
-      local_introduction: "既存のローカル Git リポジトリがある場合は、アプリケーション内からアクセスするために、OpenProject  とリンクできます。"
-      managed_introduction: "OpenProject が、自動的にローカル Git リポジトリを作成して統合します。"
-      managed_title: "Git リポジトリを OpenProject に統合しました"
+      local_introduction: "既存のローカル Git リポジトリがある場合は、アプリケーション内からアクセスするために、scalenow-AI  とリンクできます。"
+      managed_introduction: "scalenow-AI が、自動的にローカル Git リポジトリを作成して統合します。"
+      managed_title: "Git リポジトリを scalenow-AI に統合しました"
       managed_url: "管理 URL"
       path: "Git リポジトリのパス"
       path_encoding: "パスのエンコード"
@@ -3181,24 +3181,24 @@ ja:
     scm_types:
       local: "既存のローカルリポジトリのリンク"
       existing: "既存のリポジトリのリンク"
-      managed: "OpenProject に新しいリポジトリを作成"
+      managed: "scalenow-AI に新しいリポジトリを作成"
     storage:
       not_available: "このリポジトリのディスク ストレージ消費量は利用できません。"
       update_timeout: "最後のリポジトリに必要なディスク容量の情報を N 分間保持します。\nリポジトリの必要なディスク容量を計算するにはコストがかかるため、パフォーマンスへの影響を減らすにはこの値を増やしてください。"
-      oauth_application_details: "The client secret value will not be accessible again after you close this window. Please copy these values into the Nextcloud OpenProject Integration settings:"
+      oauth_application_details: "The client secret value will not be accessible again after you close this window. Please copy these values into the Nextcloud scalenow-AI Integration settings:"
       oauth_application_details_link_text: "Go to settings page"
       setup_documentation_details: "If you need help configuring a new file storage please check the documentation: "
       setup_documentation_details_link_text: "File Storages setup"
       show_warning_details: "To use this file storage remember to activate the module and the specific storage in the project settings of each desired project."
     subversion:
       existing_title: "既存の Subversion リポジトリ"
-      existing_introduction: "既存のローカル Subversion リポジトリがある場合は、アプリケーション内からアクセスするために、OpenProject とリンクできます。"
+      existing_introduction: "既存のローカル Subversion リポジトリがある場合は、アプリケーション内からアクセスするために、scalenow-AI とリンクできます。"
       existing_url: "既存のURL"
       instructions:
         managed_url: "これは、管理 (ローカル) Subversion リポジトリの URL です。"
         url: "リポジトリの URL を入力してください。これはローカル リポジトリ (%{local_proto} で始まる)、またはリモート リポジトリを対象にすることができます。\n次の URL スキームがサポートされています:"
-      managed_title: "Subversion リポジトリを OpenProject に統合しました"
-      managed_introduction: "OpenProject が、自動的にローカル Subversion リポジトリを作成して統合します。"
+      managed_title: "Subversion リポジトリを scalenow-AI に統合しました"
+      managed_introduction: "scalenow-AI が、自動的にローカル Subversion リポジトリを作成して統合します。"
       managed_url: "管理 URL"
       password: "リポジトリのパスワード"
       username: "リポジトリのユーザ名"
@@ -3215,7 +3215,7 @@ ja:
   setting_apiv3_cors_enabled: "CORSを有効にする"
   setting_apiv3_cors_origins: "API V3のオリジン間リソース共有 (CORS) が許可されています"
   setting_apiv3_cors_origins_text_html: >
-    CORS が有効になっている場合、これらは OpenProject API へのアクセスが許可されている起源です。 <br/> 期待される値を指定する方法については、 <a href="%{origin_link}" target="_blank">Origin ヘッダー</a> のドキュメントを確認してください。
+    CORS が有効になっている場合、これらは scalenow-AI API へのアクセスが許可されている起源です。 <br/> 期待される値を指定する方法については、 <a href="%{origin_link}" target="_blank">Origin ヘッダー</a> のドキュメントを確認してください。
   setting_apiv3_write_readonly_attributes: "Write access to read-only attributes"
   setting_apiv3_write_readonly_attributes_instructions_html: >
     If enabled, the API will allow administrators to write static read-only attributes during creation, such as createdAt and author. <br/> <strong>Warning:</strong> This setting has a use-case for e.g., importing data, but allows administrators to impersonate the creation of items as other users. All creation requests are being logged however with the true author. </br> For more information on attributes and supported resources, please see the %{api_documentation_link}.
@@ -3386,7 +3386,7 @@ ja:
       remaining_rescanned_files: >
         Virus scanning has been enabled successfully. There are %{file_count} that were uploaded previously and still need to be scanned. This process has been scheduled in the background. The files will remain accessible during the scan.
       upsale:
-        description: "Ensure uploaded files in OpenProject are scanned for viruses before being accessible by other users."
+        description: "Ensure uploaded files in scalenow-AI are scanned for viruses before being accessible by other users."
       actions:
         delete: "Delete the file"
         quarantine: "Quarantine the file"
@@ -3396,7 +3396,7 @@ ja:
         clamav_socket_html: Enter the socket to the clamd daemon, e.g., %{example}
         clamav_host_html: Enter the hostname and port to the clamd daemon separated by colon. e.g., %{example}
         description_html: >
-          Select the mode in which the antivirus scanner integration should operate. <br/> <ul> <li><strong>%{disabled_option}</strong>: Uploaded files are not scanned for viruses.</li> <li><strong>%{socket_option}</strong>: You have set up ClamAV on the same server as OpenProject and the scan daemon clamd is running in the background</li> <li><strong>%{host_option}</strong>: You are streaming files to an external virus scanning host.</li> </ul>
+          Select the mode in which the antivirus scanner integration should operate. <br/> <ul> <li><strong>%{disabled_option}</strong>: Uploaded files are not scanned for viruses.</li> <li><strong>%{socket_option}</strong>: You have set up ClamAV on the same server as scalenow-AI and the scan daemon clamd is running in the background</li> <li><strong>%{host_option}</strong>: You are streaming files to an external virus scanning host.</li> </ul>
     brute_force_prevention: "自動的にユーザをロック"
     date_format:
       first_date_of_week_and_year_set: >
@@ -3404,8 +3404,8 @@ ja:
       first_week_of_year_text_html: >
         Select the date of January that is contained in the first week of the year. This value together with first day of the week determines the total number of weeks in a year. For more information, please see our <a href="%{link}" target="_blank">documentation</a> on this topic.
     experimental:
-      save_confirmation: Caution! Risk of data loss! Only activate experimental features if you do not mind breaking your OpenProject installation and losing all of its data.
-      warning_toast: Feature flags are settings that activate features that are still under development. They shall only be used for testing purposes. They shall never be activated on OpenProject installations holding important data. These features will very likely corrupt your data. Use them at your own risk.
+      save_confirmation: Caution! Risk of data loss! Only activate experimental features if you do not mind breaking your scalenow-AI installation and losing all of its data.
+      warning_toast: Feature flags are settings that activate features that are still under development. They shall only be used for testing purposes. They shall never be activated on scalenow-AI installations holding important data. These features will very likely corrupt your data. Use them at your own risk.
       feature_flags: Feature flags
     general: "概要"
     highlighting:
@@ -3416,7 +3416,7 @@ ja:
         type: "タイプごとの行全体"
         priority: "優先度別に行全体"
     icalendar:
-      enable_subscriptions_text_html: Allows users with the necessary permissions to subscribe to OpenProject calendars and access work package information via an external calendar client. <strong>Note:</strong> Please read about <a href="%{link}" target="_blank">iCalendar subscriptions</a> to understand potential security risks before enabling this.
+      enable_subscriptions_text_html: Allows users with the necessary permissions to subscribe to scalenow-AI calendars and access work package information via an external calendar client. <strong>Note:</strong> Please read about <a href="%{link}" target="_blank">iCalendar subscriptions</a> to understand potential security risks before enabling this.
     language_name_being_default: "%{language_name} (default)"
     notifications:
       events_explanation: "Governs for which event an email is sent out. Work packages are excluded from this list as the notifications for them can be configured specifically for every user."
@@ -3464,7 +3464,7 @@ ja:
       sentence_connector: "及び"
       skip_last_comma: "偽"
   text_accessibility_hint: "アクセシビリティ モードは目の不自由な人、視覚障害者、視力が悪いユーザーのためにデザインされています。後者向けには、フォーカスされた要素が特に強調表示されます。バックログ モジュールはこのモードで使用できないことにご注意ください。"
-  text_access_token_hint: "アクセストークンで、外部アプリケーションが OpenProject のリソースへのアクセスを許可することができます。"
+  text_access_token_hint: "アクセストークンで、外部アプリケーションが scalenow-AI のリソースへのアクセスを許可することができます。"
   text_analyze: "さらに分析: %{subject}"
   text_are_you_sure: "よろしいですか？"
   text_are_you_sure_continue: "Are you sure you want to continue?"
@@ -3547,7 +3547,7 @@ ja:
   text_no_notes: "このワークパッケージに有効なコメントはありません."
   text_notice_too_many_values_are_inperformant: "注: 1ページあたり100以上の項目を表示すると読み込み時間が増加することがあります。"
   text_notice_security_badge_displayed_html: >
-    602/5000 注：有効にすると、<a href="%{information_panel_path}">%{information_panel_label}</a>管理パネルとホームページに、インストールステータスのバッジが表示されます。 管理者のみに表示されます。 <br/>バッジは、最新のOpenProjectバージョンを公式のOpenProjectリリースデータベースと照合して、アップデートや既知の脆弱性について警告します。 チェックの内容、利用可能なアップデートを提供するために必要なデータ、およびこのチェックを無効にする方法の詳細については、<a href="%{more_info_url}">設定ドキュメント</a>をご覧ください。
+    602/5000 注：有効にすると、<a href="%{information_panel_path}">%{information_panel_label}</a>管理パネルとホームページに、インストールステータスのバッジが表示されます。 管理者のみに表示されます。 <br/>バッジは、最新のscalenow-AIバージョンを公式のscalenow-AIリリースデータベースと照合して、アップデートや既知の脆弱性について警告します。 チェックの内容、利用可能なアップデートを提供するために必要なデータ、およびこのチェックを無効にする方法の詳細については、<a href="%{more_info_url}">設定ドキュメント</a>をご覧ください。
   text_own_membership_delete_confirmation: "一部またはすべての権限を自分自身から剥奪しようとしているため、このプロジェクトを編集できなくなる可能性があります。\n本当に続けますか？"
   text_plugin_assets_writable: "プラグインの「assets」ディレクトリが書き込み可能"
   text_powered_by: "Powered by %{link}"
@@ -3555,7 +3555,7 @@ ja:
   text_reassign: "ワークパッケージへの再割り当て:"
   text_regexp_info: "例) ^[A-Z0-9]+$"
   text_regexp_multiline: '正規表現は、複数行モードで適用されます。例えば、^---\s+'
-  text_repository_usernames_mapping: "リポジトリのログから検出されたユーザ名をどのOpenProjectユーザに関連づけるかを選択してください。\nログ上のユーザ名またはメールアドレスがOpenProjectのユーザと一致する場合は自動的に関連づけます。"
+  text_repository_usernames_mapping: "リポジトリのログから検出されたユーザ名をどのscalenow-AIユーザに関連づけるかを選択してください。\nログ上のユーザ名またはメールアドレスがscalenow-AIのユーザと一致する場合は自動的に関連づけます。"
   text_status_changed_by_changeset: "変更履歴%{value}で適用されました。"
   text_table_difference_description: "この表には、単一の %{entries} が表示されています。 まず、表の対応するチェックボックスを選択して、両者の項目の違いを見ることができます。 表の下のボタンをクリックすると、違いが表示されます。"
   text_time_logged_by_changeset: "変更履歴%{value}で適用されました。"
@@ -3629,7 +3629,7 @@ ja:
     authentication_provider: "認証プロバイダー"
     identity_url_text: "The internal unique identifier provided by the authentication provider."
     authentication_settings_disabled_due_to_external_authentication: >
-      外部認証プロバイダー経由でこのユーザを認証しますので、OpenProjectではパスワードの変更ができません。
+      外部認証プロバイダー経由でこのユーザを認証しますので、scalenow-AIではパスワードの変更ができません。
     authorization_rejected: "ログインすることはできません。"
     assign_random_password: "ランダムパスワードを設定 (メールでユーザに送信されます)"
     blocked: "一時的ロック"
@@ -3660,7 +3660,7 @@ ja:
   warning: 注意
   warning_attachments_not_saved: "%{count} 件のファイルを保存できませんでした。"
   warning_imminent_user_limit: >
-    現在のプランでサポートされているユーザーよりも多くのユーザーを招待しました。 招待されたユーザーは、OpenProject環境に参加できない場合があります。 招待者と登録ユーザーが参加できるようにするには、<a href="%{upgrade_url}">プランをアップグレード</a>するか、既存のユーザーをブロックしてください。
+    現在のプランでサポートされているユーザーよりも多くのユーザーを招待しました。 招待されたユーザーは、scalenow-AI環境に参加できない場合があります。 招待者と登録ユーザーが参加できるようにするには、<a href="%{upgrade_url}">プランをアップグレード</a>するか、既存のユーザーをブロックしてください。
   warning_registration_token_expired: |
     アクティベーションメールの有効期限が切れています。%{email} に新しいメールを送りました。メール内のリンクをクリックして、アカウントを有効にしてください。
   warning_user_limit_reached: >
@@ -3922,7 +3922,7 @@ ja:
         confidential: "クライアントシークレットを機密にできる場所でアプリケーションが使用されるかどうかを確認します。 ネイティブモバイルアプリとシングルページアプリは機密とはみなされません。"
         scopes: "アプリケーションにアクセスを許可するスコープをチェックします。チェックされていない場合、api_v3になる。"
         client_credential_user_id: "クライアントがこのアプリケーションを使用するときに偽装するためのオプションのユーザーIDです。 パブリックアクセスのみを許可するには空のままにします"
-        register_intro: "OpenProject用のOAuth APIクライアントアプリケーションを開発している場合は、このフォームを使用してすべてのユーザーが使用できるように登録できます。"
+        register_intro: "scalenow-AI用のOAuth APIクライアントアプリケーションを開発している場合は、このフォームを使用してすべてのユーザーが使用できるように登録できます。"
         default_scopes: ""
     header:
       builtin_applications: Built-in OAuth applications
@@ -3930,17 +3930,17 @@ ja:
     empty_application_lists: No OAuth applications have been registered.
     client_id: "クライアントID"
     client_secret_notice: >
-      クライアントシークレットを表示できる唯一の瞬間です。書き留めて安全に保管してください。 これはパスワードとして扱われるべきであり、後でOpenProjectによって検索することはできません。
+      クライアントシークレットを表示できる唯一の瞬間です。書き留めて安全に保管してください。 これはパスワードとして扱われるべきであり、後でscalenow-AIによって検索することはできません。
     authorization_dialog:
       authorize: "承認"
       cancel: "承認を取り消して拒否します。"
       prompt_html: "<strong>%{application_name}</strong>に自分のアカウント<em>%{login}</em>を使用する権限を与えますか？"
       title: "%{application_name}を承認します"
       wants_to_access_html: >
-        このアプリケーションはあなたのOpenProjectアカウントへのアクセスを要求します。 <br/> <strong>次の権限が要求されています：</strong>
+        このアプリケーションはあなたのscalenow-AIアカウントへのアクセスを要求します。 <br/> <strong>次の権限が要求されています：</strong>
     scopes:
       api_v3: "Full API v3アクセス"
-      api_v3_text: "アプリケーションはアクションを実行するためのOpenProject API v3へのフルアクセスが許可されます。"
+      api_v3_text: "アプリケーションはアクションを実行するためのscalenow-AI API v3へのフルアクセスが許可されます。"
     grants:
       created_date: "に承認済み"
       scopes: "権限"
@@ -3955,7 +3955,7 @@ ja:
     client_credentials_impersonation_set_to: "クライアントの資格情報をユーザーに設定"
     client_credentials_impersonation_warning: "注意：このアプリケーションで「クライアント認証情報」フローを使用しているクライアントは、このユーザーの権限を持ちます。"
     client_credentials_impersonation_html: >
-      デフォルトでは、OpenProjectは %{authorization_code_flow_link} を介してOAuth 2.0認証を提供します。 オプションで %{client_credentials_flow_link} を有効にすることもできますが、その代わりにユーザーに代わってリクエストが実行されるようにする必要があります。
+      デフォルトでは、scalenow-AIは %{authorization_code_flow_link} を介してOAuth 2.0認証を提供します。 オプションで %{client_credentials_flow_link} を有効にすることもできますが、その代わりにユーザーに代わってリクエストが実行されるようにする必要があります。
     authorization_error: "認証エラーが発生しました。"
     revoke_my_application_confirmation: "本当にこのアプリケーションを削除しますか？ これにより %{token_count} が無効になります。"
     my_registered_applications: "登録済みのOAuthアプリケーション"
@@ -3983,20 +3983,20 @@ ja:
         Internal error: Called refresh_token without a previously existing token.
       refresh_token_updated_failed: "Error during update of OAuthClientToken"
       oauth_client_not_found_explanation: >
-        This error appears after you have updated the client_id and client_secret in OpenProject, but haven't updated the 'Return URI' field in the OAuth2 provider.
+        This error appears after you have updated the client_id and client_secret in scalenow-AI, but haven't updated the 'Return URI' field in the OAuth2 provider.
       oauth_code_not_present: "OAuth2 'code' not found in 'callback' endpoint (redirect_uri)."
       oauth_code_not_present_explanation: >
         This error appears if you have selected the wrong response_type in the OAuth2 provider. Response_type should be 'code' or similar.
       oauth_state_not_present: "OAuth2 'state' not found in 'callback' endpoint (redirect_uri)."
       oauth_state_not_present_explanation: >
-        The 'state' is used to indicate to OpenProject where to continue after a successful OAuth2 authorization. A missing 'state' is an internal error that may appear during setup. Please contact your system administrator.
+        The 'state' is used to indicate to scalenow-AI where to continue after a successful OAuth2 authorization. A missing 'state' is an internal error that may appear during setup. Please contact your system administrator.
       rack_oauth2:
         client_secret_invalid: "Client secret is invalid (client_secret_invalid)"
         invalid_request: >
           OAuth2 Authorization Server responded with 'invalid_request'. This error appears if you try to authorize multiple times or in case of technical issues.
         invalid_response: "OAuth2 Authorization Server provided an invalid response (invalid_response)"
         invalid_grant: "The OAuth2 Authorization Server asks you to reauthorize (invalid_grant)."
-        invalid_client: "The OAuth2 Authorization Server doesn't recognize OpenProject (invalid_client)."
+        invalid_client: "The OAuth2 Authorization Server doesn't recognize scalenow-AI (invalid_client)."
         unauthorized_client: "The OAuth2 Authorization Server rejects the grant type (unauthorized_client)"
         unsupported_grant_type: "The OAuth2 Authorization Server asks you to reauthorize (unsupported_grant_type)."
         invalid_scope: "You are not allowed to access the requested resource (invalid_scope)."
@@ -4009,8 +4009,8 @@ ja:
   you: あなた
   link: link
   plugin_openproject_auth_plugins:
-    name: "OpenProject Auth Plugins"
-    description: "Integration of OmniAuth strategy providers for authentication in OpenProject."
+    name: "scalenow-AI Auth Plugins"
+    description: "Integration of OmniAuth strategy providers for authentication in scalenow-AI."
   plugin_openproject_auth_saml:
     name: "OmniAuth SAML / Single-Sign On"
-    description: "Adds the OmniAuth SAML provider to OpenProject"
+    description: "Adds the OmniAuth SAML provider to scalenow-AI"

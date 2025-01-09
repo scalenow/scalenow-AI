@@ -1,7 +1,7 @@
 #English strings go here
 vi:
   plugin_openproject_calendar:
-    name: "Lịch OpenProject"
+    name: "Lịch scalenow-AI"
     description: "Cung cấp các chế độ xem lịch."
   label_calendar: "Lịch"
   label_calendar_plural: "Các lịch"

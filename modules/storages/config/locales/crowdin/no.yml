@@ -31,10 +31,10 @@
           attributes:
             host:
               authorization_header_missing: er ikke ferdig konfigurert. Nextcloud forekomsten mottar ikke "Authorization"-overskriften, som er nødvendig for en Bearer-nøkkel basert autorisasjon for API-forespørsler. Dobbeltsjekk HTTP-serverkonfigurasjonen din.
-              cannot_be_connected_to: kunne ikke nås. Vennligst sørg for at verten er tilgjengelig og at OpenProject integrasjonsapp er installert.
+              cannot_be_connected_to: kunne ikke nås. Vennligst sørg for at verten er tilgjengelig og at scalenow-AI integrasjonsapp er installert.
               minimal_nextcloud_version_unmet: oppfyller ikke minimale krav til versjon (må være Nextcloud 23 eller høyere)
               not_nextcloud_server: er ikke en Nextcloud server
-              op_application_not_installed: ser ut til å ikke ha appen "OpenProject integrasjon" installert. Installer den først og prøv igjen.
+              op_application_not_installed: ser ut til å ikke ha appen "scalenow-AI integrasjon" installert. Installer den først og prøv igjen.
             password:
               invalid_password: er ikke gyldig.
               unknown_error: kunne ikke valideres. Vennligst sjekk din lagringskobling og prøv igjen.
@@ -91,15 +91,15 @@
         rename_project_folder: 'Endre navn på administrert prosjektmappe:'
     errors:
       messages:
-        error: Det oppstod en uventet feil. Sjekk OpenProject logger for mer informasjon eller kontakt en administrator
-        unauthorized: OpenProject kunne ikke logge inn på lagringsstedet. Vennligst sørg for at du har tilgang til det.
+        error: Det oppstod en uventet feil. Sjekk scalenow-AI logger for mer informasjon eller kontakt en administrator
+        unauthorized: scalenow-AI kunne ikke logge inn på lagringsstedet. Vennligst sørg for at du har tilgang til det.
       models:
         copy_project_folders_service:
           conflict: Mappen %{destination_path} finnes allerede. Avbryter prosessen for å unngå overskriving.
-          error: Det oppstod en uventet feil. Sjekk OpenProject logger for mer informasjon eller kontakt en administrator
-          forbidden: OpenProject har ikke tilgang til kildemappen. Vennligst sjekk din tillatelseskonfigurasjon på lagringstilbyderen
+          error: Det oppstod en uventet feil. Sjekk scalenow-AI logger for mer informasjon eller kontakt en administrator
+          forbidden: scalenow-AI har ikke tilgang til kildemappen. Vennligst sjekk din tillatelseskonfigurasjon på lagringstilbyderen
           not_found: Kildemal plassering %{source_path} ble ikke funnet.
-          unauthorized: OpenProject kunne ikke logge inn på lagringsstedet. Sjekk konfigurasjonen
+          unauthorized: scalenow-AI kunne ikke logge inn på lagringsstedet. Sjekk konfigurasjonen
         nextcloud_sync_service:
           attributes:
             add_user_to_group:
@@ -120,15 +120,15 @@
               conflict: 'Brukeren %{user} kunne ikke fjernes fra %{group} gruppen av følgende årsak: %{reason}'
               failed_to_remove: 'Brukeren %{user} kunne ikke fjernes fra %{group} gruppen av følgende årsak: %{reason}'
             rename_project_folder:
-              forbidden: OpenProject bruker har ikke tilgang til %{current_path} mappe.
+              forbidden: scalenow-AI bruker har ikke tilgang til %{current_path} mappe.
               not_found: "%{current_path} ble ikke funnet."
             set_folders_permissions:
               permission_not_set: kunne ikke sette tillatelser på %{path}.
-          error: Det oppstod en uventet feil. Sørg for at din Nextcloud forekomst er tilgjengelig og sjekk OpenProject logger for mer informasjon
+          error: Det oppstod en uventet feil. Sørg for at din Nextcloud forekomst er tilgjengelig og sjekk scalenow-AI logger for mer informasjon
           group_does_not_exist: "%{group} does not exist. Check your Nextcloud instance configuration."
-          insufficient_privileges: OpenProject har ikke nok rettigheter til å legge til %{user} til %{group}. Sjekk gruppeinnstillinger i Nextcloud.
+          insufficient_privileges: scalenow-AI har ikke nok rettigheter til å legge til %{user} til %{group}. Sjekk gruppeinnstillinger i Nextcloud.
           not_allowed: Nextcloud blokkerer forespørselen.
-          unauthorized: OpenProject could not sync with Nextcloud. Please check your storage and Nextcloud configuration.
+          unauthorized: scalenow-AI could not sync with Nextcloud. Please check your storage and Nextcloud configuration.
           user_does_not_exist: "%{user} finnes ikke i Nextcloud."
         one_drive_sync_service:
           attributes:
@@ -138,16 +138,16 @@
             hide_inactive_folders:
               permission_not_set: kunne ikke sette tillatelser på %{path}.
             remote_folders:
-              request_error: OpenProject kunne ikke få tilgang til harddisken %{drive_id}. Kontroller om lagringskonfigurasjonen er riktig.
+              request_error: scalenow-AI kunne ikke få tilgang til harddisken %{drive_id}. Kontroller om lagringskonfigurasjonen er riktig.
             rename_project_folder:
-              conflict: OpenProject kunne ikke endre navn på mappen %{current_path} til %{project_folder_name} da en mappe med samme navn allerede eksisterer
-              forbidden: OpenProject har ikke tilgang til å endre navn på %{current_path}.
+              conflict: scalenow-AI kunne ikke endre navn på mappen %{current_path} til %{project_folder_name} da en mappe med samme navn allerede eksisterer
+              forbidden: scalenow-AI har ikke tilgang til å endre navn på %{current_path}.
               not_found: "%{current_path} ble ikke funnet."
             set_folders_permissions:
               permission_not_set: kunne ikke sette tillatelser på %{path}.
-          error: Det oppstod en uventet feil. Sørg for at din Nextcloud forekomst er tilgjengelig og sjekk OpenProject logger for mer informasjon
-          not_allowed: OpenProject har ikke fått tilgang til din OneDrive stasjon. Vennligst sjekk tillatelsene som er angitt i Azure appen.
-          unauthorized: OpenProject could not sync with OneDrive. Please check your storage and Azure Application configuration.
+          error: Det oppstod en uventet feil. Sørg for at din Nextcloud forekomst er tilgjengelig og sjekk scalenow-AI logger for mer informasjon
+          not_allowed: scalenow-AI har ikke fått tilgang til din OneDrive stasjon. Vennligst sjekk tillatelsene som er angitt i Azure appen.
+          unauthorized: scalenow-AI could not sync with OneDrive. Please check your storage and Azure Application configuration.
           user_does_not_exist: "%{user} finnes ikke i Nextcloud."
         upload_link_service:
           not_found: Målmappen %{folder} ble ikke funnet på %{storage_name}.
@@ -157,17 +157,17 @@
       done_complete_setup: Ferdig, fullfør oppsett
       done_continue: Ferdig, fortsett
       open_storage: Open file storage
-      replace_oauth_application: Erstatt OpenProject OAuth
+      replace_oauth_application: Erstatt scalenow-AI OAuth
       replace_oauth_client: Erstatt %{provider_type} OAuth
       save_and_continue: Lagre og fortsett
       select_folder: Velg mappe
     configuration_checks:
       oauth_client_incomplete:
-        nextcloud: Gi OpenProject tilgang til Nextcloud data ved hjelp av OAuth.
-        one_drive: Gi OpenProject tilgang til Azure data med OAuth for å koble til OneDrive/Sharepoint.
+        nextcloud: Gi scalenow-AI tilgang til Nextcloud data ved hjelp av OAuth.
+        one_drive: Gi scalenow-AI tilgang til Azure data med OAuth for å koble til OneDrive/Sharepoint.
       redirect_uri_incomplete:
         one_drive: Fullfør oppsettet med riktig URI omdirigering.
-    confirm_replace_oauth_application: Denne handlingen vil tilbakestille gjeldende OAuth legitimasjon. Etter å ha bekreftet vil du måtte skrive inn innloggingsdetaljene hos lagringsleverandøren, og alle eksterne brukere må autorisere mot OpenProject igjen. Er du sikker på at du vil fortsette?
+    confirm_replace_oauth_application: Denne handlingen vil tilbakestille gjeldende OAuth legitimasjon. Etter å ha bekreftet vil du måtte skrive inn innloggingsdetaljene hos lagringsleverandøren, og alle eksterne brukere må autorisere mot scalenow-AI igjen. Er du sikker på at du vil fortsette?
     confirm_replace_oauth_client: Denne handlingen vil tilbakestille gjeldende OAuth legitimasjon. Etter bekreftelse må du skrive inn ny påloggingsinformasjon fra leverandøren, og alle brukere må autorisere mot %{provider_type} igjen. Er du sikker på at du vil fortsette?
     delete_warning:
       input_delete_confirmation: Skriv inn navnet til lagringsstedet %{file_storage} for å bekrefte sletting.
@@ -182,7 +182,7 @@
     dependencies:
       nextcloud:
         group_folders_app: Group folders
-        integration_app: Integration OpenProject
+        integration_app: Integration scalenow-AI
     enabled_in_projects:
       setup_incomplete_description: This storage has an incomplete setup. Please, complete the setup before enabling it in multiple projects.
       setup_incomplete_header: Storage setup incomplete
@@ -190,7 +190,7 @@
     file_storage_view:
       access_management:
         automatic_management: Administrere automatisk tilgang og mapper
-        automatic_management_description: La OpenProject lage mapper automatisk og administrere brukertilgang hver av sine mapper. Det anbefales fordi den sikrer at alle gruppemedlemmer alltid har riktig tilgangsrettigheter.
+        automatic_management_description: La scalenow-AI lage mapper automatisk og administrere brukertilgang hver av sine mapper. Det anbefales fordi den sikrer at alle gruppemedlemmer alltid har riktig tilgangsrettigheter.
         description: Velg type behandling av brukertilgang og opprettelse av mappe. Vi anbefaler å bruke automatisk administrert tilgang for å ha en mer organisert struktur og garantere tilgang til alle relevante brukere.
         manual_management: Manuelt administrert tilgang og mapper
         manual_management_description: Opprett og behandle mapper manuelt per prosjekt på egenhånd. Du må manuelt sikre at relevante brukere har tilgang.
@@ -202,7 +202,7 @@
       nextcloud_oauth: Nextcloud OAuth
       oauth_applications: OAuth programmer
       one_drive_oauth: Azure OAuth
-      openproject_oauth: OpenProject OAuth
+      openproject_oauth: scalenow-AI OAuth
       project_folders: Prosjektmapper
       redirect_uri: Omdiriger URI
       storage_provider: Lagringsleverandør
@@ -210,7 +210,7 @@
       checked: Sist sjekket %{datetime}
       connection_validation:
         action: Recheck connection
-        app_version_mismatch: The Integration OpenProject app version is not supported. Please update your Nextcloud server.
+        app_version_mismatch: The Integration scalenow-AI app version is not supported. Please update your Nextcloud server.
         client_id_wrong: The configured OAuth 2 client id is invalid. Please check the configuration.
         client_secret_wrong: The configured OAuth 2 client secret is invalid. Please check the configuration.
         drive_id_wrong: The configured drive id could not be found. Please check the configuration.
@@ -255,15 +255,15 @@
       name: Gi lagringsstedet ditt et navn slik at brukere kan skille mellom flere lagringssteder.
       new_storage: Les dokumentasjonen vår på <a target='_blank' href='%{provider_link}'>om å sette opp %{provider_name} fillagring</a> integrasjon for mer informasjon.
       nextcloud:
-        application_link_text: applikasjon "Integrasjon OpenProject"
-        integration: Nextcloud administrasjon / OpenProject
+        application_link_text: applikasjon "Integrasjon scalenow-AI"
+        integration: Nextcloud administrasjon / scalenow-AI
         oauth_configuration: Kopier disse verdiene fra %{application_link_text}.
         provider_configuration: Kontroller at du har administrasjonsrettigheter i din NextCloud-instans og %{application_link_text} er installert før du utfører oppsettet.
       no_specific_folder: Som standard starter hver bruker på sin egen hjem-mappe når vedkommende laster opp en fil.
       no_storage_set_up: Det er ingen fillagring satt opp ennå.
       not_logged_into_storage: Du må logge inn først for å velge en prosjektmappe.
       oauth_application_details: Den hemmelige verdien for klienten blir ikke tilgjengelig igjen etter at du har lukket dette vinduet. Kopier disse verdiene inn i %{oauth_application_details_link}.
-      oauth_application_details_link_text: Nextcloud OpenProject integrasjonsinnstillinger
+      oauth_application_details_link_text: Nextcloud scalenow-AI integrasjonsinnstillinger
       one_drive:
         application_link_text: Azure portal
         copy_redirect_uri: Kopier omadressering av URI
@@ -282,7 +282,7 @@
       setting_up_storages: For å sette opp fillagre, vennligst besøk
       setting_up_storages_non_admin: Administratorer kan sette opp fillagring i Administrasjon-/fillagre.
       type: 'Sørg for at du har administrasjonsrettigheter i din NextCloud-instans og har følgende applikasjon installert før du utfører oppsettet:'
-      type_link_text: "«Integrasjon OpenProject»"
+      type_link_text: "«Integrasjon scalenow-AI»"
     label_active: Aktiv
     label_add_new_storage: Legg til nytt lagringssted
     label_automatic_folder: Ny mappe med automatisk administrerte tillatelser
@@ -306,8 +306,8 @@
     label_no_selected_folder: Ingen valgt mappe
     label_no_specific_folder: Ingen spesifikk mappe
     label_oauth_client_id: OAuth klient-ID
-    label_openproject_oauth_application_id: OpenProject OAuth klient-ID
-    label_openproject_oauth_application_secret: OpenProject OAuth klient-hemmelighet
+    label_openproject_oauth_application_id: scalenow-AI OAuth klient-ID
+    label_openproject_oauth_application_secret: scalenow-AI OAuth klient-hemmelighet
     label_project_folder: Prosjektmappe
     label_provider: Leverandør
     label_redirect_uri: Omdiriger URI
@@ -352,9 +352,9 @@
         subtitle: Legg til en ekstern fillagring for å laste opp, koble og administrere filer i arbeidspakker.
       managed_project_folders:
         subtitle: |-
-          La OpenProject opprette mapper automatisk per prosjekt. Dette anbefales fordi det sikrer at alle medlemmene i teamet
+          La scalenow-AI opprette mapper automatisk per prosjekt. Dette anbefales fordi det sikrer at alle medlemmene i teamet
           alltid har riktige tilgangsrettigheter.
-        subtitle_short: La OpenProject opprette mapper automatisk per prosjekt.
+        subtitle_short: La scalenow-AI opprette mapper automatisk per prosjekt.
         title: Automatisk administrerte prosjektmapper
       project_settings:
         delete: Slett fillagring
@@ -364,7 +364,7 @@
       project_storage_members:
         subtitle: Sjekk tilkoblingsstatusen for lagringsstedet  %{storage_name_link} for alle prosjektmedlemmer.
         title: Medlemmers tilkoblingsstatus
-    permission_header_explanation: 'Filtillatelser til eksterne lagringsplasser brukes bare på mapper og filer innenfor automatisk administrerte prosjektmapper. Merk at ikke alle filtillatelser støttes av alle lagringstilbydere. Kontroller dokumentasjonen for <a target=''_blank'' href=''https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#file-storages-permissions''>-filens lagringsrettigheter</a> for mer informasjon.'
+    permission_header_explanation: 'Filtillatelser til eksterne lagringsplasser brukes bare på mapper og filer innenfor automatisk administrerte prosjektmapper. Merk at ikke alle filtillatelser støttes av alle lagringstilbydere. Kontroller dokumentasjonen for <a target=''_blank'' href=''#''>-filens lagringsrettigheter</a> for mer informasjon.'
     provider_types:
       label: Tjenestetype
       nextcloud:
@@ -386,6 +386,6 @@
     successful_storage_connection: Storage connected successfully! Remember to activate the storage in the Projects tab for each desired project to use it.
     upsale:
       description: |-
-        Integrer din OneDrive/SharePoint som en fillagring med OpenProject. Last opp filer og koble dem direkte til
+        Integrer din OneDrive/SharePoint som en fillagring med scalenow-AI. Last opp filer og koble dem direkte til
         arbeidspakker i et prosjekt.
       title: OneDrive/SharePoint integrering

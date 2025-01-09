@@ -153,7 +153,7 @@ ms:
                 options:
                   name: Sedang bermula
                   text: |
-                    Kami gembira anda menyertai kami! Kami cadangkan beberapa perkara sebagai permulaan di OpenProject.
+                    Kami gembira anda menyertai kami! Kami cadangkan beberapa perkara sebagai permulaan di scalenow-AI.
 
                     Temui fitur paling penting dengan [Lawatan Berpandu ({{opSetting:base_url}}/projects/demo-project/work_packages/?start_onboarding_tour=true) kami.
 
@@ -325,7 +325,7 @@ ms:
                 options:
                   name: Sedang bermula
                   text: |
-                    Kami gembira anda menyertai kami! Kami cadangkan beberapa perkara sebagai permula andi OpenProject.
+                    Kami gembira anda menyertai kami! Kami cadangkan beberapa perkara sebagai permula andi scalenow-AI.
 
                     _Cuba ikuti langkah-langkah berikut:_
 
@@ -500,9 +500,9 @@ ms:
         item_6:
           name: Bug
       welcome:
-        title: Selamat datang ke OpenProject!
+        title: Selamat datang ke scalenow-AI!
         text: |
-          OpenProject adalah perisian pengurusan projek sumber terbuka terkemuka. Ia menyokong pengurusan projek klasik, agile serta hibrid dan memberi anda kawalan sepenuhnya terhadap data anda.
+          scalenow-AI adalah perisian pengurusan projek sumber terbuka terkemuka. Ia menyokong pengurusan projek klasik, agile serta hibrid dan memberi anda kawalan sepenuhnya terhadap data anda.
 
           Fitur-fitur teras dan kes penggunaan:
 

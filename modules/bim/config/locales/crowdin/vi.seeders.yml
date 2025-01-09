@@ -71,7 +71,7 @@ vi:
         item_7:
           name: Kỹ sư kết cấu
       welcome:
-        title: Chào mừng đến với phiên bản BIM của OpenProject!
+        title: Chào mừng đến với phiên bản BIM của scalenow-AI!
         text: |
           Xem qua các dự án mẫu để bắt đầu với một số ví dụ.
 
@@ -120,7 +120,7 @@ vi:
                 options:
                   name: Bắt đầu
                   text: |
-                    Chúng tôi rất vui vì bạn đã tham gia! Chúng tôi đề xuất bạn thử một số bước để bắt đầu với OpenProject.
+                    Chúng tôi rất vui vì bạn đã tham gia! Chúng tôi đề xuất bạn thử một số bước để bắt đầu với scalenow-AI.
 
                     Nhưng trước khi bạn bắt đầu ngay lập tức, bạn nên biết rằng dự án mẫu này được chia thành hai dự án khác nhau:
 
@@ -179,7 +179,7 @@ vi:
                 options:
                   name: Bắt đầu
                   text: |
-                    Chúng tôi rất vui khi bạn tham gia! Chúng tôi gợi ý bạn thử một số bước để bắt đầu trong OpenProject.
+                    Chúng tôi rất vui khi bạn tham gia! Chúng tôi gợi ý bạn thử một số bước để bắt đầu trong scalenow-AI.
 
                     Ở đây, bạn sẽ tìm thấy các vai trò cổ điển, một số quy trình làm việc và các gói công việc cho dự án xây dựng của bạn.
 
@@ -433,7 +433,7 @@ vi:
                 options:
                   name: Bắt đầu
                   text: |
-                    Chúng tôi rất vui vì bạn đã tham gia! Chúng tôi gợi ý bạn thử một vài điều để bắt đầu trong OpenProject.
+                    Chúng tôi rất vui vì bạn đã tham gia! Chúng tôi gợi ý bạn thử một vài điều để bắt đầu trong scalenow-AI.
 
                     Dự án demo này cung cấp các vai trò, quy trình và gói công việc chuyên biệt cho BIM.
 
@@ -709,7 +709,7 @@ vi:
                 options:
                   name: Bắt đầu
                   text: |
-                    Chúng tôi rất vui mừng khi bạn tham gia! Chúng tôi khuyên bạn nên thử một số bước để bắt đầu với OpenProject.
+                    Chúng tôi rất vui mừng khi bạn tham gia! Chúng tôi khuyên bạn nên thử một số bước để bắt đầu với scalenow-AI.
 
                     Dự án demo này cho thấy các chức năng quản lý BCF.
 

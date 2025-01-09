@@ -71,7 +71,7 @@
         item_7:
           name: Konstruksjonsteknikere
       welcome:
-        title: 'Velkommen til OpenProject: BIM-utgave!'
+        title: 'Velkommen til scalenow-AI: BIM-utgave!'
         text: |
           Sjekk ut demo-prosjektene for å komme i gang med noen eksempler.
 
@@ -120,7 +120,7 @@
                 options:
                   name: Komme i gang
                   text: |
-                    Vi er glade for at du ble med!  Vi foreslår et par ting du bør prøve for å komme i gang med OpenProject.
+                    Vi er glade for at du ble med!  Vi foreslår et par ting du bør prøve for å komme i gang med scalenow-AI.
 
                     Men før du begynner skal du vite at dette demoprosjektet er delt inn i to forskjellige prosjekter:
 
@@ -179,7 +179,7 @@
                 options:
                   name: Komme i gang
                   text: |
-                    Vi er glade for at du ble med!  Vi foreslå et par ting du bør prøve for å komme i gang med OpenProject.
+                    Vi er glade for at du ble med!  Vi foreslå et par ting du bør prøve for å komme i gang med scalenow-AI.
 
                     Men før du begynner skal du vite at dette demoprosjektet er delt inn i to forskjellige prosjekter:
 
@@ -437,7 +437,7 @@
                 options:
                   name: Komme i gang
                   text: |
-                    Vi er glad for at du ble med! Vi foreslår at du prøver et par ting for å komme i gang med OpenProject.
+                    Vi er glad for at du ble med! Vi foreslår at du prøver et par ting for å komme i gang med scalenow-AI.
 
                     Dette demoprosjektet tilbyr roller, arbeidsflyt og arbeidspakker som er tilpasset BIM.
 
@@ -713,7 +713,7 @@
                 options:
                   name: Komme i gang
                   text: |
-                    Vi er glad du ble med! Vi foreslår at du prøver et par ting for å komme i gang i OpenProject.
+                    Vi er glad du ble med! Vi foreslår at du prøver et par ting for å komme i gang i scalenow-AI.
 
                     Dette demoprosjektet viser funksjonaliteter i BCF-styring.
 

@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -28,13 +28,13 @@ de:
   notice_deploy_target_created: Deploymentziel erstellt
   notice_deploy_target_destroyed: Deploymentziel gelöscht
   plugin_openproject_github_integration:
-    name: "OpenProject GitHub-Integration"
-    description: "Integriert OpenProject und GitHub für einen besseren Arbeitsablauf"
+    name: "scalenow-AI GitHub-Integration"
+    description: "Integriert scalenow-AI und GitHub für einen besseren Arbeitsablauf"
   project_module_github: "GitHub"
   permission_show_github_content: "Zeige weiteren Inhalt"
-  permission_introspection: Auslesen der OpenProject Core Version und Build-SHA
+  permission_introspection: Auslesen der scalenow-AI Core Version und Build-SHA
   text_deploy_target_type_info: >
-    Bislang unterstützen wir nur OpenProject selbst.
+    Bislang unterstützen wir nur scalenow-AI selbst.
   text_deploy_target_api_key_info: >
-    Ein OpenProject [API-Schlüssel](docs_url), der einem Benutzer gehört, der die Berechtigung zur globalen Introspektion hat.
+    Ein scalenow-AI [API-Schlüssel](docs_url), der einem Benutzer gehört, der die Berechtigung zur globalen Introspektion hat.
   text_pull_request_deployed_to: "%{pr_link} wurde zu %{deploy_target_link} deployed"

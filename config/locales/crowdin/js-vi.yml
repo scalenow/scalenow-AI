@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -52,7 +52,7 @@ vi:
         Một sao lưu mới sẽ ghi đè lên bất kỳ sao lưu trước đó nào. Chỉ có một số lượng giới hạn các sao lưu mỗi ngày có thể được yêu cầu.
       last_backup: Sao lưu cuối cùng
       last_backup_from: Sao lưu cuối cùng từ
-      title: Sao lưu OpenProject
+      title: Sao lưu scalenow-AI
       options: Tùy chọn
       include_attachments: Bao gồm tập tin đính kèm
       download_backup: Tải xuống sao lưu
@@ -222,7 +222,7 @@ vi:
             label_maximum_users: "Số người dùng hoạt động tối đa"
             label_starts_at: "Bắt đầu từ"
             label_expires_at: "Hết hạn vào"
-            receive_newsletter: Tôi muốn nhận <a target="_blank" href="%{link}">bản tin</a> của OpenProject.
+            receive_newsletter: Tôi muốn nhận <a target="_blank" href="%{link}">bản tin</a> của scalenow-AI.
             taken_domain: Chỉ có thể có một bản dùng thử hoạt động cho mỗi miền.
             domain_mismatch: Tên máy chủ yêu cầu hiện tại không khớp với tên máy chủ đã cấu hình. Vui lòng kiểm tra lại cài đặt hệ thống của bạn.
             taken_email: Mỗi người dùng chỉ có thể tạo một bản dùng thử.
@@ -237,7 +237,7 @@ vi:
           status_confirmed: "đã xác nhận"
           status_waiting: "email đã được gửi - chờ xác nhận"
           test_ee: "Dùng thử phiên bản Enterprise miễn phí trong 14 ngày"
-          quick_overview: "Nhận cái nhìn nhanh về quản lý dự án và hợp tác nhóm với phiên bản Enterprise của OpenProject."
+          quick_overview: "Nhận cái nhìn nhanh về quản lý dự án và hợp tác nhóm với phiên bản Enterprise của scalenow-AI."
         upsale:
           become_hero: "Trở thành anh hùng!"
           enterprise_info_html: "%{feature_title} là một phần mở rộng Enterprise <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span>."
@@ -251,7 +251,7 @@ vi:
             premium_features: "Phần mở rộng Enterprise"
             premium_features_text: "Bảng Agile, chủ đề và logo tùy chỉnh, đồ thị, quy trình làm việc thông minh với các hành động tùy chỉnh, tìm kiếm toàn văn cho các tệp đính kèm công việc và trường tùy chỉnh nhiều chọn."
             professional_support: "Hỗ trợ chuyên nghiệp"
-            professional_support_text: "Nhận hỗ trợ tin cậy, tận tâm từ các kỹ sư hỗ trợ cấp cao với kiến thức chuyên môn về việc chạy OpenProject trong môi trường kinh doanh quan trọng."
+            professional_support_text: "Nhận hỗ trợ tin cậy, tận tâm từ các kỹ sư hỗ trợ cấp cao với kiến thức chuyên môn về việc chạy scalenow-AI trong môi trường kinh doanh quan trọng."
           button_start_trial: "Bắt đầu dùng thử miễn phí"
           button_upgrade: "Nâng cấp ngay"
           button_contact_us: "Liên hệ với chúng tôi để được trình diễn"
@@ -261,7 +261,7 @@ vi:
           link_quote: "Nhận báo giá"
           more_info: "Thêm thông tin"
           text: >
-            Phiên bản Enterprise của OpenProject xây dựng trên phiên bản Community. Nó bao gồm các phần mở rộng Enterprise và hỗ trợ chuyên nghiệp chủ yếu nhằm vào các tổ chức có hơn 10 người dùng quản lý các dự án quan trọng với OpenProject.
+            Phiên bản Enterprise của scalenow-AI xây dựng trên phiên bản Community. Nó bao gồm các phần mở rộng Enterprise và hỗ trợ chuyên nghiệp chủ yếu nhằm vào các tổ chức có hơn 10 người dùng quản lý các dự án quan trọng với scalenow-AI.
           unlimited: "Không giới hạn"
           you_contribute: "Các nhà phát triển cũng cần thanh toán hóa đơn của họ. Bằng cách nâng cấp lên phiên bản Enterprise, bạn sẽ hỗ trợ nỗ lực cộng đồng mã nguồn mở này và đóng góp vào sự phát triển, bảo trì và cải tiến liên tục của nó."
       working_days:
@@ -572,7 +572,7 @@ vi:
         next: "Tiếp theo"
         got_it: "Đã hiểu"
       steps:
-        help_menu: "Menu Trợ giúp (?) cung cấp <b>các tài nguyên trợ giúp bổ sung</b>. Tại đây bạn có thể tìm thấy hướng dẫn người dùng, video hướng dẫn hữu ích và nhiều hơn nữa. <br> Chúc bạn làm việc vui vẻ với OpenProject!"
+        help_menu: "Menu Trợ giúp (?) cung cấp <b>các tài nguyên trợ giúp bổ sung</b>. Tại đây bạn có thể tìm thấy hướng dẫn người dùng, video hướng dẫn hữu ích và nhiều hơn nữa. <br> Chúc bạn làm việc vui vẻ với scalenow-AI!"
         members: "Mời <b>thành viên mới</b> tham gia dự án của bạn."
         quick_add_button: "Nhấp vào biểu tượng cộng (+) trong thanh điều hướng tiêu đề để <b>tạo một dự án mới</b> hoặc <b>mời đồng nghiệp</b>."
         sidebar_arrow: "Sử dụng mũi tên trở lại ở góc trên bên trái để quay lại <b>menu chính</b> của dự án."
@@ -1254,7 +1254,7 @@ vi:
         label: "Vai trò trong %{project}"
         no_roles_found: "Không tìm thấy vai trò nào"
         description: >-
-          Đây là vai trò mà người dùng sẽ nhận được khi tham gia dự án của bạn. Vai trò xác định các hành động mà họ được phép thực hiện và thông tin mà họ được phép xem. <a href="https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#roles-and-permissions" target="_blank"> Tìm hiểu thêm về vai trò và quyền hạn. </a>
+          Đây là vai trò mà người dùng sẽ nhận được khi tham gia dự án của bạn. Vai trò xác định các hành động mà họ được phép thực hiện và thông tin mà họ được phép xem. <a href="#" target="_blank"> Tìm hiểu thêm về vai trò và quyền hạn. </a>
         required: "Vui lòng chọn một vai trò"
         next_button: "Tiếp theo"
       message:
@@ -1343,4 +1343,4 @@ vi:
         network_off: "Có vấn đề về mạng."
         network_on: "Mạng đã trở lại. Chúng tôi đang thử lại."
         timeout: >
-          OpenProject không thể cung cấp cho bạn quyền truy cập vào thư mục dự án trong khoảng thời gian dự kiến. Vui lòng thử lại.<br><br> Nếu vấn đề vẫn tiếp tục, vui lòng liên hệ với quản trị viên OpenProject của bạn để kiểm tra <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">tình trạng sức khỏe của cài đặt lưu trữ tệp</a>.
+          scalenow-AI không thể cung cấp cho bạn quyền truy cập vào thư mục dự án trong khoảng thời gian dự kiến. Vui lòng thử lại.<br><br> Nếu vấn đề vẫn tiếp tục, vui lòng liên hệ với quản trị viên scalenow-AI của bạn để kiểm tra <a href="#">tình trạng sức khỏe của cài đặt lưu trữ tệp</a>.

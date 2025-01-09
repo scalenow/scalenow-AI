@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -53,7 +53,7 @@ ja:
         新しいバックアップは以前のバックアップを上書きします。1日にリクエストできるバックアップの数には限りがあります。
       last_backup: 前回バックアップ
       last_backup_from: 前回バックアップ日
-      title: OpenProject のバックアップ
+      title: scalenow-AI のバックアップ
       options: オプション
       include_attachments: 添付ファイルを含める
       download_backup: バックアップのダウンロード
@@ -223,7 +223,7 @@ ja:
             label_maximum_users: "アクティブなユーザーの最大数"
             label_starts_at: "開始"
             label_expires_at: "有効期限"
-            receive_newsletter: OpenProject <a target="_blank" href="%{link}">ニュースレター</a> を受け取りたい。
+            receive_newsletter: scalenow-AI <a target="_blank" href="%{link}">ニュースレター</a> を受け取りたい。
             taken_domain: 有効なトライアルはドメインごとに1つしかありません。
             domain_mismatch: The current request host name does not match the configured host name. Please double check your system settings.
             taken_email: 各ユーザーはトライアルを1回のみ作成できます。
@@ -238,7 +238,7 @@ ja:
           status_confirmed: "確認済み"
           status_waiting: "メールが送信されました - 確認待ちです"
           test_ee: "エンタープライズ版を14日間無料でテストする"
-          quick_overview: "Get a quick overview of project management and team collaboration with OpenProject Enterprise edition."
+          quick_overview: "Get a quick overview of project management and team collaboration with scalenow-AI Enterprise edition."
         upsale:
           become_hero: "ヒーローになろう!"
           enterprise_info_html: "%{feature_title} is an Enterprise <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span> add-on."
@@ -252,7 +252,7 @@ ja:
             premium_features: "エンタープライズアドオン"
             premium_features_text: "アジャイルボード、カスタムテーマとロゴ、グラフ、カスタムアクションによるインテリジェントワークフロー、ワークパッケージの添付ファイルおよびマルチセレクトカスタムフィールドの全文検索。"
             professional_support: "プロフェッショナルサポート"
-            professional_support_text: "ビジネスクリティカルな環境での OpenProject 利用に関する専門知識を持つ上級サポートエンジニアから、信頼性の高いハイタッチサポートを受けましょう。"
+            professional_support_text: "ビジネスクリティカルな環境での scalenow-AI 利用に関する専門知識を持つ上級サポートエンジニアから、信頼性の高いハイタッチサポートを受けましょう。"
           button_start_trial: "無料トライアルを開始"
           button_upgrade: "今すぐアップグレード"
           button_contact_us: "デモについてはお問い合わせください"
@@ -262,7 +262,7 @@ ja:
           link_quote: "見積もりの入手"
           more_info: "詳細情報"
           text: >
-            The OpenProject Enterprise edition builds on top of the Community edition. It includes Enterprise add-ons and professional support mainly aimed at organizations with more than 10 users that manage business critical projects with OpenProject.
+            The scalenow-AI Enterprise edition builds on top of the Community edition. It includes Enterprise add-ons and professional support mainly aimed at organizations with more than 10 users that manage business critical projects with scalenow-AI.
           unlimited: "無制限"
           you_contribute: "Developers need to pay their bills, too. By upgrading to the Enterprise edition, you will be supporting this open source community effort and contributing to its development, maintenance and continuous improvement."
       working_days:
@@ -573,7 +573,7 @@ ja:
         next: "次へ"
         got_it: "了承"
       steps:
-        help_menu: "The Help (?) menu provides <b>additional help resources</b>. Here you can find a user guide, helpful how-to videos and more. <br> Enjoy your work with OpenProject!"
+        help_menu: "The Help (?) menu provides <b>additional help resources</b>. Here you can find a user guide, helpful how-to videos and more. <br> Enjoy your work with scalenow-AI!"
         members: "Invite new <b>members</b> to join your project."
         quick_add_button: "Click on the plus (+) icon in the header navigation to <b>create a new project</b> or to <b>invite coworkers</b>."
         sidebar_arrow: "Use the return arrow in the top left corner to return to the project’s <b>main menu</b>."
@@ -1255,7 +1255,7 @@ ja:
         label: "%{project} でのロール"
         no_roles_found: "ロールが見つかりません"
         description: >-
-          This is the role that the user will receive when they join your project. The role defines which actions they are allowed to take and which information they are allowed to see. <a href="https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#roles-and-permissions" target="_blank"> Learn more about roles and permissions. </a>
+          This is the role that the user will receive when they join your project. The role defines which actions they are allowed to take and which information they are allowed to see. <a href="#" target="_blank"> Learn more about roles and permissions. </a>
         required: "ロールを選択してください"
         next_button: "次へ"
       message:
@@ -1344,4 +1344,4 @@ ja:
         network_off: "There is a network problem."
         network_on: "Network is back. We are trying."
         timeout: >
-          OpenProject could not provide you access to the project folder within the expected period of time. Please, try once again.<br><br> If that problem persists please contact your OpenProject administrator to check the <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">health status of the file storage setup</a>.
+          scalenow-AI could not provide you access to the project folder within the expected period of time. Please, try once again.<br><br> If that problem persists please contact your scalenow-AI administrator to check the <a href="#">health status of the file storage setup</a>.

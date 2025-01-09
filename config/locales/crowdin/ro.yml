@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -59,8 +59,8 @@ ro:
         main-menu-bg-selected-background: "Meniul principal când este selectat"
         main-menu-bg-hover-background: "Meniul principal la plutire"
       custom_colors: "Culori personalizate"
-      customize: "Personalizează-ți instalația OpenProject cu propriul logo și culori."
-      enterprise_notice: "Ca un 'Mulțumesc!' special pentru contribuția lor financiară la dezvoltarea OpenProject, acest mic add-on este disponibil doar pentru abonații la ediția Enterprise."
+      customize: "Personalizează-ți instalația scalenow-AI cu propriul logo și culori."
+      enterprise_notice: "Ca un 'Mulțumesc!' special pentru contribuția lor financiară la dezvoltarea scalenow-AI, acest mic add-on este disponibil doar pentru abonații la ediția Enterprise."
       enterprise_more_info: "Notă: logo-ul utilizat va fi accesibil publicului."
       manage_colors: "Modificați opțiunile de selecție ale culorilor"
       instructions:
@@ -130,43 +130,43 @@ ro:
     technical_warning_html: |
       Acest formular LDAP necesită cunoștințe tehnice privind configurația LDAP / Active Directory.
       <br/>
-      <a href="https://www.openproject.org/help/administration/manage-ldap-authentication/">Vă rugăm să vizitați documentația noastră pentru instrucțiuni detaliate</a>.
+      <a href="#">Vă rugăm să vizitați documentația noastră pentru instrucțiuni detaliate</a>.
     attribute_texts:
       name: Numele arbitrar al conexiunii LDAP
       host: Numele gazdei LDAP sau adresa IP
       login_map: Cheia atributului în LDAP care este utilizată pentru a identifica autentificarea unică a utilizatorului. De obicei, aceasta va fi `uid` sau `samAccountName`.
-      generic_map: Cheia atributului din LDAP care este mapată pe atributul OpenProject `%{attribute}`
-      admin_map_html: "Opțional: Cheia atributului în LDAP care, <strong>dacă este prezentă</strong>, marchează utilizatorul OpenProject ca fiind administrator. Lăsați gol dacă aveți îndoieli."
+      generic_map: Cheia atributului din LDAP care este mapată pe atributul scalenow-AI `%{attribute}`
+      admin_map_html: "Opțional: Cheia atributului în LDAP care, <strong>dacă este prezentă</strong>, marchează utilizatorul scalenow-AI ca fiind administrator. Lăsați gol dacă aveți îndoieli."
       system_user_dn_html: |
         Introduceți DN-ul utilizatorului de sistem utilizat pentru accesul numai pentru citire.
         <br/>
         Exemplu: uid=openproject,ou=system,dc=example,dc=com
       system_user_password: Introduceți parola de legătură a utilizatorului de sistem
       base_dn: |
-        Introduceți DN-ul de bază al subarborelui din LDAP în care doriți ca OpenProject să caute utilizatori și grupuri.
-        OpenProject va filtra numai pentru numele de utilizator furnizate în acest subarbore.
+        Introduceți DN-ul de bază al subarborelui din LDAP în care doriți ca scalenow-AI să caute utilizatori și grupuri.
+        scalenow-AI va filtra numai pentru numele de utilizator furnizate în acest subarbore.
         Exemplu: ou=users,dc=example,dc=com
       filter_string: |
         Adaugă un filtru RFC4515 opțional care să se aplice rezultatelor returnate pentru utilizatorii filtrați în LDAP.
-        Acesta poate fi utilizat pentru a restricționa setul de utilizatori care sunt găsiți de OpenProject pentru autentificare și sincronizare de grup.
+        Acesta poate fi utilizat pentru a restricționa setul de utilizatori care sunt găsiți de scalenow-AI pentru autentificare și sincronizare de grup.
       filter_string_concat: |
-        OpenProject va filtra întotdeauna pentru atributul de autentificare furnizat de utilizator pentru a identifica înregistrarea. Dacă furnizați un filtru aici,
+        scalenow-AI va filtra întotdeauna pentru atributul de autentificare furnizat de utilizator pentru a identifica înregistrarea. Dacă furnizați un filtru aici,
         acesta va fi concatenat cu un AND. În mod implicit, ca filtru se va utiliza un "catch-all" (objectClass=*).
       onthefly_register: |
-        Dacă bifați această casetă, OpenProject va crea automat noi utilizatori din intrările LDAP ale acestora
-        atunci când aceștia se autentifică pentru prima dată cu OpenProject.
-        Lăsați această casetă debifată pentru a permite doar conturilor existente în OpenProject să se autentifice prin LDAP!
+        Dacă bifați această casetă, scalenow-AI va crea automat noi utilizatori din intrările LDAP ale acestora
+        atunci când aceștia se autentifică pentru prima dată cu scalenow-AI.
+        Lăsați această casetă debifată pentru a permite doar conturilor existente în scalenow-AI să se autentifice prin LDAP!
     connection_encryption: "Criptarea conexiunii"
     encryption_details: "LDAPS / STARTTLS opțiuni"
     system_account: "Contul de sistem"
     system_account_legend: |
-      OpenProject necesită acces doar pentru citire printr-un cont de sistem pentru a căuta utilizatori și grupuri în arborele LDAP.
+      scalenow-AI necesită acces doar pentru citire printr-un cont de sistem pentru a căuta utilizatori și grupuri în arborele LDAP.
       Vă rugăm să specificați acreditările de conectare pentru acest utilizator de sistem în secțiunea următoare.
     ldap_details: "Detalii LDAP"
     user_settings: "Lista Mapare Atribute"
     user_settings_legend: |
-      Următoarele câmpuri sunt legate de modul în care sunt creați utilizatorii în OpenProject din intrările LDAP și
-      ce atribute LDAP sunt utilizate pentru a defini atributele unui utilizator OpenProject (cartografiere de atribute).
+      Următoarele câmpuri sunt legate de modul în care sunt creați utilizatorii în scalenow-AI din intrările LDAP și
+      ce atribute LDAP sunt utilizate pentru a defini atributele unui utilizator scalenow-AI (cartografiere de atribute).
     tls_mode:
       plain: "niciuna"
       simple_tls: "LDAPS"
@@ -520,7 +520,7 @@ ro:
     upsale:
       title: Utilizatori Placeholder
       description: >
-        Utilizatorii de tip substituție sunt o modalitate de a atribui pachete de lucru utilizatorilor care nu fac parte din proiectul tău. Acesta poate fi utilă într-o serie de scenarii; de exemplu, dacă trebuie să urmărești sarcinile pentru o resursă care nu este încă numită sau disponibilă, sau dacă nu vrei să acorzi acestei persoane acces la OpenProject dar totuși vrei să urmărești sarcinile care le-au fost atribuite.
+        Utilizatorii de tip substituție sunt o modalitate de a atribui pachete de lucru utilizatorilor care nu fac parte din proiectul tău. Acesta poate fi utilă într-o serie de scenarii; de exemplu, dacă trebuie să urmărești sarcinile pentru o resursă care nu este încă numită sau disponibilă, sau dacă nu vrei să acorzi acestei persoane acces la scalenow-AI dar totuși vrei să urmărești sarcinile care le-au fost atribuite.
   prioritiies:
     edit:
       priority_color_text: |
@@ -955,7 +955,7 @@ ro:
         confirmation: "nu se potrivește cu %{attribute}."
         could_not_be_copied: "%{dependency} nu a putut fi copiat (integral)."
         does_not_exist: "nu există."
-        error_enterprise_only: "%{action} este disponibil doar în ediția OpenProject Enterprise"
+        error_enterprise_only: "%{action} este disponibil doar în ediția scalenow-AI Enterprise"
         error_unauthorized: "nu pot fi accesate."
         error_readonly: "a fost încercat să fie scris, dar nu este inscriptibil."
         error_conflict: "Informaţia a fost actualizată de cel puţin un alt utilizator între timp."
@@ -1473,7 +1473,7 @@ ro:
       heading_reset: "Resetează token backup"
       heading_create: "Creează token backup"
       implications: >
-        Activarea backup-urilor va permite oricărui utilizator cu permisiunile necesare și acestui token de backup să descarce o copie de rezervă care conține toate datele acestei instalări OpenProject. Acestea includ datele tuturor celorlalți utilizatori.
+        Activarea backup-urilor va permite oricărui utilizator cu permisiunile necesare și acestui token de backup să descarce o copie de rezervă care conține toate datele acestei instalări scalenow-AI. Acestea includ datele tuturor celorlalți utilizatori.
       info: >
         Va trebui să generezi un token de backup pentru a putea crea o copie de rezervă. De fiecare dată când doriţi să solicitaţi o copie de rezervă va trebui să furnizaţi acest token. Puteți șterge token-ul de backup pentru a dezactiva copiile de rezervă ale acestui utilizator.
       verification: >
@@ -1796,7 +1796,7 @@ ro:
   error_check_user_and_role: "Alegeți un utilizator și un rol."
   error_code: "Eroare %{code}"
   error_color_could_not_be_saved: "Culoarea nu a putut fi salvată"
-  error_cookie_missing: "Cookie-ul OpenProject lipseşte. Vă rugăm să verificați setările referitoare la cookies, această aplicație nu va funcţiona corespunzător fără acestea."
+  error_cookie_missing: "Cookie-ul scalenow-AI lipseşte. Vă rugăm să verificați setările referitoare la cookies, această aplicație nu va funcţiona corespunzător fără acestea."
   error_custom_option_not_found: "Opțiunea nu există."
   error_enterprise_activation_user_limit: "Contul dvs. nu a putut fi activat (limita utilizatorilor a fost atinsă). Contactați administratorul dvs. pentru a avea acces."
   error_enterprise_token_invalid_domain: "Ediția Enterprise nu este activă. Domeniul token-ului Enterprise (%{actual}) nu se potrivește cu numele de gazdă al sistemului (%{expected})."
@@ -1811,7 +1811,7 @@ ro:
   error_work_package_not_found_in_project: "Pachetul de lucru nu a fost găsit sau nu aparține acestui proiect"
   error_work_package_id_not_found: "Pachetul de lucru nu a fost găsit."
   error_must_be_project_member: "trebuie să fie membru al proiectului"
-  error_migrations_are_pending: "Instalarea OpenProject are migrări de baze de date în așteptare. Probabil că nu ați reușit să executați migrările la ultima actualizare. Vă rugăm să consultați ghidul de actualizare pentru a vă actualiza corect instalarea."
+  error_migrations_are_pending: "Instalarea scalenow-AI are migrări de baze de date în așteptare. Probabil că nu ați reușit să executați migrările la ultima actualizare. Vă rugăm să consultați ghidul de actualizare pentru a vă actualiza corect instalarea."
   error_migrations_visit_upgrade_guides: "Vă rugăm să vizitați documentația ghidului nostru de actualizare"
   error_no_default_work_package_status: 'Nu există un status implicit al pachetelor de lucru. Verificați configurația ("Administrare -> Stări pachete de lucru").'
   error_no_type_in_project: "Nu există un tip asociat cu proiectul. Verificați setările proiectului."
@@ -1979,7 +1979,7 @@ ro:
       no_visible_projects: "Cele mai noi proiecte vizibile."
       users: "Cei mai noi utilizatori înregistrați."
     blocks:
-      community: "Comunitatea OpenProject"
+      community: "Comunitatea scalenow-AI"
       upsale:
         title: "Actualizați la ediția Enterprise"
         more_info: "Mai multe informatii"
@@ -1991,7 +1991,7 @@ ro:
       impressum: "Notificare legală"
       glossary: "Glosar"
       shortcuts: "Scurtături"
-      blog: "Blog-ul OpenProject"
+      blog: "Blog-ul scalenow-AI"
       forums: "Forum comunitate"
       newsletter: "Alerte de securitate / Buletin informativ"
   image_conversion:
@@ -2068,26 +2068,26 @@ ro:
       simple_revoke_confirmation: "Are you sure you want to revoke this token?"
       api:
         title: "API"
-        text_hint: "API tokens allow third-party applications to communicate with this OpenProject instance via REST APIs."
+        text_hint: "API tokens allow third-party applications to communicate with this scalenow-AI instance via REST APIs."
         static_token_name: "API token"
         disabled_text: "API tokens are not enabled by the administrator. Please contact your administrator to use this feature."
       ical:
         title: "iCalendar"
-        text_hint: 'iCalendar tokens allow users to <a href="%{path}" target="_blank">subscribe to OpenProject calendars</a> and view up-to-date work package information from external clients.'
+        text_hint: 'iCalendar tokens allow users to <a href="%{path}" target="_blank">subscribe to scalenow-AI calendars</a> and view up-to-date work package information from external clients.'
         disabled_text: "iCalendar subscriptions are not enabled by the administrator. Please contact your administrator to use this feature."
         empty_text_hint: "To add an iCalendar token, subscribe to a new or existing calendar from within the Calendar module of a project. You must have the necessary permissions."
       oauth:
         title: "OAuth"
-        text_hint: "OAuth tokens allow third-party applications to connect with this OpenProject instance."
+        text_hint: "OAuth tokens allow third-party applications to connect with this scalenow-AI instance."
         empty_text_hint: "There is no third-party application access configured and active for you. Please contact your administrator to activate this feature."
       rss:
         title: "RSS"
-        text_hint: "RSS tokens allow users to keep up with the latest changes in this OpenProject instance via an external RSS reader."
+        text_hint: "RSS tokens allow users to keep up with the latest changes in this scalenow-AI instance via an external RSS reader."
         static_token_name: "RSS token"
         disabled_text: "RSS tokens are not enabled by the administrator. Please contact your administrator to use this feature."
       storages:
         title: "File Storages"
-        text_hint: "File Storage tokens connect this OpenProject instance with an external File Storage."
+        text_hint: "File Storage tokens connect this scalenow-AI instance with an external File Storage."
         empty_text_hint: "There is no storage access linked to your account."
         revoke_token: "Do you really want to remove this token? You will need to login again on %{storage}"
         removed: "File Storage token successfully removed"
@@ -2255,7 +2255,7 @@ ro:
   label_custom_field_plural: "Câmpuri personalizate"
   label_custom_field_default_type: "Golire tip"
   label_custom_style: "Design"
-  label_custom_style_description: "Choose how OpenProject looks to you with themes, select your default colors to use in the app and how exports look like."
+  label_custom_style_description: "Choose how scalenow-AI looks to you with themes, select your default colors to use in the app and how exports look like."
   label_dashboard: "Panou de control"
   label_database_version: "Versiunea PostgreSQL"
   label_date: "Data"
@@ -2500,7 +2500,7 @@ ro:
   label_open_menu: "Deschidere meniu"
   label_open_work_packages: "deschise"
   label_open_work_packages_plural: "deschise"
-  label_openproject_website: "Site-ul OpenProject"
+  label_openproject_website: "Site-ul scalenow-AI"
   label_optional_description: "Descriere"
   label_options: "Opțiuni"
   label_other: "Altele"
@@ -2876,8 +2876,8 @@ ro:
   mail_body_backup_token_reset_user_info: Token-ul backup a fost resetat.
   mail_body_backup_token_info: Token-ul anterior nu mai este valid.
   mail_body_backup_waiting_period: Noul token va fi activat în %{hours} ore.
-  mail_body_backup_token_warning: Dacă nu ai fost tu, conectează-te la OpenProject imediat și resetează-l din nou.
-  mail_body_incoming_email_error: E-mailul trimis la OpenProject nu a putut fi procesat.
+  mail_body_backup_token_warning: Dacă nu ai fost tu, conectează-te la scalenow-AI imediat și resetează-l din nou.
+  mail_body_incoming_email_error: E-mailul trimis la scalenow-AI nu a putut fi procesat.
   mail_body_incoming_email_error_in_reply_to: "La %{received_at} %{from_email} a scris"
   mail_body_incoming_email_error_logs: "Jurnale"
   mail_body_lost_password: "Pentru a vă modifica parola, dați click pe următorul link:"
@@ -2890,10 +2890,10 @@ ro:
   mail_body_register_user: "Dragă %{name},"
   mail_body_register_links_html: |
     Nu ezita să navighezi pe canalul nostru de youtube (%{youtube_link}) unde oferim un webinar (%{webinar_link})
-    și videoclipuri cu “Începe” (%{get_started_link}) pentru a face primii pași în OpenProject cât mai ușor posibil.
+    și videoclipuri cu “Începe” (%{get_started_link}) pentru a face primii pași în scalenow-AI cât mai ușor posibil.
     <br />
     Dacă ai orice întrebări suplimentare, consultă documentația noastră (%{documentation_link}) sau contactează administratorul.
-  mail_body_register_closing: "Echipa dumneavoastră OpenProject"
+  mail_body_register_closing: "Echipa dumneavoastră scalenow-AI"
   mail_body_register_ending: "Rămâneți conectați! Vă salutăm cu drag,"
   mail_body_reminder: "%{count} pachete de lucru care vă sunt atribuite au scadență în următoarele %{days} zile:"
   mail_body_group_reminder: '%{count} pachetul (pachetele) de lucru care sunt atribuite grupului "%{group}" trebuie depuse în următoarele %{days} zile:'
@@ -2902,7 +2902,7 @@ ro:
   mail_subject_account_activation_request: "cererea de activare a contului %{value}"
   mail_subject_backup_ready: "Backup-ul tău este gata"
   mail_subject_backup_token_reset: "Resetarea token-ului de backup"
-  mail_subject_incoming_email_error: "Un e-mail pe care l-ai trimis la OpenProject nu a putut fi procesat"
+  mail_subject_incoming_email_error: "Un e-mail pe care l-ai trimis la scalenow-AI nu a putut fi procesat"
   mail_subject_lost_password: "Parola dumneavoastră pentru %{value}"
   mail_subject_register: "Activarea contului dumneavoastră %{value}"
   mail_subject_wiki_content_added: "Pagina de wiki '%{id}' a fost adăugată"
@@ -2937,7 +2937,7 @@ ro:
       a: "Actualizați planul de plată ([here](upgrade_url))" #here turned into a link
       b: "Blocați sau ștergeți un utilizator existent ([aici](users_url))" #here turned into a link
   more_actions: "Mai multe acțiuni"
-  noscript_description: "Trebuie să activaţi JavaScript pentru a utiliza OpenProject!"
+  noscript_description: "Trebuie să activaţi JavaScript pentru a utiliza scalenow-AI!"
   noscript_heading: "JavaScript dezactivat"
   noscript_learn_more: "Află mai multe"
   notice_accessibility_mode: Modul accesibilitate poate fi activat în contul tău [settings](url).
@@ -3007,7 +3007,7 @@ ro:
   notice_wont_delete_auth_source: The LDAP connection cannot be deleted as long as there are still users using it.
   notice_project_cannot_update_custom_fields: "Nu poți actualiza câmpurile particularizate disponibile ale proiectului. Proiectul este invalid: %{errors}"
   notice_attachment_migration_wiki_page: >
-    Această pagină a fost generată automat în timpul actualizării OpenProject. Aceasta conține toate atașamentele asociate anterior cu %{container_type} "%{container_name}".
+    Această pagină a fost generată automat în timpul actualizării scalenow-AI. Aceasta conține toate atașamentele asociate anterior cu %{container_type} "%{container_name}".
   #Default format for numbers
   number:
     format:
@@ -3031,7 +3031,7 @@ ro:
           tb: "TB"
   onboarding:
     heading_getting_started: "Urmărește prezentarea generală"
-    text_getting_started_description: "Obțineți o imagine de ansamblu rapidă a gestionării proiectelor și a colaborării în echipă cu OpenProject. Puteți reporni acest videoclip din meniul de ajutor."
+    text_getting_started_description: "Obțineți o imagine de ansamblu rapidă a gestionării proiectelor și a colaborării în echipă cu scalenow-AI. Puteți reporni acest videoclip din meniul de ajutor."
     welcome: "Bun venit la %{app_title}"
     select_language: "Te rog selectează limba"
   permission_add_work_package_notes: "Adăugare note"
@@ -3105,7 +3105,7 @@ ro:
   permission_share_work_packages: "Share work packages"
   permission_manage_types: "Selectare tipuri"
   permission_view_project: "Vezi proiecte"
-  permission_view_changesets: "Vizualizare revizii repo în OpenProject"
+  permission_view_changesets: "Vizualizare revizii repo în scalenow-AI"
   permission_view_commit_author_statistics: "Vizualizare statistici autor înregistrări"
   permission_view_dashboards: "Vezi panouri"
   permission_view_work_package_watchers: "Vizualizare listă observatori"
@@ -3209,7 +3209,7 @@ ro:
     destroy:
       confirmation: "Prin continuarea operațiunii veți șterge permanent repo-ul gestionat."
       info: "Ștergerea repo-ului este o acțiune ireversibilă."
-      info_not_managed: "Atenție: Această acțiune NU va șterge conținutul repo-ului, deoarece acesta nu este gestionat de OpenProject."
+      info_not_managed: "Atenție: Această acțiune NU va șterge conținutul repo-ului, deoarece acesta nu este gestionat de scalenow-AI."
       managed_path_note: "Urmatorul director va fi şters: %{path}"
       repository_verification: "Introduceţi identificatorul proiectului %{identifier} pentru a verifica ștergerea sa din repo."
       subtitle: "Sunteți sigur că doriţi să ştergeţi %{repository_type} din proiectul %{project_name}?"
@@ -3223,8 +3223,8 @@ ro:
       empty_repository: "Repo-ul există, dar este gol. Nu conține nicio revizie deocamdată."
       exists_on_filesystem: "Directorul repo-ului există deja în sistemul de fișiere."
       filesystem_access_failed: "A apărut o eroare la accesarea repo-ului în sistemul de fişiere: %{message}"
-      not_manageable: "Acest furnizor de repo nu poate fi gestionat de OpenProject."
-      path_permission_failed: "A apărut o eroare la încercarea de a crea calea următoare: %{path}. Asiguraţi-vă că OpenProject are drepturi de scriere în acel folder."
+      not_manageable: "Acest furnizor de repo nu poate fi gestionat de scalenow-AI."
+      path_permission_failed: "A apărut o eroare la încercarea de a crea calea următoare: %{path}. Asiguraţi-vă că scalenow-AI are drepturi de scriere în acel folder."
       unauthorized: "Nu sunteți autorizat să accesați repo-ul sau credențialele nu sunt valide."
       unavailable: "Repo-ul este indisponibil."
       exception_title: "Repo-ul nu este accesibil: %{message}"
@@ -3241,9 +3241,9 @@ ro:
         path_encoding: "Suprascriere codificare text Git (implicit: UTF-8)"
       local_title: "Legare la repo Git local existent"
       local_url: "URL local"
-      local_introduction: "Dacă aveţi deja un repo de Git local, puteți să-l conectați cu OpenProject pentru a-l accesa din aplicație."
-      managed_introduction: "Permiteți aplicației OpenProject să creeze şi să integreze un repo Git local automat."
-      managed_title: "Repo Git integrat cu OpenProject"
+      local_introduction: "Dacă aveţi deja un repo de Git local, puteți să-l conectați cu scalenow-AI pentru a-l accesa din aplicație."
+      managed_introduction: "Permiteți aplicației scalenow-AI să creeze şi să integreze un repo Git local automat."
+      managed_title: "Repo Git integrat cu scalenow-AI"
       managed_url: "URL gestionat"
       path: "Calea către repo-ul Git"
       path_encoding: "Codificare cale"
@@ -3260,24 +3260,24 @@ ro:
     scm_types:
       local: "Link la repo local"
       existing: "Link la repo existent"
-      managed: "Creează repo nou în OpenProject"
+      managed: "Creează repo nou în scalenow-AI"
     storage:
       not_available: "Consumul de spațiu de stocare nu este disponibil pentru acest repo."
       update_timeout: "Păstrează ultimele informații privind spațiul necesar pe disc pentru un depozit timp de N minute.\nDeoarece numărarea spațiului necesar pe disc al unui depozit poate fi costisitoare, crește această valoare pentru a reduce impactul asupra performanței."
-      oauth_application_details: "Valoarea secretă a clientului nu va mai fi accesibilă după ce închideți această fereastră. Vă rugăm să copiați aceste valori în setările Nextcloud OpenProject Integration:"
+      oauth_application_details: "Valoarea secretă a clientului nu va mai fi accesibilă după ce închideți această fereastră. Vă rugăm să copiați aceste valori în setările Nextcloud scalenow-AI Integration:"
       oauth_application_details_link_text: "Mergi la pagina setări"
       setup_documentation_details: "Dacă aveți nevoie de ajutor pentru configurarea unui nou depozit de fișiere, consultați documentația: "
       setup_documentation_details_link_text: "Configurarea fișierelor de stocare"
       show_warning_details: "Pentru a utiliza acest spațiu de stocare a fișierelor, nu uitați să activați modulul și spațiul de stocare specific în setările de proiect ale fiecărui proiect dorit."
     subversion:
       existing_title: "Repo Subversion existent"
-      existing_introduction: "Dacă aveţi deja un repo de Subversion, puteți să-l conectați cu OpenProject pentru a-l accesa din aplicație."
+      existing_introduction: "Dacă aveţi deja un repo de Subversion, puteți să-l conectați cu scalenow-AI pentru a-l accesa din aplicație."
       existing_url: "URL existent"
       instructions:
         managed_url: "Aceasta este adresa URL a repo-ului Subversion gestionat (local)."
         url: "Introduceţi adresa URL a repo-ului. Aceasta poate să adreseze fie un repo local (începe cu %{local_proto}), fie un repo la distanță.\nUrmătoarele modele de adrese URL sunt acceptate:"
-      managed_title: "Repo Subversion integrat cu OpenProject"
-      managed_introduction: "Permiteți aplicației OpenProject să creeze şi să integreze un repo Subversion local automat."
+      managed_title: "Repo Subversion integrat cu scalenow-AI"
+      managed_introduction: "Permiteți aplicației scalenow-AI să creeze şi să integreze un repo Subversion local automat."
       managed_url: "URL gestionat"
       password: "Parola repo"
       username: "Utilizatorul repo"
@@ -3294,7 +3294,7 @@ ro:
   setting_apiv3_cors_enabled: "Activați CORS"
   setting_apiv3_cors_origins: "API V3 Cross-Origin Resource Sharing (CORS) origini permise"
   setting_apiv3_cors_origins_text_html: >
-    Dacă CORS este activat, acestea sunt originile cărora li se permite accesul la OpenProject API. <br/> Vă rugăm să consultați <a href="%{origin_link}" target="_blank">documentația privind antetul Origin</a> pentru a specifica valorile așteptate.
+    Dacă CORS este activat, acestea sunt originile cărora li se permite accesul la scalenow-AI API. <br/> Vă rugăm să consultați <a href="%{origin_link}" target="_blank">documentația privind antetul Origin</a> pentru a specifica valorile așteptate.
   setting_apiv3_write_readonly_attributes: "Write access to read-only attributes"
   setting_apiv3_write_readonly_attributes_instructions_html: >
     If enabled, the API will allow administrators to write static read-only attributes during creation, such as createdAt and author. <br/> <strong>Warning:</strong> This setting has a use-case for e.g., importing data, but allows administrators to impersonate the creation of items as other users. All creation requests are being logged however with the true author. </br> For more information on attributes and supported resources, please see the %{api_documentation_link}.
@@ -3465,7 +3465,7 @@ ro:
       remaining_rescanned_files: >
         Virus scanning has been enabled successfully. There are %{file_count} that were uploaded previously and still need to be scanned. This process has been scheduled in the background. The files will remain accessible during the scan.
       upsale:
-        description: "Ensure uploaded files in OpenProject are scanned for viruses before being accessible by other users."
+        description: "Ensure uploaded files in scalenow-AI are scanned for viruses before being accessible by other users."
       actions:
         delete: "Delete the file"
         quarantine: "Quarantine the file"
@@ -3475,7 +3475,7 @@ ro:
         clamav_socket_html: Enter the socket to the clamd daemon, e.g., %{example}
         clamav_host_html: Enter the hostname and port to the clamd daemon separated by colon. e.g., %{example}
         description_html: >
-          Select the mode in which the antivirus scanner integration should operate. <br/> <ul> <li><strong>%{disabled_option}</strong>: Uploaded files are not scanned for viruses.</li> <li><strong>%{socket_option}</strong>: You have set up ClamAV on the same server as OpenProject and the scan daemon clamd is running in the background</li> <li><strong>%{host_option}</strong>: You are streaming files to an external virus scanning host.</li> </ul>
+          Select the mode in which the antivirus scanner integration should operate. <br/> <ul> <li><strong>%{disabled_option}</strong>: Uploaded files are not scanned for viruses.</li> <li><strong>%{socket_option}</strong>: You have set up ClamAV on the same server as scalenow-AI and the scan daemon clamd is running in the background</li> <li><strong>%{host_option}</strong>: You are streaming files to an external virus scanning host.</li> </ul>
     brute_force_prevention: "Blocare automată a utilizatorilor"
     date_format:
       first_date_of_week_and_year_set: >
@@ -3483,8 +3483,8 @@ ro:
       first_week_of_year_text_html: >
         Select the date of January that is contained in the first week of the year. This value together with first day of the week determines the total number of weeks in a year. For more information, please see our <a href="%{link}" target="_blank">documentation</a> on this topic.
     experimental:
-      save_confirmation: Caution! Risk of data loss! Only activate experimental features if you do not mind breaking your OpenProject installation and losing all of its data.
-      warning_toast: Feature flags are settings that activate features that are still under development. They shall only be used for testing purposes. They shall never be activated on OpenProject installations holding important data. These features will very likely corrupt your data. Use them at your own risk.
+      save_confirmation: Caution! Risk of data loss! Only activate experimental features if you do not mind breaking your scalenow-AI installation and losing all of its data.
+      warning_toast: Feature flags are settings that activate features that are still under development. They shall only be used for testing purposes. They shall never be activated on scalenow-AI installations holding important data. These features will very likely corrupt your data. Use them at your own risk.
       feature_flags: Feature flags
     general: "General"
     highlighting:
@@ -3495,7 +3495,7 @@ ro:
         type: "Întregul rând pe tipuri"
         priority: "Întregul rând în funcție de Prioritate"
     icalendar:
-      enable_subscriptions_text_html: Allows users with the necessary permissions to subscribe to OpenProject calendars and access work package information via an external calendar client. <strong>Note:</strong> Please read about <a href="%{link}" target="_blank">iCalendar subscriptions</a> to understand potential security risks before enabling this.
+      enable_subscriptions_text_html: Allows users with the necessary permissions to subscribe to scalenow-AI calendars and access work package information via an external calendar client. <strong>Note:</strong> Please read about <a href="%{link}" target="_blank">iCalendar subscriptions</a> to understand potential security risks before enabling this.
     language_name_being_default: "%{language_name} (default)"
     notifications:
       events_explanation: "Stabilește pentru ce eveniment se trimite un e-mail. Pachetele de lucru sunt excluse din această listă, deoarece notificările pentru acestea pot fi configurate în mod specific pentru fiecare utilizator."
@@ -3543,7 +3543,7 @@ ro:
       sentence_connector: "și"
       skip_last_comma: "fals"
   text_accessibility_hint: "Modul de accesibilitate este conceput pentru utilizatorii nevăzători, cu handicap motor sau cu vedere slabă. Pentru aceștia din urmă, elementele focalizate sunt evidențiate în mod special. Vă rugăm să rețineți că modulul Backlogs nu este disponibil în acest mod."
-  text_access_token_hint: "Tichetele de acces permit aplicaţiilor externe accesul la resurse din OpenProject."
+  text_access_token_hint: "Tichetele de acces permit aplicaţiilor externe accesul la resurse din scalenow-AI."
   text_analyze: "Continuare analiză: %{subject}"
   text_are_you_sure: "Sunteți sigur?"
   text_are_you_sure_continue: "Sigur dorești să continui?"
@@ -3626,7 +3626,7 @@ ro:
   text_no_notes: "Nu sunt comentarii disponibile pentru acest pachet de lucru."
   text_notice_too_many_values_are_inperformant: "Atenție: Afişarea unui număr mai mare de 100 de articole pe pagină poate creşte durata de încărcare."
   text_notice_security_badge_displayed_html: >
-    Notă: dacă este activată, aceasta va afișa o insignă cu starea instalării în fereastra <a href="%{information_panel_path}">%{information_panel_label}</a> panoul de administrare și pe pagina principală. Aceasta este afișată numai pentru administratori. <br/> Insigna va verifica versiunea curentă a OpenProject în raport cu baza de date oficială a versiunilor OpenProject pentru a alerta cu privire la orice actualizări sau vulnerabilități cunoscute. Pentru mai multe informații despre ce oferă verificarea, ce date sunt necesare pentru a furniza actualizările disponibile și cum să dezactivezi această verificare, te rog să vizitezi <a href="%{more_info_url}">documentația de configurare</a>.
+    Notă: dacă este activată, aceasta va afișa o insignă cu starea instalării în fereastra <a href="%{information_panel_path}">%{information_panel_label}</a> panoul de administrare și pe pagina principală. Aceasta este afișată numai pentru administratori. <br/> Insigna va verifica versiunea curentă a scalenow-AI în raport cu baza de date oficială a versiunilor scalenow-AI pentru a alerta cu privire la orice actualizări sau vulnerabilități cunoscute. Pentru mai multe informații despre ce oferă verificarea, ce date sunt necesare pentru a furniza actualizările disponibile și cum să dezactivezi această verificare, te rog să vizitezi <a href="%{more_info_url}">documentația de configurare</a>.
   text_own_membership_delete_confirmation: "Sunteţi cale de a elimina unele sau toate permisiunile şi e posibil să nu mai puteți edita acest proiect după aceea. \nSunteţi sigur că doriţi să continuaţi?"
   text_plugin_assets_writable: "Se poate scrie în directorul de resurse pentru module"
   text_powered_by: "Propulsat de %{link}"
@@ -3634,7 +3634,7 @@ ro:
   text_reassign: "Reatribuire la pachetul de lucru:"
   text_regexp_info: "ex. ^[A-Z0-9]+$"
   text_regexp_multiline: 'Formula regex este aplicată într-un mod multilinie - de exemplu: ^---\s+'
-  text_repository_usernames_mapping: "Selectați sau modificați contul OpenProject mapat la fiecare cont din istoricul repo-ului.\nUtilizatorii cu cont sau e-mail identic în OpenProject și repo sunt echivalați automat."
+  text_repository_usernames_mapping: "Selectați sau modificați contul scalenow-AI mapat la fiecare cont din istoricul repo-ului.\nUtilizatorii cu cont sau e-mail identic în scalenow-AI și repo sunt echivalați automat."
   text_status_changed_by_changeset: "Aplicat prin editarea %{value}."
   text_table_difference_description: "În acest tabel este prezentat un singur %{entries}. Puteți vizualiza diferența dintre oricare două intrări selectând mai întâi casetele de selectare corespunzătoare din tabel. Când faceți clic pe butonul de sub tabel, se afișează diferențele."
   text_time_logged_by_changeset: "Aplicat prin editarea %{value}."
@@ -3708,7 +3708,7 @@ ro:
     authentication_provider: "Furnizor de autentificare"
     identity_url_text: "The internal unique identifier provided by the authentication provider."
     authentication_settings_disabled_due_to_external_authentication: >
-      Acest utilizator se autentifică prin intermediul unui furnizor de autentificare extern, prin urmare nu există o parolă în OpenProject care să poată fi schimbată.
+      Acest utilizator se autentifică prin intermediul unui furnizor de autentificare extern, prin urmare nu există o parolă în scalenow-AI care să poată fi schimbată.
     authorization_rejected: "Nu aveți drepturi de autentificare."
     assign_random_password: "Atribuiţi o parolă aleatoare (trimisă utilizatorului prin e-mail)"
     blocked: "blocat temporar"
@@ -3741,7 +3741,7 @@ ro:
   warning: Avertizare
   warning_attachments_not_saved: "Nu au putut fi salvate %{count} fișiere."
   warning_imminent_user_limit: >
-    Ați invitat mai mulți utilizatori decât suportă planul dvs. actual. Este posibil ca utilizatorii invitați să nu se poată alătura mediului dumneavoastră OpenProject. Vă rugăm să <a href="%{upgrade_url}">vă actualizați planul</a> sau să blocați utilizatorii existenți pentru a permite utilizatorilor invitați și înregistrați să se alăture.
+    Ați invitat mai mulți utilizatori decât suportă planul dvs. actual. Este posibil ca utilizatorii invitați să nu se poată alătura mediului dumneavoastră scalenow-AI. Vă rugăm să <a href="%{upgrade_url}">vă actualizați planul</a> sau să blocați utilizatorii existenți pentru a permite utilizatorilor invitați și înregistrați să se alăture.
   warning_registration_token_expired: |
     E-mailul de activare a expirat. Ți-am trimis unul nou la %{email}.
     Vă rugăm să faceți clic pe linkul din interiorul acestuia pentru a vă activa contul.
@@ -4004,7 +4004,7 @@ ro:
         confidential: "Verificați dacă aplicația va fi utilizată în cazul în care secretul clientului poate fi păstrat confidențial. Aplicațiile mobile native și aplicațiile cu o singură pagină sunt considerate neconfidențiale."
         scopes: "Bifați domeniile la care doriți ca aplicația să acorde acces. Dacă nu se bifează niciun domeniu de aplicare, se presupune api_v3."
         client_credential_user_id: "ID-ul de utilizator opțional pe care trebuie să se substituie atunci când clienții utilizează această aplicație. Lăsați gol pentru a permite doar accesul public"
-        register_intro: "Dacă dezvoltați o aplicație client OAuth API pentru OpenProject, o puteți înregistra folosind acest formular pentru toți utilizatorii."
+        register_intro: "Dacă dezvoltați o aplicație client OAuth API pentru scalenow-AI, o puteți înregistra folosind acest formular pentru toți utilizatorii."
         default_scopes: ""
     header:
       builtin_applications: Built-in OAuth applications
@@ -4012,17 +4012,17 @@ ro:
     empty_application_lists: No OAuth applications have been registered.
     client_id: "ID Client"
     client_secret_notice: >
-      Acesta este singurul moment în care putem imprima secretul clientului, vă rugăm să îl notați și să îl păstrați în siguranță. Acesta trebuie tratat ca o parolă și nu poate fi recuperat ulterior de OpenProject.
+      Acesta este singurul moment în care putem imprima secretul clientului, vă rugăm să îl notați și să îl păstrați în siguranță. Acesta trebuie tratat ca o parolă și nu poate fi recuperat ulterior de scalenow-AI.
     authorization_dialog:
       authorize: "Autorizează"
       cancel: "Anulează și refuză autorizarea."
       prompt_html: "Autorizarea <strong>%{application_name}</strong> pentru a utiliza contul dvs <em>%{login}</em>?"
       title: "Autorizează %{application_name}"
       wants_to_access_html: >
-        Această aplicație solicită acces la contul dumneavoastră OpenProject. <br/> <strong>A solicitat următoarele permisiuni</strong>:
+        Această aplicație solicită acces la contul dumneavoastră scalenow-AI. <br/> <strong>A solicitat următoarele permisiuni</strong>:
     scopes:
       api_v3: "Acces complet la API v3"
-      api_v3_text: "Aplicația va primi acces complet de citire și scriere la OpenProject API v3 pentru a efectua acțiuni în numele dumneavoastră."
+      api_v3_text: "Aplicația va primi acces complet de citire și scriere la scalenow-AI API v3 pentru a efectua acțiuni în numele dumneavoastră."
     grants:
       created_date: "Aprobat"
       scopes: "Permisiuni"
@@ -4039,7 +4039,7 @@ ro:
     client_credentials_impersonation_set_to: "Credențiale client ID utilizator"
     client_credentials_impersonation_warning: "Notă: Clienții care utilizează fluxul \"Client credentials\" în această aplicație vor avea drepturile acestui utilizator"
     client_credentials_impersonation_html: >
-      În mod implicit, OpenProject oferă autorizare OAuth 2.0 prin %{authorization_code_flow_link}. Puteți activa opțional %{client_credentials_flow_link}, dar trebuie să furnizați un utilizator în numele căruia vor fi efectuate cererile.
+      În mod implicit, scalenow-AI oferă autorizare OAuth 2.0 prin %{authorization_code_flow_link}. Puteți activa opțional %{client_credentials_flow_link}, dar trebuie să furnizați un utilizator în numele căruia vor fi efectuate cererile.
     authorization_error: "A apărut o eroare internă."
     revoke_my_application_confirmation: "Chiar doriți să eliminați această aplicație? Acest lucru va anula %{token_count} active pentru aceasta."
     my_registered_applications: "Aplicații OAuth înregistrate"
@@ -4067,20 +4067,20 @@ ro:
         Eroare internă: A apelat refresh_token fără un token existent anterior.
       refresh_token_updated_failed: "Eroare în timpul actualizării OAuthClientToken"
       oauth_client_not_found_explanation: >
-        Această eroare apare după ce ați actualizat client_id și client_secret în OpenProject, dar nu ați actualizat câmpul "Return URI" în furnizorul OAuth2.
+        Această eroare apare după ce ați actualizat client_id și client_secret în scalenow-AI, dar nu ați actualizat câmpul "Return URI" în furnizorul OAuth2.
       oauth_code_not_present: "OAuth2 'code' nu a fost găsit în parametrul 'callback' (redirect_uri)."
       oauth_code_not_present_explanation: >
         Această eroare apare dacă ați selectat un tip de răspuns greșit în furnizorul OAuth2. Response_type ar trebui să fie 'code' sau similar.
       oauth_state_not_present: "OAuth2 'state' nu a fost găsit în parametrul 'callback' (redirect_uri)."
       oauth_state_not_present_explanation: >
-        'State' este utilizat pentru a indica OpenProject unde să continue după o autorizare OAuth2 reușită. Un 'state' lipsă este o eroare internă care poate apărea în timpul configurării. Vă rugăm să vă contactați administratorul de sistem.
+        'State' este utilizat pentru a indica scalenow-AI unde să continue după o autorizare OAuth2 reușită. Un 'state' lipsă este o eroare internă care poate apărea în timpul configurării. Vă rugăm să vă contactați administratorul de sistem.
       rack_oauth2:
         client_secret_invalid: "Secretul clientului nu este valabil (client_secret_invalid)"
         invalid_request: >
           OAuth2 Serverul de autorizare a răspuns cu 'invalid_request'. Această eroare apare dacă încercați să autorizați de mai multe ori sau în cazul unor probleme tehnice.
         invalid_response: "OAuth2 Serverul de autorizare a furnizat un răspuns invalid (invalid_response)"
         invalid_grant: "Serverul de Autorizare OAuth2 vă cere să reautorizați (invalid_grant)."
-        invalid_client: "Serverul de autorizare OAuth2 nu recunoaște OpenProject (invalid_client)."
+        invalid_client: "Serverul de autorizare OAuth2 nu recunoaște scalenow-AI (invalid_client)."
         unauthorized_client: "Serverul de Autorizare OAuth2 respinge tipul de grant (unauthorized_client)"
         unsupported_grant_type: "Serverul de Autorizare OAuth2 vă cere să reautorizați (unsupported_grant_type)."
         invalid_scope: "Nu ai permisiunea de a accesa resursa solicitată (invalid_scope)."
@@ -4093,8 +4093,8 @@ ro:
   you: tu
   link: link
   plugin_openproject_auth_plugins:
-    name: "OpenProject Auth Plugins"
-    description: "Integration of OmniAuth strategy providers for authentication in OpenProject."
+    name: "scalenow-AI Auth Plugins"
+    description: "Integration of OmniAuth strategy providers for authentication in scalenow-AI."
   plugin_openproject_auth_saml:
     name: "OmniAuth SAML / Single-Sign On"
-    description: "Adds the OmniAuth SAML provider to OpenProject"
+    description: "Adds the OmniAuth SAML provider to scalenow-AI"

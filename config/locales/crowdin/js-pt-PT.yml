@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -52,7 +52,7 @@ pt-PT:
         Uma nova cópia de segurança substituirá qualquer outra feita anteriormente. Só pode ser solicitado um número limitado de cópias de segurança por dia.
       last_backup: Última cópia de segurança
       last_backup_from: Última cópia de segurança de
-      title: fazer cópia de segurança do OpenProject
+      title: fazer cópia de segurança do scalenow-AI
       options: Opções
       include_attachments: Incluir anexos
       download_backup: Transferir cópia de segurança
@@ -222,7 +222,7 @@ pt-PT:
             label_maximum_users: "Máximo de utilizadores ativos"
             label_starts_at: "Começa em"
             label_expires_at: "Expira a"
-            receive_newsletter: Quero receber a <a target="_blank" href="%{link}">newsletter</a> do OpenProject.
+            receive_newsletter: Quero receber a <a target="_blank" href="%{link}">newsletter</a> do scalenow-AI.
             taken_domain: Só pode haver um teste ativo por domínio.
             domain_mismatch: O nome de host da requisição atual não corresponde ao nome de host configurado. Verifique novamente as configurações do seu sistema.
             taken_email: Cada utilizador só pode criar uma avaliação.
@@ -237,7 +237,7 @@ pt-PT:
           status_confirmed: "confirmado"
           status_waiting: "email enviado - a aguardar confirmação"
           test_ee: "Teste a edição Enterprise gratuitamente durante 14 dias"
-          quick_overview: "Obter uma visão geral da gestão do projeto e colaboração em equipa com a edição OpenProject Enterprise."
+          quick_overview: "Obter uma visão geral da gestão do projeto e colaboração em equipa com a edição scalenow-AI Enterprise."
         upsale:
           become_hero: "Torne-se um herói!"
           enterprise_info_html: "%{feature_title} é um complemento de Enterprise <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span>."
@@ -251,7 +251,7 @@ pt-PT:
             premium_features: "Complementos de Enterprise"
             premium_features_text: "Agile boards, gráficos de temas e logótipos personalizados, fluxos de trabalho inteligentes com ações personalizadas, pesquisa de texto completo para anexos em pacotes de trabalho, e campos personalizados de multi-seleção."
             professional_support: "Suporte profissional"
-            professional_support_text: "Receba apoio fiável e de alto nível de engenheiros séniores de suporte, com conhecimento especializado sobre a gestão do OpenProject em ambientes de negócios críticos."
+            professional_support_text: "Receba apoio fiável e de alto nível de engenheiros séniores de suporte, com conhecimento especializado sobre a gestão do scalenow-AI em ambientes de negócios críticos."
           button_start_trial: "Iniciar avaliação gratuita"
           button_upgrade: "Fazer o upgrade agora"
           button_contact_us: "Contacte-nos para obter uma demonstração"
@@ -261,7 +261,7 @@ pt-PT:
           link_quote: "Fazer uma simulação"
           more_info: "Mais informações"
           text: >
-            O OpenProject Enterprise Edition é construído a partir da edição Community. Inclui complementos Enterprise e suporte profissional, dirigido sobretudo a organizações com mais de 10 utilizadores que gerem projetos de negócios críticos com o OpenProject.
+            O scalenow-AI Enterprise Edition é construído a partir da edição Community. Inclui complementos Enterprise e suporte profissional, dirigido sobretudo a organizações com mais de 10 utilizadores que gerem projetos de negócios críticos com o scalenow-AI.
           unlimited: "Ilimitado"
           you_contribute: "Os desenvolvedores também têm contas a pagar. Ao atualizar para a edição Enterprise, está a apoiar este esforço da comunidade de código aberto e a contribuir para o seu desenvolvimento, manutenção e melhoria contínuos."
       working_days:
@@ -572,7 +572,7 @@ pt-PT:
         next: "Próxima"
         got_it: "Entendi"
       steps:
-        help_menu: "O menu Ajuda (?) fornece <b>recursos adicionais de ajuda</b>. Aqui pode encontrar um guia do utilizador, vídeos de ajuda úteis e muito mais. <br> Aproveite o seu trabalho com o OpenProject!"
+        help_menu: "O menu Ajuda (?) fornece <b>recursos adicionais de ajuda</b>. Aqui pode encontrar um guia do utilizador, vídeos de ajuda úteis e muito mais. <br> Aproveite o seu trabalho com o scalenow-AI!"
         members: "Convide novos <b>membros</b> para participarem no seu projeto."
         quick_add_button: "Clique no ícone mais (+) no menu de navegação para <b>criar um novo projeto</b> ou <b>convidar colegas</b>."
         sidebar_arrow: "Use a seta de retorno no canto superior esquerdo para voltar ao <b>menu principal</b> do projeto."
@@ -1258,7 +1258,7 @@ pt-PT:
         label: "Função em %{project}"
         no_roles_found: "Nenhuma função encontrada"
         description: >-
-          Esta é uma função que o utilizador vai receber quando se juntar ao projeto. A função define as ações que pode fazer e as informações que pode visualizar. <a href="https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#roles-and-permissions" target="_blank"> Aprenda mais sobre funções e permissões. </a>
+          Esta é uma função que o utilizador vai receber quando se juntar ao projeto. A função define as ações que pode fazer e as informações que pode visualizar. <a href="#" target="_blank"> Aprenda mais sobre funções e permissões. </a>
         required: "Selecione um perfil"
         next_button: "Próxima"
       message:
@@ -1347,4 +1347,4 @@ pt-PT:
         network_off: "Há um problema de rede."
         network_on: "A rede está de volta. Estamos a tentar."
         timeout: >
-          O OpenProject não pôde fornecer acesso à pasta do projeto dentro do período esperado de tempo, tente novamente.<br><br> Se esse problema continuar, entre em contacto com o administrador do OpenProject para verificar o <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">estado de funcionamento da configuração de armazenamento de ficheiros</a>.
+          O scalenow-AI não pôde fornecer acesso à pasta do projeto dentro do período esperado de tempo, tente novamente.<br><br> Se esse problema continuar, entre em contacto com o administrador do scalenow-AI para verificar o <a href="#">estado de funcionamento da configuração de armazenamento de ficheiros</a>.

@@ -71,7 +71,7 @@ bg:
         item_7:
           name: Структурни инженери
       welcome:
-        title: Добре дошли в изданието OpenProject БИМ!
+        title: Добре дошли в изданието scalenow-AI БИМ!
         text: |
           Checkout the demo projects to get started with some examples.
 
@@ -120,7 +120,7 @@ bg:
                 options:
                   name: Първи стъпки
                   text: |
-                    We are glad you joined! We suggest to try a few things to get started in OpenProject.
+                    We are glad you joined! We suggest to try a few things to get started in scalenow-AI.
 
                     But before you jump right into it, you should know that this exemplary project is split up into two different projects:
 
@@ -179,7 +179,7 @@ bg:
                 options:
                   name: Първи стъпки
                   text: |
-                    We are glad you joined! We suggest to try a few things to get started in OpenProject.
+                    We are glad you joined! We suggest to try a few things to get started in scalenow-AI.
 
                     Here you will find the classical roles, some workflows and work packages for your construction project.
 
@@ -433,7 +433,7 @@ bg:
                 options:
                   name: Първи стъпки
                   text: |
-                    We are glad you joined! We suggest to try a few things to get started in OpenProject.
+                    We are glad you joined! We suggest to try a few things to get started in scalenow-AI.
 
                     This demo project offers roles, workflows and work packages that are specialized for BIM.
 
@@ -709,7 +709,7 @@ bg:
                 options:
                   name: Първи стъпки
                   text: |
-                    We are glad you joined! We suggest to try a few things to get started in OpenProject.
+                    We are glad you joined! We suggest to try a few things to get started in scalenow-AI.
 
                     This demo project shows BCF management functionalities.
 

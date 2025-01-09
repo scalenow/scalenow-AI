@@ -1,7 +1,7 @@
 hu:
   plugin_openproject_webhooks:
-    name: "OpenProject webhookok"
-    description: "Az OpenProject webhooks támogatásához egy API-t biztosít a jobb 3rd party integráció érdekében."
+    name: "scalenow-AI webhookok"
+    description: "Az scalenow-AI webhooks támogatásához egy API-t biztosít a jobb 3rd party integráció érdekében."
   activerecord:
     attributes:
       webhooks/webhook:
@@ -32,7 +32,7 @@ hu:
         updated: "Frissítve"
       explanation:
         text: >
-          Olyan események előfordulása esetén, mint például munkacsomag létrehozása vagy projekt frissítése, az OpenProject egy POST kérést küld a bekonfigurált webes végpontoknak. Az esemény gyakran %{link} elteltével érkezik.
+          Olyan események előfordulása esetén, mint például munkacsomag létrehozása vagy projekt frissítése, az scalenow-AI egy POST kérést küld a bekonfigurált webes végpontoknak. Az esemény gyakran %{link} elteltével érkezik.
         link: beállított összesítési időszak
       status:
         enabled: 'Webhook engedélyezve'
@@ -63,4 +63,4 @@ hu:
           title: 'Kiválasztott projektek'
         secret:
           description: >
-            Ha be van állítva, ezt a titkos értéket az OpenProject használja a webhook hasznos teher aláírására.
+            Ha be van állítva, ezt a titkos értéket az scalenow-AI használja a webhook hasznos teher aláírására.

@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -59,8 +59,8 @@ ca:
         main-menu-bg-selected-background: "Menú principal quan es selecciona"
         main-menu-bg-hover-background: "Menú principal en passar el ratolí"
       custom_colors: "Colors personalitzats"
-      customize: "Personalitza la teva instal·lació d'OpenProject amb el teu propi logotip i colors."
-      enterprise_notice: "Com un \"Gràcies!\" especial per la contribució financera al desenvolupament d'OpenProject, aquesta petita extensió només està disponible pels subscriptors de l'edició Enterprise."
+      customize: "Personalitza la teva instal·lació d'scalenow-AI amb el teu propi logotip i colors."
+      enterprise_notice: "Com un \"Gràcies!\" especial per la contribució financera al desenvolupament d'scalenow-AI, aquesta petita extensió només està disponible pels subscriptors de l'edició Enterprise."
       enterprise_more_info: "Nota: el logotip utilitzat serà accessible públicament."
       manage_colors: "Edita les opcions de selecció de colors"
       instructions:
@@ -130,40 +130,40 @@ ca:
     technical_warning_html: |
       Aquest formulari LDAP requereix coneixement tècnic sobre la teva configuració LDAP / Directori actiu.
       <br/>
-      <a href="https://www.openproject.org/help/administration/manage-ldap-authentication/">Si us plau, visita la nostra documentació per a instruccions detallades</a>.
+      <a href="#">Si us plau, visita la nostra documentació per a instruccions detallades</a>.
     attribute_texts:
       name: Nom arbitrari de la connexió LDAP
       host: Nom d'amfitrió o adreça IP de LDAP
       login_map: La clau d'atribut en LDAP que es fa servir per a identificar un inici de sessió d'usuari únic. Normalment, aquesta serà `uid` o `samAccountName`.
-      generic_map: La clau d'atribut en LDAP que és assignada a l'atribut `%{attribute}` d'OpenProject
-      admin_map_html: "Opcional: La clau d'atribut en LDAP que <strong>si hi és</strong> marca l'usuari d'OpenProject com a administrador. Deixeu-ho buit en cas de dubte."
+      generic_map: La clau d'atribut en LDAP que és assignada a l'atribut `%{attribute}` d'scalenow-AI
+      admin_map_html: "Opcional: La clau d'atribut en LDAP que <strong>si hi és</strong> marca l'usuari d'scalenow-AI com a administrador. Deixeu-ho buit en cas de dubte."
       system_user_dn_html: |
         Introduïu el DN de l'usuari de sistema fet servir per a accés de sols lectura.
         </br>
         Exemple: uid=openproject,ou=system,dc=example,dc=com
       system_user_password: Introduïu la contrasenya associada de l'usuari del sistema
       base_dn: |
-        Introdueix la DN Base del subarbre del LDAP la qual vols que OpenProject faci servir per a buscar usuaris i grups.
-        OpenProject filtrarà els noms d'usuaris proporcionats només en aquest subarbre.
+        Introdueix la DN Base del subarbre del LDAP la qual vols que scalenow-AI faci servir per a buscar usuaris i grups.
+        scalenow-AI filtrarà els noms d'usuaris proporcionats només en aquest subarbre.
         Exemple: ou=usuaris,dc=exemple,dc=com
       filter_string: |
         Afegeix un filtre RFC4515 opcional per aplicar els resultats retornats per usuaris filtrats en el LDAP.
-        Això, pot ser utilitzat per a restringir el set d'usuaris que OpenProject troba per autentificar i agrupar la sincronització.
+        Això, pot ser utilitzat per a restringir el set d'usuaris que scalenow-AI troba per autentificar i agrupar la sincronització.
       filter_string_concat: |
-        OpenProject sempre filtre segons l'atribut d'inici de sessió subministrat per l'usuari per tal d'identificar el registre. Si heu proporcionat un filtre aquí, serà encadenat amb un "I". Per defecte, un filtre catch-all (objectClass=*) serà utilitzat.
+        scalenow-AI sempre filtre segons l'atribut d'inici de sessió subministrat per l'usuari per tal d'identificar el registre. Si heu proporcionat un filtre aquí, serà encadenat amb un "I". Per defecte, un filtre catch-all (objectClass=*) serà utilitzat.
       onthefly_register: |
-        Si actives aquesta casella, OpenProject automàticament crearà nous usuaris a partir de les seves entrades LDAP durant la seva primera autentificació a OpenProject.
-        Deixa-la desactivada si sols voleu permetre a comptes existents a OpenProject que s'autentifiquin via LDAP!
+        Si actives aquesta casella, scalenow-AI automàticament crearà nous usuaris a partir de les seves entrades LDAP durant la seva primera autentificació a scalenow-AI.
+        Deixa-la desactivada si sols voleu permetre a comptes existents a scalenow-AI que s'autentifiquin via LDAP!
     connection_encryption: "Encriptació de Connexió"
     encryption_details: "Opcions LDAPS / STARTTLS"
     system_account: "Compte de Sistema"
     system_account_legend: |
-      OpenProject requereix accés de sols lectura mitjançant un compte de sistema per a buscar usuaris i grups al vostre arbre LDAP.
+      scalenow-AI requereix accés de sols lectura mitjançant un compte de sistema per a buscar usuaris i grups al vostre arbre LDAP.
       Si us plau, especifica les credencials associades a aquest usuari de sistema en al secció següent.
     ldap_details: "Detalls LDAP"
     user_settings: "Associació d'atributs"
     user_settings_legend: |
-      Els camps següents són relacionats amb la manera com els usuaris són creats a OpenProject a partir d'entrades LDAP i quins atributs LDAP són fets servir per a definir els atributs d'un usuari d'OpenProject (associació d'atributs).
+      Els camps següents són relacionats amb la manera com els usuaris són creats a scalenow-AI a partir d'entrades LDAP i quins atributs LDAP són fets servir per a definir els atributs d'un usuari d'scalenow-AI (associació d'atributs).
     tls_mode:
       plain: "cap"
       simple_tls: "LDAPS"
@@ -511,7 +511,7 @@ ca:
     upsale:
       title: Usuaris de marcador de posició
       description: >
-        Els usuaris de marcador de posició són una forma d'assignar paquets de treball a usuaris que no formen part del teu projecte. Poden ser útils en múltiples escenaris; com per exemple en cas que necessitis manejar tasques per a un recurs que encara no té nom o no està disponible, o en cas que no vulguis donar accés a OpenProject a una persona, però, tot i això, vulguis manejar les tasques que se li han assignat.
+        Els usuaris de marcador de posició són una forma d'assignar paquets de treball a usuaris que no formen part del teu projecte. Poden ser útils en múltiples escenaris; com per exemple en cas que necessitis manejar tasques per a un recurs que encara no té nom o no està disponible, o en cas que no vulguis donar accés a scalenow-AI a una persona, però, tot i això, vulguis manejar les tasques que se li han assignat.
   prioritiies:
     edit:
       priority_color_text: |
@@ -943,7 +943,7 @@ ca:
         confirmation: "no coincideix amb el %{attribute}."
         could_not_be_copied: "%{dependency} no s'ha pogut copiar (completament)."
         does_not_exist: "no existeix."
-        error_enterprise_only: "%{action} només està disponible en l'edició Enterprise d'OpenProject"
+        error_enterprise_only: "%{action} només està disponible en l'edició Enterprise d'scalenow-AI"
         error_unauthorized: "no és possible accedir."
         error_readonly: "es va intentar d'escriure-hi però no és modificable."
         error_conflict: "La informació s'ha actualitzat per almenys un altre usuari mentrestant."
@@ -1451,7 +1451,7 @@ ca:
       heading_reset: "Reinicia el token de còpia de seguretat"
       heading_create: "Crea un token de còpia de seguretat"
       implications: >
-        Activar les còpies de seguretat permetrà a qualsevol usuari amb els permisos adients i aquest token de còpia de seguretat descarregar-lo i obtenir totes les dades d'aquesta instal·lació d'OpenProject. Això, inclou les dades de tots els altres usuaris.
+        Activar les còpies de seguretat permetrà a qualsevol usuari amb els permisos adients i aquest token de còpia de seguretat descarregar-lo i obtenir totes les dades d'aquesta instal·lació d'scalenow-AI. Això, inclou les dades de tots els altres usuaris.
       info: >
         Hauràs de generar un token de còpia de seguretat per tal de crear la còpia de seguretat. Cada vegada que demanis una còpia de seguretat hauràs de validar aquest token. Pots eliminar el token de còpia de seguretat per desactivar les còpies de seguretat per aquest usuari.
       verification: >
@@ -1756,7 +1756,7 @@ ca:
   error_check_user_and_role: "Trieu un usuari i un rol."
   error_code: "Error %{code}"
   error_color_could_not_be_saved: "No s'ha pogut desar el color"
-  error_cookie_missing: "La cookie d'OpenProject no s'ha trobat. Assegureu-vos que les cookies estan habilitades, ja que aquesta aplicació no pot funcionar correctament sense."
+  error_cookie_missing: "La cookie d'scalenow-AI no s'ha trobat. Assegureu-vos que les cookies estan habilitades, ja que aquesta aplicació no pot funcionar correctament sense."
   error_custom_option_not_found: "L'opció no existeix."
   error_enterprise_activation_user_limit: "El teu compte no s'ha pogut activar (límit d'usuaris assolit). Si us plau, contacte amb el teu administrador per obtenir accés."
   error_enterprise_token_invalid_domain: "L'edició Enterprise no està activa. El domini del token Enterprise (%{actual}) no concorda amb el nom d'allotjament del sistema (%{expected})."
@@ -1771,7 +1771,7 @@ ca:
   error_work_package_not_found_in_project: "El paquet de treball no s'ha trobat o no pertany a aquest projecte"
   error_work_package_id_not_found: "The work package was not found."
   error_must_be_project_member: "ha de ser membre del projecte"
-  error_migrations_are_pending: "La teva instal·lació d'OpenProject té migracions de base de dades pendents. Probablement no vas fer les migracions en la teva última actualització. Si us plau, comprova la guia d'actualització per actualitzar la teva instal·lació correctament."
+  error_migrations_are_pending: "La teva instal·lació d'scalenow-AI té migracions de base de dades pendents. Probablement no vas fer les migracions en la teva última actualització. Si us plau, comprova la guia d'actualització per actualitzar la teva instal·lació correctament."
   error_migrations_visit_upgrade_guides: "Si us plau, visita la nostra guia d'actualització a la nostra documentació"
   error_no_default_work_package_status: 'No hi ha cap estat de paquet de treball definit per defecte. Comprova la configuració ("Administració-> Estats dels paquets de treball").'
   error_no_type_in_project: "Aquest projecte no té cap tipus associat. Comproveu els paràmetres del projecte."
@@ -1939,7 +1939,7 @@ ca:
       no_visible_projects: "No hi ha projectes visibles en aquesta instància."
       users: "Els usuaris més nous registrats en aquesta instància."
     blocks:
-      community: "Comunitat OpenProject"
+      community: "Comunitat scalenow-AI"
       upsale:
         title: "Actualitza a l'edició Enterprise"
         more_info: "Més informació"
@@ -1951,7 +1951,7 @@ ca:
       impressum: "Avís legal"
       glossary: "Glossari"
       shortcuts: "Dreceres"
-      blog: "Blog OpenProject"
+      blog: "Blog scalenow-AI"
       forums: "Fòrum de la comunitat"
       newsletter: "Alertes de seguretat / Butlletí d'informació"
   image_conversion:
@@ -1963,7 +1963,7 @@ ca:
       default_attribute_written: "Read-only attributes written"
       progress_mode_changed_to_status_based: "Progress calculation updated"
       status_changed: "Status '%{status_name}'"
-      system_update: "OpenProject system update:"
+      system_update: "scalenow-AI system update:"
       work_package_duplicate_closed: "Duplicate work package updated:"
       total_percent_complete_mode_changed_to_work_weighted_average: "Calculation of % Complete totals now weighted by Work."
       total_percent_complete_mode_changed_to_simple_average: "Calculation of % Complete totals now based on a simple average of only % Complete values."
@@ -2028,26 +2028,26 @@ ca:
       simple_revoke_confirmation: "Are you sure you want to revoke this token?"
       api:
         title: "API"
-        text_hint: "API tokens allow third-party applications to communicate with this OpenProject instance via REST APIs."
+        text_hint: "API tokens allow third-party applications to communicate with this scalenow-AI instance via REST APIs."
         static_token_name: "API token"
         disabled_text: "API tokens are not enabled by the administrator. Please contact your administrator to use this feature."
       ical:
         title: "iCalendar"
-        text_hint: 'iCalendar tokens allow users to <a href="%{path}" target="_blank">subscribe to OpenProject calendars</a> and view up-to-date work package information from external clients.'
+        text_hint: 'iCalendar tokens allow users to <a href="%{path}" target="_blank">subscribe to scalenow-AI calendars</a> and view up-to-date work package information from external clients.'
         disabled_text: "iCalendar subscriptions are not enabled by the administrator. Please contact your administrator to use this feature."
         empty_text_hint: "To add an iCalendar token, subscribe to a new or existing calendar from within the Calendar module of a project. You must have the necessary permissions."
       oauth:
         title: "OAuth"
-        text_hint: "OAuth tokens allow third-party applications to connect with this OpenProject instance."
+        text_hint: "OAuth tokens allow third-party applications to connect with this scalenow-AI instance."
         empty_text_hint: "There is no third-party application access configured and active for you. Please contact your administrator to activate this feature."
       rss:
         title: "RSS"
-        text_hint: "RSS tokens allow users to keep up with the latest changes in this OpenProject instance via an external RSS reader."
+        text_hint: "RSS tokens allow users to keep up with the latest changes in this scalenow-AI instance via an external RSS reader."
         static_token_name: "RSS token"
         disabled_text: "RSS tokens are not enabled by the administrator. Please contact your administrator to use this feature."
       storages:
         title: "Emmagatzematges de fitxers"
-        text_hint: "File Storage tokens connect this OpenProject instance with an external File Storage."
+        text_hint: "File Storage tokens connect this scalenow-AI instance with an external File Storage."
         empty_text_hint: "There is no storage access linked to your account."
         revoke_token: "Do you really want to remove this token? You will need to login again on %{storage}"
         removed: "File Storage token successfully removed"
@@ -2215,7 +2215,7 @@ ca:
   label_custom_field_plural: "Camps personalitzats"
   label_custom_field_default_type: "Tipus buit"
   label_custom_style: "Disseny"
-  label_custom_style_description: "Choose how OpenProject looks to you with themes, select your default colors to use in the app and how exports look like."
+  label_custom_style_description: "Choose how scalenow-AI looks to you with themes, select your default colors to use in the app and how exports look like."
   label_dashboard: "Tauler de control"
   label_database_version: "Versió PostgreSQL"
   label_date: "Data"
@@ -2460,7 +2460,7 @@ ca:
   label_open_menu: "Obrir menú"
   label_open_work_packages: "obrir"
   label_open_work_packages_plural: "obrir"
-  label_openproject_website: "Pàgina web d'OpenProject"
+  label_openproject_website: "Pàgina web d'scalenow-AI"
   label_optional_description: "Descripció"
   label_options: "Opcions"
   label_other: "Altres"
@@ -2835,8 +2835,8 @@ ca:
   mail_body_backup_token_reset_user_info: El teu token de còpia de seguretat s'ha reiniciat.
   mail_body_backup_token_info: El token anterior ja no és vàlid.
   mail_body_backup_waiting_period: El nou token s'activarà en %{hours} hores.
-  mail_body_backup_token_warning: Si no has sigut tu, inicia sessió immediatament a OpenProject i reinicia'l de nou.
-  mail_body_incoming_email_error: El correu electrònic que vas enviar a OpenProject no s'ha pogut processar.
+  mail_body_backup_token_warning: Si no has sigut tu, inicia sessió immediatament a scalenow-AI i reinicia'l de nou.
+  mail_body_incoming_email_error: El correu electrònic que vas enviar a scalenow-AI no s'ha pogut processar.
   mail_body_incoming_email_error_in_reply_to: "A les %{received_at}%{from_email} ha escrit"
   mail_body_incoming_email_error_logs: "Registres"
   mail_body_lost_password: "Per a canviar la teva contrasenya, fes clic a l'enllaç següent:"
@@ -2848,9 +2848,9 @@ ca:
   mail_body_register_header_title: "Correu electrònic d'invitació de membre del projecte"
   mail_body_register_user: "Benvolgut/da %{name},"
   mail_body_register_links_html: |
-    Obté més informació navegant pel nostre canal de Youtube (%{youtube_link}) on podràs trobar un "webinar" (%{webinar_link}) i vides de "Com començar" (%{get_started_link}) per facilitar el màxim possible els teus primers passos amb OpenProject.
+    Obté més informació navegant pel nostre canal de Youtube (%{youtube_link}) on podràs trobar un "webinar" (%{webinar_link}) i vides de "Com començar" (%{get_started_link}) per facilitar el màxim possible els teus primers passos amb scalenow-AI.
     Si tens qualsevol dubte, consulta la nostra documentació (%{documentation_link}) o contacte el teu administrador.
-  mail_body_register_closing: "El teu equip d'OpenProject"
+  mail_body_register_closing: "El teu equip d'scalenow-AI"
   mail_body_register_ending: "Segueix en contacte! Atentament,"
   mail_body_reminder: "%{count} paquet(s) de treball que tens assignats arribaran a la seva data final en els %{days} dies vinents:"
   mail_body_group_reminder: '%{count} paquet(s) de treball que estan assignats al grup "%{group}" arribaran a la seva data final en els pròxims %{days} dies:'
@@ -2859,7 +2859,7 @@ ca:
   mail_subject_account_activation_request: "Sol·licitud d'activació del compte de %{value}"
   mail_subject_backup_ready: "La teva còpia de seguretat està a punt"
   mail_subject_backup_token_reset: "Còpia de seguretat reiniciada"
-  mail_subject_incoming_email_error: "Un correu electrònic que vas enviar a OpenProject no s'ha pogut processar."
+  mail_subject_incoming_email_error: "Un correu electrònic que vas enviar a scalenow-AI no s'ha pogut processar."
   mail_subject_lost_password: "La teva contrasenya %{value}"
   mail_subject_register: "L'activació del teu compte %{value}"
   mail_subject_wiki_content_added: "S'ha afegit la pàgina wiki «%{id}»"
@@ -2888,13 +2888,13 @@ ca:
   mail_user_activation_limit_reached:
     subject: S'ha arribat al límit d'activació d'usuaris
     message: |
-      Un nou usuari (%{email}) ha intentat crear un compte d'OpenProject en el sistema que tu administres (%{host}). L'usuari no pot activar el seu compte, ja que s'ha assolit el límit d'usuaris.
+      Un nou usuari (%{email}) ha intentat crear un compte d'scalenow-AI en el sistema que tu administres (%{host}). L'usuari no pot activar el seu compte, ja que s'ha assolit el límit d'usuaris.
     steps:
       label: "Per permetre a l'usuari iniciar sessió pots:"
       a: "Actualitza el teu pla de pagament ([here](upgrade_url))" #here turned into a link
       b: "Bloqueja o elimina un usuari existent ([here](users_url))" #here turned into a link
   more_actions: "Més funcions"
-  noscript_description: "Necessites activar el JavaScript per utilitzar OpenProject!"
+  noscript_description: "Necessites activar el JavaScript per utilitzar scalenow-AI!"
   noscript_heading: "JavaScript desactivat"
   noscript_learn_more: "Saber-ne més"
   notice_accessibility_mode: El mode d'accessibilitat pot ser activat a la configuració del teu compte [configuració del compte](url).
@@ -2963,7 +2963,7 @@ ca:
   notice_wont_delete_auth_source: The LDAP connection cannot be deleted as long as there are still users using it.
   notice_project_cannot_update_custom_fields: "No pots actualitzar els camps personalitzats disponibles del projecte. El projecte no és vàlid: %{errors}"
   notice_attachment_migration_wiki_page: >
-    Aquesta pàgina s'ha generat automàticament durant l'actualització d'OpenProject. Compte tots els fitxers adjunts que anteriorment estaven associats amb el %{container_type} "%{container_name}".
+    Aquesta pàgina s'ha generat automàticament durant l'actualització d'scalenow-AI. Compte tots els fitxers adjunts que anteriorment estaven associats amb el %{container_type} "%{container_name}".
   #Default format for numbers
   number:
     format:
@@ -2986,7 +2986,7 @@ ca:
           tb: "TB"
   onboarding:
     heading_getting_started: "Obté una visió general"
-    text_getting_started_description: "Obté una visió general ràpida de la gestió de projectes i col·laboració d'equips amb OpenProject. Pots tornar a veure aquest vídeo des del menú d'ajuda."
+    text_getting_started_description: "Obté una visió general ràpida de la gestió de projectes i col·laboració d'equips amb scalenow-AI. Pots tornar a veure aquest vídeo des del menú d'ajuda."
     welcome: "Benvingut a %{app_title}"
     select_language: "Si us plau, selecciona el teu idioma"
   permission_add_work_package_notes: "Afegir notes"
@@ -3060,7 +3060,7 @@ ca:
   permission_share_work_packages: "Share work packages"
   permission_manage_types: "Seleccioneu tipus"
   permission_view_project: "Veure projectes"
-  permission_view_changesets: "Veure les revisions del repositori a OpenProject"
+  permission_view_changesets: "Veure les revisions del repositori a scalenow-AI"
   permission_view_commit_author_statistics: "Veure les estadístiques de commits de l'autor"
   permission_view_dashboards: "Visualitza els taulers de control"
   permission_view_work_package_watchers: "Veure la llista d'observadors"
@@ -3162,7 +3162,7 @@ ca:
     destroy:
       confirmation: "Si continues, s'eliminarà permanentment el repositori administrat."
       info: "Eliminar el repositori és una acció irreversible."
-      info_not_managed: "Nota: Això no suprimirà el contingut d'aquest repositori perquè no és administrat per OpenProject."
+      info_not_managed: "Nota: Això no suprimirà el contingut d'aquest repositori perquè no és administrat per scalenow-AI."
       managed_path_note: "S'esborrarà el directori següent: %{path}"
       repository_verification: "Introduir l'identificador del projecte %{identifier} per verificar la supressió del seu repositori."
       subtitle: "Estàs segur que vols eliminar el %{repository_type} del %{project_name} projecte?"
@@ -3176,8 +3176,8 @@ ca:
       empty_repository: "El repositori existeix, però és buit. No conté cap revisió encara."
       exists_on_filesystem: "El directori del repositori ja existeix en el sistema de fitxers."
       filesystem_access_failed: "S'ha produït un error a l'accedir al repositori al sistema de fitxers: %{message}"
-      not_manageable: "Aquest tipus de repositori no pot ser gestionat per OpenProject."
-      path_permission_failed: "S'ha produït un error en intentar crear la ruta següent: %{path}. Si us plau, assegureu-vos que OpenProject pot escriure en aquesta carpeta."
+      not_manageable: "Aquest tipus de repositori no pot ser gestionat per scalenow-AI."
+      path_permission_failed: "S'ha produït un error en intentar crear la ruta següent: %{path}. Si us plau, assegureu-vos que scalenow-AI pot escriure en aquesta carpeta."
       unauthorized: "No estàs autoritzat a accedir al repositori o les credencials no són vàlides."
       unavailable: "El repositori no està disponible."
       exception_title: "No es pot accedir al repositori: %{message}"
@@ -3194,9 +3194,9 @@ ca:
         path_encoding: "Modificar la codificació de la ruta d'accés GIT (per defecte: UTF-8)"
       local_title: "Enllaç al repositori existent Git existent"
       local_url: "URL local"
-      local_introduction: "Si ja tens un repositori de Git, pots enllaçar-lo amb OpenProject per accedir-hi des de l'aplicació."
-      managed_introduction: "Permetre a OpenProject crear i integrar un repositori Git local automàticament."
-      managed_title: "Repositori Git integrat en OpenProject"
+      local_introduction: "Si ja tens un repositori de Git, pots enllaçar-lo amb scalenow-AI per accedir-hi des de l'aplicació."
+      managed_introduction: "Permetre a scalenow-AI crear i integrar un repositori Git local automàticament."
+      managed_title: "Repositori Git integrat en scalenow-AI"
       managed_url: "URL gestionada"
       path: "Camí d'accés al Repositori Git"
       path_encoding: "Codificació de les rutes"
@@ -3213,24 +3213,24 @@ ca:
     scm_types:
       local: "Enllaçar a repositori local existent"
       existing: "Enllaçar a repositori existent"
-      managed: "Crear nou repositori a OpenProject"
+      managed: "Crear nou repositori a scalenow-AI"
     storage:
       not_available: "El consum d'emmagatzematge de disc no està disponible per a aquest repositori."
       update_timeout: "Mantenir la darrera informació d'espai de disc necessari per a un dipòsit durant N minuts. Ja que comptar l'espai de disc necessari per un repostori pot ser costós, augmenteu aquest valor per reduir l'impacte en el rendiment."
-      oauth_application_details: "El valor secret de client no serà accessible de nou un cop tanquis aquesta pestanya. Si us plau, còpia aquests valors a la configuració de \"Nextcloud OpenProject Integration\":"
+      oauth_application_details: "El valor secret de client no serà accessible de nou un cop tanquis aquesta pestanya. Si us plau, còpia aquests valors a la configuració de \"Nextcloud scalenow-AI Integration\":"
       oauth_application_details_link_text: "Ves a la pàgina de configuracions"
       setup_documentation_details: "Si necessites ajuda configurant un nou emmagatzematge de fitxer si us plau, comprova la nostra documentació:"
       setup_documentation_details_link_text: "Configuració d'emmagatzematge de fitxers"
       show_warning_details: "Per tal d'utilitzar aquest emmagatzematge de fitxers recorda activar el mòdul i l'emmagatzematge específic a la configuració del projecte desitjat."
     subversion:
       existing_title: "Repositori de Subversion existent"
-      existing_introduction: "Si ja tens un repositori de Subversion, pots enllaçar-lo amb OpenProject per accedir-hi des de l'aplicació."
+      existing_introduction: "Si ja tens un repositori de Subversion, pots enllaçar-lo amb scalenow-AI per accedir-hi des de l'aplicació."
       existing_url: "URL existent"
       instructions:
         managed_url: "Aquesta és l'URL del repositori (local) de Subversion administrat."
         url: "Introduïu l'URL del repositori. Això pot apuntar a un repositori local (començant amb %{local_proto}), o a un dipòsit remot. Es suporten els següents esquemes d'URL:"
-      managed_title: "Repositori Subversion integrat a OpenProject"
-      managed_introduction: "Permetre OpenProject crear i integrar automàticament un repositori Subversion local."
+      managed_title: "Repositori Subversion integrat a scalenow-AI"
+      managed_introduction: "Permetre scalenow-AI crear i integrar automàticament un repositori Subversion local."
       managed_url: "URL gestionada"
       password: "Contrasenya del repositori"
       username: "Nom d'usuari del repositori"
@@ -3247,7 +3247,7 @@ ca:
   setting_apiv3_cors_enabled: "Habilitar CORS"
   setting_apiv3_cors_origins: "\"API V3 Cross-Origin Resource Sharing (CORS)\" orígens permesos"
   setting_apiv3_cors_origins_text_html: >
-    Si s'activa el CORS, aquests són els orígens que tenen permís per accedir a l'API d'OpenProject. <br/>Si us plau, valida la <a href="%{origin_link}" target="_blank">Documentació en l'encapçalament d'Origin</a> en com s'ha d'especificar els valors esperats.
+    Si s'activa el CORS, aquests són els orígens que tenen permís per accedir a l'API d'scalenow-AI. <br/>Si us plau, valida la <a href="%{origin_link}" target="_blank">Documentació en l'encapçalament d'Origin</a> en com s'ha d'especificar els valors esperats.
   setting_apiv3_write_readonly_attributes: "Write access to read-only attributes"
   setting_apiv3_write_readonly_attributes_instructions_html: >
     If enabled, the API will allow administrators to write static read-only attributes during creation, such as createdAt and author. <br/> <strong>Warning:</strong> This setting has a use-case for e.g., importing data, but allows administrators to impersonate the creation of items as other users. All creation requests are being logged however with the true author. </br> For more information on attributes and supported resources, please see the %{api_documentation_link}.
@@ -3418,7 +3418,7 @@ ca:
       remaining_rescanned_files: >
         Virus scanning has been enabled successfully. There are %{file_count} that were uploaded previously and still need to be scanned. This process has been scheduled in the background. The files will remain accessible during the scan.
       upsale:
-        description: "Ensure uploaded files in OpenProject are scanned for viruses before being accessible by other users."
+        description: "Ensure uploaded files in scalenow-AI are scanned for viruses before being accessible by other users."
       actions:
         delete: "Delete the file"
         quarantine: "Quarantine the file"
@@ -3428,7 +3428,7 @@ ca:
         clamav_socket_html: Enter the socket to the clamd daemon, e.g., %{example}
         clamav_host_html: Enter the hostname and port to the clamd daemon separated by colon. e.g., %{example}
         description_html: >
-          Select the mode in which the antivirus scanner integration should operate. <br/> <ul> <li><strong>%{disabled_option}</strong>: Uploaded files are not scanned for viruses.</li> <li><strong>%{socket_option}</strong>: You have set up ClamAV on the same server as OpenProject and the scan daemon clamd is running in the background</li> <li><strong>%{host_option}</strong>: You are streaming files to an external virus scanning host.</li> </ul>
+          Select the mode in which the antivirus scanner integration should operate. <br/> <ul> <li><strong>%{disabled_option}</strong>: Uploaded files are not scanned for viruses.</li> <li><strong>%{socket_option}</strong>: You have set up ClamAV on the same server as scalenow-AI and the scan daemon clamd is running in the background</li> <li><strong>%{host_option}</strong>: You are streaming files to an external virus scanning host.</li> </ul>
     brute_force_prevention: "Bloqueig automàtic d'usuari"
     date_format:
       first_date_of_week_and_year_set: >
@@ -3436,8 +3436,8 @@ ca:
       first_week_of_year_text_html: >
         Select the date of January that is contained in the first week of the year. This value together with first day of the week determines the total number of weeks in a year. For more information, please see our <a href="%{link}" target="_blank">documentation</a> on this topic.
     experimental:
-      save_confirmation: Alerta! Risc de pèrdua de dades! Només activa les funcions experimentals si no t'importà desconfigurar la teva instal·lació d'OpenProject o perdre dades.
-      warning_toast: Els marcadors de funcions són una funcionalitat que activa funcions que encara estan en desenvolupament. Només s'han d'utilitzar per a realitzar tests. No s'han d'activar mai a instal·lacions d'OpenProject amb dades importants. Aquestes funcions poden, molt probablement, corrompre les teves dades. Utilitza-les sota el teu propi risc.
+      save_confirmation: Alerta! Risc de pèrdua de dades! Només activa les funcions experimentals si no t'importà desconfigurar la teva instal·lació d'scalenow-AI o perdre dades.
+      warning_toast: Els marcadors de funcions són una funcionalitat que activa funcions que encara estan en desenvolupament. Només s'han d'utilitzar per a realitzar tests. No s'han d'activar mai a instal·lacions d'scalenow-AI amb dades importants. Aquestes funcions poden, molt probablement, corrompre les teves dades. Utilitza-les sota el teu propi risc.
       feature_flags: Marcadors de funcions
     general: "General"
     highlighting:
@@ -3448,7 +3448,7 @@ ca:
         type: "Fila sencera per Classe"
         priority: "Fila sencera per Prioritat"
     icalendar:
-      enable_subscriptions_text_html: Allows users with the necessary permissions to subscribe to OpenProject calendars and access work package information via an external calendar client. <strong>Note:</strong> Please read about <a href="%{link}" target="_blank">iCalendar subscriptions</a> to understand potential security risks before enabling this.
+      enable_subscriptions_text_html: Allows users with the necessary permissions to subscribe to scalenow-AI calendars and access work package information via an external calendar client. <strong>Note:</strong> Please read about <a href="%{link}" target="_blank">iCalendar subscriptions</a> to understand potential security risks before enabling this.
     language_name_being_default: "%{language_name} (default)"
     notifications:
       events_explanation: "Controla per a quins esdeveniments s'envien correus electrònics. Els paquets de treball estan exclosos d'aquesta llista, ja que les seves notificacions poden ser configurades específicament per a cada usuari."
@@ -3496,7 +3496,7 @@ ca:
       sentence_connector: "i"
       skip_last_comma: "fals"
   text_accessibility_hint: "El mode d'accessibilitat està dissenyat per a usuaris cecs, amb discapacitats motores o problemes de vista. Els elements es focalitzen amb un ressaltat més evident. Si us plau, considera que el mòdul de \"Backlogs\" no està disponible en aquest mode."
-  text_access_token_hint: "Els token d'accés permeten que aplicacions externes accedeixin als recursos d'OpenProject."
+  text_access_token_hint: "Els token d'accés permeten que aplicacions externes accedeixin als recursos d'scalenow-AI."
   text_analyze: "Analitzar més en profunditat: %{subject}"
   text_are_you_sure: "N'estàs segur?"
   text_are_you_sure_continue: "Estàs segur que vols continuar?"
@@ -3579,7 +3579,7 @@ ca:
   text_no_notes: "No hi ha cap comentari disponible per a aquest paquet de treball."
   text_notice_too_many_values_are_inperformant: "Nota: Mostrar més de 100 articles per pàgina pot augmentar el temps de càrrega de la pàgina."
   text_notice_security_badge_displayed_html: >
-    Nota: si està activat, es mostra un indicador amb l'estat de la teva instal·lació <a href="%{information_panel_path}">%{information_panel_label}</a> en el panell d'administració i a la pàgina inicial. Només es mostra als administradors. <br/> L'indicador comprova la teva versió d'OpenProject actual amb la versió oficial i t'avisa si hi ha actualitzacions o qualsevol vulnerabilitat. Per a més informació en quina informació es proveïx, quines dades són necessàries per actualitzacions i com desactivar aquesta funció, si us plau, visita <a href="%{more_info_url}">la documentació de configuració</a>.
+    Nota: si està activat, es mostra un indicador amb l'estat de la teva instal·lació <a href="%{information_panel_path}">%{information_panel_label}</a> en el panell d'administració i a la pàgina inicial. Només es mostra als administradors. <br/> L'indicador comprova la teva versió d'scalenow-AI actual amb la versió oficial i t'avisa si hi ha actualitzacions o qualsevol vulnerabilitat. Per a més informació en quina informació es proveïx, quines dades són necessàries per actualitzacions i com desactivar aquesta funció, si us plau, visita <a href="%{more_info_url}">la documentació de configuració</a>.
   text_own_membership_delete_confirmation: "Estàs a punt d'eliminar algun o tots els teus permisos i potser no podreu editar més aquest projecte.\nEstàs segur que vols continuar?"
   text_plugin_assets_writable: "Es pot escriure als complements actius"
   text_powered_by: "Desenvolupat per %{link}"
@@ -3587,7 +3587,7 @@ ca:
   text_reassign: "Reassigna al paquet de treball:"
   text_regexp_info: "ex. ^[A-Z0-9]+$"
   text_regexp_multiline: 'S''aplica l''expressió regular en mode de múltilínia. Per exemple, ^---\s+'
-  text_repository_usernames_mapping: "Seleccioneu l'assignació entre els usuaris del OpenProject i cada nom d'usuari trobat al repositori.\nEls usuaris amb el mateix nom d'usuari o correu del OpenProject i del repositori s'assignaran automàticament."
+  text_repository_usernames_mapping: "Seleccioneu l'assignació entre els usuaris del scalenow-AI i cada nom d'usuari trobat al repositori.\nEls usuaris amb el mateix nom d'usuari o correu del scalenow-AI i del repositori s'assignaran automàticament."
   text_status_changed_by_changeset: "Aplicat en el conjunt de canvis %{value}."
   text_table_difference_description: "En aquesta taula es mostren %{entries} entrades úniques. Pots veure la diferència entre qualsevol de les entrades seleccionant-les a través dels \"checkboxes\" de la taula. Quan has fet clic en el botó de sota la taula es mostren les diferències."
   text_time_logged_by_changeset: "Aplicat en el conjunt de canvis %{value}."
@@ -3661,7 +3661,7 @@ ca:
     authentication_provider: "Proveïdor d'autenticació"
     identity_url_text: "The internal unique identifier provided by the authentication provider."
     authentication_settings_disabled_due_to_external_authentication: >
-      Aquest usuari s'autentica mitjançant un proveïdor d'autenticació externa i no hi ha cap contrasenya a OpenProject per canviar.
+      Aquest usuari s'autentica mitjançant un proveïdor d'autenticació externa i no hi ha cap contrasenya a scalenow-AI per canviar.
     authorization_rejected: "No pots iniciar la sessió."
     assign_random_password: "Assignar contrasenya aleatòria (enviada a usuari mitjançant e-mail)"
     blocked: "bloquejat temporalment"
@@ -3693,7 +3693,7 @@ ca:
   warning: Alerta
   warning_attachments_not_saved: "No s'han pogut desar %{count} fitxer(s)."
   warning_imminent_user_limit: >
-    Has convidat a més usuaris dels permesos en el teu pla actual. Pot ser que els usuaris convidats no puguin unir-se al teu OpenProject. Si us plau, <a href="%{upgrade_url}">actualitza el teu pla</a> o bloqueja a usuaris per permetre als usuaris convidats registrar-se i unir-se.
+    Has convidat a més usuaris dels permesos en el teu pla actual. Pot ser que els usuaris convidats no puguin unir-se al teu scalenow-AI. Si us plau, <a href="%{upgrade_url}">actualitza el teu pla</a> o bloqueja a usuaris per permetre als usuaris convidats registrar-se i unir-se.
   warning_registration_token_expired: |
     El correu electrònic d'activació ha caducat. N'enviarem un de nou a %{email}.
     Si us plau, fes clic a l'enllaç dins del correu per activar el teu compte.
@@ -3956,7 +3956,7 @@ ca:
         confidential: "Comprova que l'aplicació que s'utilitzarà on la clau secreta de client pot mantenir-se confidencial. Aplicacions natives de mòbil i Aplicacions de Pàgina Única es classifiquen com a no confidencials."
         scopes: "Comprova els àmbits als quals vols que l'aplicació garanteixi accés. Si no es comproven els àmbits, s'assumeix l'api_v3."
         client_credential_user_id: "ID d'usuari opcional per personificar quan clients utilitzen l'aplicació. Deixa-ho buit per permetre només accés públic"
-        register_intro: "Si estàs desenvolupant una aplicació OAuth API per OpenProject, pots registrar-la utilitzant aquest formulari per a tots els usuaris per utilitzar-la."
+        register_intro: "Si estàs desenvolupant una aplicació OAuth API per scalenow-AI, pots registrar-la utilitzant aquest formulari per a tots els usuaris per utilitzar-la."
         default_scopes: ""
     header:
       builtin_applications: Built-in OAuth applications
@@ -3964,17 +3964,17 @@ ca:
     empty_application_lists: No OAuth applications have been registered.
     client_id: "ID de client"
     client_secret_notice: >
-      Aquesta és l'única vegada que pots imprimir la clau de client secreta, si us plau, anota-la i guarda-la en un lloc segur. S'ha de tractar com una contrasenya i no pot ser regenerada més tard per OpenProject.
+      Aquesta és l'única vegada que pots imprimir la clau de client secreta, si us plau, anota-la i guarda-la en un lloc segur. S'ha de tractar com una contrasenya i no pot ser regenerada més tard per scalenow-AI.
     authorization_dialog:
       authorize: "Autoritza"
       cancel: "Cancel·la i denega l'autorització."
       prompt_html: "Vols autoritzar <strong>%{application_name}</strong> a utilitzar el teu compte <em>%{login}</em>?"
       title: "Autoritza %{application_name}"
       wants_to_access_html: >
-        Aquesta aplicació demana accés al teu compte d'OpenProject. <br/> <strong>S'han demanat els següents permisos:</strong>
+        Aquesta aplicació demana accés al teu compte d'scalenow-AI. <br/> <strong>S'han demanat els següents permisos:</strong>
     scopes:
       api_v3: "Accés complet de l'API v3"
-      api_v3_text: "L'aplicació rebrà accés complet de lectura i escriptura a la API v3 d'OpenProject per efectuar les accions en nom teu."
+      api_v3_text: "L'aplicació rebrà accés complet de lectura i escriptura a la API v3 d'scalenow-AI per efectuar les accions en nom teu."
     grants:
       created_date: "Aprovat en"
       scopes: "Permisos"
@@ -3990,7 +3990,7 @@ ca:
     client_credentials_impersonation_set_to: "Usuari de credencials de client establert a"
     client_credentials_impersonation_warning: "Nota: Els clients utilitzant el procés \"Credencials de client\" en aquesta aplicació no tindran els permisos d'aquest usuari"
     client_credentials_impersonation_html: >
-      Per defecte, OpenProject proveeix una autorització OAuth 2.0 via %{authorization_code_flow_link}. Opcional també pots activar %{client_credentials_flow_link}, però hauràs d'especificar un usuari, el qual serà utilitzat per realitzar peticions.
+      Per defecte, scalenow-AI proveeix una autorització OAuth 2.0 via %{authorization_code_flow_link}. Opcional també pots activar %{client_credentials_flow_link}, però hauràs d'especificar un usuari, el qual serà utilitzat per realitzar peticions.
     authorization_error: "S'ha produït un error d'autorització."
     revoke_my_application_confirmation: "Estàs segur que vols eliminar aquesta aplicació? Això, revocarà el seu %{token_count} actiu."
     my_registered_applications: "Aplicacions OAuth registrades"
@@ -4018,20 +4018,20 @@ ca:
         Error intern: S'ha demanat refrescar el token sense haver-hi un token existent previ.
       refresh_token_updated_failed: "Error durant l'actualització de l'OAuthClientToken"
       oauth_client_not_found_explanation: >
-        Aquest error apareix després d'haver actualitzat "l'ID de client" i el "Client secret" a OpenProject sense haver actualitzat el camp "URI de retorn" en el proveïdor OAuth2.
+        Aquest error apareix després d'haver actualitzat "l'ID de client" i el "Client secret" a scalenow-AI sense haver actualitzat el camp "URI de retorn" en el proveïdor OAuth2.
       oauth_code_not_present: "No s'ha trobat el codi OAuth2 en la \"callback\" al \"endpoint\" (redirect_uri)."
       oauth_code_not_present_explanation: >
         Aquest error apareix si has seleccionat la classe de resposta (response_type) incorrecte en el proveïdor OAuth2. La classe de resposta ha de ser "codi" o similar.
       oauth_state_not_present: "No s'ha trobat l'estat OAuth2 en la \"callback\" al \"endpoint\" (redirect_uri)."
       oauth_state_not_present_explanation: >
-        L'estat s'utilitza per indicar a OpenProject on ha de continuar després d'una autorització OAuth2 correcta. La falta d'estat provoca un error intern que pot aparèixer durant la configuració. Si us plau, contacte el teu administrador.
+        L'estat s'utilitza per indicar a scalenow-AI on ha de continuar després d'una autorització OAuth2 correcta. La falta d'estat provoca un error intern que pot aparèixer durant la configuració. Si us plau, contacte el teu administrador.
       rack_oauth2:
         client_secret_invalid: "El client secret és invàlid (client_secret_invalid)"
         invalid_request: >
           El servidor d'autorització OAuth2 ha respost amb una "petició invàlida". Aquest error apareix si intentes autoritzar múltiples vegades o si hi ha errors tècnics.
         invalid_response: "El servidor d'autorització OAuth2 ha respost amb una resposta invàlida (invalid_response)"
         invalid_grant: "El servidor d'autorització OAuth2 demana una reautrorització (invalid_grant)."
-        invalid_client: "El servidor d'autorització OAuth2 no reconeix OpenProject (invalid_client)."
+        invalid_client: "El servidor d'autorització OAuth2 no reconeix scalenow-AI (invalid_client)."
         unauthorized_client: "El servidor d'autorització OAuth2 no accepta la classe concedida (unauthorized_client)."
         unsupported_grant_type: "El servidor d'autorització OAuth2 demana una reautrorització (unsupported_grant_type)."
         invalid_scope: "No tens permís per accedir el recurs demanat (invalid_scope)."
@@ -4044,8 +4044,8 @@ ca:
   you: tu
   link: link
   plugin_openproject_auth_plugins:
-    name: "OpenProject Auth Plugins"
-    description: "Integration of OmniAuth strategy providers for authentication in OpenProject."
+    name: "scalenow-AI Auth Plugins"
+    description: "Integration of OmniAuth strategy providers for authentication in scalenow-AI."
   plugin_openproject_auth_saml:
     name: "OmniAuth SAML / Single-Sign On"
-    description: "Adds the OmniAuth SAML provider to OpenProject"
+    description: "Adds the OmniAuth SAML provider to scalenow-AI"

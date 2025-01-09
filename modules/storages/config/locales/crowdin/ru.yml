@@ -31,10 +31,10 @@ ru:
           attributes:
             host:
               authorization_header_missing: не полностью настроено. Экземпляр Nextcloud не получает заголовок "Authorization", который необходим для подтверждения запросов API на основе токена Bearer. Пожалуйста, проверьте конфигурацию HTTP сервера.
-              cannot_be_connected_to: не удалось подключиться. Убедитесь, что хост доступен и установлено приложение интеграции OpenProject.
+              cannot_be_connected_to: не удалось подключиться. Убедитесь, что хост доступен и установлено приложение интеграции scalenow-AI.
               minimal_nextcloud_version_unmet: не соответствует минимальным требованиям к версии (должен быть Nextcloud 23 или выше)
               not_nextcloud_server: не является сервером Nextcloud
-              op_application_not_installed: похоже, что приложение "Интеграция с OpenProject" не установлено. Сначала установите его и повторите попытку.
+              op_application_not_installed: похоже, что приложение "Интеграция с scalenow-AI" не установлено. Сначала установите его и повторите попытку.
             password:
               invalid_password: недействителен.
               unknown_error: не удалось пройти проверку. Пожалуйста, проверьте подключение к вашему хранилищу и повторите попытку.
@@ -91,15 +91,15 @@ ru:
         rename_project_folder: 'Переименовать управляемую папку проекта:'
     errors:
       messages:
-        error: Произошла непредвиденная ошибка. Пожалуйста, проверьте журналы OpenProject для получения дополнительной информации или свяжитесь с администратором
-        unauthorized: OpenProject не смог аутентифицироваться у поставщика хранилища. Пожалуйста, убедитесь, что у вас есть к нему доступ.
+        error: Произошла непредвиденная ошибка. Пожалуйста, проверьте журналы scalenow-AI для получения дополнительной информации или свяжитесь с администратором
+        unauthorized: scalenow-AI не смог аутентифицироваться у поставщика хранилища. Пожалуйста, убедитесь, что у вас есть к нему доступ.
       models:
         copy_project_folders_service:
           conflict: Папка %{destination_path} уже существует. Прервите процесс, чтобы избежать перезаписи.
-          error: Произошла непредвиденная ошибка. Пожалуйста, проверьте журналы OpenProject для получения дополнительной информации или свяжитесь с администратором
-          forbidden: OpenProject не смог получить доступ к исходной папке. Пожалуйста, проверьте конфигурацию разрешений хранилища
+          error: Произошла непредвиденная ошибка. Пожалуйста, проверьте журналы scalenow-AI для получения дополнительной информации или свяжитесь с администратором
+          forbidden: scalenow-AI не смог получить доступ к исходной папке. Пожалуйста, проверьте конфигурацию разрешений хранилища
           not_found: Расположение исходного шаблона %{source_path} не найдено.
-          unauthorized: OpenProject не смог аутентифицироваться у поставщика хранилища. Пожалуйста, проверьте конфигурацию хранилища
+          unauthorized: scalenow-AI не смог аутентифицироваться у поставщика хранилища. Пожалуйста, проверьте конфигурацию хранилища
         nextcloud_sync_service:
           attributes:
             add_user_to_group:
@@ -120,15 +120,15 @@ ru:
               conflict: 'Пользователь %{user} не может быть удален из группы %{group} по следующей причине: %{reason}'
               failed_to_remove: 'Пользователь %{user} не может быть удален из группы %{group} по следующей причине: %{reason}'
             rename_project_folder:
-              forbidden: Пользователь OpenProject не имеет доступа к папке %{current_path}.
+              forbidden: Пользователь scalenow-AI не имеет доступа к папке %{current_path}.
               not_found: "%{current_path} не найден."
             set_folders_permissions:
               permission_not_set: не удалось установить разрешения на %{path}.
-          error: Произошла непредвиденная ошибка. Пожалуйста, убедитесь, что Nextcloud доступен и проверьте журналы работы OpenProject для дополнительной информации
+          error: Произошла непредвиденная ошибка. Пожалуйста, убедитесь, что Nextcloud доступен и проверьте журналы работы scalenow-AI для дополнительной информации
           group_does_not_exist: "%{group} не существует. Проверьте конфигурацию Nextcloud."
-          insufficient_privileges: OpenProject не имеет достаточных прав для добавления %{user} в %{group}. Проверьте настройки группы в Nextcloud.
+          insufficient_privileges: scalenow-AI не имеет достаточных прав для добавления %{user} в %{group}. Проверьте настройки группы в Nextcloud.
           not_allowed: Nextcloud блокирует запрос.
-          unauthorized: OpenProject не смог синхронизироваться с Nextcloud. Пожалуйста, проверьте конфигурацию хранилища и Nextcloud.
+          unauthorized: scalenow-AI не смог синхронизироваться с Nextcloud. Пожалуйста, проверьте конфигурацию хранилища и Nextcloud.
           user_does_not_exist: "%{user} не существует в Nextcloud."
         one_drive_sync_service:
           attributes:
@@ -138,16 +138,16 @@ ru:
             hide_inactive_folders:
               permission_not_set: не удалось установить разрешения на %{path}.
             remote_folders:
-              request_error: OpenProject не смог получить доступ к диску %{drive_id}. Пожалуйста, проверьте правильность конфигурации хранилища.
+              request_error: scalenow-AI не смог получить доступ к диску %{drive_id}. Пожалуйста, проверьте правильность конфигурации хранилища.
             rename_project_folder:
-              conflict: OpenProject не смог переименовать папку %{current_path} в %{project_folder_name}, так как папка с таким именем уже существует
-              forbidden: OpenProject не имеет доступа к %{current_path}, чтобы переименовать его.
+              conflict: scalenow-AI не смог переименовать папку %{current_path} в %{project_folder_name}, так как папка с таким именем уже существует
+              forbidden: scalenow-AI не имеет доступа к %{current_path}, чтобы переименовать его.
               not_found: "%{current_path} не найден."
             set_folders_permissions:
               permission_not_set: не удалось установить разрешения на %{path}.
-          error: Произошла непредвиденная ошибка. Пожалуйста, убедитесь, что Nextcloud доступен и проверьте журналы работы OpenProject для дополнительной информации
-          not_allowed: OpenProject не был разрешен доступ к OneDrive. Пожалуйста, проверьте разрешения, установленные в приложении Azure.
-          unauthorized: OpenProject не удалось синхронизировать с OneDrive. Пожалуйста, проверьте конфигурацию хранилища и приложения Azure.
+          error: Произошла непредвиденная ошибка. Пожалуйста, убедитесь, что Nextcloud доступен и проверьте журналы работы scalenow-AI для дополнительной информации
+          not_allowed: scalenow-AI не был разрешен доступ к OneDrive. Пожалуйста, проверьте разрешения, установленные в приложении Azure.
+          unauthorized: scalenow-AI не удалось синхронизировать с OneDrive. Пожалуйста, проверьте конфигурацию хранилища и приложения Azure.
           user_does_not_exist: "%{user} не существует в Nextcloud."
         upload_link_service:
           not_found: Папка %{folder} не найдена в хранилище %{storage_name}.
@@ -157,17 +157,17 @@ ru:
       done_complete_setup: Готово, завершить установку
       done_continue: Готово, продолжить
       open_storage: Открыть хранилище файлов
-      replace_oauth_application: Заменить OAuth OpenProject
+      replace_oauth_application: Заменить OAuth scalenow-AI
       replace_oauth_client: Заменить %{provider_type} OAuth
       save_and_continue: Сохранить и продолжить
       select_folder: Выберите папку
     configuration_checks:
       oauth_client_incomplete:
-        nextcloud: Разрешить OpenProject доступ к данным Nextcloud с помощью OAuth.
-        one_drive: Разрешить OpenProject доступ к данным Azure, используя OAuth для подключения OneDrive/Sharepoint.
+        nextcloud: Разрешить scalenow-AI доступ к данным Nextcloud с помощью OAuth.
+        one_drive: Разрешить scalenow-AI доступ к данным Azure, используя OAuth для подключения OneDrive/Sharepoint.
       redirect_uri_incomplete:
         one_drive: Завершите установку с правильным перенаправлением URI.
-    confirm_replace_oauth_application: Это действие приведет к сбросу текущих учетных данных OAuth. После подтверждения вам придется повторно ввести учетные данные у поставщика хранилища, и всем удаленным пользователям придется снова авторизоваться в OpenProject. Вы уверены, что хотите продолжить?
+    confirm_replace_oauth_application: Это действие приведет к сбросу текущих учетных данных OAuth. После подтверждения вам придется повторно ввести учетные данные у поставщика хранилища, и всем удаленным пользователям придется снова авторизоваться в scalenow-AI. Вы уверены, что хотите продолжить?
     confirm_replace_oauth_client: Это действие приведет к сбросу текущих учетных данных OAuth. После подтверждения вам нужно будет ввести новые учетные данные от поставщика хранилища, и всем пользователям придется снова авторизоваться в %{provider_type}. Вы уверены, что хотите продолжить?
     delete_warning:
       input_delete_confirmation: Введите имя хранилища файлов %{file_storage} для подтверждения удаления.
@@ -182,7 +182,7 @@ ru:
     dependencies:
       nextcloud:
         group_folders_app: Папки группы
-        integration_app: Интеграция OpenProject
+        integration_app: Интеграция scalenow-AI
     enabled_in_projects:
       setup_incomplete_description: Это хранилище имеет незавершенную настройку. Пожалуйста, завершите настройку, прежде чем включать его в нескольких проектах.
       setup_incomplete_header: Настройка хранилища не завершена
@@ -190,7 +190,7 @@ ru:
     file_storage_view:
       access_management:
         automatic_management: Автоматически управляемый доступ и папки
-        automatic_management_description: Разрешить OpenProject автоматически создавать папки для каждого проекта и управлять доступом пользователей к ним. Это рекомендуется, так как гарантирует, что каждый член команды всегда будет иметь правильные права на доступ.
+        automatic_management_description: Разрешить scalenow-AI автоматически создавать папки для каждого проекта и управлять доступом пользователей к ним. Это рекомендуется, так как гарантирует, что каждый член команды всегда будет иметь правильные права на доступ.
         description: Выберите тип управления доступом пользователя и созданием папок. Мы рекомендуем использовать "автоматически управляемый доступ" для более организованной структуры и гарантировать доступ всем необходимым пользователям.
         manual_management: Вручную управляемый доступ и папки
         manual_management_description: Создавайте и управляйте папками для каждого проекта вручную. Вам нужно будет вручную обеспечить доступ соответствующим пользователям.
@@ -202,7 +202,7 @@ ru:
       nextcloud_oauth: Nextcloud OAuth
       oauth_applications: Приложения OAuth
       one_drive_oauth: Azure OAuth
-      openproject_oauth: OpenProject OAuth
+      openproject_oauth: scalenow-AI OAuth
       project_folders: Папки проекта
       redirect_uri: URI перенаправления
       storage_provider: Поставщик хранилища
@@ -210,7 +210,7 @@ ru:
       checked: Последняя проверка %{datetime}
       connection_validation:
         action: Перепроверьте соединение
-        app_version_mismatch: Версия приложения "Интеграция OpenProject" не поддерживается. Пожалуйста, обновите ваш сервер Nextcloud.
+        app_version_mismatch: Версия приложения "Интеграция scalenow-AI" не поддерживается. Пожалуйста, обновите ваш сервер Nextcloud.
         client_id_wrong: Настроенный идентификатор клиента OAuth 2 недействителен. Пожалуйста, проверьте конфигурацию.
         client_secret_wrong: Настроенный ключ клиента OAuth 2 недействителен. Пожалуйста, проверьте конфигурацию.
         drive_id_wrong: Настроенный идентификатор диска не найден. Пожалуйста, проверьте конфигурацию.
@@ -255,15 +255,15 @@ ru:
       name: Дайте вашему хранилищу имя, чтобы пользователи могли различать между несколькими хранилищами.
       new_storage: Прочтите нашу документацию по <a target='_blank' href='%{provider_link}'>настройке интеграции файлового хранилища %{provider_name}</a> для получения дополнительной информации.
       nextcloud:
-        application_link_text: Приложение «Интеграция OpenProject»
-        integration: Администрирование NextCloud / OpenProject
+        application_link_text: Приложение «Интеграция scalenow-AI»
+        integration: Администрирование NextCloud / scalenow-AI
         oauth_configuration: Скопируйте эти значения из %{application_link_text}.
         provider_configuration: Пожалуйста, убедитесь, что у вас есть права администрирования в копии Nextcloud, и перед установкой настроен %{application_link_text}.
       no_specific_folder: По умолчанию каждый пользователь при загрузке файла начинает работу со своей собственной домашней папки.
       no_storage_set_up: Нет настроенных хранилищ файлов.
       not_logged_into_storage: Чтобы выбрать папку проекта, сначала войдите
       oauth_application_details: Секретное значение клиента не будет доступно снова после закрытия этого окна. Пожалуйста, скопируйте эти значения в %{oauth_application_details_link}.
-      oauth_application_details_link_text: Настройки интеграции Nextcloud OpenProject
+      oauth_application_details_link_text: Настройки интеграции Nextcloud scalenow-AI
       one_drive:
         application_link_text: Портал Azure
         copy_redirect_uri: Копировать перенаправление URI
@@ -282,7 +282,7 @@ ru:
       setting_up_storages: Для настройки файловых хранилищ посетите
       setting_up_storages_non_admin: Администраторы могут настроить файловые хранилища в Администрировании / Файловых хранилищах.
       type: 'Перед установкой убедитесь, что у вас есть права администрирования в вашем экземпляре Nextcloud и что перед установкой установлено следующее приложение:'
-      type_link_text: "«Интеграционный OpenProject»"
+      type_link_text: "«Интеграционный scalenow-AI»"
     label_active: Активный
     label_add_new_storage: Добавить новое хранилище
     label_automatic_folder: Новая папка с автоматически управляемыми правами
@@ -306,8 +306,8 @@ ru:
     label_no_selected_folder: Папка не выбрана
     label_no_specific_folder: Нет конкретной папки
     label_oauth_client_id: OAuth ID клиента
-    label_openproject_oauth_application_id: OpenProject OAuth ID клиента
-    label_openproject_oauth_application_secret: Секрет клиента OpenProject OAuth
+    label_openproject_oauth_application_id: scalenow-AI OAuth ID клиента
+    label_openproject_oauth_application_secret: Секрет клиента scalenow-AI OAuth
     label_project_folder: Папка проекта
     label_provider: Поставщик
     label_redirect_uri: URI перенаправления
@@ -352,8 +352,8 @@ ru:
         subtitle: Добавьте внешнее хранилище файлов для загрузки, чтобы связывать и управлять файлами в пакетах работ.
       managed_project_folders:
         subtitle: |-
-          Разрешите OpenProject автоматическое создание папки для каждого проекта. Это гарантирует наличие прав доступа для каждого члена команды.
-        subtitle_short: Позволить OpenProject создавать папки для каждого проекта автоматически.
+          Разрешите scalenow-AI автоматическое создание папки для каждого проекта. Это гарантирует наличие прав доступа для каждого члена команды.
+        subtitle_short: Позволить scalenow-AI создавать папки для каждого проекта автоматически.
         title: Автоматически управляемые папки проектов
       project_settings:
         delete: Удалить хранилище файлов
@@ -363,7 +363,7 @@ ru:
       project_storage_members:
         subtitle: Проверьте статус подключения для хранилища %{storage_name_link} всех участников проекта.
         title: Статус подключения участников
-    permission_header_explanation: 'Разрешения для файлов во внешних хранилищах применяются только к папкам и файлам в автоматически управляемых папках проекта. Обратите внимание, что не все разрешения для файлов поддерживаются всеми поставщиками хранилищ. Для получения дополнительной информации ознакомьтесь с документацией по <a target=''_blank'' href=''https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#file-storages-permissions''>разрешениям на хранение файлов</a>.'
+    permission_header_explanation: 'Разрешения для файлов во внешних хранилищах применяются только к папкам и файлам в автоматически управляемых папках проекта. Обратите внимание, что не все разрешения для файлов поддерживаются всеми поставщиками хранилищ. Для получения дополнительной информации ознакомьтесь с документацией по <a target=''_blank'' href=''#''>разрешениям на хранение файлов</a>.'
     provider_types:
       label: Тип поставщика
       nextcloud:
@@ -385,5 +385,5 @@ ru:
     successful_storage_connection: Хранилище успешно подключено! Не забудьте активировать хранилище на вкладке Проекты для каждого желаемого проекта, чтобы использовать его.
     upsale:
       description: |-
-        Интегрируйте OneDrive / SharePoint как хранилище файлов OpenProject. Загружайте файлы и связывайте их напрямую с пакетами работ проекта.
+        Интегрируйте OneDrive / SharePoint как хранилище файлов scalenow-AI. Загружайте файлы и связывайте их напрямую с пакетами работ проекта.
       title: Интеграция с OneDrive/SharePoint

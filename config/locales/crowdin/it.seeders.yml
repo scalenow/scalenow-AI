@@ -153,7 +153,7 @@ it:
                 options:
                   name: Per cominciare
                   text: |
-                    Siamo lieti che ti sia unito! Suggeriamo di provare un paio di cose per iniziare con OpenProject.
+                    Siamo lieti che ti sia unito! Suggeriamo di provare un paio di cose per iniziare con scalenow-AI.
 
                     Scopri le funzionalità più importanti con il nostro [Tour Guidato]({{opSetting:base_url}}/projects/demo-project/work_packages/?start_onboarding_tour=true).
 
@@ -325,7 +325,7 @@ it:
                 options:
                   name: Per cominciare
                   text: |
-                    Siamo lieti di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare con OpenProject.
+                    Siamo lieti di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare con scalenow-AI.
 
                     _Prova i seguenti passaggi:_
 
@@ -500,9 +500,9 @@ it:
         item_6:
           name: Bug
       welcome:
-        title: Benvenuto su OpenProject!
+        title: Benvenuto su scalenow-AI!
         text: |
-          OpenProject è il principale software di gestione dei progetti open source. Supporta la gestione dei progetti classica, agile e ibrida e ti dà il pieno controllo sui tuoi dati.
+          scalenow-AI è il principale software di gestione dei progetti open source. Supporta la gestione dei progetti classica, agile e ibrida e ti dà il pieno controllo sui tuoi dati.
 
           Funzionalità principali e casi d'uso:
 

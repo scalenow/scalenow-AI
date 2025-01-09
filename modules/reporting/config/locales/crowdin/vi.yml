@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -21,8 +21,8 @@
 #++
 vi:
   plugin_openproject_reporting:
-    name: "OpenProject Reporting"
-    description: "Mô-đun này cho phép tạo các báo cáo chi phí tùy chỉnh với việc lọc và nhóm dữ liệu do mô-đun Thời gian và chi phí của OpenProject tạo ra."
+    name: "scalenow-AI Reporting"
+    description: "Mô-đun này cho phép tạo các báo cáo chi phí tùy chỉnh với việc lọc và nhóm dữ liệu do mô-đun Thời gian và chi phí của scalenow-AI tạo ra."
   button_save_report_as: "Save report as..."
   comments: "Nhận xét"
   cost_reports_title: "Thời gian và chi phí"

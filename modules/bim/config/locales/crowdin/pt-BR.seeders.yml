@@ -71,7 +71,7 @@ pt-BR:
         item_7:
           name: Engenheiros estruturais
       welcome:
-        title: Boas-vindas à edição BIM do OpenProject!
+        title: Boas-vindas à edição BIM do scalenow-AI!
         text: |
           Confira os projetos de demonstração para começar com alguns exemplos.
 
@@ -120,7 +120,7 @@ pt-BR:
                 options:
                   name: Guia de introdução
                   text: |
-                    Estamos felizes por ter você conosco! Sugerimos que você tente algumas coisas para começar no OpenProject.
+                    Estamos felizes por ter você conosco! Sugerimos que você tente algumas coisas para começar no scalenow-AI.
 
                     Mas antes de ir direto ao assunto, você deve saber que este projeto exemplar é dividido em dois projetos diferentes:
 
@@ -179,7 +179,7 @@ pt-BR:
                 options:
                   name: Guia de introdução
                   text: |
-                    Estamos felizes por ter você conosco! Sugerimos que você tente algumas coisas para começar no OpenProject.
+                    Estamos felizes por ter você conosco! Sugerimos que você tente algumas coisas para começar no scalenow-AI.
 
                     Aqui você encontrará as funções clássicas, alguns fluxos de trabalho e pacotes de trabalho para o seu projeto de construção.
 
@@ -433,7 +433,7 @@ pt-BR:
                 options:
                   name: Guia de introdução
                   text: |
-                    Estamos felizes por você esta conosco! Sugerimos que você tente algumas coisas para começar no OpenProject.
+                    Estamos felizes por você esta conosco! Sugerimos que você tente algumas coisas para começar no scalenow-AI.
 
                     Este projeto de demonstração oferece funções, fluxos de trabalho e pacotes de trabalho especializados para BIM.
 
@@ -709,7 +709,7 @@ pt-BR:
                 options:
                   name: Guia de introdução
                   text: |
-                    Estamos felizes por ter você conosco! Sugerimos que você tente algumas coisas para começar no OpenProject.
+                    Estamos felizes por ter você conosco! Sugerimos que você tente algumas coisas para começar no scalenow-AI.
 
                     Este projeto de demonstração mostra as funções do gerenciamento do BCF.
 

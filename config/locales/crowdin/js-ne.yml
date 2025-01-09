@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -52,7 +52,7 @@ ne:
         A new backup will override any previous one. Only a limited number of backups per day can be requested.
       last_backup: Last backup
       last_backup_from: Last backup from
-      title: Backup OpenProject
+      title: Backup scalenow-AI
       options: Options
       include_attachments: Include attachments
       download_backup: Download backup
@@ -222,7 +222,7 @@ ne:
             label_maximum_users: "Maximum active users"
             label_starts_at: "Starts at"
             label_expires_at: "Expires at"
-            receive_newsletter: I want to receive the OpenProject <a target="_blank" href="%{link}">newsletter</a>.
+            receive_newsletter: I want to receive the scalenow-AI <a target="_blank" href="%{link}">newsletter</a>.
             taken_domain: There can only be one active trial per domain.
             domain_mismatch: The current request host name does not match the configured host name. Please double check your system settings.
             taken_email: Each user can only create one trial.
@@ -237,7 +237,7 @@ ne:
           status_confirmed: "confirmed"
           status_waiting: "email sent - waiting for confirmation"
           test_ee: "Test the Enterprise edition 14 days for free"
-          quick_overview: "Get a quick overview of project management and team collaboration with OpenProject Enterprise edition."
+          quick_overview: "Get a quick overview of project management and team collaboration with scalenow-AI Enterprise edition."
         upsale:
           become_hero: "Become a hero!"
           enterprise_info_html: "%{feature_title} is an Enterprise <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span> add-on."
@@ -251,7 +251,7 @@ ne:
             premium_features: "Enterprise add-ons"
             premium_features_text: "Agile boards, custom theme and logo, graphs, intelligent workflows with custom actions, full text search for work package attachments and multi-select custom fields."
             professional_support: "Professional support"
-            professional_support_text: "Get reliable, high-touch support from senior support engineers with expert knowledge about running OpenProject in business-critical environments."
+            professional_support_text: "Get reliable, high-touch support from senior support engineers with expert knowledge about running scalenow-AI in business-critical environments."
           button_start_trial: "Start free trial"
           button_upgrade: "Upgrade now"
           button_contact_us: "Contact us for a demo"
@@ -261,7 +261,7 @@ ne:
           link_quote: "Get a quote"
           more_info: "More information"
           text: >
-            The OpenProject Enterprise edition builds on top of the Community edition. It includes Enterprise add-ons and professional support mainly aimed at organizations with more than 10 users that manage business critical projects with OpenProject.
+            The scalenow-AI Enterprise edition builds on top of the Community edition. It includes Enterprise add-ons and professional support mainly aimed at organizations with more than 10 users that manage business critical projects with scalenow-AI.
           unlimited: "Unlimited"
           you_contribute: "Developers need to pay their bills, too. By upgrading to the Enterprise edition, you will be supporting this open source community effort and contributing to its development, maintenance and continuous improvement."
       working_days:
@@ -572,7 +572,7 @@ ne:
         next: "Next"
         got_it: "Got it"
       steps:
-        help_menu: "The Help (?) menu provides <b>additional help resources</b>. Here you can find a user guide, helpful how-to videos and more. <br> Enjoy your work with OpenProject!"
+        help_menu: "The Help (?) menu provides <b>additional help resources</b>. Here you can find a user guide, helpful how-to videos and more. <br> Enjoy your work with scalenow-AI!"
         members: "Invite new <b>members</b> to join your project."
         quick_add_button: "Click on the plus (+) icon in the header navigation to <b>create a new project</b> or to <b>invite coworkers</b>."
         sidebar_arrow: "Use the return arrow in the top left corner to return to the project’s <b>main menu</b>."
@@ -1258,7 +1258,7 @@ ne:
         label: "Role in %{project}"
         no_roles_found: "No roles were found"
         description: >-
-          This is the role that the user will receive when they join your project. The role defines which actions they are allowed to take and which information they are allowed to see. <a href="https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#roles-and-permissions" target="_blank"> Learn more about roles and permissions. </a>
+          This is the role that the user will receive when they join your project. The role defines which actions they are allowed to take and which information they are allowed to see. <a href="#" target="_blank"> Learn more about roles and permissions. </a>
         required: "Please select a role"
         next_button: "Next"
       message:
@@ -1347,4 +1347,4 @@ ne:
         network_off: "There is a network problem."
         network_on: "Network is back. We are trying."
         timeout: >
-          OpenProject could not provide you access to the project folder within the expected period of time. Please, try once again.<br><br> If that problem persists please contact your OpenProject administrator to check the <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">health status of the file storage setup</a>.
+          scalenow-AI could not provide you access to the project folder within the expected period of time. Please, try once again.<br><br> If that problem persists please contact your scalenow-AI administrator to check the <a href="#">health status of the file storage setup</a>.
