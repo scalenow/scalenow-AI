@@ -1,9 +1,9 @@
 #English strings go here for Rails i18n
 ja:
   plugin_openproject_two_factor_authentication:
-    name: "OpenProject Two-factor authentication"
+    name: "scalenow-AI Two-factor authentication"
     description: >-
-      This OpenProject plugin authenticates your users using two-factor authentication by means of one-time password through the TOTP standard (Google Authenticator) or sent to the user's cell phone via SMS or voice call.
+      This scalenow-AI plugin authenticates your users using two-factor authentication by means of one-time password through the TOTP standard (Google Authenticator) or sent to the user's cell phone via SMS or voice call.
   activerecord:
     attributes:
       two_factor_authentication/device:
@@ -80,7 +80,7 @@ ja:
       only_sms_allowed: "Only SMS delivery can be set up for other users."
     upsale:
       title: "2要素認証"
-      description: "すべてのプロジェクトメンバーに2要素認証を提供(または強制)することで、OpenProjectインスタンスのセキュリティを強化します。"
+      description: "すべてのプロジェクトメンバーに2要素認証を提供(または強制)することで、scalenow-AIインスタンスのセキュリティを強化します。"
     backup_codes:
       none_found: このアカウントのバックアップコードはありません。
       singular: バックアップコード

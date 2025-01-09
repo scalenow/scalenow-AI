@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -52,7 +52,7 @@ ms:
         Sandaran baharu akan mengatasi mana-mana yang terdahulu. Hanya beberapa bilangan sandaran yang terhad boleh diminta mengikut hari.
       last_backup: Sandaran terakhir
       last_backup_from: Sandaran terakhir daripada
-      title: Sandaran OpenProject
+      title: Sandaran scalenow-AI
       options: Pilihan
       include_attachments: Sertakan lampiran
       download_backup: Muat turun sandaran
@@ -222,7 +222,7 @@ ms:
             label_maximum_users: "Pengguna aktif maksimum"
             label_starts_at: "Mula pada"
             label_expires_at: "Tamat tempoh pada"
-            receive_newsletter: Saya ingin menerima <a target="_blank" href="%{link}">surat berita</a> OpenProject.
+            receive_newsletter: Saya ingin menerima <a target="_blank" href="%{link}">surat berita</a> scalenow-AI.
             taken_domain: Hanya boleh mempunyai satu percubaan aktif setiap domain.
             domain_mismatch: Permintaan nama hos semasa tidak sepadan dengan nama hos yang dikonfigurasikan. Sila semak tetapan sistem anda sekali lagi.
             taken_email: Setiap pengguna hanya boleh mencipta satu percubaan.
@@ -237,7 +237,7 @@ ms:
           status_confirmed: "disahkan"
           status_waiting: "e-mel dihantar - sedang menunggu pengesahan"
           test_ee: "Cuba edisi Enterprise 14 hari secara percuma"
-          quick_overview: "Dapatkan gambaran keseluruhan ringkas pengurusan projek dan kolaborasi kumpulan dengan OpenProject edisi Enterprise."
+          quick_overview: "Dapatkan gambaran keseluruhan ringkas pengurusan projek dan kolaborasi kumpulan dengan scalenow-AI edisi Enterprise."
         upsale:
           become_hero: "Jadilah wira!"
           enterprise_info_html: "%{feature_title} adalah tambahan Enterprise <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span>."
@@ -251,7 +251,7 @@ ms:
             premium_features: "Tambahan Enterprise"
             premium_features_text: "Board Agile, tema tersuai dan logo, graf, aliran kerja yang cerdas dengan tindakan tersuai, carian teks penuh untuk lampiran pakej kerja dan pelbagai pilihan ruang tersuai."
             professional_support: "Sokongan profesional"
-            professional_support_text: "Dapatkan sokongan yang boleh dipercayai, sokongan peribadi yang berkualiti tinggi daripada jurutera sokongan berpengalaman dengan pengetahuan pakar tentang menjalankan OpenProject dalam persekitaran perniagaan yang kritikal."
+            professional_support_text: "Dapatkan sokongan yang boleh dipercayai, sokongan peribadi yang berkualiti tinggi daripada jurutera sokongan berpengalaman dengan pengetahuan pakar tentang menjalankan scalenow-AI dalam persekitaran perniagaan yang kritikal."
           button_start_trial: "Mulakan percubaan percuma"
           button_upgrade: "Naik taraf sekarang"
           button_contact_us: "Hubungi kami untuk demo"
@@ -261,7 +261,7 @@ ms:
           link_quote: "Dapatkan sebut harga"
           more_info: "Maklumat lanjut"
           text: >
-            OpenProject edisi Enterprise dibina di atas edisi Komuniti. Ia termasuk tambahan Enterprise dan bantuan profesional terutamanya ia ditujukan ke organisasi dengan lebih dari 10 pengguna yang menguruskan projek perniagaan kritikal dengan OpenProject.
+            scalenow-AI edisi Enterprise dibina di atas edisi Komuniti. Ia termasuk tambahan Enterprise dan bantuan profesional terutamanya ia ditujukan ke organisasi dengan lebih dari 10 pengguna yang menguruskan projek perniagaan kritikal dengan scalenow-AI.
           unlimited: "Tanpa had"
           you_contribute: "Pembangun perlu membayar bil-bil mereka juga. Dengan menaik taraf ke edisi Enterprise, anda akan menyokong usaha komuniti sumber terbuka dan menyumbang ke pembangunan, penyelenggaraan dan penambahbaikan berterusan."
       working_days:
@@ -572,7 +572,7 @@ ms:
         next: "Seterusnya"
         got_it: "Faham"
       steps:
-        help_menu: "Menu Bantuan (?) menyediakan <b>sumber bantuan tambahan</b>. Di sini anda akan menjumpai panduan pengguna, video panduan dan lebih lagi. <br> Nikmati kerja anda di OpenProject!"
+        help_menu: "Menu Bantuan (?) menyediakan <b>sumber bantuan tambahan</b>. Di sini anda akan menjumpai panduan pengguna, video panduan dan lebih lagi. <br> Nikmati kerja anda di scalenow-AI!"
         members: "Jemput <b>ahli</b> baharu untuk sertai projek anda."
         quick_add_button: "Klik ikon tambah (+) dalam navigasi pengepala untuk <b>cipta projek baharu</b> atau untuk <b>jemput rakan sekerja</b>."
         sidebar_arrow: "Guna anak panah kembali di sudut kiri atas untuk kembali ke <b>menu utama</b> projek."
@@ -767,7 +767,7 @@ ms:
         confirm_reset: >
           Amaran: Adakah anda pasti anda ingin set semula konfigurasi borang? Ini akan set semula atribut kumpulan asal mereka dan menyahdayakan SEMUA ruang tersuai.
         upgrade_to_ee: "Naik taraf edisi Enterprise di premis"
-        upgrade_to_ee_text: "Wah! Jika anda perlukan tambahan ini anda sungguh pro! Bolehkah anda menyokong kami, pembangun OpenProject, dengan menjadi pelanggan edisi Enterprise?"
+        upgrade_to_ee_text: "Wah! Jika anda perlukan tambahan ini anda sungguh pro! Bolehkah anda menyokong kami, pembangun scalenow-AI, dengan menjadi pelanggan edisi Enterprise?"
         more_information: "Maklumat lanjut"
         nevermind: "Tidak mengapa"
       edit:
@@ -1254,7 +1254,7 @@ ms:
         label: "Peranan dalam %{project}"
         no_roles_found: "Tiada peranan ditemui"
         description: >-
-          Ini adalah peranan yang pengguna akan menerima apabila mereka menyertai projek anda. Peranan tersebut menentukan tindakan yang mereka dibenarkan untuk ambil dan maklumat yang mereka boleh lihat. <a href="https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#roles-and-permissions" target="_blank"> Ketahui lebih lanjut tentang peranan dan kebenaran. </a>
+          Ini adalah peranan yang pengguna akan menerima apabila mereka menyertai projek anda. Peranan tersebut menentukan tindakan yang mereka dibenarkan untuk ambil dan maklumat yang mereka boleh lihat. <a href="#" target="_blank"> Ketahui lebih lanjut tentang peranan dan kebenaran. </a>
         required: "Sila pilih peranan"
         next_button: "Seterusnya"
       message:
@@ -1343,4 +1343,4 @@ ms:
         network_off: "Terdapat masalah rangkaian."
         network_on: "Rangkaian kembali. Kami sedang mencuba."
         timeout: >
-          OpenProject tidak dapat memberikan anda akses ke folder projek dalam tempoh masa yang dijangkakan. Sila cubasekali lagi.<br><br> Jika masalah itu berterusan, sila hubungi pentadbir OpenProject anda untuk menyemak <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">status kesihatan penyediaan storan fail</a>.
+          scalenow-AI tidak dapat memberikan anda akses ke folder projek dalam tempoh masa yang dijangkakan. Sila cubasekali lagi.<br><br> Jika masalah itu berterusan, sila hubungi pentadbir scalenow-AI anda untuk menyemak <a href="#">status kesihatan penyediaan storan fail</a>.

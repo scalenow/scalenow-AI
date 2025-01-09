@@ -311,7 +311,7 @@ cs:
                 options:
                   name: Začínáme
                   text: |
-                    Jsme rádi, že jste se připojili! Doporučujeme zkusit pár věcí pro začátek v OpenProject.
+                    Jsme rádi, že jste se připojili! Doporučujeme zkusit pár věcí pro začátek v scalenow-AI.
 
                     _Vyzkoušejte následující kroky:_[Backlogs]. *Pozvěte nové členy do svého projektu*: &rightarrow; Jděte do [Members]({{opSetting:base_url}}/projects/your-scrum-project/members) v projektové navigaci.
                     2. *Podívejte se na nevyřízené produkty a nevyřízené záznamy*: &rightarrow; Přejděte do [Backlogs]({{opSetting:base_url}}/projects/your-scrum-project/backlogs) v projektové navigaci.
@@ -440,9 +440,9 @@ cs:
         item_6:
           name: Chyba
       welcome:
-        title: Vítejte v OpenProject!
+        title: Vítejte v scalenow-AI!
         text: |
-          OpenProject je hlavní open source software pro správu projektů. Podporuje klasické, agilní i hybridní řízení projektů a dává vám plnou kontrolu nad vašimi daty.
+          scalenow-AI je hlavní open source software pro správu projektů. Podporuje klasické, agilní i hybridní řízení projektů a dává vám plnou kontrolu nad vašimi daty.
 
           Základní funkce a použití případů:
 

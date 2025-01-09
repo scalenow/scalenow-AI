@@ -1,7 +1,7 @@
 #English strings go here for Rails i18n
 pt-PT:
   plugin_openproject_recaptcha:
-    name: "ReCaptcha do OpenProject"
+    name: "ReCaptcha do scalenow-AI"
     description: "Este módulo fornece verificações recaptcha durante o início de sessão."
   recaptcha:
     label_recaptcha: "reCAPTCHA"
@@ -22,4 +22,4 @@ pt-PT:
       type_hcaptcha: 'HCaptcha'
       type_turnstile: 'Cloudflare Turnstile™'
       captcha_description_html: >
-        reCAPTCHA é um serviço gratuito do Google que pode ser ativado para a sua instância do OpenProject. Se estiver ativado, será apresentado um formulário captcha no início de sessão para todos os utilizadores que ainda não tenham verificado um captcha. <br/> Aceda à seguinte hiperligação para obter mais informações sobre o reCAPTCHA e as suas versões, bem como sobre como criar o site e as chaves secretas: %{recaptcha_link} <br/> HCaptcha é uma alternativa gratuita do Google que pode ser usada se não quiser usar o reCAPTCHA. Aceda a esta hiperligação para mais informações: %{hcaptcha_link} <br/> Cloudflare Turnstile™ é outra alternativa que é mais conveniente para os utilizadores, além de oferecer o mesmo nível de segurança. Para mais informações, consulte este link: %{turnstile_link}
+        reCAPTCHA é um serviço gratuito do Google que pode ser ativado para a sua instância do scalenow-AI. Se estiver ativado, será apresentado um formulário captcha no início de sessão para todos os utilizadores que ainda não tenham verificado um captcha. <br/> Aceda à seguinte hiperligação para obter mais informações sobre o reCAPTCHA e as suas versões, bem como sobre como criar o site e as chaves secretas: %{recaptcha_link} <br/> HCaptcha é uma alternativa gratuita do Google que pode ser usada se não quiser usar o reCAPTCHA. Aceda a esta hiperligação para mais informações: %{hcaptcha_link} <br/> Cloudflare Turnstile™ é outra alternativa que é mais conveniente para os utilizadores, além de oferecer o mesmo nível de segurança. Para mais informações, consulte este link: %{turnstile_link}

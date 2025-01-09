@@ -1,7 +1,7 @@
 #English strings go here for Rails i18n
 es:
   plugin_openproject_recaptcha:
-    name: "ReCaptcha de OpenProject"
+    name: "ReCaptcha de scalenow-AI"
     description: "Este módulo proporciona comprobaciones recaptcha durante el inicio de sesión."
   recaptcha:
     label_recaptcha: "reCAPTCHA"
@@ -22,4 +22,4 @@ es:
       type_hcaptcha: 'HCaptcha'
       type_turnstile: 'Cloudflare Turnstile™'
       captcha_description_html: >
-        reCAPTCHA es un servicio gratuito de Google que puede habilitarse para su instancia de OpenProject. Si está habilitado, se mostrará un formulario captcha al iniciar sesión para todos los usuarios que aún no hayan verificado un captcha. <br/>Consulte el siguiente enlace para obtener más detalles sobre reCAPTCHA y sus versiones, y cómo crear el sitio web y las claves secretas: %{recaptcha_link} <br/> HCaptcha es una alternativa gratuita de Google que puede utilizar si no desea usar reCAPTCHA. Consulte este enlace para obtener más información: %{hcaptcha_link} <br/> Cloudflare Turnstile™ es otra alternativa que resulta más cómoda para los usuarios sin dejar de ofrecer el mismo nivel de seguridad. Consulte este enlace para obtener más información: %{turnstile_link}
+        reCAPTCHA es un servicio gratuito de Google que puede habilitarse para su instancia de scalenow-AI. Si está habilitado, se mostrará un formulario captcha al iniciar sesión para todos los usuarios que aún no hayan verificado un captcha. <br/>Consulte el siguiente enlace para obtener más detalles sobre reCAPTCHA y sus versiones, y cómo crear el sitio web y las claves secretas: %{recaptcha_link} <br/> HCaptcha es una alternativa gratuita de Google que puede utilizar si no desea usar reCAPTCHA. Consulte este enlace para obtener más información: %{hcaptcha_link} <br/> Cloudflare Turnstile™ es otra alternativa que resulta más cómoda para los usuarios sin dejar de ofrecer el mismo nivel de seguridad. Consulte este enlace para obtener más información: %{turnstile_link}

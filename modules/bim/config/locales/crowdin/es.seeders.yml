@@ -71,7 +71,7 @@ es:
         item_7:
           name: Ingenieros estructurales
       welcome:
-        title: '¡Le damos la bienvenida a la edición BIM de OpenProject!'
+        title: '¡Le damos la bienvenida a la edición BIM de scalenow-AI!'
         text: |
           Consulte los proyectos de demostración para empezar con algunos ejemplos.
 
@@ -120,7 +120,7 @@ es:
                 options:
                   name: Primeros pasos
                   text: |
-                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en OpenProject.
+                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en scalenow-AI.
 
                     Pero antes de lanzarse de lleno, debe saber que este proyecto ejemplar está dividido en dos proyectos diferentes:
 
@@ -179,7 +179,7 @@ es:
                 options:
                   name: Primeros pasos
                   text: |
-                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en OpenProject.
+                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en scalenow-AI.
 
                     Aquí encontrará los roles clásicos, algunos flujos de trabajo y paquetes de trabajo para su proyecto de construcción.
 
@@ -433,7 +433,7 @@ es:
                 options:
                   name: Primeros pasos
                   text: |
-                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en OpenProject.
+                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en scalenow-AI.
 
                     Este proyecto de demostración ofrece roles, flujos de trabajo y paquetes de trabajo especializados para BIM.
 
@@ -709,7 +709,7 @@ es:
                 options:
                   name: Primeros pasos
                   text: |
-                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en OpenProject.
+                    ¡Nos alegramos de tenerle! Le sugerimos que pruebe algunas cosas para iniciarse en scalenow-AI.
 
                     Este proyecto de demostración muestra las funcionalidades de gestión del BCF.
 

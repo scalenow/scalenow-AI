@@ -33,7 +33,7 @@ module OpenProject
 
       def url; Setting.software_url end
 
-      def versioned_name; "#{app_name} #{OpenProject::VERSION.to_semver}" end
+      def versioned_name; "scalenow-AI #{OpenProject::VERSION.to_semver}" end
 
       # Creates the url string to a specific Redmine issue
       def issue(issue_id)

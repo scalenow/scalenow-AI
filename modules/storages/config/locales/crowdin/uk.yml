@@ -31,10 +31,10 @@ uk:
           attributes:
             host:
               authorization_header_missing: налаштовано не повністю. Екземпляр Nextcloud не отримує заголовка «Authorization», який необхідний для авторизації запитів API на основі маркерів власника. Перевірте свою конфігурацію сервера HTTP.
-              cannot_be_connected_to: недоступний. Переконайтеся, що до нього можна підключитися й додаток OpenProject Integration установлено.
+              cannot_be_connected_to: недоступний. Переконайтеся, що до нього можна підключитися й додаток scalenow-AI Integration установлено.
               minimal_nextcloud_version_unmet: '– не відповідає мінімальним вимогам до версії (Nextcloud 23 або новішої версії)'
               not_nextcloud_server: '– не є сервером Nextcloud.'
-              op_application_not_installed: схоже, у вас не встановлено додаток OpenProject integration. Спочатку встановіть його, а потім спробуйте знову.
+              op_application_not_installed: схоже, у вас не встановлено додаток scalenow-AI integration. Спочатку встановіть його, а потім спробуйте знову.
             password:
               invalid_password: недійсний.
               unknown_error: не вдалося перевірити. Перевірте підключення до сховища й повторіть спробу.
@@ -91,15 +91,15 @@ uk:
         rename_project_folder: 'Перейменування папки керованого проекту:'
     errors:
       messages:
-        error: Сталася неочікувана помилка. Будь ласка, перевірте журнали OpenProject для отримання додаткової інформації або зверніться до адміністратора
-        unauthorized: OpenProject не вдалося автентифікуватись у постачальника сховища. Переконайтеся, що ви маєте до нього доступ.
+        error: Сталася неочікувана помилка. Будь ласка, перевірте журнали scalenow-AI для отримання додаткової інформації або зверніться до адміністратора
+        unauthorized: scalenow-AI не вдалося автентифікуватись у постачальника сховища. Переконайтеся, що ви маєте до нього доступ.
       models:
         copy_project_folders_service:
           conflict: Папка %{destination_path} уже існує. Перериваємо процес, щоб уникнути перезапису.
-          error: Сталася неочікувана помилка. Щоб дізнатися більше, перегляньте журнали OpenProject або зверніться до адміністратора.
-          forbidden: OpenProject не вдалось отримати доступ до вихідної папки. Перевірте конфігурацію дозволів на доступ до сховища.
+          error: Сталася неочікувана помилка. Щоб дізнатися більше, перегляньте журнали scalenow-AI або зверніться до адміністратора.
+          forbidden: scalenow-AI не вдалось отримати доступ до вихідної папки. Перевірте конфігурацію дозволів на доступ до сховища.
           not_found: Розташування вихідного шаблону %{source_path} не знайдено.
-          unauthorized: OpenProject не вдалося пройти автентифікацію в постачальника сховища. Перевірте конфігурацію сховища.
+          unauthorized: scalenow-AI не вдалося пройти автентифікацію в постачальника сховища. Перевірте конфігурацію сховища.
         nextcloud_sync_service:
           attributes:
             add_user_to_group:
@@ -120,15 +120,15 @@ uk:
               conflict: 'Користувача %{user} не вдалося вилучити з групи «%{group}» з такої причини: %{reason}'
               failed_to_remove: 'Користувача %{user} не вдалося вилучити з групи «%{group}» з такої причини: %{reason}'
             rename_project_folder:
-              forbidden: Користувач OpenProject не має доступу до папки %{current_path}.
+              forbidden: Користувач scalenow-AI не має доступу до папки %{current_path}.
               not_found: "%{current_path} не знайдено."
             set_folders_permissions:
               permission_not_set: не вдалося встановити дозволи за шляхом %{path}.
-          error: Сталася неочікувана помилка. Щоб дізнатися більше, переконайтеся, що маєте доступ до свого екземпляра Nextcloud, і перевірте журнали працівників OpenProject.
+          error: Сталася неочікувана помилка. Щоб дізнатися більше, переконайтеся, що маєте доступ до свого екземпляра Nextcloud, і перевірте журнали працівників scalenow-AI.
           group_does_not_exist: "Групи «%{group}» не існує. Перевірте конфігурацію свого екземпляра Nextcloud."
-          insufficient_privileges: OpenProject не має достатніх привілеїв, щоб додати користувача %{user} в групу «%{group}». Перевірте налаштування своєї групи в Nextcloud.
+          insufficient_privileges: scalenow-AI не має достатніх привілеїв, щоб додати користувача %{user} в групу «%{group}». Перевірте налаштування своєї групи в Nextcloud.
           not_allowed: Nextcloud блокує запит.
-          unauthorized: Не вдалося синхронізувати OpenProject із Nextcloud. Перевірте своє сховище й конфігурацію Nextcloud.
+          unauthorized: Не вдалося синхронізувати scalenow-AI із Nextcloud. Перевірте своє сховище й конфігурацію Nextcloud.
           user_does_not_exist: "%{user} не існує в Nextcloud."
         one_drive_sync_service:
           attributes:
@@ -138,16 +138,16 @@ uk:
             hide_inactive_folders:
               permission_not_set: не вдалося встановити дозволи за шляхом %{path}.
             remote_folders:
-              request_error: OpenProject не вдалося отримати доступ до вашого диска %{drive_id}. Перевірте правильність конфігурації свого сховища.
+              request_error: scalenow-AI не вдалося отримати доступ до вашого диска %{drive_id}. Перевірте правильність конфігурації свого сховища.
             rename_project_folder:
-              conflict: OpenProject не вдалося змінити назву папки «%{current_path}» на «%{project_folder_name}», оскільки папка з такою назвою вже існує
-              forbidden: OpenProject не має дозволу на перейменування папки %{current_path}.
+              conflict: scalenow-AI не вдалося змінити назву папки «%{current_path}» на «%{project_folder_name}», оскільки папка з такою назвою вже існує
+              forbidden: scalenow-AI не має дозволу на перейменування папки %{current_path}.
               not_found: "%{current_path} не знайдено."
             set_folders_permissions:
               permission_not_set: не вдалося встановити дозволи за шляхом %{path}.
-          error: Сталася неочікувана помилка. Щоб дізнатися більше, переконайтеся, що маєте доступ до свого екземпляра Nextcloud, і перевірте журнали працівників OpenProject.
-          not_allowed: OpenProject не має дозволу на доступ до вашого диска OneDrive. Перевірте дозволи, установлені в програмі Azure.
-          unauthorized: Не вдалося синхронізувати OpenProject із OneDrive. Перевірте конфігурацію свого сховища й додатку Azure.
+          error: Сталася неочікувана помилка. Щоб дізнатися більше, переконайтеся, що маєте доступ до свого екземпляра Nextcloud, і перевірте журнали працівників scalenow-AI.
+          not_allowed: scalenow-AI не має дозволу на доступ до вашого диска OneDrive. Перевірте дозволи, установлені в програмі Azure.
+          unauthorized: Не вдалося синхронізувати scalenow-AI із OneDrive. Перевірте конфігурацію свого сховища й додатку Azure.
           user_does_not_exist: "%{user} не існує в Nextcloud."
         upload_link_service:
           not_found: Теку призначення %{folder} не вдалося знайти на %{storage_name}.
@@ -157,17 +157,17 @@ uk:
       done_complete_setup: Готово – завершити налаштування
       done_continue: Виконано, продовжити
       open_storage: Відкрити файлове сховище
-      replace_oauth_application: Замінити OpenProject OAuth
+      replace_oauth_application: Замінити scalenow-AI OAuth
       replace_oauth_client: Замінити %{provider_type} OAuth
       save_and_continue: Зберегти та продовжити
       select_folder: Вибрати папку
     configuration_checks:
       oauth_client_incomplete:
-        nextcloud: Надайте OpenProject доступ до даних Nextcloud із використанням OAuth.
-        one_drive: Надайте OpenProject доступ до даних Azure із використанням OAuth для підключення OneDrive / Sharepoint.
+        nextcloud: Надайте scalenow-AI доступ до даних Nextcloud із використанням OAuth.
+        one_drive: Надайте scalenow-AI доступ до даних Azure із використанням OAuth для підключення OneDrive / Sharepoint.
       redirect_uri_incomplete:
         one_drive: Завершіть налаштування за допомогою правильного URI переспрямування.
-    confirm_replace_oauth_application: Ця дія призведе до скидання поточних облікових даних OAuth. Коли ви підтвердите дію, вам потрібно буде повторно ввести облікові дані в системі постачальника сховища. У такому разі всім віддаленим користувачам знадобиться знову пройти автентифікацію в OpenProject. Продовжити?
+    confirm_replace_oauth_application: Ця дія призведе до скидання поточних облікових даних OAuth. Коли ви підтвердите дію, вам потрібно буде повторно ввести облікові дані в системі постачальника сховища. У такому разі всім віддаленим користувачам знадобиться знову пройти автентифікацію в scalenow-AI. Продовжити?
     confirm_replace_oauth_client: Ця дія призведе до скидання поточних облікових даних OAuth. Коли ви підтвердите дію, вам потрібно буде ввести нові облікові дані в системі постачальника сховища. У такому разі всім користувачам знадобиться знову пройти автентифікацію в %{provider_type}. Продовжити?
     delete_warning:
       input_delete_confirmation: Введіть ім’я файлового сховища %{file_storage}, щоб підтвердити видалення.
@@ -182,7 +182,7 @@ uk:
     dependencies:
       nextcloud:
         group_folders_app: Папки груп
-        integration_app: Інтеграція OpenProject
+        integration_app: Інтеграція scalenow-AI
     enabled_in_projects:
       setup_incomplete_description: Це сховище ще не налаштоване. Завершіть налаштування, перш ніж вмикати його в кількох проєктах.
       setup_incomplete_header: Налаштування сховища не завершено
@@ -190,7 +190,7 @@ uk:
     file_storage_view:
       access_management:
         automatic_management: Доступ і папки з автоматичним керуванням
-        automatic_management_description: Дозвольте OpenProject автоматично створювати папки для проєкту й керувати доступом користувачів до них. Радимо зробити це, адже в такому разі кожен учасник команди завжди матиме належні дозволи на доступ.
+        automatic_management_description: Дозвольте scalenow-AI автоматично створювати папки для проєкту й керувати доступом користувачів до них. Радимо зробити це, адже в такому разі кожен учасник команди завжди матиме належні дозволи на доступ.
         description: Виберіть тип керування доступом користувачів і створенням папок. Рекомендуємо використовувати «Автоматичне керування доступом». Це забезпечує більш організовану структуру й гарантує доступ усім відповідним користувачам.
         manual_management: Доступ і папки з ручним керуванням
         manual_management_description: Створюйте папки для кожного проєкту й керуйте ними самостійно. Вам знадобиться вручну надавати доступ відповідним користувачам.
@@ -202,7 +202,7 @@ uk:
       nextcloud_oauth: Nextcloud OAuth
       oauth_applications: Програми OAuth
       one_drive_oauth: Azure OAuth
-      openproject_oauth: OpenProject OAuth
+      openproject_oauth: scalenow-AI OAuth
       project_folders: Папки проєкту
       redirect_uri: URI переспрямування
       storage_provider: Постачальник сховища
@@ -210,7 +210,7 @@ uk:
       checked: 'Востаннє перевірено: %{datetime}'
       connection_validation:
         action: Перевірити підключення знову
-        app_version_mismatch: Версія додатка Integration OpenProject не підтримується. Оновіть свій сервер Nextcloud.
+        app_version_mismatch: Версія додатка Integration scalenow-AI не підтримується. Оновіть свій сервер Nextcloud.
         client_id_wrong: Налаштований ідентифікатор клієнта OAuth 2 недійсний. Перевірте конфігурацію.
         client_secret_wrong: Налаштований секретний ключ клієнта OAuth 2 недійсний. Перевірте конфігурацію.
         drive_id_wrong: Налаштований ідентифікатор Drive ID не знайдено. Перевірте конфігурацію.
@@ -255,15 +255,15 @@ uk:
       name: Назвіть своє сховище, щоб користувачі могли відрізняти його від інших сховищ.
       new_storage: Щою дізнатися більше, ознайомтеся з нашою документацією щодо <a target='_blank' href='%{provider_link}'>налаштування інтеграції файлового сховища %{provider_name}</a>.
       nextcloud:
-        application_link_text: Integration OpenProject
-        integration: Адміністрування Nextcloud / OpenProject
+        application_link_text: Integration scalenow-AI
+        integration: Адміністрування Nextcloud / scalenow-AI
         oauth_configuration: Скопіюйте ці значення з додатка %{application_link_text}.
         provider_configuration: Перш ніж виконувати налаштування, переконайтеся, що маєте права адміністратора у своєму екземплярі Nextcloud і що встановлено %{application_link_text}.
       no_specific_folder: За замовчуванням кожен користувач, який передасть файл, починатиме роботу у власній головній папці.
       no_storage_set_up: Файлові сховища поки не створено.
       not_logged_into_storage: Шоб вибрати папку проєкту, спочатку ввійдіть
       oauth_application_details: Секретний ключ клієнта стане недоступним, коли ви закриєте це вікно. Скопіюйте ці значення в %{oauth_application_details_link}.
-      oauth_application_details_link_text: Налаштування інтеграції Nextcloud OpenProject
+      oauth_application_details_link_text: Налаштування інтеграції Nextcloud scalenow-AI
       one_drive:
         application_link_text: Портал Azure
         copy_redirect_uri: Копіювати URI переспрямування
@@ -282,7 +282,7 @@ uk:
       setting_up_storages: Щоб створити файлові сховища, перейдіть у
       setting_up_storages_non_admin: Адміністратори можуть створювати файлові сховища в розділі «Адміністрування» / «Файлові сховища».
       type: 'Перш ніж виконувати налаштування, переконайтеся, що маєте права адміністратора у своєму екземплярі Nextcloud і що встановлено цей додаток:'
-      type_link_text: "«Інтеграція OpenProject»"
+      type_link_text: "«Інтеграція scalenow-AI»"
     label_active: Активні
     label_add_new_storage: Додати нове сховище
     label_automatic_folder: Нова папка з автоматичним керуванням дозволами
@@ -306,8 +306,8 @@ uk:
     label_no_selected_folder: Папку не вибрано
     label_no_specific_folder: Немає конкретної папки
     label_oauth_client_id: Ідентифікатор клієнта OAuth
-    label_openproject_oauth_application_id: Ідентифікатор клієнта OpenProject OAuth
-    label_openproject_oauth_application_secret: Секрет клієнта OpenProject OAuth
+    label_openproject_oauth_application_id: Ідентифікатор клієнта scalenow-AI OAuth
+    label_openproject_oauth_application_secret: Секрет клієнта scalenow-AI OAuth
     label_project_folder: Папка проєкту
     label_provider: Постачальник
     label_redirect_uri: URI переспрямування
@@ -352,9 +352,9 @@ uk:
         subtitle: Додайте зовнішнє файлове сховище, щоб вивантажувати файли, створювати посилання й керувати файлами в пакетах робіт.
       managed_project_folders:
         subtitle: |-
-          Дозвольте OpenProject автоматично створювати папки для проєкту. Радимо зробити це, адже в такому разі кожен учасник
+          Дозвольте scalenow-AI автоматично створювати папки для проєкту. Радимо зробити це, адже в такому разі кожен учасник
           команди завжди матиме належні дозволи на доступ.
-        subtitle_short: Дозвольте автоматично створювати папки для кожного проєкту в OpenProject.
+        subtitle_short: Дозвольте автоматично створювати папки для кожного проєкту в scalenow-AI.
         title: Папки проєкту з автоматичним керуванням
       project_settings:
         delete: Видалити файлове сховище
@@ -364,7 +364,7 @@ uk:
       project_storage_members:
         subtitle: Перевірте стан підключення до сховища %{storage_name_link} для всіх учасників проєкту.
         title: Стан підключення учасників
-    permission_header_explanation: 'Дозволи на доступ до файлів у зовнішніх сховищах застосовуються лише до папок і файлів у межах папок проєкту з автоматичним керуванням. Зауважте, що деякі постачальники сховищ не підтримують дозволи на доступ до файлів. Щоб дізнатися більше, ознайомтеся з документацією щодо <a target=''_blank'' href=''https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#file-storages-permissions''>дозволів для файлових сховищ</a>.'
+    permission_header_explanation: 'Дозволи на доступ до файлів у зовнішніх сховищах застосовуються лише до папок і файлів у межах папок проєкту з автоматичним керуванням. Зауважте, що деякі постачальники сховищ не підтримують дозволи на доступ до файлів. Щоб дізнатися більше, ознайомтеся з документацією щодо <a target=''_blank'' href=''#''>дозволів для файлових сховищ</a>.'
     provider_types:
       label: Тип постачальника
       nextcloud:
@@ -386,6 +386,6 @@ uk:
     successful_storage_connection: Сховище підключено. Щоб користуватися ним, активуйте модуль і визначене сховище в налаштуваннях кожного потрібного проєкту.
     upsale:
       description: |-
-        Інтегруйте OneDrive і/або SharePoint як файлове сховище в OpenProject. Додайте файли й прив’яжіть їх безпосередньо до
+        Інтегруйте OneDrive і/або SharePoint як файлове сховище в scalenow-AI. Додайте файли й прив’яжіть їх безпосередньо до
         пакетів робіт у проєкті.
       title: Інтеграція OneDrive / SharePoint

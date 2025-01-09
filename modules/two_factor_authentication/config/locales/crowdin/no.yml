@@ -1,9 +1,9 @@
 #English strings go here for Rails i18n
 "no":
   plugin_openproject_two_factor_authentication:
-    name: "OpenProject to-faktor-autentisering"
+    name: "scalenow-AI to-faktor-autentisering"
     description: >-
-      Dette OpenProject programtillegget godkjenner brukerne ved bruk av to-faktor autentisering ved hjelp av engangspassord gjennom TOTP-standarden (Google Authenticator) eller sendt til brukerens mobiltelefon via SMS eller telefonoppringing.
+      Dette scalenow-AI programtillegget godkjenner brukerne ved bruk av to-faktor autentisering ved hjelp av engangspassord gjennom TOTP-standarden (Google Authenticator) eller sendt til brukerens mobiltelefon via SMS eller telefonoppringing.
   activerecord:
     attributes:
       two_factor_authentication/device:
@@ -80,7 +80,7 @@
       only_sms_allowed: "Bare SMS-levering kan angis for andre brukere."
     upsale:
       title: "Tofaktorautentisering"
-      description: "Styrk sikkerheten til OpenProject ved å tilby (eller håndheve) godkjenning av tofaktor for alle prosjektmedlemmer."
+      description: "Styrk sikkerheten til scalenow-AI ved å tilby (eller håndheve) godkjenning av tofaktor for alle prosjektmedlemmer."
     backup_codes:
       none_found: Det finnes ingen sikkerhetskoder for denne kontoen.
       singular: Sikkerhetskopieringskode

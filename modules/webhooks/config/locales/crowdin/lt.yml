@@ -1,7 +1,7 @@
 lt:
   plugin_openproject_webhooks:
-    name: "OpenProject žiniatinklio sąsajos"
-    description: "Teikia priedo API palaikymą OpenProject žiniatinklio sąsajoms, geresniai trečių šalių integracijai."
+    name: "scalenow-AI žiniatinklio sąsajos"
+    description: "Teikia priedo API palaikymą scalenow-AI žiniatinklio sąsajoms, geresniai trečių šalių integracijai."
   activerecord:
     attributes:
       webhooks/webhook:
@@ -32,7 +32,7 @@ lt:
         updated: "Atnaujinta"
       explanation:
         text: >
-          Atsitikus įvykiui, tokiam kaip darbų paketo sukūrimui ar projekto pakeitimui, OpenProject išsiųs POST užklausą nurodytoms jungtims. Dažnai įvykis siunčiamas po %{link} praėjimo.
+          Atsitikus įvykiui, tokiam kaip darbų paketo sukūrimui ar projekto pakeitimui, scalenow-AI išsiųs POST užklausą nurodytoms jungtims. Dažnai įvykis siunčiamas po %{link} praėjimo.
         link: konfigūruotas agregavimo periodas
       status:
         enabled: '„Webhook“ įgalintas'
@@ -63,4 +63,4 @@ lt:
           title: 'Parinkti projektai'
         secret:
           description: >
-            Jei nustatyta, OpenProject naudos šią slaptą reikšmę „krovinio“ pasirašymui.
+            Jei nustatyta, scalenow-AI naudos šią slaptą reikšmę „krovinio“ pasirašymui.

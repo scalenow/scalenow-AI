@@ -31,10 +31,10 @@ cs:
           attributes:
             host:
               authorization_header_missing: není zcela nastaven. Instance Nextcloud nepřijímá hlavičku "Autorizace", která je nezbytná pro autorizaci API požadavků založených na tokenu Bearer. Zkontrolujte prosím nastavení HTTP serveru.
-              cannot_be_connected_to: could not be reached. Please ensure the host is reachable and the OpenProject integration app is installed.
+              cannot_be_connected_to: could not be reached. Please ensure the host is reachable and the scalenow-AI integration app is installed.
               minimal_nextcloud_version_unmet: nesplňuje minimální požadavky na verzi (musí být Nextcloud 23 nebo vyšší)
               not_nextcloud_server: není Nextcloud server
-              op_application_not_installed: Zdá se, že aplikace "OpenProject integration" není nainstalována. Prosím nainstalujte ji a zkuste to znovu.
+              op_application_not_installed: Zdá se, že aplikace "scalenow-AI integration" není nainstalována. Prosím nainstalujte ji a zkuste to znovu.
             password:
               invalid_password: není platné.
               unknown_error: nelze potvrdit. Zkontrolujte připojení k úložišti a zkuste to znovu.
@@ -91,15 +91,15 @@ cs:
         rename_project_folder: 'Rename managed project Folder:'
     errors:
       messages:
-        error: An unexpected error occurred. Please check OpenProject logs for more information or contact an administrator
-        unauthorized: OpenProject could not authenticate with the Storage Provider. Please ensure that you have access to it.
+        error: An unexpected error occurred. Please check scalenow-AI logs for more information or contact an administrator
+        unauthorized: scalenow-AI could not authenticate with the Storage Provider. Please ensure that you have access to it.
       models:
         copy_project_folders_service:
           conflict: The folder %{destination_path} already exists. Interrupting process to avoid overwrites.
-          error: An unexpected error occurred. Please check OpenProject logs for more information or contact an administrator
-          forbidden: OpenProject could not access the source folder. Please check your permissions configuration on the Storage Provider
+          error: An unexpected error occurred. Please check scalenow-AI logs for more information or contact an administrator
+          forbidden: scalenow-AI could not access the source folder. Please check your permissions configuration on the Storage Provider
           not_found: The source template location %{source_path} wasn't found.
-          unauthorized: OpenProject could not authenticate with the Storage Provider. Please check your storage configuration
+          unauthorized: scalenow-AI could not authenticate with the Storage Provider. Please check your storage configuration
         nextcloud_sync_service:
           attributes:
             add_user_to_group:
@@ -120,15 +120,15 @@ cs:
               conflict: 'The user %{user} could not be removed from the %{group} group for the following reason: %{reason}'
               failed_to_remove: 'The user %{user} could not be removed from the %{group} group for the following reason: %{reason}'
             rename_project_folder:
-              forbidden: OpenProject user does not have access to %{current_path} folder.
+              forbidden: scalenow-AI user does not have access to %{current_path} folder.
               not_found: "%{current_path} wasn't found."
             set_folders_permissions:
               permission_not_set: could not set permissions on %{path}.
-          error: An unexpected error occurred. Please ensure that you Nextcloud instance is reachable and check OpenProject worker logs for more information
+          error: An unexpected error occurred. Please ensure that you Nextcloud instance is reachable and check scalenow-AI worker logs for more information
           group_does_not_exist: "%{group} does not exist. Check your Nextcloud instance configuration."
-          insufficient_privileges: OpenProject does not have enough privileges to add %{user} to %{group}. Check you group settings in Nextcloud.
+          insufficient_privileges: scalenow-AI does not have enough privileges to add %{user} to %{group}. Check you group settings in Nextcloud.
           not_allowed: Nextcloud block the request.
-          unauthorized: OpenProject could not sync with Nextcloud. Please check your storage and Nextcloud configuration.
+          unauthorized: scalenow-AI could not sync with Nextcloud. Please check your storage and Nextcloud configuration.
           user_does_not_exist: "%{user} does not exist in Nextcloud."
         one_drive_sync_service:
           attributes:
@@ -138,16 +138,16 @@ cs:
             hide_inactive_folders:
               permission_not_set: could not set permissions on %{path}.
             remote_folders:
-              request_error: OpenProject could not access your drive %{drive_id}. Please check if your storage configuration is correct.
+              request_error: scalenow-AI could not access your drive %{drive_id}. Please check if your storage configuration is correct.
             rename_project_folder:
-              conflict: OpenProject could not rename the folder %{current_path} to %{project_folder_name} as a folder with the same name already exists
-              forbidden: OpenProject does not have access to %{current_path} in order to rename it.
+              conflict: scalenow-AI could not rename the folder %{current_path} to %{project_folder_name} as a folder with the same name already exists
+              forbidden: scalenow-AI does not have access to %{current_path} in order to rename it.
               not_found: "%{current_path} wasn't found."
             set_folders_permissions:
               permission_not_set: could not set permissions on %{path}.
-          error: An unexpected error occurred. Please ensure that you Nextcloud instance is reachable and check OpenProject worker logs for more information
-          not_allowed: OpenProject wasn't allowed to access your OneDrive drive. Please check the permissions set on the Azure Application.
-          unauthorized: OpenProject could not sync with OneDrive. Please check your storage and Azure Application configuration.
+          error: An unexpected error occurred. Please ensure that you Nextcloud instance is reachable and check scalenow-AI worker logs for more information
+          not_allowed: scalenow-AI wasn't allowed to access your OneDrive drive. Please check the permissions set on the Azure Application.
+          unauthorized: scalenow-AI could not sync with OneDrive. Please check your storage and Azure Application configuration.
           user_does_not_exist: "%{user} does not exist in Nextcloud."
         upload_link_service:
           not_found: The destination folder %{folder} could not be found on %{storage_name}.
@@ -157,17 +157,17 @@ cs:
       done_complete_setup: Hotovo, kompletní nastavení
       done_continue: Hotovo, pokračovat
       open_storage: Open file storage
-      replace_oauth_application: Nahradit OpenProject OAuth
+      replace_oauth_application: Nahradit scalenow-AI OAuth
       replace_oauth_client: Nahradit %{provider_type} OAuth
       save_and_continue: Uložit a pokračovat
       select_folder: Vyberte složku
     configuration_checks:
       oauth_client_incomplete:
-        nextcloud: Povolit OpenProject přístup k Nextcloud datům pomocí OAuth.
-        one_drive: Povolit OpenProject přístup k Azure datům pomocí OAuth pro připojení OneDrive/Sharepoint.
+        nextcloud: Povolit scalenow-AI přístup k Nextcloud datům pomocí OAuth.
+        one_drive: Povolit scalenow-AI přístup k Azure datům pomocí OAuth pro připojení OneDrive/Sharepoint.
       redirect_uri_incomplete:
         one_drive: Dokončete nastavení správným přesměrováním URI.
-    confirm_replace_oauth_application: Tato akce obnoví aktuální OAuth přihlašovací údaje. Po potvrzení budete muset znovu zadat přihlašovací údaje u poskytovatele úložiště a všichni vzdálení uživatelé budou muset znovu autorizovat proti OpenProject Jste si jisti, že chcete pokračovat?
+    confirm_replace_oauth_application: Tato akce obnoví aktuální OAuth přihlašovací údaje. Po potvrzení budete muset znovu zadat přihlašovací údaje u poskytovatele úložiště a všichni vzdálení uživatelé budou muset znovu autorizovat proti scalenow-AI Jste si jisti, že chcete pokračovat?
     confirm_replace_oauth_client: This action will reset the current OAuth credentials. After confirming you will have to enter new credentials from the storage provider and all users will have to authorize against %{provider_type} again. Are you sure you want to proceed?
     delete_warning:
       input_delete_confirmation: Zadejte název úložiště souboru %{file_storage} pro potvrzení odstranění.
@@ -182,7 +182,7 @@ cs:
     dependencies:
       nextcloud:
         group_folders_app: Group folders
-        integration_app: Integration OpenProject
+        integration_app: Integration scalenow-AI
     enabled_in_projects:
       setup_incomplete_description: This storage has an incomplete setup. Please, complete the setup before enabling it in multiple projects.
       setup_incomplete_header: Storage setup incomplete
@@ -190,7 +190,7 @@ cs:
     file_storage_view:
       access_management:
         automatic_management: Automaticky spravovaný přístup a složky
-        automatic_management_description: Let OpenProject create folders per project automatically and manage its user access. This is recommended as it ensures that every team member has always the correct access permissions.
+        automatic_management_description: Let scalenow-AI create folders per project automatically and manage its user access. This is recommended as it ensures that every team member has always the correct access permissions.
         description: Select the type of management of user access and folder creation. We recommend to use the Automatically managed access to have a more organised structure and guarantee access to all relevant users.
         manual_management: Ručně spravovaný přístup a složky
         manual_management_description: Create and manage folders per project manually on your own. You will need to manually ensure relevant users have access.
@@ -202,7 +202,7 @@ cs:
       nextcloud_oauth: Nextcloud OAuth
       oauth_applications: OAuth aplikace
       one_drive_oauth: Azure OAuth
-      openproject_oauth: OpenProject OAuth
+      openproject_oauth: scalenow-AI OAuth
       project_folders: Projektové složky
       redirect_uri: Přesměrovat URI
       storage_provider: Poskytovatel úložiště
@@ -210,7 +210,7 @@ cs:
       checked: Poslední kontrola %{datetime}
       connection_validation:
         action: Překontrolujte připojení
-        app_version_mismatch: The Integration OpenProject app version is not supported. Please update your Nextcloud server.
+        app_version_mismatch: The Integration scalenow-AI app version is not supported. Please update your Nextcloud server.
         client_id_wrong: The configured OAuth 2 client id is invalid. Please check the configuration.
         client_secret_wrong: The configured OAuth 2 client secret is invalid. Please check the configuration.
         drive_id_wrong: The configured drive id could not be found. Please check the configuration.
@@ -255,15 +255,15 @@ cs:
       name: Dejte svému úložišti jméno, aby uživatelé mohli rozlišovat mezi více úložišti.
       new_storage: Přečtěte si dokumentaci na <a target='_blank' href='%{provider_link}'>nastavení integrace %{provider_name} úložiště souborů</a> pro více informací.
       nextcloud:
-        application_link_text: aplikace „Integration OpenProject“
-        integration: Nextcloud Administrace / OpenProject
+        application_link_text: aplikace „Integration scalenow-AI“
+        integration: Nextcloud Administrace / scalenow-AI
         oauth_configuration: Zkopírujte tyto hodnoty z %{application_link_text}.
         provider_configuration: 'Ujistěte se prosím, že máte oprávnění administrace v Nextcloud instanci a máte nainstalovanou následující aplikaci: %{application_link_text}.'
       no_specific_folder: Ve výchozím nastavení bude každý uživatel ve své vlastní domovské složce, když nahrajou soubor.
       no_storage_set_up: Dosud nejsou nastaveny žádné úložiště souborů.
       not_logged_into_storage: Pro výběr složky projektu se prosím nejprve přihlaste
       oauth_application_details: Tajná hodnota klienta nebude po zavření tohoto okna přístupná. Zkopírujte prosím tyto hodnoty do %{oauth_application_details_link}.
-      oauth_application_details_link_text: Nastavení Nextcloud OpenProject integrace
+      oauth_application_details_link_text: Nastavení Nextcloud scalenow-AI integrace
       one_drive:
         application_link_text: Azure portal
         copy_redirect_uri: Kopírovat URI přesměrování
@@ -282,7 +282,7 @@ cs:
       setting_up_storages: Pro nastavení úložišť souborů navštivte prosím
       setting_up_storages_non_admin: Administrátoři mohou nastavit další úložiště souborů v administraci / Úložiště souborů.
       type: 'Ujistěte se prosím, že máte oprávnění administrace v Nextcloud instanci a máte nainstalovanou následující aplikaci:'
-      type_link_text: "„Integration OpenProject“"
+      type_link_text: "„Integration scalenow-AI“"
     label_active: Aktivní
     label_add_new_storage: Přidat nové úložiště
     label_automatic_folder: Nová složka s automaticky spravovanými oprávněními
@@ -306,8 +306,8 @@ cs:
     label_no_selected_folder: Žádná vybraná složka
     label_no_specific_folder: Žádná specifická složka
     label_oauth_client_id: OAuth ID klienta
-    label_openproject_oauth_application_id: OpenProject OAuth ID klienta
-    label_openproject_oauth_application_secret: Tajný klíč OpenProject OAuth klienta
+    label_openproject_oauth_application_id: scalenow-AI OAuth ID klienta
+    label_openproject_oauth_application_secret: Tajný klíč scalenow-AI OAuth klienta
     label_project_folder: Složka projektu
     label_provider: Poskytovatel
     label_redirect_uri: Přesměrovat URI
@@ -352,8 +352,8 @@ cs:
         subtitle: Přidejte externí úložiště souborů pro nahrávání, propojení a správu souborů v pracovních balíčcích.
       managed_project_folders:
         subtitle: |-
-          Nechat OpenProject vytvářet složky pro každý projekt automaticky. To je doporučeno proto, že každý člen týmu má vždy správná přístupová oprávnění.
-        subtitle_short: Nechat OpenProject vytvářet složky pro každý projekt automaticky.
+          Nechat scalenow-AI vytvářet složky pro každý projekt automaticky. To je doporučeno proto, že každý člen týmu má vždy správná přístupová oprávnění.
+        subtitle_short: Nechat scalenow-AI vytvářet složky pro každý projekt automaticky.
         title: Automaticky spravované projektové složky
       project_settings:
         delete: Odstranit úložiště souborů
@@ -363,7 +363,7 @@ cs:
       project_storage_members:
         subtitle: Zkontrolujte stav připojení úložiště %{storage_name_link} všech členů projektu.
         title: Stav připojení členů
-    permission_header_explanation: 'File permissions on external storages are applied only to folders and files within automatically managed project folders. Note that not all file permissions are supported by all storage providers. Please check the documentation on <a target=''_blank'' href=''https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#file-storages-permissions''>file storage permissions</a> for more information.'
+    permission_header_explanation: 'File permissions on external storages are applied only to folders and files within automatically managed project folders. Note that not all file permissions are supported by all storage providers. Please check the documentation on <a target=''_blank'' href=''#''>file storage permissions</a> for more information.'
     provider_types:
       label: Typ poskytovatele
       nextcloud:
@@ -385,5 +385,5 @@ cs:
     successful_storage_connection: Storage connected successfully! Remember to activate the storage in the Projects tab for each desired project to use it.
     upsale:
       description: |-
-        Integrujte OneDrive/SharePoint jako úložiště souborů s OpenProject. Nahrávejte soubory a propojte je přímo s pracovními balíčky v projektu.
+        Integrujte OneDrive/SharePoint jako úložiště souborů s scalenow-AI. Nahrávejte soubory a propojte je přímo s pracovními balíčky v projektu.
       title: Integrace OneDrive/SharePoint

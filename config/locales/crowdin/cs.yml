@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -59,7 +59,7 @@ cs:
         main-menu-bg-selected-background: "Hlavní menu při výběru"
         main-menu-bg-hover-background: "Hlavní menu při přejetí myší"
       custom_colors: "Vlastní barvy"
-      customize: "Přizpůsobte si instalaci OpenProject vlastním logem a barvami."
+      customize: "Přizpůsobte si instalaci scalenow-AI vlastním logem a barvami."
       enterprise_notice: ""
       enterprise_more_info: "Poznámka: použité logo bude veřejně přístupné."
       manage_colors: "Upravit možnosti výběru barvy"
@@ -130,43 +130,43 @@ cs:
     technical_warning_html: |
       Tento LDAP formulář vyžaduje technické znalosti nastavení LDAP / Active Directory.
       <br/>
-      <a href="https://www.openproject.org/help/administration/manage-ldap-authentication/">Prosím navštivte naši dokumentaci pro podrobné pokyny</a>.
+      <a href="#">Prosím navštivte naši dokumentaci pro podrobné pokyny</a>.
     attribute_texts:
       name: Rozhodčí název spojení LDAP
       host: LDAP název hostitele nebo IP adresa
       login_map: Atribut klíč v LDAP, který se používá k identifikaci jedinečného přihlášení uživatele. Obvykle se jedná o `uid` nebo `samAccountName`.
-      generic_map: Klíč atributů v LDAP, který je namapován k atributu OpenProject `%{attribute}`
-      admin_map_html: "Volitelně: Atribut klíč v LDAP, který <strong>pokud je přítomen</strong> , označí uživatele OpenProject admin. Nechte prázdné, pokud máte pochybnosti."
+      generic_map: Klíč atributů v LDAP, který je namapován k atributu scalenow-AI `%{attribute}`
+      admin_map_html: "Volitelně: Atribut klíč v LDAP, který <strong>pokud je přítomen</strong> , označí uživatele scalenow-AI admin. Nechte prázdné, pokud máte pochybnosti."
       system_user_dn_html: |
         Zadejte DN systémového uživatele používaného pro přístup pouze ke čtení.
         <br/>
         Příklad: uid=openproject,ou=system,dc=example,dc=com
       system_user_password: Vložte vázané heslo systémového uživatele
       base_dn: |
-        Zadejte základní DN podstromu v LDAP chcete, aby OpenProject hledal uživatele a skupiny.
-        OpenProject bude filtrovat pouze pro zadaná uživatelská jména v tomto podstromku.
+        Zadejte základní DN podstromu v LDAP chcete, aby scalenow-AI hledal uživatele a skupiny.
+        scalenow-AI bude filtrovat pouze pro zadaná uživatelská jména v tomto podstromku.
         Příklad: ou=users,dc=example,dc=com
       filter_string: |
         Přidejte volitelný filtr RFC4515, který se použije na výsledky vrácené pro uživatele filtrované v LDAP.
-        Toto lze použít k omezení sady uživatelů, kteří jsou nalezeni v OpenProject pro ověřování a synchronizaci skupin.
+        Toto lze použít k omezení sady uživatelů, kteří jsou nalezeni v scalenow-AI pro ověřování a synchronizaci skupin.
       filter_string_concat: |
-        OpenProject bude vždy filtrovat přihlašovací atribut, který poskytuje uživatel pro identifikaci záznamu. Pokud zde zadáte filtr,
+        scalenow-AI bude vždy filtrovat přihlašovací atribut, který poskytuje uživatel pro identifikaci záznamu. Pokud zde zadáte filtr,
         bude spojen s AND. Ve výchozím nastavení se jako filtr použije catch-all (objectClass=*).
       onthefly_register: |
-        Pokud zaškrtnete toto políčko, OpenProject automaticky vytvoří nové uživatele z jejich LDAP položek
-        při prvním ověření OpenProject.
-        Ponechte toto nezaškrtnuté pro povolení pouze existujících účtů v OpenProject pro ověření pomocí LDAP!
+        Pokud zaškrtnete toto políčko, scalenow-AI automaticky vytvoří nové uživatele z jejich LDAP položek
+        při prvním ověření scalenow-AI.
+        Ponechte toto nezaškrtnuté pro povolení pouze existujících účtů v scalenow-AI pro ověření pomocí LDAP!
     connection_encryption: "Šifrování připojení"
     encryption_details: "Možnosti LDAPS / STARTTLS"
     system_account: "Systémový účet"
     system_account_legend: |
-      OpenProject vyžaduje přístup pouze pro čtení prostřednictvím systémového účtu pro vyhledávání uživatelů a skupin ve stromu LDAP.
+      scalenow-AI vyžaduje přístup pouze pro čtení prostřednictvím systémového účtu pro vyhledávání uživatelů a skupin ve stromu LDAP.
       Zadejte prosím přístupové údaje pro tohoto systémového uživatele v následující sekci.
     ldap_details: "Podrobnosti LDAP"
     user_settings: "Mapování atributů"
     user_settings_legend: |
-      Následující pole se týkají toho, jak jsou uživatelé vytvářeni v OpenProject ze záznamů LDAP a
-      jaké atributy LDAP se používají k definování atributů uživatele OpenProject (mapování atributů).
+      Následující pole se týkají toho, jak jsou uživatelé vytvářeni v scalenow-AI ze záznamů LDAP a
+      jaké atributy LDAP se používají k definování atributů uživatele scalenow-AI (mapování atributů).
     tls_mode:
       plain: "žádný"
       simple_tls: "LDAPS"
@@ -526,7 +526,7 @@ cs:
     upsale:
       title: Placeholder uživatel
       description: >
-        Placeholder uživatelé jsou způsob, jak přiřadit pracovní balíčky uživatelům, kteří nejsou součástí vašeho projektu. Mohou být užiteční v řadě scénářů; například, pokud potřebujete sledovat úkoly u zdroje, který ještě nejsou pojmenovány nebo dostupné, nebo pokud nechcete této osobě umožnit přístup k OpenProject ale stále chcete sledovat úkoly, které jim byly přiděleny.
+        Placeholder uživatelé jsou způsob, jak přiřadit pracovní balíčky uživatelům, kteří nejsou součástí vašeho projektu. Mohou být užiteční v řadě scénářů; například, pokud potřebujete sledovat úkoly u zdroje, který ještě nejsou pojmenovány nebo dostupné, nebo pokud nechcete této osobě umožnit přístup k scalenow-AI ale stále chcete sledovat úkoly, které jim byly přiděleny.
   prioritiies:
     edit:
       priority_color_text: |
@@ -963,7 +963,7 @@ cs:
         confirmation: "neshoduje se s %{attribute}."
         could_not_be_copied: "%{dependency} nemůže být (zcela) zkopírován."
         does_not_exist: "neexistuje."
-        error_enterprise_only: "%{action} je k dispozici pouze ve vydání OpenProject Enterprise"
+        error_enterprise_only: "%{action} je k dispozici pouze ve vydání scalenow-AI Enterprise"
         error_unauthorized: "není přístupný."
         error_readonly: "se pokusil být napsán, ale není zapisovatelný."
         error_conflict: "Informace mezitím aktualizoval alespoň jeden další uživatel."
@@ -1491,7 +1491,7 @@ cs:
       heading_reset: "Resetovat záložní token"
       heading_create: "Vytvořit záložní token"
       implications: >
-        Povolení záloh umožní každému uživateli s požadovaným oprávněním a tímto záložním tokenem stáhnout zálohu obsahující všechna data této OpenProject instalace. To zahrnuje údaje všech ostatních uživatelů.
+        Povolení záloh umožní každému uživateli s požadovaným oprávněním a tímto záložním tokenem stáhnout zálohu obsahující všechna data této scalenow-AI instalace. To zahrnuje údaje všech ostatních uživatelů.
       info: >
         Budete muset vygenerovat token zálohy, abyste mohli vytvořit zálohu. Pokaždé, když chcete požádat o zálohu, budete muset tento token poskytnout.  Pro zakázání záloh tomuto uživateli můžete odstranit token zálohy
       verification: >
@@ -1832,7 +1832,7 @@ cs:
   error_check_user_and_role: "Vyberte uživatele a roli."
   error_code: "Chyba %{code}"
   error_color_could_not_be_saved: "Barvu nelze uložit"
-  error_cookie_missing: "OpenProject cookie chybí. Ujistěte se, že jsou soubory cookie povoleny, protože aplikace nebude správně fungovat."
+  error_cookie_missing: "scalenow-AI cookie chybí. Ujistěte se, že jsou soubory cookie povoleny, protože aplikace nebude správně fungovat."
   error_custom_option_not_found: "Nastavení neexistuje."
   error_enterprise_activation_user_limit: "Váš účet nebyl aktivován (dosažen limit počtu uživatelů). Prosím obraťte se na správce pro získání přístupu."
   error_enterprise_token_invalid_domain: "Enterprise Edice není aktivní. Doména Enterprise tokenu (%{actual}) neodpovídá hostiteli systému (%{expected})."
@@ -1847,7 +1847,7 @@ cs:
   error_work_package_not_found_in_project: "Pracovný balíček nebyl nalezen, nebo nepatří k tomuto projektu"
   error_work_package_id_not_found: "Pracovní balíček nebyl nalezen."
   error_must_be_project_member: "musí být členem projektu"
-  error_migrations_are_pending: "Vaše instalace OpenProject čeká na migraci databáze. Pravděpodobně jste při poslední aktualizaci zmeškali migrace. Pro správnou aktualizaci vaší instalace prosím zkontrolujte průvodce aktualizací."
+  error_migrations_are_pending: "Vaše instalace scalenow-AI čeká na migraci databáze. Pravděpodobně jste při poslední aktualizaci zmeškali migrace. Pro správnou aktualizaci vaší instalace prosím zkontrolujte průvodce aktualizací."
   error_migrations_visit_upgrade_guides: "Navštivte prosím naši dokumentaci průvodce aktualizací"
   error_no_default_work_package_status: 'Žádný výchozí stav pracovního balíčku není definovaný. Prosím zkontrolujte konfiguraci (v "Administrace -> Stav pracovního balíčku").'
   error_no_type_in_project: "Neexistuje žádný typ provázaný s tímto projektem. Prosím zkontrolujte nastavení projektu."
@@ -2015,7 +2015,7 @@ cs:
       no_visible_projects: "V této instanci nejsou žádné viditelné projekty."
       users: "Poslední registrovaní uživatelé v této instalaci."
     blocks:
-      community: "OpenProject komunita"
+      community: "scalenow-AI komunita"
       upsale:
         title: "Upgradovat na Enterprise Edici"
         more_info: "Více informací"
@@ -2027,7 +2027,7 @@ cs:
       impressum: "Právní ustanovení"
       glossary: "Glossary"
       shortcuts: "Klávesové zkratky"
-      blog: "OpenProject blog"
+      blog: "scalenow-AI blog"
       forums: "Komunitní fórum"
       newsletter: "Bezpečnostní upozornění / newsletter"
   image_conversion:
@@ -2039,7 +2039,7 @@ cs:
       default_attribute_written: "Zápis atributů pouze pro čtení"
       progress_mode_changed_to_status_based: "Výpočet průběhu byl aktualizován"
       status_changed: "Stav '%{status_name}'"
-      system_update: "Aktualizace systému OpenProject:"
+      system_update: "Aktualizace systému scalenow-AI:"
       work_package_duplicate_closed: "Duplicate work package updated:"
       total_percent_complete_mode_changed_to_work_weighted_average: "Calculation of % Complete totals now weighted by Work."
       total_percent_complete_mode_changed_to_simple_average: "Calculation of % Complete totals now based on a simple average of only % Complete values."
@@ -2109,7 +2109,7 @@ cs:
         disabled_text: "API tokeny nejsou administrátorem povoleny. Pro použití této funkce kontaktujte svého správce."
       ical:
         title: "iCalendar"
-        text_hint: 'Tokeny iCalendar umožňují uživatelům <a href="%{path}" target="_blank">přihlásit se k odběru kalendářů OpenProject</a> a zobrazovat aktuální informace o pracovních balíčcích od externích klientů.'
+        text_hint: 'Tokeny iCalendar umožňují uživatelům <a href="%{path}" target="_blank">přihlásit se k odběru kalendářů scalenow-AI</a> a zobrazovat aktuální informace o pracovních balíčcích od externích klientů.'
         disabled_text: "iCalendar odběr není administrátorem povolen. Pro použití této funkce kontaktujte svého správce."
         empty_text_hint: "Chcete-li přidat token iCalendar, přihlaste se do nového nebo existujícího kalendáře v rámci modulu kalendáře projektu. Musíte mít potřebná oprávnění."
       oauth:
@@ -2118,12 +2118,12 @@ cs:
         empty_text_hint: "Pro vás není nastaven a aktivní přístup třetí strany. Pro aktivaci této funkce kontaktujte svého správce."
       rss:
         title: "RSS"
-        text_hint: "RSS tokeny umožňují uživatelům držet krok s nejnovějšími změnami v této OpenProject instanci přes externí RSS čtečku."
+        text_hint: "RSS tokeny umožňují uživatelům držet krok s nejnovějšími změnami v této scalenow-AI instanci přes externí RSS čtečku."
         static_token_name: "RSS token"
         disabled_text: "API tokeny nejsou administrátorem povoleny. Pro použití této funkce kontaktujte svého správce."
       storages:
         title: "Úložiště souborů"
-        text_hint: "Tokeny úložiště souborů připojují tuto OpenProject instanci s externím úložištěm souborů."
+        text_hint: "Tokeny úložiště souborů připojují tuto scalenow-AI instanci s externím úložištěm souborů."
         empty_text_hint: "K vašemu účtu není připojen žádný přístup k úložišti."
         revoke_token: "Opravdu chcete odstranit tento token? Budete se muset znovu přihlásit na %{storage}"
         removed: "Token Úložiště souborů byl úspěšně odstraněn"
@@ -2291,7 +2291,7 @@ cs:
   label_custom_field_plural: "Vlastní pole"
   label_custom_field_default_type: "Prázdný typ"
   label_custom_style: "Design"
-  label_custom_style_description: "Choose how OpenProject looks to you with themes, select your default colors to use in the app and how exports look like."
+  label_custom_style_description: "Choose how scalenow-AI looks to you with themes, select your default colors to use in the app and how exports look like."
   label_dashboard: "Dashboard"
   label_database_version: "Verze PostgreSQL"
   label_date: "Datum"
@@ -2536,7 +2536,7 @@ cs:
   label_open_menu: "Otevřít nabídku"
   label_open_work_packages: "otevřené"
   label_open_work_packages_plural: "otevřené"
-  label_openproject_website: "Webové stránky OpenProject"
+  label_openproject_website: "Webové stránky scalenow-AI"
   label_optional_description: "Popis"
   label_options: "Možnosti"
   label_other: "Ostatní"
@@ -2913,8 +2913,8 @@ cs:
   mail_body_backup_token_reset_user_info: Váš záložní token byl resetován.
   mail_body_backup_token_info: Předchozí token již není platný.
   mail_body_backup_waiting_period: Nový token bude povolen za %{hours} hodin.
-  mail_body_backup_token_warning: Pokud jste to nebyl Vy, přihlaste se okamžitě do OpenProject a resetujte jej .
-  mail_body_incoming_email_error: E-mail odeslaný na OpenProject nelze zpracovat
+  mail_body_backup_token_warning: Pokud jste to nebyl Vy, přihlaste se okamžitě do scalenow-AI a resetujte jej .
+  mail_body_incoming_email_error: E-mail odeslaný na scalenow-AI nelze zpracovat
   mail_body_incoming_email_error_in_reply_to: "V %{received_at} %{from_email} napsal/a"
   mail_body_incoming_email_error_logs: "Protokoly"
   mail_body_lost_password: "Pro změnu vašeho hesla klikněte na následující odkaz:"
@@ -2923,14 +2923,14 @@ cs:
     body: "Váš účet na %{app_title} je připojen k externímu poskytovateli ověřování (%{name})."
     subtext: "Hesla pro externí účet nelze změnit v aplikaci. Použijte prosím ztracené heslo poskytovatele ověření."
   mail_body_register: "Vítejte v %{app_title}. Aktivujte svůj účet kliknutím na tento odkaz:"
-  mail_body_register_header_title: "Pozvánka do projektu OpenProject"
+  mail_body_register_header_title: "Pozvánka do projektu scalenow-AI"
   mail_body_register_user: "Vážený %{name},"
   mail_body_register_links_html: |
     Prohlédněte si prosím náš YouTube kanál (%{youtube_link}), kde poskytneme webinář (%{webinar_link})
-    a videa "Začínáme" (%{get_started_link}), abychom učinili vaše první kroky v OpenProject co nejjednodušší.
+    a videa "Začínáme" (%{get_started_link}), abychom učinili vaše první kroky v scalenow-AI co nejjednodušší.
     <br />
     Pokud máte nějaké další dotazy, podívejte se do dokumentace (%{documentation_link}) nebo kontaktujte svého správce.
-  mail_body_register_closing: "Team OpenProject "
+  mail_body_register_closing: "Team scalenow-AI "
   mail_body_register_ending: "S pozdravem,"
   mail_body_reminder: "%{count} pracovních balíčků, které máte přiřazeny, mají termín během následujících %{days} dnů:"
   mail_body_group_reminder: '%{count} pracovních balíčků, které jsou přiřazeny ke skupině "%{group}", má termín splatnosti během následujících %{days} dnů:'
@@ -2939,7 +2939,7 @@ cs:
   mail_subject_account_activation_request: "Žádost o aktivaci účtu %{value}"
   mail_subject_backup_ready: "Vaše záloha je připravena"
   mail_subject_backup_token_reset: "Resetovat token zálohy"
-  mail_subject_incoming_email_error: "E-mail odeslaný na OpenProject nelze zpracovat"
+  mail_subject_incoming_email_error: "E-mail odeslaný na scalenow-AI nelze zpracovat"
   mail_subject_lost_password: "Vaše heslo %{value}"
   mail_subject_register: "Aktivace vašeho účtu %{value}"
   mail_subject_wiki_content_added: "'%{id}' wiki stránka byla přidána"
@@ -2968,13 +2968,13 @@ cs:
   mail_user_activation_limit_reached:
     subject: Dosažen limit aktivace uživatelů
     message: |
-      Nový uživatel (%{email}) se pokusil vytvořit účet v prostředí OpenProject spravovaném vámi (%{host}). Uživatel nemůže aktivovat svůj účet, protože bylo dosaženo limitu v počtu uživatelů.
+      Nový uživatel (%{email}) se pokusil vytvořit účet v prostředí scalenow-AI spravovaném vámi (%{host}). Uživatel nemůže aktivovat svůj účet, protože bylo dosaženo limitu v počtu uživatelů.
     steps:
       label: "Chcete-li umožnit uživateli přihlášení můžete buď: "
       a: "Upgrade plánu plateb ([here](upgrade_url))" #here turned into a link
       b: "Zamknutí nebo odstranění existujícího uživatele ([here](users_url))" #here turned into a link
   more_actions: "Další funkce"
-  noscript_description: "Musíte aktivovat JavaScript pro použití OpenProject!"
+  noscript_description: "Musíte aktivovat JavaScript pro použití scalenow-AI!"
   noscript_heading: "Javascript zakázán"
   noscript_learn_more: "Více informací"
   notice_accessibility_mode: Režim usnadnění přístupu může být povolen v [nastavení účtu](url).
@@ -3044,7 +3044,7 @@ cs:
   notice_wont_delete_auth_source: Připojení LDAP nemůže být odstraněno, dokud ho stále používají uživatelé.
   notice_project_cannot_update_custom_fields: "Nemůžete aktualizovat dostupné vlastní pole projektu. Projekt je neplatný: %{errors}"
   notice_attachment_migration_wiki_page: >
-    Tato stránka byla generována automaticky během aktualizace OpenProject. Obsahuje všechny přílohy dříve přidružené k %{container_type} "%{container_name}".
+    Tato stránka byla generována automaticky během aktualizace scalenow-AI. Obsahuje všechny přílohy dříve přidružené k %{container_type} "%{container_name}".
   #Default format for numbers
   number:
     format:
@@ -3069,7 +3069,7 @@ cs:
           tb: "TB"
   onboarding:
     heading_getting_started: "Získejte přehled"
-    text_getting_started_description: "Získejte rychlý přehled o řízení projektu a spolupráci týmu s OpenProject. Toto video můžete restartovat z nabídky nápovědy."
+    text_getting_started_description: "Získejte rychlý přehled o řízení projektu a spolupráci týmu s scalenow-AI. Toto video můžete restartovat z nabídky nápovědy."
     welcome: "Vítejte v %{app_title}"
     select_language: "Vyberte prosím svůj jazyk"
   permission_add_work_package_notes: "Přidat poznámky"
@@ -3143,7 +3143,7 @@ cs:
   permission_share_work_packages: "Sdílet pracovní balíčky"
   permission_manage_types: "Vyberte typy"
   permission_view_project: "Zobrazit projekty"
-  permission_view_changesets: "Zobrazit revize repozitáře v OpenProject"
+  permission_view_changesets: "Zobrazit revize repozitáře v scalenow-AI"
   permission_view_commit_author_statistics: "Zobrazit statistiky autora commitu"
   permission_view_dashboards: "Zobrazit dashboardy"
   permission_view_work_package_watchers: "Zobrazit seznam sledujících"
@@ -3247,7 +3247,7 @@ cs:
     destroy:
       confirmation: "Pokud budete pokračovat, bude trvale odstraněn spravovaný repozitář."
       info: "Smazání repozitáře je nevratná akce."
-      info_not_managed: "Poznámka: Toto NEBUDE smazat obsah tohoto repositáře, protože není spravován OpenProject."
+      info_not_managed: "Poznámka: Toto NEBUDE smazat obsah tohoto repositáře, protože není spravován scalenow-AI."
       managed_path_note: "Následující adresář bude smazán: %{path}"
       repository_verification: "Zadejte identifikátor projektu %{identifier} pro ověření odstranění jeho repozitáře."
       subtitle: "Opravdu chcete odstranit %{repository_type} z projektu %{project_name}.?"
@@ -3261,8 +3261,8 @@ cs:
       empty_repository: "Repozitář existuje, ale je prázdný. Zatím neobsahuje žádné revize."
       exists_on_filesystem: "Složka repozitáře již v souborovém systému existuje."
       filesystem_access_failed: "Došlo k chybě při přístupu k repozitáři v souborovém systému: %{message}"
-      not_manageable: "Tento dodavatel repozitáře nemůže být spravován OpenProject."
-      path_permission_failed: "Nastala chyba při vytváření následující cesty: %{path}. Ujistěte se, že OpenProject může zapisovat do této složky."
+      not_manageable: "Tento dodavatel repozitáře nemůže být spravován scalenow-AI."
+      path_permission_failed: "Nastala chyba při vytváření následující cesty: %{path}. Ujistěte se, že scalenow-AI může zapisovat do této složky."
       unauthorized: "Nemáte oprávnění k přístupu k repozitáři, nebo jsou přihlašovací údaje neplatné."
       unavailable: "Repozitář není k dispozici."
       exception_title: "Nelze získat přístup k repozitáři: %{message}"
@@ -3279,9 +3279,9 @@ cs:
         path_encoding: "Přepsat kódování Gitu (výchozí: UTF-8)"
       local_title: "Propojit existující místní Git repozitář"
       local_url: "Lokální URL"
-      local_introduction: "Pokud máte existující lokální Git repozitář, můžete jej propojit s OpenProject pro přístup do aplikace."
-      managed_introduction: "Nechat OpenProject automaticky vytvářet a integrovat místní Git repozitář."
-      managed_title: "Git repositář začleněn do OpenProject"
+      local_introduction: "Pokud máte existující lokální Git repozitář, můžete jej propojit s scalenow-AI pro přístup do aplikace."
+      managed_introduction: "Nechat scalenow-AI automaticky vytvářet a integrovat místní Git repozitář."
+      managed_title: "Git repositář začleněn do scalenow-AI"
       managed_url: "Spravovaná URL"
       path: "Cesta k repozitáři Git"
       path_encoding: "Kódování trasy"
@@ -3298,24 +3298,24 @@ cs:
     scm_types:
       local: "Propojit existující místní úložiště"
       existing: "Odkaz na existující repozitář"
-      managed: "Vytvořit nový repositář v OpenProject"
+      managed: "Vytvořit nový repositář v scalenow-AI"
     storage:
       not_available: "Pro tento repositář není k dispozici spotřeba úložiště disku."
       update_timeout: "Uchovávejte poslední požadované informace o úložišti po dobu N minut.\nPři počítání požadovaného místa na disku v úložišti může být nákladné, zvýšit tuto hodnotu, aby se snížil vliv na výkon."
-      oauth_application_details: "Tajná hodnota klienta nebude po zavření tohoto okna přístupná. Zkopírujte tyto hodnoty do Nextcloud OpenProject Integration nastavení:"
+      oauth_application_details: "Tajná hodnota klienta nebude po zavření tohoto okna přístupná. Zkopírujte tyto hodnoty do Nextcloud scalenow-AI Integration nastavení:"
       oauth_application_details_link_text: "Přejít na stránku nastavení"
       setup_documentation_details: "Pokud potřebujete pomoci s nastavením nového úložiště souborů, prosím zkonzultujte dokumentaci: "
       setup_documentation_details_link_text: "Nastavení úložiště souborů"
       show_warning_details: "Pro použití tohoto úložiště souborů nezapomeňte aktivovat modul a konkrétní úložiště v nastavení projektu každého požadovaného projektu."
     subversion:
       existing_title: "Existující repozitář Subversion"
-      existing_introduction: "Pokud máte existující repozitář s podverzí, můžete jej propojit s OpenProject pro přístup do aplikace."
+      existing_introduction: "Pokud máte existující repozitář s podverzí, můžete jej propojit s scalenow-AI pro přístup do aplikace."
       existing_url: "Existující URL"
       instructions:
         managed_url: "Toto je URL spravovaného (lokálního) úložiště subverzí."
         url: "Zadejte adresu URL úložiště. Může se zaměřit na lokální repositář (počínaje %{local_proto} ), nebo na vzdálený repositář.\nJsou podporovány následující schémata URL:"
-      managed_title: "Repozitář subverzí začleněn do OpenProject"
-      managed_introduction: "Nechat OpenProject automaticky vytvářet a integrovat místní úložiště podverzí."
+      managed_title: "Repozitář subverzí začleněn do scalenow-AI"
+      managed_introduction: "Nechat scalenow-AI automaticky vytvářet a integrovat místní úložiště podverzí."
       managed_url: "Spravovaná URL"
       password: "Heslo repozitáře"
       username: "Uživatelské jméno repositáře"
@@ -3332,7 +3332,7 @@ cs:
   setting_apiv3_cors_enabled: "Povolit CORS"
   setting_apiv3_cors_origins: "API V3 Cross-Origin Resource Sharing (CORS) povolené počátky"
   setting_apiv3_cors_origins_text_html: >
-    Pokud je funkce CORS povolena, je to původ, který má přístup k OpenProject API. <br/> Zkontrolujte <a href="%{origin_link}" target="_blank">Dokumentaci na záhlaví Origin</a> o tom, jak specifikovat očekávané hodnoty.
+    Pokud je funkce CORS povolena, je to původ, který má přístup k scalenow-AI API. <br/> Zkontrolujte <a href="%{origin_link}" target="_blank">Dokumentaci na záhlaví Origin</a> o tom, jak specifikovat očekávané hodnoty.
   setting_apiv3_write_readonly_attributes: "Přístup k atributům pouze pro čtení"
   setting_apiv3_write_readonly_attributes_instructions_html: >
     If enabled, the API will allow administrators to write static read-only attributes during creation, such as createdAt and author. <br/> <strong>Warning:</strong> This setting has a use-case for e.g., importing data, but allows administrators to impersonate the creation of items as other users. All creation requests are being logged however with the true author. </br> For more information on attributes and supported resources, please see the %{api_documentation_link}.
@@ -3503,7 +3503,7 @@ cs:
       remaining_rescanned_files: >
         Virus scanning has been enabled successfully. There are %{file_count} that were uploaded previously and still need to be scanned. This process has been scheduled in the background. The files will remain accessible during the scan.
       upsale:
-        description: "Zajistěte, aby nahrané soubory v OpenProjectu byly před zpřístupněním ostatním uživatelům zkontrolovány na přítomnost virů."
+        description: "Zajistěte, aby nahrané soubory v scalenow-AIu byly před zpřístupněním ostatním uživatelům zkontrolovány na přítomnost virů."
       actions:
         delete: "Smazat soubor"
         quarantine: "Umístění souboru do karantény"
@@ -3513,7 +3513,7 @@ cs:
         clamav_socket_html: Zadejte soket démona clamd, např. %{example}.
         clamav_host_html: Zadejte název hostitele a port démona clamd oddělený dvojtečkou. např. %{example}
         description_html: >
-          Vyberte režim, ve kterém by měla fungovat integrace antivirového scanneru. <br/> <ul> <li><strong>%{disabled_option}</strong>: Nahrané soubory nejsou naskenovány pro viry.</li> <li><strong>%{socket_option}</strong>: Nastavili jste ClamAV na stejném serveru jako OpenProject a scan daemon clamd běží na pozadí</li> <li><strong>%{host_option}</strong>: Vysíláte soubory do externího hostitele pro skenování virů.</li> </ul>
+          Vyberte režim, ve kterém by měla fungovat integrace antivirového scanneru. <br/> <ul> <li><strong>%{disabled_option}</strong>: Nahrané soubory nejsou naskenovány pro viry.</li> <li><strong>%{socket_option}</strong>: Nastavili jste ClamAV na stejném serveru jako scalenow-AI a scan daemon clamd běží na pozadí</li> <li><strong>%{host_option}</strong>: Vysíláte soubory do externího hostitele pro skenování virů.</li> </ul>
     brute_force_prevention: "Automatizované blokování uživatelů"
     date_format:
       first_date_of_week_and_year_set: >
@@ -3521,8 +3521,8 @@ cs:
       first_week_of_year_text_html: >
         Vyberte datum v lednu, které je obsaženo v prvním týdnu roku. Tato hodnota spolu s prvním dnem v týdnu určuje celkový počet týdnů v roce. Více informací naleznete v naší <a href="%{link}" target="_blank">dokumentaci</a> k tomuto tématu.
     experimental:
-      save_confirmation: Pozor! Riziko ztráty dat! Aktivujte experimentální funkce, pokud vám nevadí rozbít instalaci OpenProject a ztratit všechna data.
-      warning_toast: Příznaky funkcí jsou nastavení, která aktivují funkce, které jsou stále ve vývoji. Používají se pouze pro testovací účely. Nikdy nebudou aktivovány v instalacích OpenProject s významnými daty. Tyto funkce pravděpodobně naruší vaše data. Použijte je na vlastní riziko.
+      save_confirmation: Pozor! Riziko ztráty dat! Aktivujte experimentální funkce, pokud vám nevadí rozbít instalaci scalenow-AI a ztratit všechna data.
+      warning_toast: Příznaky funkcí jsou nastavení, která aktivují funkce, které jsou stále ve vývoji. Používají se pouze pro testovací účely. Nikdy nebudou aktivovány v instalacích scalenow-AI s významnými daty. Tyto funkce pravděpodobně naruší vaše data. Použijte je na vlastní riziko.
       feature_flags: Značky funkcí
     general: "Obecné"
     highlighting:
@@ -3533,7 +3533,7 @@ cs:
         type: "Celý řádek podle typu"
         priority: "Celý řádek podle priority"
     icalendar:
-      enable_subscriptions_text_html: Umožňuje uživatelům s nezbytnými oprávněními přihlásit se do OpenProject kalendářů a získat přístup k informacím o pracovním balíčku prostřednictvím externího klienta kalendáře. <strong>Poznámka:</strong> Před povolením si prosím přečtěte <a href="%{link}" target="_blank">iCalendar předplatné</a>.
+      enable_subscriptions_text_html: Umožňuje uživatelům s nezbytnými oprávněními přihlásit se do scalenow-AI kalendářů a získat přístup k informacím o pracovním balíčku prostřednictvím externího klienta kalendáře. <strong>Poznámka:</strong> Před povolením si prosím přečtěte <a href="%{link}" target="_blank">iCalendar předplatné</a>.
     language_name_being_default: "%{language_name} (výchozí)"
     notifications:
       events_explanation: "Určuje, pro kterou událost je odeslán e-mail. Pracovní balíčky jsou z tohoto seznamu vyloučeny, protože notifikace pro ně mohou být nastavena speciálně pro každého uživatele."
@@ -3581,7 +3581,7 @@ cs:
       sentence_connector: "a"
       skip_last_comma: "nepravda"
   text_accessibility_hint: "Režim přístupnosti je navržen pro uživatele, kteří jsou slepí, motoricky znevýhodněni nebo mají špatný zrak. Pro posledně jmenované prvky jsou zvlášť zvýrazněny. Upozorňujeme, že modul Backlogs není v tomto režimu k dispozici."
-  text_access_token_hint: "Přístupové tokeny vám umožňují udělit externím aplikacím přístup ke zdrojům v OpenProject."
+  text_access_token_hint: "Přístupové tokeny vám umožňují udělit externím aplikacím přístup ke zdrojům v scalenow-AI."
   text_analyze: "Další analýza: %{subject}"
   text_are_you_sure: "Jste si jisti?"
   text_are_you_sure_continue: "Jste si jisti, že chcete pokračovat?"
@@ -3664,7 +3664,7 @@ cs:
   text_no_notes: "Pro tento pracovní balíček nejsou k dispozici žádné komentáře."
   text_notice_too_many_values_are_inperformant: "Poznámka: Zobrazení více než 100 položek na stránku může zvýšit dobu načítání stránky."
   text_notice_security_badge_displayed_html: >
-    Poznámka: Pokud je povoleno, bude zobrazen odznak se stavem instalace v <a href="%{information_panel_path}">%{information_panel_label}</a> administrativním panelu, a na domovské stránce. Zobrazuje se pouze administrátorům. <br/> Odznak zkontroluje vaši aktuální verzi OpenProject proti oficiální databázi OpenProject release, aby vás upozornil na jakékoliv aktualizace nebo známá slabá místa. Pro více informací o tom, co kontrola stanoví, jaké údaje jsou potřebné k poskytnutí dostupných aktualizací, a jak tuto kontrolu zakázat, navštivte <a href="%{more_info_url}">konfigurační dokumentaci</a>.
+    Poznámka: Pokud je povoleno, bude zobrazen odznak se stavem instalace v <a href="%{information_panel_path}">%{information_panel_label}</a> administrativním panelu, a na domovské stránce. Zobrazuje se pouze administrátorům. <br/> Odznak zkontroluje vaši aktuální verzi scalenow-AI proti oficiální databázi scalenow-AI release, aby vás upozornil na jakékoliv aktualizace nebo známá slabá místa. Pro více informací o tom, co kontrola stanoví, jaké údaje jsou potřebné k poskytnutí dostupných aktualizací, a jak tuto kontrolu zakázat, navštivte <a href="%{more_info_url}">konfigurační dokumentaci</a>.
   text_own_membership_delete_confirmation: "Chystáte se odebrat si některá nebo všechna svá oprávnění, potom již nemusíte být schopni upravit tento projekt.\nOpravdu chcete pokračovat?"
   text_plugin_assets_writable: "Zapisovatelný adresář aktiv pluginu"
   text_powered_by: "Běží na %{link}"
@@ -3672,7 +3672,7 @@ cs:
   text_reassign: "Přiřadit k pracovnímu balíčku:"
   text_regexp_info: "např. ^[A-Z0-9]+$"
   text_regexp_multiline: 'regex je použit v režimu více řádků. např.: ^---\s+'
-  text_repository_usernames_mapping: "Vyberte nebo aktualizujte mapovaný uživatel OpenProject ke každému uživatelskému jménu nalezenému v protokolu repozitáře.\nUživatelé se stejným OpenProject a repozitářovým jménem nebo e-mailem jsou automaticky mapováni."
+  text_repository_usernames_mapping: "Vyberte nebo aktualizujte mapovaný uživatel scalenow-AI ke každému uživatelskému jménu nalezenému v protokolu repozitáře.\nUživatelé se stejným scalenow-AI a repozitářovým jménem nebo e-mailem jsou automaticky mapováni."
   text_status_changed_by_changeset: "Aplikováno v sadě změn %{value}."
   text_table_difference_description: "V této tabulce je zobrazeno jediné %{entries} . Rozdíl mezi dvěma položkami můžete zobrazit prvním výběrem zaškrtávacích polí v tabulce. Při kliknutí na tlačítko níže jsou rozdíly zobrazeny."
   text_time_logged_by_changeset: "Aplikováno v sadě změn %{value}."
@@ -3746,7 +3746,7 @@ cs:
     authentication_provider: "Zprostředkovatel ověřování"
     identity_url_text: "Interní jedinečný identifikátor poskytnutý poskytovatelem ověřování."
     authentication_settings_disabled_due_to_external_authentication: >
-      Tento uživatel se ověřuje prostřednictvím externího poskytovatele ověření, takže v OpenProject není žádné heslo, které by se mělo změnit.
+      Tento uživatel se ověřuje prostřednictvím externího poskytovatele ověření, takže v scalenow-AI není žádné heslo, které by se mělo změnit.
     authorization_rejected: "Nejste oprávněn se přihlásit."
     assign_random_password: "Přiřadit náhodné heslo (odesláno uživateli e-mailem)"
     blocked: "dočasně uzamčen"
@@ -3780,7 +3780,7 @@ cs:
   warning: Varování
   warning_attachments_not_saved: "%{count} soubor(ů) nelze uložit."
   warning_imminent_user_limit: >
-    Pozvali jste více uživatelů, než je podporováno vaším aktuálním předplaceným plánem. Pozvaní uživatelé nemusí být schopni se připojit do OpenProject prostředí. Prosím <a href="%{upgrade_url}">upgradujte váš plán</a> nebo zablokujte stávající uživatele, aby se pozvaní a registrovaní uživatelé mohli připojit.
+    Pozvali jste více uživatelů, než je podporováno vaším aktuálním předplaceným plánem. Pozvaní uživatelé nemusí být schopni se připojit do scalenow-AI prostředí. Prosím <a href="%{upgrade_url}">upgradujte váš plán</a> nebo zablokujte stávající uživatele, aby se pozvaní a registrovaní uživatelé mohli připojit.
   warning_registration_token_expired: |
     Platnost aktivačního emailu vypršela. Poslali jsme vám nový %{email}. Klikněte prosím na odkaz uvnitř pro aktivaci vašeho účtu.
   warning_user_limit_reached: >
@@ -4042,7 +4042,7 @@ cs:
         confidential: "Zkontrolujte, zda bude aplikace použita tam, kde může být klient tajný. Domácí mobilní aplikace a aplikace na jednu stránku jsou považovány za nedůvěrné."
         scopes: "Zkontrolujte rozsah, ke kterému chcete aplikaci udělit přístup. Pokud není zaškrtnutý rozsah, api_v3 se předpokládá."
         client_credential_user_id: "Volitelné uživatelské ID pro osobu, když klient používá tuto aplikaci. Ponechte prázdné pro povolení pouze veřejného přístupu"
-        register_intro: "Pokud vytváříte klientskou aplikaci OAuth API pro OpenProject, můžete ji zaregistrovat pomocí tohoto formuláře pro všechny uživatele."
+        register_intro: "Pokud vytváříte klientskou aplikaci OAuth API pro scalenow-AI, můžete ji zaregistrovat pomocí tohoto formuláře pro všechny uživatele."
         default_scopes: ""
     header:
       builtin_applications: Built-in OAuth applications
@@ -4050,17 +4050,17 @@ cs:
     empty_application_lists: No OAuth applications have been registered.
     client_id: "ID klienta"
     client_secret_notice: >
-      Toto je jediná doba, kdy můžeme vytisknout klientské tajemství, prosím všimněte si jej a udržte ho v bezpečí. S ním by mělo být zacházeno jako s heslem a OpenProject jej nemůže získat později.
+      Toto je jediná doba, kdy můžeme vytisknout klientské tajemství, prosím všimněte si jej a udržte ho v bezpečí. S ním by mělo být zacházeno jako s heslem a scalenow-AI jej nemůže získat později.
     authorization_dialog:
       authorize: "Autorizovat"
       cancel: "Zrušit a zamítnout autorizaci."
       prompt_html: "Autorizovat <strong>%{application_name}</strong> k použití vašeho účtu <em>%{login}</em>?"
       title: "Autorizovat %{application_name}"
       wants_to_access_html: >
-        Tato aplikace požaduje přístup k vašemu OpenProject účtu. <br/> <strong>Požádala o následující oprávnění:</strong>
+        Tato aplikace požaduje přístup k vašemu scalenow-AI účtu. <br/> <strong>Požádala o následující oprávnění:</strong>
     scopes:
       api_v3: "Plný přístup k API v3"
-      api_v3_text: "Aplikace získá plný přístup ke čtení a zápisu do OpenProject API, aby mohla provádět akce vaším jménem."
+      api_v3_text: "Aplikace získá plný přístup ke čtení a zápisu do scalenow-AI API, aby mohla provádět akce vaším jménem."
     grants:
       created_date: "Schváleno dne"
       scopes: "Práva"
@@ -4078,7 +4078,7 @@ cs:
     client_credentials_impersonation_set_to: "Přihlašovací údaje klienta jsou nastaveny na"
     client_credentials_impersonation_warning: "Poznámka: Klienti používající tok 'Klientské přihlašovací údaje' v této aplikaci budou mít práva tohoto uživatele"
     client_credentials_impersonation_html: >
-      Ve výchozím nastavení OpenProject poskytuje OAuth 2.0 autorizaci přes %{authorization_code_flow_link}. Můžete volitelně povolit %{client_credentials_flow_link}, ale musíte poskytnout uživateli, na jehož jménem budou žádosti provedeny.
+      Ve výchozím nastavení scalenow-AI poskytuje OAuth 2.0 autorizaci přes %{authorization_code_flow_link}. Můžete volitelně povolit %{client_credentials_flow_link}, ale musíte poskytnout uživateli, na jehož jménem budou žádosti provedeny.
     authorization_error: "Došlo k chybě autorizace."
     revoke_my_application_confirmation: "Opravdu chcete odstranit tuto aplikaci? Tato akce zruší %{token_count} aktivních aplikací."
     my_registered_applications: "Registrované OAuth aplikace"
@@ -4106,20 +4106,20 @@ cs:
         Vnitřní chyba: Volané obnovení_tokenu bez dříve existujícího tokenu.
       refresh_token_updated_failed: "Chyba při aktualizaci OAuthClientTokenu"
       oauth_client_not_found_explanation: >
-        Tato chyba se objeví po aktualizaci klient_id a klient_tajného v OpenProject, ale neaktualizovali pole 'Vrátit URI' v OAuth2.
+        Tato chyba se objeví po aktualizaci klient_id a klient_tajného v scalenow-AI, ale neaktualizovali pole 'Vrátit URI' v OAuth2.
       oauth_code_not_present: "OAuth2 'code' nebyl nalezen v koncovém bodě 'callback' (redirect_uri)."
       oauth_code_not_present_explanation: >
         This error appears if you have selected the wrong response_type in the OAuth2 provider. Response_type should be 'code' or similar.
       oauth_state_not_present: "OAuth2 'state' nebylo nalezeno v koncovém bodě 'callback' (redirect_uri)."
       oauth_state_not_present_explanation: >
-        The 'state' is used to indicate to OpenProject where to continue after a successful OAuth2 authorization. A missing 'state' is an internal error that may appear during setup. Please contact your system administrator.
+        The 'state' is used to indicate to scalenow-AI where to continue after a successful OAuth2 authorization. A missing 'state' is an internal error that may appear during setup. Please contact your system administrator.
       rack_oauth2:
         client_secret_invalid: "Tajný klíč klienta je neplatný (klient_secret_invalid)"
         invalid_request: >
           OAuth2 Authorization Server odpověděl s 'invalid_request'. Tato chyba se objeví, pokud se pokoušíte vícenásobně autorizovat nebo v případě technických problémů.
         invalid_response: "OAuth2 Authorization Server poskytl neplatnou odpověď (invalid_response)"
         invalid_grant: "Autorizační server OAuth2 vás žádá, abyste znovu autorizovali (invalid_grant)."
-        invalid_client: "Autorizační server OAuth2 nerozpozná OpenProject (invalid_client)."
+        invalid_client: "Autorizační server OAuth2 nerozpozná scalenow-AI (invalid_client)."
         unauthorized_client: "Autorizační server OAuth2 odmítá typ grantu (neautorized_client)"
         unsupported_grant_type: "Autorizační server OAuth2 vás žádá o opětovné autorizaci (unsupported_grant_type)."
         invalid_scope: "Nemáte oprávnění k přístupu k požadovanému zdroji (invalid_scope)."
@@ -4132,8 +4132,8 @@ cs:
   you: vy
   link: odkaz
   plugin_openproject_auth_plugins:
-    name: "OpenProject Auth pluginy"
-    description: "Integration of OmniAuth strategy providers for authentication in OpenProject."
+    name: "scalenow-AI Auth pluginy"
+    description: "Integration of OmniAuth strategy providers for authentication in scalenow-AI."
   plugin_openproject_auth_saml:
     name: "OmniAuth SAML / Single-Sign On"
-    description: "Přidá poskytovatele SAML OmniAuth do OpenProject"
+    description: "Přidá poskytovatele SAML OmniAuth do scalenow-AI"

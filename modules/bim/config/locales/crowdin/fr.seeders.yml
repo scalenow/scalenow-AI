@@ -71,7 +71,7 @@ fr:
         item_7:
           name: Ingénieurs structurels
       welcome:
-        title: Bienvenue dans l'édition d'OpenProject BIM !
+        title: Bienvenue dans l'édition d'scalenow-AI BIM !
         text: |
           Consultez les projets de démonstration pour commencer avec quelques exemples.
 
@@ -120,7 +120,7 @@ fr:
                 options:
                   name: Pour commencer
                   text: |
-                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec OpenProject.
+                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec scalenow-AI.
 
                     Mais avant de vous lancer, sachez que ce projet d'exemple est divisé en deux projets différents :
 
@@ -179,7 +179,7 @@ fr:
                 options:
                   name: Pour commencer
                   text: |
-                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec OpenProject.
+                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec scalenow-AI.
 
                     Vous trouverez ici les rôles classiques, quelques flux de travail et des lots de travaux pour votre projet de construction.
 
@@ -433,7 +433,7 @@ fr:
                 options:
                   name: Pour commencer
                   text: |
-                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec OpenProject.
+                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec scalenow-AI.
 
                     Ce projet de démonstration propose des rôles, des flux de travail et des lots de travaux spécialisés pour BIM.
 
@@ -709,7 +709,7 @@ fr:
                 options:
                   name: Pour commencer
                   text: |
-                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec OpenProject.
+                    Nous sommes heureux que vous nous ayez rejoints ! Nous vous suggérons d'effectuer quelques essais pour vous familiariser avec scalenow-AI.
 
                     Ce projet de démonstration montre les fonctionnalités de gestion de BCF.
 

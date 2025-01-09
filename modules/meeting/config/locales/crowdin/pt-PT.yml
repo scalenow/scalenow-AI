@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -22,9 +22,9 @@
 #English strings go here for Rails i18n
 pt-PT:
   plugin_openproject_meeting:
-    name: "Reunião do OpenProject"
+    name: "Reunião do scalenow-AI"
     description: >-
-      Este módulo adiciona ao OpenProject funções de apoio às reuniões de projeto. As reuniões podem ser agendadas selecionando convidados do mesmo projeto para participarem na reunião. Uma agenda pode ser criada e enviada para os convidados. Após a reunião, os participantes podem ser selecionados e as minutas podem ser criadas com base na agenda. Por fim, as minutas podem ser enviadas  para todos os participantes e convidados.
+      Este módulo adiciona ao scalenow-AI funções de apoio às reuniões de projeto. As reuniões podem ser agendadas selecionando convidados do mesmo projeto para participarem na reunião. Uma agenda pode ser criada e enviada para os convidados. Após a reunião, os participantes podem ser selecionados e as minutas podem ser criadas com base na agenda. Por fim, as minutas podem ser enviadas  para todos os participantes e convidados.
   activerecord:
     attributes:
       meeting:

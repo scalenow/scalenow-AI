@@ -71,7 +71,7 @@ it:
         item_7:
           name: Ingegneri strutturali
       welcome:
-        title: Eccoti nell'edizione OpenProject BIM!
+        title: Eccoti nell'edizione scalenow-AI BIM!
         text: |
           Dai un'occhiata ai progetti demo per iniziare con alcuni esempi.
 
@@ -120,7 +120,7 @@ it:
                 options:
                   name: Per cominciare
                   text: |
-                    Siamo felici di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in OpenProject.
+                    Siamo felici di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in scalenow-AI.
 
                     Ma prima di iniziare a capofitto, dovresti sapere che questo progetto demo è suddiviso in due diversi progetti:
 
@@ -179,7 +179,7 @@ it:
                 options:
                   name: Per cominciare
                   text: |
-                    Siamo lieti di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in OpenProject.
+                    Siamo lieti di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in scalenow-AI.
 
                     Qui troverai i ruoli classici, alcuni flussi di lavoro e macro-attività per il tuo progetto di costruzione.
 
@@ -434,7 +434,7 @@ it:
                 options:
                   name: Per cominciare
                   text: |
-                    Siamo lieti di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in OpenProject.
+                    Siamo lieti di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in scalenow-AI.
 
                     Questo progetto dimostrativo offre ruoli, flussi di lavoro e pacchetti di lavoro specializzati per il BIM.
 
@@ -709,7 +709,7 @@ it:
                 options:
                   name: Per cominciare
                   text: |
-                    Siamo felici di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in OpenProject.
+                    Siamo felici di averti tra noi! Ti suggeriamo di provare alcune cose per iniziare in scalenow-AI.
 
                     Questo progetto dimostrativo mostra le funzionalità di gestione BCF.
 

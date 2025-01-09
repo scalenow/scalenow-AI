@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -52,7 +52,7 @@ nl:
         Een nieuwe back-up zal elke vorige overschrijven. Alleen een beperkt aantal back-ups per dag kunnen worden aangevraagd.
       last_backup: Laatste back-up
       last_backup_from: Laatste back-up van
-      title: OpenProject back-uppen
+      title: scalenow-AI back-uppen
       options: Opties
       include_attachments: Inclusief bijlagen
       download_backup: Back-up downloaden
@@ -222,7 +222,7 @@ nl:
             label_maximum_users: "Maximum aantal actieve gebruikers"
             label_starts_at: "Start op"
             label_expires_at: "Verloopt op"
-            receive_newsletter: Ik wil de OpenProject <a target="_blank" href="%{link}">nieuwsbrief</a> ontvangen.
+            receive_newsletter: Ik wil de scalenow-AI <a target="_blank" href="%{link}">nieuwsbrief</a> ontvangen.
             taken_domain: Er kan slechts één actieve proefperiode per domein zijn.
             domain_mismatch: De huidige hostnaam van de aanvraag komt niet overeen met de geconfigureerde hostnaam. Controleer uw systeeminstellingen.
             taken_email: Elke gebruiker kan slechts één proefperiode aanmaken.
@@ -237,7 +237,7 @@ nl:
           status_confirmed: "bevestigd"
           status_waiting: "E-mail verzonden - wacht op bevestiging"
           test_ee: "Test de Enterprise-editie 14 dagen gratis"
-          quick_overview: "Get a quick overview of project management and team collaboration with OpenProject Enterprise edition."
+          quick_overview: "Get a quick overview of project management and team collaboration with scalenow-AI Enterprise edition."
         upsale:
           become_hero: "Word een held!"
           enterprise_info_html: "%{feature_title} is an Enterprise <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span> add-on."
@@ -251,7 +251,7 @@ nl:
             premium_features: "Enterprise add-ons"
             premium_features_text: "Agile borden, aangepast thema en logo, grafieken, intelligente workflows met aangepaste acties, volledige tekst zoeken voor werkpakket bijlagen en meervoudige aangepaste velden."
             professional_support: "Professionele ondersteuning"
-            professional_support_text: "Krijg betrouwbare, krachtige ondersteuning van ervaren ondersteunende ingenieurs met deskundige kennis over het functioneren van OpenProject in zakelijke kritieke omgevingen."
+            professional_support_text: "Krijg betrouwbare, krachtige ondersteuning van ervaren ondersteunende ingenieurs met deskundige kennis over het functioneren van scalenow-AI in zakelijke kritieke omgevingen."
           button_start_trial: "Start gratis proefperiode"
           button_upgrade: "Nu upgraden"
           button_contact_us: "Neem contact met ons op voor een demo"
@@ -261,7 +261,7 @@ nl:
           link_quote: "Vraag een offerte aan"
           more_info: "Meer informatie"
           text: >
-            The OpenProject Enterprise edition builds on top of the Community edition. It includes Enterprise add-ons and professional support mainly aimed at organizations with more than 10 users that manage business critical projects with OpenProject.
+            The scalenow-AI Enterprise edition builds on top of the Community edition. It includes Enterprise add-ons and professional support mainly aimed at organizations with more than 10 users that manage business critical projects with scalenow-AI.
           unlimited: "Onbeperkt"
           you_contribute: "Developers need to pay their bills, too. By upgrading to the Enterprise edition, you will be supporting this open source community effort and contributing to its development, maintenance and continuous improvement."
       working_days:
@@ -572,7 +572,7 @@ nl:
         next: "Volgende"
         got_it: "Begrepen"
       steps:
-        help_menu: "Het Help (?) menu biedt <b>extra hulpbronnen</b>. Hier vindt u een gebruikershandleiding, handige how-to videos en meer. <br> Veel plezier met uw werk met OpenProject!"
+        help_menu: "Het Help (?) menu biedt <b>extra hulpbronnen</b>. Hier vindt u een gebruikershandleiding, handige how-to videos en meer. <br> Veel plezier met uw werk met scalenow-AI!"
         members: "Nodig nieuwe <b>leden</b> uit om deel te nemen aan uw project."
         quick_add_button: "Klik op het plus (+) pictogram in de koptekst navigatie om <b>een nieuw project te maken</b> of <b>collega's uit te nodigen</b>."
         sidebar_arrow: "Gebruik de terug pijl in de linkerbovenhoek om terug te keren naar het project <b>hoofdmenu</b>."
@@ -1258,7 +1258,7 @@ nl:
         label: "Rol in %{project}"
         no_roles_found: "Geen rollen gevonden"
         description: >-
-          This is the role that the user will receive when they join your project. The role defines which actions they are allowed to take and which information they are allowed to see. <a href="https://www.openproject.org/docs/system-admin-guide/users-permissions/roles-permissions/#roles-and-permissions" target="_blank"> Learn more about roles and permissions. </a>
+          This is the role that the user will receive when they join your project. The role defines which actions they are allowed to take and which information they are allowed to see. <a href="#" target="_blank"> Learn more about roles and permissions. </a>
         required: "Selecteer een rol"
         next_button: "Volgende"
       message:
@@ -1347,4 +1347,4 @@ nl:
         network_off: "There is a network problem."
         network_on: "Network is back. We are trying."
         timeout: >
-          OpenProject could not provide you access to the project folder within the expected period of time. Please, try once again.<br><br> If that problem persists please contact your OpenProject administrator to check the <a href="https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/file-storage-troubleshooting/">health status of the file storage setup</a>.
+          scalenow-AI could not provide you access to the project folder within the expected period of time. Please, try once again.<br><br> If that problem persists please contact your scalenow-AI administrator to check the <a href="#">health status of the file storage setup</a>.

@@ -1,6 +1,6 @@
 pt-PT:
   plugin_openproject_ldap_groups:
-    name: "Grupos LDAP do OpenProject"
+    name: "Grupos LDAP do scalenow-AI"
     description: "Sincronização de associações de grupos LDAP."
   activerecord:
     attributes:
@@ -27,7 +27,7 @@ pt-PT:
     label_synchronize: 'Sincronizar'
     settings:
       name_attribute: 'Atributo de nome de grupo LDAP'
-      name_attribute_text: 'O atributo LDAP usado para nomear o grupo OpenProject quando criado por um filtro'
+      name_attribute_text: 'O atributo LDAP usado para nomear o grupo scalenow-AI quando criado por um filtro'
     synchronized_filters:
       add_new: 'Adicionar filtro LDAP sincronizado'
       singular: 'Filtro de sincronização de grupo LDAP'
@@ -39,11 +39,11 @@ pt-PT:
       destroy:
         title: 'Remover filtro sincronizado %{name}'
         confirmation: "Se continuar, o filtro sincronizado %{name} e todos os grupos %{groups_count} criados por meio dele serão removidos."
-        removed_groups: "Aviso: Isto removerá os seguintes grupos do OpenProject e removê-los de todos os projetos!"
+        removed_groups: "Aviso: Isto removerá os seguintes grupos do scalenow-AI e removê-los de todos os projetos!"
         verification: "Insira o nome do filtro %{name} para verificar a eliminação."
       form:
-        group_name_attribute_text: 'Insira o atributo de grupo LDAP usado para configurações do nome de grupo do OpenProject.'
-        filter_string_text: 'Insira o filtro RFC4515 LDAP que devolve grupos no seu LDAP para sincronizar com o OpenProject.'
+        group_name_attribute_text: 'Insira o atributo de grupo LDAP usado para configurações do nome de grupo do scalenow-AI.'
+        filter_string_text: 'Insira o filtro RFC4515 LDAP que devolve grupos no seu LDAP para sincronizar com o scalenow-AI.'
         base_dn_text: >
           Insira o DN base da pesquisa para usar este filtro. Tem de ser inferior ao DN base da ligação LDAP selecionada. Deixe esta opção em branco para reutilizar o DN base da ligação.
     synchronized_groups:
@@ -51,14 +51,14 @@ pt-PT:
       destroy:
         title: 'Remover grupo sincronizado %{name}'
         confirmation: "Se continuar, o grupo sincronizado %{name} e todos os utilizadores sincronizados com %{users_count} serão removidos."
-        info: "Nota: O próprio grupo OpenProject e membros adicionados fora desta sincronização LDAP não serão removidos."
+        info: "Nota: O próprio grupo scalenow-AI e membros adicionados fora desta sincronização LDAP não serão removidos."
         verification: "Insira o nome do grupo %{name} para verificar a eliminação."
       help_text_html: |
-        Este módulo permite-lhe configurar uma sincronização entre os grupos LDAP e OpenProject.
-        Está dependente dos grupos LDAP que precisam de utilizar o atributo <em>groupOfNames / memberOf</em> para trabalhar com o OpenProject.
+        Este módulo permite-lhe configurar uma sincronização entre os grupos LDAP e scalenow-AI.
+        Está dependente dos grupos LDAP que precisam de utilizar o atributo <em>groupOfNames / memberOf</em> para trabalhar com o scalenow-AI.
         <br/>
         Os grupos são sincronizados de hora em hora através de um cron job.
-        <a href="https://www.openproject.org/help/administration/manage-ldap-authentication/">Por favor consulte a nossa documentação sobre este tópico</a>.
+        <a href="#">Por favor consulte a nossa documentação sobre este tópico</a>.
       no_results: 'Nenhum grupo sincronizado encontrado.'
       no_members: 'Este grupo ainda não tem membros sincronizados.'
       plural: 'Grupos LDAP sincronizados'
@@ -66,8 +66,8 @@ pt-PT:
       form:
         auth_source_text: 'Selecione a ligação LDAP a ser usada.'
         sync_users_text: >
-          Se ativar esta opção, os utilizadores encontrados também serão criados automaticamente no OpenProject. Sem isso, só as contas existentes no OpenProject serão adicionadas aos grupos.
+          Se ativar esta opção, os utilizadores encontrados também serão criados automaticamente no scalenow-AI. Sem isso, só as contas existentes no scalenow-AI serão adicionadas aos grupos.
         dn_text: 'Inserir todo o ND do grupo no LDAP'
-        group_text: 'Selecione um grupo OpenProject existente com que os membros do grupo LDAP serão sincronizados'
+        group_text: 'Selecione um grupo scalenow-AI existente com que os membros do grupo LDAP serão sincronizados'
       upsale:
         description: 'Aproveite os grupos LDAP sincronizados para gerir utilizadores, alterar as suas permissões e facilitar a gestão de utilizadores entre grupos.'

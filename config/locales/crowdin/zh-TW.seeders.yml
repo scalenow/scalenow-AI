@@ -153,7 +153,7 @@ zh-TW:
                 options:
                   name: 開始
                   text: |
-                    我們很高興您加入！我們建議您嘗試幾件事情來開始使用 OpenProject。
+                    我們很高興您加入！我們建議您嘗試幾件事情來開始使用 scalenow-AI。
 
                     使用我們的 [Guided Tour]({{opSetting:base_url}}/projects/demo-project/work_packages/?start_onboarding_tour=true) 探索最重要的功能。
 
@@ -323,7 +323,7 @@ zh-TW:
                 options:
                   name: 開始
                   text: |
-                    我們很高興您加入！我們建議您嘗試幾個步驟來開始使用 OpenProject。
+                    我們很高興您加入！我們建議您嘗試幾個步驟來開始使用 scalenow-AI。
 
                     _嘗試以下步驟：_
 
@@ -498,9 +498,9 @@ zh-TW:
         item_6:
           name: 錯誤
       welcome:
-        title: 歡迎使用OpenProject
+        title: 歡迎使用scalenow-AI
         text: |
-          OpenProject 是領先的開放原始碼專案管理軟體。它支援傳統、敏捷以及混合式專案管理，並讓您完全控制您的資料。
+          scalenow-AI 是領先的開放原始碼專案管理軟體。它支援傳統、敏捷以及混合式專案管理，並讓您完全控制您的資料。
 
           核心功能和用例：
 

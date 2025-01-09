@@ -20,7 +20,7 @@ de:
       plural: OpenID-Provider
       singular: OpenID-Provider
       upsale:
-        description: Use existing OpenID credentials with OpenProject for easier access and interoperability with a range of other providers.
+        description: Use existing OpenID credentials with scalenow-AI for easier access and interoperability with a range of other providers.
     setting_instructions:
       limit_self_registration: >
         Wenn diese Option aktiv ist, können sich neue Nutzer mit diesem OpenID-Provider nur registrieren,

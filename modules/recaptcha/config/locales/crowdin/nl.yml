@@ -1,7 +1,7 @@
 #English strings go here for Rails i18n
 nl:
   plugin_openproject_recaptcha:
-    name: "OpenProject ReCaptcha"
+    name: "scalenow-AI ReCaptcha"
     description: "Deze module zorgt voor recaptcha controles tijdens het aanmelden."
   recaptcha:
     label_recaptcha: "reCAPTCHA"
@@ -22,4 +22,4 @@ nl:
       type_hcaptcha: 'HCaptcha'
       type_turnstile: 'Cloudflare Turnstile™'
       captcha_description_html: >
-        reCAPTCHA is een gratis service van Google die ingeschakeld kan worden voor uw OpenProject-instantie. Indien ingeschakeld, wordt er bij het inloggen een captcha-formulier weergegeven voor alle gebruikers die nog geen captcha hebben geverifieerd. <br/> Zie de volgende link voor meer details over reCAPTCHA en hun versies, en hoe u de website en geheime sleutels aanmaakt: %{recaptcha_link} <br/> HCaptcha is een Google-vrij alternatief dat u kunt gebruiken als u reCAPTCHA niet wilt gebruiken. Zie deze link voor meer informatie: %{hcaptcha_link} <br/> Cloudflare Turnstile™ is een ander alternatief dat handiger is voor gebruikers en toch hetzelfde beveiligingsniveau biedt. Zie deze koppeling voor meer informatie: %{turnstile_link}
+        reCAPTCHA is een gratis service van Google die ingeschakeld kan worden voor uw scalenow-AI-instantie. Indien ingeschakeld, wordt er bij het inloggen een captcha-formulier weergegeven voor alle gebruikers die nog geen captcha hebben geverifieerd. <br/> Zie de volgende link voor meer details over reCAPTCHA en hun versies, en hoe u de website en geheime sleutels aanmaakt: %{recaptcha_link} <br/> HCaptcha is een Google-vrij alternatief dat u kunt gebruiken als u reCAPTCHA niet wilt gebruiken. Zie deze link voor meer informatie: %{hcaptcha_link} <br/> Cloudflare Turnstile™ is een ander alternatief dat handiger is voor gebruikers en toch hetzelfde beveiligingsniveau biedt. Zie deze koppeling voor meer informatie: %{turnstile_link}

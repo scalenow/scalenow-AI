@@ -1,7 +1,7 @@
 id:
   plugin_openproject_webhooks:
-    name: "OpenProject Webhooks"
-    description: "Provides a plug-in API to support OpenProject webhooks for better 3rd party integration."
+    name: "scalenow-AI Webhooks"
+    description: "Provides a plug-in API to support scalenow-AI webhooks for better 3rd party integration."
   activerecord:
     attributes:
       webhooks/webhook:
@@ -32,7 +32,7 @@ id:
         updated: "Diperbarui"
       explanation:
         text: >
-          Setelah kejadian seperti pembuatan paket kerja atau pembaruan proyek, OpenProject akan mengirimkan permintaan POST ke titik akhir web yang dikonfigurasi.  Sering kali, acara dikirim setelah %{link} lewat.
+          Setelah kejadian seperti pembuatan paket kerja atau pembaruan proyek, scalenow-AI akan mengirimkan permintaan POST ke titik akhir web yang dikonfigurasi.  Sering kali, acara dikirim setelah %{link} lewat.
         link: periode agregasi yang dikonfigurasi
       status:
         enabled: 'Webhook diaktifkan'
@@ -63,4 +63,4 @@ id:
           title: 'Proyek terpilih'
         secret:
           description: >
-            Jika disetel, nilai rahasia ini digunakan oleh OpenProject untuk menandatangani payload webhook.
+            Jika disetel, nilai rahasia ini digunakan oleh scalenow-AI untuk menandatangani payload webhook.

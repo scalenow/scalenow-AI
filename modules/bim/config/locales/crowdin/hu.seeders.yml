@@ -71,7 +71,7 @@ hu:
         item_7:
           name: Szerkezeti Mérnökök
       welcome:
-        title: Üdvözöljük az OpenProject BIM kiadásában!
+        title: Üdvözöljük az scalenow-AI BIM kiadásában!
         text: |
           Nézze meg a demo projekteket, hogy néhány példával kezdhessen.
 
@@ -120,7 +120,7 @@ hu:
                 options:
                   name: Kezdés
                   text: |
-                    Örülünk, hogy csatlakoztál! Javasoljuk, hogy próbáljon ki néhány dolgot az OpenProject használatának megkezdéséhez.
+                    Örülünk, hogy csatlakoztál! Javasoljuk, hogy próbáljon ki néhány dolgot az scalenow-AI használatának megkezdéséhez.
 
                     Mielőtt azonban belevágna, tudnia kell, hogy ez a példaértékű projekt két különböző projektre oszlik:
 
@@ -179,7 +179,7 @@ hu:
                 options:
                   name: Kezdés
                   text: |
-                    Örülünk, hogy csatlakoztál! Javasoljuk, hogy próbáljon ki néhány dolgot az OpenProject használatának megkezdéséhez.
+                    Örülünk, hogy csatlakoztál! Javasoljuk, hogy próbáljon ki néhány dolgot az scalenow-AI használatának megkezdéséhez.
 
                     Itt megtalálja a klasszikus szerepköröket, néhány munkafolyamatot és munkacsomagot az építési projektjéhez.
 
@@ -431,7 +431,7 @@ hu:
                 options:
                   name: Kezdés
                   text: |
-                    We are glad you joined! We suggest to try a few things to get started in OpenProject.
+                    We are glad you joined! We suggest to try a few things to get started in scalenow-AI.
 
                     This demo project offers roles, workflows and work packages that are specialized for BIM.
 
@@ -707,7 +707,7 @@ hu:
                 options:
                   name: Kezdés
                   text: |
-                    We are glad you joined! We suggest to try a few things to get started in OpenProject.
+                    We are glad you joined! We suggest to try a few things to get started in scalenow-AI.
 
                     This demo project shows BCF management functionalities.
 

@@ -1,7 +1,7 @@
 #English strings go here
 zh-TW:
   plugin_openproject_team_planner:
-    name: "OpenProject小組工作企劃"
+    name: "scalenow-AI小組工作企劃"
     description: "提供小組工作企劃視圖。"
   permission_view_team_planner: "檢視小組工作企劃"
   permission_manage_team_planner: "管理「小組工作企劃」"

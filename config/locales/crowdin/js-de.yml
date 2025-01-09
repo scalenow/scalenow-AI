@@ -1,9 +1,9 @@
 #-- copyright
-#OpenProject is an open source project management software.
-#Copyright (C) the OpenProject GmbH
+#scalenow-AI is an open source project management software.
+#Copyright (C) the scalenow-AI GmbH
 #This program is free software; you can redistribute it and/or
 #modify it under the terms of the GNU General Public License version 3.
-#OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+#scalenow-AI is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
 #Copyright (C) 2006-2013 Jean-Philippe Lang
 #Copyright (C) 2010-2013 the ChiliProject Team
 #This program is free software; you can redistribute it and/or
@@ -52,7 +52,7 @@ de:
         Ein neues Backup wird alle vorherigen überschreiben. Es kann nur eine begrenzte Anzahl von Backups pro Tag angefordert werden.
       last_backup: Letztes Backup
       last_backup_from: Letztes Backup von
-      title: Backup für OpenProject erstellen
+      title: Backup für scalenow-AI erstellen
       options: Optionen
       include_attachments: Anhänge einschließen
       download_backup: Backup herunterladen
@@ -221,7 +221,7 @@ de:
             label_maximum_users: "Maximale aktive Nutzer"
             label_starts_at: "Beginnt am"
             label_expires_at: "Endet am"
-            receive_newsletter: Ich möchte den OpenProject <a target="_blank" href="%{link}">Newsletter</a> erhalten.
+            receive_newsletter: Ich möchte den scalenow-AI <a target="_blank" href="%{link}">Newsletter</a> erhalten.
             taken_domain: Es kann nur eine aktive Testversion pro Domain geben.
             domain_mismatch: Der Hostname der aktuellen Anfrage stimmt nicht mit dem konfigurierten Hostnamen überein. Bitte überprüfen Sie Ihre Systemeinstellungen.
             taken_email: Jeder Benutzer kann nur eine Testversion erstellen.
@@ -236,7 +236,7 @@ de:
           status_confirmed: "bestätigt"
           status_waiting: "E-Mail gesendet - Warten auf Bestätigung"
           test_ee: "Testen Sie die Enterprise edition 14 Tage kostenlos"
-          quick_overview: "Erhalten Sie einen schnellen Überblick über Projektmanagement und Teamzusammenarbeit mit der OpenProject Enterprise edition."
+          quick_overview: "Erhalten Sie einen schnellen Überblick über Projektmanagement und Teamzusammenarbeit mit der scalenow-AI Enterprise edition."
         upsale:
           become_hero: "Werde zum Held!"
           enterprise_info_html: "%{feature_title} ist ein Enterprise <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span> Add-on."
@@ -250,19 +250,19 @@ de:
             premium_features: "Enterprise Add-ons"
             premium_features_text: "Agile Boards, benutzerdefinierte Farben und Logo, Graphen, intelligente Workflows mit benutzerdefinierten Aktionen, Volltextsuche für Anhänge von Arbeitspaketen und Mehrfachauswahl benutzerdefinierter Felder."
             professional_support: "Professioneller Support"
-            professional_support_text: "Sie bekommen zuverlässigen und persönlichen Support von Experten, die sich mit dem Einsatz von OpenProject in geschäftskritischen Umgebungen auskennen."
+            professional_support_text: "Sie bekommen zuverlässigen und persönlichen Support von Experten, die sich mit dem Einsatz von scalenow-AI in geschäftskritischen Umgebungen auskennen."
           button_start_trial: "Kostenlose Testversion starten"
           button_upgrade: "Jetzt Upgrade durchführen"
           button_contact_us: "Kontaktieren Sie uns für eine Demo"
           button_book_now: "Jetzt buchen"
           confidence: >
-            OpenProject bietet eine bewährte und hoch-skalierbare Projektmanagement-Software für Unternehmen - mit Open Source und open mind.
+            scalenow-AI bietet eine bewährte und hoch-skalierbare Projektmanagement-Software für Unternehmen - mit Open Source und open mind.
           link_quote: "Angebot anfordern"
           more_info: "Weitere Informationen"
           text: >
-            Die OpenProject Enterprise Edition baut auf der Community Edition auf. Sie umfasst Enterprise Add-ons und professionelle Unterstützung und richtet sich primär an Organisationen mit mehr als 10 Benutzern, die unternehmenskritische Projekte mit OpenProject verwalten.
+            Die scalenow-AI Enterprise Edition baut auf der Community Edition auf. Sie umfasst Enterprise Add-ons und professionelle Unterstützung und richtet sich primär an Organisationen mit mehr als 10 Benutzern, die unternehmenskritische Projekte mit scalenow-AI verwalten.
           unlimited: "Unbegrenzt"
-          you_contribute: "Auch Software-Entwickler müssen ihre Rechnungen bezahlen. Durch ein Upgrade auf die Enterprise edition unterstützen Sie diese Open-Source-Community und tragen zur Entwicklung, Wartung und kontinuierlichen Verbesserung von OpenProject bei."
+          you_contribute: "Auch Software-Entwickler müssen ihre Rechnungen bezahlen. Durch ein Upgrade auf die Enterprise edition unterstützen Sie diese Open-Source-Community und tragen zur Entwicklung, Wartung und kontinuierlichen Verbesserung von scalenow-AI bei."
       working_days:
         calendar:
           empty_state_header: "Arbeitsfreie Tage"
@@ -571,7 +571,7 @@ de:
         next: "Weiter"
         got_it: "Verstanden"
       steps:
-        help_menu: "Das Menü Hilfe (?) bietet <b>zusätzliche Hilfe-Ressourcen</b>. Hier finden Sie eine Benutzeranleitung, hilfreiche Videos und vieles mehr. <br> Viel Spaß bei Ihrer Arbeit mit OpenProject!"
+        help_menu: "Das Menü Hilfe (?) bietet <b>zusätzliche Hilfe-Ressourcen</b>. Hier finden Sie eine Benutzeranleitung, hilfreiche Videos und vieles mehr. <br> Viel Spaß bei Ihrer Arbeit mit scalenow-AI!"
         members: "Sie können hier neue <b>Mitglieder</b> zu Ihrem Projekt hinzufügen."
         quick_add_button: "Klicken Sie auf das Plus (+) Symbol in der Navigationsleiste um <b>neue Projekte zu erzeugen</b> oder <b>MitarbeiterInnen einzuladen</b>."
         sidebar_arrow: "Benutzen Sie den Pfeil in der oberen linken Ecke um zum <b>Hauptmenü</b> des Projekts zurückzukehren."
@@ -767,7 +767,7 @@ de:
         confirm_reset: >
           Achtung: Wollen Sie die Formkonfiguration wirklich zurücksetzen? Alle Attribute und Gruppen werden auf ihre Standardwerte zurück gesetzt und ALLE benutzerdefinierten Felder entfernt.
         upgrade_to_ee: "Enterprise on-premises bestellen"
-        upgrade_to_ee_text: "Wow! Wenn du dieses Add-on benötigst, bist du ein super Pro! Würdest du uns OpenProject-Entwickler unterstützen, indem du ein Enterprise Edition-Kunde wirst?"
+        upgrade_to_ee_text: "Wow! Wenn du dieses Add-on benötigst, bist du ein super Pro! Würdest du uns scalenow-AI-Entwickler unterstützen, indem du ein Enterprise Edition-Kunde wirst?"
         more_information: "Weitere Informationen"
         nevermind: "Nein danke"
       edit:
@@ -1257,7 +1257,7 @@ de:
         label: "Rolle in %{project}"
         no_roles_found: "Keine Rollen gefunden"
         description: >-
-          Dies ist die Rolle, die der Benutzer erhält, wenn er Ihrem Projekt beitritt. Die Rolle legt fest, welche Aktionen sie ergreifen dürfen und welche Informationen ihnen zugänglich sind. <a href="https://www.openproject.org/de/docs/system-admin-guide/users-permissions/roles-permissions/" target="_blank"> Erfahren Sie mehr über Rollen und Berechtigungen. </a>
+          Dies ist die Rolle, die der Benutzer erhält, wenn er Ihrem Projekt beitritt. Die Rolle legt fest, welche Aktionen sie ergreifen dürfen und welche Informationen ihnen zugänglich sind. <a href="#" target="_blank"> Erfahren Sie mehr über Rollen und Berechtigungen. </a>
         required: "Bitte eine Rolle auswählen"
         next_button: "Weiter"
       message:
@@ -1346,4 +1346,4 @@ de:
         network_off: "Es gibt ein Netzwerkproblem."
         network_on: "Netzwerk ist wieder da. Wir versuchen es erneut."
         timeout: >
-          OpenProject konnte Ihnen den Zugriff auf den Projektordner nicht innerhalb des erwarteten Zeitlimits ermöglichen. Bitte versuchen Sie es noch einmal.<br><br> Wenn das Problem weiterhin besteht, wenden Sie sich bitte an Ihren OpenProject-Administrator, um den Status der <a href="https://www.openproject.org/de/docs/system-admin-guide/dateien/external-file-storages/file-storage-troubleshooting/">Dateiablage</a> zu überprüfen.
+          scalenow-AI konnte Ihnen den Zugriff auf den Projektordner nicht innerhalb des erwarteten Zeitlimits ermöglichen. Bitte versuchen Sie es noch einmal.<br><br> Wenn das Problem weiterhin besteht, wenden Sie sich bitte an Ihren scalenow-AI-Administrator, um den Status der <a href="#">Dateiablage</a> zu überprüfen.
