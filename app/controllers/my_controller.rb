@@ -43,6 +43,7 @@ class MyController < ApplicationController
   before_action :set_api_token, only: %i[revoke_api_key]
 
   no_authorization_required! :account,
+                             :subscription,
                              :update_account,
                              :settings,
                              :update_settings,
@@ -64,8 +65,16 @@ class MyController < ApplicationController
   menu_item :access_token, only: [:access_token]
   menu_item :notifications, only: [:notifications]
   menu_item :reminders, only: [:reminders]
+  menu_item :subscription, only: [:subscription]
 
   def account; end
+
+  def subscription
+    stripe_customer_id = current_user.custom_field_value("Stripe Customer ID") if current_user
+    @customer = Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id.present?
+    @subscriptions = Stripe::Subscription.list(customer: stripe_customer_id) if stripe_customer_id.present?
+    @customer_portal_visible = @customer && !@customer.deleted? && @subscriptions.data.any?
+  end
 
   def update_account
     write_settings

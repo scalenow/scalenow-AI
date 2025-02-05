@@ -218,6 +218,10 @@ Redmine::MenuManager.map :my_menu do |menu|
             { controller: "/my", action: "reminders" },
             caption: I18n.t("js.reminders.settings.title"),
             icon: "unread"
+  menu.push :subscription,
+            { controller: "/my", action: "subscription" },
+            caption: "Subscription",
+            icon: "credit-card"
 
   menu.push :delete_account, :delete_my_account_info_path,
             caption: I18n.t("account.delete"),

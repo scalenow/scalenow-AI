@@ -145,3 +145,5 @@ acme.json
 
 /vendor/bundle
 /vendor/bundle/*
+
+/config/master.key

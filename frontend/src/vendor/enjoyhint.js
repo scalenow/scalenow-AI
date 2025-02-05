@@ -610,6 +610,7 @@
 
             that.hide();
             that.options.onSkipClick();
+            window.location.href = `${window.location.origin}/my/subscription`;
           });
           that.$next_btn = $('<div>', {'class': that.cl.next_btn}).appendTo(that.enjoyhint).html('Next').click(function (e) {
 
@@ -620,6 +621,7 @@
 
             that.hide();
             that.options.onSkipClick();
+            window.location.href = `${window.location.origin}/my/subscription`;
           });
 
           that.$canvas.mousedown(function (e) {

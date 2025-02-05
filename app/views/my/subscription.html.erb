@@ -1,0 +1,121 @@
+<%#-- copyright
+OpenProject is an open source project management software.
+Copyright (C) the OpenProject GmbH
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License version 3.
+
+OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+Copyright (C) 2006-2013 Jean-Philippe Lang
+Copyright (C) 2010-2013 the ChiliProject Team
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+See COPYRIGHT and LICENSE files for more details.
+
+++#%>
+
+<% html_title(t(:label_my_account), "My subscription") -%>
+
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
+  <%=
+    render(Primer::OpenProject::PageHeader.new) do |header|
+      header.with_title { "My subscription" }
+      header.with_breadcrumbs([{ href: my_account_path, text: t(:label_my_account) },
+                              "My subscription"])
+    end
+  %>
+
+  <% plan_info = user_plan_status(current_user) %>
+
+  <div class="op-toast -<%= plan_info[:status] %> -with-bottom-spacing mb-3">
+    <div class="op-toast--content">
+      <%= raw plan_info[:message] %>
+    </div>
+  </div>
+
+  <% if @customer_portal_visible %>
+    <%= link_to "Manage Subscription", customer_portal_path(email: current_user.mail), 
+        class: 'button -primary m-0 mt-2 px-4 py-2 manage-subscription', data: { turbo: false } %>
+  <% else %>
+    <div class="pricing-container">
+      <div class="plan">
+        <h2>Basic</h2>
+        <p class="price">$10/month</p>
+        <ul class="features">
+          <li>✔ 10 Projects</li>
+          <li>✔ 5 GB Storage</li>
+          <li>✔ Email Support</li>
+        </ul>
+        <%= link_to "Choose Plan", redirect_to_payment_path(link: 'basic'),
+            class: 'button -primary m-0 mt-2 px-4 py-2', data: { turbo: false } %>
+      </div>
+      <div class="plan">
+        <h2>Professional</h2>
+        <p class="price">$20/month</p>
+        <ul class="features">
+          <li>✔ 50 Projects</li>
+          <li>✔ 20 GB Storage</li>
+          <li>✔ Priority Support</li>
+        </ul>
+        <%= link_to "Choose Plan", redirect_to_payment_path(link: 'professional'),
+            class: 'button -primary m-0 mt-2 px-4 py-2', data: { turbo: false } %>
+      </div>
+      <div class="plan">
+        <h2>Enterprise</h2>
+        <p class="price">$30/month</p>
+        <ul class="features">
+          <li>✔ Unlimited Projects</li>
+          <li>✔ 100 GB Storage</li>
+          <li>✔ 24/7 Support</li>
+        </ul>
+        <%= link_to "Choose Plan", redirect_to_payment_path(link: 'enterprise'),
+            class: 'button -primary m-0 mt-2 px-4 py-2', data: { turbo: false } %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .pricing-container {
+    display: flex;
+    gap: 20px;
+  }
+  .plan {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 33%;
+  }
+  .plan h2 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff7f5d;
+  }
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .features li {
+    padding: 5px 0;
+  }
+</style>

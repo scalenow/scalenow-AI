@@ -154,6 +154,7 @@ class User < Principal
   validate :password_meets_requirements
 
   after_save :update_password
+  after_create :set_default_custom_fields
 
   scope :admin, -> { where(admin: true) }
 
@@ -557,6 +558,68 @@ class User < Principal
     SystemUser.first
   end
 
+  def custom_field_value(field_name)
+    # Find the custom field
+    custom_field = CustomField.find_by(name: field_name)
+
+    return nil unless custom_field # Return nil if custom field not found
+
+    # Find the custom value
+    custom_value = self.custom_values.find_by(custom_field_id: custom_field.id)
+
+    return nil unless custom_value # Return nil if no value is set
+
+    # Handle different field formats
+    case custom_field.field_format
+    when "list" # Dropdown fields
+      custom_field.custom_options.find_by(id: custom_value.value)&.value
+    else # Other field formats (string, text, integer, etc.)
+      custom_value&.value
+    end
+  rescue => e
+    Rails.logger.error "Error fetching custom field value for '#{field_name}': #{e.message}"
+    nil # Return nil in case of any error
+  end
+
+  def update_custom_field_value(field_name, new_value)
+    # Find the custom field
+    custom_field = CustomField.find_by(name: field_name)
+
+    return false unless custom_field # Return false if custom field not found
+
+    # Find or initialize the custom value
+    custom_value = self.custom_values.find_or_initialize_by(custom_field_id: custom_field.id)
+
+    # Handle different field formats
+    case custom_field.field_format
+    when "list" # Dropdown fields
+      # Find the custom option by value (ensure it's valid)
+      custom_option = custom_field.custom_options.find_by(value: new_value)
+
+      unless custom_option
+        Rails.logger.error "Invalid custom option '#{new_value}' for custom field '#{field_name}'."
+        return false
+      end
+
+      # Set the custom value to the option's ID
+      custom_value.value = custom_option.id
+    else # Other field formats (string, text, integer, etc.)
+      custom_value.value = new_value
+    end
+
+    # Save the custom value
+    if custom_value.save
+      Rails.logger.info "Custom field '#{field_name}' updated successfully to '#{new_value}'."
+      true
+    else
+      Rails.logger.error "Failed to update custom field '#{field_name}': #{custom_value.errors.full_messages.join(', ')}"
+      false
+    end
+  rescue => e
+    Rails.logger.error "Error updating custom field '#{field_name}': #{e.message}"
+    false
+  end
+
   protected
 
   # Login must not be aliased value 'me'
@@ -584,6 +647,15 @@ class User < Principal
   end
 
   private
+
+  def set_default_custom_fields
+    start_date = Time.now.strftime('%Y-%m-%d')
+    end_date = (Time.now + 14.days).strftime('%Y-%m-%d')
+    self.update_custom_field_value("Trial Start Date", start_date)
+    self.update_custom_field_value("Trial End Date", end_date)
+    self.update_custom_field_value("Account Status", "Trial")
+    self.update_custom_field_value("Plan Type", "Trial")
+  end
 
   def self.mail_regexp(mail)
     separators = Regexp.escape(Setting.mail_suffix_separators)

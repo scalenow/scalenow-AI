@@ -26,5 +26,11 @@ export function menuTourSteps():OnboardingStep[] {
       showSkip: false,
       nextButton: { text: I18n.t('js.onboarding.buttons.got_it') },
     },
+    {
+      containerClass: '-dark -hidden-arrow',
+      onBeforeStart() {
+        window.location.href = `${window.location.origin}/my/subscription`;
+      },
+    },
   ];
 }

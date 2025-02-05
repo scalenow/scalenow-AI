@@ -56,11 +56,36 @@ module Redmine::MenuManager::TopMenuHelper
     end
   end
 
+  def generate_ai_menu(tools)
+    content_tag(:ul, class: "op-app-menu--dropdown op-menu drop-down--modules", id: "ai-menu", "aria-expanded": true, style: "display: none") do
+      tools.map do |name, url|
+        result = has_access_to_tool?(name)
+        if result[:access]
+          content_tag(:li, class: "main-menu-item", "data-name": name.parameterize) do
+            link_to(url, class: "#{name.parameterize}-menu-item op-menu--item-action", title: name.humanize, "data-test-selector": "op-menu--item-action") do
+              content_tag(:span, name.humanize, class: "op-menu--item-title") +
+                content_tag(:span, nil, class: "ellipsis")
+            end
+          end
+        end
+      end.join.html_safe
+    end
+  end
+
+  TOOLS = {
+    "openinterpreter" => { controller: "/ai", action: "openinterpreter" },
+    "openwebui" => { controller: "/ai", action: "openwebui" },
+    "nlp" => { controller: "/ai", action: "nlp" },
+    "excalidraw" => { controller: "/ai", action: "excalidraw" },
+  }.freeze
+
   def render_ai_menu
-    content_tag :div, class: "ai-menu" do
-      link_to ai_path, title: "AI" do
-        image_tag "ai.png", width: 30, height: 30
-      end
+    content_tag :div, class: "op-app-menu--item op-app-menu--item_has-dropdown" do
+      link_to('#', title: "AI Menu", 'aria-haspopup': true, class: "op-app-menu--item-action ", span_class: "op-app-menu--item-title ") do
+        image_tag("ai.png", width: 30, height: 30) +
+        content_tag(:span, "", class: "op-app-menu--item-title ")
+      end +
+      generate_ai_menu(TOOLS)
     end
   end
 
@@ -73,7 +98,6 @@ module Redmine::MenuManager::TopMenuHelper
 
   def render_top_menu_right
     capture do
-      concat render_ai_menu
       concat render_main_top_menu_nodes
       concat render_projects_top_menu_node
       concat render_quick_add_menu
