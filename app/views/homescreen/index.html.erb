@@ -169,6 +169,7 @@ See COPYRIGHT and LICENSE files for more details.
               </div> <!-- end card body -->
             </div> <!-- end card -->
 
+            <% if User.current.admin? %>
             <div class="card">
               <div class="card-header align-items-center d-flex border-bottom-dashed">
                 <h4 class="card-title mb-0 flex-grow-1 text-uppercase color-orange">Users<br></h4>
@@ -212,6 +213,7 @@ See COPYRIGHT and LICENSE files for more details.
                 </div>
               </div> <!-- end card body -->
             </div> <!-- end card -->
+            <% end %>
 
             <div class="card">
               <div class="card-body">
