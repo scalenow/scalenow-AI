@@ -55,6 +55,7 @@ class AccountController < ApplicationController
   before_action :disable_api
   before_action :check_auth_source_sso_failure, only: :auth_source_sso_failed
   before_action :check_internal_login_enabled, only: :internal_login
+  skip_before_action :require_subscription
 
   layout "no_menu"
 

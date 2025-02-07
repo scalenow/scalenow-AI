@@ -41,6 +41,7 @@ class MyController < ApplicationController
   before_action :set_grouped_ical_tokens, only: %i[access_token]
   before_action :set_ical_token, only: %i[revoke_ical_token]
   before_action :set_api_token, only: %i[revoke_api_key]
+  skip_before_action :require_subscription, only: %i[subscription]
 
   no_authorization_required! :account,
                              :subscription,

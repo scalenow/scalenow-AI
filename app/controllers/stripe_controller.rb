@@ -3,6 +3,7 @@ class StripeController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:webhook]
   no_authorization_required! :webhook, :customer_portal, :redirect_to_payment
   skip_before_action :check_if_login_required, only: [:webhook]
+  skip_before_action :require_subscription
 
   def webhook
     payload = request.body.read

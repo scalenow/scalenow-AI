@@ -144,7 +144,8 @@ class ApplicationController < ActionController::Base
                 :stop_if_feeds_disabled,
                 :set_cache_buster,
                 :action_hooks,
-                :reload_mailer_settings!
+                :reload_mailer_settings!,
+                :require_subscription
 
   include Redmine::Search::Controller
   include Redmine::MenuManager::MenuController
@@ -564,6 +565,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def require_subscription
+    redirect_to my_subscription_path, alert: "You don't have an active subscription. Please purchase a plan to continue using the service." if current_user.custom_field_value("Account Status") == "Expired"
+  end
 
   def session_expired?
     !api_request? && current_user.logged? && session_ttl_expired?
