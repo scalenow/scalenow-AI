@@ -493,9 +493,9 @@ class ApplicationController < ActionController::Base
   helper_method :accessible_tools, :has_access_to_tool?, :user_plan_status
 
   TOOL_ACCESS = {
-    "Basic" => ["openwebui", "openinterpreter"],
-    "Professional" => ["openwebui", "openinterpreter", "nlp"],
-    "Enterprise" => ["openwebui", "openinterpreter", "nlp", "excalidraw"]
+    "Basic" => ["document_analysis", "openinterpreter"],
+    "Professional" => ["document_analysis", "openinterpreter", "nlp"],
+    "Enterprise" => ["document_analysis", "openinterpreter", "nlp", "excalidraw"]
   }.freeze
 
   def accessible_tools(tool_name)

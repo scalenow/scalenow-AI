@@ -1,14 +1,14 @@
 class AiController < ApplicationController
   layout "global"
   before_action :require_login
-  no_authorization_required! :openinterpreter, :openwebui, :nlp, :excalidraw
+  no_authorization_required! :openinterpreter, :document_analysis, :nlp, :excalidraw
 
   def openinterpreter
     accessible_tools('openinterpreter')
   end
 
-  def openwebui
-    accessible_tools('openwebui')
+  def document_analysis
+    accessible_tools('document_analysis')
   end
 
   def nlp

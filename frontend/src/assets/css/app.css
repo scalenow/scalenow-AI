@@ -16378,6 +16378,10 @@ span.flatpickr-weekday {
   background-color: #d96c4f !important;
 }
 
+.board-add-button {
+  background-color: #ff7f5dd4 !important;
+}
+
 .btn-primary {
   border-radius: 33px !important;
   padding-top: 8px !important;

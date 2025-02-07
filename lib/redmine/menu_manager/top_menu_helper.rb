@@ -74,7 +74,7 @@ module Redmine::MenuManager::TopMenuHelper
 
   TOOLS = {
     "openinterpreter" => { controller: "/ai", action: "openinterpreter" },
-    "openwebui" => { controller: "/ai", action: "openwebui" },
+    "document_analysis" => { controller: "/ai", action: "document_analysis" },
     "nlp" => { controller: "/ai", action: "nlp" },
     "excalidraw" => { controller: "/ai", action: "excalidraw" },
   }.freeze

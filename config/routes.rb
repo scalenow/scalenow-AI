@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get '/customer_portal', to: "stripe#customer_portal", as: "customer_portal"
   get '/redirect_to_payment', to: "stripe#redirect_to_payment", as: "redirect_to_payment"
   get '/openinterpreter', to: "ai#openinterpreter", as: "openinterpreter"
-  get '/openwebui', to: "ai#openwebui", as: "openwebui"
+  get '/document_analysis', to: "ai#document_analysis", as: "document_analysis"
   get '/nlp', to: "ai#nlp", as: "nlp"
   get '/excalidraw', to: "ai#excalidraw", as: "excalidraw"
 
