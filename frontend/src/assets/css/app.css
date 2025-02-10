@@ -16760,3 +16760,27 @@ h5.version.icon-modules::before {
 .spot-modal--cancel-button, .Overlay-footer .btn {
   border-radius: 33px !important;
 }
+
+@media screen and (max-width: 1011px) {
+  .hidden-navigation .first-container {
+    width: 0 !important;
+  }
+
+  .hidden-navigation .second-container {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .pricing-container {
+    flex-wrap: wrap;
+  }
+
+  .plan {
+    width: 100% !important;
+  }
+  
+  #content-body {
+    padding: 24px 0 !important;
+  }
+}
