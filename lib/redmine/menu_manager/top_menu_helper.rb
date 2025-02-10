@@ -58,12 +58,13 @@ module Redmine::MenuManager::TopMenuHelper
 
   def generate_ai_menu(tools)
     content_tag(:ul, class: "op-app-menu--dropdown op-menu drop-down--modules", id: "ai-menu", "aria-expanded": true, style: "display: none") do
-      tools.map do |name, url|
+      tools.map do |name, details|
+        url = details[:url]
         result = has_access_to_tool?(name)
         if result[:access]
           content_tag(:li, class: "main-menu-item", "data-name": name.parameterize) do
-            link_to(url, class: "#{name.parameterize}-menu-item op-menu--item-action", title: name.humanize, "data-test-selector": "op-menu--item-action") do
-              content_tag(:span, name.humanize, class: "op-menu--item-title") +
+            link_to(url, class: "#{name.parameterize}-menu-item op-menu--item-action", title: name.titleize.gsub("Nlp", "NLP"), "data-test-selector": "op-menu--item-action") do
+              content_tag(:span, name.titleize.gsub("Nlp", "NLP"), class: "op-menu--item-title") +
                 content_tag(:span, nil, class: "ellipsis")
             end
           end
@@ -73,10 +74,10 @@ module Redmine::MenuManager::TopMenuHelper
   end
 
   TOOLS = {
-    "openinterpreter" => { controller: "/ai", action: "openinterpreter" },
-    "document_analysis" => { controller: "/ai", action: "document_analysis" },
-    "nlp" => { controller: "/ai", action: "nlp" },
-    "excalidraw" => { controller: "/ai", action: "excalidraw" },
+    "openinterpreter" => { url: { controller: "/ai", action: "openinterpreter" } },
+    "document_analysis" => { url: { controller: "/ai", action: "document_analysis" } },
+    "nlp" => { url: { controller: "/ai", action: "nlp" } },
+    "excalidraw" => { url: { controller: "/ai", action: "excalidraw" } },
   }.freeze
 
   def render_ai_menu

@@ -16784,3 +16784,10 @@ h5.version.icon-modules::before {
     padding: 24px 0 !important;
   }
 }
+
+.project-overview-page .PageHeader,
+.project-overview-page .PageHeader-titleBar {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
+}
