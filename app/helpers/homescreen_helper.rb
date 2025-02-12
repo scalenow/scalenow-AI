@@ -46,7 +46,7 @@ module HomescreenHelper
     label = I18n.t(link[:label])
 
     link_to label,
-            "#",
+            link[:href],
             title: label,
             target: "_blank", rel: "noopener"
   end

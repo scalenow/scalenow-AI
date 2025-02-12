@@ -33,7 +33,7 @@ module StaticLinksHelper
     item = OpenProject::Static::Links.links.fetch key
 
     link_to label || t(item[:label]),
-            "#",
+            item[:href],
             class: "openproject--static-link",
             target: "_blank", rel: "noopener"
   end

@@ -30,13 +30,12 @@ See COPYRIGHT and LICENSE files for more details.
   class="op-menu--item"
   data-augmented-model-wrapper
   data-activation-selector=".onboarding-modal--activation-link"
-  data-modal-iframe-url="<%= OpenProject::Configuration.onboarding_video_url %>"
+  data-modal-iframe-url="https://www.youtube.com/embed/b0k9VQep8gI-"
   data-modal-class-name="onboarding-modal"
 >
   <%= link_to t(:label_introduction_video),
-              '#',
+              '',
               title: t(:label_introduction_video),
-              class: 'op-menu--item-action' %>
-              <!-- class: 'op-menu--item-action onboarding-modal--activation-link' %> -->
+              class: 'op-menu--item-action onboarding-modal--activation-link' %>
   <%= render partial: '/onboarding/onboarding_video_modal' %>
 </li>
