@@ -30,10 +30,7 @@ Rails.application.routes.draw do
   post '/stripe/webhook', to: "stripe#webhook", as: "stripe_webhook"
   get '/customer_portal', to: "stripe#customer_portal", as: "customer_portal"
   get '/redirect_to_payment', to: "stripe#redirect_to_payment", as: "redirect_to_payment"
-  get '/openinterpreter', to: "ai#openinterpreter", as: "openinterpreter"
-  get '/document_analysis', to: "ai#document_analysis", as: "document_analysis"
-  get '/nlp', to: "ai#nlp", as: "nlp"
-  get '/excalidraw', to: "ai#excalidraw", as: "excalidraw"
+  get '/tools/:tool_name', to: 'ai#show', as: 'tool'
 
   root to: "homescreen#index", as: "home"
   rails_relative_url_root = OpenProject::Configuration["rails_relative_url_root"] || ""

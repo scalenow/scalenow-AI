@@ -493,12 +493,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :accessible_tools, :has_access_to_tool?, :user_plan_status
 
-  TOOL_ACCESS = {
-    "Basic" => ["document_analysis", "openinterpreter"],
-    "Professional" => ["document_analysis", "openinterpreter", "nlp"],
-    "Enterprise" => ["document_analysis", "openinterpreter", "nlp", "excalidraw"]
-  }.freeze
-
   def accessible_tools(tool_name)
     result = has_access_to_tool?(tool_name) # Get the access status and message
     unless result[:access]
@@ -507,27 +501,26 @@ class ApplicationController < ActionController::Base
   end
 
   def has_access_to_tool?(tool_name)
+    tool = AI_TOOLS[tool_name]
+    return { access: false, message: "#{tool_name} is not available" } unless tool
+
     plan = current_user.custom_field_value("Plan Type")
     status = current_user.custom_field_value("Account Status")
 
-    # If the account status is trial, allow access
-    if status == 'Trial'
-      return { access: true, message: "Trial plan: unrestricted access." }
-    end
+    # If the account status is Trial, allow access
+    return { access: true, message: "Trial plan: unrestricted access to '#{tool[:display_name]}'." } if status == 'Trial'
 
     # If the account is expired, deny access with a message
-    if status != 'Active'
-      return { access: false, message: "Your plan has expired. To access '#{tool_name}', please renew or upgrade your plan." }
-    end
+    return { access: false, message: "Your plan has expired. To access '#{tool[:display_name]}', please renew or upgrade your plan." } if status != 'Active'
 
-    # If the account is active but the plan does not allow access, deny with an upgrade message
-    required_plan = TOOL_ACCESS.find { |_, tools| tools.include?(tool_name) }&.first
-    unless TOOL_ACCESS[plan]&.include?(tool_name)
-      return { access: false, message: "Your current plan (#{plan}) does not include access to '#{tool_name}'. Please upgrade to the '#{required_plan}' plan." }
+    # Check if the user's plan allows access to the tool
+    unless tool[:plans].include?(plan)
+      required_plan = tool[:plans].first # Get the lowest plan that grants access
+      return { access: false, message: "Your current plan (#{plan}) does not include access to '#{tool[:display_name]}'. Please upgrade to the '#{required_plan}' plan." }
     end
 
     # Default case: access granted
-    { access: true, message: "Access granted to '#{tool_name}'." }
+    { access: true, message: "Access granted to '#{tool[:display_name]}'." }
   end
 
   def user_plan_status(user)

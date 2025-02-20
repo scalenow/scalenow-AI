@@ -1,21 +1,19 @@
 class AiController < ApplicationController
   layout "global"
   before_action :require_login
-  no_authorization_required! :openinterpreter, :document_analysis, :nlp, :excalidraw
+  before_action :verify_tool_access, only: :show
+  no_authorization_required! :show
 
-  def openinterpreter
-    accessible_tools('openinterpreter')
+  def show
+    name = params[:tool_name]
+    @tool_name = AI_TOOLS[name]&.dig(:display_name) || ""
+    @tool_link = AI_TOOLS[name]&.dig(:url) || root_path
   end
 
-  def document_analysis
-    accessible_tools('document_analysis')
-  end
+  private
 
-  def nlp
-    accessible_tools('nlp')
-  end
-
-  def excalidraw
-    accessible_tools('excalidraw')
+  def verify_tool_access
+    tool_name = params[:tool_name]
+    accessible_tools(tool_name)
   end
 end

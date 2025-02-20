@@ -56,15 +56,17 @@ module Redmine::MenuManager::TopMenuHelper
     end
   end
 
-  def generate_ai_menu(tools)
+  def generate_ai_menu
     content_tag(:ul, class: "op-app-menu--dropdown op-menu drop-down--modules", id: "ai-menu", "aria-expanded": true, style: "display: none") do
-      tools.map do |name, details|
-        url = details[:url]
+      AI_TOOLS.map do |name, details|
         result = has_access_to_tool?(name)
+        url = tool_url(name)
+        url = '#' if name == 'workspace'
+
         if result[:access]
           content_tag(:li, class: "main-menu-item", "data-name": name.parameterize) do
-            link_to(url, class: "#{name.parameterize}-menu-item op-menu--item-action", title: name.titleize.gsub("Nlp", "NLP"), "data-test-selector": "op-menu--item-action") do
-              content_tag(:span, name.titleize.gsub("Nlp", "NLP"), class: "op-menu--item-title") +
+            link_to(url, class: "#{name.parameterize}-menu-item op-menu--item-action", title: details[:display_name], "data-test-selector": "op-menu--item-action") do
+              content_tag(:span, details[:display_name], class: "op-menu--item-title") +
                 content_tag(:span, nil, class: "ellipsis")
             end
           end
@@ -73,20 +75,13 @@ module Redmine::MenuManager::TopMenuHelper
     end
   end
 
-  TOOLS = {
-    "openinterpreter" => { url: { controller: "/ai", action: "openinterpreter" } },
-    "document_analysis" => { url: { controller: "/ai", action: "document_analysis" } },
-    "nlp" => { url: { controller: "/ai", action: "nlp" } },
-    "excalidraw" => { url: { controller: "/ai", action: "excalidraw" } },
-  }.freeze
-
   def render_ai_menu
     content_tag :div, class: "op-app-menu--item op-app-menu--item_has-dropdown" do
       link_to('#', title: "AI Menu", 'aria-haspopup': true, class: "op-app-menu--item-action ", span_class: "op-app-menu--item-title ") do
         image_tag("ai.png", width: 30, height: 30) +
         content_tag(:span, "", class: "op-app-menu--item-title ")
       end +
-      generate_ai_menu(TOOLS)
+      generate_ai_menu
     end
   end
 
