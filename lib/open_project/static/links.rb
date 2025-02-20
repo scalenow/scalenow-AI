@@ -138,7 +138,7 @@ module OpenProject
               label: "links.get_in_touch"
             },
             glossary: {
-              href: "#",
+              href: "https://scalenowai.com/glossary/",
               label: "homescreen.links.glossary"
             },
             shortcuts: {
