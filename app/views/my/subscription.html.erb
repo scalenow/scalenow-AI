@@ -40,7 +40,7 @@ See COPYRIGHT and LICENSE files for more details.
 
   <% plan_info = user_plan_status(current_user) %>
 
-  <div class="op-toast -<%= plan_info[:status] %> -with-bottom-spacing mb-3">
+  <div class="op-toast -<%= plan_info[:status] %> -with-bottom-spacing mb-4">
     <div class="op-toast--content">
       <%= raw plan_info[:message] %>
     </div>
@@ -51,38 +51,110 @@ See COPYRIGHT and LICENSE files for more details.
         class: 'button -primary m-0 mt-2 px-4 py-2 manage-subscription', data: { turbo: false } %>
   <% else %>
     <div class="pricing-container">
-      <div class="plan">
-        <h2>Basic</h2>
-        <p class="price">$10/month</p>
-        <ul class="features">
-          <li>✔ 10 Projects</li>
-          <li>✔ 5 GB Storage</li>
-          <li>✔ Email Support</li>
-        </ul>
+      <div class="plan basic-plan">
+        <p class="plan-name">Basic</p>
+        <p class="price">$10/Month</p>
         <%= link_to "Choose Plan", redirect_to_payment_path(link: 'basic'),
-            class: 'button -primary m-0 mt-2 px-4 py-2', data: { turbo: false } %>
+            class: 'button buy-button w-100 m-0 mb-3 px-4 py-2', data: { turbo: false } %>
+        <div class="plan-features">
+          <div><strong>Project Management Essentials:</strong></div>
+          <ul class="features">
+            <li>Task creation, assignment, and deadlines</li>
+            <li>Kanban boards and Gantt charts</li>
+            <li>Simple time tracking</li>
+            <li>Advanced and customizable project reports</li>
+          </ul>
+
+          <br><div><strong>Collaboration Tools:</strong></div>
+          <ul class="features">
+            <li>Team discussions and file sharing</li>
+            <li>Commenting on tasks and projects</li>
+            <li>Share AI results and document insights with team members</li>
+          </ul>
+
+          <br><div><strong>AI-Powered Q&A:</strong></div>
+          <ul class="features">
+            <li>Ask questions directly from uploaded documents</li>
+            <li>Retrieve precise answers from large document sets</li>
+            <li>User-based access controls for document management</li>
+            <li>Pre-trained embedding models for document vectorization</li>
+            <li>Options to switch between lightweight and advanced embedding models</li>
+          </ul>
+
+          <br><div><strong>Integrations:</strong></div>
+          <ul class="features">
+            <li>Integration with tools like Google Drive, Slack, GitHub</li>
+            <li>SSO with Keycloak Integration</li>
+          </ul>
+
+          <br><div><strong>User Management:</strong></div>
+          <ul class="features">
+            <li>User-based access controls for document management</li>
+            <li>Define user roles, permissions, and access levels for each module</li>
+          </ul>
+
+          <br><div><strong>Support:</strong></div>
+          <ul class="features">
+            <li>Email support(24 hrs turn around)</li>
+            <li>Access to knowledge base</li>
+            <li>Regular data backups and enterprise-grade security</li>
+          </ul>
+        </div>
       </div>
-      <div class="plan">
-        <h2>Professional</h2>
-        <p class="price">$20/month</p>
-        <ul class="features">
-          <li>✔ 50 Projects</li>
-          <li>✔ 20 GB Storage</li>
-          <li>✔ Priority Support</li>
-        </ul>
+
+      <div class="plan professional-plan">
+        <p class="plan-name">Professional</p>
+        <p class="price">$20/Month</p>
         <%= link_to "Choose Plan", redirect_to_payment_path(link: 'professional'),
-            class: 'button -primary m-0 mt-2 px-4 py-2', data: { turbo: false } %>
+            class: 'button buy-button w-100 m-0 mb-3 px-4 py-2', data: { turbo: false } %>
+        <div class="plan-features">
+          <div><strong>All Basic Plan Features</strong></div>
+
+          <br><div><strong>AI-Enhanced Capabilities with NLP:</strong></div>
+          <ul class="features">
+            <li>Custom NLP pipelines for project-specific needs</li>
+            <li>Dynamic entity extraction for users, projects, and tasks</li>
+            <li>Extracts real-time project data from the database using natural language commands</li>
+            <li>Dynamic entity extraction ensures scalability as more projects are added.</li>
+          </ul>
+
+          <br><div><strong>Premium Support and Services:</strong></div>
+          <ul class="features">
+            <li>Regular data backups and enterprise-grade security</li>
+            <li>Premium Email support (8 hrs turnaround)</li>
+          </ul>
+        </div>
       </div>
-      <div class="plan">
-        <h2>Enterprise</h2>
-        <p class="price">$30/month</p>
-        <ul class="features">
-          <li>✔ Unlimited Projects</li>
-          <li>✔ 100 GB Storage</li>
-          <li>✔ 24/7 Support</li>
-        </ul>
+
+      <div class="plan enterprise-plan">
+        <p class="plan-name">Enterprise</p>
+        <p class="price">Contact <a href="mailto:scalenowai@scalenowai.com">scalenowai@scalenowai.com</a></p>
         <%= link_to "Choose Plan", redirect_to_payment_path(link: 'enterprise'),
-            class: 'button -primary m-0 mt-2 px-4 py-2', data: { turbo: false } %>
+            class: 'button buy-button w-100 m-0 mb-3 px-4 py-2', data: { turbo: false } %>
+        <div class="plan-features">
+          <div><strong>All Premium Plan Features</strong></div>
+
+          <br><div><strong>On-Premises Deployment:</strong></div>
+          <ul class="features">
+            <li>Full deployment within your organization's infrastructure for complete data control</li>
+          </ul>
+
+          <br><div><strong>Integrations:</strong></div>
+          <ul class="features">
+            <li>Integrate with existing enterprise tools (ERP, CRM, etc.) for a seamless workflow</li>
+          </ul>
+
+          <br><div><strong>Training:</strong></div>
+          <ul class="features">
+            <li>Personalized training for project teams, IT admins, and end-users</li>
+          </ul>
+
+          <br><div><strong>Support:</strong></div>
+          <ul class="features">
+            <li>24/7 Technical Support</li>
+            <li>On-premises updates for bug fixes, new features, and performance improvements</li>
+          </ul>
+        </div>
       </div>
     </div>
   <% end %>
@@ -97,25 +169,61 @@ See COPYRIGHT and LICENSE files for more details.
     background: white;
     padding: 20px;
     border-radius: 10px;
-    text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 33%;
   }
-  .plan h2 {
-    margin-bottom: 10px;
-    color: #333;
+  .plan-name {
+    font-size: 26px;
+    margin-bottom: 0;
+    font-weight: bold;
   }
   .price {
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bold;
-    color: #ff7f5d;
+    height: 55px;
+  }
+  .enterprise-plan .price {
+    font-size: 18px;
   }
   .features {
-    list-style: none;
+    list-style-type: '\2713';
     padding: 0;
-    margin: 0;
+    margin: 0 0 0 10px;
   }
   .features li {
-    padding: 5px 0;
+    padding-left: 4px;
+  }
+  .buy-button {
+    border-radius: 8px !important;
+    border: 1px solid #0003 !important;
+    color: #fff !important;
+    font-weight: bold;
+  }
+  .basic-plan .buy-button {
+    background-color: #ff7f5d;
+  }
+  .professional-plan .buy-button {
+    background-color: #00b884;
+  }
+  .enterprise-plan .buy-button {
+    background-color: #1f7cff;
+  }
+  .basic-plan .buy-button:hover {
+    background-color: #d96c4f;
+  }
+  .professional-plan .buy-button:hover {
+    background-color: #01a97f;
+  }
+  .enterprise-plan .buy-button:hover {
+    background-color: #0050c1;
+  }
+  .basic-plan .plan-name, .basic-plan .price {
+    color: #ff7f5d;
+  }
+  .professional-plan .plan-name, .professional-plan .price {
+    color: #00b884;
+  }
+  .enterprise-plan .plan-name, .enterprise-plan .price, .enterprise-plan .price a {
+    color: #1f7cff;
   }
 </style>
