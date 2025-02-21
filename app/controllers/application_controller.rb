@@ -144,7 +144,8 @@ class ApplicationController < ActionController::Base
                 :stop_if_feeds_disabled,
                 :set_cache_buster,
                 :action_hooks,
-                :reload_mailer_settings!
+                :reload_mailer_settings!,
+                :require_subscription
 
   include Redmine::Search::Controller
   include Redmine::MenuManager::MenuController
@@ -490,7 +491,77 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  helper_method :accessible_tools, :has_access_to_tool?, :user_plan_status
+
+  def accessible_tools(tool_name)
+    result = has_access_to_tool?(tool_name) # Get the access status and message
+    unless result[:access]
+      redirect_to request.referer || root_path, alert: result[:message]
+    end
+  end
+
+  def has_access_to_tool?(tool_name)
+    tool = AI_TOOLS[tool_name]
+    return { access: false, message: "#{tool_name} is not available" } unless tool
+
+    plan = current_user.custom_field_value("Plan Type")
+    status = current_user.custom_field_value("Account Status")
+
+    # If the account status is Trial, allow access
+    return { access: true, message: "Trial plan: unrestricted access to '#{tool[:display_name]}'." } if status == 'Trial'
+
+    # If the account is expired, deny access with a message
+    return { access: false, message: "Your plan has expired. To access '#{tool[:display_name]}', please renew or upgrade your plan." } if status != 'Active'
+
+    # Check if the user's plan allows access to the tool
+    unless tool[:plans].include?(plan)
+      required_plan = tool[:plans].first # Get the lowest plan that grants access
+      return { access: false, message: "Your current plan (#{plan}) does not include access to '#{tool[:display_name]}'. Please upgrade to the '#{required_plan}' plan." }
+    end
+
+    # Default case: access granted
+    { access: true, message: "Access granted to '#{tool[:display_name]}'." }
+  end
+
+  def user_plan_status(user)
+    plan_type = user.custom_field_value("Plan Type")
+    account_status = user.custom_field_value("Account Status")
+    end_date = user.custom_field_value("Trial End Date")
+
+    parsed_end_date = begin
+                        Date.parse(end_date).strftime("%B %d, %Y") rescue ""
+                      rescue ArgumentError, TypeError
+                        ""
+                      end
+
+    # If user is in trial
+    if account_status == "Trial"
+      return {
+        message: "You are currently on a <strong>Trial Plan</strong>. Your trial will end on <strong>#{parsed_end_date}</strong>.",
+        status: "warning"
+      }
+    end
+
+    # If user is active and has a valid plan
+    if account_status == "Active" && %w[Basic Professional Enterprise].include?(plan_type)
+      return {
+        message: "You are subscribed to the <strong>#{plan_type} Plan</strong>. Your subscription will end on <strong>#{parsed_end_date}</strong>.",
+        status: "success"
+      }
+    end
+
+    # If no active subscription
+    {
+      message: "You do not have an active subscription. Please choose a plan to continue using the service.",
+      status: "error"
+    }
+  end
+
   private
+
+  def require_subscription
+    redirect_to my_subscription_path, alert: "You don't have an active subscription. Please purchase a plan to continue using the service." if current_user.custom_field_value("Account Status") == "Expired"
+  end
 
   def session_expired?
     !api_request? && current_user.logged? && session_ttl_expired?

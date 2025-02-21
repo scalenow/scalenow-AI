@@ -106,12 +106,12 @@ See COPYRIGHT and LICENSE files for more details.
               </div> <!-- end col -->
             </div> <!-- end row -->
 
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-body">
                 <h2 class="editable-toolbar-title--fixed text-uppercase color-orange mb-3">New Features</h2>
-                <%= render partial: "homescreen/blocks/new_features" , locals: {} %>
-              </div> <!-- end card body -->
-            </div> <!-- end card -->
+                <%#= render partial: "homescreen/blocks/new_features" , locals: {} %>
+              </div>
+            </div> -->
           </div> <!-- end col -->
 
           <div class="col-xl-3 col-lg-4">
@@ -169,6 +169,7 @@ See COPYRIGHT and LICENSE files for more details.
               </div> <!-- end card body -->
             </div> <!-- end card -->
 
+            <% if User.current.admin? %>
             <div class="card">
               <div class="card-header align-items-center d-flex border-bottom-dashed">
                 <h4 class="card-title mb-0 flex-grow-1 text-uppercase color-orange">Users<br></h4>
@@ -212,6 +213,7 @@ See COPYRIGHT and LICENSE files for more details.
                 </div>
               </div> <!-- end card body -->
             </div> <!-- end card -->
+            <% end %>
 
             <div class="card">
               <div class="card-body">
@@ -219,7 +221,7 @@ See COPYRIGHT and LICENSE files for more details.
                   <section class="homescreen--links">
                     <% @homescreen[:links].each do |link| %>
                       <% title = I18n.t(link[:label], scope: 'homescreen.links') %>
-                      <a class="homescreen--links--item" href="#" target="_blank" title="<%= title %>">
+                      <a class="homescreen--links--item" href="<%= link[:url] %>" target="_blank" title="<%= title %>">
                         <%= op_icon(link[:icon]) %>
                         <%= title %>
                       </a>

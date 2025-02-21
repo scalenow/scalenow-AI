@@ -1,0 +1,23 @@
+# Define tool details in a single place
+AI_TOOLS = {
+  "openinterpreter" => { 
+    display_name: "Interaction with LLM",
+    url: "https://www.scalenowai.com.au:8501",
+    plans: ["Basic", "Professional", "Enterprise"]
+  },
+  "document_analysis" => { 
+    display_name: "AI Agent Experience",
+    url: "https://www.scalenowai.com.au:5004",
+    plans: ["Basic", "Professional", "Enterprise"]
+  },
+  "nlp" => { 
+    display_name: "NLP",
+    url: "https://www.scalenowai.com.au/nlp/nlp.html",
+    plans: ["Professional", "Enterprise"]
+  },
+  "workspace" => { 
+    display_name: "scalenowAI Workspace (Coming Soon)",
+    url: "https://www.scalenowai.com.au:9999",
+    plans: ["Basic", "Professional", "Enterprise"]
+  }
+}.freeze

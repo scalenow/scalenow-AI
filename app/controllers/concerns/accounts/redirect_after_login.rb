@@ -39,7 +39,11 @@ module Accounts::RedirectAfterLogin
       first_login_redirect
     else
       # default_redirect
-      redirect_back_or_default root_path
+      if user.custom_field_value("Account Status") != "Active"
+        redirect_back_or_default my_subscription_path
+      else
+        redirect_back_or_default root_path
+      end
     end
   end
 

@@ -244,6 +244,16 @@ module OpenProject
     config.good_job.enable_cron = OpenProject::Configuration[:good_job_enable_cron]
     config.good_job.shutdown_timeout = 30
     config.good_job.smaller_number_is_higher_priority = false
+    config.good_job.cron = {
+      trial_reminder: {
+        cron: "0 0 * * *", # Runs daily at 0 AM
+        class: "TrialReminderJob",
+      },
+      expire_trial: {
+        cron: "0 0 * * *", # Runs daily at 0 AM
+        class: "ExpireTrialJob",
+      },
+    }
 
     config.action_controller.asset_host = OpenProject::Configuration::AssetHost.value
 

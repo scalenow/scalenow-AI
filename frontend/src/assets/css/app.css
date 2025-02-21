@@ -16378,6 +16378,10 @@ span.flatpickr-weekday {
   background-color: #d96c4f !important;
 }
 
+.board-add-button {
+  background-color: #ff7f5dd4 !important;
+}
+
 .btn-primary {
   border-radius: 33px !important;
   padding-top: 8px !important;
@@ -16755,4 +16759,35 @@ h5.version.icon-modules::before {
 
 .spot-modal--cancel-button, .Overlay-footer .btn {
   border-radius: 33px !important;
+}
+
+@media screen and (max-width: 1011px) {
+  .hidden-navigation .first-container {
+    width: 0 !important;
+  }
+
+  .hidden-navigation .second-container {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pricing-container {
+    flex-wrap: wrap;
+  }
+
+  .plan {
+    width: 100% !important;
+  }
+  
+  #content-body {
+    padding: 24px 0 !important;
+  }
+}
+
+.project-overview-page .PageHeader,
+.project-overview-page .PageHeader-titleBar {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: 0 !important;
 }

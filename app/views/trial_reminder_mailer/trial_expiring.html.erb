@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="header">
+    Your Trial is Expiring Soon!
+  </div>
+  <div class="content">
+    <p>Hi <strong><%= @user.name %></strong>,</p>
+    <p>Your <strong>free trial</strong> of <strong>scalenow-AI</strong> will expire in <strong>3 days</strong>.</p>
+    <p>Don't lose access to your projects and data. Upgrade now to continue using all features without interruption.</p>
+    <a href="<%= my_subscription_url %>" class="cta-button">Upgrade Now</a>
+  </div>
+  <div class="footer">
+    If you have any questions, feel free to <a href="mailto:scalenowai@scalenowai.com">contact support</a>.
+  </div>
+</div>
+
+<style>
+  div.header {
+    background-color: #ff7f5d;
+    padding: 15px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: auto;
+  }
+  .content {
+    padding: 20px;
+    font-size: 16px;
+    color: #333333;
+  }
+  .cta-button {
+    display: inline-block;
+    padding: 12px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff !important;
+    background-color: #ff7f5d;
+    text-decoration: none;
+    border: 1px solid #ff7f5d;
+    border-radius: 5px;
+  }
+  .cta-button:hover {
+    background-color: #fff;
+    color: #ff7f5d !important;
+  }
+  div.footer {
+    font-size: 12px;
+    color: #777777;
+    padding: 15px;
+    width: auto;
+  }
+</style>

@@ -146,7 +146,7 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     label = I18n.t(link[:label])
     content_tag(:li, class: "op-menu--item") do
       link_to label,
-              "#",
+              "#{link[:href]}#{options[:href_suffix]}",
               title: label,
               target: "_blank",
               class: "op-menu--item-action", rel: "noopener"

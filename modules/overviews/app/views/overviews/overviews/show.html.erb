@@ -2,6 +2,7 @@
   <meta name="sidebar_enabled" data-enabled="<%= @sidebar_enabled %>">
 <% end -%>
 
+<div class="bg-white p-4 mx-3 rounded-border project-overview-page" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new(
     data: {
@@ -59,5 +60,6 @@
     end
   end
 %>
+</div>
 
 <openproject-base></openproject-base>

@@ -27,7 +27,11 @@
 #++
 
 Rails.application.routes.draw do
-  get '/ai', to: "ai#index", as: "ai"
+  post '/stripe/webhook', to: "stripe#webhook", as: "stripe_webhook"
+  get '/customer_portal', to: "stripe#customer_portal", as: "customer_portal"
+  get '/redirect_to_payment', to: "stripe#redirect_to_payment", as: "redirect_to_payment"
+  get '/tools/:tool_name', to: 'ai#show', as: 'tool'
+
   root to: "homescreen#index", as: "home"
   rails_relative_url_root = OpenProject::Configuration["rails_relative_url_root"] || ""
 
@@ -724,6 +728,7 @@ Rails.application.routes.draw do
     post "/my/change_password", action: "change_password"
 
     get "/my/account", action: "account"
+    get "/my/subscription", action: "subscription"
     get "/my/settings", action: "settings"
     get "/my/notifications", action: "notifications"
     get "/my/reminders", action: "reminders"

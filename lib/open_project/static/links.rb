@@ -99,7 +99,7 @@ module OpenProject
               label: "admin.enterprise.get_quote"
             },
             user_guides: {
-              href: "#",
+              href: "https://scalenowai.com/user-guide-2/",
               label: "homescreen.links.user_guides"
             },
             installation_guides: {
@@ -138,7 +138,7 @@ module OpenProject
               label: "links.get_in_touch"
             },
             glossary: {
-              href: "#",
+              href: "https://scalenowai.com/glossary/",
               label: "homescreen.links.glossary"
             },
             shortcuts: {
@@ -158,7 +158,7 @@ module OpenProject
               label: :label_enterprise_support
             },
             website: {
-              href: "#",
+              href: "https://www.scalenowai.com",
               label: "label_openproject_website"
             },
             newsletter: {
@@ -182,7 +182,7 @@ module OpenProject
               label: "Release notes for OpenProject 14.0.1"
             },
             data_privacy: {
-              href: "#",
+              href: "https://scalenowai.com/australian-privacy-principles-apps/",
               label: :label_privacy_policy
             },
             digital_accessibility: {

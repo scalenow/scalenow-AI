@@ -402,3 +402,5 @@ end
 gem "openproject-octicons", "~>19.19.0"
 gem "openproject-octicons_helper", "~>19.19.0"
 gem "openproject-primer_view_components", "~>0.49.2"
+
+gem 'stripe'

@@ -26,11 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
-<% html_title("AI") -%>
+
+<% html_title(@tool_name) -%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
   <div class="iframe-container">
-    <iframe src="https://scalenowai.com.au:8501/" allowfullscreen></iframe>
+    <iframe src="<%= @tool_link %>" allowfullscreen></iframe>
   </div>
 </div>
 
