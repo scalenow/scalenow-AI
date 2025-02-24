@@ -146,27 +146,27 @@ module OpenProject
               label: "homescreen.links.shortcuts"
             },
             forums: {
-              href: "#",
-              label: "homescreen.links.forums"
+              href: "https://scalenowai.com/scaled-agile-framework/",
+              label: "Scaled Agile Framework"
             },
             enterprise_support_as_community: {
-              href: "#",
-              label: :label_enterprise_support
+              href: "https://scalenowai.com/support/",
+              label: "Support"
             },
             enterprise_support: {
-              href: "#",
-              label: :label_enterprise_support
+              href: "https://scalenowai.com/support/",
+              label: "Support"
             },
             website: {
               href: "https://www.scalenowai.com",
               label: "label_openproject_website"
             },
             newsletter: {
-              href: "#",
-              label: "homescreen.links.newsletter"
+              href: "https://scalenowai.com/",
+              label: "Newsletter"
             },
             blog: {
-              href: "#",
+              href: "https://scalenowai.com/post/",
               label: "homescreen.links.blog"
             },
             blog_article_progress_changes: {
@@ -174,8 +174,8 @@ module OpenProject
               label: "Significant changes to progress and work estimates"
             },
             release_notes: {
-              href: "#",
-              label: :label_release_notes
+              href: "https://scalenowai.com/termsofservice/",
+              label: "Terms of Service"
             },
             release_notes_14_0_1: {
               href: "#",
@@ -186,24 +186,24 @@ module OpenProject
               label: :label_privacy_policy
             },
             digital_accessibility: {
-              href: "#",
-              label: :label_digital_accessibility
+              href: "https://scalenowai.com/aiservice/",
+              label: "AI Usage"
             },
             report_bug: {
-              href: "#",
+              href: "https://github.com/scalenow/scalenow-AI/issues",
               label: :label_report_bug
             },
             roadmap: {
-              href: "#",
+              href: "https://scalenowai.com/",
               label: :label_development_roadmap
             },
             crowdin: {
-              href: "#",
-              label: :label_add_edit_translations
+              href: "https://scalenow.com.au/casestudies.html",
+              label: "Case Studies"
             },
             api_docs: {
-              href: "#",
-              label: :label_api_doc
+              href: "https://scalenowai.com/use-cases/",
+              label: "Use Cases"
             },
             text_formatting: {
               href: "#",

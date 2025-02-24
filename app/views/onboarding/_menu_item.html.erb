@@ -30,12 +30,12 @@ See COPYRIGHT and LICENSE files for more details.
   class="op-menu--item"
   data-augmented-model-wrapper
   data-activation-selector=".onboarding-modal--activation-link"
-  data-modal-iframe-url="https://www.youtube.com/embed/b0k9VQep8gI-"
+  data-modal-iframe-url="https://www.youtube.com/embed/b0k9VQep8gI"
   data-modal-class-name="onboarding-modal"
 >
-  <%= link_to t(:label_introduction_video),
+  <%= link_to 'Getting Started',
               '',
-              title: t(:label_introduction_video),
+              title: 'Getting Started',
               class: 'op-menu--item-action onboarding-modal--activation-link' %>
   <%= render partial: '/onboarding/onboarding_video_modal' %>
 </li>
