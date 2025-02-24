@@ -3,7 +3,7 @@
     <%= static_link_to :user_guides %>
   </li>
   <li>
-    <%= static_link_to :shortcuts %>
+    <%= static_link_to :glossary %>
   </li>
   <li>
     <%= static_link_to :forums %></li>
@@ -17,13 +17,13 @@
                   title: 'scalenow-AI website'}) %>
   </li>
   <li>
-    <%= link_to(t('homescreen.links.newsletter'), "#",
-          { aria: {label: t('homescreen.links.newsletter')},
+    <%= link_to('Newsletter', "https://scalenowai.com/",
+          { aria: {label: 'Newsletter'},
             target: '_blank',
-            title: t('homescreen.links.newsletter')}) %>
+            title: 'Newsletter'}) %>
   </li>
   <li>
-    <%= link_to('scalenow-AI blog', "#",
+    <%= link_to('scalenow-AI blog', "https://scalenowai.com/post/",
                 { aria: {label: 'scalenow-AI blog'},
                   target: '_blank',
                   title: 'scalenow-AI blog'}) %>

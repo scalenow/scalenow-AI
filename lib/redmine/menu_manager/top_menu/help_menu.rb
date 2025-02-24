@@ -94,13 +94,13 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     end
     result << static_link_item(:user_guides)
     result << content_tag(:li, class: "op-menu--item") do
-      link_to I18n.t("label_videos"),
-              "#",
-              title: I18n.t("label_videos"),
+      link_to "System Guide",
+              "https://scalenowai.com/system-guide/",
+              title: "System Guide",
               class: "op-menu--item-action",
               target: "_blank", rel: "noopener"
     end
-    result << static_link_item(:shortcuts)
+    result << static_link_item(:glossary)
     result << static_link_item(:forums)
     enterprise_support_link_key = if EnterpriseToken.active?
                                     :enterprise_support
@@ -143,7 +143,7 @@ module Redmine::MenuManager::TopMenu::HelpMenu
 
   def static_link_item(key, options = {})
     link = OpenProject::Static::Links.links[key]
-    label = I18n.t(link[:label])
+    label = I18n.t(link[:label], default: link[:label])
     content_tag(:li, class: "op-menu--item") do
       link_to label,
               "#{link[:href]}#{options[:href_suffix]}",
