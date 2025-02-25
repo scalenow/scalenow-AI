@@ -14,10 +14,5 @@ AI_TOOLS = {
     display_name: "NLP (Coming Soon)",
     url: "https://www.scalenowai.com.au/nlp/nlp.html",
     plans: ["Professional", "Enterprise"]
-  },
-  "workspace" => { 
-    display_name: "scalenowAI Workspace (Coming Soon)",
-    url: "https://www.scalenowai.com.au:9999",
-    plans: ["Basic", "Professional", "Enterprise"]
   }
 }.freeze
