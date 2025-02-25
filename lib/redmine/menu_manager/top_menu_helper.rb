@@ -61,7 +61,7 @@ module Redmine::MenuManager::TopMenuHelper
       AI_TOOLS.map do |name, details|
         result = has_access_to_tool?(name)
         url = tool_url(name)
-        url = '#' if name == 'workspace'
+        url = '#' if name != 'document_analysis'
 
         if result[:access]
           content_tag(:li, class: "main-menu-item", "data-name": name.parameterize) do
