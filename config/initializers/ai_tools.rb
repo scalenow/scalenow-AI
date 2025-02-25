@@ -1,7 +1,7 @@
 # Define tool details in a single place
 AI_TOOLS = {
   "openinterpreter" => { 
-    display_name: "Interaction with LLM",
+    display_name: "Interaction with LLM (Coming Soon)",
     url: "https://www.scalenowai.com.au:8501",
     plans: ["Basic", "Professional", "Enterprise"]
   },
@@ -11,7 +11,7 @@ AI_TOOLS = {
     plans: ["Basic", "Professional", "Enterprise"]
   },
   "nlp" => { 
-    display_name: "NLP",
+    display_name: "NLP (Coming Soon)",
     url: "https://www.scalenowai.com.au/nlp/nlp.html",
     plans: ["Professional", "Enterprise"]
   },
