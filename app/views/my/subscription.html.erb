@@ -93,7 +93,7 @@ See COPYRIGHT and LICENSE files for more details.
             <li>Define user roles, permissions, and access levels for each module</li>
           </ul>
 
-          <br><div><strong>Support:</strong></div>
+          <br><div><strong><a href="mailto:scalenowai@scalenowai.com" style="color: inherit; text-decoration: underline;">Support:</a></strong></div>
           <ul class="features">
             <li>Email support(24 hrs turn around)</li>
             <li>Access to knowledge base</li>
@@ -103,9 +103,9 @@ See COPYRIGHT and LICENSE files for more details.
       </div>
 
       <div class="plan professional-plan">
-        <p class="plan-name">Professional</p>
+        <p class="plan-name">Professional (Coming Soon)</p>
         <p class="price">$20/Month</p>
-        <%= link_to "Choose Plan", redirect_to_payment_path(link: 'professional'),
+        <%= link_to "Choose Plan", "#",
             class: 'button buy-button w-100 m-0 mb-3 px-4 py-2', data: { turbo: false } %>
         <div class="plan-features">
           <div><strong>All Basic Plan Features</strong></div>
@@ -128,9 +128,9 @@ See COPYRIGHT and LICENSE files for more details.
 
       <div class="plan enterprise-plan">
         <p class="plan-name">Enterprise</p>
-        <p class="price">Contact Support (<a href="mailto:scalenowai@scalenowai.com">scalenowai@scalenowai.com</a>)</p>
-        <%= link_to "Choose Plan", redirect_to_payment_path(link: 'enterprise'),
-            class: 'button buy-button w-100 m-0 mb-3 px-4 py-2', data: { turbo: false } %>
+        <p class="price"></p>
+        <%= link_to "Contact Us", "mailto:scalenowai@scalenowai.com",
+            class: 'button buy-button w-100 m-0 mb-3 px-4 py-2' %>
         <div class="plan-features">
           <div><strong>All Professional Plan Features</strong></div>
 
@@ -149,7 +149,7 @@ See COPYRIGHT and LICENSE files for more details.
             <li>Personalized training for project teams, IT admins, and end-users</li>
           </ul>
 
-          <br><div><strong>Support:</strong></div>
+          <br><div><strong><a href="mailto:scalenowai@scalenowai.com" style="color: inherit; text-decoration: underline;">Support:</a></strong></div>
           <ul class="features">
             <li>24/7 Technical Support</li>
             <li>On-premises updates for bug fixes, new features, and performance improvements</li>
@@ -208,14 +208,14 @@ See COPYRIGHT and LICENSE files for more details.
   .enterprise-plan .buy-button {
     background-color: #000080;
   }
-  .basic-plan .buy-button:hover {
+  .basic-plan .buy-button:hover, .basic-plan .buy-button:active, .basic-plan .buy-button:focus {
     background-color: #d96c4f;
   }
-  .professional-plan .buy-button:hover {
+  .professional-plan .buy-button:hover, .professional-plan .buy-button:active, .professional-plan .buy-button:focus {
     background-color: #01a97f;
   }
-  .enterprise-plan .buy-button:hover {
-    background-color: #0000AA;
+  .enterprise-plan .buy-button:hover, .enterprise-plan .buy-button:active, .enterprise-plan .buy-button:focus {
+    background-color: #0000aa;
   }
   .basic-plan .plan-name, .basic-plan .price {
     color: #ff7f5d;
