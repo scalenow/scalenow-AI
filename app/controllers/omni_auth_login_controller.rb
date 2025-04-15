@@ -39,6 +39,7 @@ class OmniAuthLoginController < ApplicationController
   skip_before_action :user_setup
   skip_before_action :check_if_login_required
   skip_before_action :check_session_lifetime
+  skip_before_action :require_subscription
 
   no_authorization_required! :callback, :failure
 

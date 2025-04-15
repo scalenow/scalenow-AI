@@ -10,7 +10,7 @@ module ::TwoFactorAuthentication
     layout "no_menu"
 
     # User is not yet logged in, so skip login required check
-    skip_before_action :check_if_login_required
+    skip_before_action :check_if_login_required, :require_subscription
     no_authorization_required! :request_otp,
                                :confirm_otp,
                                :enter_backup_code,

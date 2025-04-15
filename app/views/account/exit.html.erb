@@ -36,13 +36,27 @@ See COPYRIGHT and LICENSE files for more details.
 <%= call_hook :view_account_login_top %>
 
 <%
-  signin_link = link_to I18n.t('label_here'), signin_path
+  signin_link = link_to I18n.t('label_here'), signin_path, turbo: false
   instruction_text = I18n.t "instructions_#{instructions}", signin: signin_link
 %>
 
-<div id="login-form" class="form -bordered">
+<div class="scalenowai-logo">
+  <%= image_tag "scalenowai-logo.png", class: 'w-100', alt: "scalenowai-logo" %>
+</div>
+
+<div id="login-form" class="form -bordered bg-white rounded-border mt-0" style="border-color: #000;">
   <h1><%= I18n.t(:label_login) %></h1>
   <hr class="form--separator" />
   <p><%= instruction_text.html_safe %></p>
 </div>
 <%= call_hook :view_account_login_bottom %>
+
+<style>
+  .scalenowai-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+  }
+</style>
