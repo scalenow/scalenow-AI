@@ -11,8 +11,8 @@ AI_TOOLS = {
     plans: ["Basic", "Professional", "Enterprise"]
   },
   "nlp" => { 
-    display_name: "NLP (Coming Soon)",
-    url: "https://www.scalenowai.com.au/nlp/nlp.html",
+    display_name: "AI Agent NLP",
+    url: "https://www.scalenowai.com.au/nlp.html",
     plans: ["Professional", "Enterprise"]
   }
 }.freeze

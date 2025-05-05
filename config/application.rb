@@ -235,7 +235,7 @@ module OpenProject
     config.good_job.retry_on_unhandled_error = false
     # It has been commented out because AppSignal gem modifies ActiveJob::Base to report exceptions already.
     # config.good_job.on_thread_error = -> (exception) { OpenProject.logger.error(exception) }
-    config.good_job.execution_mode = :async
+    config.good_job.execution_mode = :external
     config.good_job.preserve_job_records = true
     config.good_job.cleanup_preserved_jobs_before_seconds_ago = OpenProject::Configuration[:good_job_cleanup_preserved_jobs_before_seconds_ago]
     config.good_job.queues = OpenProject::Configuration[:good_job_queues]

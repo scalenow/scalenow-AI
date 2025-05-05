@@ -26,6 +26,7 @@ Rails.application.config.after_initialize do
     frame_src += ["https://www.youtube.com", "https://www.youtube-nocookie.com", "https://www.youtube.com/embed/", "https://www.scalenowai.com.au"]
     frame_src << "https://www.scalenowai.com.au:8501/"
     frame_src << "https://www.scalenowai.com.au:5004/"
+    frame_src << "https://www.scalenowai.com.au/nlp.html"
 
     # Default src
     default_src = %w('self') + OpenProject::Configuration.remote_storage_hosts
