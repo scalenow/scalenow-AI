@@ -105,9 +105,9 @@ module Users
             href: url_for(revoke_path),
             "aria-label": I18n.t(:button_revoke),
             data: {
-              method: :delete,
-              confirm: I18n.t(:text_are_you_sure),
-              disable_with: I18n.t(:label_loading)
+              turbo_method: :delete,
+              turbo_confirm: I18n.t(:text_are_you_sure),
+              turbo_submits_with: I18n.t(:label_loading)
             }
           )
         )
