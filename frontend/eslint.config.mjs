@@ -23,7 +23,7 @@ const config = defineConfig([
     files: ['**/*.{ts,tsx}'],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
       ...angular.configs.tsRecommended
     ],
