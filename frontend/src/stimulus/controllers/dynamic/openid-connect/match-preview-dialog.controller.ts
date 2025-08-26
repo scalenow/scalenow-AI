@@ -29,7 +29,10 @@
  */
 
 import { Controller } from '@hotwired/stimulus';
-import { TurboRequestsService } from 'core-app/core/turbo/turbo-requests.service';
+import { from, Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+import { OpenProjectPluginContext } from 'core-app/features/plugins/plugin-context';
 
 export interface MatchPreviewDialogSubmittedEvent {
   detail:{
@@ -52,15 +55,13 @@ export default class MatchPreviewDialogController extends Controller {
   declare readonly groupNamesInputTarget:HTMLInputElement;
 
   declare dialog:HTMLDialogElement;
-  declare turboRequests:TurboRequestsService;
   declare updateUrlValue:string;
   declare updateMatchTimeout:number;
 
-  async connect() {
-    this.dialog = this.element as HTMLDialogElement;
-    const context = await window.OpenProject.getPluginContext();
-    this.turboRequests = context.services.turboRequests;
+  private pluginContextData:OpenProjectPluginContext|null = null;
 
+  connect() {
+    this.dialog = this.element as HTMLDialogElement;
     this.regexpInputTarget.addEventListener('input', () => { this.updateMatchPreview(); });
     this.groupNamesInputTarget.addEventListener('input', () => { this.updateMatchPreview(); });
   }
@@ -71,31 +72,47 @@ export default class MatchPreviewDialogController extends Controller {
   }
 
   submitDialog() {
-    const event:MatchPreviewDialogSubmittedEvent = { detail: {
-      regularExpressions: this.regexpInputTarget.value,
-      previewGroups: this.groupNamesInputTarget.value,
-    }};
+    const event:MatchPreviewDialogSubmittedEvent = {
+      detail: {
+        regularExpressions: this.regexpInputTarget.value,
+        previewGroups: this.groupNamesInputTarget.value,
+      },
+    };
     this.dispatch('submitted', event);
     this.dialog.close();
   }
 
-  updateMatchPreview() {
+  private updateMatchPreview() {
     if(this.updateMatchTimeout) clearTimeout(this.updateMatchTimeout);
 
     this.updateMatchTimeout = setTimeout(() => { this.doUpdateMatchPreview(); }, 500);
   }
 
-  doUpdateMatchPreview() {
-    void this.turboRequests.request(this.updateUrlValue, {
-      method: 'POST',
-      headers: {
-        Accept: 'text/vnd.turbo-stream.html',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        preview_group_names: this.groupNamesInputTarget.value,
-        preview_regular_expressions: this.regexpInputTarget.value
-      }),
+  private doUpdateMatchPreview() {
+    this.pluginContext.subscribe((context) => {
+      void context.services.turboRequests.request(this.updateUrlValue, {
+        method: 'POST',
+        headers: {
+          Accept: 'text/vnd.turbo-stream.html',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          preview_group_names: this.groupNamesInputTarget.value,
+          preview_regular_expressions: this.regexpInputTarget.value,
+        }),
+      });
     });
+  }
+
+  private get pluginContext():Observable<OpenProjectPluginContext> {
+    if (this.pluginContextData === null) {
+      return from(window.OpenProject.getPluginContext()).pipe(
+        tap((context) => {
+          this.pluginContextData = context;
+        }),
+      );
+    }
+
+    return of(this.pluginContextData);
   }
 }

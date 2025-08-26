@@ -29,8 +29,7 @@
  */
 
 import { Controller } from '@hotwired/stimulus';
-import { MatchPreviewDialogSubmittedEvent } from './match-preview-dialog.controller';
-import MatchPreviewDialogController from './match-preview-dialog.controller';
+import MatchPreviewDialogController, { MatchPreviewDialogSubmittedEvent } from './match-preview-dialog.controller';
 
 export default class GroupSyncFormController extends Controller {
   static targets = [

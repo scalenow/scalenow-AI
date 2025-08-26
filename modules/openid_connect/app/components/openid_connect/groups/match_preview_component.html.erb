@@ -28,18 +28,16 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <%= component_wrapper(tag: "turbo-frame") do %>
-  <% # TODO: Replace Primer::Box below with an InsetBox, once that component is ready to be used %>
+  <%# TODO: Replace Primer::Box below with an InsetBox, once that component is ready to be used %>
   <%= render(Primer::Box.new(border: true, border_radius: 2, bg: :inset, p: 3)) do %>
-    <%= render(Primer::Beta::Text.new(font_weight: :bold)) { t(".title") } %>
+    <%= render(Primer::Beta::Text.new(tag: :p, font_weight: :bold, mb: 2)) { t(".title") } %>
 
     <% if model.any? %>
-      <ul>
-        <% model.each do |match| %>
-          <%= render(Primer::Beta::Text.new(tag: :li, font_family: :mono)) { match } %>
-        <% end %>
-      </ul>
+      <% model.each do |match| %>
+        <%= render(Primer::Beta::Text.new(tag: :div, font_family: :mono)) { match } %>
+      <% end %>
     <% else %>
-      <%= render(Primer::Beta::Text.new(tag: :i, display: :block)) { t(".placeholder_none") } %>
+      <%= render(Primer::Beta::Text.new(tag: :div, color: :muted)) { t(".placeholder_none") } %>
     <% end %>
   <% end %>
 <% end %>

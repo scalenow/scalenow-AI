@@ -73,6 +73,7 @@ module OpenIDConnect
           group.text_area(
             name: :group_regexes,
             rows: 5,
+            validation_message: custom_validation_message_for(:group_regexes),
             label: OpenIDConnect::Provider.human_attribute_name(:group_regexes),
             caption: link_translate("openid_connect.instructions.group_regexes",
                                     links: { docs_url: %i[sysadmin_docs oidc_groups] },
@@ -85,7 +86,25 @@ module OpenIDConnect
             input_width: :large,
             value: model.group_regexes.join("\n")
           )
+
+          group.html_content do
+            render(
+              ::OpPrimer::FlashComponent.new(icon: :info, dismiss_scheme: :none, unique_key: "test_regex_patterns")
+            ) do |banner|
+              banner.with_action_content { render(OpenIDConnect::Groups::MatchPreviewDialogComponent.new) }
+
+              I18n.t("openid_connect.instructions.group_regexes_testing")
+            end
+          end
         end
+      end
+
+      private
+
+      def custom_validation_message_for(attribute)
+        return unless model.errors.has_key?(attribute)
+
+        model.errors[attribute].to_sentence
       end
     end
   end

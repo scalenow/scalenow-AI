@@ -35,7 +35,7 @@ export class TurboRequestsService {
       'X-Authentication-Scheme': 'Session',
     };
     if(init.method && !(init.method === 'GET' || init.method === 'HEAD')) {
-      defaultHeaders['X-CSRF-Token'] = (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement).content;
+      defaultHeaders['X-CSRF-Token'] = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
     }
 
     init.headers = {
