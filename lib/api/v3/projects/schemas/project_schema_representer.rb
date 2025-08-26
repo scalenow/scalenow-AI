@@ -152,9 +152,7 @@ module API
              section.id,
              I18n.locale,
              represented.model,
-             represented.model.available_custom_fields.sort_by(&:id)]
-              .flatten
-              .compact
+             *represented.model.available_custom_fields.sort_by(&:id)]
           end
         end
       end
