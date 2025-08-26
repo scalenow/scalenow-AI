@@ -272,16 +272,14 @@ module ApplicationHelper
   end
 
   def lang_options_for_select(blank = true)
-    auto =
-      if blank && (valid_languages - all_languages) == (all_languages - valid_languages)
-        [["(auto)", ""]]
-      else
-        []
-      end
+    options = valid_languages.map { |lang| [*translate_language(lang), { lang: }] }
+    options.sort_by!(&:second)
 
-    mapped_languages = valid_languages.map { |lang| translate_language(lang) }
+    if blank && valid_languages.to_set == all_languages.to_set
+      options.unshift(["(auto)", ""])
+    end
 
-    auto + mapped_languages.sort_by(&:last)
+    options
   end
 
   def all_lang_options_for_select
