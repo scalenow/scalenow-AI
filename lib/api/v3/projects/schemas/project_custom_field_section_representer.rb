@@ -28,33 +28,36 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module CustomFields
-  module Hierarchy
-    class UpdateItemContract < Dry::Validation::Contract
-      config.messages.backend = :i18n
+module API
+  module V3
+    module Projects
+      module Schemas
+        class ProjectCustomFieldSectionRepresenter < ::API::Decorators::Single
+          property :id,
+                   exec_context: :decorator
 
-      params do
-        required(:item).filled(type?: CustomField::Hierarchy::Item)
-        optional(:label).filled(:string)
-        optional(:short).filled(:string)
-      end
+          property :name,
+                   exec_context: :decorator
 
-      rule(:item) do
-        key.failure(:not_persisted) if value.new_record?
-        key.failure(:root_item) if value.root?
-      end
+          property :attributes,
+                   exec_context: :decorator
 
-      rule(:label) do
-        next if schema_error?(:item)
+          def _type
+            "ProjectFormCustomFieldSection"
+          end
 
-        key.failure(:not_unique) if values[:item].siblings.exists?(label: value)
-      end
+          delegate :id, :name, to: :represented
 
-      rule(:short) do
-        next if schema_error?(:item)
-        next unless key?
+          def attributes
+            represented.custom_fields.map do |cf|
+              convert_property(cf.attribute_name)
+            end
+          end
 
-        key.failure(:not_unique) if values[:item].siblings.exists?(short: value)
+          def convert_property(attribute_name)
+            ::API::Utilities::PropertyNameConverter.from_ar_name(attribute_name)
+          end
+        end
       end
     end
   end
