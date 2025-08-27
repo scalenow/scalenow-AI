@@ -41,7 +41,7 @@ RSpec.describe My::LocaleComponent, type: :component do
 
   subject(:rendered_component) do
     with_controller_class(MyController) do
-      with_request_url("/my/settings") do
+      with_request_url("/my/locale") do
         render_component(user)
       end
     end
