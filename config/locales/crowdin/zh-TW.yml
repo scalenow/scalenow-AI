@@ -1037,6 +1037,7 @@ zh-TW:
         active_value:
           true: "解除封存"
           false: "已封存"
+        attribute_groups: "Attribute Groups"
         description: "說明"
         enabled_modules: "啟用的模組"
         identifier: "識別碼"
@@ -1328,6 +1329,8 @@ zh-TW:
               minimum: "需要為主體、上下文或 id 至少包含一個帶有“=”運算符的過濾器"
         custom_field:
           at_least_one_custom_option: "需要至少一個選項可用。"
+          referenced_in_other_fields_html:
+            other: "%{name} is used in project attribute calculations: %{links}."
         custom_fields_project:
           attributes:
             project_ids:
@@ -2646,6 +2649,7 @@ zh-TW:
   label_api_access_key: "API金鑰"
   label_api_access_key_created_on: "API金鑰在 %{value} 以前被建立"
   label_api_access_key_type: "API"
+  label_auto_option: "(auto)"
   label_ical_access_key_type: "iCalendar "
   label_ical_access_key_description: 'iCalendar令牌"%{token_name}" 為"%{calendar_name}" 屬於 "%{project_name}"'
   label_ical_access_key_not_present: "iCalendar 令牌(Token) 不存在。"
@@ -2832,7 +2836,7 @@ zh-TW:
   label_filter_add: "新增條件"
   label_filter_by: "篩選條件："
   label_filter_any_name_attribute: "名稱屬性"
-  label_filter_plural: "篩選器"
+  label_filter_plural: "篩選條件"
   label_filters_toggle: "顯示/隱藏篩選條件"
   label_float: "浮點數"
   label_folder: "資料夾"
@@ -2848,7 +2852,7 @@ zh-TW:
   label_global_roles: "全域角色"
   label_git_path: ".git 目錄的路徑"
   label_greater_or_equal: ">="
-  label_group_by: "分組依據"
+  label_group_by: "分類"
   label_group_new: "新增群組"
   label_group: "群組"
   label_group_named: "群組名稱 %{name}"
@@ -2860,7 +2864,7 @@ zh-TW:
   label_hierarchy: "階層"
   label_hierarchy_leaf: "頁面結構頁"
   label_home: "Home"
-  label_subject_or_id: "主旨或 id"
+  label_subject_or_id: "名稱或 id"
   label_calendar_subscriptions: "訂閱行事曆"
   label_identifier: "識別碼"
   label_in: "在"
@@ -2894,6 +2898,7 @@ zh-TW:
   label_journal_diff: "內容對比"
   label_language: "語言"
   label_languages: "語言"
+  label_locale: "Language and Region"
   label_jump_to_a_project: "前往一個專案..."
   label_keyword_plural: "關鍵字"
   label_language_based: "根據使用者的語言"
@@ -2908,7 +2913,7 @@ zh-TW:
   label_latest_revision_plural: "最新版本"
   label_ldap_authentication: "LDAP 認證"
   label_learn_more: "了解更多"
-  label_less_or_equal: "<="
+  label_less_or_equal: "之後"
   label_less_than_ago: "幾天內"
   label_link_url: "連結(URL)"
   label_list: "清單"
@@ -3693,13 +3698,13 @@ zh-TW:
       one: "1 個專案"
       other: "%{count} 個專案"
     destroy:
-      confirmation: "如果繼續操作，項目 %{identifier} 將被永久銷毀。為確認此操作，請在下方的字段中輸入項目名稱，此操作將會："
+      confirmation: "If you continue, the project %{identifier} will be permanently destroyed. You will:"
       project_delete_result_1: "刪除所有相關數據。"
       project_delete_result_2: "刪除附加存儲中所有托管的專案文件夾。"
-      info: "刪除這個專案是不可逆的動作"
-      project_verification: "輸入專案的名稱 %{name} 來確認刪除"
+      info: "Deleting the project is an irreversible action. Please proceed with caution."
       subprojects_confirmation: "它的子專案: %{value} 將會一併刪除"
-      title: "刪除專案 %{name}"
+      title: "Delete project %{name}"
+      heading: "Permanently delete project %{name}?"
     filters:
       project_phase: "專案階段﹔ %{phase}"
       project_phase_any: "專案階段﹔任意"
@@ -4152,6 +4157,7 @@ zh-TW:
   status_invited: 已邀請
   status_locked: 已停用
   status_registered: 已註冊
+  status_deleted: deleted
   #Used in array.to_sentence.
   support:
     array:
