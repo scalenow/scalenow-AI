@@ -48,8 +48,8 @@ module Meetings
         e.dtstart = ical_datetime(meeting.start_time)
         e.dtend = ical_datetime(meeting.end_time)
         e.url = url_helpers.meeting_url(meeting)
-        e.summary = "[#{meeting.project.name}] #{meeting.title}"
-        e.description = "[#{meeting.project.name}] #{I18n.t(:label_meeting)}: #{meeting.title}"
+        e.summary = meeting.title
+        e.description = meeting.title
         e.uid = meeting.uid
         e.organizer = ical_organizer
         e.location = meeting.location.presence
@@ -66,8 +66,8 @@ module Meetings
     def add_series_event(recurring_meeting:, cancelled: false) # rubocop:disable Metrics/AbcSize
       calendar.event do |e|
         e.uid = recurring_meeting.uid
-        e.summary = "[#{recurring_meeting.project.name}] #{recurring_meeting.title}"
-        e.description = "[#{recurring_meeting.project.name}] #{I18n.t(:label_meeting_series)}: #{recurring_meeting.title}"
+        e.summary = recurring_meeting.title
+        e.description = recurring_meeting.title
         e.organizer = ical_organizer
 
         e.rrule = recurring_meeting.schedule.rrules.first.to_ical # We currently only have one recurrence rule
@@ -97,8 +97,8 @@ module Meetings
 
       calendar.event do |e|
         e.uid = recurring_meeting.uid
-        e.summary = "[#{recurring_meeting.project.name}] #{recurring_meeting.title}"
-        e.description = "[#{recurring_meeting.project.name}] #{I18n.t(:label_meeting_series)}: #{recurring_meeting.title}"
+        e.summary = recurring_meeting.title
+        e.description = recurring_meeting.title
         e.organizer = ical_organizer
 
         e.recurrence_id = ical_datetime(scheduled_meeting.start_time)
