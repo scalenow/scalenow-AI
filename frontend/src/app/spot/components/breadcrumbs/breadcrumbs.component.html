@@ -17,7 +17,15 @@
       [title]="crumb.text"
       (click)="crumb.navigate()"
     >
-      <span *ngIf="crumb.icon" class="spot-icon spot-icon_{{crumb.icon}}"></span>
+      <ng-container *ngIf="crumb.icon">
+        <svg
+          *ngIf="crumb.icon === 'hosting' || crumb.icon === 'nextcloud-circle' || crumb.icon === 'cloud'"
+          cloud-icon
+          size="small"
+          class="octicon"
+        ></svg>
+        <span *ngIf="crumb.icon !== 'hosting' && crumb.icon !== 'nextcloud-circle' && crumb.icon !== 'cloud'" class="spot-icon spot-icon_{{crumb.icon}}"></span>
+      </ng-container>
       <span [textContent]="crumb.text" class="spot-breadcrumbs--crumb-action-item-text"></span>
       <span class="spot-breadcrumbs--crumb-action-item-dots"></span>
     </button>
@@ -37,7 +45,15 @@
     class="spot-breadcrumbs--crumb spot-breadcrumbs--crumb_last"
     data-test-selector="op-breadcrumb"
   >
-    <span *ngIf="crumb.icon" class="spot-icon spot-icon_{{crumb.icon}}"></span>
+    <ng-container *ngIf="crumb.icon">
+      <svg
+        *ngIf="crumb.icon === 'hosting' || crumb.icon === 'nextcloud-circle' || crumb.icon === 'cloud'"
+        cloud-icon
+        size="small"
+        class="octicon"
+      ></svg>
+      <span *ngIf="crumb.icon !== 'hosting' && crumb.icon !== 'nextcloud-circle' && crumb.icon !== 'cloud'" class="spot-icon spot-icon_{{crumb.icon}}"></span>
+    </ng-container>
     <span
       class="spot-breadcrumbs--crumb-action-item-text"
       [textContent]="crumb.text"

@@ -64,12 +64,39 @@ import {
   StorageLoginButtonComponent,
 } from 'core-app/shared/components/storages/storage-login-button/storage-login-button.component';
 
+import {
+  CloudIconComponent,
+  DownloadIconComponent,
+  FileDirectoryFillIconComponent,
+  FileDirectoryOpenFillIconComponent,
+  ServerIconComponent,
+  FileIconComponent,
+  FileMediaIconComponent,
+  TasklistIconComponent,
+  LinkIconComponent,
+  UploadIconComponent,
+  LinkExternalIconComponent,
+  UnlinkIconComponent
+} from '@openproject/octicons-angular';
+
 @NgModule({
   imports: [
     CommonModule,
     IconModule,
     OpSpotModule,
     OpSharedModule,
+    CloudIconComponent,
+    DownloadIconComponent,
+    FileDirectoryFillIconComponent,
+    FileDirectoryOpenFillIconComponent,
+    ServerIconComponent,
+    FileIconComponent,
+    FileMediaIconComponent,
+    TasklistIconComponent,
+    LinkIconComponent,
+    LinkExternalIconComponent,
+    UploadIconComponent,
+    UnlinkIconComponent
   ],
   declarations: [
     StorageComponent,

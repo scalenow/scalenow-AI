@@ -2,18 +2,20 @@
   *ngIf="resource"
 >
   <div class=op-tab-content--header>
-    <span
-      class="op-tab-content--header-icon spot-icon spot-icon_{{icon.storageHeader((storage | async)?._links.type.href)}} op-files-tab--icon op-files-tab--icon_primary"
-    ></span>
+    <svg
+      class="op-tab-content--header-icon op-files-tab--icon op-files-tab--icon_primary"
+      cloud-icon
+      size="small"
+    ></svg>
     <span class="op-tab-content--header-text" [textContent]="(storage | async)?.name"></span>
     <a *ngIf="openStorageLink"
-      class="op-tab-content--header-action spot-link"
+      class="op-tab-content--header-action"
        aria-label="{{text.openStorage(storageType | async)}}"
        [title]="text.openStorage(storageType | async)"
        [href]="openStorageLink"
        target="_blank"
     >
-      <span class="spot-icon spot-icon_external-link"></span>
+      <svg link-external-icon size="small"></svg>
     </a>
   </div>
 
@@ -79,9 +81,7 @@
       (drop)="onDropFiles($event)"
       (click)="triggerFileInput()"
     >
-      <span
-        class="spot-icon spot-icon_upload-arrow op-file-section--drop-box-icon"
-      ></span>
+      <svg upload-icon size="small" class="op-file-section--drop-box-icon"></svg>
       <span
         *ngIf="(fileLinks | async)?.length > 0"
         class="op-file-section--drop-box-text"
@@ -105,7 +105,7 @@
         data-test-selector="op-storage--upload-file-button"
         (click)="triggerFileInput()"
       >
-        <span class="spot-icon spot-icon_upload-arrow"></span>
+        <svg upload-icon size="small" class="octicon"></svg>
         <span [textContent]="text.actions.uploadFile"></span>
       </button>
       <button
@@ -115,7 +115,7 @@
         data-test-selector="op-storage--link-existing-file-button"
         (click)="openLinkFilesDialog()"
       >
-        <span class="spot-icon spot-icon_add-link"></span>
+        <svg link-icon size="small" class="octicon"></svg>
         <span [textContent]="text.actions.linkExisting"></span>
       </button>
     </div>

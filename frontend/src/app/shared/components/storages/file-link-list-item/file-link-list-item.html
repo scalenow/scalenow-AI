@@ -25,9 +25,11 @@
       <div
         class="spot-list--item-title op-file-list--item-title"
       >
-        <span
-          class="spot-icon spot-icon_{{fileLinkIcon.icon}} op-files-tab--icon op-files-tab--icon_{{fileLinkIcon.clazz}}"
-        ></span>
+        <ng-container [ngSwitch]="fileLinkIcon.icon">
+          <svg *ngSwitchCase="'file'" file-icon size="small" class="op-files-tab--icon"></svg>
+          <svg *ngSwitchCase="'file-media'" file-media-icon size="small" class="op-files-tab--icon"></svg>
+          <svg *ngSwitchDefault file-icon size="small" class="op-files-tab--icon"></svg>
+        </ng-container>
         <span class="ellipsis" [textContent]="fileLink.originData.name"></span>
       </div>
 
@@ -47,19 +49,27 @@
     >
       <ng-container *ngFor="let action of floatingActions">
         <a *ngIf="!!action.href"
-           class="spot-link"
+           class="spot-link octicon-link"
            [title]="action.title"
            [href]="action.href.url"
            [target]="action.href.target"
         >
-          <span class="spot-icon spot-icon_{{action.iconClass}}"></span>
+          <ng-container [ngSwitch]="action.iconClass">
+            <svg *ngSwitchCase="'remove-link'" unlink-icon size="small" class="octicon" vertical-align="middle"></svg>
+            <svg *ngSwitchCase="'download'" download-icon class="octicon" size="small" vertical-align="middle"></svg>
+            <svg *ngSwitchCase="'folder-open'" file-directory-open-fill-icon class="octicon" size="small" vertical-align="middle"></svg>
+          </ng-container>
         </a>
         <button *ngIf="!!action.action"
-                class="spot-link"
+                class="spot-link octicon-link"
                 [title]="action.title"
                 (click)="action.action()"
         >
-          <span class="spot-icon spot-icon_{{action.iconClass}}"></span>
+          <ng-container [ngSwitch]="action.iconClass">
+            <svg *ngSwitchCase="'remove-link'" unlink-icon size="small" class="octicon" vertical-align="middle"></svg>
+            <svg *ngSwitchCase="'download'" download-icon class="octicon" size="small" vertical-align="middle"></svg>
+            <svg *ngSwitchCase="'folder-open'" file-directory-open-fill-icon class="octicon" size="small" vertical-align="middle"></svg>
+          </ng-container>
         </button>
       </ng-container>
     </div>

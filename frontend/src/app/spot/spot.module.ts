@@ -19,6 +19,7 @@ import { SpotFormBindingDirective } from './components/form-field/form-binding.d
 import { SpotBreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { SpotSelectorFieldComponent } from './components/selector-field/selector-field.component';
 import { SpotDropModalPortalComponent } from './components/drop-modal/drop-modal-portal.component';
+import { CloudIconComponent } from '@openproject/octicons-angular';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { SpotDropModalPortalComponent } from './components/drop-modal/drop-modal
     ReactiveFormsModule,
     CommonModule,
     A11yModule,
+    CloudIconComponent,
   ],
 
   providers: [
