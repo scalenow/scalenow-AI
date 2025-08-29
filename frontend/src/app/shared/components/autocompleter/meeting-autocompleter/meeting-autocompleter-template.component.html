@@ -1,5 +1,8 @@
 <ng-template #optionTemplate let-item>
-  <div>{{ item.name }}</div>
-  <div>ID: {{ item.id }}</div>
-  <div>time: {{ item.start_time }}</div>
+    <div>ID: {{ item.id }}</div>
+    <div>Name: {{ item.name }}</div>
+    <div>Project: {{ item.project }}</div>
+    <div>Time: {{ item.start_time }}</div>
+    <div>Date: {{ item.start_date }}</div>
+    <div *ngIf="item.frequency">Frequency: {{ item.frequency }}</div>
 </ng-template>

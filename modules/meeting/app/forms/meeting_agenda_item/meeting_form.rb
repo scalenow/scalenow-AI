@@ -40,6 +40,7 @@ class MeetingAgendaItem::MeetingForm < ApplicationForm
       autocomplete_options: {
         component: "opce-meeting-autocompleter",
         items: meeting_options,
+        group_by: "group_label",
         # Do not try to load data from API (it will look for a "resource")
         defaultData: false,
         bindLabel: "name",
@@ -57,18 +58,13 @@ class MeetingAgendaItem::MeetingForm < ApplicationForm
   end
 
   def meeting_options
-    MeetingAgendaItems::CreateContract
+    meetings = MeetingAgendaItems::CreateContract
       .assignable_meetings(User.current)
       .where("meetings.start_time + (interval '1 hour' * meetings.duration) >= ?", Time.zone.now)
       .order("meetings.start_time")
       .includes(:project)
-      .map do |meeting|
-      {
-        id: meeting.id,
-        name: meeting.title,
-        start_time: format_time(meeting.start_time)
-      }
-    end
+
+    GroupMeetingsService.new(meetings, as_options: true).call.result
   end
 
   def append_to_container
