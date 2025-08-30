@@ -915,7 +915,7 @@ es:
   account:
     delete: "Borrar cuenta"
     delete_confirmation: "¿Está seguro que desea eliminar la cuenta?"
-    deletion_pending: "La cuenta ha sido bloqueada y está programada para su eliminación. Tenga en cuenta que este proceso tiene lugar en segundo plano. Puede tardar un tiempo hasta que el usuario se borre por completo."
+    deletion_pending: "Account has been scheduled for deletion. Note that this process takes place in the background. It might take a few moments until the user is fully deleted."
     deletion_info:
       data_consequences:
         other: 'De los datos del usuario creado (por ejemplo correo electrónico, preferencias, paquetes de trabajo, entradas wiki) serán eliminados, en la medida de lo posible. Sin embargo, tenga en cuenta que no se pueden eliminar datos como entradas wiki y paquetes de trabajo sin obstaculizar el trabajo de los demás usuarios. Dichos datos, por lo tanto, serán reasignados a una cuenta denominada "Usuarios Eliminados". Como los datos de cada cuenta borrada son reasignados al eliminarla, no será posible distinguir los datos del usuario creado a partir de los datos de otra cuenta eliminada.'
@@ -2520,6 +2520,21 @@ es:
       community: "OpenProject Community"
       upsell:
         title: "Actualizar a la edición Enterprise"
+      new_features:
+        header: "Read about new features and product updates."
+        learn_about: "Learn more about all new features"
+        #We need to include the version to invalidate outdated translations in other locales
+        "16_4":
+          new_features_title: >
+            The release contains various new features and improvements, such as:
+          new_features_list:
+            line_0: Option to auto-sync system color + contrast mode.
+            line_1: Dark high contrast mode for improved accessibility.
+            line_2: PDF export of project lists.
+            line_3: Custom font for all PDF exports (Enterprise add-on).
+            line_4: Improved meeting participants dialog.
+            line_5: Improved budget handling in project queries and budget planning.
+            line_6: Updated Home and Project overview page.
     links:
       upgrade_enterprise_edition: "Actualizar a Enterprise"
       postgres_migration: "Migrando su instalación a PostgreSQL"
