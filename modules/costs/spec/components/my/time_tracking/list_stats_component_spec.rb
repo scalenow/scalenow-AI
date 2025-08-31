@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# -- copyright
+#-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
 #
@@ -26,35 +26,52 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-# ++
+#++
 
-module My
-  module TimeTracking
-    class ListStatsComponent < ApplicationComponent
-      include OpTurbo::Streamable
+require "rails_helper"
 
-      options :time_entries, :date
+RSpec.describe My::TimeTracking::ListStatsComponent, type: :component do
+  def render_component(...)
+    render_inline(described_class.new(...))
+  end
 
-      def wrapper_key
-        "time-entries-list-stats-#{date.iso8601}"
-      end
+  let(:date) { Date.civil(2022, 5, 4) }
 
-      def call
-        component_wrapper do
-          render(Primer::Beta::Text.new(color: :muted)) { "#{entry_count} - " } +
-          render(Primer::Beta::Text.new) { total_hours }
-        end
-      end
+  subject(:rendered_component) do
+    render_component(time_entries:, date:)
+  end
 
-      def total_hours
-        total_hours = time_entries.sum(&:hours_for_calculation).round(2)
-        DurationConverter.output(total_hours, format: :hours_and_minutes).presence || "0h"
-      end
+  shared_examples_for "applying an ID" do
+    it "applies an ID" do
+      expect(rendered_component).to have_element id: "time-entries-list-stats-2022-05-04"
+    end
+  end
 
-      def entry_count
-        entries_count = time_entries.size
-        "#{entries_count} #{TimeEntry.model_name.human(count: entries_count)}"
-      end
+  context "with no time entries" do
+    let(:time_entries) { build_list(:time_entry, 0) }
+
+    include_examples "applying an ID"
+
+    it "renders count" do
+      expect(rendered_component).to have_primer_text "0 Time entries", color: "muted"
+    end
+
+    it "renders sum" do
+      expect(rendered_component).to have_text "0h"
+    end
+  end
+
+  context "with time entries" do
+    let(:time_entries) { build_list(:time_entry, 2, hours: 1.325) }
+
+    include_examples "applying an ID"
+
+    it "renders count" do
+      expect(rendered_component).to have_primer_text "2 Time entries", color: "muted"
+    end
+
+    it "renders sum" do
+      expect(rendered_component).to have_text "2h 39m"
     end
   end
 end
