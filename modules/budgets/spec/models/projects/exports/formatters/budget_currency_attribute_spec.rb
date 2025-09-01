@@ -30,32 +30,65 @@
 
 require "rails_helper"
 
-RSpec.describe "Projects budget formatters" do
+RSpec.describe Projects::Exports::Formatters::BudgetCurrencyAttribute do
   let(:project) { create(:project) }
   let(:project_budgets_double) { instance_double(Budgets::Patches::Projects::RowComponentPatch::ProjectBudgets) }
   let(:budgets_patch_class) { Budgets::Patches::Projects::RowComponentPatch::ProjectBudgets }
+  let(:user_with_permission) { create(:user, member_with_permissions: { project => [:view_budgets] }) }
+  let(:user_without_permission) { create(:user) }
 
   before do
     allow(budgets_patch_class).to receive(:new).with(project).and_return(project_budgets_double)
   end
 
-  describe Projects::Exports::Formatters::BudgetCurrencyAttribute do
-    describe ".apply?" do
-      it "returns true for supported budget attributes" do
-        expect(described_class.apply?(:budget_available, :csv)).to be true
-        expect(described_class.apply?(:budget_spent, :csv)).to be true
-        expect(described_class.apply?(:budget_planned, :csv)).to be true
-        expect(described_class.apply?(:budget_available, :pdf)).to be true
-        expect(described_class.apply?(:budget_spent, :pdf)).to be true
-        expect(described_class.apply?(:budget_planned, :pdf)).to be true
+  describe ".apply?" do
+    it "returns true for supported budget attributes" do
+      expect(described_class.apply?(:budget_available, :csv)).to be true
+      expect(described_class.apply?(:budget_spent, :csv)).to be true
+      expect(described_class.apply?(:budget_planned, :csv)).to be true
+      expect(described_class.apply?(:budget_available, :pdf)).to be true
+      expect(described_class.apply?(:budget_spent, :pdf)).to be true
+      expect(described_class.apply?(:budget_planned, :pdf)).to be true
+    end
+
+    it "returns false for unsupported attributes" do
+      expect(described_class.apply?(:budget_spent_ratio, :csv)).to be false
+    end
+  end
+
+  describe "#format" do
+    it "returns nil when the an attribute is not available" do
+      allow(project_budgets_double).to receive(:total_available).and_return(42.7)
+      instance = described_class.new(:budget_available)
+
+      expect(instance.format(project)).to be_nil
+    end
+
+    it "returns nil when ProjectBudgets is not available" do
+      allow(budgets_patch_class).to receive(:new).with(project).and_return(nil)
+      instance = described_class.new(:budget_spent_ratio)
+
+      expect(instance.format(project)).to be_nil
+    end
+
+    context "with user without permission" do
+      before do
+        User.current = user_without_permission
       end
 
-      it "returns false for unsupported attributes" do
-        expect(described_class.apply?(:budget_spent_ratio, :csv)).to be false
+      it "returns nil" do
+        allow(project_budgets_double).to receive(:total_available).and_return(42.7)
+        instance = described_class.new(:budget_available)
+
+        expect(instance.format(project)).to be_nil
       end
     end
 
-    describe "#format" do
+    context "with user with permission" do
+      before do
+        User.current = user_with_permission
+      end
+
       it "formats the budget available" do
         allow(project_budgets_double).to receive(:total_available).and_return(42.7)
         instance = described_class.new(:budget_available)
@@ -75,43 +108,6 @@ RSpec.describe "Projects budget formatters" do
         instance = described_class.new(:budget_planned)
 
         expect(instance.format(project)).to eq("43 EUR")
-      end
-    end
-  end
-
-  describe Projects::Exports::Formatters::BudgetSpentRatio do
-    describe ".apply?" do
-      it "returns true for :budget_spent_ratio" do
-        expect(described_class.apply?(:budget_spent_ratio, :csv)).to be true
-        expect(described_class.apply?(:budget_spent_ratio, :pdf)).to be true
-      end
-
-      it "returns false for other attributes" do
-        expect(described_class.apply?(:budget_spent, :pdf)).to be false
-        expect(described_class.apply?(:budget_planned, :unknown)).to be false
-      end
-    end
-
-    describe "#format" do
-      it "formats the spent ratio percentage" do
-        allow(project_budgets_double).to receive(:total_ratio).and_return(42.7)
-        instance = described_class.new(:budget_spent_ratio)
-
-        expect(instance.format(project)).to eq("43%")
-      end
-
-      it "returns nil when the spent ratio is not available" do
-        allow(project_budgets_double).to receive(:total_ratio).and_return(nil)
-        instance = described_class.new(:budget_spent_ratio)
-
-        expect(instance.format(project)).to be_nil
-      end
-
-      it "returns nil when ProjectBudgets is not available" do
-        allow(budgets_patch_class).to receive(:new).with(project).and_return(nil)
-        instance = described_class.new(:budget_spent_ratio)
-
-        expect(instance.format(project)).to be_nil
       end
     end
   end

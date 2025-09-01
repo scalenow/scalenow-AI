@@ -30,16 +30,15 @@
 
 module Projects::Exports::Formatters
   class BudgetSpentRatio < ::Exports::Formatters::Default
-    def self.apply?(attribute, export_format)
+    def self.apply?(attribute, _export_format)
       attribute.to_sym == :budget_spent_ratio
     end
 
     def format(project, **)
-      return unless project.module_enabled?("budgets")
+      return unless project.module_enabled?("budgets") && User.current.allowed_in_project?(:view_budgets, project)
 
       project_budgets = ::Budgets::Patches::Projects::RowComponentPatch::ProjectBudgets.new(project)
       number_to_percentage(project_budgets.total_ratio, precision: 0) if project_budgets
     end
   end
 end
-

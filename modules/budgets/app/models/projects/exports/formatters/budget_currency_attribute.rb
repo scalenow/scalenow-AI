@@ -30,7 +30,6 @@
 
 module Projects::Exports::Formatters
   class BudgetCurrencyAttribute < ::Exports::Formatters::Default
-
     def self.apply?(attribute, _export_format)
       budget_mapping.key? attribute.to_sym
     end
@@ -44,7 +43,7 @@ module Projects::Exports::Formatters
     end
 
     def format(project, **)
-      return unless project.module_enabled?("budgets")
+      return unless project.module_enabled?("budgets") && User.current.allowed_in_project?(:view_budgets, project)
 
       project_budgets = ::Budgets::Patches::Projects::RowComponentPatch::ProjectBudgets.new(project)
       budgets_attribute = BudgetCurrencyAttribute.budget_mapping.fetch(attribute.to_sym)
@@ -58,4 +57,3 @@ module Projects::Exports::Formatters
     end
   end
 end
-
