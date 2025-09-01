@@ -78,8 +78,12 @@ module Relations
     def validate_user_allowed
       return if model.to_id.nil? || model.from_id.nil?
 
-      unless manage_relations?
-        errors.add :base, :error_unauthorized
+      unless from_manageable?
+        errors.add :from_id, :error_not_manageable
+      end
+
+      unless to_manageable?
+        errors.add :to_id, :error_not_manageable
       end
     end
 
@@ -99,8 +103,12 @@ module Relations
       ::WorkPackage.visible(user)
     end
 
-    def manage_relations?
+    def from_manageable?
       user.allowed_in_work_package?(:manage_work_package_relations, model.from)
+    end
+
+    def to_manageable?
+      user.allowed_in_work_package?(:manage_work_package_relations, model.to)
     end
   end
 end

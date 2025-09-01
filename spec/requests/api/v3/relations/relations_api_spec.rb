@@ -305,7 +305,7 @@ RSpec.describe "API v3 Relation resource", content_type: :json do
       it "lets the user know the attribute is read-only" do
         msg = JSON.parse(last_response.body)["message"]
 
-        expect(msg).to include "Related work package cannot be changed for existing relations."
+        expect(msg).to include "The selected work package cannot be changed for existing relations."
       end
     end
   end
