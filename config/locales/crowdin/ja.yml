@@ -2241,6 +2241,9 @@ ja:
   enumeration_reported_project_statuses: "報告されるプロジェクト進捗状況"
   enumeration_caption_order_changed: "オーダーの変更に成功しました。"
   enumeration_could_not_be_moved: "列挙は移動できなかった。"
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "ユーザー '%{value}' のシングルサインオン (SSO) に失敗しました"
   error_can_not_archive_project: "このプロジェクトはアーカイブできません: %{errors}"
   error_can_not_delete_entry: "エントリを削除できません"
@@ -2921,7 +2924,7 @@ ja:
   label_journal_diff: "説明の比較"
   label_language: "言語"
   label_languages: "言語"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "プロジェクトへ移動..."
   label_keyword_plural: "キーワード"
   label_language_based: "ユーザの言語設定に基づく"

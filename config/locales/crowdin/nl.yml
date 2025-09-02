@@ -2283,6 +2283,9 @@ nl:
   enumeration_reported_project_statuses: "Gerapporteerde projectstatus"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Single Sign-On (SSO) voor gebruiker '%{value}' is mislukt"
   error_can_not_archive_project: "Dit project kan niet worden gearchiveerd: %{errors}"
   error_can_not_delete_entry: "Niet in staat om ingave te verwijderen"
@@ -2963,7 +2966,7 @@ nl:
   label_journal_diff: "Beschrijving vergelijking"
   label_language: "Taal"
   label_languages: "Talen"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Ga naar een project..."
   label_keyword_plural: "Trefwoorden"
   label_language_based: "Op basis van de taal van gebruiker"

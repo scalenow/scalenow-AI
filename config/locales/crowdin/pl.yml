@@ -2373,6 +2373,9 @@ pl:
   enumeration_reported_project_statuses: "Status zgłoszonego projektu"
   enumeration_caption_order_changed: "Kolejność została zmieniona."
   enumeration_could_not_be_moved: "Nie można przenieść wyliczenia."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Pojedyncze logowanie (SSO) dla użytkownika '%{value}' nie powiodło się"
   error_can_not_archive_project: "Tego projektu nie można zarchiwizować: %{errors}"
   error_can_not_delete_entry: "Nie można usunąć wpisu"
@@ -3053,7 +3056,7 @@ pl:
   label_journal_diff: "Opis porównania"
   label_language: "Język"
   label_languages: "Języki"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Skok do projektu..."
   label_keyword_plural: "Słowa kluczowe"
   label_language_based: "Na podstawie języka użytkownika"

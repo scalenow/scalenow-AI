@@ -2287,6 +2287,9 @@ fil:
   enumeration_reported_project_statuses: "Estado ng inuulat na proyekto"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Single Sign-On (SSO) para sa gumagamit ng '%{value}' ay nabigo"
   error_can_not_archive_project: "This project cannot be archived: %{errors}"
   error_can_not_delete_entry: "Hindi mabura na entry"
@@ -2967,7 +2970,7 @@ fil:
   label_journal_diff: "Paglalarawan ng paghahambing"
   label_language: "Linggwahe"
   label_languages: "Languages"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Tumalon sa isang proyekto..."
   label_keyword_plural: "Keywords"
   label_language_based: "Naka-base sa linggwahe ng gumagamit"

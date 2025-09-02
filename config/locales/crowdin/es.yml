@@ -2284,6 +2284,9 @@ es:
   enumeration_reported_project_statuses: "Estatus del proyecto reportado"
   enumeration_caption_order_changed: "Orden cambiado con éxito."
   enumeration_could_not_be_moved: "No se ha podido mover la enumeración."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "El intento de inicio de sesión único (SSO) para el usuario “%{value}” falló"
   error_can_not_archive_project: "Este proyecto no se puede archivar: %{errors}"
   error_can_not_delete_entry: "No se puede eliminar la entrada"
@@ -2964,7 +2967,7 @@ es:
   label_journal_diff: "Comparación de la descripción"
   label_language: "Idioma"
   label_languages: "Idiomas"
-  label_locale: "Idioma y región"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Saltar a un proyecto..."
   label_keyword_plural: "Palabras clave"
   label_language_based: "Basado en el idioma del usuario"

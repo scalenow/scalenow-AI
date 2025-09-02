@@ -2285,6 +2285,9 @@ da:
   enumeration_reported_project_statuses: "Rapporteret projektstatus"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Single Sign-On (SSO) for user '%{value}' failed"
   error_can_not_archive_project: "Dette projekt kan ikke arkiveres: %{errors}"
   error_can_not_delete_entry: "Unable to delete entry"
@@ -2965,7 +2968,7 @@ da:
   label_journal_diff: "Sammenligning af beskrivelser"
   label_language: "Sprog"
   label_languages: "Languages"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Gå til et projekt..."
   label_keyword_plural: "Keywords"
   label_language_based: "Baseret på brugerens sprog"

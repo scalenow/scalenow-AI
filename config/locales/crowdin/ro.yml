@@ -2332,6 +2332,9 @@ ro:
   enumeration_reported_project_statuses: "Stările proiectului raportat"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Autentificarea unică (SSO) pentru utilizatorul '%{value}' a eșuat"
   error_can_not_archive_project: "Acest proiect nu poate fi arhivat: %{errors}"
   error_can_not_delete_entry: "Nu se poate șterge intrarea"
@@ -3012,7 +3015,7 @@ ro:
   label_journal_diff: "Comparare descriere"
   label_language: "Limbă"
   label_languages: "Languages"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Salt la un proiect..."
   label_keyword_plural: "Cuvinte cheie"
   label_language_based: "Bazat pe limba utilizatorului"

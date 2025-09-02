@@ -2370,6 +2370,9 @@ uk:
   enumeration_reported_project_statuses: "Повідомлення про статус проекту"
   enumeration_caption_order_changed: "Порядок змінено."
   enumeration_could_not_be_moved: "Неможливо перенести перелічення."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Єдиний вхід (SSO) для користувача %{value} не вдалося "
   error_can_not_archive_project: "Цей проєкт не можна архівувати: %{errors}"
   error_can_not_delete_entry: "Неможливо видалити запис"
@@ -3050,7 +3053,7 @@ uk:
   label_journal_diff: "Опис Порівняння"
   label_language: "Мова"
   label_languages: "Мови"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Перейти до проекту..."
   label_keyword_plural: "Ключові слова"
   label_language_based: "На основі мови користувача"

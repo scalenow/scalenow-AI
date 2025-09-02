@@ -2287,6 +2287,9 @@ bg:
   enumeration_reported_project_statuses: "Докладвани статуси на проект"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Неуспешно единично влизане (SSO) за потребител '%{value}'"
   error_can_not_archive_project: "Този проект не може да бъде архивиран: %{errors}"
   error_can_not_delete_entry: "Unable to delete entry"
@@ -2967,7 +2970,7 @@ bg:
   label_journal_diff: "Сравнение на описание"
   label_language: "Език"
   label_languages: "Езици"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Отиди на проект..."
   label_keyword_plural: "Ключови думи"
   label_language_based: "Въз основа на езика на потребителя"

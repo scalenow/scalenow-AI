@@ -2287,6 +2287,9 @@ sv:
   enumeration_reported_project_statuses: "Rapporterad projektstatus"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Singelinloggning (SSO) för användaren '%{value}' misslyckades"
   error_can_not_archive_project: "Det här projektet kan inte arkiveras: %{errors}"
   error_can_not_delete_entry: "Kunde inte ta bort inlägg"
@@ -2967,7 +2970,7 @@ sv:
   label_journal_diff: "Jämför beskrivning"
   label_language: "Språk"
   label_languages: "Språk"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Hoppa till projekt..."
   label_keyword_plural: "Nyckelord"
   label_language_based: "Baserat på användarens språk"

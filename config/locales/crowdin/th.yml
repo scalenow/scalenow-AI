@@ -2242,6 +2242,9 @@ th:
   enumeration_reported_project_statuses: "สถานะโครงการที่รายงานแล้ว"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Single Sign-On (SSO) for user '%{value}' failed"
   error_can_not_archive_project: "This project cannot be archived: %{errors}"
   error_can_not_delete_entry: "Unable to delete entry"
@@ -2922,7 +2925,7 @@ th:
   label_journal_diff: "เปรียบเทียบคำอธิบาย"
   label_language: "ภาษา"
   label_languages: "Languages"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "ไปยังโครงการ..."
   label_keyword_plural: "Keywords"
   label_language_based: "ตามภาษาของผู้ใช้"

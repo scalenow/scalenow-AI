@@ -2238,6 +2238,9 @@ zh-CN:
   enumeration_reported_project_statuses: "报告的项目状态"
   enumeration_caption_order_changed: "顺序修改成功。"
   enumeration_could_not_be_moved: "无法移动枚举。"
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "用户 \"%{value}\" 的单次登录 (SSO) 失败"
   error_can_not_archive_project: "此项目无法存档：%{errors}"
   error_can_not_delete_entry: "无法删除条目"
@@ -2918,7 +2921,7 @@ zh-CN:
   label_journal_diff: "描述的对比"
   label_language: "语言"
   label_languages: "语言"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "跳转到一个项目..."
   label_keyword_plural: "关键词"
   label_language_based: "基于用户的语言"

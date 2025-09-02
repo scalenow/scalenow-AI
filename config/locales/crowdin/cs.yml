@@ -2377,6 +2377,9 @@ cs:
   enumeration_reported_project_statuses: "Nahlášený stav projektu"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Jednotné přihlášení (SSO) pro uživatele '%{value}' selhalo"
   error_can_not_archive_project: "Tento projekt nelze archivovat: %{errors}"
   error_can_not_delete_entry: "Nelze odstranit položku"
@@ -3057,7 +3060,7 @@ cs:
   label_journal_diff: "Popis porovnání"
   label_language: "Jazyk"
   label_languages: "Jazyky"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Přejít na projekt..."
   label_keyword_plural: "Klíčová slova"
   label_language_based: "Na základě jazyka uživatele"

@@ -2376,6 +2376,9 @@ sl:
   enumeration_reported_project_statuses: "Poročano stanje projekta"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Enkratna prijava (SSO) za uporabnika '%{value}' ni uspela"
   error_can_not_archive_project: "Ta projekt ne more biti arhiviran: %{errors}"
   error_can_not_delete_entry: "Izbris poizvedbe ni mogoč"
@@ -3056,7 +3059,7 @@ sl:
   label_journal_diff: "Opisna Primerjava"
   label_language: "Jezik"
   label_languages: "Languages"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Skoči na projekt..."
   label_keyword_plural: "Ključne besede"
   label_language_based: "Glede na uporabnikov jezik"

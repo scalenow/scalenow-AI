@@ -2287,6 +2287,9 @@ et:
   enumeration_reported_project_statuses: "Esitatud projekti olek"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Single Sign-On (SSO) for user '%{value}' failed"
   error_can_not_archive_project: "This project cannot be archived: %{errors}"
   error_can_not_delete_entry: "Unable to delete entry"
@@ -2967,7 +2970,7 @@ et:
   label_journal_diff: "Kirjelduse võrdlus"
   label_language: "Keel"
   label_languages: "Keeled"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Mine projekti..."
   label_keyword_plural: "Märksõnad"
   label_language_based: "Põhineb kasutaja keelel"

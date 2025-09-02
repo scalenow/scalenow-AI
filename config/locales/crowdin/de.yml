@@ -2279,6 +2279,9 @@ de:
   enumeration_reported_project_statuses: "Gemeldeter Projektstatus"
   enumeration_caption_order_changed: "Reihenfolge erfolgreich geändert."
   enumeration_could_not_be_moved: "Aufzählung konnte nicht verschoben werden."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Single Sign-On (SSO) für Nutzer '%{value}' fehlgeschlagen"
   error_can_not_archive_project: "Dieses Projekt kann nicht archiviert werden: %{errors}"
   error_can_not_delete_entry: "Eintrag kann nicht gelöscht werden"
@@ -2959,7 +2962,7 @@ de:
   label_journal_diff: "Beschreibungsvergleich"
   label_language: "Sprache"
   label_languages: "Sprachen"
-  label_locale: "Sprache und Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Zu einem Projekt springen..."
   label_keyword_plural: "Schlüsselwörter"
   label_language_based: "Sprachabhängig"

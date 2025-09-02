@@ -2238,6 +2238,9 @@ id:
   enumeration_reported_project_statuses: "Status Project yang di-Report"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Single Sign-On (SSO) untuk pengguna '%{value}' gagal"
   error_can_not_archive_project: "Proyek ini tidak dapat diarsipkan: %{errors}"
   error_can_not_delete_entry: "Tidak dapat menghapus isian"
@@ -2918,7 +2921,7 @@ id:
   label_journal_diff: "Deskripsi perbandingan"
   label_language: "Bahasa"
   label_languages: "Bahasa"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Lompat ke Project..."
   label_keyword_plural: "Kata kunci"
   label_language_based: "Berdasarkan bahasa user"

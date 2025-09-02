@@ -2242,6 +2242,9 @@ vi:
   enumeration_reported_project_statuses: "Tình trạng dự án đã báo cáo"
   enumeration_caption_order_changed: "Order successfully changed."
   enumeration_could_not_be_moved: "Enumeration could not be moved."
+  enterprise_trials:
+    dialog_component:
+      title: Enterprise Trial
   error_auth_source_sso_failed: "Đăng nhập một lần (SSO) cho người dùng '%{value}' không thành công"
   error_can_not_archive_project: "Dự án này không thể lưu trữ: %{errors}"
   error_can_not_delete_entry: "Không thể xoá"
@@ -2922,7 +2925,7 @@ vi:
   label_journal_diff: "So sánh mô tả"
   label_language: "Ngôn ngữ"
   label_languages: "Ngôn ngữ"
-  label_locale: "Language and Region"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Nhảy đến dự án..."
   label_keyword_plural: "Từ khóa"
   label_language_based: "Dựa trên ngôn ngữ của người dùng"
