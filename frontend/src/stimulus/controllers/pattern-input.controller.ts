@@ -395,7 +395,8 @@ export default class PatternInputController extends Controller {
     // insert the HTML
     filtered.forEach((group, idx) => {
       const groupHeader = this.suggestionsHeadingTemplateTarget.content.cloneNode(true);
-      if (this.isElement(groupHeader)) {
+
+      if (this.isDocumentFragmentNode(groupHeader)) {
         const headerElement = groupHeader.querySelector('h2');
         if (headerElement) {
           headerElement.innerText = group.label;
@@ -406,7 +407,7 @@ export default class PatternInputController extends Controller {
 
       group.values.forEach((suggestion) => {
         const suggestionTemplate = this.suggestionsItemTemplateTarget.content.cloneNode(true);
-        if (!this.isElement(suggestionTemplate)) { return; }
+        if (!this.isDocumentFragmentNode(suggestionTemplate)) { return; }
 
         const suggestionItem = suggestionTemplate.firstElementChild;
         if (this.isElement(suggestionItem)) {
@@ -621,6 +622,10 @@ export default class PatternInputController extends Controller {
 
   private isListItem(node:Node|null):node is ListElement {
     return this.isElement(node) && node.dataset.role === 'list_item';
+  }
+
+  private isDocumentFragmentNode(node:Node|null):node is DocumentFragment {
+    return node !== null && node.nodeType === Node.DOCUMENT_FRAGMENT_NODE;
   }
 
   private isText(node:Node|null):node is Text {
