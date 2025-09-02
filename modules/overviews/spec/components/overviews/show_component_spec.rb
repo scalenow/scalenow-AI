@@ -97,6 +97,28 @@ RSpec.describe Overviews::ShowComponent, type: :component do
         expect(button["data-action"]).to include "click->overview--add-widgets#addWidget"
       end
     end
+
+    context "when project has no attributes or life cycle" do
+      it "renders subheader with no margin" do
+        expect(rendered_component).to have_css ".SubHeader", class: "!grid-mx"
+      end
+    end
+
+    context "when project has life cycle and user has permissions to view" do
+      let(:project) { build(:project) }
+      let!(:project_phase) { create(:project_phase, project:) }
+
+      before do
+        mock_permissions_for(user) do |mock|
+          mock.allow_in_project(:manage_overview, project:)
+          mock.allow_in_project(:view_project_phases, project:)
+        end
+      end
+
+      it "renders subheader with horizontal margin matching widget gap" do
+        expect(rendered_component).to have_css ".SubHeader", class: "grid-mx"
+      end
+    end
   end
 
   context "when project has neither project attributes or life cycle" do
