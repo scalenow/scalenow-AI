@@ -30,7 +30,7 @@
 
 module ::Overviews
   class OverviewsController < ::Grids::BaseInProjectController
-    before_action :jump_to_project_menu_item
+    before_action :jump_to_project_menu_item, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter
 
     menu_item :overview
 
@@ -43,10 +43,8 @@ module ::Overviews
     end
 
     def jump_to_project_menu_item
-      if params[:jump]
-        # try to redirect to the requested menu item
-        redirect_to_project_menu_item(@project, params[:jump]) && return
-      end
+      # try to redirect to the requested menu item
+      redirect_to_project_menu_item(@project, params[:jump]) if params[:jump]
     end
   end
 end
