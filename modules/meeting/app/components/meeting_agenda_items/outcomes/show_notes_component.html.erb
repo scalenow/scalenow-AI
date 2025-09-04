@@ -8,7 +8,7 @@
         end
 
         grid.with_area(:content, tag: :div) do
-          render(Primer::Box.new(classes: "op-uc-container", mt: 1)) do
+          render(Primer::Box.new(classes: "op-uc-container", mt: 1, pb: 0)) do
             format_text(@meeting_outcome, :notes)
           end
         end
