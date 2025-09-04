@@ -4,9 +4,12 @@ multi-ecosystem-groups:
   primer:
     schedule:
       interval: "daily"
+      target-branch: "dev"
+
   octicons:
     schedule:
       interval: "daily"
+      target-branch: "dev"
 
 updates:
   - package-ecosystem: "npm"
@@ -38,7 +41,6 @@ updates:
 
   - package-ecosystem: "npm"
     directory: "/frontend"
-    target-branch: "dev"
     versioning-strategy: increase
     patterns:
       - "@openproject/primer-view-components"
@@ -47,7 +49,6 @@ updates:
 
   - package-ecosystem: "npm"
     directory: "/frontend"
-    target-branch: "dev"
     versioning-strategy: increase
     patterns:
       - "@openproject/octicons-angular"
@@ -67,7 +68,6 @@ updates:
 
   - package-ecosystem: "bundler"
     directory: "/"
-    target-branch: "dev"
     versioning-strategy: increase
     patterns:
       - "openproject-primer_view_components"
@@ -75,7 +75,6 @@ updates:
 
   - package-ecosystem: "bundler"
     directory: "/"
-    target-branch: "dev"
     versioning-strategy: increase
     patterns:
       - "openproject-octicons*"
