@@ -132,6 +132,11 @@ class ApplicationController < ActionController::Base
            status: :bad_request
   end
 
+  rescue_from ActionController::UnknownFormat do
+    render body: "Invalid request format",
+           status: :not_acceptable
+  end
+
   rescue_from ActiveRecord::ConnectionTimeoutError do |exception|
     render_500 exception:,
                payload: ::OpenProject::Logging::ThreadPoolContextBuilder.build!
