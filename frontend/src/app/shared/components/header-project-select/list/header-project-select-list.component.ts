@@ -78,6 +78,7 @@ export class OpHeaderProjectSelectListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes:SimpleChanges) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (changes.displayMode || changes.projects || changes.favorited) {
       this.updateProjectFilter();
     }
@@ -106,7 +107,7 @@ export class OpHeaderProjectSelectListComponent implements OnInit, OnChanges {
   }
 
   extendedUrl(projectId:string|null):string {
-    const currentMenuItem = document.querySelector('meta[name="current_menu_item"]') as HTMLMetaElement;
+    const currentMenuItem = document.querySelector<HTMLMetaElement>('meta[name="current_menu_item"]')!;
     const url = projectId === null ? window.appBasePath : this.pathHelper.projectPath(projectId);
 
     if (!currentMenuItem) {
