@@ -73,7 +73,7 @@ export default class AutoThemeSwitcher extends Controller {
 
   applyTheme(theme:OpColorMode, increaseContrast:boolean):void {
     window.OpenProject.theme.applyThemeToBody(theme, increaseContrast);
-    this.updateOpLogoContrast(increaseContrast);
+    this.updateOpLogoContrast(theme, increaseContrast);
   }
 
   lightModeChanged():void {
@@ -86,15 +86,20 @@ export default class AutoThemeSwitcher extends Controller {
 
   private applySystemTheme():void {
     const colorMode = window.OpenProject.theme.detectSystemColorMode();
-    const themeContrastPreference = {
+    this.applyTheme(colorMode, this.colorModeContrastPreferences[colorMode]);
+  }
+
+  private updateOpLogoContrast(colorMode:OpColorMode, increaseContrast:boolean):void {
+    const isLightHighContrast = (colorMode === 'light' && increaseContrast);
+
+    this.desktopLogoTarget.classList.toggle(this.desktopLightHighContrastLogoClass, isLightHighContrast);
+    this.mobileLogoTarget.classList.toggle(this.mobileWhiteLogoClass, !isLightHighContrast);
+  }
+
+  private get colorModeContrastPreferences():Record<OpColorMode, boolean> {
+    return {
       light: this.enableAutoLightThemeContrastValue,
       dark: this.enableAutoDarkThemeContrastValue,
     };
-    this.applyTheme(colorMode, themeContrastPreference[colorMode]);
-  }
-
-  private updateOpLogoContrast(increaseContrast:boolean):void {
-    this.desktopLogoTarget.classList.toggle(this.desktopLightHighContrastLogoClass, increaseContrast);
-    this.mobileLogoTarget.classList.toggle(this.mobileWhiteLogoClass, !increaseContrast);
   }
 }
