@@ -28,9 +28,9 @@
 
 require "spec_helper"
 
-require_relative "../support/pages/overview"
+require_relative "../support/pages/dashboard"
 
-RSpec.describe "Overview page managing", :js do
+RSpec.describe "Dashboard page managing", :js do
   let!(:type) { create(:type) }
   let!(:project) { create(:project, types: [type], description: "My **custom** description") }
   let!(:open_status) { create(:default_status) }
@@ -74,15 +74,15 @@ RSpec.describe "Overview page managing", :js do
            })
   end
 
-  let(:overview_page) do
-    Pages::Overview.new(project)
+  let(:dashboard_page) do
+    Pages::Dashboard.new(project)
   end
 
   context "as a user with permission" do
     before do
       login_as user
 
-      overview_page.visit!
+      dashboard_page.visit!
     end
 
     it "renders the default view, allows altering and saving" do
@@ -107,17 +107,17 @@ RSpec.describe "Overview page managing", :js do
       end
 
       # within top-left area, add an additional widget
-      overview_page.add_widget(1, 1, :row, "Work packages table")
+      dashboard_page.add_widget(1, 1, :row, "Work packages table")
       # Actually there are two success messages displayed currently. One for the grid getting updated and one
       # for the query assigned to the new widget being created. A user will not notice it but the automated
       # browser can get confused. Therefore we dismiss it twice.
-      overview_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
+      dashboard_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
 
       # Fixing flaky spec: for some reason, the second request to load the table is not executed until
       # some activity happens on the page. Sending an enter key to trigger the second request.
       page.find("body").send_keys(:enter)
 
-      overview_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
+      dashboard_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
 
       table_area = Components::Grids::GridArea.new(".grid--area.-widgeted:nth-of-type(5)")
       table_area.expect_to_span(1, 1, 2, 2)
@@ -125,13 +125,13 @@ RSpec.describe "Overview page managing", :js do
       # A useless resizing shows no message and does not alter the size
       table_area.resize_to(1, 1)
 
-      overview_page.expect_no_toaster message: I18n.t("js.notice_successful_update")
+      dashboard_page.expect_no_toaster message: I18n.t("js.notice_successful_update")
 
       table_area.expect_to_span(1, 1, 2, 2)
 
       table_area.resize_to(1, 2)
 
-      overview_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
+      dashboard_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
 
       # Resizing leads to the table area now spanning a larger area
       table_area.expect_to_span(1, 1, 2, 3)
@@ -147,7 +147,7 @@ RSpec.describe "Overview page managing", :js do
 
       # Reloading kept the user's values
       visit home_path
-      overview_page.visit!
+      dashboard_page.visit!
 
       ## Because of the added column and the resizing the other widgets have moved down
       # For unknown, undesired reasons, the project description no longer spans two rows.
@@ -199,13 +199,13 @@ RSpec.describe "Overview page managing", :js do
     before do
       login_as user_without_permission
 
-      overview_page.visit!
+      dashboard_page.visit!
     end
 
     it "does not show the option to add widgets" do
       # Neither hover effects
-      overview_page.expect_unable_to_add_widget(1, 1, :column, nil)
-      overview_page.expect_unable_to_add_widget(1, 1, :row, nil)
+      dashboard_page.expect_unable_to_add_widget(1, 1, :column, nil)
+      dashboard_page.expect_unable_to_add_widget(1, 1, :row, nil)
 
       # nor a create button are shown
       expect(page).to have_no_test_selector("overview--add-widgets-button")

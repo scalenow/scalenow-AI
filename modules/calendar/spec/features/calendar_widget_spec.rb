@@ -27,7 +27,7 @@
 #++
 
 require "spec_helper"
-require_relative "../../../overviews/spec/support/pages/overview"
+require_relative "../../../overviews/spec/support/pages/dashboard"
 require_relative "../support/pages/calendar"
 
 RSpec.describe "Calendar Widget", :js, with_settings: { start_of_week: 1 } do
@@ -44,8 +44,8 @@ RSpec.describe "Calendar Widget", :js, with_settings: { start_of_week: 1 } do
     create(:meeting, title: "Weekly", project:, start_time: Time.zone.today.beginning_of_week.next_occurring(:tuesday) + 10.hours)
   end
 
-  let(:overview_page) do
-    Pages::Overview.new(project)
+  let(:dashboard_page) do
+    Pages::Dashboard.new(project)
   end
   let(:wp_full_view) { Pages::FullWorkPackage.new(work_package, project) }
   let(:calendar) { Pages::Calendar.new project }
@@ -59,14 +59,14 @@ RSpec.describe "Calendar Widget", :js, with_settings: { start_of_week: 1 } do
 
   before do
     login_as(current_user)
-    overview_page.visit!
+    dashboard_page.visit!
 
     wait_for_network_idle if using_cuprite?
 
     # within top-left area, add an additional widget
-    overview_page.add_widget(1, 1, :row, "Calendar")
+    dashboard_page.add_widget(1, 1, :row, "Calendar")
 
-    overview_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
+    dashboard_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
   end
 
   it "shows the meeting" do
@@ -102,13 +102,13 @@ RSpec.describe "Calendar Widget", :js, with_settings: { start_of_week: 1 } do
     expect(page).to have_css(".fc-event-title", text: work_package.subject)
 
     calendar.resize_date(work_package, work_package.due_date - 1.day)
-    overview_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
+    dashboard_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
 
     work_package.reload
     expect(work_package.due_date).to eq Time.zone.today.beginning_of_week.next_occurring(:wednesday)
 
     calendar.resize_date(work_package, work_package.due_date - 1.day)
-    overview_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
+    dashboard_page.expect_and_dismiss_toaster message: I18n.t("js.notice_successful_update")
 
     work_package.reload
     expect(work_package.due_date).to eq Time.zone.today.beginning_of_week.next_occurring(:tuesday)

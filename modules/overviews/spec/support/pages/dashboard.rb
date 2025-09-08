@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,40 +28,22 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require "spec_helper"
+require "support/pages/page"
 
-require_relative "../support/pages/dashboard"
+require_relative "../../../../grids/spec/support/pages/grid"
 
-RSpec.describe "Dashboard page on the fly creation if user lacks :manage_overview permission", :js do
-  let!(:type) { create(:type) }
-  let!(:project) { create(:project, types: [type]) }
-  let!(:open_status) { create(:default_status) }
+module Pages
+  class Dashboard < ::Pages::Grid
+    attr_accessor :project
 
-  let(:permissions) do
-    %i[view_work_packages]
-  end
+    def initialize(project)
+      super()
 
-  let(:user) do
-    create(:user,
-           member_with_permissions: { project => permissions })
-  end
-  let(:dashboard_page) do
-    Pages::Dashboard.new(project)
-  end
+      @project = project
+    end
 
-  before do
-    login_as user
-
-    dashboard_page.visit!
-  end
-
-  it "renders the default view, allows altering and saving" do
-    description_area = Components::Grids::GridArea.new(".grid--area.-widgeted:nth-of-type(1)")
-    details_area = Components::Grids::GridArea.new(".grid--area.-widgeted:nth-of-type(2)")
-    overview_area = Components::Grids::GridArea.new(".grid--area.-widgeted:nth-of-type(3)")
-
-    description_area.expect_to_exist
-    details_area.expect_to_exist
-    overview_area.expect_to_exist
+    def path
+      dashboard_project_overview_path(project)
+    end
   end
 end
