@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,12 +28,14 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module OpenProject
-  module Acts
-    module Favorable
-      module Registry
-        extend RegistryMethods
-      end
-    end
-  end
+# Be sure to restart your server when you modify this file.
+
+# For development and non-eager load mode, we need to load models using acts_as_favoritable manually
+# as no eager loading takes place
+Rails.application.config.to_prepare do
+  OpenProject::Acts::Favoritable::Registry.add(
+    Project,
+    ProjectQuery,
+    reset: true
+  )
 end

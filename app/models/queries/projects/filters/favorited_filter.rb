@@ -27,18 +27,39 @@
 #
 # See COPYRIGHT and LICENSE files for more details.
 #++
-module Projects::Exports
-  module Formatters
-    class Favored < ::Exports::Formatters::Default
-      def self.apply?(attribute, export_format)
-        export_format == :pdf && attribute.to_sym == :favored
-      end
 
-      ##
-      # Takes a project and returns yes/no depending on the favored attribute
-      def format(project, **)
-        project.favored_by?(User.current) ? I18n.t(:general_text_Yes) : I18n.t(:general_text_No)
-      end
+class Queries::Projects::Filters::FavoritedFilter < Queries::Projects::Filters::Base
+  include Queries::Filters::Shared::BooleanFilter
+
+  def self.key
+    :favorited
+  end
+
+  def human_name
+    I18n.t(:label_favorite)
+  end
+
+  def available?
+    User.current.logged?
+  end
+
+  def apply_to(_query_scope)
+    if (values.first == OpenProject::Database::DB_VALUE_TRUE && operator_strategy == Queries::Operators::BooleanEquals) ||
+      (values.first == OpenProject::Database::DB_VALUE_FALSE && operator_strategy == Queries::Operators::BooleanNotEquals)
+      super.where(id: favorited_project_ids)
+    else
+      super.where.not(id: favorited_project_ids)
     end
+  end
+
+  # Handled by scope
+  def where
+    nil
+  end
+
+  def favorited_project_ids
+    Favorite
+      .where(favorited_type: "Project", user_id: User.current.id)
+      .select(:favorited_id)
   end
 end

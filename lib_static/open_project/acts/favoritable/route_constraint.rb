@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-# -- copyright
+#-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
 #
@@ -26,18 +24,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-# ++
+#++
 
-class Queries::Projects::Selects::Favored < Queries::Selects::Base
-  def self.key
-    :favored
-  end
+module OpenProject
+  module Acts
+    module Favoritable
+      module RouteConstraint
+        def self.matches?(request)
+          params = request.path_parameters
 
-  def self.available?
-    true
-  end
-
-  def caption
-    I18n.t(:label_favorite)
+          Registry.instance(params[:object_type]) &&
+            /\d+/.match(params[:object_id])
+        end
+      end
+    end
   end
 end

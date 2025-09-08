@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,16 +28,43 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module OpenProject
-  module Acts
-    module Favorable
-      module RouteConstraint
-        def self.matches?(request)
-          params = request.path_parameters
+require "spec_helper"
 
-          Registry.instance(params[:object_type]) &&
-            /\d+/.match(params[:object_id])
+RSpec.describe OpenProject::Acts::Favoritable::RouteConstraint do
+  let(:request) { instance_double(ActionDispatch::Request, path_parameters:) }
+  let(:path_parameters) { { object_id: id, object_type: type } }
+
+  describe "matches?" do
+    %w[
+      projects
+    ].each do |type|
+      describe "routing #{type} watches" do
+        let(:type) { type }
+
+        describe "for a valid id string" do
+          let(:id) { "1" }
+
+          it "is true" do
+            expect(described_class).to be_matches(request)
+          end
         end
+
+        describe "for an invalid id string" do
+          let(:id) { "schmu" }
+
+          it "is false" do
+            expect(described_class).not_to be_matches(request)
+          end
+        end
+      end
+    end
+
+    describe "for a non watched model" do
+      let(:type) { "schmu" }
+      let(:id) { "4" }
+
+      it "is false" do
+        expect(described_class).not_to be_matches(request)
       end
     end
   end

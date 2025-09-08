@@ -27,15 +27,18 @@
 #
 # See COPYRIGHT and LICENSE files for more details.
 #++
+module Projects::Exports
+  module Formatters
+    class Favorited < ::Exports::Formatters::Default
+      def self.apply?(attribute, export_format)
+        export_format == :pdf && attribute.to_sym == :favorited
+      end
 
-# Be sure to restart your server when you modify this file.
-
-# For development and non-eager load mode, we need to load models using acts_as_favorable manually
-# as no eager loading takes place
-Rails.application.config.to_prepare do
-  OpenProject::Acts::Favorable::Registry.add(
-    Project,
-    ProjectQuery,
-    reset: true
-  )
+      ##
+      # Takes a project and returns yes/no depending on the favorited attribute
+      def format(project, **)
+        project.favorited_by?(User.current) ? I18n.t(:general_text_Yes) : I18n.t(:general_text_No)
+      end
+    end
+  end
 end

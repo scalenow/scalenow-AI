@@ -463,7 +463,7 @@ en:
     lists:
       active: "Active projects"
       my: "My projects"
-      favored: "Favorite projects"
+      favorited: "Favorite projects"
       archived: "Archived projects"
       shared: "Shared project lists"
       my_lists: "My project lists"

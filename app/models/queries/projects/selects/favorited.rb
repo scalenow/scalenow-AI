@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#-- copyright
+# -- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
 #
@@ -26,40 +26,18 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-#++
+# ++
 
-class Queries::Projects::Filters::FavoredFilter < Queries::Projects::Filters::Base
-  include Queries::Filters::Shared::BooleanFilter
-
+class Queries::Projects::Selects::Favorited < Queries::Selects::Base
   def self.key
-    :favored
+    :favorited
   end
 
-  def human_name
+  def self.available?
+    true
+  end
+
+  def caption
     I18n.t(:label_favorite)
-  end
-
-  def available?
-    User.current.logged?
-  end
-
-  def apply_to(_query_scope)
-    if (values.first == OpenProject::Database::DB_VALUE_TRUE && operator_strategy == Queries::Operators::BooleanEquals) ||
-      (values.first == OpenProject::Database::DB_VALUE_FALSE && operator_strategy == Queries::Operators::BooleanNotEquals)
-      super.where(id: favored_project_ids)
-    else
-      super.where.not(id: favored_project_ids)
-    end
-  end
-
-  # Handled by scope
-  def where
-    nil
-  end
-
-  def favored_project_ids
-    Favorite
-      .where(favored_type: "Project", user_id: User.current.id)
-      .select(:favored_id)
   end
 end
