@@ -384,6 +384,8 @@ module Pages::Meetings
       end
     end
 
+    # Clicks "Save" button and waits until the number of agenda items in the database has
+    # changed.
     def click_save_and_wait_for_agenda_item_creation
       initial_db_items_count = MeetingAgendaItem.count
       click_on("Save")
@@ -396,13 +398,14 @@ module Pages::Meetings
       MeetingAgendaItem.maximum(:id)
     end
 
-    # warning: does not work when using `travel_to` because time is stopped.
+    # Clicks "Save" button and waits until some agenda items have a different
+    # `lock_version` value in the database.
     def click_save_and_wait_for_agenda_item_update
-      initial_db_items_updated_at = MeetingAgendaItem.order(:id).pluck(:updated_at)
+      initial_db_items_versions = MeetingAgendaItem.order(:id).pluck(:lock_version)
       click_on("Save")
 
       # wait for db save
-      wait_for { MeetingAgendaItem.order(:id).pluck(:updated_at) }.not_to eq(initial_db_items_updated_at)
+      wait_for { MeetingAgendaItem.order(:id).pluck(:lock_version) }.not_to eq(initial_db_items_versions)
     end
 
     def select_backlog_action(action)
@@ -439,10 +442,15 @@ module Pages::Meetings
       end
     end
 
-    def edit_agenda_item(item, &)
+    def edit_agenda_item(item, save: true, &)
       select_action item, "Edit"
       expect_item_edit_form(item)
-      page.within("#meeting-agenda-items-form-component-#{item.id}", &)
+      page.within("#meeting-agenda-items-form-component-#{item.id}") do
+        yield
+        if save
+          click_save_and_wait_for_agenda_item_update
+        end
+      end
     end
 
     def expect_item_edit_form(item, visible: true)
