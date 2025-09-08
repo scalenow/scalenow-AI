@@ -1,2 +1,2 @@
-<%= render partial: "page_header" %>
+<%= render(Overviews::PageHeaderComponent.new(project: @project, current_user:)) %>
 <%= render(Overviews::ShowComponent.new(project: @project, current_user:)) %>
