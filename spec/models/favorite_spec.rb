@@ -28,9 +28,22 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-class Favorite < ApplicationRecord
-  belongs_to :user
-  belongs_to :favorited, polymorphic: true
+require "rails_helper"
 
-  validates :favorited_id, uniqueness: { scope: %i[favorited_type user_id], message: :already_favorited }
+RSpec.describe Favorite do
+  let(:user) { create(:user) }
+  let(:favorited) { create(:project) }
+
+  subject(:favorite) { create(:favorite, user:, favorited:) }
+
+  describe "validations" do
+    before do
+      favorite
+    end
+
+    it "validates uniqueness of favorited_id, scoped to favorited_type and user_id" do
+      expect { create(:favorite, user:, favorited:) }
+        .to raise_error(ActiveRecord::RecordInvalid, /Item has already been favorited/)
+    end
+  end
 end

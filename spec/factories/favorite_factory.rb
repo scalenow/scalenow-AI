@@ -28,9 +28,8 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-class Favorite < ApplicationRecord
-  belongs_to :user
-  belongs_to :favorited, polymorphic: true
-
-  validates :favorited_id, uniqueness: { scope: %i[favorited_type user_id], message: :already_favorited }
+FactoryBot.define do
+  factory :favorite do
+    user
+  end
 end

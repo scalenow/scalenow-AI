@@ -1092,6 +1092,8 @@ en:
         active_user_count_restriction: "Active users"
       enterprise_trial:
         company: "Company"
+      favorite:
+        favorited: "Item"
       grids/grid:
         page: "Page"
         row_count: "Number of rows"
@@ -1453,6 +1455,8 @@ en:
           only_one_trial: "Only one trial token can be active. Please delete the previous trial token before adding another."
           unreadable: "can't be read. Are you sure it is a support token?"
           already_added: "This token has already been added."
+        favorite:
+          already_favorited: "has already been favorited."
         grids/grid:
           overlaps: "overlap."
           outside: "is outside of the grid."
