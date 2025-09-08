@@ -40,7 +40,6 @@ export const meetingsAutocompleterSelector = 'op-meeting-autocompleter';
   templateUrl: '../op-autocompleter/op-autocompleter.component.html',
   styleUrls: ['./meeting-autocompleter.component.sass'],
   encapsulation: ViewEncapsulation.None,
-  selector: meetingsAutocompleterSelector,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

@@ -3,21 +3,21 @@
 </ng-template>
 
 <ng-template #optionTemplate let-item let-search="search">
-    <div class="op-autocompleter__meeting-option-grid">
-        <div class="op-autocompleter__field--name" [opSearchHighlight]="search">
+    <div class="op-meeting-autocompleter">
+        <div class="op-meeting-autocompleter--name" [opSearchHighlight]="search">
             {{ item.name }}
         </div>
-        <div class="op-autocompleter__field--date">
+        <div class="op-meeting-autocompleter--date">
             {{ item.start_date }}
         </div>
-        <div class="op-autocompleter__field--project-label">Project:</div>
+        <div class="op-meeting-autocompleter--project-label">Project:</div>
 
-        <div class="op-autocompleter__field--frequency" *ngIf="item.frequency">
+        <div class="op-meeting-autocompleter--frequency" *ngIf="item.frequency">
             {{ item.frequency }}
         </div>
-        <div class="op-autocompleter__field--time">
+        <div class="op-meeting-autocompleter--time">
             {{ item.start_time }}
         </div>
-        <div class="op-autocompleter__field--project">{{ item.project }}</div>
+        <div class="op-meeting-autocompleter--project">{{ item.project }}</div>
     </div>
 </ng-template>
