@@ -14,12 +14,18 @@ We released [OpenProject 16.4.0](https://community.openproject.org/versions/2211
 
 ## Important feature changes
 
+Take a look at our release video showing the most important features introduced in OpenProject 16.4.0:
+
+![Release video of OpenProject 16.4](https://openproject-docs.s3.eu-central-1.amazonaws.com/videos/OpenProject_16_4_release.mp4)
+
 ### Option to automatically sync the color mode with operating system preference
 
 Users can now enable **automatic color mode** under *Account settings → Interface* to match OpenProject’s color mode with their operating system (OS) preference. When enabled, OpenProject automatically switches between light and dark modes based on the OS setting. Please note that your operating system must also be set to automatic switching.
 
 > [!NOTE]
 > If a user has enabled dark mode — either by default or through automatic switching — this overrides the instance’s design settings for that user.
+
+[Learn more about the *Look and feel* options in OpenProject](../../user-guide/account-settings/#look-and-feel). 
 
 ![Screenshot of OpenProject 16.4: Account settings to adjust color mode, Automatic mode selected](openproject-16-4-color-mode-light-1.png)
 
@@ -44,13 +50,13 @@ The exported PDF includes:
 - All selected attributes from the project list, shown in the same order as in the table.
 - Section titles linked to the respective project in OpenProject.
 
-To export a project list, open the **More (three dots)** menu in the top right corner of the list and select Export. In the export modal, you can choose between XLS, CSV, or PDF.
+To export a project list, open the **More (three dots)** menu in the top right corner of the list and select Export. In the export modal, you can choose between XLS, CSV, or PDF. [Read more about project lists in our documentation](../../user-guide/projects/project-lists/#export-project-lists).
 
 ![Screenshot of OpenProject 16.4: Export modal for PDF export of project lists, choosing the file format - XLS, CSV and PDF](openproject-16-4-export-project-list-highlighted.png)
 
-### Custom font for all PDF exports (Enterprise add-on)
+### Custom fonts for all PDF exports (Enterprise add-on)
 
-Administrators on the Enterprise Basic plan and higher can now upload a custom font to be used in all PDF exports. This makes it possible to comply with organization-specific requirements, such as corporate design guidelines.
+Administrators for the Enterprise Basic plan and higher can now upload a custom font to be used in all PDF exports. This makes it possible to comply with organization-specific requirements, such as corporate design guidelines.
 
 A new section has been added under *Administration → Design → PDF export font* where administrators can:
 
@@ -66,11 +72,11 @@ Once uploaded, the font is applied to **all future PDF exports across the instan
 
 The meeting participants dialog has been redesigned to make managing participants easier and more efficient. Two major improvements have been added:
 
-#### Autocomplete and multi-select for inviting users
+#### 1. Autocomplete and multi-select for inviting users
 
 When preparing a meeting agenda, you can now search and select participants using an **autocomplete** field. This is especially helpful in projects with many members.
 
-#### Simplified attendance tracking
+#### 2. Simplified attendance tracking
 
 If the meeting is set to *In progress*, a **toggle switch next to each participant lets you mark attendance directly**. You can also use a header action to 'Mark all as attended'.
 
@@ -79,6 +85,8 @@ Other meetings improvements include:
 - Consistent design with the sharing dialog for work packages.
 - Ability to remove participants directly from the dialog.
 - Cleaner display in the meeting right side and PDF export: only Attended is shown (no more 'Invited' label).
+
+[Learn more about meeting management with OpenProject](../../user-guide/meetings/#meeting-management).
 
 ![Screenshot of OpenProject 16.4: Meeting participants modal with autocomplete and 'Mark as attended' button](openproject-16-4-meeting-participants.png)
 
@@ -94,7 +102,7 @@ Key capabilities include:
 - Distinguish between locally managed and synchronized memberships.
 - Retain full administrative control to rename or delete synced groups and memberships.
 
-This provides flexibility for organizations, especially when self-registration is enabled. Unlike LDAP synchronization, group updates are applied on login, giving admins full control over membership changes.
+This provides flexibility for organizations, especially when self-registration is enabled. Unlike LDAP synchronization, group updates are applied on login, giving admins full control over membership changes. [Read more about OIDC in our documentation](../../system-admin-guide/authentication/openid-providers/).
 
 This feature was developed with the support of Helmholtz-Zentrum Berlin.
 
@@ -104,7 +112,7 @@ With OpenProject 16.4, it is now easier to set up and track budgets. When creati
 
 In addition, **project lists** now include columns for planned budget, spent budget, spent percentage, and available budget, giving you a clearer overview across projects.
 
-These updates make budgeting more practical for everyday use, and we will continue to expand budgets and cost management in future releases.
+These updates make budgeting more practical for everyday use, and we will continue to expand budgets and cost management in future releases. [Read more about budgets in our user guide](../../user-guide/budgets/).
 
 ![Screenshot of OpenProject 16.4: New budget with highlighted Base amount](openproject-16-4-budgets-highlighted.png)
 
@@ -115,11 +123,13 @@ OpenProject 16.4 introduces **UI improvements** to the existing widgets on the a
 Changes include:
 
 - Refreshed styling with white backgrounds in Light mode, rounded corners, and improved dark mode support.
-- The More (three dots) menu is now always visible.
-- The 'add widgets' placeholder is easier to spot and clickable.
+- The **More (three dots) menu** is now always visible.
+- The **add widgets** placeholder is easier to spot and clickable.
 - A new **+ Widget button** in the subheader opens the widget selection modal, with new widgets placed at the top of the page.
 
 These updates make widgets clearer and faster to use, while work continues on the upcoming Overview dashboard.
+
+![Screenshot of OpenProject 16.4: New design for the project overview page](open_project_user_guide_project_settings_overview.png)
 
 ## Important technical updates
 
@@ -133,7 +143,7 @@ The SCIM server functionality (Enterprise add-on) introduced in OpenProject 16.2
 
 - **Clear error for insufficient plan**: If the Enterprise subscription level does not include SCIM, the server now returns a 403 Forbidden with a clear message instead of a generic 401 error.
 
-These changes make SCIM integrations more robust and transparent, improving interoperability with identity providers.
+These changes make SCIM integrations more robust and transparent, improving interoperability with identity providers. [Read more about SCIM provisioning in our documentation](../../system-admin-guide/authentication/scim/).
 
 <!--more-->
 
@@ -233,7 +243,8 @@ A very special thank you goes to Helmholtz-Zentrum Berlin, City of Cologne, Deut
 
 Last but not least, we are very grateful for our very engaged translation contributors on Crowdin, who translated quite a few OpenProject strings! This release we would like to particularly thank the following users:
 
-- [name](https://crowdin.com/profile/deconfcom), for a great number of translations into Language.
-
+- [Alin Marcu](https://crowdin.com/profile/deconfcom), for a great number of translations into Romanian.
+- [William](https://crowdin.com/profile/williamfromtw), for a great number of translations into Chinese Traditional.
+- [OlhaTrotska](https://crowdin.com/profile/OlhaTrotska), for a great number of translations into Ukrainian.
 
 Would you like to help out with translations yourself? Then take a look at our [translation guide](../../contributions-guide/translate-openproject/) and find out exactly how you can contribute. It is very much appreciated!
