@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# -- copyright
+#-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
 #
@@ -26,48 +26,41 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-# ++
+#++
+require "rails_helper"
 
-module Shares
-  module ProjectQueries
-    class PublicFlagComponent < ApplicationComponent # rubocop:disable OpenProject/AddPreviewForViewComponent
-      include OpTurbo::Streamable
-      include OpPrimer::ComponentHelpers
+RSpec.describe OpPrimer::InsetBoxComponent, type: :component do
+  def render_component(**args)
+    render_inline(described_class.new(**args))
+  end
 
-      def initialize(strategy:, modal_body_container:)
-        super
+  context "with defaults" do
+    subject(:rendered) { render_component }
 
-        @strategy = strategy
-        @container = modal_body_container
-      end
+    it "renders with default inset styles" do
+      expect(rendered).to have_css(".color-bg-inset.p-3.rounded-2")
+    end
 
-      private
+    it "renders with border by default" do
+      expect(rendered).to have_css(".border")
+      expect(rendered).to have_no_css(".border-0")
+    end
+  end
 
-      attr_reader :strategy, :container
+  context "when border is false" do
+    subject(:rendered) { render_component(border: false) }
 
-      def toggle_public_flag_link
-        toggle_public_project_query_path(strategy.entity)
-      end
+    it "renders border-0 instead of border" do
+      expect(rendered).to have_css(".border-0")
+      expect(rendered).to have_no_css(".border")
+    end
+  end
 
-      def published?
-        strategy.entity.public?
-      end
+  context "when custom classes are passed" do
+    subject(:rendered) { render_component(classes: "my-extra-class") }
 
-      def can_publish?
-        User.current.allowed_globally?(:manage_public_project_queries)
-      end
-
-      def tooltip_message
-        return if can_publish?
-
-        I18n.t("sharing.project_queries.publishing_denied")
-      end
-
-      def tooltip_wrapper_classes
-        ["d-flex", "flex-column"].tap do |classlist|
-          classlist << "tooltip--bottom" unless can_publish?
-        end
-      end
+    it "applies custom classes" do
+      expect(rendered).to have_css(".my-extra-class")
     end
   end
 end
