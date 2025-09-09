@@ -26,11 +26,12 @@
 // See COPYRIGHT and LICENSE files for more details.
 //++
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, Input, OnInit } from '@angular/core';
 import { GridPageComponent } from 'core-app/shared/components/grids/grid/page/grid-page.component';
 import { GRID_PROVIDERS } from 'core-app/shared/components/grids/grid/grid.component';
 import { OpSharedModule } from 'core-app/shared/shared.module';
 import { OpenprojectGridsModule } from 'core-app/shared/components/grids/openproject-grids.module';
+import { populateInputsFromDataset } from 'core-app/shared/components/dataset-inputs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,8 +44,17 @@ import { OpenprojectGridsModule } from 'core-app/shared/components/grids/openpro
   providers: GRID_PROVIDERS,
   standalone: true,
 })
-export class DashboardComponent extends GridPageComponent {
+export class DashboardComponent extends GridPageComponent implements OnInit {
+  @Input() projectIdentifier:string;
+
+  readonly elementRef = inject(ElementRef);
+
+  ngOnInit() {
+    populateInputsFromDataset(this);
+    super.ngOnInit();
+  }
+
   protected gridScopePath():string {
-    return this.pathHelper.projectDashboardsPath(this.currentProject.identifier ?? '');
+    return this.pathHelper.projectDashboardsPath(this.projectIdentifier);
   }
 }

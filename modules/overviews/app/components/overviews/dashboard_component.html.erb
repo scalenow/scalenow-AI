@@ -47,5 +47,5 @@ See COPYRIGHT and LICENSE files for more details.
     %>
   <% end %>
 
-  <%= angular_component_tag("opce-dashboard") %>
+  <%= angular_component_tag("opce-dashboard", inputs: { projectIdentifier: @project.identifier }) %>
 </div>
