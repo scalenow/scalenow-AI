@@ -102,7 +102,7 @@ ru:
     button_save: "Сохранить"
     button_settings: "Настройки"
     button_uncheck_all: "Снять все отметки"
-    button_update: "Обновить"
+    button_update: "Обновление"
     button_export-atom: "Скачать Atom"
     button_generate_pdf: "Создать PDF"
     button_create: "Создать"
@@ -1108,6 +1108,7 @@ ru:
         few: "пакетов работ с %{count} дочерними"
         many: "пакет работ с %{count} дочерними"
         other: "пакет работ с %{count} дочерними"
+      hour_string: "%{hours} h"
       hour:
         one: "1 ч"
         other: "%{count} ч"

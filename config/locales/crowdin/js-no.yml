@@ -102,7 +102,7 @@
     button_save: "Lagre"
     button_settings: "Innstillinger"
     button_uncheck_all: "Avmerk alle"
-    button_update: "Oppdater"
+    button_update: "Oppdatèr"
     button_export-atom: "Last ned Atom"
     button_generate_pdf: "Generate PDF"
     button_create: "Opprett"
@@ -1103,6 +1103,7 @@
       child_work_packages:
         one: "en underordnet arbeidspakke"
         other: "%{count} underordnet arbeidspakke"
+      hour_string: "%{hours} h"
       hour:
         one: "1 t"
         other: "%{count} t"

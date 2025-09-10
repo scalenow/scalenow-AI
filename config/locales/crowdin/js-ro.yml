@@ -102,7 +102,7 @@ ro:
     button_save: "Salvează"
     button_settings: "Setări"
     button_uncheck_all: "Deselectează tot"
-    button_update: "Actualizează"
+    button_update: "Actualizare"
     button_export-atom: "Descarcă Atom"
     button_generate_pdf: "Generează PDF"
     button_create: "Creează"
@@ -1105,6 +1105,7 @@ ro:
         one: "Un pachet de lucru descendent"
         few: "%{count} descendenți ai pachetului de lucru"
         other: "%{count} copii din pachetul de lucru"
+      hour_string: "%{hours} h"
       hour:
         one: "1 oră"
         other: "%{count} ora"
