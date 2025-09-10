@@ -186,7 +186,6 @@ import { GlobalSearchWorkPackagesComponent } from 'core-app/core/global_search/g
 import {
   CustomDateActionAdminComponent,
 } from 'core-app/features/work-packages/components/wp-custom-actions/date-action/custom-date-action-admin.component';
-import { HomescreenNewFeaturesBlockComponent } from 'core-app/features/homescreen/blocks/new-features.component';
 import {
   ZenModeButtonComponent,
 } from 'core-app/features/work-packages/components/wp-buttons/zen-mode-toggle-button/zen-mode-toggle-button.component';
@@ -206,6 +205,9 @@ import {
 } from 'core-app/shared/components/datepicker/wp-date-picker-modal/wp-date-picker-instance.component';
 import { OpInviteUserModalAugmentService } from 'core-app/features/invite-user-modal/invite-user-modal-augment.service';
 import { TimeEntryTimerService } from 'core-app/shared/components/time_entries/services/time-entry-timer.service';
+import { MyPageComponent } from './features/my-page/my-page.component';
+import { OverviewComponent } from './features/overview/overview.component';
+import { DashboardComponent } from './features/dashboards/dashboard/dashboard.component';
 
 export function initializeServices(injector:Injector) {
   return () => {
@@ -224,15 +226,13 @@ export function initializeServices(injector:Injector) {
       contextMenu.register();
       inviteUserAugmentService.setupListener();
       timeEntryTimerService.initialize();
+      currentProject.detect();
     };
     runOnRenderAndLoad();
 
     // Register on turbo:render, turbo:load
     document.addEventListener('turbo:render', runOnRenderAndLoad);
-    document.addEventListener('turbo:load', () => {
-      runOnRenderAndLoad();
-      currentProject.detect();
-    });
+    document.addEventListener('turbo:load', runOnRenderAndLoad);
 
     keyboardShortcuts.register();
 
@@ -424,8 +424,11 @@ export class OpenProjectModule implements DoBootstrap {
     registerCustomElement('opce-toasts-container', ToastsContainerComponent, { injector });
     registerCustomElement('opce-global-search-work-packages', GlobalSearchWorkPackagesComponent, { injector });
     registerCustomElement('opce-custom-date-action-admin', CustomDateActionAdminComponent, { injector });
-    registerCustomElement('opce-homescreen-new-features-block', HomescreenNewFeaturesBlockComponent, { injector });
     registerCustomElement('opce-zen-mode-toggle-button', ZenModeButtonComponent, { injector });
     registerCustomElement('opce-colors-autocompleter', ColorsAutocompleterComponent, { injector });
+
+    registerCustomElement('opce-my-page', MyPageComponent, { injector });
+    registerCustomElement('opce-overview', OverviewComponent, { injector });
+    registerCustomElement('opce-dashboard', DashboardComponent, { injector });
   }
 }

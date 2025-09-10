@@ -59,6 +59,10 @@ hu:
       tab_interface: "Interface"
       tab_branding: "Branding"
       tab_pdf_export_styles: "PDF export styles"
+      tab_pdf_export_font: "PDF export font"
+      fonts:
+        file_too_large: "is too large (maximum size is %{count} MB)."
+        file_is_invalid: "is not a valid TTF font file."
       colors:
         primary-button-color: "Elsődleges gomb"
         accent-color: "Kiemelőszín"
@@ -137,7 +141,7 @@ hu:
       new:
         title: "New SCIM client"
       revoke_static_token_dialog_component:
-        confirm_button: "Revoke"
+        confirm_button: "Visszavonás"
         title: "Revoke static token"
         heading: "Are you sure you want to revoke this token?"
         description: "The SCIM client that uses this token will no longer be able to access OpenProject's SCIM server API."
@@ -145,7 +149,7 @@ hu:
         blank_slate:
           title: "No SCIM clients configured yet"
           description: "Add clients to see them here"
-        user_count: "Users"
+        user_count: "Felhasználók"
       token_list_component:
         description: "The tokens you generate here can be passed by a SCIM client to access the OpenProject SCIM API."
         heading: "Tokens"
@@ -296,6 +300,7 @@ hu:
         placeholder:
           label: "Item label"
           short: "Short name"
+          score: "Score"
       notice:
         remember_items_and_projects: "Remember to set items and projects in the respective tabs for this custom field."
       hierarchy:
@@ -331,13 +336,18 @@ hu:
     single: "vagy"
   dry_validation:
     errors:
+      defined: "must not be defined."
       int?: "must be an integer."
+      decimal?: "must be a decimal."
       filled?: "must be filled."
+      key?: "is missing."
       greater_or_equal_zero: "must be greater or equal to 0."
       not_found: "not found."
       rules:
         copy_workflow_from:
           workflow_missing: "has no own workflow."
+        custom_field:
+          format_not_supported: "format '%{field_format}' is unsupported."
         item:
           root_item: "cannot be a root item."
           not_persisted: "must be an already existing item."
@@ -353,6 +363,7 @@ hu:
       depth: "Depth"
       item: "Item"
       label: "Label"
+      score: "Score"
       short: "Short name"
       parent: "Szülő"
       blueprint: "Pattern blueprint"
@@ -373,7 +384,7 @@ hu:
       description: By grouping users together, you can add them as members to the same projects or assign the same global roles to them.
     table_component:
       blank_slate:
-        description: You can define groups of users with specific names
+        description: You can define named groups of users with specific permissions.
         title: No groups set up yet
       user_count: User count
     users:
@@ -463,7 +474,7 @@ hu:
       life_cycle:
         header:
           title: "Project life cycle"
-          description_html: "The active project phases define this project's life cycle and are defined in the <a href=%{admin_settings_url} target=\"_blank\">administration settings</a>. Enabled phases will be displayed in your <a href=%{overview_url} target=\"_blank\">project overview</a>."
+          description_html: 'The active project phases define this project''s life cycle and are defined in the <a href=%{admin_settings_url} target="_blank">administration settings</a>. Enabled phases will be displayed in your <a href=%{overview_url} target="_blank">project overview</a>.'
         non_defined: "No phases are currently defined."
         section_header: "Phases"
         step:
@@ -572,26 +583,26 @@ hu:
       will_revoke_access_to_all: "This action will revoke their access to all of them."
   my:
     access_token:
-      create_dialog:
-        title: Token generated
-        header: The %{type} token has been generated
-        warning: Note that this is the only time you will see this token, make sure to copy it now.
+      dialog:
+        token/api:
+          dialog_title: "Create new API token"
+          attention_text: "Treat API tokens like passwords. Anyone with this token will have access to information from this instance, share it only with trusted users."
+          dialog_body: "This token will allow third-party applications to communicate with your instance. To differentiate the new API token, please give it a name."
+          create_button: "Létrehoz"
+          name_label: "Token name"
+      created_dialog:
+        token/api:
+          title: "The API token has been generated"
+          warning: "This is the only time you will see this token. Make sure to copy it now."
       errors:
         token_name_blank: "Please provide an API token name"
         token_name_in_use: "This API token name is already in use, please select a different one"
-      new_access_token_dialog_title: "Create new API token"
-      new_access_token_dialog_show_button_text: "API token"
-      new_access_token_dialog_text_field_placeholder_text: "My API token"
-      new_access_token_dialog_text_field_label: "Név"
-      new_access_token_dialog_submit_button_text: "Létrehoz"
-      new_access_token_dialog_text: "This token will allow third-party applications to communicate with your instance. To differentiate the new API token, please give it a name."
-      new_access_token_dialog_attention_text: "Treat API tokens like passwords. Anyone with this link will have access to information from this instance, share it only with trusted users."
       failed_to_reset_token: "Hozzáférési token helyreállítása sikertelen: %{error}"
       failed_to_create_token: "Failed to create access token: %{error}"
       failed_to_revoke_token: "Failed to revoke access token: %{error}"
       notice_reset_token: "Egy új %{type} token létrehozva. A hozzáférési token:"
       token_value_warning: "Megjegyzés: Ez az egyetlen alkalom, mikor ezt a tokent láthatja, győződjön meg arról, hogy most átmásolta."
-      no_results_title_text: Jelenleg nincs elérhető hozzáférési kulcs.
+      no_results_title_text: "Jelenleg nincs elérhető hozzáférési kulcs."
       notice_api_token_revoked: "The API token has been deleted. To create a new token please use the button in the API section."
       notice_rss_token_revoked: "Az RSS-token törlésre került. Új token létrehozásához kérjük, használja az RSS szakaszban található linket."
       notice_ical_token_revoked: 'A "%{project_name}" projekt "%{calendar_name}" naptárához tartozó "%{token_name}" iCalendar token visszavonásra került. Az ezzel a tokennel rendelkező iCalendar URL mostantól érvénytelen.'
@@ -638,8 +649,8 @@ hu:
   priorities:
     edit:
       priority_color_text: |
-        Click to assign or change the color of this priority.
-        It can be used for highlighting work packages in the table.
+        Ide kattintva rendelhet vagy változtathatja meg a színét az állapotnak.
+        Az állapot gomb látható és kiemelhető a feladatcsoport táblázatban.
     admin:
       default:
         caption: Making this priority default will override the previous default priority.
@@ -685,8 +696,10 @@ hu:
         excluded_from_totals: "Excluded from totals"
   themes:
     dark: "Dark"
+    dark_high_contrast: "Dark high contrast"
     light: "Világos"
     light_high_contrast: "Világos, nagy kontraszt"
+    sync_with_os: "Automatic (match OS color mode)"
   types:
     index:
       no_results_title_text: Jelenleg nincsenek típusok.
@@ -719,7 +732,7 @@ hu:
         pattern:
           label: "Subject pattern"
           caption: Create patterns by adding text, or type "/" to search for [supported attributes](attributes_url).
-          insert_as_text: "No attributes found. Add as text: \"%{word}\""
+          insert_as_text: 'No attributes found. Add as text: "%{word}"'
       export_configuration:
         tab: "Generate PDF"
         intro: "Select which templates from those that are available you would like to enable for this type. The template determines the design and attributes visible in the exported PDF of a work package using this type. The first template on the list is selected by default."
@@ -904,7 +917,7 @@ hu:
   account:
     delete: "Felhasználói hozzáférés törölése"
     delete_confirmation: "Biztosan törölni akarja ezt a felhasználói hozzáférést?"
-    deletion_pending: "Account has been locked and was scheduled for deletion. Note that this process takes place in the background. It might take a few moments until the user is fully deleted."
+    deletion_pending: "Account has been scheduled for deletion. Note that this process takes place in the background. It might take a few moments until the user is fully deleted."
     deletion_info:
       data_consequences:
         other: 'A létrehozott adatok (pl. e-mail, beállítások, munkacsomag, wiki bejegyzés) lehetőség szerint törlődnek. Azonban máshol használt adatokat, mint pl. a munkacsomagok és wiki bejegyzések, nem lehet törölni a többi felhasználó munkájának akadályozása nélkül. Az ilyen adatokat ezért áthelyezzük egy "törölt felhasználó" nevű fiókba. Mivel minden törölt hozzáférésnél ez a fiók tartalmazza az adatokat, nem lehet megkülönböztetni a törölt felhasználók adatainak szerzőjét egymástól.'
@@ -935,7 +948,7 @@ hu:
   activemodel:
     attributes:
       projects/copy_options:
-        dependencies: "Dependencies"
+        dependencies: "Szükséges összetevők"
   activerecord:
     attributes:
       announcements:
@@ -997,12 +1010,12 @@ hu:
       enterprise_token:
         starts_at: "Érvényes"
         subscriber: "Előfizető"
-        subscription: "Subscription"
-        plan: "Plan"
+        subscription: "Előfizetés"
+        plan: "Díjcsomag"
         encoded_token: "Vállalati támogatás kulcs"
         active_user_count_restriction: "Active users"
       enterprise_trial:
-        company: "Company"
+        company: "Cég"
       grids/grid:
         page: "Oldal"
         row_count: "Sorok száma"
@@ -1035,6 +1048,7 @@ hu:
         active_value:
           true: "unarchived"
           false: "archivált"
+        attribute_groups: "Attribute Groups"
         description: "Leírás"
         enabled_modules: "Engedélyezett modulok"
         identifier: "Azonosító"
@@ -1061,16 +1075,17 @@ hu:
         types: "Típus"
         versions: "Verzió"
         work_packages: "Feladatcsoportok"
+        workspace_type: "Workspace type"
       project_custom_field:
         is_required: "Required for all projects"
         custom_field_section: Szekció
       project/phase:
         date_range: "Dátum intervallum"
         definition: "Definition"
-        duration: "Duration"
-        start_date: "Start date"
+        duration: "Időtartam"
+        start_date: "Indulási dátum"
         start_date_caption: "Follows the previous phase."
-        finish_date: "Finish date"
+        finish_date: "Befejezési dátum"
       project/phase_definition:
         name: "Név"
         color: "Szín"
@@ -1138,7 +1153,7 @@ hu:
         ongoing: "Ongoing"
       type:
         description: "Alapértelmezett szöveg a leíráshoz"
-        attribute_groups: "Form configuration"
+        attribute_groups: "Űrlap konfiguráció"
         is_in_roadmap: "Alapértelmezés szerint az ütemterv jelenik meg"
         is_default: "Alapértelmezetten aktiválva az új projekteknél"
         is_milestone: "Mérföldkő"
@@ -1180,9 +1195,9 @@ hu:
         auto_hide_popups: "Automatically hide success banners"
         auto_hide_popups_caption: "When enabled, the green success banners will automatically disappear after 5 seconds."
         warn_on_leaving_unsaved: "Figyelmeztess, ha úgy hagyom el a munkacsomagot, hogy nem mentett változások vannak rajta"
-        theme: "Colour mode"
+        theme: "Color mode"
         time_zone: "Idő zóna"
-        mode_guideline: "Some modes will overwrite custom theme colours for accessibility and legibility. Please select Light mode for full custom theme support."
+        mode_guideline: "Some modes will overwrite custom theme colors for accessibility and legibility. Please select Light mode for full custom theme support."
         daily_reminders: "Daily reminders"
         workdays: "Munkanapok"
       version:
@@ -1290,6 +1305,7 @@ hu:
         odd: "páratlan kell legyen."
         regex_match_failed: "does not match the regular expression %{expression}."
         regex_invalid: "nem lehet a hozzárendelt reguláris kifejezéssel ellenőrizni."
+        regex_list_invalid: "Lines %{invalid_lines} could not be parsed as regular expression."
         hexcode_invalid: "is not a valid 6-digit hexadecimal color code."
         smaller_than_or_equal_to_max_length: "a maximális hossznak kisebbnek vagy egyenlőnek kell lennie."
         taken: "már foglalt."
@@ -1324,6 +1340,9 @@ hu:
               minimum: "tartalmaznia kell legalább egy szűrőt a fő, kontextus vagy azonosító számára a '=' operátorral.\n"
         custom_field:
           at_least_one_custom_option: "Minimum egy opciónak elérhetőnek kell lennie."
+          referenced_in_other_fields_html:
+            one: "%{name} is used in project attribute calculation %{links}."
+            other: "%{name} is used in project attribute calculations: %{links}."
         custom_fields_project:
           attributes:
             project_ids:
@@ -1621,6 +1640,7 @@ hu:
         one: "Authentication provider"
         other: "Authentication providers"
       category: "Kategória"
+      color: "Szín"
       comment: "Vélemény"
       custom_action: "Egyéni művelet"
       custom_field: "Választható mező"
@@ -1966,11 +1986,11 @@ hu:
       succeeded: 'A "%{source_project_name}" projekt átmásolva a "%{target_project_name}" projektbe.'
     source_project_label: "Project copied"
     copy_options:
-      dependencies_label: 'Copy from project'
+      dependencies_label: "Copy from project"
   create_project:
-    template_label: "Use template"
+    template_label: "Sablon használata"
     copy_options:
-      dependencies_label: 'Copy from template'
+      dependencies_label: "Copy from template"
   create_wiki_page: "Create new wiki page"
   create_wiki_page_button: "Wiki oldal"
   date:
@@ -2087,7 +2107,7 @@ hu:
         other: "%{count} mp"
     units:
       minute_abbreviated:
-        one: "min"
+        one: "Perc"
         other: "mins"
       hour:
         one: "óra"
@@ -2146,7 +2166,7 @@ hu:
       project_list_sharing: Project List Sharing
       readonly_work_packages: Readonly Work Packages
       scim_api: SCIM server API
-      sso_auth_providers: Single sign-on
+      sso_auth_providers: Single Sign-On
       team_planner_view: Team Planner View
       virus_scanning: Antivirus Scanning
       work_package_query_relation_columns: Work Package Query Relation Columns
@@ -2159,7 +2179,7 @@ hu:
       plan_title: "Enterprise %{plan} add-on"
       plan_name: "%{plan} enterprise plan"
       plan_text_html: "Available starting with the %{plan_name}."
-      unlimited: "Unlimited"
+      unlimited: "Korlátlan"
       already_have_token: >
         Already have a token? Add it using the button below to upgrade to the booked Enterprise plan.
       hide_banner: "Hide this banner"
@@ -2170,14 +2190,14 @@ hu:
         description: Highlight changes made to this list since any point in the past.
       benefits:
         description: "What are the benefits of the Enterprise on-premises edition?"
-        high_security: "Security features"
+        high_security: "Biztonsági szolgáltatások"
         high_security_text: "Single sign on (SAML, OpenID Connect, CAS), LDAP groups."
-        installation: "Installation support"
-        installation_text: "Experienced software engineers guide you through the complete installation and setup process in your own infrastructure."
+        installation: "Telepítési támogatás"
+        installation_text: "Tapasztalt szoftvermérnökök végigvezetik Önt a teljes telepítési és beállítási folyamaton saját infrastruktúrájában.\n"
         premium_features: "Enterprise add-ons"
-        premium_features_text: "Agile boards, custom theme and logo, graphs, intelligent workflows with custom actions, full text search for work package attachments and multi-select custom fields."
-        professional_support: "Professional support"
-        professional_support_text: "Get reliable, high-touch support from senior support engineers with expert knowledge about running OpenProject in business-critical environments."
+        premium_features_text: "Agilis táblák, egyedi téma és embléma, grafikonok, intelligens munkafolyamatok egyéni műveletekkel, teljes szövegű keresés a munkacsomag mellékletekhez és több kiválasztott egyéni mező."
+        professional_support: "Szakmai támogatás"
+        professional_support_text: "Megbízható támogatást kaphat a vezető támogató mérnököktől, akik szakértő ismeretekkel rendelkeznek az OpenProject futtatásáról üzleti szempontból kritikus környezetben."
       work_package_subject_generation:
         description: "Create automatically generated subjects using referenced attributes and text."
       customize_life_cycle:
@@ -2215,6 +2235,9 @@ hu:
       scim_api:
         title: "SCIM clients"
         description: "Automate user management in OpenProject by seamlessly integrating external identity services like Microsoft Entra or Keycloak through our SCIM Server API. Available starting with the Enterprise corporate plan."
+      sso_auth_providers:
+        title: "Single Sign-On (SSO)"
+        description: "Enable users to log in via external SSO providers using SAML or OpenID Connect for seamless access and integration with existing identity systems."
       virus_scanning:
         description: "Ensure uploaded files in OpenProject are scanned for viruses before being accessible by other users."
       placeholder_users:
@@ -2252,6 +2275,13 @@ hu:
         I want to receive the OpenProject <a target="_blank" href="https://www.openproject.org/newsletter/">newsletter</a>.
       consent_html: >
         I agree with the <a target="_blank" href="https://www.openproject.org/terms-of-service/">terms of service</a> and the <a target="_blank" href="https://www.openproject.org/data-privacy-and-security/">privacy policy</a>.
+  email_calendar_updates:
+    state:
+      disabled: "Disabled."
+      enabled: "Enabled."
+    button:
+      disabled: "Enable"
+      enabled: "Disable"
   enumeration_activities: "Időnyilvántartási tevékenységek"
   enumeration_work_package_priorities: "Feladatcsoport fontosság"
   enumeration_reported_project_statuses: "Projekt állapot beszámoló"
@@ -2397,8 +2427,13 @@ hu:
           label: "Include descriptions"
           caption: "This option will add a description column in raw format."
     your_work_packages_export: "Work packages are being exported"
+    your_projects_export: "Projects are being exported"
     succeeded: "Export completed"
     failed: "An error has occurred while trying to export the work packages: %{message}"
+    demo:
+      heading: "Demo PDF"
+      footer: "Generated by OpenProject"
+      button_text: Generate Demo PDF
     errors:
       embedded_table_with_too_many_columns: "This embedded work package table could not fit on the page, please reduce the number of columns."
     format:
@@ -2459,6 +2494,13 @@ hu:
       xls2csv: "Xls2csv elérhető (opcionális)"
       catppt: "Catppt elérhető (opcionális)"
       tesseract: "Tesseract elérhető (opcionális)"
+  filterable_tree_view:
+    filter_mode:
+      all: "Összes"
+      label: "Filter mode"
+      selected: "Selected"
+    include_sub_items: "Include sub-items"
+    no_results_text: "No results"
   general_csv_decimal_separator: "."
   general_csv_encoding: "UTF-8"
   general_csv_separator: ","
@@ -2481,6 +2523,21 @@ hu:
       community: "OpenProject Közösség"
       upsell:
         title: "Váltás Vállalati Verzióra"
+      new_features:
+        header: "Read about new features and product updates."
+        learn_about: "Learn more about all new features"
+        #We need to include the version to invalidate outdated translations in other locales
+        "16_4":
+          new_features_title: >
+            The release contains various new features and improvements, such as:
+          new_features_list:
+            line_0: Option to auto-sync system color + contrast mode.
+            line_1: Dark high contrast mode for improved accessibility.
+            line_2: PDF export of project lists.
+            line_3: Custom font for all PDF exports (Enterprise add-on).
+            line_4: Improved meeting participants dialog.
+            line_5: Improved budget handling in project queries and budget planning.
+            line_6: Updated Home and Project overview page.
     links:
       upgrade_enterprise_edition: "Váltás Vállalati Verzióra"
       postgres_migration: "A rendszer költöztetése PostreSQL-re"
@@ -2564,11 +2621,13 @@ hu:
         expiration: "Lejár"
       indefinite_expiration: "Soha"
       simple_revoke_confirmation: "Are you sure you want to revoke this token?"
-      api:
+      token/api:
         title: "API"
         text_hint: "API tokens allow third-party applications to communicate with this OpenProject instance via REST APIs."
-        static_token_name: "API token"
         disabled_text: "API tokens are not enabled by the administrator. Please contact your administrator to use this feature."
+        add_button: "API Token"
+      api:
+        static_token_name: "API token"
       ical:
         title: "iCalendar"
         text_hint: 'iCalendar tokens allow users to <a href="%{path}" target="_blank">subscribe to OpenProject calendars</a> and view up-to-date work package information from external clients.'
@@ -2584,7 +2643,7 @@ hu:
         static_token_name: "RSS token"
         disabled_text: "RSS tokens are not enabled by the administrator. Please contact your administrator to use this feature."
       storages:
-        title: "File storages"
+        title: "Tárterületek"
         text_hint: "File Storage tokens connect this OpenProject instance with an external File Storage."
         empty_text_hint: "There is no storage access linked to your account."
         revoke_token: "Do you really want to remove this token? You will need to login again on %{storage}"
@@ -2654,6 +2713,7 @@ hu:
   label_api_access_key: "API-hozzáférés kulcs"
   label_api_access_key_created_on: "APIhozzáférési kulcs készítette: %{value} ezelőtt"
   label_api_access_key_type: "API"
+  label_auto_option: "(auto)"
   label_ical_access_key_type: "iCalendar"
   label_ical_access_key_description: 'iCalendar token "%{token_name}" for "%{calendar_name}" in "%{project_name}"'
   label_ical_access_key_not_present: "iCalendar token(s) not present."
@@ -2761,7 +2821,7 @@ hu:
   label_dashboard: "Vezérlőpult"
   label_database_version: "PostgreSQL verzió"
   label_date: "dátum"
-  label_dates: "Dates"
+  label_dates: "Dátumok"
   label_date_and_time: "Dátum és idő"
   label_date_format: "Dátum formátum"
   label_date_from: "tól"
@@ -2853,7 +2913,7 @@ hu:
   label_general: "Általános"
   label_generate_key: "Létrehoz egy kulcsot"
   label_global_modules: "Global modules"
-  label_global_roles: "Global roles"
+  label_global_roles: "Globális szerepek"
   label_git_path: ".Git könyvtár elérési útja"
   label_greater_or_equal: ">="
   label_group_by: "Csoportosítás"
@@ -2891,6 +2951,7 @@ hu:
   label_invite_user: "Felhasználó meghívása"
   label_item: "Item"
   label_item_plural: "Items"
+  label_scored_list: "Scored list"
   label_share: "Megosztás"
   label_share_project_list: "Share project list"
   label_share_work_package: "Share work package"
@@ -2901,6 +2962,7 @@ hu:
   label_journal_diff: "Leírás összehasonlítás"
   label_language: "Nyelv"
   label_languages: "Languages"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Ugrás a projekthez"
   label_keyword_plural: "Kulcsszavak"
   label_language_based: "A felhasználói nyelv alapján"
@@ -2920,12 +2982,18 @@ hu:
   label_link_url: "Link (URL)"
   label_list: "Lista"
   label_loading: "Betöltés..."
+  label_locked: "locked"
   label_lock_user: "Felhasználó zárolása"
   label_logged_as: "Bejelentkezve mint"
   label_login: "Bejelentkezés"
   label_custom_logo: "Egyedi logó"
   label_custom_export_logo: "Custom export logo"
   label_custom_export_cover: "Custom export cover background"
+  label_custom_export_footer: "Custom export footer image"
+  label_custom_export_font_regular: "Regular"
+  label_custom_export_font_bold: "Bold"
+  label_custom_export_font_italic: "Italic"
+  label_custom_export_font_bold_italic: "Bold Italic"
   label_custom_export_cover_overlay: "Custom export cover background overlay"
   label_custom_export_cover_text_color: "Text color"
   label_custom_pdf_export_settings: "Custom PDF export settings"
@@ -2997,7 +3065,7 @@ hu:
   label_no_due_date: "nincs befejezési dátum"
   label_no_start_date: "nincs kezdő dátuma"
   label_no_parent_page: "Nincs szülő oldal"
-  label_notification_center_plural: "Notifications"
+  label_notification_center_plural: "Értesítések"
   label_nothing_display: "Nincs megjeleníthető"
   label_nobody: "senki sem"
   label_not_configured: "Not configured"
@@ -3013,6 +3081,8 @@ hu:
   label_operator_equals_or: "is (OR)"
   label_operator_equals_all: "is (AND)"
   label_operator_shared_with_user_any: "bármely"
+  label_open: "nyitva"
+  label_closed: "lezárt"
   label_open_menu: "Menü megnyitása"
   label_open_work_packages: "nyitott"
   label_open_work_packages_plural: "nyitott"
@@ -3030,7 +3100,7 @@ hu:
   label_password_rule_special: "Különleges karakterek"
   label_password_rule_uppercase: "Nagybetű"
   label_path_encoding: "Elérési út kódolás"
-  label_per_page: "Per page:"
+  label_per_page: "Oldalanként:"
   label_people: "Személyek"
   label_permissions: "Jogosultságok"
   label_permissions_report: "Jogosultságok riportálása"
@@ -3067,18 +3137,22 @@ hu:
   label_project_mappings: "Projektek"
   label_project_new: "Új projekt"
   label_project_plural: "Projektek"
-  label_project_list_plural: "Project lists"
+  label_project_list_plural: "Projekt listák"
   label_project_life_cycle: "Project life cycle"
   label_project_attributes_plural: "Projekt attribútumok"
   label_project_custom_field_plural: "Projekt attribútumok"
   label_project_settings: "Projekt beállítások"
   label_project_attributes_settings: "Project attributes settings"
-  label_project_storage_plural: "File storages"
+  label_project_storage_plural: "Tárterületek"
   label_project_storage_project_folder: "File storages: Project folders"
   label_projects_disk_usage_information: "%{count} projects using %{used_disk_space} disk space"
   label_project_view_all: "Minden projekt megtekintése"
   label_project_show_details: "Projekt részleteinek megjelenítése"
   label_project_hide_details: "Projekt részleteinek elrejtése"
+  label_portfolio: "Portfolio"
+  label_portfolio_new: "New portfolio"
+  label_program: "Program"
+  label_program_new: "New program"
   label_public_projects: "Nyilvános projektek"
   label_query_new: "Új lekérdezés"
   label_query_plural: "Egyéni lekérdezések"
@@ -3215,7 +3289,7 @@ hu:
   label_version_new: "Új verzió"
   label_version_edit: "Módosított verzió"
   label_version_plural: "Verzió"
-  label_version_sharing_descendants: "Az alprojektekkel rendelkező"
+  label_version_sharing_descendants: "Alprojektekkel"
   label_version_sharing_hierarchy: "A projekt hierarchiában"
   label_version_sharing_none: "Nem megosztott"
   label_version_sharing_system: "Az összes projekt"
@@ -3227,6 +3301,8 @@ hu:
   label_watched_work_packages: "Megfigyelt munkacsomagok"
   label_what_is_this: "Mi ez?"
   label_week: "Hét"
+  label_widget: "Widget"
+  label_widget_new: "New widget"
   label_wiki_content_added: "Wiki oldal hozzáadva"
   label_wiki_content_updated: "Wiki oldal frissítve"
   label_wiki_toc: "Tartalomjegyzék"
@@ -3573,6 +3649,8 @@ hu:
   permission_add_work_packages: "feladatcsoport hozzáadása"
   permission_add_messages: "Elküldött üzenetek"
   permission_add_project: "Projekt létrehozása"
+  permission_add_portfolios: "Create portfolios"
+  permission_add_programs: "Create programs"
   permission_add_work_package_attachments: "Melléklet hozzáadása"
   permission_add_work_package_attachments_explanation: "Allows adding attachments without Edit work packages permission"
   permission_add_internal_comments: "Write internal comments"
@@ -3687,13 +3765,15 @@ hu:
       one: "1 projekt"
       other: "%{count} projekt"
     destroy:
-      confirmation: "If you continue, the project %{identifier} will be permanently destroyed. To confirm this action please introduce the project name in the field below, this will:"
-      project_delete_result_1: "Delete all related data."
-      project_delete_result_2: "Delete all managed project folders in the attached storages."
-      info: "A felhasználói hozzáférés törlése visszafordíthatatlan művelet."
-      project_verification: "Adja meg a projekt nevét %{name} a törlés megerősítéséhez."
-      subprojects_confirmation: "Az alprojekt(ek): %{value} is törlődni fog."
-      title: "A projekt %{name} törlése"
+      title: "Delete project"
+      heading: "Permanently delete this project?"
+      confirmation_message_for_subprojects_html:
+        zero: >
+          You are about to permanently delete all data relating to project <strong>%{name}</strong>.
+        one: >
+          You are about to permanently delete all data relating to project <strong>%{name}</strong> and this subproject:
+        other: >
+          You are about to permanently delete all data relating to project <strong>%{name}</strong> and these subprojects:
     filters:
       project_phase: "Project phase: %{phase}"
       project_phase_any: "Project phase: Any"
@@ -3869,6 +3949,7 @@ hu:
   setting_attachment_whitelist: "Mellékletfeltöltési fehérlista"
   setting_email_delivery_method: "E-mail küldés módja"
   setting_emails_salutation: "Address user in emails with"
+  setting_oauth_allow_remapping_of_existing_users: "Allow remapping of existing users"
   setting_sendmail_location: "A sendmail program elérési útja"
   setting_smtp_enable_starttls_auto: "Automatikus STARTTLS, ha rendelkezésre áll"
   setting_smtp_ssl: "SSL-kapcsolat használata"
@@ -4029,11 +4110,13 @@ hu:
   setting_working_days: "Munkanapok"
   settings:
     authentication:
-      login_and_sso: "Login and SSO"
+      login: "Bejelentkezés"
       registration: "Registration"
-      single_sign_on: "Single Sign-On"
+      sso: "Single Sign-On (SSO)"
       omniauth_direct_login_hint_html: >
         If this option is active, login requests will redirect to the configured omniauth provider. The login dropdown and sign-in page will be disabled. <br/> <strong>Note:</strong> Unless you also disable password logins, with this option enabled, users can still log in internally by visiting the <code>%{internal_path}</code> login page.
+      remapping_existing_users_hint: >
+        If enabled, allows any configured identity provider to login existing users based on their email address, even if the user never signed in through that provider before. This can be useful when migrating the OpenProject instance to a new SSO provider, but is not recommended when using a provider that is not trusted by all users of your instance.
     attachments:
       whitelist_text_html: >
         Határozza meg a feltöltött fájlok érvényes fájlkiterjesztéseinek és/vagy mime típusainak listáját. <br/> Adjon meg fájlkiterjesztéseket (pl. <code>%{ext_example} </code>) vagy mime típusokat (pl. <code>%{mime_example} </code>). <br/> Hagyja üresen, ha bármilyen fájltípust szeretne feltölteni. Több érték megengedett (egy sor minden értékhez).
@@ -4143,6 +4226,7 @@ hu:
   status_invited: meghívott
   status_locked: zárolt
   status_registered: regisztrált
+  status_deleted: deleted
   #Used in array.to_sentence.
   support:
     array:
@@ -4177,6 +4261,20 @@ hu:
     This is the logo that appears in your PDF exports. It needs to be a PNG or JPEG image file. A black or colored logo on transparent or white background is recommended.
   text_custom_export_cover_instructions: >
     This is the image that appears in the background of a cover page in your PDF exports. It needs to be an about 800px width by 500px height sized PNG or JPEG image file.
+  text_custom_export_footer_instructions: >
+    PDF exports will include a graphical element positioned to the left of the footer. This image must be a PNG or JPEG file with approximately 200 pixels in width.
+  label_custom_export_font_instructions: >
+    Upload and manage custom TrueType (.ttf) fonts used in your PDF exports. For best results, use matching files from the same font family. If no font is provided, the default NotoSans font will be used.
+  label_custom_export_images_instructions: >
+    Upload and manage custom image files used in your PDF exports.
+  text_custom_export_font_regular_instructions: >
+    This is the font file for regular text. It needs to be in TTF format and is required.
+  text_custom_export_font_bold_instructions: >
+    This is the font file for bold text. It needs to be in TTF format.
+  text_custom_export_font_italic_instructions: >
+    This is the font file for italic text. It needs to be in TTF format.
+  text_custom_export_font_bold_italic_instructions: >
+    This is the font file for bold and italic text. It needs to be in TTF format.
   text_custom_favicon_instructions: >
     This is the tiny icon that appears in your browser window/tab next to the page's title. It needs to be a squared 32 by 32 pixels sized PNG image file with a transparent background.
   text_custom_touch_icon_instructions: >
@@ -4517,6 +4615,8 @@ hu:
       code_500_missing_enterprise_token: "The request can not be handled due to invalid or missing Enterprise token."
       bad_request:
         emoji_reactions_activity_type_not_supported: "This activity type does not support emoji reactions."
+        invalid_link: "The link under key '%{key}' is not valid."
+        links_not_an_object: "_links must be a JSON object."
       conflict:
         multiple_reminders_not_allowed: |-
           You can only set one reminder at a time for a work package. Please delete or update the existing reminder.
@@ -4719,3 +4819,6 @@ hu:
     description: "Adds the OmniAuth SAML provider to OpenProject"
   enterprise_plans:
     legacy_enterprise: "Enterprise Plan"
+  token:
+    hashed_token:
+      display_value_placeholder: "***"

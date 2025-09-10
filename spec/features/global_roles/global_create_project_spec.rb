@@ -85,13 +85,13 @@ RSpec.describe "Global role: Global Create project",
 
     it 'allows creating projects via the "+ Project" button' do
       projects_page.visit!
-      projects_page.navigate_to_new_project_page_from_toolbar_items
+      projects_page.create_new_workspace
 
       fill_in "Name", with: "New project name"
 
       click_on "Create"
 
-      expect(page).to have_current_path "/projects/new-project-name/"
+      expect(page).to have_current_path "/projects/new-project-name"
     end
   end
 

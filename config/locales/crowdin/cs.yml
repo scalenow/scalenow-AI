@@ -59,6 +59,10 @@ cs:
       tab_interface: "Rozhraní"
       tab_branding: "Značka"
       tab_pdf_export_styles: "Styly exportu do PDF"
+      tab_pdf_export_font: "PDF export font"
+      fonts:
+        file_too_large: "is too large (maximum size is %{count} MB)."
+        file_is_invalid: "is not a valid TTF font file."
       colors:
         primary-button-color: "Primární tlačítko"
         accent-color: "Odstín"
@@ -139,7 +143,7 @@ cs:
       revoke_static_token_dialog_component:
         confirm_button: "Odvolat"
         title: "Odvolat statický token"
-        heading: "Are you sure you want to revoke this token?"
+        heading: "Opravdu chcete zrušit tento token?"
         description: "The SCIM client that uses this token will no longer be able to access OpenProject's SCIM server API."
       table_component:
         blank_slate:
@@ -297,6 +301,7 @@ cs:
         placeholder:
           label: "Štítek položky"
           short: "Krátký název"
+          score: "Score"
       notice:
         remember_items_and_projects: "Remember to set items and projects in the respective tabs for this custom field."
       hierarchy:
@@ -332,13 +337,18 @@ cs:
     single: "nebo"
   dry_validation:
     errors:
+      defined: "must not be defined."
       int?: "musí být celé číslo"
+      decimal?: "must be a decimal."
       filled?: "musí být vyplněno"
+      key?: "is missing."
       greater_or_equal_zero: "musí být větší nebo rovno 0."
       not_found: "nenalezeno"
       rules:
         copy_workflow_from:
           workflow_missing: "has no own workflow."
+        custom_field:
+          format_not_supported: "format '%{field_format}' is unsupported."
         item:
           root_item: "nemůže být kořenová položka."
           not_persisted: "musí být již existující položka."
@@ -354,6 +364,7 @@ cs:
       depth: "Hloubka"
       item: "Položka"
       label: "Popisek"
+      score: "Score"
       short: "Krátký název"
       parent: "Nadřazený"
       blueprint: "Vzhled plánu"
@@ -374,7 +385,7 @@ cs:
       description: By grouping users together, you can add them as members to the same projects or assign the same global roles to them.
     table_component:
       blank_slate:
-        description: You can define groups of users with specific names
+        description: You can define named groups of users with specific permissions.
         title: No groups set up yet
       user_count: User count
     users:
@@ -383,7 +394,7 @@ cs:
       no_results_title_text: V současné době nejsou žádné projekty součástí této skupiny.
     synchronized_groups:
       blankslate:
-        action: Authentication settings
+        action: Nastavení ověření
         description: When this group is automatically synced with groups in external identity providers like OpenID, they will appear here. You can set this up in your Authentication settings.
         title: No synchronized groups yet
   incoming_mails:
@@ -464,7 +475,7 @@ cs:
       life_cycle:
         header:
           title: "Životní cyklus projektu"
-          description_html: "The active project phases define this project's life cycle and are defined in the <a href=%{admin_settings_url} target=\"_blank\">administration settings</a>. Enabled phases will be displayed in your <a href=%{overview_url} target=\"_blank\">project overview</a>."
+          description_html: 'The active project phases define this project''s life cycle and are defined in the <a href=%{admin_settings_url} target="_blank">administration settings</a>. Enabled phases will be displayed in your <a href=%{overview_url} target="_blank">project overview</a>.'
         non_defined: "No phases are currently defined."
         section_header: "Fáze"
         step:
@@ -585,26 +596,26 @@ cs:
       will_revoke_access_to_all: "Tato akce zruší jejich přístup ke všem z nich."
   my:
     access_token:
-      create_dialog:
-        title: Token vygenerován
-        header: '%{type} token byl vygenerován'
-        warning: Note that this is the only time you will see this token, make sure to copy it now.
+      dialog:
+        token/api:
+          dialog_title: "Vytvořit nový API token"
+          attention_text: "Treat API tokens like passwords. Anyone with this token will have access to information from this instance, share it only with trusted users."
+          dialog_body: "This token will allow third-party applications to communicate with your instance. To differentiate the new API token, please give it a name."
+          create_button: "Vytvořit"
+          name_label: "Název tokenu"
+      created_dialog:
+        token/api:
+          title: "The API token has been generated"
+          warning: "This is the only time you will see this token. Make sure to copy it now."
       errors:
         token_name_blank: "Zadejte prosím název tokenu API"
         token_name_in_use: "Tento název tokenu API je již používán, vyberte prosím jiný"
-      new_access_token_dialog_title: "Vytvořit nový API token"
-      new_access_token_dialog_show_button_text: "API token"
-      new_access_token_dialog_text_field_placeholder_text: "Můj API token"
-      new_access_token_dialog_text_field_label: "Název"
-      new_access_token_dialog_submit_button_text: "Vytvořit"
-      new_access_token_dialog_text: "This token will allow third-party applications to communicate with your instance. To differentiate the new API token, please give it a name."
-      new_access_token_dialog_attention_text: "Treat API tokens like passwords. Anyone with this link will have access to information from this instance, share it only with trusted users."
       failed_to_reset_token: "Nepodařilo se obnovit přístupový token: %{error}"
       failed_to_create_token: "Nepodařilo se vytvořit přístupový token: %{error}"
       failed_to_revoke_token: "Nepodařilo se odvolat přístupový token: %{error}"
       notice_reset_token: "Byl vygenerován nový %{type} token. Váš přístupový token je:"
       token_value_warning: "Poznámka: Toto je jedinkrát, kdy uvidíte tento token, ujistěte se, že jste si hozkopírovali."
-      no_results_title_text: V současné době nejsou k dispozici žádné přístupové tokeny.
+      no_results_title_text: "V současné době nejsou k dispozici žádné přístupové tokeny."
       notice_api_token_revoked: "The API token has been deleted. To create a new token please use the button in the API section."
       notice_rss_token_revoked: "Token API byl odstraněn. Pro vytvoření nového tokenu použijte odkaz v sekci API."
       notice_ical_token_revoked: 'token iCalendar "%{token_name}" pro kalendář "%{calendar_name}" projektu "%{project_name}" byl zrušen. URL iCalendar s tímto tokenem je nyní neplatná.'
@@ -651,8 +662,8 @@ cs:
   priorities:
     edit:
       priority_color_text: |
-        Click to assign or change the color of this priority.
-        It can be used for highlighting work packages in the table.
+        Klikněte na přiřadit nebo změnit barvu této priority.
+        lze použít ke zvýraznění pracovních balíčků v tabulce.
     admin:
       default:
         caption: Making this priority default will override the previous default priority.
@@ -700,8 +711,10 @@ cs:
         excluded_from_totals: "Vyloučeno z celkových hodnot"
   themes:
     dark: "Tmavé"
+    dark_high_contrast: "Tmavý vysoký kontrast"
     light: "Světlý"
     light_high_contrast: "Světlý kontrast"
+    sync_with_os: "Automatic (match OS color mode)"
   types:
     index:
       no_results_title_text: V současné době neexistují žádné typy.
@@ -734,7 +747,7 @@ cs:
         pattern:
           label: "Vzor předmětu"
           caption: Create patterns by adding text, or type "/" to search for [supported attributes](attributes_url).
-          insert_as_text: "No attributes found. Add as text: \"%{word}\""
+          insert_as_text: 'No attributes found. Add as text: "%{word}"'
       export_configuration:
         tab: "Vytvořit PDF"
         intro: "Select which templates from those that are available you would like to enable for this type. The template determines the design and attributes visible in the exported PDF of a work package using this type. The first template on the list is selected by default."
@@ -921,7 +934,7 @@ cs:
   account:
     delete: "Odstranit účet"
     delete_confirmation: "Jste si jisti, že chcete odstranit tento účet?"
-    deletion_pending: "Účet byl uzamčen a byl naplánován na odstranění. Tento proces probíhá na pozadí. Může to chvíli trvat, než bude uživatel plně smazán."
+    deletion_pending: "Account has been scheduled for deletion. Note that this process takes place in the background. It might take a few moments until the user is fully deleted."
     deletion_info:
       data_consequences:
         other: 'Z dat, která uživatel vytvořil (např. e-mail, nastavení, pracovní balíčky, wiki položky), bude co nejvíce smazáno. Všimněte si však, že data jako pracovní balíčky a wiki nelze odstranit, aniž by to bránilo práci ostatních uživatelů. Tyto údaje jsou proto přeřazeny na účet nazvaný „Smazaný uživatel“. Vzhledem k tomu, že data každého smazaného účtu jsou znovu přiřazena k tomuto účtu, nebude možné rozlišit data, která uživatel vytvořil od dat jiného smazaného účtu.'
@@ -1052,6 +1065,7 @@ cs:
         active_value:
           true: "odarchivováno"
           false: "archivováno"
+        attribute_groups: "Attribute Groups"
         description: "Popis"
         enabled_modules: "Povolené moduly"
         identifier: "Identifikátor"
@@ -1078,6 +1092,7 @@ cs:
         types: "Typy"
         versions: "Verze"
         work_packages: "Pracovní balíčky"
+        workspace_type: "Workspace type"
       project_custom_field:
         is_required: "Vyžadováno pro všechny projekty"
         custom_field_section: Sekce
@@ -1155,7 +1170,7 @@ cs:
         ongoing: "Probíhající"
       type:
         description: "Výchozí text pro popis"
-        attribute_groups: "Form configuration"
+        attribute_groups: "Konfigurace formuláře"
         is_in_roadmap: "Ve výchozím nastavení zobrazeno v plánu"
         is_default: "Aktivováno pro nové projekty ve výchozím nastavení"
         is_milestone: "Je milník"
@@ -1182,7 +1197,7 @@ cs:
         password_confirmation: "Potvrzení"
         consented_at: "Souhlas udělen"
       group:
-        identity_url: "Identity URL"
+        identity_url: "Adresa URL identity"
       user_preference:
         header_look_and_feel: "Vzhled a chování"
         header_alerts: "Alerts"
@@ -1197,9 +1212,9 @@ cs:
         auto_hide_popups: "Automatically hide success banners"
         auto_hide_popups_caption: "When enabled, the green success banners will automatically disappear after 5 seconds."
         warn_on_leaving_unsaved: "Upozornit mě při opuštění pracovního balíčku s neuloženými změnami"
-        theme: "Colour mode"
+        theme: "Color mode"
         time_zone: "Časové pásmo"
-        mode_guideline: "Some modes will overwrite custom theme colours for accessibility and legibility. Please select Light mode for full custom theme support."
+        mode_guideline: "Some modes will overwrite custom theme colors for accessibility and legibility. Please select Light mode for full custom theme support."
         daily_reminders: "Denní připomenutí"
         workdays: "Pracovní dny"
       version:
@@ -1268,7 +1283,7 @@ cs:
         error_unauthorized: "není přístupný."
         error_readonly: "se pokusil být napsán, ale není zapisovatelný."
         error_conflict: "Informace mezitím aktualizoval alespoň jeden další uživatel."
-        error_not_found: "not found."
+        error_not_found: "nenalezeno"
         email: "není platná e-mailová adresa"
         empty: "nemůže být prázdné."
         enterprise_plan_required: "requires at least the %{plan_name}."
@@ -1307,6 +1322,7 @@ cs:
         odd: "musí být liché."
         regex_match_failed: "neodpovídá regulárnímu výrazu %{expression}."
         regex_invalid: "nelze ověřit s přidruženým regulárním výrazem."
+        regex_list_invalid: "Lines %{invalid_lines} could not be parsed as regular expression."
         hexcode_invalid: "is not a valid 6-digit hexadecimal color code."
         smaller_than_or_equal_to_max_length: "musí být menší než nebo rovno maximální délce."
         taken: "je již použito."
@@ -1341,6 +1357,11 @@ cs:
               minimum: "musí obsahovat alespoň jeden filtr pro hlavní, kontext nebo id operátora „=“."
         custom_field:
           at_least_one_custom_option: "Alespoň jedna možnost musí být k dispozici."
+          referenced_in_other_fields_html:
+            one: "%{name} is used in project attribute calculation %{links}."
+            few: "%{name} is used in project attribute calculations: %{links}."
+            many: "%{name} is used in project attribute calculations: %{links}."
+            other: "%{name} is used in project attribute calculations: %{links}."
         custom_fields_project:
           attributes:
             project_ids:
@@ -1574,7 +1595,7 @@ cs:
               must_be_set_when_work_is_set: "vyžadováno, když je nastavena Práce."
               must_be_set_when_work_and_percent_complete_are_set: "je vyžadováno, když je nastavena práce a % Dokončit."
               must_be_set_to_zero_hours_when_work_is_set_and_percent_complete_is_100p: >-
-                musí být 0h, když je nastavena práce a % Dokončeno je 100%.
+                must be 0h when Work is set and % Complete is 100%.
               must_be_empty_when_work_is_empty_and_percent_complete_is_100p: >-
                 musí být prázdný, pokud je položka Práce prázdná a % Dokončeno je 100 %.
           readonly_status: "Pracovní balíček je ve stavu jen pro čtení, takže jeho atributy nelze změnit."
@@ -1644,6 +1665,7 @@ cs:
         many: "Authentication providers"
         other: "Authentication providers"
       category: "Kategorie"
+      color: "Barva"
       comment: "Komentář"
       custom_action: "Vlastní akce"
       custom_field: "Vlastní pole"
@@ -1797,7 +1819,7 @@ cs:
     derived_start_date: "Derivované Datum zahájení "
     direction: "Směr"
     display_sums: "Zobrazit součty"
-    domain: "Domain"
+    domain: "Doména"
     due_date: "Datum dokončení"
     estimated_hours: "Práce"
     estimated_time: "Práce"
@@ -1852,7 +1874,7 @@ cs:
     title: "Název"
     type: "Typ"
     typeahead: "Autocomplete"
-    uid: "Unique identifier"
+    uid: "Jedinečný identifikátor"
     updated_at: "Aktualizováno"
     updated_on: "Aktualizováno"
     uploader: "Uploader"
@@ -2013,11 +2035,11 @@ cs:
       succeeded: 'Projekt "%{source_project_name}" zkopírován do "%{target_project_name}".'
     source_project_label: "Projekt zkopírován"
     copy_options:
-      dependencies_label: 'Kopírovat z projektu'
+      dependencies_label: "Kopírovat z projektu"
   create_project:
-    template_label: "Use template"
+    template_label: "Použít šablonu"
     copy_options:
-      dependencies_label: 'Copy from template'
+      dependencies_label: "Copy from template"
   create_wiki_page: "Create new wiki page"
   create_wiki_page_button: "Stránka wiki"
   date:
@@ -2233,7 +2255,7 @@ cs:
       project_list_sharing: Project List Sharing
       readonly_work_packages: Readonly Work Packages
       scim_api: SCIM server API
-      sso_auth_providers: Single sign-on
+      sso_auth_providers: Single Sign On
       team_planner_view: Team Planner View
       virus_scanning: Antivirové skenování
       work_package_query_relation_columns: Work Package Query Relation Columns
@@ -2246,7 +2268,7 @@ cs:
       plan_title: "Enterprise %{plan} add-on"
       plan_name: "%{plan} enterprise plan"
       plan_text_html: "Available starting with the %{plan_name}."
-      unlimited: "Unlimited"
+      unlimited: "Bez omezení"
       already_have_token: >
         Already have a token? Add it using the button below to upgrade to the booked Enterprise plan.
       hide_banner: "Hide this banner"
@@ -2256,15 +2278,15 @@ cs:
       baseline_comparison:
         description: Zvýraznit změny provedené v tomto seznamu od té doby v minulosti.
       benefits:
-        description: "What are the benefits of the Enterprise on-premises edition?"
-        high_security: "Security features"
-        high_security_text: "Single sign on (SAML, OpenID Connect, CAS), LDAP groups."
-        installation: "Installation support"
-        installation_text: "Experienced software engineers guide you through the complete installation and setup process in your own infrastructure."
-        premium_features: "Enterprise add-ons"
-        premium_features_text: "Agile boards, custom theme and logo, graphs, intelligent workflows with custom actions, full text search for work package attachments and multi-select custom fields."
-        professional_support: "Professional support"
-        professional_support_text: "Get reliable, high-touch support from senior support engineers with expert knowledge about running OpenProject in business-critical environments."
+        description: "Jaké jsou výhody  Enterprise on-premises Edice?"
+        high_security: "Bezpečnostní prvky"
+        high_security_text: "Single sign on (SAML, OpenID Connect, CAS), LDAP skupiny."
+        installation: "Instalační podpora"
+        installation_text: "Zkušení softwaroví inženýři vás povedou kompletní instalací a instalací ve vaší vlastní infrastruktuře."
+        premium_features: "Doplňky Enterprise Edice"
+        premium_features_text: "Agile desky, vlastní téma a logo, grafy, inteligentní pracovní postupy s vlastními akcemi, fulltextové vyhledávání příloh pracovního balíčku a vícenásobný výběr vlastních polí."
+        professional_support: "Profesionální podpora"
+        professional_support_text: "Získejte spolehlivou, vysoce profesionální podporu od seniorních podpůrných inženýrů s odbornými znalostmi o používání OpenProject."
       work_package_subject_generation:
         description: "Vytváření automaticky generovaných předmětů pomocí odkazovaných atributů a textu."
       customize_life_cycle:
@@ -2302,6 +2324,9 @@ cs:
       scim_api:
         title: "SCIM clients"
         description: "Automate user management in OpenProject by seamlessly integrating external identity services like Microsoft Entra or Keycloak through our SCIM Server API. Available starting with the Enterprise corporate plan."
+      sso_auth_providers:
+        title: "Single Sign-On (SSO)"
+        description: "Enable users to log in via external SSO providers using SAML or OpenID Connect for seamless access and integration with existing identity systems."
       virus_scanning:
         description: "Zajistěte, aby nahrané soubory v OpenProjectu byly před zpřístupněním ostatním uživatelům zkontrolovány na přítomnost virů."
       placeholder_users:
@@ -2331,7 +2356,7 @@ cs:
       request_again: "Request again"
       resend_action: "Resend confirmation email"
       welcome_title: "Quick feature overview"
-      welcome_description: "Get a quick overview of project management and team collaboration with OpenProject Enterprise edition."
+      welcome_description: "Získejte rychlý přehled o řízení projektu a týmové spolupráci s OpenProject Enterprise edion."
       confirmation_info: >
         We sent you an email on %{date} to %{email} with all the information to start the free trial of OpenProject Enterprise. Please check your inbox and click the confirmation link provided to start your 14-day free trial.
       confirmation_subline: >
@@ -2341,6 +2366,13 @@ cs:
         I want to receive the OpenProject <a target="_blank" href="https://www.openproject.org/newsletter/">newsletter</a>.
       consent_html: >
         I agree with the <a target="_blank" href="https://www.openproject.org/terms-of-service/">terms of service</a> and the <a target="_blank" href="https://www.openproject.org/data-privacy-and-security/">privacy policy</a>.
+  email_calendar_updates:
+    state:
+      disabled: "Disabled."
+      enabled: "Enabled."
+    button:
+      disabled: "Enable"
+      enabled: "Disable"
   enumeration_activities: "Sledování času"
   enumeration_work_package_priorities: "Priority pracovního balíčku"
   enumeration_reported_project_statuses: "Nahlášený stav projektu"
@@ -2486,8 +2518,13 @@ cs:
           label: "Zahrnout popisy"
           caption: "Tato volba přidá sloupec popisu v syrovém formátu."
     your_work_packages_export: "Pracovní balíčky jsou exportovány"
+    your_projects_export: "Projects are being exported"
     succeeded: "Export dokončen"
     failed: "Při pokusu o export pracovních balíčků došlo k chybě: %{message}"
+    demo:
+      heading: "Demo PDF"
+      footer: "Generated by OpenProject"
+      button_text: Generate Demo PDF
     errors:
       embedded_table_with_too_many_columns: "This embedded work package table could not fit on the page, please reduce the number of columns."
     format:
@@ -2548,6 +2585,13 @@ cs:
       xls2csv: "XLS2CSV k dispozici (volitelné)"
       catppt: "Catppt k dispozici (volitelné)"
       tesseract: "Tesseract k dispozici (volitelné)"
+  filterable_tree_view:
+    filter_mode:
+      all: "Vše"
+      label: "Filter mode"
+      selected: "Selected"
+    include_sub_items: "Include sub-items"
+    no_results_text: "No results"
   general_csv_decimal_separator: ","
   general_csv_encoding: "UTF-8"
   general_csv_separator: ","
@@ -2570,6 +2614,21 @@ cs:
       community: "OpenProject komunita"
       upsell:
         title: "Upgradovat na Enterprise Edici"
+      new_features:
+        header: "Read about new features and product updates."
+        learn_about: "Learn more about all new features"
+        #We need to include the version to invalidate outdated translations in other locales
+        "16_4":
+          new_features_title: >
+            The release contains various new features and improvements, such as:
+          new_features_list:
+            line_0: Option to auto-sync system color + contrast mode.
+            line_1: Dark high contrast mode for improved accessibility.
+            line_2: PDF export of project lists.
+            line_3: Custom font for all PDF exports (Enterprise add-on).
+            line_4: Improved meeting participants dialog.
+            line_5: Improved budget handling in project queries and budget planning.
+            line_6: Updated Home and Project overview page.
     links:
       upgrade_enterprise_edition: "Upgradovat na Enterprise Edici"
       postgres_migration: "Migrujte vaši instalaci na PostgreSQL"
@@ -2653,11 +2712,13 @@ cs:
         expiration: "Vyprší"
       indefinite_expiration: "Nikdy"
       simple_revoke_confirmation: "Opravdu chcete zrušit tento token?"
-      api:
+      token/api:
         title: "API"
         text_hint: "OAuth tokeny umožňují aplikacím třetích stran spojení s touto instancí OpenProjekt."
-        static_token_name: "API Token"
         disabled_text: "API tokeny nejsou administrátorem povoleny. Pro použití této funkce kontaktujte svého správce."
+        add_button: "API Token"
+      api:
+        static_token_name: "API Token"
       ical:
         title: "iCalendar"
         text_hint: 'Tokeny iCalendar umožňují uživatelům <a href="%{path}" target="_blank">přihlásit se k odběru kalendářů OpenProject</a> a zobrazovat aktuální informace o pracovních balíčcích od externích klientů.'
@@ -2673,7 +2734,7 @@ cs:
         static_token_name: "RSS token"
         disabled_text: "API tokeny nejsou administrátorem povoleny. Pro použití této funkce kontaktujte svého správce."
       storages:
-        title: "File storages"
+        title: "Úložiště souborů"
         text_hint: "Tokeny úložiště souborů připojují tuto OpenProject instanci s externím úložištěm souborů."
         empty_text_hint: "K vašemu účtu není připojen žádný přístup k úložišti."
         revoke_token: "Opravdu chcete odstranit tento token? Budete se muset znovu přihlásit na %{storage}"
@@ -2743,6 +2804,7 @@ cs:
   label_api_access_key: "Přístupový klíč pro API"
   label_api_access_key_created_on: "API přístupový klíč vytvořen před %{value}"
   label_api_access_key_type: "API"
+  label_auto_option: "(auto)"
   label_ical_access_key_type: "iCalendar"
   label_ical_access_key_description: 'token iCalendar "%{token_name}" pro "%{calendar_name}" v "%{project_name}"'
   label_ical_access_key_not_present: "toket iCalendar není přítomen."
@@ -2936,7 +2998,7 @@ cs:
   label_follows: "sleduje"
   label_force_user_language_to_default: "Nastavte jazyk uživatelů, kteří nemají povolený jazyk na výchozí"
   label_form_configuration: "Konfigurace formuláře"
-  label_formula: "Formula"
+  label_formula: "Vzorec"
   label_gantt_chart: "Ganttův diagram"
   label_gantt_chart_plural: "Gantt diagramy"
   label_general: "Obecné"
@@ -2974,12 +3036,13 @@ cs:
   label_information_plural: "Informace"
   label_installation_guides: "Instalační příručky"
   label_integer: "Celé číslo"
-  label_interface: "Interface"
+  label_interface: "Rozhraní"
   label_internal: "Interní"
   label_introduction_video: "Seznamovací video"
   label_invite_user: "Pozvat uživatele"
   label_item: "Položka"
   label_item_plural: "Položky"
+  label_scored_list: "Scored list"
   label_share: "Sdílet"
   label_share_project_list: "Sdílet seznam projektů"
   label_share_work_package: "Sdílet pracovní balíček"
@@ -2990,6 +3053,7 @@ cs:
   label_journal_diff: "Popis porovnání"
   label_language: "Jazyk"
   label_languages: "Jazyky"
+  label_locale: "Language and region"
   label_jump_to_a_project: "Přejít na projekt..."
   label_keyword_plural: "Klíčová slova"
   label_language_based: "Na základě jazyka uživatele"
@@ -3009,12 +3073,18 @@ cs:
   label_link_url: "Odkaz URL"
   label_list: "Seznam"
   label_loading: "Načítání..."
+  label_locked: "locked"
   label_lock_user: "Uzamknout uživatele"
   label_logged_as: "Přihlášen jako"
   label_login: "Přihlásit se"
   label_custom_logo: "Vlastní logo"
   label_custom_export_logo: "Vlastní logo exportu"
   label_custom_export_cover: "Vlastní exportní obal pozadí"
+  label_custom_export_footer: "Custom export footer image"
+  label_custom_export_font_regular: "Regular"
+  label_custom_export_font_bold: "Bold"
+  label_custom_export_font_italic: "Italic"
+  label_custom_export_font_bold_italic: "Bold Italic"
   label_custom_export_cover_overlay: "Překrytí obalu vlastního exportu"
   label_custom_export_cover_text_color: "Barva textu"
   label_custom_pdf_export_settings: "Vlastní nastavení exportu PDF"
@@ -3086,7 +3156,7 @@ cs:
   label_no_due_date: "žádné datum dokončení"
   label_no_start_date: "žádné datum začátku"
   label_no_parent_page: "Žádná nadřazená stránka"
-  label_notification_center_plural: "Notifications"
+  label_notification_center_plural: "Notifikace"
   label_nothing_display: "Nic k zobrazení"
   label_nobody: "nikdo"
   label_not_configured: "Není konfigurováno"
@@ -3095,13 +3165,15 @@ cs:
   label_none_parentheses: "(žádný)"
   label_not_contains: "neobsahuje"
   label_not_equals: "není"
-  label_life_cycle_step_plural: "Project life cycle"
+  label_life_cycle_step_plural: "Životní cyklus projektu"
   label_on: "zapnuto"
   label_operator_all: "není prázdný"
   label_operator_none: "je prázdný"
   label_operator_equals_or: "je (OR)"
   label_operator_equals_all: "je (AND)"
   label_operator_shared_with_user_any: "jakákoliv"
+  label_open: "otevřít"
+  label_closed: "uzavřeno"
   label_open_menu: "Otevřít nabídku"
   label_open_work_packages: "otevřené"
   label_open_work_packages_plural: "otevřené"
@@ -3119,7 +3191,7 @@ cs:
   label_password_rule_special: "Speciální znaky"
   label_password_rule_uppercase: "Velká písmena"
   label_path_encoding: "Kódování trasy"
-  label_per_page: "Per page:"
+  label_per_page: "Na stránku:"
   label_people: "Lidé"
   label_permissions: "Práva"
   label_permissions_report: "Přehled oprávnění"
@@ -3157,17 +3229,21 @@ cs:
   label_project_new: "Nový projekt"
   label_project_plural: "Projekty"
   label_project_list_plural: "Seznamy projektů"
-  label_project_life_cycle: "Project life cycle"
+  label_project_life_cycle: "Životní cyklus projektu"
   label_project_attributes_plural: "Atributy projektu"
   label_project_custom_field_plural: "Atributy projektu"
   label_project_settings: "Nastavení projektu"
   label_project_attributes_settings: ""
-  label_project_storage_plural: "File storages"
+  label_project_storage_plural: "Úložiště souborů"
   label_project_storage_project_folder: "File storages: Project folders"
   label_projects_disk_usage_information: "%{count} projekty využívající diskový prostor %{used_disk_space}"
   label_project_view_all: "Zobrazit všechny projekty - seznam"
   label_project_show_details: "Zobrazit detail projektu"
   label_project_hide_details: "Skrýt detail projektu"
+  label_portfolio: "Portfolio"
+  label_portfolio_new: "New portfolio"
+  label_program: "Program"
+  label_program_new: "New program"
   label_public_projects: "Veřejné projekty"
   label_query_new: "Nový dotaz"
   label_query_plural: "Vlastní dotazy"
@@ -3316,6 +3392,8 @@ cs:
   label_watched_work_packages: "Sledované pracovní balíčky"
   label_what_is_this: "Co to je?"
   label_week: "Týden"
+  label_widget: "Widget"
+  label_widget_new: "New widget"
   label_wiki_content_added: "Přidána stránka wiki"
   label_wiki_content_updated: "Wiki stránka aktualizována"
   label_wiki_toc: "Obsah"
@@ -3666,6 +3744,8 @@ cs:
   permission_add_work_packages: "Přidat pracovní balíčky"
   permission_add_messages: "Odesílat zprávy"
   permission_add_project: "Vytvořit projekty"
+  permission_add_portfolios: "Create portfolios"
+  permission_add_programs: "Create programs"
   permission_add_work_package_attachments: "Přidat přílohy"
   permission_add_work_package_attachments_explanation: "Umožňuje přidávat přílohy bez oprávnění upravovat pracovní balíčky"
   permission_add_internal_comments: "Write internal comments"
@@ -3780,13 +3860,15 @@ cs:
       one: "1 projekt"
       other: "%{count} projektů"
     destroy:
-      confirmation: "Pokud budete pokračovat, projekt %{identifier} bude natrvalo zničen. Pro potvrzení této akce prosím vložte název projektu do níže uvedeného pole, toto bude:"
-      project_delete_result_1: "Odstranit všechna související data."
-      project_delete_result_2: "Odstranit všechny spravované složky projektu v přiložených úložištích."
-      info: "Odstranění projektu je nevratná akce."
-      project_verification: "Zadejte název projektu %{name} pro potvrzení odstranění."
-      subprojects_confirmation: "Jeho podprojek(y): %{value} budou také smazány."
-      title: "Odstranit projekt %{name}"
+      title: "Delete project"
+      heading: "Permanently delete this project?"
+      confirmation_message_for_subprojects_html:
+        zero: >
+          You are about to permanently delete all data relating to project <strong>%{name}</strong>.
+        one: >
+          You are about to permanently delete all data relating to project <strong>%{name}</strong> and this subproject:
+        other: >
+          You are about to permanently delete all data relating to project <strong>%{name}</strong> and these subprojects:
     filters:
       project_phase: "Project phase: %{phase}"
       project_phase_any: "Project phase: Any"
@@ -3962,6 +4044,7 @@ cs:
   setting_attachment_whitelist: "Seznam povolených povolených příloh"
   setting_email_delivery_method: "Způsob zasílání emailu"
   setting_emails_salutation: "Oslovujte  uživatele v e-mailech s"
+  setting_oauth_allow_remapping_of_existing_users: "Allow remapping of existing users"
   setting_sendmail_location: "Umístění spustitelného souboru sendmail"
   setting_smtp_enable_starttls_auto: "Automaticky použít STARTTLS, pokud je dostupné"
   setting_smtp_ssl: "Použít připojení SSL"
@@ -4122,11 +4205,13 @@ cs:
   setting_working_days: "Pracovní dny"
   settings:
     authentication:
-      login_and_sso: "Login and SSO"
+      login: "Přihlášení"
       registration: "Registration"
-      single_sign_on: "Single Sign On"
+      sso: "Single Sign-On (SSO)"
       omniauth_direct_login_hint_html: >
         If this option is active, login requests will redirect to the configured omniauth provider. The login dropdown and sign-in page will be disabled. <br/> <strong>Note:</strong> Unless you also disable password logins, with this option enabled, users can still log in internally by visiting the <code>%{internal_path}</code> login page.
+      remapping_existing_users_hint: >
+        If enabled, allows any configured identity provider to login existing users based on their email address, even if the user never signed in through that provider before. This can be useful when migrating the OpenProject instance to a new SSO provider, but is not recommended when using a provider that is not trusted by all users of your instance.
     attachments:
       whitelist_text_html: >
         Definujte seznam platných přípon souborů a/nebo mime typů pro nahrané soubory. <br/> Zadejte přípony souborů (např. <code>%{ext_example}</code>) nebo mime typy (např. ., <code>%{mime_example}</code>). <br/> Ponechte prázdné pro nahrání jakéhokoli typu souboru. Povoleno více hodnot (jeden řádek pro každou hodnotu).
@@ -4192,13 +4277,13 @@ cs:
         heading: "Nový atribut"
         description: "Changes to this project attribute will be reflected in all projects where it is enabled. Required attributes cannot be disabled on a per-project basis."
     project_phase_definitions:
-      heading: "Project life cycle"
+      heading: "Životní cyklus projektu"
       heading_description: "Project life cycle define the project phases that can be used for your project planning and will appear in the overview page of each project. These attributes can be enabled or disabled but not re-ordered at a project level."
       label_add: "Přidat"
       label_add_description: "Add project phase definition"
       filter:
-        label: "Search project phase"
-      section_header: "Phases"
+        label: "Hledat fázi projektu"
+      section_header: "Fáze"
       non_defined: "No phases are currently defined."
       phase_gates: "Phase gates"
       new:
@@ -4236,6 +4321,7 @@ cs:
   status_invited: pozván
   status_locked: uzamčeno
   status_registered: registrován
+  status_deleted: deleted
   #Used in array.to_sentence.
   support:
     array:
@@ -4270,6 +4356,20 @@ cs:
     Toto je logo, které se zobrazí ve vašem PDF exportu. Musí se jednat o PNG nebo JPEG obrázek. Doporučuje se černé nebo barevné logo na průhledném nebo bílém pozadí.
   text_custom_export_cover_instructions: >
     Toto je obrázek, který se zobrazí na pozadí titulní stránky ve vašem PDF exportu. Musí být asi 800px šířka o 500px výška obrazového souboru PNG nebo JPEG.
+  text_custom_export_footer_instructions: >
+    PDF exports will include a graphical element positioned to the left of the footer. This image must be a PNG or JPEG file with approximately 200 pixels in width.
+  label_custom_export_font_instructions: >
+    Upload and manage custom TrueType (.ttf) fonts used in your PDF exports. For best results, use matching files from the same font family. If no font is provided, the default NotoSans font will be used.
+  label_custom_export_images_instructions: >
+    Upload and manage custom image files used in your PDF exports.
+  text_custom_export_font_regular_instructions: >
+    This is the font file for regular text. It needs to be in TTF format and is required.
+  text_custom_export_font_bold_instructions: >
+    This is the font file for bold text. It needs to be in TTF format.
+  text_custom_export_font_italic_instructions: >
+    This is the font file for italic text. It needs to be in TTF format.
+  text_custom_export_font_bold_italic_instructions: >
+    This is the font file for bold and italic text. It needs to be in TTF format.
   text_custom_favicon_instructions: >
     Toto je malá ikona zobrazená v okně/záložce prohlížeče vedle názvu stránky. Musí být čtvercový obrázek velikosti PNG 32 až 32 pixelů s průhledným pozadím.
   text_custom_touch_icon_instructions: >
@@ -4611,6 +4711,8 @@ cs:
       code_500_missing_enterprise_token: "Požadavek nelze zpracovat kvůli neplatnému nebo chybějícímu tokenu Enterprise."
       bad_request:
         emoji_reactions_activity_type_not_supported: "This activity type does not support emoji reactions."
+        invalid_link: "The link under key '%{key}' is not valid."
+        links_not_an_object: "_links must be a JSON object."
       conflict:
         multiple_reminders_not_allowed: |-
           You can only set one reminder at a time for a work package. Please delete or update the existing reminder.
@@ -4815,3 +4917,6 @@ cs:
     description: "Přidá poskytovatele SAML OmniAuth do OpenProject"
   enterprise_plans:
     legacy_enterprise: "Enterprise Plan"
+  token:
+    hashed_token:
+      display_value_placeholder: "***"

@@ -137,7 +137,7 @@ class RecurringMeetingsController < ApplicationController
 
   def end_series
     call = ::RecurringMeetings::UpdateService
-      .new(model: @recurring_meeting, user: current_user)
+      .new(model: @recurring_meeting, user: current_user, contract_class: RecurringMeetings::EndSeriesContract)
       .call(end_after: "specific_date", end_date: Time.zone.today)
 
     if call.success?
@@ -209,7 +209,7 @@ class RecurringMeetingsController < ApplicationController
       if params[:occurrence_id].present?
         occurrence = @recurring_meeting.meetings.find_by(id: params[:occurrence_id])
         ["#{@recurring_meeting.title} - #{occurrence.start_time.to_date.iso8601}",
-         service.generate_occurrence(occurrence)]
+         service.generate_single_occurrence(meeting: occurrence)]
       else
         [@recurring_meeting.title, service.generate_series]
       end

@@ -21,10 +21,10 @@ ja:
         project_folder_mode: プロジェクトフォルダーモード
         storage: ストレージ
         storage_url: ストレージURL
-      storages/share_point_storage:
+      storages/sharepoint_storage:
         host: シェアポイントサイトURL
         library: ライブラリーID
-        name: 名称
+        name: 氏名
         site: サイトID
       storages/storage:
         authentication_method: 認証方法
@@ -195,10 +195,10 @@ ja:
       oauth_client_incomplete:
         nextcloud: OAuthを使用してNextcloudデータにOpenProjectがアクセスできるようにします。
         one_drive: OpenProjectがOAuthを使用してOneDriveに接続するAzureデータにアクセスできるようにします。
-        share_point: OAuthを使用してSharePointデータにOpenProjectがアクセスできるようにします。
+        sharepoint: OpenProject が OAuth を使って SharePoint のデータにアクセスできるようにします。
       redirect_uri_incomplete:
         one_drive: 正しいURIリダイレクトでセットアップを完了する。
-        share_point: 正しいURIリダイレクトでセットアップを完了する。
+        sharepoint: 正しいURIリダイレクトでセットアップを完了する。
     confirm_replace_oauth_application: この操作で、現在の OAuth 認証情報がリセットされます。確認後、ストレージプロバイダで認証情報を再入力する必要があり、すべてのリモートユーザは OpenProject に対して再度認証する必要があります。本当に進めますか？
     confirm_replace_oauth_client: この操作により、現在のOAuth認証情報がリセットされます。確認後、ストレージプロバイダから新しい認証情報を入力する必要があり、すべてのユーザーは %{provider_type} に対して再度認証する必要があります。本当に進めますか？
     delete_warning:
@@ -236,10 +236,11 @@ ja:
       openproject_oauth: OpenProject OAuth
       project_folders: プロジェクトフォルダ
       redirect_uri: リダイレクトURI
+      sharepoint_oauth: Azure OAuth
       storage_audience_blank: 観客は設定されていない。
       storage_audience_description: オーディエンス「%{audience}」のトークンを交換します。
       storage_audience_idp: 視聴者に関係なく、ログイン時にIDプロバイダが取得したアクセストークンを使用する。
-      storage_oauth: NextcloudのOAuth
+      storage_oauth: Storage OAuth
       storage_provider: ストレージ・プロバイダー
       token_exchange: トークン交換
     health:
@@ -278,6 +279,7 @@ ja:
           drive_id_exists: ドライブは存在する
           drive_id_format: ドライブIDフォーマット
           header: 構成
+          host: Host URL
           host_url_accessible: アクセス可能なホストURL
           storage_configured: 設定完了
           tenant_id: テナントID
@@ -317,6 +319,15 @@ ja:
         oidc_token_acquisition_failed: OpenID Connectのセットアップでは、必要なオーディエンスが提供されておらず、トークン交換機能も提供されていません。詳しくはドキュメントをご覧ください。
         oidc_token_exchange_failed: OpenID Connect ProviderのToken Exchange設定に問題があるようです。設定を確認し、再度お試しください。
         oidc_token_refresh_failed: ストレージへのアクセスを確認しようとしてエラーが発生しました。詳細については、サーバーのログを確認してください。
+        sp_client_cant_delete_folder: クライアントがSharePointでフォルダの削除に失敗しています。お使いのストレージのセットアップドキュメントを確認してください。
+        sp_client_id_missing: 設定された OAuth 2 クライアント ID が SharePoint にありません。設定を確認してください。
+        sp_client_secret_missing: 設定されたOAuth 2クライアントシークレットがSharePointにありません。設定を確認してください。
+        sp_client_write_permission_missing: クライアントはSharePointで書き込み権限が不足しているようです。ストレージのセットアップドキュメントを確認してください。
+        sp_existing_test_folder: テストに必要なフォルダ %{folder_name} は SharePoint に既に存在します。削除してから、もう一度お試しください。
+        sp_oauth_request_error: SharePointへのユーザーバウンドリクエストに失敗しました。詳細については、サーバーのログを確認してください。
+        sp_oauth_token_missing: OpenProject は、ユーザーがまだ SharePoint アカウントをリンクしていないため、ユーザーレベルの SharePoint との通信をテストできません。
+        sp_tenant_id_missing: 構成されたディレクトリ（テナント）IDがSharePointにありません。設定を確認してください。
+        sp_unexpected_content: SharePointドライブに予期しないコンテンツが見つかりました。
         unknown_error: 接続を検証できませんでした。不明なエラーが発生しました。詳細については、サーバーのログを確認してください。
       label_error: エラー
       label_failed: 失敗しました
@@ -337,12 +348,10 @@ ja:
         warning: いくつかのチェックは警告を返した。これは予期せぬ動作につながる可能性がある。
       title: 健康状態報告
     health_email_notifications:
-      description_subscribed: すべての管理者は、このストレージのヘルスステータスの電子メール通知を受け取る。
-      description_unsubscribed: このストレージのヘルスステータスの電子メール通知は、すべての管理者に対してオフになりました。
+      description_disabled: 管理者は、重要なアップデートがあった場合、メールでアップデートを受け取ることはできません。
+      description_enabled: 管理者は、重要なアップデートがあった場合、メールで最新情報を受け取ります。
       error_could_not_be_saved: 電子メール通知の設定を保存できませんでした。もう一度お試しください。
-      subscribe: サブスクライブ
-      title: 電子メールの通知
-      unsubscribe: 登録解除
+      title: 管理者にメールで更新する
     help_texts:
       project_folder: プロジェクトフォルダは、このプロジェクトのファイルアップロード用のデフォルトフォルダです。それでも、ユーザーは他の場所にファイルをアップロードすることができます。
       project_folder_bulk: プロジェクトフォルダは、選択したすべてのプロジェクトのファイルアップロード用のデフォルトフォルダです。これは、各プロジェクト設定で個別に変更できます。それでも、ユーザーは他の場所にファイルをアップロードすることができます。
@@ -386,11 +395,11 @@ ja:
       setting_up_additional_storages_non_admin: 管理者は、Administration / File storages で追加のファイルストレージを設定できます。
       setting_up_storages: ファイルストレージの設定については、以下をご覧ください
       setting_up_storages_non_admin: 管理者は、管理 / ファイルストレージでファイルストレージを設定できます。
-      share_point:
+      sharepoint:
         application_link_text: シェアポイントサイト
         integration: SharePoint管理 / OpenProject
         oauth_configuration: '%{application_link_text}、目的のアプリケーションからこれらの値をコピーします。'
-        provider_configuration: セットアップを行う前に、SharePoint インスタンスに管理者権限があり、OpenProject 統合アプリがインストールされていることを確認してください。
+        provider_configuration: セットアップを行う前に、 %{application_link_text} で管理者権限を持っていることを確認するか、Microsoft 管理者に連絡してください。ポータルでは、Azure アプリケーションを登録するか、既存のものを認証に使用する必要もあります。
       type: 'セットアップを行う前に、Nextcloudインスタンスに管理者権限があり、以下のアプリケーションがインストールされていることを確認してください：'
       type_link_text: "「統合OpenProject」"
     label_active: アクティブ
@@ -492,7 +501,7 @@ ja:
         label_oauth_client_secret: Azure OAuth クライアントの秘密値
         name: ワンドライブ
         name_placeholder: '例: OneDrive'
-      share_point:
+      sharepoint:
         label_oauth_client_id: Azure OAuthアプリケーション（クライアント）ID
         label_oauth_client_secret: Azure OAuth クライアントの秘密値
         name: シェアポイント

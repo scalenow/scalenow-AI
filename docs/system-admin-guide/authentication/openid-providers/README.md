@@ -237,28 +237,36 @@ For example: Keycloak allows you to map custom properties of the user. This allo
 
 #### Step 7: Group mapping
 
-> [!IMPORTANT]
-> Group mapping is an experimental feature that's not yet intended for production usage. It must be enabled on the page for experimental
-> features of your OpenProject instance (found under `/admin/settings/experimental`). Future versions might change this feature in a breaking
-> way, as we still look for user feedback on this feature.
-
-OpenProject can optionally synchronize groups of users when they log in. If you want to enable this, you have to enable the checkbox
-"Synchronize groups". OpenProject will expect a claim with an array of group names that the user is a member of. By default this claim
+OpenProject can optionally synchronize groups of users when they log in. If you want to enable this, you have to enable the checkbox "Synchronize groups". OpenProject will expect a claim with an array of group names that the user is a member of. By default this claim
 is expected to be named `groups`, but you can change this if desired.
 
-The default behaviour of OpenProject is to create a new group for each unknown group listed in this claim. It will match existing groups
-by their name before creating a new group. You can later rename groups created this way in the group management UI, they will still be linked
+The default behaviour of OpenProject is to create a new group for each unknown group listed in this claim. It will match existing groups by their name before creating a new group. You can later rename groups created this way in the group management UI, they will still be linked
 to the ID with which they are referenced in OpenID Connect claims and recognized that way.
 
 ##### Matching groups with regular expressions
 
 For advanced use cases, it's possible to filter which groups will be imported into OpenProject and which part of the group name will be considered.
 
-The input under "Pattern (regular expression)" expects a list of regular expressions that will be used to match against the name of a group. If
-the group name matches one of the regular expressions, it will be synchronized. If it matches none of the expressions, it will not be synchronized.
+The input under "Patterns (regular expressions)" expects a list of regular expressions that will be used to match against the name of a group. If
+the group name matches at least one of the regular expressions, it will be synchronized. If it matches none of the expressions, it will not be synchronized. The captured groups inside the first matching regular expression are used to extract the name of the imported group. If the regular expression does not contain any captured groups, the full group name is used.
 
-The match groups inside the first matching regular expression are used to extract the name of the imported group. For example if groups in your identity
-provider are called `gA`, `gB` and `gC`, and you only want to extract the group names "A", "B" and "C", you could use a regular expression of `^g([A-Z])$`. The `^` and `$` ensure that only full group names are matched, otherwise it would also be possible to match on parts of the group name.
+As an example, consider your OpenID Connect provider defines the following groups:
+
+* `/your-company/department-accounting`
+* `/your-company/department-sales`
+* `/your-company/administrators`
+* `/your-company/external-contractors`
+
+Assuming you only want to import groups for the different departments, but not for other groups that may exist, you could specify
+the following regular expression:
+
+```
+^/your-company/(department-[\w]+)$
+```
+
+This would reject the `/your-company/administrators` and `/your-company/external-contractors` groups, because they do not match the expression.
+The other two groups would be considered to be named `department-accounting` and `department-sales`, during synchronization, because the captured
+group (i.e. the parenthesis) only covers that part of the match.
 
 OpenProject parses regular expressions using syntax accepted by the Ruby programming language. One good online resource to understand
 Ruby regular expressions is [Rubular](https://rubular.com/).

@@ -283,21 +283,18 @@ class PermittedParams
                                                 :templated,
                                                 :status_code,
                                                 :status_explanation,
-                                                custom_fields: [],
                                                 work_package_custom_field_ids: [],
                                                 type_ids: [],
                                                 enabled_module_names: [])
 
-    if whitelist.has_key?(:status_code) && whitelist[:status_code].blank?
-      whitelist[:status_code] = nil
-    end
-
-    whitelist.merge(custom_field_values(:project))
+    whitelist
+      .tap { nilify_params!(it, :status_code) }
+      .merge(custom_field_values(:project))
   end
 
   def new_project
     params
-      .expect(project: %i[name parent_id])
+      .expect(project: %i[name parent_id workspace_type])
       .merge(custom_field_values(:project))
   end
 
@@ -305,6 +302,12 @@ class PermittedParams
     copy_options_params = params.expect(copy_options: [[dependencies: []], :send_notifications])
     copy_options_params[:dependencies].compact_blank!
     copy_options_params
+  end
+
+  def project_status
+    params
+      .expect(project: %i[status_code status_explanation])
+      .tap { nilify_params!(it, :status_code) }
   end
 
   def project_phase
@@ -679,5 +682,10 @@ class PermittedParams
     object = required ? params.require(key_to_fetch) : params.fetch(key_to_fetch, {})
     values = key ? object[:custom_field_values] : object
     values || ActionController::Parameters.new
+  end
+
+  def nilify_params!(hash, *keys)
+    keys.each { |k| hash[k] = hash[k].presence if hash.key?(k) }
+    hash
   end
 end

@@ -59,6 +59,10 @@ ja:
       tab_interface: "インターフェース"
       tab_branding: "ブランディング"
       tab_pdf_export_styles: "PDF export styles"
+      tab_pdf_export_font: "PDFエクスポート時に使用するフォント"
+      fonts:
+        file_too_large: "は大きすぎます (最大サイズは%{count}MBです)。"
+        file_is_invalid: "は有効なTTFフォントファイルでありません。"
       colors:
         primary-button-color: "プライマリボタン"
         accent-color: "アクセント"
@@ -295,6 +299,7 @@ ja:
         placeholder:
           label: "アイテムラベル"
           short: "ショートネーム"
+          score: "スコア"
       notice:
         remember_items_and_projects: "このカスタムフィールドの各タブに項目とプロジェクトを設定することを忘れないでください。"
       hierarchy:
@@ -330,13 +335,18 @@ ja:
     single: "または"
   dry_validation:
     errors:
+      defined: "を定義してはならない。"
       int?: "は整数でなければなりません。"
+      decimal?: "10進数である必要があります。"
       filled?: "を入力する必要があります。"
+      key?: "は見つかりません。"
       greater_or_equal_zero: "は 0 以上でなければなりません。"
       not_found: "見つかりません。"
       rules:
         copy_workflow_from:
           workflow_missing: "独自のワークフローはありません。"
+        custom_field:
+          format_not_supported: "フォーマット '%{field_format}' はサポートされていません。"
         item:
           root_item: "をルート・アイテムにすることはできません。"
           not_persisted: "は既存のアイテムである必要があります。"
@@ -352,6 +362,7 @@ ja:
       depth: "深さ"
       item: "アイテム"
       label: "Label"
+      score: "スコア"
       short: "ショートネーム"
       parent: "親項目"
       blueprint: "パターンの建設計画"
@@ -372,7 +383,7 @@ ja:
       description: ユーザーをグループ化することで、メンバーを同じプロジェクトに追加したり、同じグローバルロールを割り当てたりできます。
     table_component:
       blank_slate:
-        description: 特定の名前のユーザーグループを定義することができます
+        description: 特定の権限を持つユーザーの名前付きグループを定義できます。
         title: まだグループが設定されていません
       user_count: ユーザー数
     users:
@@ -462,7 +473,7 @@ ja:
       life_cycle:
         header:
           title: "プロジェクトのライフ サイクル"
-          description_html: "The active project phases define this project's life cycle and are defined in the <a href=%{admin_settings_url} target=\"_blank\">administration settings</a>. Enabled phases will be displayed in your <a href=%{overview_url} target=\"_blank\">project overview</a>."
+          description_html: 'The active project phases define this project''s life cycle and are defined in the <a href=%{admin_settings_url} target="_blank">administration settings</a>. Enabled phases will be displayed in your <a href=%{overview_url} target="_blank">project overview</a>.'
         non_defined: "現在定義されているフェーズはありません。"
         section_header: "フェーズ"
         step:
@@ -565,26 +576,26 @@ ja:
       will_revoke_access_to_all: "このアクションは、すべてのアクセス権を剥奪する。"
   my:
     access_token:
-      create_dialog:
-        title: トークン生成完了
-        header: '%{type} トークンが生成されました'
-        warning: このトークンが表示されるのは今回だけなので、必ずコピーしてください。
+      dialog:
+        token/api:
+          dialog_title: "新しいAPIトークンを作成"
+          attention_text: "APIトークンをパスワードのように扱う。このトークンを持っている人は誰でもこのインスタンスの情報にアクセスすることができるので、信頼できるユーザーのみと共有しましょう。"
+          dialog_body: "このトークンによって、サードパーティのアプリケーションがあなたのインスタンスと通信できるようになります。新しいAPIトークンを区別するために、名前を付けてください。"
+          create_button: "作成"
+          name_label: "トークン名"
+      created_dialog:
+        token/api:
+          title: "API トークンが生成されました"
+          warning: "このトークンが表示される唯一の時間です。今すぐコピーしてください。"
       errors:
         token_name_blank: "APIトークン名を入力してください"
         token_name_in_use: "この API トークン名は既に使用されています。別のトークンを選択してください"
-      new_access_token_dialog_title: "新しいAPIトークンを作成"
-      new_access_token_dialog_show_button_text: "APIトークン"
-      new_access_token_dialog_text_field_placeholder_text: "My API token"
-      new_access_token_dialog_text_field_label: "名称"
-      new_access_token_dialog_submit_button_text: "作成"
-      new_access_token_dialog_text: "このトークンは、サードパーティのアプリケーションがあなたのインスタンスと通信できるようにします。新しいAPIトークンを区別するには、名前を付けてください。"
-      new_access_token_dialog_attention_text: "APIトークンをパスワードのように扱います。このリンクを持つ人は誰でもこのインスタンスから情報にアクセスでき、信頼できるユーザーとのみ共有します。"
       failed_to_reset_token: "アクセストークンをリセットできませんでした: %{error}"
       failed_to_create_token: "アクセストークンの作成に失敗しました: %{error}"
       failed_to_revoke_token: "アクセストークンの取り消しに失敗しました: %{error}"
       notice_reset_token: "新しい %{type} トークンが生成されました。アクセストークンは:"
       token_value_warning: "注: これはこのトークンが表示される唯一の機会です。今すぐコピーして確認してください。"
-      no_results_title_text: 現在、有効なアクセス トークンはありません。
+      no_results_title_text: "現在、有効なアクセス トークンはありません。"
       notice_api_token_revoked: "APIトークンが削除されました。新しいトークンを作成するには、APIセクションの作成ボタンを使用してください。"
       notice_rss_token_revoked: "RSSトークンが削除されました。新しいトークンを作成するには、RSSセクションのリンクを使用してください。"
       notice_ical_token_revoked: 'プロジェクト "%{project_name}" のカレンダー "%{calendar_name}" の iCalendar トークン "%{token_name}" が失効しました。このトークンを持つiCalendar URLは無効になりました。'
@@ -677,8 +688,10 @@ ja:
         excluded_from_totals: "合計から除外"
   themes:
     dark: "暗い"
+    dark_high_contrast: "暗い高コントラスト"
     light: "ライト"
     light_high_contrast: "明るいハイコントラスト"
+    sync_with_os: "自動(OSのテーマ設定に追従)"
   types:
     index:
       no_results_title_text: 現在、種類はありません。
@@ -711,7 +724,7 @@ ja:
         pattern:
           label: "件名パターン"
           caption: テキストを追加してパターンを作成するか、[supported attributes](attributes_url ) を検索するために "/" と入力します。
-          insert_as_text: "属性が見つかりませんでした。テキストとして追加: \"%{word}\""
+          insert_as_text: '属性が見つかりませんでした。テキストとして追加: "%{word}"'
       export_configuration:
         tab: "PDFを生成"
         intro: "このタイプで有効にするテンプレートを選択します。 テンプレートは、このタイプを使用してワークパッケージのエクスポートされた PDF に表示されるデザインと属性を決定します。 リストの最初のテンプレートがデフォルトで選択されています。"
@@ -895,7 +908,7 @@ ja:
   account:
     delete: "アカウントを削除"
     delete_confirmation: "アカウントを削除してもよろしいですか？"
-    deletion_pending: "アカウントがロックされ、削除がスケジュールされました。このプロセスはバックグラウンドで行われることに注意してください。 ユーザーが完全に削除されるまで数分かかる場合があります。"
+    deletion_pending: "アカウントは削除待ちの状態です。この処理はバックグラウンドで行われます。ユーザーが完全に削除されるまで少し時間がかかる場合があります。"
     deletion_info:
       data_consequences:
         other: 'ユーザーが作成した殆どのデータ (例えば電子メール、設定、ワークパッケージ 、wiki記載 )が削除されます。ただし、他のユーザーの作業を妨害することがなくワークパッケージやwiki 記載のようなデータは削除することはできません。それ故に、このようなデータは「削除されたユーザー」と呼ばれるアカウントに再割り当てされます。削除された各アカウントのデータがこのアカウントに再割り当てされるので、そのユーザーが作成したデータと削除された別のユーザーのデータとを区別することができなくなります。'
@@ -1026,6 +1039,7 @@ ja:
         active_value:
           true: "アーカイブされていません"
           false: "アーカイブ済"
+        attribute_groups: "属性グループ"
         description: "説明"
         enabled_modules: "有効なモジュール"
         identifier: "識別子"
@@ -1052,6 +1066,7 @@ ja:
         types: "ワークパッケージのタイプ"
         versions: "バージョン"
         work_packages: "ワークパッケージ"
+        workspace_type: "ワークスペースのタイプ"
       project_custom_field:
         is_required: "すべてのプロジェクトに必要"
         custom_field_section: セクション
@@ -1173,7 +1188,7 @@ ja:
         warn_on_leaving_unsaved: "変更を保存せずにワークパッケージから移動するときに警告"
         theme: "カラーモード"
         time_zone: "タイムゾーン"
-        mode_guideline: "一部のモードでは、アクセシビリティと読みやすさのためにカスタムテーマの色を上書きします。完全なカスタムテーマサポートのためにライトモードを選択してください。"
+        mode_guideline: "いくつかのモードはアクセシビリティや読みやすさのために選択したテーマカラーを上書きします。\n完全なカスタムテーマを使用するにはライトモードを選択してください。"
         daily_reminders: "毎日の通知"
         workdays: "営業時間"
       version:
@@ -1281,6 +1296,7 @@ ja:
         odd: "は奇数にしてください。"
         regex_match_failed: "正規表現 %{expression}と一致しません。"
         regex_invalid: "関連付けられた正規表現を検証できませんでした。"
+        regex_list_invalid: "%{invalid_lines}行は正規表現として解析できませんでした。"
         hexcode_invalid: "は有効な6桁の16進カラーコードではない。"
         smaller_than_or_equal_to_max_length: "は最大長さより以下でなければなりません。"
         taken: "は既に使用されています。"
@@ -1315,6 +1331,8 @@ ja:
               minimum: "プリンシパル、コンテキスト、または '= ' 演算子の id に少なくとも 1 つのフィルタを含める必要があります。"
         custom_field:
           at_least_one_custom_option: "少なくとも 1 つオプションが有効である必要があります。"
+          referenced_in_other_fields_html:
+            other: "%{name}はプロジェクト属性の計算に使用されます：%{links}。"
         custom_fields_project:
           attributes:
             project_ids:
@@ -1548,7 +1566,7 @@ ja:
               must_be_set_when_work_is_set: "作業が設定されている場合に必要です。"
               must_be_set_when_work_and_percent_complete_are_set: "「作業」と「完了率」が設定されている場合に必要です。"
               must_be_set_to_zero_hours_when_work_is_set_and_percent_complete_is_100p: >-
-                作業が設定されている場合は0時間で、%が100%である必要があります。
+                工数が設定されていて，完了率が 100%になっている場合，必ず0hになっている必要があります。
               must_be_empty_when_work_is_empty_and_percent_complete_is_100p: >-
                 「Work」が空で「% Complete」が100%の場合、必ず空でなければなりません。
           readonly_status: "ワークパッケージは読み取り専用の状態になっているため、その属性は変更できません。"
@@ -1609,6 +1627,7 @@ ja:
       auth_provider:
         other: "認証プロバイダー"
       category: "カテゴリ"
+      color: "色"
       comment: "コメント"
       custom_action: "カスタムアクション"
       custom_field: "カスタムフィールド"
@@ -1656,7 +1675,7 @@ ja:
       created_by_on: "%{user} によって %{datetime} に作成されました"
       created_by_on_time_entry: "%{user} が %{datetime} にタイムログを記録しました"
       created_on: "作成日 %{datetime}"
-      created_on_time_entry: "time logged on %{datetime}"
+      created_on_time_entry: "%{datetime}に記録された時間"
       updated_by_on: "%{user} が %{datetime} で更新"
       updated_by_on_time_entry: "%{user} が %{datetime}にログ時間を更新しました"
       updated_on: "%{datetime} に更新"
@@ -1690,7 +1709,7 @@ ja:
       added_date: "%{date} に設定"
       changed_date: "%{from} から %{to} に変更"
       deactivated: "無効化"
-      deleted_project_phase: "Deleted project phase"
+      deleted_project_phase: "プロジェクトフェーズの削除"
       phase_and_both_gates: "%{phase_message}、 %{start_gate_message}、および %{finish_gate_message}"
       phase_and_one_gate: "%{phase_message}. %{gate_message}"
       removed_date: "日付が削除されました %{date}"
@@ -1700,7 +1719,7 @@ ja:
     assigned_to: "担当者"
     assignee: "担当者"
     attachments: "添付ファイル"
-    actor: "Actor"
+    actor: "アクター"
     action: "操作"
     author: "作成者"
     avatar: "アバター"
@@ -1772,7 +1791,7 @@ ja:
     search: "検索"
     start_date: "開始日"
     status: "ステータス"
-    state: "State"
+    state: "状態"
     subject: "タイトル"
     slug: "スラグ"
     summary: "サマリ"
@@ -1781,7 +1800,7 @@ ja:
     title: "タイトル"
     type: "タイプ"
     typeahead: "オートコンプリート"
-    uid: "Unique identifier"
+    uid: "一意な識別子"
     updated_at: "更新日時"
     updated_on: "更新日時"
     uploader: "アップロード"
@@ -1789,7 +1808,7 @@ ja:
     username: "ユーザー名"
     unit: "ユニット"
     value: "値"
-    values: "Values"
+    values: "値"
     version: "バージョン"
     visible: "表示"
     work_package: "ワーク パッケージ"
@@ -1860,7 +1879,7 @@ ja:
   button_edit: "編集"
   button_edit_associated_wikipage: "関連するWikiページを編集: %{page_title}"
   button_expand_all: "全てを展開"
-  button_favorite: "Add to favorites"
+  button_favorite: "お気に入りに追加"
   button_filter: "フィルタ"
   button_finish_setup: "セットアップを完了"
   button_generate: "生成"
@@ -1942,12 +1961,12 @@ ja:
       succeeded: 'プロジェクト「%{target_project_name}」にプロジェクト「%{source_project_name}」をコピーしました。'
     source_project_label: "コピーされたプロジェクト"
     copy_options:
-      dependencies_label: 'Copy from project'
+      dependencies_label: "プロジェクトからコピー"
   create_project:
-    template_label: "Use template"
+    template_label: "テンプレートを使用"
     copy_options:
-      dependencies_label: 'Copy from template'
-  create_wiki_page: "Create new wiki page"
+      dependencies_label: "テンプレートからコピー"
+  create_wiki_page: "新しいWikiページを作成"
   create_wiki_page_button: "Wiki ページ"
   date:
     abbr_day_names:
@@ -2029,13 +2048,13 @@ ja:
       x_minutes:
         other: "%{count} 分間"
       x_minutes_abbreviated:
-        other: "%{count} mins"
+        other: "%{count}分"
       x_hours:
         other: "%{count} 時間"
       x_hours_abbreviated:
-        other: "%{count} hrs"
+        other: "%{count}時間"
       x_weeks:
-        other: "%{count} weeks"
+        other: "%{count}週"
       x_months:
         other: "%{count} ヶ月間"
       x_years:
@@ -2043,10 +2062,10 @@ ja:
       x_seconds:
         other: "%{count} 秒"
       x_seconds_abbreviated:
-        other: "%{count} s"
+        other: "%{count}秒"
     units:
       minute_abbreviated:
-        other: "mins"
+        other: "分"
       hour:
         other: "時"
       day:
@@ -2084,36 +2103,36 @@ ja:
   direction: 左から右
   ee:
     features:
-      baseline_comparison: Baseline Comparisons
-      board_view: Advanced Boards
-      conditional_highlighting: Conditional Highlighting
-      internal_comments: Internal Comments
-      custom_actions: Custom Actions
-      custom_field_hierarchies: Custom fields of type hierarchy
-      customize_life_cycle: Customize Life Cycle
-      date_alerts: Date Alerts
-      define_custom_style: Custom theme and logo
-      edit_attribute_groups: Edit Attribute Groups
-      gantt_pdf_export: Gantt PDF Export
+      baseline_comparison: ベースラインの比較
+      board_view: 高度なボード
+      conditional_highlighting: 条件付きハイライト
+      internal_comments: 内部コメント
+      custom_actions: カスタムアクション
+      custom_field_hierarchies: タイプ階層のカスタムフィールド
+      customize_life_cycle: ライフサイクルをカスタマイズ
+      date_alerts: 日付アラート
+      define_custom_style: カスタムテーマとロゴ
+      edit_attribute_groups: 属性グループを編集
+      gantt_pdf_export: ガントPDFをエクスポート
       ldap_groups: LDAP ユーザーとグループ同期
       nextcloud_sso: Nextcloudストレージのシングルサインオン。
-      one_drive_sharepoint_file_storage: OneDrive/SharePoint File Storage
-      placeholder_users: Placeholder Users
-      project_list_sharing: Project List Sharing
-      readonly_work_packages: Readonly Work Packages
+      one_drive_sharepoint_file_storage: OneDrive/SharePointファイルストレージ
+      placeholder_users: プレースホルダー ユーザー
+      project_list_sharing: プロジェクトリストの共有
+      readonly_work_packages: 読み取り専用のワークパッケージ
       scim_api: SCIMサーバーAPI
       sso_auth_providers: シングルサインオン
-      team_planner_view: Team Planner View
-      virus_scanning: Antivirus Scanning
-      work_package_query_relation_columns: Work Package Query Relation Columns
-      work_package_sharing: Share work packages with external users
-      work_package_subject_generation: Work Package Subject Generation
+      team_planner_view: チームプランナー
+      virus_scanning: アンチウイルススキャン
+      work_package_query_relation_columns: ワークパッケージクエリの関連列
+      work_package_sharing: 外部ユーザーとワークパッケージを共有
+      work_package_subject_generation: ワークパッケージの題名を生成
     upsell:
-      buy_now_button: "Buy now"
-      plans_title: "Enterprise plans"
-      title: "Enterprise add-on"
-      plan_title: "Enterprise %{plan} add-on"
-      plan_name: "%{plan} enterprise plan"
+      buy_now_button: "今すぐ購入"
+      plans_title: "エンタープライズプラン"
+      title: "エンタープライズアドオン"
+      plan_title: "エンタープライズ%{plan}アドオン"
+      plan_name: "%{plan}のエンタープライズプラン"
       plan_text_html: "%{plan_name} から利用できます。"
       unlimited: "無制限です"
       already_have_token: >
@@ -2125,9 +2144,9 @@ ja:
       baseline_comparison:
         description: 過去の任意の点からこのリストに加えられた変更を強調表示します。
       benefits:
-        description: "What are the benefits of the Enterprise on-premises edition?"
+        description: "オンプレミス版エンタープライズエディションのメリット"
         high_security: "セキュリティ機能"
-        high_security_text: "Single sign on (SAML, OpenID Connect, CAS), LDAP groups."
+        high_security_text: "シングルサインオン(SAML, OpenID Connect, CAS), LDAP グループ。"
         installation: "インストールのサポート"
         installation_text: "経験豊富なソフトウェアエンジニアが、独自のインフラストラクチャの完全なインストールとセットアッププロセスをガイドします。"
         premium_features: "エンタープライズアドオン"
@@ -2141,9 +2160,9 @@ ja:
       conditional_highlighting:
         description: "質量から目立つ特定の作業項目が必要ですか? ワークパッケージテーブルで条件付きハイライトを使用します。"
       work_package_query_relation_columns:
-        description: "Need to see relations or child elements in the work package list?"
+        description: "ワークパッケージの一覧で関係を表示しますか？"
       edit_attribute_groups:
-        description: "Customize form configuration with these additional add-ons:"
+        description: "これらの追加機能でフォームの設定をカスタマイズします："
         features:
           groups: "新しい属性グループを追加"
           rename: "属性グループの名前を変更"
@@ -2166,11 +2185,14 @@ ja:
         title: "カスタムアクション"
         description: "カスタムアクションは、ステータスに基づいて特定のワークパッケージで利用できる、事前に定義されたアクションです。"
       nextcloud_sso:
-        title: "Single Sign-On for Nextcloud Storage"
+        title: "Nextcloudストレージへのシングルサインオン"
         description: "シングルサインオンでNextcloudストレージのシームレスかつセキュアな認証を可能にします。アクセス管理を簡素化し、ユーザーの利便性を向上させます。"
       scim_api:
         title: "SCIMクライアント"
         description: "Microsoft EntraやKeycloakなどの外部アイデンティティサービスをSCIM Server API経由でシームレスに統合することで、OpenProjectのユーザー管理を自動化します。 エンタープライズ企業プランから利用できます。"
+      sso_auth_providers:
+        title: "シングルサインオン(SSO)"
+        description: "SAML または OpenID Connect を使用して外部の SSO プロバイダ経由でログインし、既存の ID システムとのシームレスなアクセスと統合を可能にします。"
       virus_scanning:
         description: "他のユーザーがアクセスできるようになる前に、OpenProjectにアップロードされたファイルがウイルスでスキャンされていることを確認してください。"
       placeholder_users:
@@ -2202,11 +2224,18 @@ ja:
         OpenProject Enterpriseの無料トライアルを開始するために、すべての情報を %{date} にメールを %{email} に送信しました。 14日間の無料トライアルを開始するには、受信トレイを確認し、確認リンクをクリックしてください。
       confirmation_subline: >
         受信トレイを確認し、手順に従って14日間の無料トライアルを開始してください。
-      domain_caption: The token will be valid for your currently configured host name.
+      domain_caption: このトークンは、現在設定されているホスト名に対して有効です。
       receive_newsletter_html: >
         OpenProject <a target="_blank" href="https://www.openproject.org/newsletter/">ニュースレター</a> を受け取りたい。
       consent_html: >
         <a target="_blank" href="https://www.openproject.org/terms-of-service/">サービス規約</a> および <a target="_blank" href="https://www.openproject.org/data-privacy-and-security/">プライバシーポリシー</a>に同意します。
+  email_calendar_updates:
+    state:
+      disabled: "無効だ。"
+      enabled: "有効。"
+    button:
+      disabled: "有効にする"
+      enabled: "無効"
   enumeration_activities: "タイムトラッキングアクティビティ"
   enumeration_work_package_priorities: "ワークパッケージの優先度"
   enumeration_reported_project_statuses: "報告されるプロジェクト進捗状況"
@@ -2352,8 +2381,13 @@ ja:
           label: "説明を含める"
           caption: "このオプションは、説明列をraw形式で追加します。"
     your_work_packages_export: "作業項目をエクスポートしています"
+    your_projects_export: "プロジェクトはエクスポートされています"
     succeeded: "エクスポート完了"
     failed: "作業項目のエクスポート中にエラーが発生しました: %{message}"
+    demo:
+      heading: "デモPDF"
+      footer: "OpenProject によって生成"
+      button_text: デモPDFを生成
     errors:
       embedded_table_with_too_many_columns: "この埋め込まれた作業項目テーブルはページに収まりませんでした。列数を減らしてください。"
     format:
@@ -2414,6 +2448,13 @@ ja:
       xls2csv: "Xls2csvが利用可能 (オプション)"
       catppt: "Catpptが利用可能 (オプション)"
       tesseract: "Tesseractが利用可能 (オプション)"
+  filterable_tree_view:
+    filter_mode:
+      all: "すべて"
+      label: "フィルタモード"
+      selected: "選択済み"
+    include_sub_items: "サブアイテムを含める"
+    no_results_text: "結果がありません"
   general_csv_decimal_separator: "."
   general_csv_encoding: "UTF-8"
   general_csv_separator: ","
@@ -2436,6 +2477,21 @@ ja:
       community: "OpenProject コミュニティ"
       upsell:
         title: "エンタープライズ版にアップグレード"
+      new_features:
+        header: "新機能と製品のアップデートについて読む。"
+        learn_about: "すべての新機能の詳細"
+        #We need to include the version to invalidate outdated translations in other locales
+        "16_4":
+          new_features_title: >
+            このリリースには、以下のようなさまざまな新機能と改善が含まれています：
+          new_features_list:
+            line_0: システムカラーとコントラストモードを自動同期するオプション。
+            line_1: アクセシビリティを向上させるためのダークハイコントラストモード。
+            line_2: プロジェクト リストの PDF エクスポート。
+            line_3: PDFエクスポートのカスタムフォント (Enterpriseアドオン)。
+            line_4: 改善されたミーティング参加者のダイアログ。
+            line_5: プロジェクトクエリと予算計画の予算処理を改善しました。
+            line_6: ホームページとプロジェクトの概要ページを更新しました。
     links:
       upgrade_enterprise_edition: "エンタープライズ版にアップグレード"
       postgres_migration: "PostgreSQL にインストールを移行しています"
@@ -2519,11 +2575,13 @@ ja:
         expiration: "有効期限"
       indefinite_expiration: "なし"
       simple_revoke_confirmation: "このトークンを取り消してもよろしいですか？"
-      api:
+      token/api:
         title: "API"
-        text_hint: "API トークンは、サードパーティのアプリケーションが REST API を介してこの OpenProject インスタンスと通信することを可能にします。"
+        text_hint: "API トークンを使用すると、サードパーティのアプリケーションが REST API 経由でこの OpenProject インスタンスと通信できます。"
+        disabled_text: "API トークンは管理者によって有効化されていません。この機能を使用するには管理者に問い合わせてください。"
+        add_button: "API トークン"
+      api:
         static_token_name: "APIトークン"
-        disabled_text: "APIトークンは管理者によって有効化されていません。この機能を使用するには、管理者にお問い合わせください。"
       ical:
         title: "iCalendar"
         text_hint: 'iCalendar トークンを使用すると、ユーザーは<a href="%{path}" target="_blank">OpenProject カレンダーにサブスクライブ</a>し、外部クライアントから最新の作業パッケージ情報を確認できます。'
@@ -2609,6 +2667,7 @@ ja:
   label_api_access_key: "APIアクセスキー"
   label_api_access_key_created_on: "APIアクセスキーが%{value}前に作成されました"
   label_api_access_key_type: "API"
+  label_auto_option: "(自動)"
   label_ical_access_key_type: "iCalendar"
   label_ical_access_key_description: 'iCalendar トークン「%{token_name}」は「%{calendar_name}」カレンダーの「%{project_name}」プロジェクト用です。'
   label_ical_access_key_not_present: "iCalendar トークンが存在しません。"
@@ -2846,6 +2905,7 @@ ja:
   label_invite_user: "ユーザを招待"
   label_item: "項目"
   label_item_plural: "アイテム"
+  label_scored_list: "得点リスト"
   label_share: "共有"
   label_share_project_list: "プロジェクト一覧を共有"
   label_share_work_package: "作業項目を共有"
@@ -2856,6 +2916,7 @@ ja:
   label_journal_diff: "説明の比較"
   label_language: "言語"
   label_languages: "言語"
+  label_locale: "言語と地域"
   label_jump_to_a_project: "プロジェクトへ移動..."
   label_keyword_plural: "キーワード"
   label_language_based: "ユーザの言語設定に基づく"
@@ -2875,12 +2936,18 @@ ja:
   label_link_url: "リンク (URL)"
   label_list: "リスト"
   label_loading: "読み込み中..."
+  label_locked: "ロック済み"
   label_lock_user: "ユーザーをロック"
   label_logged_as: "ログイン中"
   label_login: "ログイン"
   label_custom_logo: "カスタムロゴ"
   label_custom_export_logo: "カスタムエクスポートロゴ"
   label_custom_export_cover: "カスタムエクスポートカバーの背景"
+  label_custom_export_footer: "カスタムエクスポートフッター画像"
+  label_custom_export_font_regular: "標準"
+  label_custom_export_font_bold: "太字"
+  label_custom_export_font_italic: "斜体字"
+  label_custom_export_font_bold_italic: "太字斜体"
   label_custom_export_cover_overlay: "カスタムエクスポートカバーの背景をオーバーレイする"
   label_custom_export_cover_text_color: "テキストの色"
   label_custom_pdf_export_settings: "PDF エクスポートの設定"
@@ -2968,6 +3035,8 @@ ja:
   label_operator_equals_or: "は (OR)"
   label_operator_equals_all: "は (AND)"
   label_operator_shared_with_user_any: "全て"
+  label_open: "未完了"
+  label_closed: "完了"
   label_open_menu: "メニューを開く"
   label_open_work_packages: "未完了"
   label_open_work_packages_plural: "未完了"
@@ -3034,6 +3103,10 @@ ja:
   label_project_view_all: "全プロジェクトを表示"
   label_project_show_details: "プロジェクトの詳細を表示"
   label_project_hide_details: "プロジェクトの詳細を非表示"
+  label_portfolio: "ポートフォリオ"
+  label_portfolio_new: "新しいポートフォリオ"
+  label_program: "プログラム"
+  label_program_new: "新しいプログラム"
   label_public_projects: "公開プロジェクト"
   label_query_new: "新しいクエリ"
   label_query_plural: "カスタムクエリ"
@@ -3182,6 +3255,8 @@ ja:
   label_watched_work_packages: "ウォッチしているワークパッケージ"
   label_what_is_this: "これは何ですか?"
   label_week: "週"
+  label_widget: "ウィジェット"
+  label_widget_new: "新規ウィジェット"
   label_wiki_content_added: "Wikiページが追加されました。"
   label_wiki_content_updated: "Wikiページが更新されました。"
   label_wiki_toc: "目次"
@@ -3336,13 +3411,13 @@ ja:
             summary: 'ストレージ %{storage_name}の状態は現在「エラー」として表示されています。注意が必要な問題を検出しました。'
             error-details: "エラーの詳細"
             error-message: "エラー メッセージ"
-            error-occurred-on: "Occurred On"
-            recommendation: "We recommend heading over to the storage configuration page to address this issue"
+            error-occurred-on: "発生日"
+            recommendation: "この問題に対処するためにストレージ設定ページに進むことをお勧めします"
             unsubscribe: "これらの通知を受信したくない場合は、いつでも購読を解除することができます。購読を解除するには、このページの指示に従ってください"
         email_notification_settings: "ストレージのメール通知設定"
         see_storage_settings: "ストレージ設定を見る"
         healthy:
-          subject: 'Storage "%{name}" is now healthy!'
+          subject: 'ストレージ "%{name}" が正常になりました！'
           solved_at: "で解決"
           summary: "%{storage_name} ストレージ統合の問題が解決されました"
         unhealthy:
@@ -3527,6 +3602,8 @@ ja:
   permission_add_work_packages: "ワークパッケージの追加"
   permission_add_messages: "メッセージの投稿"
   permission_add_project: "プロジェクトの作成"
+  permission_add_portfolios: "ポートフォリオを作成"
+  permission_add_programs: "プログラムの作成"
   permission_add_work_package_attachments: "添付ファイルを追加"
   permission_add_work_package_attachments_explanation: "作業項目の編集権限なしで添付ファイルを追加できます"
   permission_add_internal_comments: "内部コメントの追加"
@@ -3641,13 +3718,15 @@ ja:
       one: "1 プロジェクト"
       other: "%{count} プロジェクト"
     destroy:
-      confirmation: "続行すると、プロジェクト %{identifier} は完全に破棄されます。この操作を確認するには、以下のフィールドにプロジェクト名を紹介してください："
-      project_delete_result_1: "すべての関連データを削除します。"
-      project_delete_result_2: "添付されているストレージ内のすべての管理対象プロジェクトフォルダを削除します。"
-      info: "プロジェクトの削除は復元できない操作です。"
-      project_verification: "削除を確認するため、プロジェクト名 %{name} を入力してください。"
-      subprojects_confirmation: "子プロジェクト: %{value} も削除されます。"
-      title: "プロジェクト %{name} を削除"
+      title: "プロジェクトを削除"
+      heading: "プロジェクトを完全に削除しますか？"
+      confirmation_message_for_subprojects_html:
+        zero: >
+          プロジェクト<strong>%{name}</strong> に関連するすべてのデータを完全に削除しようとしています。
+        one: >
+          プロジェクト <strong>%{name}</strong> とこのサブプロジェクトに関連するすべてのデータを完全に削除しようとしています：
+        other: >
+          プロジェクト <strong>%{name}</strong> とこれらのサブプロジェクトに関連するすべてのデータを完全に削除しようとしています：
     filters:
       project_phase: "プロジェクトフェーズ: %{phase}"
       project_phase_any: "プロジェクトフェーズ: すべて"
@@ -3823,6 +3902,7 @@ ja:
   setting_attachment_whitelist: "添付ファイルのアップロードホワイトリスト"
   setting_email_delivery_method: "メールの配信方法"
   setting_emails_salutation: "メール中のアドレス ユーザー"
+  setting_oauth_allow_remapping_of_existing_users: "既存のユーザーの再マッピングを許可する"
   setting_sendmail_location: "Sendmail の実行可能ファイルの場所"
   setting_smtp_enable_starttls_auto: "利用可能な場合、STARTTLS を自動的に使用する"
   setting_smtp_ssl: "SSL接続を使用する"
@@ -3983,11 +4063,13 @@ ja:
   setting_working_days: "営業日"
   settings:
     authentication:
-      login_and_sso: "ログインとSSO"
+      login: "ログイン"
       registration: "参加登録"
-      single_sign_on: "シングルサインオン"
+      sso: "シングルサインオン（SSO）"
       omniauth_direct_login_hint_html: >
         このオプションが有効な場合、ログイン要求は設定された omniauth プロバイダにリダイレクトされます。ログインドロップダウンとサインインページは無効になります。 <br/> <strong>注意:</strong>パスワードログインも無効にしない限り、このオプションを有効にした場合でも、ユーザは内部的に <code>%{internal_path}</code>ログインページにアクセスしてログインすることができます。
+      remapping_existing_users_hint: >
+        有効にすると、設定された ID プロバイダは、ユーザが以前にそのプロバイダを通してサインインしたことがなくても、メールアドレスに基づいて既存のユーザにログインできるようになります。これは、OpenProject インスタンスを新しい SSO プロバイダに移行するときに便利ですが、インスタンスのすべてのユーザから信頼されていないプロバイダを使用するときには推奨されません。
     attachments:
       whitelist_text_html: >
         アップロードされたファイルに有効なファイル拡張子および/または MIME タイプのリストを定義します。 <br/> ファイル拡張子（例． <code>%{ext_example}</code>)またはMIMEタイプ(例、 <code>%{mime_example}</code>). <br/> 任意のファイル タイプをアップロードできるようにするには、空のままにします。複数の値を指定できます (各値に 1 行)。
@@ -4097,6 +4179,7 @@ ja:
   status_invited: 招待済み
   status_locked: ロック済み
   status_registered: 登録済み
+  status_deleted: 削除されました
   #Used in array.to_sentence.
   support:
     array:
@@ -4131,6 +4214,20 @@ ja:
     これは、PDFエクスポートに表示されるロゴです。PNGまたはJPEG画像ファイルである必要があります。 透明または白背景の黒または色のロゴをお勧めします。
   text_custom_export_cover_instructions: >
     これは、PDFエクスポートのカバーページの背景に表示される画像です。 幅800px×高さ500pxのPNGまたはJPEG画像ファイルである必要があります。
+  text_custom_export_footer_instructions: >
+    PDFエクスポートには、フッターの左に配置されたグラフィカル要素が含まれます。 画像の幅は約 200 ピクセルの PNG または JPEG ファイルでなければなりません。
+  label_custom_export_font_instructions: >
+    PDF エクスポートで使用されるカスタム TrueType (.ttf) フォントをアップロードおよび管理します。 最良の結果を得るためには、同じフォントファミリーから一致するファイルを使用してください。フォントが指定されていない場合は、デフォルトの NotoSans フォントが使用されます。
+  label_custom_export_images_instructions: >
+    PDFエクスポートで使用されるカスタムイメージファイルのアップロードと管理。
+  text_custom_export_font_regular_instructions: >
+    これは通常のテキスト用のフォントファイルです。フォントファイルはTTFフォーマットである必要があります。
+  text_custom_export_font_bold_instructions: >
+    これは太字テキスト用のフォントファイルです。 フォントファイルはTTFフォーマットである必要があります。
+  text_custom_export_font_italic_instructions: >
+    これは斜体テキスト用のフォントファイルです。 フォントファイルはTTFフォーマットである必要があります。
+  text_custom_export_font_bold_italic_instructions: >
+    これは太字斜体テキスト用のフォントファイルです。 フォントファイルはTTFフォーマットである必要があります。
   text_custom_favicon_instructions: >
     これは、ページのタイトルの横にあるブラウザのウィンドウ/タブに表示される小さなアイコンです。 透明な背景を持つ32×32ピクセルサイズのPNG画像ファイルである必要があります。
   text_custom_touch_icon_instructions: >
@@ -4469,6 +4566,8 @@ ja:
       code_500_missing_enterprise_token: "Enterprise トークンが無効または見つからないため、リクエストを処理できません。"
       bad_request:
         emoji_reactions_activity_type_not_supported: "このアクティビティタイプは絵文字リアクションをサポートしていません。"
+        invalid_link: "キー '%{key}' の下のリンクは無効です。"
+        links_not_an_object: "_links は JSON オブジェクトでなければなりません。"
       conflict:
         multiple_reminders_not_allowed: |-
           作業項目に一度に1つのリマインダーのみを設定できます。既存のリマインダーを削除または更新してください。
@@ -4670,3 +4769,6 @@ ja:
     description: "OmniAuthSAMLプロバイダをOpenProjectに追加"
   enterprise_plans:
     legacy_enterprise: "エンタープライズ・プラン"
+  token:
+    hashed_token:
+      display_value_placeholder: "***"

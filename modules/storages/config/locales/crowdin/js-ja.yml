@@ -17,7 +17,8 @@ ja:
       new_folder: "新しいフォルダ"
       types:
         nextcloud: "ネクストクラウド"
-        one_drive: "OneDrive/シェアポイント"
+        one_drive: "ワンドライブ"
+        sharepoint: "シェアポイント"
         default: "ストレージ"
       information:
         authentication_error: "%{storageType} へのリクエストを認証できませんでした。これはエラーです。"

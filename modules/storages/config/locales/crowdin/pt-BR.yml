@@ -21,7 +21,7 @@ pt-BR:
         project_folder_mode: Modo de pasta de projeto
         storage: Armazenamento
         storage_url: URL de armazenamento
-      storages/share_point_storage:
+      storages/sharepoint_storage:
         host: URL do site do SharePoint
         library: ID da biblioteca
         name: Nome
@@ -195,10 +195,10 @@ pt-BR:
       oauth_client_incomplete:
         nextcloud: Permitir que o OpenProject acesse os dados da Nextcloud usando o OAuth.
         one_drive: Permitir que o OpenProject acesse os dados Azure utilizando o OAuth para conectar o OneDrive.
-        share_point: Permitir que o OpenProject acesse os dados da SharePoint usando o OAuth.
+        sharepoint: Permitir que o OpenProject acesse os dados da SharePoint usando o OAuth.
       redirect_uri_incomplete:
         one_drive: Conclua a configuração com o redirecionamento correto do URI.
-        share_point: Conclua a configuração com o redirecionamento URI correto.
+        sharepoint: Conclua a configuração com o redirecionamento URI correto.
     confirm_replace_oauth_application: Esta ação irá redefinir suas credenciais atuais do OAuth. Depois de confirmar, você precisará inserir suas credenciais novamente no provedor de armazenamento, e todos os usuários remotos terão que autorizar o OpenProject novamente. Tem certeza de que deseja continuar?
     confirm_replace_oauth_client: Esta ação irá redefinir as suas credenciais atuais do OAuth. Após a confirmação, você precisará inserir novas credenciais do provedor de armazenamento e todos os usuários terão que autorizar novamente o acesso em %{provider_type}. Tem certeza de que deseja continuar?
     delete_warning:
@@ -236,10 +236,11 @@ pt-BR:
       openproject_oauth: OAuth OpenProject
       project_folders: Pastas do projeto
       redirect_uri: Redirecionar URI
+      sharepoint_oauth: Azure OAuth
       storage_audience_blank: Nenhuma audiência foi configurada.
       storage_audience_description: Trocando tokens para o público-alvo "%{audience}".
       storage_audience_idp: Usando o token de acesso obtido pelo provedor de identidade durante o login, independentemente do público-alvo.
-      storage_oauth: OAuth Nextcloud
+      storage_oauth: Armazenamento OAuth
       storage_provider: Provedor de armazenamento
       token_exchange: Troca de Token
     health:
@@ -278,6 +279,7 @@ pt-BR:
           drive_id_exists: Drive existente
           drive_id_format: Formato do Drive ID
           header: Configuração
+          host: URL do host
           host_url_accessible: URL do host acessível
           storage_configured: Configuração concluída
           tenant_id: ID do cliente
@@ -319,6 +321,15 @@ pt-BR:
         oidc_token_acquisition_failed: A configuração do seu OpenID Connect não fornece o público-alvo necessário nem oferece recursos de troca de tokens. Consulte nossa documentação para mais informações.
         oidc_token_exchange_failed: Parece haver um problema na configuração da troca de tokens no seu provedor OpenID Connect. Verifique as configurações e tente novamente.
         oidc_token_refresh_failed: Ocorreu um erro ao tentar verificar seu acesso ao armazenamento. Verifique os logs do servidor para mais informações.
+        sp_client_cant_delete_folder: O cliente está com dificuldades para excluir pastas no SharePoint. Verifique a documentação de configuração do seu armazenamento.
+        sp_client_id_missing: O ID de cliente OAuth 2 configurado está ausente para o SharePoint. Verifique a configuração.
+        sp_client_secret_missing: O segredo de cliente OAuth 2 configurado está ausente para o SharePoint. Verifique a configuração.
+        sp_client_write_permission_missing: O cliente parece não ter permissão para gravar no SharePoint. Verifique a documentação de configuração do armazenamento.
+        sp_existing_test_folder: A pasta %{folder_name}, necessária para o teste, já existe no SharePoint. Exclua-a e tente novamente.
+        sp_oauth_request_error: A solicitação vinculada ao usuário para o SharePoint falhou. Verifique os logs do servidor para mais informações.
+        sp_oauth_token_missing: O OpenProject não pode testar a comunicação do usuário com o SharePoint, pois a conta do SharePoint ainda não foi vinculada.
+        sp_tenant_id_missing: O id de do diretório (cliente) configurado está ausente para o SharePoint. Verifique a configuração.
+        sp_unexpected_content: Conteúdo inesperado encontrado na unidade do SharePoint.
         unknown_error: A conexão não pôde ser validada. Ocorreu um erro desconhecido. Verifique os registros do servidor para obter mais informações.
       label_error: Erro
       label_failed: Falhou
@@ -339,12 +350,10 @@ pt-BR:
         warning: Alguns testes retornaram um alerta. Isso pode causar comportamentos inesperados.
       title: Relatório de status de integridade
     health_email_notifications:
-      description_subscribed: Todos os administradores recebem notificações por e-mail sobre o estado de saúde deste armazenamento.
-      description_unsubscribed: As notificações por e-mail sobre o estado de saúde deste armazenamento foram desativadas para todos os administradores.
+      description_disabled: Os administradores não receberão atualizações por e-mail quando houver atualizações importantes.
+      description_enabled: Os administradores receberão atualizações por e-mail quando houver atualizações importantes.
       error_could_not_be_saved: Não foi possível salvar as configurações de notificação por e-mail. Tente novamente.
-      subscribe: Assinar
-      title: Notificações por e-mail
-      unsubscribe: Cancelar assinatura
+      title: Atualizações por e-mail para administradores
     help_texts:
       project_folder: A pasta do projeto é a pasta padrão para carregar arquivos deste projeto. No entanto, os usuários ainda podem carregar arquivos para outras pastas.
       project_folder_bulk: A pasta do projeto é o local padrão para o envio de arquivos em todos os projetos selecionados. Você pode alterar essa configuração individualmente em cada projeto. No entanto, os usuários ainda poderão enviar arquivos para outros locais.
@@ -388,11 +397,11 @@ pt-BR:
       setting_up_additional_storages_non_admin: Os administradores podem configurar armazenamentos adicionais em Administração/Armazenamentos de arquivo.
       setting_up_storages: Para configurar armazenamentos de arquivos, visite
       setting_up_storages_non_admin: Administradores podem configurar armazenamentos de arquivos em Administração / Armazenamentos de arquivo.
-      share_point:
+      sharepoint:
         application_link_text: Site do SharePoint
         integration: Administração de SharePoint / OpenProject
         oauth_configuration: Copie esses valores do aplicativo desejado em %{application_link_text}.
-        provider_configuration: Antes de iniciar a configuração, verifique se você tem privilégios de administrador no SharePoint e se o aplicativo de integração com o OpenProject está instalado.
+        provider_configuration: Certifique-se de que você tenha privilégios de administrador no %{application_link_text} ou entre em contato com seu administrador Microsoft antes de realizar a configuração. No portal, também é necessário registrar um aplicativo Azure ou usar um existente para autenticação.
       type: 'Certifique-se de ter privilégios de administração em sua instância Nextcloud e de ter o seguinte aplicativo instalado antes de realizar a configuração:'
       type_link_text: "“Integração OpenProject”"
     label_active: Ativo
@@ -493,7 +502,7 @@ pt-BR:
         label_oauth_client_secret: Valor secreto do cliente Azure OAuth
         name: OneDrive
         name_placeholder: 'por ex.: OneDrive'
-      share_point:
+      sharepoint:
         label_oauth_client_id: ID do aplicativo Azure OAuth (cliente)
         label_oauth_client_secret: Valor secreto do cliente Azure OAuth
         name: SharePoint
