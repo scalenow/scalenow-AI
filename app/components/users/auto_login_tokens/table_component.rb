@@ -30,13 +30,18 @@
 
 module Users
   module AutoLoginTokens
-    class TableComponent < ::TableComponent
+    class TableComponent < ::OpPrimer::BorderBoxTableComponent
       columns :is_current, :browser, :device, :expires_on
       sortable_columns :updated_at
       options :current_token
+      mobile_columns :is_current, :browser, :device, :expires_on
 
-      def sortable?
-        false
+      def mobile_title
+        t("users.sessions.remembered_devices")
+      end
+
+      def has_actions?
+        true
       end
 
       def headers

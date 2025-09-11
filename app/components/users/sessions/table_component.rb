@@ -42,6 +42,7 @@ module Users
       def has_actions?
         true
       end
+
       def initial_sort
         %i[updated_at desc]
       end
