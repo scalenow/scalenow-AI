@@ -28,14 +28,9 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-# Be sure to restart your server when you modify this file.
-
-# For development and non-eager load mode, we need to load models using acts_as_favorable manually
-# as no eager loading takes place
-Rails.application.config.to_prepare do
-  OpenProject::Acts::Favorable::Registry.add(
-    Project,
-    ProjectQuery,
-    reset: true
-  )
+class RenameFavoritesFavoredToFavorited < ActiveRecord::Migration[8.0]
+  def change
+    rename_column :favorites, :favored_id, :favorited_id
+    rename_column :favorites, :favored_type, :favorited_type
+  end
 end

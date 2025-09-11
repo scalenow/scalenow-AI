@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# -- copyright
+#-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
 #
@@ -26,18 +26,29 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-# ++
+#++
 
-class Queries::Projects::Selects::Favored < Queries::Selects::Base
-  def self.key
-    :favored
+class FixWordingInSettingsEnabledProjectsColumnsValue < ActiveRecord::Migration[8.0]
+  def up
+    replace_setting_array_item("enabled_projects_columns", "favored", "favorited")
   end
 
-  def self.available?
-    true
+  def down
+    replace_setting_array_item("enabled_projects_columns", "favorited", "favored")
   end
 
-  def caption
-    I18n.t(:label_favorite)
+  private
+
+  def replace_setting_array_item(name, old_value, new_value)
+    replace_setting_array(name) do |entry|
+      entry == old_value ? new_value : entry
+    end
+  end
+
+  def replace_setting_array(name, &)
+    Setting.find_by(name:)&.tap do |setting|
+      setting.value = setting.value.map(&)
+      setting.save!
+    end
   end
 end

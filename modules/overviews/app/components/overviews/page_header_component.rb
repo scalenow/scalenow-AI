@@ -52,7 +52,7 @@ module Overviews
     end
 
     def favorited?
-      project.favored_by?(current_user)
+      project.favorited_by?(current_user)
     end
 
     def allowed_to_select_project_custom_fields?

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#-- copyright
+# -- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
 #
@@ -26,18 +26,42 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-#++
-module Projects::Exports
-  module Formatters
-    class Favored < ::Exports::Formatters::Default
-      def self.apply?(attribute, export_format)
-        export_format == :pdf && attribute.to_sym == :favored
+# ++
+
+require "spec_helper"
+
+RSpec.shared_context "enumeration#active handling" do |default_supported| # rubocop:disable RSpec/ContextWording
+  let(:enumeration) do
+    super()
+  rescue NoMethodError
+    raise "'enumeration' let needs to be set"
+  end
+
+  describe "#active" do
+    if default_supported
+      context "with the enumeration being inactive and default before saving" do
+        it "sets the enumeration to be active", :aggregate_failures do
+          enumeration.active = false
+          enumeration.is_default = true
+
+          enumeration.save
+
+          expect(enumeration).to be_persisted
+          expect(enumeration.active).to be true
+        end
       end
 
-      ##
-      # Takes a project and returns yes/no depending on the favored attribute
-      def format(project, **)
-        project.favored_by?(User.current) ? I18n.t(:general_text_Yes) : I18n.t(:general_text_No)
+      context "with the enumeration being inactive and not default before saving" do
+        it "keeps the value of active", :aggregate_failures do
+          enumeration.active = false
+          enumeration.is_default = false
+
+          enumeration.save
+
+          expect(enumeration).to be_persisted
+          expect(enumeration.active).to be false
+          expect(enumeration.is_default).to be false
+        end
       end
     end
   end
