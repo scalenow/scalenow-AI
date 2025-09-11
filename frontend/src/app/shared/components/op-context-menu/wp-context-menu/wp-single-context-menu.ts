@@ -23,7 +23,7 @@ import { TurboRequestsService } from 'core-app/core/turbo/turbo-requests.service
 import { ApiV3Service } from 'core-app/core/apiv3/api-v3.service';
 import { TimeEntryTimerService } from 'core-app/shared/components/time_entries/services/time-entry-timer.service';
 import { TimeEntryResource } from 'core-app/features/hal/resources/time-entry-resource';
-import { action } from 'ts-action';
+import { DeviceService } from 'core-app/core/browser/device.service';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -47,6 +47,7 @@ export class WorkPackageSingleContextMenuDirective extends OpContextMenuTrigger 
   readonly authorisationService = inject(AuthorisationService);
   readonly timeEntryService = inject(TimeEntryTimerService);
   protected copyToClipboardService = inject(CopyToClipboardService);
+  protected deviceService = inject(DeviceService);
 
   private closeDialogHandler:EventListener = this.handleTimeEntryDialogClose.bind(this);
 
@@ -133,15 +134,21 @@ export class WorkPackageSingleContextMenuDirective extends OpContextMenuTrigger 
     return !!entry && entry.entity.href === this.workPackage.href;
   }
 
-  private hasTimerPermission():boolean {
-    return Object.prototype.hasOwnProperty.call(this.workPackage, 'logTime');
-  }
-
-  private getTimerAction():string {
+  private getTimerAction():WorkPackageAction {
     if (this.activeForWorkPackage(this.currentTimer)) {
-      return 'stop_timer';
+      return {
+        key: 'stop_timer',
+        icon: 'icon-time-tracking-stop',
+        link: 'logTime',
+        hidden: !this.deviceService.isSmallDesktop,
+      };
     } else {
-      return 'start_timer';
+      return {
+        key: 'start_timer',
+        icon: 'icon-time-tracking-start',
+        link: 'logTime',
+        hidden: !this.deviceService.isSmallDesktop,
+      };
     }
   }
 
@@ -161,15 +168,12 @@ export class WorkPackageSingleContextMenuDirective extends OpContextMenuTrigger 
   }
 
   private addTimerAction(actions:WorkPackageAction[]) {
-    const key = this.getTimerAction();
-    const action = {
-      key,
-      icon: 'icon-time-tracking-start',
-      link: 'logTime',
-    };
-
+    const action = this.getTimerAction();
     const timeIndex = actions.findIndex((action) => action.key === 'log_time');
-    actions.splice(timeIndex + 1, 0, action);
+
+    if (timeIndex !== -1) {
+      actions.splice(timeIndex + 1, 0, action);
+    }
 
     return actions;
   }
@@ -180,15 +184,17 @@ export class WorkPackageSingleContextMenuDirective extends OpContextMenuTrigger 
   }
 
   protected buildItems(permittedActions:WorkPackageAction[]):OpContextMenuItem[] {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const configureFormLink = this.workPackage.configureForm;
 
     this.items = permittedActions.map((action:WorkPackageAction) => {
       const { key } = action;
       return {
         disabled: false,
+        hidden: action.hidden === true,
         linkText: I18n.t(`js.button_${key}`),
         href: action.link,
-        icon: action.icon || `icon-${key}`,
+        icon: action.icon ?? `icon-${key}`,
         onClick: ($event:JQuery.TriggeredEvent) => {
           if (action.link && isClickedWithModifier($event)) {
             return false;
