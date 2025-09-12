@@ -3,7 +3,6 @@
     <span [textContent]="text.filter_work_packages_by_relation_type"></span>
     &ngsp;
     <select class="form--select form--inline-select"
-      id=""
       [(ngModel)]="selectedRelationFilter"
       (ngModelChange)="onRelationFilterSelected()"
       [compareWith]="compareRelationFilters">
