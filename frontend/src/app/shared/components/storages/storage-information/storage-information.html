@@ -1,28 +1,29 @@
-<svg *ngIf="content.iconClass === 'warning'" alert-fill-icon size="small" class="info-icon-box"></svg>
-<svg *ngIf="content.iconClass === 'info'" info-icon size="small" class="info-icon-box"></svg>
-<svg *ngIf="content.iconClass !== 'warning' && content.iconClass !== 'info'" question-icon size="small" class="info-icon-box"></svg>
+@switch (content.iconClass) {
+  @case ('warning') {
+    <svg alert-fill-icon size="small" class="info-icon-box"></svg>
+  }
+  @case ('info') {
+    <svg info-icon size="small" class="info-icon-box"></svg>
+  }
+  @default {
+    <svg question-icon size="small" class="info-icon-box"></svg>
+  }
+}
 
-<div
-  class="text-box"
->
-  <div
-    class="text-box-header"
-  >
+<div class="text-box">
+  <div class="text-box-header">
     <span [textContent]="content.header"></span>
   </div>
-  <div
-    class="text-box-content"
-  >
+  <div class="text-box-content">
     <span [textContent]="content.content"></span>
   </div>
 </div>
 
-<div
-  *ngIf="content.login"
-  class="button-box"
->
-  <op-storage-login-button
-    class="op-files-tab--storage-info-box-button"
-    [input]="content.login"
-  ></op-storage-login-button>
-</div>
+@if (content.login) {
+  <div class="button-box">
+    <op-storage-login-button
+      class="op-files-tab--storage-info-box-button"
+      [input]="content.login"
+    ></op-storage-login-button>
+  </div>
+}
