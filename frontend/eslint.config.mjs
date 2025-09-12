@@ -224,6 +224,7 @@ export default defineConfig([
   },
   globalIgnores([
     '**/.eslintrc.js',
+    'coverage/',
     '**/vendor',
     'src/app/shared/helpers/chronic_duration.js',
   ]),
