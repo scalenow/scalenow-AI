@@ -150,7 +150,8 @@ export default defineConfig([
       '@angular-eslint/template/elements-content': [
         'error',
         { 'allowList': ['textContent'] }
-      ]
+      ],
+      '@angular-eslint/template/prefer-control-flow': 'error'
     }
   },
   {
