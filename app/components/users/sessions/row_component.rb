@@ -32,43 +32,50 @@ module Users
   module Sessions
     class RowComponent < ::OpPrimer::BorderBoxRowComponent
       property :firstname, :lastname
-      delegate :current_session, to: :table
+      delegate :current_session, :current_token, to: :table
 
-      def session
+      def record
         model
       end
 
-      def session_data
-        @session_data ||= session.data.with_indifferent_access
+      def session?
+        record.is_a?(::Sessions::UserSession)
       end
 
-      def current?
-        @current ||= session.current?(current_session)
-      end
-
-      def is_current # rubocop:disable Naming/PredicateName
-        helpers.op_icon("icon-yes") if current?
-      end
-
-      def device
-        session_data[:platform] || I18n.t("users.sessions.unknown_os")
+      def token?
+        record.is_a?(::Token::AutoLogin)
       end
 
       def browser
-        name = session_data[:browser] || "unknown browser"
-        version = session_data[:browser_version]
-        "#{name} #{version ? "(Version #{version})" : ''}"
+        return I18n.t("users.sessions.unknown_browser") unless session? || token?
+
+        data = record.data.with_indifferent_access
+        name = data[:browser] || I18n.t("users.sessions.unknown_browser")
+        version = data[:browser_version]
+        version ? "#{name} (Version #{version})" : name
       end
 
-      def platform
-        session_data[:platform] || "unknown platform"
+      def device
+        return I18n.t("users.sessions.unknown_os") unless session? || token?
+
+        record.data.with_indifferent_access[:platform] || I18n.t("users.sessions.unknown_os")
+      end
+
+      def expires_on
+        if token?
+          format_expires(token_expires_at)
+        elsif session? && record.respond_to?(:expires_at) && record.expires_at.present?
+          format_expires(record.expires_at)
+        else
+          "-"
+        end
       end
 
       def updated_at
-        if current?
+        if (session? && record.current?(current_session)) || (token? && record == current_token)
           I18n.t("users.sessions.current")
         else
-          helpers.format_time session.updated_at
+          record.respond_to?(:updated_at) ? helpers.format_time(record.updated_at) : "-"
         end
       end
 
@@ -79,13 +86,15 @@ module Users
       end
 
       def delete_button
-        return if current?
+        return if session? && record.current?(current_session)
+        return if token? && record == current_token
+
         render(
           Primer::Beta::IconButton.new(
             icon: :x,
             scheme: :invisible,
             tag: :a,
-            href: url_for(controller: "/my/sessions", action: "destroy", id: session),
+            href: url_for(revoke_path),
             "aria-label": I18n.t(:button_revoke),
             data: {
               method: :delete,
@@ -94,6 +103,22 @@ module Users
             }
           )
         )
+      end
+
+      def revoke_path
+        if token?
+          { controller: "/my/auto_login_tokens", action: "destroy", id: record }
+        else
+          url_for(controller: "/my/sessions", action: "destroy", id: record)
+        end
+      end
+
+      def token_expires_at
+        record.expires_on || (record.created_at + Setting.autologin.days)
+      end
+
+      def format_expires(time)
+        helpers.distance_of_time_in_words(Time.current, time)
       end
     end
   end

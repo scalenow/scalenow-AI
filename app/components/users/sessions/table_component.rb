@@ -30,10 +30,10 @@
 module Users
   module Sessions
     class TableComponent < ::OpPrimer::BorderBoxTableComponent
-      columns :is_current, :browser, :device, :updated_at
-      sortable_columns :updated_at
-      options :current_session
-      mobile_columns :is_current, :browser, :device, :updated_at
+      columns :browser, :device, :expires_on, :updated_at
+      sortable_columns :last_connection, :expires_on
+      options :current_session, :current_token
+      mobile_columns :browser, :device, :expires_on, :updated_at
 
       def mobile_title
         t("users.sessions.title")
@@ -43,16 +43,12 @@ module Users
         true
       end
 
-      def initial_sort
-        %i[updated_at desc]
-      end
-
       def headers
         [
-          [:is_current, { caption: I18n.t("users.sessions.current") }],
           [:browser, { caption: I18n.t("users.sessions.browser") }],
           [:device, { caption: I18n.t("users.sessions.device") }],
-          [:updated_at, { caption: I18n.t("attributes.updated_at") }]
+          [:expires_on, { caption: I18n.t("users.sessions.expires") }],
+          [:updated_at, { caption: I18n.t("users.sessions.last_connection") }]
         ]
       end
     end
