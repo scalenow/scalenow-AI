@@ -40,7 +40,7 @@ export function durationStringToSeconds(value:string):number {
     return parseChronicDuration(normalizedValue, {
       defaultUnit: 'hours',
       ignoreSecondsWhenColonSeparated: true,
-    }) || 0;
+    }) ?? 0;
   }
 
 export function formattedHour(seconds:number):string {
@@ -48,5 +48,5 @@ export function formattedHour(seconds:number):string {
     return '';
   }
 
-return outputChronicDuration(seconds, { format: 'hours_only' }) ?? '';
+  return outputChronicDuration(seconds, { format: 'hours_only' }) ?? '';
 }

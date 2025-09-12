@@ -120,8 +120,8 @@ function durationUnitsSecondsMultiplier(unit:string, opts:ChronicDurationOptions
     return 0;
   }
 
-  const hoursPerDay = opts.hoursPerDay || HOURS_PER_DAY;
-  const daysPerMonth = opts.daysPerMonth || DAYS_PER_MONTH;
+  const hoursPerDay = opts.hoursPerDay ?? HOURS_PER_DAY;
+  const daysPerMonth = opts.daysPerMonth ?? DAYS_PER_MONTH;
   const daysPerWeek = Math.trunc(daysPerMonth / FULL_WEEKS_PER_MONTH);
 
   switch (unit) {
@@ -174,7 +174,7 @@ function calculateFromWords(string:string, opts:ChronicDurationOptions):number {
         lastExplicitUnit = unit;
       } else {
         // No explicit unit and no previous unit, fall back to default
-        unit = opts.defaultUnit || 'seconds';
+        unit = opts.defaultUnit ?? 'seconds';
       }
 
       val += convertToNumber(v) * durationUnitsSecondsMultiplier(unit, opts);
@@ -292,8 +292,8 @@ export function outputChronicDuration(seconds:number, opts:ChronicDurationOption
     seconds,
   };
 
-  const hoursPerDay = opts.hoursPerDay || HOURS_PER_DAY;
-  const daysPerMonth = opts.daysPerMonth || DAYS_PER_MONTH;
+  const hoursPerDay = opts.hoursPerDay ?? HOURS_PER_DAY;
+  const daysPerMonth = opts.daysPerMonth ?? DAYS_PER_MONTH;
   const daysPerWeek = Math.trunc(daysPerMonth / FULL_WEEKS_PER_MONTH);
 
   const decimalPlaces =
@@ -343,8 +343,8 @@ export function outputChronicDuration(seconds:number, opts:ChronicDurationOption
     }
   }
 
-  let joiner = opts.joiner || ' ';
-  let process:((str:string) => string)|null = null;
+  let joiner = opts.joiner ?? ' ';
+  let process:((_str:string) => string)|null = null;
 
   let dividers:Dividers;
   switch (opts.format) {
