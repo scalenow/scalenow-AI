@@ -45,6 +45,10 @@ export class ThemeUtils {
     return window.matchMedia('(prefers-color-scheme: light)').matches;
   }
 
+  public prefersSystemHighContrast():boolean {
+    return window.matchMedia('(prefers-contrast: more)').matches;
+  }
+
   public applyThemeToBody(colorMode:OpColorMode, increaseContrast:boolean):void {
     const body = document.body;
     const otherColorMode = (colorMode === 'light' ? 'dark' : 'light');

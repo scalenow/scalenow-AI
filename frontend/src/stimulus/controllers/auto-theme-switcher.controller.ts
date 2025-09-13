@@ -86,7 +86,10 @@ export default class AutoThemeSwitcher extends Controller {
 
   private applySystemTheme():void {
     const colorMode = window.OpenProject.theme.detectSystemColorMode();
-    this.applyTheme(colorMode, this.colorModeContrastPreferences[colorMode]);
+    const prefersSystemHighContrast = window.OpenProject.theme.prefersSystemHighContrast();
+    const increaseContrast = prefersSystemHighContrast || this.colorModeContrastPreferences[colorMode];
+
+    this.applyTheme(colorMode, increaseContrast);
   }
 
   private updateOpLogoContrast(colorMode:OpColorMode, increaseContrast:boolean):void {
