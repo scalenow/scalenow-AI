@@ -28,5 +28,11 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-class Overviews::Widgets::NewsController < Overviews::WidgetController
+require "spec_helper"
+require "support/permission_specs"
+
+RSpec.describe Grids::Widgets::NewsController, "permissions", type: :controller do # rubocop:disable RSpec/EmptyExampleGroup,RSpec/SpecFilePathFormat
+  include PermissionSpecs
+
+  check_permission_required_for("grids/widgets/news#show", :view_news)
 end

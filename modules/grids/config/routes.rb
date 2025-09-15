@@ -28,34 +28,20 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module Overviews
-  module Widgets
-    class NewsComponent < ApplicationComponent
-      NEWS_LIMIT = 5
-
-      include ApplicationHelper
-      include OpPrimer::ComponentHelpers
-      include OpTurbo::Streamable
-
-      attr_reader :project, :current_user
-
-      def initialize(project:, current_user:)
-        super()
-
-        @project = project
-        @current_user = current_user
-        @news =
-          if project
-            project.news.visible(current_user).newest_first
-          else
-            News
-              .visible(current_user)
-              .newest_first
-              .includes(:project)
-          end
-
-        @newest = @news.limit(NEWS_LIMIT).to_a
+Rails.application.routes.draw do
+  constraints(project_id: Regexp.new("(?!(#{Project::RESERVED_IDENTIFIERS.join('|')})$)(\\w|-)+"), format: :html) do
+    scope "projects/:project_id", as: "project" do
+      scope module: "grids" do
+        namespace :widgets do
+          resource :news, only: %i[show]
+        end
       end
+    end
+  end
+
+  scope module: "grids" do
+    namespace :widgets do
+      resource :news, only: %i[show]
     end
   end
 end

@@ -30,19 +30,43 @@
 
 require "rails_helper"
 
-RSpec.describe Overviews::Widgets::NewsController do
-  shared_let(:project) { create(:project) }
-  shared_let(:user) { create(:user, member_with_permissions: { project => %i[view_news] }) }
+RSpec.describe Grids::Widgets::NewsComponent, type: :component do
+  include Rails.application.routes.url_helpers
+
+  def render_component(...)
+    render_inline(described_class.new(...))
+  end
+
+  let(:project) { create(:project) }
+  let(:user) { create(:admin) }
+
   current_user { user }
 
-  describe "GET #show" do
-    before do
-      get :show, params: { project_id: project }
-    end
+  subject(:rendered_component) do
+    render_component(project:, current_user:)
+  end
 
-    it "renders show template", :aggregate_failures do
-      expect(response).to be_successful
-      expect(response).to render_template "show"
+  it "renders turbo-frame component wrapper" do
+    expect(rendered_component).to have_element :"turbo-frame"
+  end
+
+  context "with no news" do
+    it "renders a message" do
+      expect(rendered_component).to have_primer_text "Nothing new to report.", color: "subtle"
+    end
+  end
+
+  context "with news" do
+    let(:author) { create(:user) }
+    let!(:news) { create_list(:news, 3, project:, author:) }
+
+    it "renders news items", :aggregate_failures do
+      expect(rendered_component).to have_css(".mt-2", count: 3)
+      expect(rendered_component).to have_css(".mt-2:last-of-type") do |item|
+        expect(item).to have_link href: news_path(news.first)
+        expect(item).to have_content /Added by .+ on \d{2}\/\d{2}\/\d{4} \d{2}:\d{2} [AP]M/
+        expect(item).to have_link href: user_path(author)
+      end
     end
   end
 end

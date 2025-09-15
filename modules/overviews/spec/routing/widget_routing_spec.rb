@@ -58,17 +58,6 @@ RSpec.describe Overviews::WidgetController do
     end
   end
 
-  describe "news routing" do
-    describe "GET #show" do
-      it do
-        expect(get("/projects/my-project/widgets/news"))
-          .to route_to(
-            controller: "overviews/widgets/news", action: "show", project_id: "my-project"
-          )
-      end
-    end
-  end
-
   describe "project_status named routing" do
     describe "GET #show" do
       it do
@@ -91,17 +80,6 @@ RSpec.describe Overviews::WidgetController do
         expect(patch(project_widgets_project_status_path("my-project")))
           .to route_to(
             controller: "overviews/widgets/project_statuses", action: "update", project_id: "my-project"
-          )
-      end
-    end
-  end
-
-  describe "news named routing" do
-    describe "GET #show" do
-      it do
-        expect(get(project_widgets_news_path("my-project")))
-          .to route_to(
-            controller: "overviews/widgets/news", action: "show", project_id: "my-project"
           )
       end
     end

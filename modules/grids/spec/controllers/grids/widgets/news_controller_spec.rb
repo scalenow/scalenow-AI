@@ -28,9 +28,21 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-class Overviews::ProjectWidgetController < Grids::BaseInProjectController
-  include OpTurbo::ComponentStream
-  include OpTurbo::FlashStreamHelper
+require "rails_helper"
 
-  layout -> { "turbo_rails/frame" }
+RSpec.describe Grids::Widgets::NewsController do
+  shared_let(:project) { create(:project) }
+  shared_let(:user) { create(:user, member_with_permissions: { project => %i[view_news] }) }
+  current_user { user }
+
+  describe "GET #show" do
+    before do
+      get :show, params: { project_id: project }
+    end
+
+    it "renders show template", :aggregate_failures do
+      expect(response).to be_successful
+      expect(response).to render_template "show"
+    end
+  end
 end
