@@ -36,13 +36,26 @@ RSpec.describe Grids::Widgets::NewsController do
   current_user { user }
 
   describe "GET #show" do
-    before do
-      get :show, params: { project_id: project }
+    context "for root" do
+      before do
+        get :show
+      end
+
+      it "renders show template", :aggregate_failures do
+        expect(response).to be_successful
+        expect(response).to render_template "show"
+      end
     end
 
-    it "renders show template", :aggregate_failures do
-      expect(response).to be_successful
-      expect(response).to render_template "show"
+    context "with project" do
+      before do
+        get :show, params: { project_id: project }
+      end
+
+      it "renders show template", :aggregate_failures do
+        expect(response).to be_successful
+        expect(response).to render_template "show"
+      end
     end
   end
 end
