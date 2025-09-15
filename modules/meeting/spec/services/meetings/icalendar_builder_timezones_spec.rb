@@ -35,7 +35,34 @@ RSpec.describe Meetings::IcalendarBuilder, "TimeZones",
   let(:tz_europe_berlin) { ActiveSupport::TimeZone["Europe/Berlin"] }
   let(:tz_utc) { ActiveSupport::TimeZone["Etc/UTC"] }
 
+  let(:project) { create(:project) }
+  let(:user) do
+    create(:user, preferences: { time_zone: tz_europe_berlin.name },
+                  member_with_permissions: { project => [:view_meetings] })
+  end
+
+  let(:builder) { described_class.new(user: user, timezone: tz_europe_berlin) }
+
   context "with a recurring meeting scheduled in UTC" do
+    let!(:recurring_meeting) do
+      create(:recurring_meeting,
+             project: project,
+             start_time: tz_utc.local(2025, 1, 16, 8, 0, 0),
+             duration: 1.0,
+             end_date: tz_utc.local(2026, 1, 16, 0, 0, 0),
+             frequency: "weekly",
+             end_after: "specific_date",
+             uid: "OpenProject--meeting-series-31",
+             time_zone: tz_utc.name)
+    end
+
+    before do
+      builder.add_series_event(recurring_meeting: recurring_meeting)
+    end
+
+    it "does something" do
+      puts builder.to_ical
+    end
   end
 
   context "with a recurring meeting scheduled in Europe/Berlin" do
