@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
         namespace :widgets do
           resource :project_status, only: %i[show update]
+          resource :news, only: %i[show]
         end
       end
     end
