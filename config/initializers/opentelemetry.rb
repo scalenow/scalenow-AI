@@ -30,6 +30,12 @@
 
 Rails.application.configure do
   if OpenProject::Configuration.opentelemetry_enabled?
+    # add log tags for log correlation
+    config.log_tags += [
+      ->(*) { "trace_id=#{OpenTelemetry::Trace.current_span.context.hex_trace_id}" },
+      ->(*) { "span_id=#{OpenTelemetry::Trace.current_span.context.hex_span_id}" }
+    ]
+
     require "opentelemetry/sdk"
     require "opentelemetry-exporter-otlp"
     require "opentelemetry-instrumentation-all"
