@@ -37,10 +37,12 @@ Rails.application.configure do
     require "opentelemetry-instrumentation-all"
 
     # add log tags for log correlation
-    config.log_tags += [
-      ->(*) { "trace_id=#{OpenTelemetry::Trace.current_span.context.hex_trace_id}" },
-      ->(*) { "span_id=#{OpenTelemetry::Trace.current_span.context.hex_span_id}" }
-    ]
+    if config.log_tags
+      config.log_tags += [
+        ->(*) { "trace_id=#{OpenTelemetry::Trace.current_span.context.hex_trace_id}" },
+        ->(*) { "span_id=#{OpenTelemetry::Trace.current_span.context.hex_span_id}" }
+      ]
+    end
 
     OpenTelemetry::SDK.configure do |c|
       c.add_span_processor(
