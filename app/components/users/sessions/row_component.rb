@@ -67,7 +67,7 @@ module Users
 
       def expires_on
         if token?
-          format_expires(token_expires_at)
+          render(OpPrimer::RelativeTimeComponent.new(datetime: user_time_zone(record.expires_on), prefix: I18n.t(:label_on)))
         else
           I18n.t("users.sessions.unknown")
         end
@@ -117,16 +117,8 @@ module Users
         end
       end
 
-      def token_expires_at
-        if token?
-          record.expires_on
-        else
-          (record.created_at + Setting.autologin.days)
-        end
-      end
-
-      def format_expires(time)
-        helpers.distance_of_time_in_words(Time.current, time)
+      def user_time_zone(time)
+        helpers.in_user_zone(time)
       end
     end
   end
