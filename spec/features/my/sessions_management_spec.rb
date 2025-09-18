@@ -60,45 +60,49 @@ RSpec.describe "My account session management", :js, :selenium do
   it "can list and terminate sessions and remembered devices" do
     page.within_test_selector("Users::Sessions::TableComponent") do
       # Current session + old session + remembered device
-      expect(page).to have_css(".Box-row", count: 3)
+      expect(page).to have_css(".session-row", count: 3)
 
-      trs = page.all(".Box-row")
+      trs = page.all(".session-row")
 
       # Current session
       expect(trs[0]).to have_text(I18n.t("users.sessions.current"))
       expect(trs[0]).to have_text("unknown browser")
       expect(trs[0]).to have_text("unknown operating system")
-      expect(trs[0]).to have_no_css(".buttons a")
+      expect(trs[0]).to have_no_test_selector("session-revoke-button")
 
       # Old session
       expect(trs[1]).to have_text("Mozilla Firefox (Version 12.3)")
       expect(trs[1]).to have_text("Linux")
       expect(trs[1]).to have_text format_time(old_session_time)
-      expect(trs[1]).to have_css("a.Button")
+      expect(trs[1]).to have_test_selector("session-revoke-button")
 
       # Remembered device (token)
       expect(trs[2]).to have_text("Firefox (Version 142)")
       expect(trs[2]).to have_text("macOS")
       expect(trs[2]).to have_text(format_time(autologin_token.created_at))
-      expect(trs[2]).to have_css("a.Button")
+      expect(trs[2]).to have_test_selector("session-revoke-button")
 
       # Revoke the old session
-      trs[1].find("a.Button").click
+      within trs[1] do
+        find_test_selector("session-revoke-button").click
+      end
     end
 
     page.driver.browser.switch_to.alert.accept
 
     page.within_test_selector("Users::Sessions::TableComponent") do
-      trs = page.all(".Box-row")
+      trs = page.all(".session-row")
       # Revoke the remembered device
-      trs[1].find("a.Button").click
+      within trs[1] do
+        find_test_selector("session-revoke-button").click
+      end
     end
 
     page.driver.browser.switch_to.alert.accept
 
     page.within_test_selector("Users::Sessions::TableComponent") do
       # Only current session remains
-      expect(page).to have_css(".Box-row", count: 1)
+      expect(page).to have_css(".session-row", count: 1)
     end
 
     # Both old session and token are gone

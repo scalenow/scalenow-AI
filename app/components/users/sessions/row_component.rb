@@ -31,7 +31,6 @@
 module Users
   module Sessions
     class RowComponent < ::OpPrimer::BorderBoxRowComponent
-      property :firstname, :lastname
       delegate :current_session, :current_token, to: :table
 
       def record
@@ -67,7 +66,8 @@ module Users
 
       def expires_on
         if token?
-          render(OpPrimer::RelativeTimeComponent.new(datetime: user_time_zone(record.expires_on), prefix: I18n.t(:label_on)))
+          expires = record.expires_on || (record.created_at + Setting.autologin.days)
+          render(OpPrimer::RelativeTimeComponent.new(datetime: user_time_zone(expires), prefix: I18n.t(:label_on)))
         else
           I18n.t("users.sessions.unknown")
         end
@@ -89,14 +89,18 @@ module Users
         [delete_button]
       end
 
+      def row_css_class
+        "session-row"
+      end
+
       def delete_button
-        return if session? && record.current?(current_session)
-        return if token? && record == current_token
+        return if current?
 
         render(
           Primer::Beta::IconButton.new(
             icon: :x,
             scheme: :invisible,
+            test_selector: "session-revoke-button",
             tag: :a,
             href: url_for(revoke_path),
             "aria-label": I18n.t(:button_revoke),
