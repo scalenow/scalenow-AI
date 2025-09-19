@@ -23,54 +23,25 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module CustomFields
-  class CreateService < ::BaseServices::Create
-    def self.careful_new_custom_field(type)
-      if /.+CustomField\z/.match?(type.to_s)
-        klass = type.to_s.constantize
-        klass.new if klass.ancestors.include? CustomField
+module Admin
+  module Settings
+    module ProjectCustomFields
+      module Hierarchy
+        class ItemsController < CustomFields::Hierarchy::ItemsBaseController
+          menu_item :project_custom_fields_settings
+
+          private
+
+          def find_custom_field
+            CustomField.hierarchy_root_and_children.find(params[:project_custom_field_id])
+          end
+        end
       end
-    rescue NameError => e
-      Rails.logger.error "#{e.message}:\n#{e.backtrace.join("\n")}"
-      nil
-    end
-
-    def perform
-      super
-    rescue StandardError => e
-      ServiceResult.failure(message: e.message)
-    end
-
-    def instance(params)
-      cf = self.class.careful_new_custom_field(params[:type])
-      raise ArgumentError.new("Invalid CF type") unless cf
-
-      cf
-    end
-
-    def after_perform(call)
-      cf = call.result
-
-      if cf.is_a?(ProjectCustomField)
-        add_cf_to_visible_columns(cf)
-      end
-
-      if cf.hierarchical_list?
-        CustomFields::Hierarchy::HierarchicalItemService.new.generate_root(cf)
-      end
-
-      call
-    end
-
-    private
-
-    def add_cf_to_visible_columns(custom_field)
-      Setting.enabled_projects_columns = (Setting.enabled_projects_columns + [custom_field.column_name]).uniq
     end
   end
 end
