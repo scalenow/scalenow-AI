@@ -28,36 +28,19 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module CustomFields
-  class UpdateService < ::BaseServices::Update
-    protected
+require "rails_helper"
 
-    def after_perform(service_call)
-      super.tap do
-        recalculate_values
-      end
-    end
+RSpec.describe "External links", :js do
+  let(:user) { create(:user) }
 
-    private
+  before do
+    login_as user
+  end
 
-    def set_attributes_params(params)
-      super.except(:field_format)
-    end
+  it "sets ARIA describedby on external links" do
+    visit "/"
 
-    def recalculate_values
-      return unless recalculate_values?
-
-      model.class.customized_class.find_each do |customized|
-        affected_cfs = customized.available_custom_fields.affected_calculated_fields([model.id])
-
-        customized.calculate_custom_fields(affected_cfs)
-
-        customized.save if customized.changed_for_autosave?
-      end
-    end
-
-    def recalculate_values?
-      model.field_format_calculated_value? && model.formula_previously_changed?
-    end
+    expect(page).to have_link target: "_blank", described_by: "Open link in a new tab"
+    expect(page.all(:link, target: "_blank")).to all match_selector(:link, described_by: "Open link in a new tab")
   end
 end
