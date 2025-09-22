@@ -29,34 +29,24 @@
 #++
 
 module Grids
-  ##
-  # An abstract base class for all Rails-rendered grid widgets.
-  #
-  # @abstract Subclass and implement {#title} to create a new widget.
-  class WidgetComponent < Primer::BaseComponent
-    extend Dry::Initializer
-    include OpPrimer::ComponentHelpers
+  class WidgetBoxComponent < ApplicationComponent
+    # Use Row to add a row with borders and maintain the same padding.
+    #
+    # @param system_arguments [Hash] <%= link_to_system_arguments_docs %>
+    class Row < ApplicationComponent
+      def initialize(**system_arguments)
+        super()
 
-    def self.wrapper_key
-      name.underscore.tr("/", "-").tr("_", "-")
-    end
+        @system_arguments = system_arguments
+        @system_arguments[:classes] = class_names(
+          "op-widget-box--row",
+          system_arguments[:classes]
+        )
+      end
 
-    delegate :wrapper_key, to: :class
-
-    option :current_user, default: -> { User.current }
-
-    # @abstract Subclasses must implement this method.
-    # @return [String] a title suitable for display to users.
-    def title
-      raise NotImplementedError, "#{self.class} must implement #{__method__}"
-    end
-
-    def widget_wrapper(**, &)
-      render(WidgetBoxComponent.new(key: wrapper_key, title:, **wrapper_arguments, **), &)
-    end
-
-    def wrapper_arguments
-      {}
+      def call
+        render(OpPrimer::ListComponent::Item.new(**@system_arguments)) { content }
+      end
     end
   end
 end
