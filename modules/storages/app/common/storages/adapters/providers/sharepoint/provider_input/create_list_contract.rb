@@ -32,33 +32,11 @@ module Storages
   module Adapters
     module Providers
       module Sharepoint
-        module Queries
-          class OpenFileLinkQuery < Base
-            def call(auth_strategy:, input_data:)
-              Authentication[auth_strategy].call(storage: @storage) do |http|
-                split_identifier(input_data.file_id) => { drive_id:, location: item_id }
-
-                if input_data.open_location
-                  request_parent_id(http, drive_id, item_id).bind { request_web_url(http, drive_id, it) }
-                else
-                  request_web_url(http, drive_id, item_id)
-                end
-              end
-            end
-
-            private
-
-            def drive_item_query
-              @drive_item_query ||= Internal::DriveItemQuery.new(@storage)
-            end
-
-            def request_web_url(http, drive_id, item_id)
-              drive_item_query.call(http:, drive_id:, item_id:, fields: %w[webUrl]).fmap { it[:webUrl] }
-            end
-
-            def request_parent_id(http, drive_id, item_id)
-              drive_item_query.call(http:, drive_id:, item_id:, fields: %w[parentReference])
-                              .fmap { Peripherals::ParentFolder.new(it.dig(:parentReference, :id) || "/") }
+        module ProviderInput
+          class CreateListContract < Dry::Validation::Contract
+            params do
+              required(:name).filled(:string)
+              required(:description).maybe(:string)
             end
           end
         end
