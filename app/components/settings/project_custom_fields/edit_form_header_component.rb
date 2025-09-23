@@ -37,18 +37,30 @@ module Settings
       end
 
       def tabs
-        [
+        tabs = [
           {
             name: "project_custom_field_edit",
             path: edit_admin_settings_project_custom_field_path(@custom_field),
             label: t(:label_details)
           },
+        ]
+
+        if @custom_field.hierarchical_list?
+          tabs << {
+            name: "items",
+            path: admin_settings_project_custom_field_items_path(@custom_field),
+            label: t(:label_item_plural)
+          }
+        end
+
+        tabs <<
           {
             name: "project_custom_field_project_mappings",
             path: project_mappings_admin_settings_project_custom_field_path(@custom_field),
             label: t(:label_project_mappings)
           }
-        ]
+
+        tabs
       end
 
       def breadcrumbs_items

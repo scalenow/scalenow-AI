@@ -3778,6 +3778,7 @@ en:
   notice_password_confirmation_failed: "Your password is not correct. Cannot continue."
   notice_principals_found_multiple: "There are %{number} results found. \n Tab to focus the first result."
   notice_principals_found_single: "There is one result. \n Tab to focus it."
+  notice_parent_item_not_found: "Parent item not found."
   notice_project_not_deleted: "The project wasn't deleted."
   notice_project_not_found: "Project not found."
   notice_successful_connection: "Successful connection."
