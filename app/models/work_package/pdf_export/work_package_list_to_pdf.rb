@@ -87,6 +87,8 @@ class WorkPackage::PDFExport::WorkPackageListToPdf < WorkPackage::Exports::Query
     success(file)
   rescue Prawn::Errors::CannotFit
     error(I18n.t(:error_pdf_export_too_many_columns))
+  rescue Exports::PDF::Components::Gantt::InvalidDateRangeError => e
+    error(e.message)
   rescue StandardError => e
     Rails.logger.error "Failed to generate PDF export:  #{e.message}:\n#{e.backtrace.join("\n")}"
     error(I18n.t(:error_pdf_failed_to_export, error: e.message))
