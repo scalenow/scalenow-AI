@@ -90,20 +90,7 @@ RSpec.describe Primer::OpenProject::Forms::RichTextArea, type: :forms do
     context "with explicit field id" do
       let(:params) { { id: "explicit_id", rich_text_options: {} } }
 
-      it "renders the label" do
-        expect(rendered_form).to have_element :label, for: "explicit_id"
-      end
-
-      it "renders the hidden textarea" do
-        pending "Primer Forms does not handle ids consistently when a form namespace is set."
-
-        expect(rendered_form).to have_field "explicit_id", type: "textarea", visible: :hidden
-      end
-
-      it "renders the rich text area" do
-        expect(rendered_form).to have_element "opce-ckeditor-augmented-textarea",
-                                              "data-text-area-id": "explicit_id".to_json
-      end
+      it_behaves_like "successful render", text_area_id: "super_form_explicit_id"
     end
   end
 end
