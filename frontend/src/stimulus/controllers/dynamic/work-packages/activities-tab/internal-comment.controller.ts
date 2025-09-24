@@ -167,7 +167,7 @@ export default class InternalCommentController extends BaseController {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(isChecked));
     } catch (error) {
-      console.warn('Failed to persist internal comment state:', error);
+      window.ErrorReporter.captureException(error as Error);
     }
   }
 
@@ -192,7 +192,7 @@ export default class InternalCommentController extends BaseController {
         localStorage.removeItem(this.storageKey);
       }
     } catch (error) {
-      console.warn('Failed to restore internal comment state:', error);
+      window.ErrorReporter.captureException(error as Error);
     }
   }
 
