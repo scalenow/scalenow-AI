@@ -214,7 +214,12 @@ module MeetingAgendaItems
                      tag: :button,
                      content_arguments: { data: {
                        action: "click->meetings--add-params#interceptMoveTo",
-                       href: drop_meeting_agenda_item_path(@meeting_agenda_item.meeting, @meeting_agenda_item, type: :to_backlog)
+                       href: drop_meeting_agenda_item_path(
+                         @meeting_agenda_item.meeting,
+                         @meeting_agenda_item,
+                         type: :to_backlog,
+                         current_occurrence: @current_occurrence
+                       )
                      } }) do |item|
         item.with_leading_visual_icon(icon: "discussion-outdated")
       end
@@ -222,12 +227,18 @@ module MeetingAgendaItems
 
     def move_to_current_meeting_action_item(menu)
       return unless editable?
+      return if many_sections?
 
       menu.with_item(label: I18n.t(:label_agenda_item_move_to_current_meeting),
                      tag: :button,
                      content_arguments: { data: {
                        action: "click->meetings--add-params#interceptMoveTo",
-                       href: drop_meeting_agenda_item_path(@meeting_agenda_item.meeting, @meeting_agenda_item, type: :to_current)
+                       href: drop_meeting_agenda_item_path(
+                         @meeting_agenda_item.meeting,
+                         @meeting_agenda_item,
+                         type: :to_current,
+                         current_occurrence: @current_occurrence
+                       )
                      } }) do |item|
         item.with_leading_visual_icon(icon: "cross-reference")
       end
@@ -235,17 +246,16 @@ module MeetingAgendaItems
 
     def move_to_section_action_item(menu)
       return unless editable?
+      return unless many_sections?
 
       menu.with_item(label: I18n.t(:label_agenda_item_move_to_section),
-                     tag: :button,
-                     content_arguments: {
-                       data: {
-                         action: "click->meetings--add-params#interceptMoveTo",
-                         href: move_to_section_dialog_meeting_agenda_item_path(
-                           @meeting_agenda_item.meeting,
-                           @meeting_agenda_item
-                         )
-                       }
+                     href: move_to_section_dialog_meeting_agenda_item_path(
+                       @meeting_agenda_item.meeting,
+                       @meeting_agenda_item,
+                       current_occurrence: @current_occurrence
+                     ),
+                     form_arguments: {
+                       method: :put, data: { "turbo-stream": true }
                      }) do |item|
         item.with_leading_visual_icon(icon: "op-move")
       end
@@ -273,6 +283,12 @@ module MeetingAgendaItems
       @meeting.templated?
     end
 
+    def move_to_different_section_or_meeting_action_added?
+      return false unless editable?
+
+      !in_template? || in_backlog? || move_to_next_meeting_enabled?
+    end
+
     def editable?
       @editable ||= @meeting_agenda_item.editable? && can_manage_agendas?
     end
@@ -281,10 +297,18 @@ module MeetingAgendaItems
       true
     end
 
-    def visible_sections?
-      return true if @meeting.templated?
+    # def visible_sections?
+    #   return true if @meeting.templated?
+    #
+    #   @meeting.sections.many?
+    # end
 
-      @meeting.sections.many? && @meeting.sections.first.title.blank?
+    def many_sections?
+      if @meeting_agenda_item.in_backlog? && @current_occurrence.present?
+        @current_occurrence.sections.many?
+      else
+        @meeting.sections.many?
+      end
     end
   end
 end
