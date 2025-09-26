@@ -184,38 +184,21 @@ class MeetingAgendaItemsController < ApplicationController
     respond_with_turbo_streams
   end
 
-  def drop # rubocop:disable Metrics/AbcSize
+  def drop
     current_occurrence = Meeting.find_by(id: params[:current_occurrence])
     meeting_agenda_item_section = @meeting_agenda_item.meeting_section
 
     call = if @target_id.nil?
              ::MeetingAgendaItems::UpdateService
                .new(user: current_user, model: @meeting_agenda_item)
-               .call(meeting_id: params[:current_meeting_id], meeting_section: nil)
+               .call(meeting: current_occurrence, meeting_section: nil)
            else
              ::MeetingAgendaItems::DropService
                .new(user: current_user, meeting_agenda_item: @meeting_agenda_item)
                .call(target_id: @target_id, position: @position)
            end
 
-    if call.success?
-      old_section, current_section, section_changed = assign_drop_results(call, meeting_agenda_item_section)
-
-      if section_changed
-        move_item_to_other_section_via_turbo_stream(
-          old_section:,
-          current_section:,
-          collapsed: ActiveModel::Type::Boolean.new.cast(params[:collapsed]),
-          current_occurrence:
-        )
-      else
-        move_item_within_section_via_turbo_stream(current_occurrence:)
-      end
-    else
-      generic_call_failure_response(call)
-    end
-
-    respond_with_turbo_streams
+    handle_agenda_item_update_on_move(call, meeting_agenda_item_section, current_occurrence:)
   end
 
   def move
@@ -261,7 +244,8 @@ class MeetingAgendaItemsController < ApplicationController
   end
 
   def move_to_section_dialog
-    meeting = params[:current_meeting_id].present? ? Meeting.find(params[:current_meeting_id]) : @meeting_agenda_item.meeting
+    meeting = params[:current_occurrence].present? ? Meeting.find(params[:current_occurrence]) : @meeting_agenda_item.meeting
+
     respond_with_dialog MeetingAgendaItems::MoveToSectionDialogComponent.new(
       agenda_item: @meeting_agenda_item,
       meeting:
@@ -276,23 +260,7 @@ class MeetingAgendaItemsController < ApplicationController
              .new(user: current_user, model: @meeting_agenda_item)
              .call(meeting_section:)
 
-    if call.success?
-      old_section, current_section, section_changed = assign_drop_results(call, meeting_agenda_item_section)
-
-      if section_changed
-        move_item_to_other_section_via_turbo_stream(
-          old_section:,
-          current_section:,
-          collapsed: ActiveModel::Type::Boolean.new.cast(params[:collapsed])
-        )
-      else
-        move_item_within_section_via_turbo_stream
-      end
-    else
-      generic_call_failure_response(call)
-    end
-
-    respond_with_turbo_streams
+    handle_agenda_item_update_on_move(call, meeting_agenda_item_section, current_occurrence: nil)
   end
 
   private
@@ -371,7 +339,7 @@ class MeetingAgendaItemsController < ApplicationController
   def assign_drop_params # rubocop:disable Metrics/AbcSize
     @target_id, @position =
       if params[:type] == "to_current"
-        meeting = Meeting.find_by(id: params[:current_meeting_id])
+        meeting = Meeting.find_by(id: params[:current_occurrence])
         section = meeting.sections.reorder(position: :desc).first
         [section&.id, section&.last_position]
       elsif params[:type] == "to_backlog"
@@ -393,5 +361,26 @@ class MeetingAgendaItemsController < ApplicationController
     end
 
     [old_section, current_section, section_changed]
+  end
+
+  def handle_agenda_item_update_on_move(call, meeting_agenda_item_section, current_occurrence:)
+    if call.success?
+      old_section, current_section, section_changed = assign_drop_results(call, meeting_agenda_item_section)
+
+      if section_changed
+        move_item_to_other_section_via_turbo_stream(
+          old_section:,
+          current_section:,
+          collapsed: ActiveModel::Type::Boolean.new.cast(params[:collapsed]),
+          current_occurrence:
+        )
+      else
+        move_item_within_section_via_turbo_stream(current_occurrence:)
+      end
+    else
+      generic_call_failure_response(call)
+    end
+
+    respond_with_turbo_streams
   end
 end

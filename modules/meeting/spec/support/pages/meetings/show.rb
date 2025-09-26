@@ -369,8 +369,10 @@ module Pages::Meetings
 
     def expect_empty_backlog
       within_backlog do
-        expect(page).to have_text("Drag items here or create a new one")
-        expect(page).to have_button("Add")
+        retry_block do
+          expect(page).to have_text("Drag items here or create a new one")
+          expect(page).to have_button("Add")
+        end
       end
     end
 

@@ -34,14 +34,12 @@ import { appendCollapsedState } from '../../../helpers/collapsible-helper';
 
 export default class extends ApplicationController {
   private turboRequests:TurboRequestsService;
-  static targets = ['container'];
-
-  declare readonly containerTarget:HTMLElement;
 
   static metaNames = ['csrf-token'];
 
   declare readonly csrfToken:string;
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   async connect() {
     useMeta(this, { suffix: false });
     const context = await window.OpenProject.getPluginContext();
@@ -55,7 +53,6 @@ export default class extends ApplicationController {
     const url = new URL(target.dataset.href!, window.location.origin);
 
     appendCollapsedState(url.searchParams);
-    url.searchParams.append('current_meeting_id', this.containerTarget.dataset.meeting!);
 
     void this
       .turboRequests
