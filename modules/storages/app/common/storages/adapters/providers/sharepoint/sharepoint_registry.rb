@@ -41,6 +41,7 @@ module Storages
           namespace("commands") do
             register(:create_folder, Commands::CreateFolderCommand)
             register(:delete_folder, Commands::DeleteFolderCommand)
+            register(:rename_file, Commands::RenameFileCommand)
           end
 
           namespace("components") do
