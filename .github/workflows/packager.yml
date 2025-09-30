@@ -54,4 +54,4 @@ jobs:
           token: ${{ secrets.PACKAGER_PUBLISH_TOKEN }}
           repository: opf/openproject
           channel: ${{ github.ref_name }}
-          artefact: ${{ steps.package.outputs.package_path }}
+          file: ${{ steps.package.outputs.package_path }}
