@@ -249,14 +249,15 @@ module MeetingAgendaItems
       return unless many_sections?
 
       menu.with_item(label: I18n.t(:label_agenda_item_move_to_section),
-                     href: move_to_section_dialog_meeting_agenda_item_path(
-                       @meeting_agenda_item.meeting,
-                       @meeting_agenda_item,
-                       current_occurrence: @current_occurrence
-                     ),
-                     form_arguments: {
-                       method: :put, data: { "turbo-stream": true }
-                     }) do |item|
+                     tag: :button,
+                     content_arguments: { data: {
+                       action: "click->meetings--add-params#intercept",
+                       href: move_to_section_dialog_meeting_agenda_item_path(
+                         @meeting_agenda_item.meeting,
+                         @meeting_agenda_item,
+                         current_occurrence: @current_occurrence
+                       )
+                     } }) do |item|
         item.with_leading_visual_icon(icon: "op-move")
       end
     end

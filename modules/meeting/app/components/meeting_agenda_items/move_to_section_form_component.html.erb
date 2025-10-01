@@ -35,7 +35,8 @@ See COPYRIGHT and LICENSE files for more details.
       method: :post,
       url: move_to_section_meeting_agenda_item_path(
         @agenda_item.meeting,
-        @agenda_item
+        @agenda_item,
+        collapsed: @collapsed
       )
     ) do |f|
       flex_layout(mb: 3) do |flex|

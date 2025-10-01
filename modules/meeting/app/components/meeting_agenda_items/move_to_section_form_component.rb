@@ -34,11 +34,12 @@ module MeetingAgendaItems
     include OpTurbo::Streamable
     include OpPrimer::ComponentHelpers
 
-    def initialize(meeting:, agenda_item:)
+    def initialize(meeting:, agenda_item:, collapsed:)
       super
 
       @meeting = meeting
       @agenda_item = agenda_item
+      @collapsed = collapsed
     end
   end
 end

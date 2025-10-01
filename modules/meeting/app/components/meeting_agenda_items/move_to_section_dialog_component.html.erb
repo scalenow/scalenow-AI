@@ -39,7 +39,8 @@ See COPYRIGHT and LICENSE files for more details.
       render(
         MeetingAgendaItems::MoveToSectionFormComponent.new(
           meeting: @meeting,
-          agenda_item: @agenda_item
+          agenda_item: @agenda_item,
+          collapsed: @collapsed
         )
       )
     end

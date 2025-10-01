@@ -248,7 +248,8 @@ class MeetingAgendaItemsController < ApplicationController
 
     respond_with_dialog MeetingAgendaItems::MoveToSectionDialogComponent.new(
       agenda_item: @meeting_agenda_item,
-      meeting:
+      meeting:,
+      collapsed: params[:collapsed]
     )
   end
 
