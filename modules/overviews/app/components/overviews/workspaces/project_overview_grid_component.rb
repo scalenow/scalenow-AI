@@ -29,34 +29,19 @@
 #++
 
 module Overviews
-  module Widgets
-    class NewsComponent < Grids::WidgetComponent
-      NEWS_LIMIT = 5
+  module Workspaces
+    class ProjectOverviewGridComponent < ApplicationComponent
+      include ApplicationHelper
+      include OpPrimer::ComponentHelpers
 
-      param :project, optional: true
-
-      def initialize(*)
+      def initialize(project:)
         super
 
-        @news =
-          if project
-            project.news.visible(current_user).newest_first
-          else
-            News
-              .visible(current_user)
-              .newest_first
-              .includes(:project)
-          end
-
-        @newest = @news.limit(NEWS_LIMIT).to_a
-      end
-
-      def title
-        Project.human_attribute_name(:news)
+        @project = project
       end
 
       def render?
-        project.nil? || project.module_enabled?("news")
+        @project.project?
       end
     end
   end
