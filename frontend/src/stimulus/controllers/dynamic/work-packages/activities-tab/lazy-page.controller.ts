@@ -60,6 +60,7 @@ export default class LazyPageController extends BaseController {
 
     super.connect();
     void this.initializeTurboRequestService();
+    this.startObserving();
     this.setupScrollPreservation();
   }
 
@@ -89,12 +90,10 @@ export default class LazyPageController extends BaseController {
   }
 
   private setupScrollPreservation() {
-    if (!this.scrollableContainer || this.pageStreamHandler) return;
+    if (this.pageStreamHandler) return;
 
     const { signal } = this.abortController;
     const scrollContainer = this.scrollableContainer;
-
-    this.setupIntersectionObserver({ root: scrollContainer });
 
     this.pageStreamHandler = (event:TurboBeforeStreamRenderEvent) => {
       event.preventDefault();
@@ -102,7 +101,7 @@ export default class LazyPageController extends BaseController {
       const stream = event.detail.newStream;
       const insertTargetId = this.insertTargetIdValue;
 
-      if (insertTargetId && stream.target.includes(insertTargetId)) {
+      if (scrollContainer && insertTargetId && stream.target.includes(insertTargetId)) {
         const isPrepend = stream.action === 'prepend';
         void DomHelpers.keepScroll(scrollContainer, isPrepend, () => {
           event.detail.render(stream);
@@ -116,7 +115,9 @@ export default class LazyPageController extends BaseController {
     document.addEventListener('turbo:before-stream-render', this.pageStreamHandler as EventListener, { signal });
   }
 
-  private setupIntersectionObserver({ root }:{ root:HTMLElement }) {
+  private startObserving(root = this.scrollableContainer) {
+    if (!root) return;
+
     const [_observe, unobserve] = useIntersection(this, {
       root,
       threshold: 0.25,
