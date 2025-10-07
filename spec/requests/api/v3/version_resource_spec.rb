@@ -169,47 +169,25 @@ RSpec.describe "API v3 Version resource", content_type: :json do
         .to be_present
     end
 
-    it "returns the updated version" do
-      expect(response.body)
-        .to be_json_eql("Version".to_json)
-        .at_path("_type")
+    it "returns the updated version", :aggregate_failures do
+      expected_attributes = {
+        "_type" => "Version",
+        "name" => "New name",
+        "description/html" => "<p>New description</p>",
+        "startDate" => "2018-01-01",
+        "endDate" => "2018-01-09",
+        "status" => "closed",
+        "sharing" => "descendants",
+        "_links/definingProject/title" => project.name,
+        "_links/customField#{list_cf.id}/href" => api_v3_paths.custom_option(list_cf.custom_options.last.id),
+        "customField#{int_cf.id}" => 5
+      }
 
-      expect(response.body)
-        .to be_json_eql("New name".to_json)
-        .at_path("name")
-
-      expect(response.body)
-        .to be_json_eql("<p>New description</p>".to_json)
-        .at_path("description/html")
-
-      expect(response.body)
-        .to be_json_eql("2018-01-01".to_json)
-        .at_path("startDate")
-
-      expect(response.body)
-        .to be_json_eql("2018-01-09".to_json)
-        .at_path("endDate")
-
-      expect(response.body)
-        .to be_json_eql("closed".to_json)
-        .at_path("status")
-
-      expect(response.body)
-        .to be_json_eql("descendants".to_json)
-        .at_path("sharing")
-
-      # unchanged
-      expect(response.body)
-        .to be_json_eql(project.name.to_json)
-        .at_path("_links/definingProject/title")
-
-      expect(response.body)
-        .to be_json_eql(api_v3_paths.custom_option(list_cf.custom_options.last.id).to_json)
-        .at_path("_links/customField#{list_cf.id}/href")
-
-      expect(response.body)
-        .to be_json_eql(5.to_json)
-        .at_path("customField#{int_cf.id}")
+      expected_attributes.each do |path, value|
+        expect(response.body)
+          .to be_json_eql(value.to_json)
+          .at_path(path)
+      end
     end
 
     describe "custom fields" do
@@ -374,7 +352,7 @@ RSpec.describe "API v3 Version resource", content_type: :json do
       it_behaves_like "read-only violation", "project", Version
     end
 
-    context "if lacking the manage permissions" do
+    context "if lacking the manage permissions but having view permissions" do
       let(:permissions) { [:view_work_packages] }
 
       before { response }
@@ -452,46 +430,25 @@ RSpec.describe "API v3 Version resource", content_type: :json do
         .to be_present
     end
 
-    it "returns the newly created version" do
-      expect(response.body)
-        .to be_json_eql("Version".to_json)
-        .at_path("_type")
+    it "returns the newly created version", :aggregate_failures do
+      expected_attributes = {
+        "_type" => "Version",
+        "name" => "New version",
+        "description/html" => "<p>A new description</p>",
+        "startDate" => "2018-01-01",
+        "endDate" => "2018-01-09",
+        "status" => "closed",
+        "sharing" => "descendants",
+        "_links/definingProject/title" => project.name,
+        "_links/customField#{list_cf.id}/href" => api_v3_paths.custom_option(list_cf.custom_options.first.id),
+        "customField#{int_cf.id}" => 5
+      }
 
-      expect(response.body)
-        .to be_json_eql("New version".to_json)
-        .at_path("name")
-
-      expect(response.body)
-        .to be_json_eql("<p>A new description</p>".to_json)
-        .at_path("description/html")
-
-      expect(response.body)
-        .to be_json_eql("2018-01-01".to_json)
-        .at_path("startDate")
-
-      expect(response.body)
-        .to be_json_eql("2018-01-09".to_json)
-        .at_path("endDate")
-
-      expect(response.body)
-        .to be_json_eql("closed".to_json)
-        .at_path("status")
-
-      expect(response.body)
-        .to be_json_eql("descendants".to_json)
-        .at_path("sharing")
-
-      expect(response.body)
-        .to be_json_eql(project.name.to_json)
-        .at_path("_links/definingProject/title")
-
-      expect(response.body)
-        .to be_json_eql(api_v3_paths.custom_option(list_cf.custom_options.first.id).to_json)
-        .at_path("_links/customField#{list_cf.id}/href")
-
-      expect(response.body)
-        .to be_json_eql(5.to_json)
-        .at_path("customField#{int_cf.id}")
+      expected_attributes.each do |path, value|
+        expect(response.body)
+          .to be_json_eql(value.to_json)
+          .at_path(path)
+      end
     end
 
     describe "custom fields" do
