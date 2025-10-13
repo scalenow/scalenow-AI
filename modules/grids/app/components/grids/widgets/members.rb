@@ -32,15 +32,18 @@ module Grids
   module Widgets
     class Members < Grids::WidgetComponent
       MEMBERS_LIMIT = 5
+      private_constant :MEMBERS_LIMIT
 
       param :project
 
-      def initialize(*)
+      option :limit, default: -> { MEMBERS_LIMIT }
+
+      def initialize(...)
         super
 
         if project
           @members = project.members.visible(current_user).newest_first
-          @newest_members = @members.limit(MEMBERS_LIMIT).to_a
+          @newest_members = @members.limit(limit).to_a
         end
       end
 
