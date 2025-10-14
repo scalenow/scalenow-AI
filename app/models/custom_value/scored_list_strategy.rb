@@ -30,6 +30,6 @@
 
 class CustomValue::ScoredListStrategy < CustomValue::HierarchyStrategy
   def typed_value
-    cached_typed_value&.score
+    cached_ar_object&.score
   end
 end

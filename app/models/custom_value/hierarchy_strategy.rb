@@ -30,7 +30,7 @@
 
 class CustomValue::HierarchyStrategy < CustomValue::ARObjectStrategy
   def formatted_value
-    item = cached_typed_value
+    item = cached_ar_object
 
     if item
       item.to_s
