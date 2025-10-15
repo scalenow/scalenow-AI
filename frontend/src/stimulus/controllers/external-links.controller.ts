@@ -29,11 +29,11 @@
 import { ApplicationController } from 'stimulus-use';
 import { useMutation } from 'stimulus-use';
 
+const BLANK_LINK_QUERY = 'a[target="_blank"]';
 const BLANK_LINK_DESCRIPTION_ID = 'open-blank-target-link-description';
-const LINK_SELECTOR = 'a[href]';
 
 const isElement = (node:Node):node is Element => node.nodeType === Node.ELEMENT_NODE;
-const isLink = (elem:Element):elem is HTMLAnchorElement => elem.tagName === 'A' && elem.hasAttribute('href');
+const isBlankLink = (elem:Element):elem is HTMLAnchorElement => elem.matches(BLANK_LINK_QUERY);
 
 /**
  * Dynamically observes all links in the page, including those added later via Turbo frames or DOM mutations.
@@ -52,67 +52,67 @@ const isLink = (elem:Element):elem is HTMLAnchorElement => elem.tagName === 'A' 
  */
 export default class ExternalLinksController extends ApplicationController {
   connect() {
-    useMutation(this, {
-      attributes: true,
-      childList: true,
-      subtree: true,
-      attributeFilter: ['target', 'href'],
-    });
+    useMutation(this, { attributes: true, childList: true, subtree: true, attributeFilter: ['target'] });
 
-    // initial pass: process all links already in the DOM
-    document.querySelectorAll<HTMLAnchorElement>(LINK_SELECTOR).forEach(this.processLink);
+    // Initial pass: handle existing blank links (accessibility)
+    document.querySelectorAll(BLANK_LINK_QUERY).forEach(applyLinkDescription);
+
+    // Handle _top links that lead to a different domain
+    updateExternalTopLinks(document);
+
+    // Watch for dynamically added links
+    const observer = new MutationObserver(() => {
+      updateExternalTopLinks(document);
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   mutate(mutations:MutationRecord[]) {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (isElement(node)) {
-          // added node itself is a link
-          if (isLink(node)) this.processLink(node);
-          // process links in its subtree
-          node.querySelectorAll<HTMLAnchorElement>(LINK_SELECTOR).forEach(this.processLink);
+          // Added element itself is a blank link
+          if (isBlankLink(node)) applyLinkDescription(node);
+
+          // Added sub-trees
+          node.querySelectorAll(BLANK_LINK_QUERY).forEach(applyLinkDescription);
         }
       });
 
-      // process attribute changes
+      // Attribute changes
       if (
         mutation.type === 'attributes' &&
-        (mutation.attributeName === 'target' || mutation.attributeName === 'href') &&
+        mutation.attributeName === 'target' &&
         isElement(mutation.target) &&
-        isLink(mutation.target)
+        isBlankLink(mutation.target)
       ) {
-        this.processLink(mutation.target);
+        applyLinkDescription(mutation.target);
       }
     });
   }
+}
 
-  private processLink = (link:HTMLAnchorElement) => {
-    if (!link.href) return;
-
-    const isExternal = (() => {
-      try {
-        return new URL(link.href, window.location.href).hostname !== window.location.hostname;
-      } catch {
-        return false; // invalid URLs are treated as internal
-      }
-    })();
-
-    if (isExternal) {
-      if (link.target !== '_blank') link.target = '_blank';
-      if (link.rel !== 'noopener noreferrer') link.rel = 'noopener noreferrer';
-      this.applyLinkDescription(link);
-    } else {
-      if (link.target !== '_top') link.target = '_top';
-      link.removeAttribute('rel');
-    }
-  };
-
-  private applyLinkDescription(link:HTMLAnchorElement) {
-    const existingValue = link.getAttribute('aria-describedby');
-    if (!existingValue) {
-      link.setAttribute('aria-describedby', BLANK_LINK_DESCRIPTION_ID);
-    } else if (!existingValue.split(/\s+/).includes(BLANK_LINK_DESCRIPTION_ID)) {
-      link.setAttribute('aria-describedby', `${existingValue} ${BLANK_LINK_DESCRIPTION_ID}`);
-    }
+function applyLinkDescription(link:HTMLAnchorElement) {
+  const existingValue = link.getAttribute('aria-describedby');
+  if (!existingValue) {
+    link.setAttribute('aria-describedby', BLANK_LINK_DESCRIPTION_ID);
+  } else if (!existingValue.split(/\s+/).includes(BLANK_LINK_DESCRIPTION_ID)) {
+    link.setAttribute('aria-describedby', `${existingValue} ${BLANK_LINK_DESCRIPTION_ID}`);
   }
+}
+
+// Only change links that have target="_top" and go to another domain
+function updateExternalTopLinks(root:Document | Element) {
+  const topLinks = root.querySelectorAll<HTMLAnchorElement>('a[target="_top"]');
+  topLinks.forEach((link) => {
+    try {
+      const isExternal = link.hostname && link.hostname !== window.location.hostname;
+      if (isExternal) {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      }
+    } catch {
+      // ignore malformed URLs
+    }
+  });
 }
