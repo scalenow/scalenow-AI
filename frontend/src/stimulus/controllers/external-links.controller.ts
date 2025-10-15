@@ -92,6 +92,14 @@ export default class ExternalLinksController extends ApplicationController {
 }
 
 function updateExternalLink(link:HTMLAnchorElement) {
+  // If the link has an invalid or empty hostname, skip modifications
+  try {
+    const url = new URL(link.href);
+    if (!url.hostname) return;
+  } catch {
+    return; // skip if cannot parse
+  }
+
   const existingValue = link.getAttribute('aria-describedby');
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
