@@ -343,8 +343,8 @@ fr:
   concatenation:
     single: "ou"
   danger_dialog:
-    confirmation_live_message_checked: "The button to proceed is now active."
-    confirmation_live_message_unchecked: "The button to proceed is now inactive. You need to tick the checkbox to continue."
+    confirmation_live_message_checked: "Le bouton pour continuer est maintenant actif."
+    confirmation_live_message_unchecked: "Le bouton pour continuer est maintenant inactif. Vous devez cocher la case pour continuer."
   op_dry_validation:
     or: "ou"
     errors:
