@@ -221,14 +221,15 @@ FactoryBot.define do
         calculated_value
         date
         float
+        hierarchy multi_hierarchy
         integer
         link
-        list
+        list multi_list
         scored_list
         string
         text
-        user
-        version
+        user multi_user
+        version multi_version
       ].each do |trait|
         factory :"#{trait}_project_custom_field", traits: [trait]
       end
@@ -254,20 +255,17 @@ FactoryBot.define do
 
       %w[
         boolean
+        date
+        float
+        hierarchy multi_hierarchy
+        integer
+        link
+        list multi_list
+        scored_list
         string
         text
-        integer
-        float
-        date
-        list
-        multi_list
-        version
-        multi_version
-        user
-        multi_user
-        link
-        hierarchy
-        scored_list
+        user multi_user
+        version multi_version
       ].each do |trait|
         factory :"#{trait}_wp_custom_field", traits: [trait]
       end
