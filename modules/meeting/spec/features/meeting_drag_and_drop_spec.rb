@@ -63,15 +63,66 @@ RSpec.describe "Meeting drag and drop", :js, :selenium do
 
     target_section = page.find("#meeting-sections-show-component-#{section2.id}")
 
+    initial_updated_at = agenda_item.updated_at
+
     drag_n_drop_element(from: drag_handle, to: target_section)
 
-    sleep 1
+    wait_for { agenda_item.reload.updated_at }.not_to eq(initial_updated_at)
 
     show_page.expect_no_agenda_item_in_section(title: "Item to drag", section: section1)
     show_page.expect_agenda_item_in_section(title: "Item to drag", section: section2)
 
-    wait_for_network_idle
-
     expect(agenda_item.reload.meeting_section).to eq(section2)
+  end
+
+  it "allows dragging an agenda item from the backlog to a section" do
+    show_page.visit!
+    show_page.expect_agenda_item_in_section(title: "Item to drag", section: section1)
+
+    item_element = page.find("#meeting-agenda-items-item-component-show-component-#{agenda_item.id}")
+    drag_handle = item_element.find(".handle svg")
+
+    backlog = meeting.backlog
+    target_section = page.find("#meeting-sections-show-component-#{backlog.id}")
+
+    show_page.click_on_backlog
+    show_page.expect_backlog(collapsed: false)
+
+    initial_updated_at = agenda_item.updated_at
+
+    drag_n_drop_element(from: drag_handle, to: target_section, offset_y: 30)
+
+    wait_for { agenda_item.reload.updated_at }.not_to eq(initial_updated_at)
+
+    show_page.expect_no_agenda_item_in_section(title: "Item to drag", section: section1)
+    show_page.expect_agenda_item_in_section(title: "Item to drag", section: backlog)
+
+    expect(agenda_item.meeting_section).to eq(backlog)
+  end
+
+  it "allows dragging sections to reorder them" do
+    section3 = create(:meeting_section, meeting:, title: "Section 3")
+
+    show_page.visit!
+    show_page.expect_section(title: "Section 1")
+    show_page.expect_section(title: "Section 2")
+    show_page.expect_section(title: "Section 3")
+
+    initial_positions = [section1, section2, section3].map(&:position)
+    expect(initial_positions).to eq([1, 2, 3])
+
+    section3_element = page.find("#meeting-sections-show-component-#{section3.id}")
+    section1_element = page.find("#meeting-sections-show-component-#{section1.id}")
+
+    section3_drag_handle = section3_element.find(".handle svg")
+
+    initial_updated_at = section3.updated_at
+
+    drag_n_drop_element(from: section3_drag_handle, to: section1_element)
+
+    wait_for { section3.reload.updated_at }.not_to eq(initial_updated_at)
+
+    final_positions = [section1, section2, section3].map { |s| s.reload.position }
+    expect(final_positions).to eq([2, 3, 1])
   end
 end
