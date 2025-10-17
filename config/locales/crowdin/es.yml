@@ -162,6 +162,11 @@ es:
         expired: "Caducó el %{date}"
         revoked: "Revocado el %{date}"
         title: "Tabla de tokens de acceso"
+    workflows:
+      tabs:
+        default_transitions: "Default transitions"
+        user_author: "User is author"
+        user_assignee: "User is assignee"
   authentication:
     login_and_registration: "Inicio de sesión y registro"
   announcements:
@@ -2557,6 +2562,9 @@ es:
       selected: "Seleccionado"
     include_sub_items: "Incluir subelementos"
     no_results_text: "No hay resultados"
+  toggle_switch:
+    label_on: "On"
+    label_off: "Off"
   general_csv_decimal_separator: "."
   general_csv_encoding: "UTF-8"
   general_csv_separator: ","
