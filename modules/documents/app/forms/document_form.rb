@@ -29,6 +29,13 @@
 #++
 
 class DocumentForm < ApplicationForm
+  attr_reader :oauth_token
+
+  def initialize(oauth_token: nil)
+    super()
+    @oauth_token = oauth_token
+  end
+
   form do |f|
     f.select_list(
       name: :category_id,
@@ -54,7 +61,8 @@ class DocumentForm < ApplicationForm
         classes: "document-form--long-description",
         value: model.content_binary,
         document_id: model.id,
-        document_name: ::CollaborativeEditing::DocumentIdGenerator.call("documents", model.id)
+        document_name: model.title,
+        oauth_token: @oauth_token
       )
     else
       f.rich_text_area(

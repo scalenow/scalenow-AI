@@ -28,29 +28,37 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module CollaborativeEditing
-  module DocumentIdGenerator
-    module_function
+module Documents
+  module OAuth
+    class GenerateTokenService < BaseServices::BaseCallable
+      def initialize(user:)
+        super()
 
-    def call(category, id)
-      OpenSSL::HMAC.hexdigest("SHA256", Rails.application.secret_key_base, "#{category}#{id}")
-    end
-  end
+        @user = user
+      end
 
-  module DocumentAccessTokenGenerator
-    module_function
+      def perform
+        application_result = EnsureApplicationService.new.call
+        return application_result unless application_result.success?
 
-    def call(document_id, document_name, document_text)
-      if Setting.collaborative_editing_hocuspocus_secret.present?
-        JWT.encode(
-          {
-            document_id:,
-            document_name:,
-            document_text:,
-            exp: 20.minutes.from_now.to_i
-          },
-          Setting.collaborative_editing_hocuspocus_secret,
-          "HS256"
+        application = application_result.result
+
+        token = create_access_token(application)
+
+        if token.persisted?
+          ServiceResult.success(result: token)
+        else
+          ServiceResult.failure(errors: token.errors)
+        end
+      end
+
+      private
+
+      def create_access_token(application)
+        application.access_tokens.create(
+          resource_owner_id: @user.id,
+          scopes: "api_v3",
+          expires_in: 24.hours.to_i
         )
       end
     end

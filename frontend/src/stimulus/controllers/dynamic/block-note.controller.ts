@@ -44,7 +44,7 @@ export default class extends Controller {
     inputText: String,
     activeUser: Object,
     hocuspocusUrl: String,
-    hocuspocusAccessToken: String,
+    oauthToken: String,
     documentName: String,
     documentId: String,
     openProjectUrl: String,
@@ -55,7 +55,7 @@ export default class extends Controller {
   declare readonly inputTextValue:string;
   declare readonly activeUserValue:User;
   declare readonly hocuspocusUrlValue:string;
-  declare readonly hocuspocusAccessTokenValue:string;
+  declare readonly oauthTokenValue:string;
   declare readonly documentNameValue:string;
   declare readonly documentIdValue:string;
   declare readonly openProjectUrlValue:string;
@@ -70,7 +70,7 @@ export default class extends Controller {
       inputField: this.blockNoteInputFieldTarget,
       inputText: this.inputTextValue,
       hocuspocusUrl: this.hocuspocusUrlValue,
-      hocuspocusAccessToken: this.hocuspocusAccessTokenValue,
+      oauthToken: this.oauthTokenValue,
       activeUser: this.activeUserValue,
       documentName: this.documentNameValue,
       documentId: this.documentIdValue,

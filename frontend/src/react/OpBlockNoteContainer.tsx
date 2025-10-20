@@ -42,7 +42,7 @@ export interface OpBlockNoteContainerProps {
   inputField:HTMLInputElement;
   inputText?:string;
   hocuspocusUrl:string;
-  hocuspocusAccessToken:string;
+  oauthToken:string,
   activeUser:User;
   documentName:string;
   documentId:string;
@@ -61,26 +61,27 @@ const detectTheme = ():OpColorMode => { return window.OpenProject.theme.detectOp
 export default function OpBlockNoteContainer({ inputField,
                                                inputText,
                                                hocuspocusUrl,
-                                               hocuspocusAccessToken,
+                                               oauthToken,
                                                activeUser,
                                                documentName,
+                                               documentId,
                                                openProjectUrl }:OpBlockNoteContainerProps) {
   const [isLoading, setIsLoading] = useState(true);
 
-  initOpenProjectApi({ baseUrl: openProjectUrl});
+  initOpenProjectApi({ baseUrl: openProjectUrl });
 
   let doc = new Y.Doc();
 
-  const collaborationEnabled = Boolean(hocuspocusUrl && documentName && hocuspocusAccessToken && activeUser);
+  const collaborationEnabled = Boolean(hocuspocusUrl && documentName && oauthToken && activeUser);
   let hocuspocusProvider:HocuspocusProvider | null = null;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let editorParams:Partial<BlockNoteEditorOptions<any, any, any>>;
   if(collaborationEnabled) {
     hocuspocusProvider = new HocuspocusProvider({
-      url: hocuspocusUrl,
+      url: `${hocuspocusUrl}?documentId=${documentId}&returnUrl=${encodeURIComponent(openProjectUrl)}`,
       name: documentName,
-      token: hocuspocusAccessToken,
+      token: oauthToken,
       document: doc
     });
 

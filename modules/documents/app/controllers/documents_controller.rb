@@ -63,10 +63,12 @@ class DocumentsController < ApplicationController
   def new
     @document = @project.documents.build
     @document.attributes = document_params
+    generate_oauth_token
   end
 
   def edit
     @categories = DocumentCategory.all
+    generate_oauth_token
   end
 
   def create
@@ -105,5 +107,17 @@ class DocumentsController < ApplicationController
 
   def document_params
     params.fetch(:document, {}).permit("category_id", "title", "description", "content_binary")
+  end
+
+  def generate_oauth_token
+    result = Documents::OAuth::GenerateTokenService
+      .new(user: current_user)
+      .call
+
+    if result.success?
+      @oauth_token = result.result.plaintext_token
+    else
+      Rails.logger.error("Failed to generate OAuth token for document #{@document.id}: #{result.errors}")
+    end
   end
 end

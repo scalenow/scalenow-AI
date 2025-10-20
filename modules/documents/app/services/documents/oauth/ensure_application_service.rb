@@ -28,38 +28,42 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-module Primer
-  module OpenProject
-    module Forms
-      # :nodoc:
-      class BlockNoteEditor < Primer::Forms::BaseComponent
-        include ::OpenProject::StaticRouting::UrlHelpers
+module Documents
+  module OAuth
+    class EnsureApplicationService < BaseServices::BaseCallable
+      APPLICATION_NAME = "Documents OAuth Application"
 
-        attr_reader :input,
-                    :value,
-                    :active_user,
-                    :hocuspocus_url,
-                    :open_project_url,
-                    :document_name,
-                    :document_id,
-                    :oauth_token
+      def perform
+        application = find_or_create_application
 
-        delegate :name, to: :@input
-
-        def initialize(input:, value:, document_name:, document_id:, oauth_token: nil)
-          super()
-          @input = input
-          @value = value
-          @active_user = {
-            id: User.current.id,
-            username: User.current.name
-          }
-          @document_id = document_id
-          @document_name = document_name
-          @oauth_token = oauth_token
-          @hocuspocus_url = Setting.collaborative_editing_hocuspocus_url
-          @open_project_url = root_url
+        if application.persisted?
+          ServiceResult.success(result: application)
+        else
+          ServiceResult.failure(errors: application.errors)
         end
+      end
+
+      private
+
+      def find_or_create_application
+        existing = Doorkeeper::Application.find_by(name: APPLICATION_NAME)
+        return existing if existing
+
+        create_application
+      end
+
+      def create_application
+        result = ::OAuth::Applications::CreateService
+          .new(user: User.system)
+          .call(
+            name: APPLICATION_NAME,
+            redirect_uri: "urn:ietf:wg:oauth:2.0:oob",
+            scopes: "api_v3",
+            confidential: true,
+            owner: User.system
+          )
+
+        result.result
       end
     end
   end
