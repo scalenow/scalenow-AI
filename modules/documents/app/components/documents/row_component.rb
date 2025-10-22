@@ -27,26 +27,22 @@
 #
 # See COPYRIGHT and LICENSE files for more details.
 #++
+#
 
-Rails.application.routes.draw do
-  resources :projects, only: [] do
-    resources :documents, only: %i[create new index] do
-      collection do
-        get :menu, to: "documents/menus#show"
-      end
-    end
-  end
+module Documents
+  class RowComponent < ApplicationComponent
+    include OpPrimer::ComponentHelpers
+    include Redmine::I18n
 
-  resources :documents, except: %i[create new index]
+    alias_method :document, :model
 
-  namespace :admin do
-    namespace :settings do
-      resources :document_categories, except: [:show] do
-        member do
-          put :move
-          get :reassign
-        end
-      end
+    private
+
+    def updated_at_time(document)
+      OpPrimer::RelativeTimeComponent.new(
+        datetime: in_user_zone(document.updated_at),
+        month: :long
+      ).render_in(view_context)
     end
   end
 end
