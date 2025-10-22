@@ -46,6 +46,10 @@ module Overviews
       def dialog_id
         "edit-project-custom-field-dialog-#{@project_custom_field.id}"
       end
+
+      def wrapper_id
+        "##{dialog_id}"
+      end
     end
   end
 end
