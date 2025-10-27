@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "carrierwave/storage/fog"
 
 ##
@@ -10,7 +12,7 @@ module OpenProject::Patches::FogFile
   extend ActiveSupport::Concern
 
   included do
-    def authenticated_url(options = {})
+    def authenticated_url(options = {}) # rubocop:disable Metrics/AbcSize
       if ["AWS", "Google", "Rackspace", "OpenStack"].include?(@uploader.fog_credentials[:provider])
         # avoid a get by using local references
         local_directory = connection.directories.new(key: @uploader.fog_directory)
