@@ -37,7 +37,7 @@ RSpec.describe CustomFields::UpdateService, type: :model do
   describe "#call" do
     let(:user) { build_stubbed(:admin) }
     let(:contract_class) { CustomFields::UpdateContract }
-    let(:contract_instance) { instance_double(CustomFields::UpdateContract, validate: true) }
+    let(:contract_instance) { instance_double(contract_class, validate: true) }
 
     let(:instance) do
       described_class.new(user:,
