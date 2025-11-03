@@ -114,10 +114,10 @@ class WorkPackages::ActivitiesTab::Paginator::JournalChangesFilter
       end.join(" OR ")
     end
 
-    # Detect changes in association journals by checking for additions and removals.
+    # Detect changes in association journals by checking for additions or removals.
     def association_changes_condition_sql(table:, id_column:, value_columns:)
       "#{association_items_added_sql(table:, id_column:, value_columns:)} " \
-        "UNION " \
+        "UNION ALL " \
         "#{association_items_removed_sql(table:, id_column:)}"
     end
 
