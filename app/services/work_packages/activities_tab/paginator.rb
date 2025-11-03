@@ -171,22 +171,22 @@ class WorkPackages::ActivitiesTab::Paginator
   #
   # Includes journals that have:
   #   * Initial journal (version = 1) - always included
-  #   * Attachment changes (attachable_journals association)
-  #   * Custom field changes (customizable_journals association)
-  #   * File link changes (storages_file_links_journals association)
+  #   * Attachment changes (compares attachable_journals with predecessor)
+  #   * Custom field changes (compares customizable_journals with predecessor)
+  #   * File link changes (compares storages_file_links_journals with predecessor)
   #   * Cause metadata (system-triggered changes)
   #   * Attribute/data changes (compares work_package_journals columns with immediate predecessor)
   #
-  # Note: This heuristic may include false positives (journals without actual changes)
-  # for performance reasons, as it uses EXISTS subqueries and cannot guarantee perfect accuracy.
+  # This heuristic compares association records with the predecessor journal to detect actual changes,
+  # not just the presence of snapshot records.
   def apply_only_changes_filter_heuristic(journals)
     sql = <<~SQL.squish
       version = 1
-      OR EXISTS (SELECT 1 FROM attachable_journals WHERE attachable_journals.journal_id = journals.id)
-      OR EXISTS (SELECT 1 FROM customizable_journals WHERE customizable_journals.journal_id = journals.id)
-      OR EXISTS (SELECT 1 FROM storages_file_links_journals WHERE storages_file_links_journals.journal_id = journals.id)
       OR (cause IS NOT NULL AND cause != '{}')
       OR EXISTS (#{attribute_data_changes_condition_sql})
+      OR EXISTS (#{attachment_changes_condition_sql})
+      OR EXISTS (#{custom_field_changes_condition_sql})
+      OR EXISTS (#{file_link_changes_condition_sql})
     SQL
 
     journals.where(OpenProject::SqlSanitization.sanitize(sql))
@@ -226,5 +226,66 @@ class WorkPackages::ActivitiesTab::Paginator
 
   def data_change_columns
     Journal::WorkPackageJournal.column_names - ["id", "project_phase_definition_id"]
+  end
+
+  # Detect attachment changes by comparing with predecessor journal.
+  def attachment_changes_condition_sql
+    association_changes_condition_sql(
+      table: "attachable_journals",
+      id_column: "attachment_id",
+      value_columns: ["filename"]
+    )
+  end
+
+  # Detect custom field changes by comparing with predecessor journal.
+  def custom_field_changes_condition_sql
+    association_changes_condition_sql(
+      table: "customizable_journals",
+      id_column: "custom_field_id",
+      value_columns: ["value"]
+    )
+  end
+
+  # Detect file link changes by comparing with predecessor journal.
+  def file_link_changes_condition_sql
+    association_changes_condition_sql(
+      table: "storages_file_links_journals",
+      id_column: "file_link_id",
+      value_columns: %w[link_name storage_name]
+    )
+  end
+
+  # Generic SQL to detect changes in association journals by comparing with predecessor.
+  # Detects added items, removed items, and changed values.
+  def association_changes_condition_sql(table:, id_column:, value_columns:)
+    value_changes = value_columns.map do |col|
+      "pred.#{col} IS DISTINCT FROM curr.#{col}"
+    end.join(" OR ")
+
+    <<~SQL.squish
+      SELECT 1
+        FROM #{table} curr
+        LEFT JOIN journals predecessor
+          ON predecessor.journable_id = journals.journable_id
+          AND predecessor.journable_type = journals.journable_type
+          AND predecessor.version = (#{max_predecessor_version_sql})
+        LEFT JOIN #{table} pred
+          ON pred.journal_id = predecessor.id
+          AND pred.#{id_column} = curr.#{id_column}
+        WHERE curr.journal_id = journals.id
+          AND (pred.id IS NULL OR (#{value_changes}))
+      UNION
+      SELECT 1
+        FROM journals predecessor
+        INNER JOIN #{table} pred
+          ON pred.journal_id = predecessor.id
+        LEFT JOIN #{table} curr
+          ON curr.journal_id = journals.id
+          AND curr.#{id_column} = pred.#{id_column}
+        WHERE predecessor.journable_id = journals.journable_id
+          AND predecessor.journable_type = journals.journable_type
+          AND predecessor.version = (#{max_predecessor_version_sql})
+          AND curr.id IS NULL
+    SQL
   end
 end
