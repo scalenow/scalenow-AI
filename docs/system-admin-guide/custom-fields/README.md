@@ -55,7 +55,7 @@ There are multiple format options for custom fields in OpenProject. You can sele
 - **User custom field** - creates a custom field, which allows selecting users that are allowed to access the entity containing the custom field.
 - **Version custom field** - creates a custom field, which allows selecting one or multiple versions. Versions are created on the project level in *Backlogs* module.
 - **Hierarchy custom field (Enterprise add-on)** - creates a custom field, which allows selecting one or multiple items from a hierarchical list structure. The structure can be created in the *Items* tab of the custom field. See more in the section below.
-- **Weighted item list custom field (Enterprise add-on)** - like the *Hierarchy*, but with underlying numerical values - e.g. used for calculation. Can't be used as multi-select.  
+- **Weighted item list custom field (Enterprise add-on)** - creates a custom field similar to the *Hierarchy* type, but with underlying numerical values used for project evaluation (e.g., [calculated values project attributes](../projects/project-attributes/)). Please keep in mind that *weighted item lists** custom fields can't be used as multi-select.  
 
 ### Hierarchy custom field (Enterprise add-on)
 
