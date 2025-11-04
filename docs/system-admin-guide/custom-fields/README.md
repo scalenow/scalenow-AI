@@ -54,19 +54,16 @@ There are multiple format options for custom fields in OpenProject. You can sele
 - **Boolean custom field** - creates a custom field for an attribute, that is either true or false. It is represented by a checkbox that can be checked or unchecked.
 - **User custom field** - creates a custom field, which allows selecting users that are allowed to access the entity containing the custom field.
 - **Version custom field** - creates a custom field, which allows selecting one or multiple versions. Versions are created on the project level in *Backlogs* module.
-- **Hierarchy custom field (Enterprise add-on)** - see more in the section below.
+- **Hierarchy custom field (Enterprise add-on)** - creates a custom field, which allows selecting one or multiple items from a hierarchical list structure. The structure can be created in the *Items* tab of the custom field. See more in the section below.
+- **Weighted item list custom field (Enterprise add-on)** - like the *Hierarchy*, but with underlying numerical values - e.g. used for calculation. Can't be used as multi-select.  
 
 ### Hierarchy custom field (Enterprise add-on)
 
 [feature: custom_field_hierarchies ]
 
-Hierarchy custom fields allow organizing hierarchical structures in work packages by making use of multi-level select lists. To create a custom field of type Hierarchy follow the same steps as you would when [creating a standard custom field](#add-a-new-custom-field) and select **Hierarchy** format. You can then name the custom field, allow multi-select, specify if it should be a required field or used as a filter, and activate it for all projects. Click the **Save** button to proceed.
+Hierarchy custom fields allow organizing hierarchical structures in work packages by making use of multi-level select lists. To create a custom field of type **Hierarchy** follow the same steps as you would when [creating a standard custom field](#add-a-new-custom-field) and select **Hierarchy** format. You can then name the custom field, allow multi-select, specify if it should be a required field or used as a filter, and activate it for all projects. Click the **Save** button to proceed.
 
 ![Create a new custom field of type hierarchy](openproject_system_guide_new_custom_field_new_hierarchy.png)
-
-You will then see the list of all existing custom fields. Click on the name of the custom field you created to edit it, specify selectable items and assign it to projects.
-
-![List of custom fields in OpenProject administration](openproject_system_guide_custom_fields_list.png)
 
 You can edit the name and initial settings under the *Details* tab. 
 
@@ -76,7 +73,7 @@ Under the *Items* tab you can specify which hierarchy items should be selectable
 
 ![Items tab for a hierarchy custom field in OpenProject administration](openproject_system_guide_hierarchy_field_add_item_button.png)
 
-You can then specify labels and short names for each of the items you want to add. The short name can be used e.g. for an abbreviation of a name or another associated short description. The short name will be displayed next to the item label in brackets. 
+You can then specify labels and short names for each of the items you want to add. The short name can be used e.g. for an abbreviation of a name or another associated short description. The short name is optional and will be displayed next to the item label in brackets. 
 
 ![Add an item to the hierarchy custom field in OpenProject administration](openproject_system_guide_hierarchy_field_add_item_form.png)
 
@@ -102,6 +99,16 @@ Once you have specified all items for the hierarchy custom field, you need to:
 
 1. [Activate this custom field for projects under the *Projects* tab](#add-a-custom-field-to-one-or-multiple-projects)
 2. [Assign a custom field to a work package type](../manage-work-packages/work-package-types/#work-package-form-configuration-enterprise-add-on) 
+
+### Weighted item list custom field (Enterprise add-on)
+
+[feature: weighted_item_lists ]
+
+Weighted item list custom fields work much like the **Hierarchy**. They also allow creating a hierarchical structure of items for selection. To create a custom field of type **Weighted item list** follow the same steps as you would when [creating a standard custom field](#add-a-new-custom-field) and select **Weighted item list** format.
+
+Creating and editing items for a weighted item list work exactly like with a hierarchy custom field.
+
+Unlike **Hierarchy**, the items of a weighted item list have no **Short**, but a **Weight**. This underlying numerical value is mandatory, and can be used for calculation - e.g. with the custom field of type **Calculated value**. Due to this constraint, weighted item lists cannot be configured to be multi-select.
 
 ## 'Required' custom fields
 
