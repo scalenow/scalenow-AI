@@ -27,7 +27,7 @@
 //++
 
 import { setupServerResponse } from 'core-app/core/setup/globals/global-listeners/setup-server-response';
-import { openExternalLinksInNewTab, performAnchorHijacking } from './global-listeners/link-hijacking';
+import { performAnchorHijacking } from './global-listeners/link-hijacking';
 
 /**
  * A set of listeners that are relevant on every page to set sensible defaults
@@ -56,22 +56,11 @@ export function initializeGlobalListeners():void {
         return;
       }
 
-      const callbacks = [
-        openExternalLinksInNewTab,
-        performAnchorHijacking,
-      ];
-
-      // eslint-disable-next-line no-restricted-syntax
-      for (const fn of callbacks) {
-        if (fn.call(linkElement, evt, linkElement)) {
-          evt.preventDefault();
-          break;
-        }
-      }
-
       // Prevent angular handling clicks on href="#..." links from other libraries
       // (especially jquery-ui and its datepicker) from routing to <base url>/#
-      performAnchorHijacking(evt, linkElement);
+      if (performAnchorHijacking(evt, linkElement)) {
+        evt.preventDefault();
+      }
     });
 
   // Listen for 'zenModeToggled' event to toggle Zen Mode styling on the body.
@@ -81,21 +70,6 @@ export function initializeGlobalListeners():void {
     document.body.classList.toggle('zen-mode', event.detail.active);
   });
 
-  // Jump to the element given by location.hash, if present
-  const { hash } = window.location;
-  if (hash && hash.startsWith('#')) {
-    try {
-      const el = document.querySelector(hash);
-      el && el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } catch (e) {
-      // This is very likely an invalid selector such as a Google Analytics tag.
-      // We can safely ignore this and just not scroll in this case.
-      // Still log the error so one can confirm the reason there is no scrolling.
-      if (e instanceof Error) {
-        console.log(`Could not scroll to given location hash: ${hash} ( ${e.message})`);
-      }
-    }
-  }
   // Disable global drag & drop handling, which results in the browser loading the image and losing the page
   jQuery(document.documentElement)
     .on('dragover drop', (evt:Event) => {

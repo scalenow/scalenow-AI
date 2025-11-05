@@ -162,6 +162,11 @@ ca:
         expired: "Expired on %{date}"
         revoked: "Revoked on %{date}"
         title: "Access token table"
+    workflows:
+      tabs:
+        default_transitions: "Default transitions"
+        user_author: "User is author"
+        user_assignee: "User is assignee"
   authentication:
     login_and_registration: "Login and registration"
   announcements:
@@ -263,7 +268,7 @@ ca:
     label_no_color: "Sense color"
     label_properties: "Propietats"
     label_really_delete_color: >
-      Esteu segur que voleu suprimir el següent tipus de projecte? Els projectes amb aquest tipus no se suprimiran.
+      Estàs segur que vols eliminar el següent color? Els tipus amb aquest color no s'eliminaràn.
   custom_actions:
     actions:
       name: "Accions"
@@ -297,7 +302,7 @@ ca:
         placeholder:
           label: "Item label"
           short: "Short name"
-          score: "Score"
+          weight: "Weight"
       notice:
         remember_items_and_projects: "Remember to set items and projects in the respective tabs for this custom field."
       hierarchy:
@@ -314,9 +319,10 @@ ca:
     reorder_alphabetical: "Reorganitza els valors alfabèticament"
     reorder_confirmation: "Alerta: L'ordre actual dels valors disponibles es perdran. Vols continuar?"
     placeholder_version_select: "Work package or project selection is required first"
+    calculated_field_not_editable: "Non-editable attribute. This value is calculated automatically."
     instructions:
-      is_required: "Mark the custom field as required. This will make it mandatory to fill in the field when creating new or updating existing resources."
-      is_required_for_project: "Check to enable this attribute and make it required in all projects. It cannot be deactived for individual projects."
+      is_required: "Mark the custom field as required. This will make it mandatory to fill in the field when creating new resources. Existing resources will not require a value when being updated."
+      is_required_for_project: "Check to enable this attribute and make it required in all projects. It cannot be deactived for individual projects. Existing projects will not require a value when being updated."
       is_for_all: "Mark the custom field as available in all existing and new projects."
       multi_select: "Allows the user to assign multiple values to this custom field."
       searchable: "Include the field values when using the global search functionality."
@@ -331,19 +337,19 @@ ca:
       no_results_content_text: Crea un camp personalitzat nou
   calculated_values:
     error_dialog:
-      title: "Error with Calculated Value"
+      title: "Error with Calculated value"
     errors:
-      unknown: "An unknown error occurred. Please review the formula for this Calculated Value."
-      mathematical: "A mathematical error occurred during calculation."
-      missing_value: The attribute "%{custom_field_name}" is required by this Calculated Value but is empty.
-      disabled_value: The attribute "%{custom_field_name}" is required by this Calculated Value but is disabled for the project.
+      unknown: "An unknown error occurred. Please review the formula for this Calculated value."
+      mathematical: "The mathematical formula leads to an error. Please review the project calculation attribute and try again."
+      missing_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is empty.
+      disabled_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is disabled for the project.
   concatenation:
     single: "o"
   danger_dialog:
     confirmation_live_message_checked: "The button to proceed is now active."
     confirmation_live_message_unchecked: "The button to proceed is now inactive. You need to tick the checkbox to continue."
   op_dry_validation:
-    or: "or"
+    or: "o"
     errors:
       array?: "must be an array."
       decimal?: "must be a decimal."
@@ -382,9 +388,9 @@ ca:
       depth: "Depth"
       item: "Item"
       label: "Label"
-      score: "Score"
+      weight: "Weight"
       short: "Short name"
-      parent: "Parent"
+      parent: "Pare"
       blueprint: "Pattern blueprint"
   global_search:
     title:
@@ -447,7 +453,7 @@ ca:
     lists:
       active: "Projectes actius"
       my: "Els meus projectes"
-      favorited: "Favorite projects"
+      favorited: "Projectes preferits"
       archived: "Projectes arxivats"
       shared: "Shared project lists"
       my_lists: "My project lists"
@@ -520,6 +526,8 @@ ca:
       versions:
         no_results_title_text: Actualment no hi ha cap versió per al projecte.
         no_results_content_text: Crear una nova versió
+        work_packages_graph: Gràfica de paquets de treball
+        show_work_packages: Show work packages
       storage:
         no_results_title_text: No hi ha espai addicional de disc gravat consumit per aquest projecte.
       work_package_priorities:
@@ -632,7 +640,7 @@ ca:
     sessions:
       session_name: "%{browser_name}%{browser_version} en %{os_name}"
       browser: "Navegador"
-      expires: "Expires"
+      expires: "Caduca"
       last_connection: "Last connection"
       device: "Dispositiu / Sistema Operatiu"
       unknown_browser: "navegador desconegut"
@@ -1167,7 +1175,7 @@ ca:
         excluded_from_totals: "Exclude from calculation of totals in hierarchy"
         default_done_ratio: "% Complete"
       token/named:
-        token_name: "Token name"
+        token_name: "Nom del token"
       token/ical:
         calendar: "Calendari"
         ical_token_query_assignment: "Query assignment"
@@ -1317,8 +1325,6 @@ ca:
         inclusion: "no està establert a un dels valors permesos."
         inclusion_nested: "no correspon a un dels valors permesos a la ruta '%{path}'."
         invalid: "no és vàlid."
-        invalid_characters: "contains invalid characters."
-        not_allowed_custom_fields_referenced: "contains custom fields that are not allowed: %{custom_fields}."
         invalid_url: "no és una URL vàlida."
         invalid_url_scheme: "no és un protocal suportat (permès: %{allowed_schemes})."
         less_than_or_equal_to: "ha de ser menor o igual a %{count}."
@@ -1376,6 +1382,13 @@ ca:
           referenced_in_other_fields_html:
             one: "%{name} is used in project attribute calculation %{links}."
             other: "%{name} is used in project attribute calculations: %{links}."
+          attributes:
+            formula:
+              blank: "Formula can't be blank."
+              invalid: "Formula is invalid."
+              invalid_characters: "Only numeric values, mathematical operators and project attributes of type integer, float, calculated value and weighted list are allowed."
+              not_allowed_custom_fields_referenced: "The attribute %{custom_fields} cannot be used because it leads to a circular reference; one attribute depends on the other."
+              format: "%{message}"
         custom_fields_project:
           attributes:
             project_ids:
@@ -1700,6 +1713,7 @@ ca:
       issue_priority:
         one: "Prioritat"
         other: "Priorities"
+      meeting_participant: "Meeting participant"
       member: "Membre"
       news: "Notícies"
       notification:
@@ -1792,7 +1806,7 @@ ca:
     attachments: "Fitxers adjunts"
     actor: "Actor"
     action: "Acció"
-    api_key: "API key"
+    api_key: "Clau API"
     author: "Autor/a"
     avatar: "Avatar"
     base: "Error General:"
@@ -2198,11 +2212,11 @@ ca:
     features:
       baseline_comparison: Baseline Comparisons
       board_view: Advanced Boards
-      calculated_values: Calculated Values
+      calculated_values: Calculated values
       conditional_highlighting: Conditional Highlighting
       internal_comments: Internal Comments
       custom_actions: Custom Actions
-      custom_field_hierarchies: Custom fields of type hierarchy
+      custom_field_hierarchies: Hierarchies
       customize_life_cycle: Customize Life Cycle
       date_alerts: Date Alerts
       define_custom_style: Custom theme and logo
@@ -2218,6 +2232,7 @@ ca:
       sso_auth_providers: Single Sign-On
       team_planner_view: Team Planner View
       virus_scanning: Antivirus Scanning
+      weighted_item_lists: Weighted item lists
       work_package_query_relation_columns: Work Package Query Relation Columns
       work_package_sharing: Share work packages with external users
       work_package_subject_generation: Work Package Subject Generation
@@ -2264,15 +2279,17 @@ ca:
       readonly_work_packages:
         description: "Mark work packages as read-only for specific statuses."
       custom_field_hierarchies:
-        description: "Hierarchy custom fields allow organizing hierarchical structures in work packages by making use of multi-level select lists."
+        description: "Hierarchy custom fields allow organizing hierarchical structures in work packages and projects by making use of multi-level select lists."
       date_alerts:
         description: "Amb les alertes per dates, se't notificarà quan una data d'inici o finalització s'apropi de tal manera que no se't puguin oblidar o passar dates rellevants."
+      weighted_item_lists:
+        description: "Weighted item lists allow you to create a list with underlying numeric values associated."
       work_package_sharing:
         description: "Share work packages with users who are not members of the project."
       project_list_sharing:
         description: "Share project lists with individual users."
       calculated_values:
-        description: "Calculated Values allow you to create a mathematical formula based attribute using numeric values and other project attributes and custom fields."
+        description: "Calculated values allow you to create a mathematical formula based attribute using numeric values and other project attributes and custom fields."
       define_custom_style:
         title: "Custom color theme and logo"
         more_info: "Nota: el logotip utilitzat serà accessible públicament."
@@ -2556,6 +2573,9 @@ ca:
       selected: "Selected"
     include_sub_items: "Include sub-items"
     no_results_text: "No results"
+  toggle_switch:
+    label_on: "On"
+    label_off: "Off"
   general_csv_decimal_separator: "."
   general_csv_encoding: "UTF-8"
   general_csv_separator: ","
@@ -2579,18 +2599,18 @@ ca:
       upsell:
         title: "Actualitza a l'edició Enterprise"
       new_features:
-        header: "Read about new features and product updates."
+        header: "Llegeix sobre les noves funcions i actualitzacions del producte. "
         learn_about: "Learn more about all new features"
         #We need to include the version to invalidate outdated translations in other locales
-        "16_5":
+        "16_6":
           new_features_title: >
             The release contains various new features and improvements, such as:
           new_features_list:
-            line_0: Add work packages to a meeting section in the Meetings tab.
-            line_1: Choose color mode more conveniently with “Increase contrast” checkboxes.
-            line_2: Filter projects by last update.
-            line_3: Jump to highlighted target elements from deep links.
-            line_4: Confirm critical actions with more accessible danger dialogs.
+            line_0: Calculated values for project evaluation and scoring (Enterprise add-on).
+            line_1: Project attributes type hierarchy.
+            line_2: Performance updates with great impact.
+            line_3: New index page for Documents module.
+            line_4: Possibility to change parent of a custom field item.
     links:
       upgrade_enterprise_edition: "Actualitza a l'edició Enterprise"
       postgres_migration: "Migrant la teva instal·lació a PostgreSQL"
@@ -2825,8 +2845,8 @@ ca:
   label_select_main_menu_item: Seleccioneu nou element de menú principal
   label_required_disk_storage: "Emmagatzematge de disc necessari"
   label_send_invitation: Enviar invitació
-  label_calculated_value: "Calculated Value"
-  label_change_parent: "Change parent"
+  label_calculated_value: "Calculated value"
+  label_change_parent: "Canviar pare"
   label_change_plural: "Canvis"
   label_change_properties: "Canvia les propietats"
   label_change_status: "Canvia l'estat"
@@ -2915,6 +2935,7 @@ ca:
   label_duplicate: "duplicats"
   label_duplicates: "duplicats"
   label_edit: "Editar"
+  label_edit_attribute: "Edit attribute"
   label_edit_x: "Edita: %{x}"
   label_enable_multi_select: "Activa/desactiva selecció múltiple"
   label_enabled_project_custom_fields: "Habilita camps personalitzats"
@@ -3006,7 +3027,7 @@ ca:
   label_invite_user: "Invitar usuari"
   label_item: "Item"
   label_item_plural: "Items"
-  label_scored_list: "Scored list"
+  label_weighted_item_list: "Weighted item list"
   label_share: "Compartir"
   label_share_project_list: "Share project list"
   label_share_work_package: "Share work package"
@@ -3037,7 +3058,7 @@ ca:
   label_link_url: "Link (URL)"
   label_list: "Llista"
   label_loading: "Carregant..."
-  label_locked: "locked"
+  label_locked: "bloquejat"
   label_lock_user: "Bloqueja usuari"
   label_logged_as: "Connectat com a"
   label_login: "Iniciar sessió"
@@ -3047,7 +3068,7 @@ ca:
   label_custom_export_footer: "Custom export footer image"
   label_custom_export_font_regular: "Regular"
   label_custom_export_font_bold: "Bold"
-  label_custom_export_font_italic: "Italic"
+  label_custom_export_font_italic: "Cursiva"
   label_custom_export_font_bold_italic: "Bold Italic"
   label_custom_export_cover_overlay: "Custom export cover background overlay"
   label_custom_export_cover_text_color: "Text color"
@@ -3341,6 +3362,7 @@ ca:
   label_user_search: "Cercar per usuari"
   label_user_settings: "Configuració de l'usuari"
   label_users_settings: "Configuració d'usuaris"
+  label_value_x: "Value: %{x}"
   label_version_new: "Nova versió"
   label_version_edit: "Edita la versió"
   label_version_plural: "Versions"
@@ -3811,6 +3833,7 @@ ca:
     default: "-"
   project:
     archive:
+      title: "Archive project"
       are_you_sure: "Estàs segur que vols arxivar el projecte \"%{name}\"?"
       archived: "Arxivat"
     count:
@@ -3818,7 +3841,7 @@ ca:
       one: "1 projecte"
       other: "%{count} projectes"
     destroy:
-      title: "Delete project"
+      title: "Eliminar projecte"
       heading: "Permanently delete this project?"
       confirmation_message_for_subprojects_html:
         zero: >
@@ -4279,7 +4302,7 @@ ca:
   status_invited: convidat
   status_locked: bloquejat
   status_registered: registrat
-  status_deleted: deleted
+  status_deleted: suprimit
   #Used in array.to_sentence.
   support:
     array:

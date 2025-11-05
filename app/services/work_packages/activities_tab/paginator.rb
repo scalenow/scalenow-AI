@@ -28,6 +28,26 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
+# Paginates work package activities (journals and changesets) with support for filtering and anchor navigation.
+#
+# Filter modes:
+# - :all - Shows all activities (default)
+# - :only_comments - Shows only journals with notes
+# - :only_changes - Shows only journals with detected changes using SQL heuristics
+#
+# Anchor format (filter is reset to :all when using anchors):
+# - "comment-{journal_id}" - Navigate to specific journal by ID
+# - "activity-{sequence_version}" - Navigate to journal by sequence version
+#
+# @param work_package [WorkPackage] The work package to paginate activities for
+# @param params [Hash] Pagination and filtering parameters
+#
+# @option params [Integer] :page Page number (default: 1)
+# @option params [Integer] :limit Records per page (default: Pagy::DEFAULT[:limit])
+# @option params [Symbol] :filter Filter mode (:all, :only_comments, :only_changes)
+# @option params [String] :anchor Anchor to navigate to specific journal
+#
+# @return [Array<Pagy, Array>] Pagy pagination object and array of activity records
 class WorkPackages::ActivitiesTab::Paginator
   include Pagy::Backend
   include WorkPackages::ActivitiesTab::JournalSortingInquirable
@@ -36,9 +56,12 @@ class WorkPackages::ActivitiesTab::Paginator
     new(work_package, params).call
   end
 
+  attr_reader :work_package, :params, :filter
+
   def initialize(work_package, params = {})
     @work_package = work_package
     @params = params
+    @filter = params[:filter]&.to_sym || :all
   end
 
   def call
@@ -46,6 +69,7 @@ class WorkPackages::ActivitiesTab::Paginator
 
     pagy, records =
       if anchor_type && target_record_id
+        @filter = :all # Ignore filter when jumping to specific journal
         pagy_array_for_target_journal(anchor_type, target_record_id)
       else
         pagy_array(base_journals, **pagy_options)
@@ -58,8 +82,6 @@ class WorkPackages::ActivitiesTab::Paginator
   end
 
   private
-
-  attr_reader :work_package, :params
 
   def pagy_options
     { page: params[:page] || 1, limit: params[:limit] || Pagy::DEFAULT[:limit], max_pages: 100 }.compact
@@ -105,15 +127,30 @@ class WorkPackages::ActivitiesTab::Paginator
   end
 
   def fetch_ar_journals
-    work_package
+    journals = work_package
       .journals
       .internal_visible
-      .includes(:user, :customizable_journals, :attachable_journals, :storable_journals, :notifications)
+      .includes(
+        :user,
+        :customizable_journals,
+        :attachable_journals,
+        :storable_journals,
+        :notifications
+      )
       .reorder(version: :desc) # Always fetch newest first for pagination
       .with_sequence_version
+
+    case filter
+    when :only_comments then apply_comments_only_filter(journals)
+    when :only_changes then apply_changes_only_filter(journals)
+    else
+      journals
+    end
   end
 
   def fetch_revisions
+    return Changeset.none if filter == :only_comments
+
     work_package.changesets.includes(:user, :repository)
   end
 
@@ -130,5 +167,13 @@ class WorkPackages::ActivitiesTab::Paginator
     elsif record.is_a?(Changeset)
       record.committed_on.to_i
     end
+  end
+
+  def apply_comments_only_filter(scope)
+    scope.where.not(notes: [nil, ""])
+  end
+
+  def apply_changes_only_filter(scope)
+    JournalChangesFilter.apply(scope)
   end
 end

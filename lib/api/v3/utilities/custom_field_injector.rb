@@ -45,18 +45,18 @@ module API
           "version" => "Version",
           "list" => "CustomOption",
           "hierarchy" => "CustomField::Hierarchy::Item",
-          "scored_list" => "CustomField::Hierarchy::Item",
+          "weighted_item_list" => "CustomField::Hierarchy::Item",
           "calculated_value" => "CalculatedValue"
         }.freeze
 
-        LINK_FORMATS = %w(list user version hierarchy scored_list).freeze
+        LINK_FORMATS = %w(list user version hierarchy weighted_item_list).freeze
 
         NAMESPACE_MAP = {
           "user" => %w[users groups placeholder_users],
           "version" => "versions",
           "list" => "custom_options",
           "hierarchy" => "custom_field_items",
-          "scored_list" => "custom_field_items"
+          "weighted_item_list" => "custom_field_items"
         }.freeze
 
         REPRESENTER_MAP = {
@@ -64,7 +64,7 @@ module API
           "version" => "::API::V3::Versions::VersionRepresenter",
           "list" => "::API::V3::CustomOptions::CustomOptionRepresenter",
           "hierarchy" => "::API::V3::CustomFields::Hierarchy::HierarchyItemRepresenter",
-          "scored_list" => "::API::V3::CustomFields::Hierarchy::HierarchyItemRepresenter"
+          "weighted_item_list" => "::API::V3::CustomFields::Hierarchy::HierarchyItemRepresenter"
         }.freeze
 
         class << self
@@ -121,7 +121,7 @@ module API
             inject_user_schema(custom_field)
           when "list"
             inject_list_schema(custom_field)
-          when "hierarchy", "scored_list"
+          when "hierarchy", "weighted_item_list"
             inject_hierarchy_schema(custom_field)
           else
             inject_basic_schema(custom_field)
@@ -312,7 +312,7 @@ module API
             next unless custom_field.calculated_value?
             next unless available_custom_fields.include?(custom_field)
 
-            errors = custom_field.calculated_value_errors.where(customized_id: id, customized_type: "Project")
+            errors = calculated_value_errors.where(custom_field:)
             errors.map do |err|
               { code: err.error_code,
                 message: CalculatedValues::ErrorsHelper.calculated_value_error_msg(err) }

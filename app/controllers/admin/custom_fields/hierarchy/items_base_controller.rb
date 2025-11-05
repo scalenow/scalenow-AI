@@ -78,7 +78,7 @@ module Admin
                          item: @active_item,
                          label: input[:label],
                          short: input[:short],
-                         score: input[:score])
+                         weight: input[:weight])
             .either(
               ->(*) { redirect_to action: :show, id: @active_item.parent, status: :see_other },
               lambda do |validation_result|
@@ -97,24 +97,20 @@ module Admin
         end
 
         def change_parent
-          result = parse_parent_input(new_parent_params).bind do |new_parent|
-            validate_new_parent(new_parent).bind do
-              item_service.move_item(item: @active_item, new_parent:)
-            end
-          end
-
-          result.either(
-            ->(result) do
-              redirect_to action: :show,
-                          id: result.parent,
-                          status: :see_other,
-                          notice: I18n.t(:notice_successful_update)
-            end,
-            ->(error) do
-              render_error_flash_message_via_turbo_stream(message: error)
-              respond_with_turbo_streams(&:html)
-            end
-          )
+          parse_parent_input(new_parent_params)
+            .bind { item_service.move_item(item: @active_item, new_parent: it) }
+            .either(
+              ->(result) do
+                redirect_to action: :show,
+                            id: result.parent,
+                            status: :see_other,
+                            notice: I18n.t(:notice_successful_update)
+              end,
+              ->(error) do
+                render_error_flash_message_via_turbo_stream(message: error)
+                respond_with_turbo_streams(&:html)
+              end
+            )
         end
 
         def destroy
@@ -148,7 +144,7 @@ module Admin
         def item_input # rubocop:disable Metrics/AbcSize
           input = { parent: @active_item, label: params[:label] }
           input[:short] = params[:short] if params[:short].present?
-          input[:score] = params[:score] if params[:score].present?
+          input[:weight] = params[:weight] if params[:weight].present?
           input[:sort_order] = params[:sort_order].to_i if params[:sort_order].present?
 
           input
@@ -162,8 +158,8 @@ module Admin
           case @custom_field.field_format
           when "hierarchy"
             ::CustomFields::Hierarchy::InsertListItemContract
-          when "scored_list"
-            ::CustomFields::Hierarchy::InsertScoredItemContract
+          when "weighted_item_list"
+            ::CustomFields::Hierarchy::InsertWeightedItemContract
           else
             raise ArgumentError, "unsupported custom field format '#{@custom_field.field_format}'"
           end
@@ -173,8 +169,8 @@ module Admin
           case @custom_field.field_format
           when "hierarchy"
             ::CustomFields::Hierarchy::UpdateListItemContract
-          when "scored_list"
-            ::CustomFields::Hierarchy::UpdateScoredItemContract
+          when "weighted_item_list"
+            ::CustomFields::Hierarchy::UpdateWeightedItemContract
           else
             raise ArgumentError, "unsupported custom field format '#{@custom_field.field_format}'"
           end
@@ -188,7 +184,7 @@ module Admin
         end
 
         def add_errors_to_edit_form(validation_result)
-          @active_item.assign_attributes(**validation_result.to_h.slice(:label, :short, :score))
+          @active_item.assign_attributes(**validation_result.to_h.slice(:label, :short, :weight))
 
           validation_result.errors(full: true).to_h.each do |attribute, errors|
             @active_item.errors.add(attribute, errors.join(", "))
@@ -209,13 +205,6 @@ module Admin
           else
             Failure("Invalid input: #{new_parent_input}")
           end
-        end
-
-        def validate_new_parent(new_parent)
-          return Failure("Parent must not be the same as before.") if @active_item.parent.id == new_parent.id
-          return Failure("Parent must not be the current item.") if @active_item.id == new_parent.id
-
-          Success()
         end
 
         def find_model_object

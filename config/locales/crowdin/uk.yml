@@ -162,6 +162,11 @@ uk:
         expired: "Термін дії минув %{date}"
         revoked: "Анульовано %{date}"
         title: "Таблиця маркерів доступу"
+    workflows:
+      tabs:
+        default_transitions: "Стандартні переходи"
+        user_author: "Користувач є автором"
+        user_assignee: "Користувач є призначеною особою"
   authentication:
     login_and_registration: "Вхід і реєстрація"
   announcements:
@@ -297,7 +302,7 @@ uk:
         placeholder:
           label: "Мітка елемента"
           short: "Коротка назва"
-          score: "Оцінка"
+          weight: "Weight"
       notice:
         remember_items_and_projects: "Обов’язково задайте елементи й проєкти на відповідних вкладках для цього користувацького поля."
       hierarchy:
@@ -314,9 +319,10 @@ uk:
     reorder_alphabetical: "Перевпорядкувати значення за алфавітом"
     reorder_confirmation: "Увага! Поточний порядок доступних значень буде втрачено. Продовжити?"
     placeholder_version_select: "Спочатку потрібно вибрати пакет робіт або проєкт"
+    calculated_field_not_editable: "Атрибут не підлягає редагуванню. Його значення обчислюється автоматично."
     instructions:
-      is_required: "Позначте користувацьке поле як обов’язкове. Так його потрібно буде заповнювати під час створення нових або оновлення наявних ресурсів."
-      is_required_for_project: "Установіть прапорець, щоб увімкнути цей атрибут і зробити його обов’язковим в усіх проєктах. Його не можна деактивувати для окремих проєктів."
+      is_required: "Mark the custom field as required. This will make it mandatory to fill in the field when creating new resources. Existing resources will not require a value when being updated."
+      is_required_for_project: "Check to enable this attribute and make it required in all projects. It cannot be deactived for individual projects. Existing projects will not require a value when being updated."
       is_for_all: "Позначте користувацьке поле як доступне в усіх наявних і нових проєктах."
       multi_select: "Дає змогу користувачу задавати кілька значень цього користувацького поля."
       searchable: "Включіть значення полів під час використання функції глобального пошуку."
@@ -331,17 +337,17 @@ uk:
       no_results_content_text: Створіть нове спеціальне поле
   calculated_values:
     error_dialog:
-      title: "Помилка, пов’язана з полем «Розраховане значення»"
+      title: "Error with Calculated value"
     errors:
-      unknown: "Сталася невідома помилка. Перевірте формулу для цього поля «Розраховане значення»."
-      mathematical: "Під час обчислення сталася математична помилка."
-      missing_value: Атрибут «%{custom_field_name}» обов’язковий для цього поля «Розраховане значення», але є порожнім.
-      disabled_value: Атрибут «%{custom_field_name}» обов’язковий для цього поля «Розраховане значення», але його вимкнено для проєкту.
+      unknown: "An unknown error occurred. Please review the formula for this Calculated value."
+      mathematical: "The mathematical formula leads to an error. Please review the project calculation attribute and try again."
+      missing_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is empty.
+      disabled_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is disabled for the project.
   concatenation:
     single: "або"
   danger_dialog:
-    confirmation_live_message_checked: "The button to proceed is now active."
-    confirmation_live_message_unchecked: "The button to proceed is now inactive. You need to tick the checkbox to continue."
+    confirmation_live_message_checked: "Кнопка для продовження активна."
+    confirmation_live_message_unchecked: "Кнопка для продовження зараз неактивна. Щоб продовжити, поставте прапорець."
   op_dry_validation:
     or: "або"
     errors:
@@ -382,7 +388,7 @@ uk:
       depth: "Глибина"
       item: "Об’єкт"
       label: "Мітка"
-      score: "Оцінка"
+      weight: "Weight"
       short: "Коротка назва"
       parent: "Батьківський об’єкт"
       blueprint: "Структура шаблону"
@@ -520,6 +526,8 @@ uk:
       versions:
         no_results_title_text: Наразі не існує версій для проекту.
         no_results_content_text: Створіть нову версію
+        work_packages_graph: Графік робочих пакетів
+        show_work_packages: Показати пакети робіт
       storage:
         no_results_title_text: Цей проєкт не потребує додаткового дискового простору.
       work_package_priorities:
@@ -756,7 +764,7 @@ uk:
           label_with_context: "%{attribute_context}: %{attribute_label}"
           context:
             work_package: "Робочий пакет"
-            parent: "Батьківський"
+            parent: "Батьківський об’єкт"
             project: "Проєкт"
         pattern:
           label: "Шаблон теми"
@@ -902,7 +910,7 @@ uk:
       new_child_description: "Створює звʼязаний пакет робіт як піделемент поточного (батьківського) пакета робіт"
       child: "Дочірній"
       child_description: "Вкладає звʼязаний пакет робіт як піделемент поточного (батьківського) пакета робіт"
-      parent: "Батьківський"
+      parent: "Батьківський об’єкт"
       parent_description: "Установлює звʼязаний пакет робіт батьківським відносно поточного (дочірнього) пакета робіт"
       label_closest: "Найближчі"
       label_blocks_singular: "блоки"
@@ -1275,8 +1283,8 @@ uk:
         journal_internal: Внутрішній журнал
         notify: "Сповіщати" #used in custom actions
         parent: "Джерело"
-        parent_issue: "Батьківський"
-        parent_work_package: "Батьківський"
+        parent_issue: "Батьківський об’єкт"
+        parent_work_package: "Батьківський об’єкт"
         priority: "Пріоритет"
         progress: "% завершення"
         readonly: "Лише читання"
@@ -1330,8 +1338,6 @@ uk:
         inclusion: "не встановлено в одному з допустимих значень"
         inclusion_nested: "– не призначено одне з дозволених значень за шляхом «%{path}»."
         invalid: "зазначено невірно"
-        invalid_characters: "містить недопустимі символи."
-        not_allowed_custom_fields_referenced: "містить користувацькі поля, які не дозволено: %{custom_fields}."
         invalid_url: "не є дійсною URL-адресою."
         invalid_url_scheme: "не є підтримуваним протоколом (дозволено: %{allowed_schemes})."
         less_than_or_equal_to: "має бути меншим або рівним %{count}"
@@ -1391,6 +1397,13 @@ uk:
             few: "%{name} використовується при обчисленнях атрибутів проєкту: %{links}."
             many: "%{name} використовується при обчисленнях атрибутів проєкту: %{links}."
             other: "%{name} використовується при обчисленнях атрибутів проєкту: %{links}."
+          attributes:
+            formula:
+              blank: "Formula can't be blank."
+              invalid: "Formula is invalid."
+              invalid_characters: "Only numeric values, mathematical operators and project attributes of type integer, float, calculated value and weighted list are allowed."
+              not_allowed_custom_fields_referenced: "The attribute %{custom_fields} cannot be used because it leads to a circular reference; one attribute depends on the other."
+              format: "%{message}"
         custom_fields_project:
           attributes:
             project_ids:
@@ -1725,6 +1738,7 @@ uk:
         few: "Пріоритети"
         many: "Пріоритети"
         other: "Пріоритети"
+      meeting_participant: "Учасник наради"
       member: "Учасник"
       news: "Новини"
       notification:
@@ -2283,11 +2297,11 @@ uk:
     features:
       baseline_comparison: Порівняння з вихідним рівнем
       board_view: Покращені Дошки
-      calculated_values: Розраховані значення
+      calculated_values: Calculated values
       conditional_highlighting: Умовне виділення
       internal_comments: Внутрішні коментарі
       custom_actions: Користувацькі дії
-      custom_field_hierarchies: Користувацькі поля типу «Ієрархія»
+      custom_field_hierarchies: Hierarchies
       customize_life_cycle: Налаштування життєвого циклу
       date_alerts: Оповіщення про дати
       define_custom_style: Користувацька тема й логотип
@@ -2303,6 +2317,7 @@ uk:
       sso_auth_providers: Single Sign-On
       team_planner_view: Подання командного планувальника
       virus_scanning: Пошук вірусів
+      weighted_item_lists: Weighted item lists
       work_package_query_relation_columns: Стовпці зв’язків запиту пакета робіт
       work_package_sharing: Діліться пакетами робіт із зовнішніми користувачами
       work_package_subject_generation: Створення теми пакета робіт
@@ -2349,15 +2364,17 @@ uk:
       readonly_work_packages:
         description: "Позначайте пакети робіт як доступні лише для читання залежно від статусу."
       custom_field_hierarchies:
-        description: "Користувацькі поля типу «Ієрархія» дають змогу впорядковувати ієрархічні структури в пакети роьіт, використовуючи багаторівневі списки."
+        description: "Hierarchy custom fields allow organizing hierarchical structures in work packages and projects by making use of multi-level select lists."
       date_alerts:
         description: "Завдяки оповіщенням про дати ви завжди знатимете про заплановані дати початку або завершення, тож ніколи не пропускатимете важливі терміни й не забуватимете про них."
+      weighted_item_lists:
+        description: "Weighted item lists allow you to create a list with underlying numeric values associated."
       work_package_sharing:
         description: "Діліться пакетами робіт із користувачами, які не належать до учасників проєкту."
       project_list_sharing:
         description: "Діліться списками проєктів з окремими користувачами."
       calculated_values:
-        description: "Тип «Розраховані значення» дає змогу створити атрибут на основі математичної формули з використанням числових значень і інших атрибутів проєкту й користувацьких полів."
+        description: "Calculated values allow you to create a mathematical formula based attribute using numeric values and other project attributes and custom fields."
       define_custom_style:
         title: "Користувацький колір теми й логотип"
         more_info: "Примітка: вибраний логотип буде загальнодоступний."
@@ -2643,6 +2660,9 @@ uk:
       selected: "Вибрано"
     include_sub_items: "Включити піделементи"
     no_results_text: "Немає результатів"
+  toggle_switch:
+    label_on: "Увімкнено"
+    label_off: "Вимкнено"
   general_csv_decimal_separator: "."
   general_csv_encoding: "UTF-8"
   general_csv_separator: ","
@@ -2669,15 +2689,15 @@ uk:
         header: "Читайте про нові функції і оновлення продуктів."
         learn_about: "Дізнайтеся більше про всі нові функції"
         #We need to include the version to invalidate outdated translations in other locales
-        "16_5":
+        "16_6":
           new_features_title: >
             Випуск включає різноманітні нові функції і покращення, такі як:
           new_features_list:
-            line_0: додавання пакетів робіт у розділ наради на вкладці «Наради»;
-            line_1: зручніший вибір колірного режиму за допомогою прапорців для збільшення контрастності;
-            line_2: фільтрування проєктів за останнім оновленням;
-            line_3: перехід до виділених цільових об’єктів за допомогою точних посилань;
-            line_4: підтвердження критичних дій у зручніших діалогових вікнах, які з’являються перед виконанням ризикованих дій.
+            line_0: Обчислені значення для оцінки проєктів і підрахунку балів (доповнення версії Enterprise).
+            line_1: Ієрархія типів атрибутів проєкту.
+            line_2: Значні покращення продуктивності.
+            line_3: Нова індексна сторінка модуля «Документи».
+            line_4: Можливість змінити батьківський об’єкт елемента користувацького поля.
     links:
       upgrade_enterprise_edition: "Оновлення до версії Enterprise"
       postgres_migration: "Міграція інсталяції в PostgreSQL"
@@ -2860,7 +2880,7 @@ uk:
   label_ical_access_key_not_present: "Немає маркерів iCalendar."
   label_ical_access_key_generation_hint: "Автоматично створено під час оформлення підписки на календар."
   label_ical_access_key_latest: "останні"
-  label_ical_access_key_revoke: "Відкликати"
+  label_ical_access_key_revoke: "Анулювати"
   label_add_column: "Додати стовпець"
   label_applied_status: "Застосовний статус"
   label_archive_project: "Архівний проект"
@@ -2912,7 +2932,7 @@ uk:
   label_select_main_menu_item: Виберіть новий пункт головного меню
   label_required_disk_storage: "Необхідне місце на диску"
   label_send_invitation: Надіслати запрошення
-  label_calculated_value: "Розраховане значення"
+  label_calculated_value: "Calculated value"
   label_change_parent: "Змінити батьківський об’єкт"
   label_change_plural: "Зміни"
   label_change_properties: "Змінити властивості"
@@ -3002,6 +3022,7 @@ uk:
   label_duplicate: "Дублювати"
   label_duplicates: "Дублікати"
   label_edit: "Редагувати"
+  label_edit_attribute: "Редагувати атрибут"
   label_edit_x: "Редагувати: %{x}"
   label_enable_multi_select: "Перемкнути мультиселекцію"
   label_enabled_project_custom_fields: "Увімкнено спеціальні поля"
@@ -3093,7 +3114,7 @@ uk:
   label_invite_user: "Запросити користувача"
   label_item: "Елемент"
   label_item_plural: "Елементи"
-  label_scored_list: "Список з оцінками"
+  label_weighted_item_list: "Weighted item list"
   label_share: "Поділитися"
   label_share_project_list: "Поділитися списком проєктів"
   label_share_work_package: "Поділитися пакетом робіт"
@@ -3222,7 +3243,7 @@ uk:
   label_operator_none: "не вказано"
   label_operator_equals_or: "є (АБО)"
   label_operator_equals_all: "є (І)"
-  label_operator_shared_with_user_any: "будь-який"
+  label_operator_shared_with_user_any: "усі"
   label_open: "відкрити"
   label_closed: "зачинено"
   label_open_menu: "Відкрити меню"
@@ -3428,6 +3449,7 @@ uk:
   label_user_search: "Знайти користувача:"
   label_user_settings: "Налаштування користувача"
   label_users_settings: "Налаштування користувачів"
+  label_value_x: "Значення: %{x}"
   label_version_new: "Нова версія"
   label_version_edit: "Редагувати версію"
   label_version_plural: "Версії"
@@ -3904,6 +3926,7 @@ uk:
     default: "-"
   project:
     archive:
+      title: "Archive project"
       are_you_sure: "Дійсно архівувати проект %{name} ?"
       archived: "Архівований"
     count:
@@ -4372,7 +4395,7 @@ uk:
   status_archived: "в архіві"
   status_blocked: "заблоковано"
   status_invited: запрошені
-  status_locked: Заблоковано
+  status_locked: заблоковано
   status_registered: Зареєстровано
   status_deleted: видалено
   #Used in array.to_sentence.

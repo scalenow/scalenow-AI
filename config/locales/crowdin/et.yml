@@ -162,6 +162,11 @@ et:
         expired: "Expired on %{date}"
         revoked: "Revoked on %{date}"
         title: "Access token table"
+    workflows:
+      tabs:
+        default_transitions: "Default transitions"
+        user_author: "User is author"
+        user_assignee: "User is assignee"
   authentication:
     login_and_registration: "Login and registration"
   announcements:
@@ -300,7 +305,7 @@ et:
         placeholder:
           label: "Item label"
           short: "Lühinimi"
-          score: "Score"
+          weight: "Weight"
       notice:
         remember_items_and_projects: "Remember to set items and projects in the respective tabs for this custom field."
       hierarchy:
@@ -317,9 +322,10 @@ et:
     reorder_alphabetical: "Reorder values alphabetically"
     reorder_confirmation: "Warning: The current order of available values will be lost. Continue?"
     placeholder_version_select: "Work package or project selection is required first"
+    calculated_field_not_editable: "Non-editable attribute. This value is calculated automatically."
     instructions:
-      is_required: "Mark the custom field as required. This will make it mandatory to fill in the field when creating new or updating existing resources."
-      is_required_for_project: "Check to enable this attribute and make it required in all projects. It cannot be deactived for individual projects."
+      is_required: "Mark the custom field as required. This will make it mandatory to fill in the field when creating new resources. Existing resources will not require a value when being updated."
+      is_required_for_project: "Check to enable this attribute and make it required in all projects. It cannot be deactived for individual projects. Existing projects will not require a value when being updated."
       is_for_all: "Mark the custom field as available in all existing and new projects."
       multi_select: "Allows the user to assign multiple values to this custom field."
       searchable: "Include the field values when using the global search functionality."
@@ -334,19 +340,19 @@ et:
       no_results_content_text: Create a new custom field
   calculated_values:
     error_dialog:
-      title: "Error with Calculated Value"
+      title: "Error with Calculated value"
     errors:
-      unknown: "An unknown error occurred. Please review the formula for this Calculated Value."
-      mathematical: "A mathematical error occurred during calculation."
-      missing_value: The attribute "%{custom_field_name}" is required by this Calculated Value but is empty.
-      disabled_value: The attribute "%{custom_field_name}" is required by this Calculated Value but is disabled for the project.
+      unknown: "An unknown error occurred. Please review the formula for this Calculated value."
+      mathematical: "The mathematical formula leads to an error. Please review the project calculation attribute and try again."
+      missing_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is empty.
+      disabled_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is disabled for the project.
   concatenation:
     single: "või"
   danger_dialog:
     confirmation_live_message_checked: "The button to proceed is now active."
     confirmation_live_message_unchecked: "The button to proceed is now inactive. You need to tick the checkbox to continue."
   op_dry_validation:
-    or: "or"
+    or: "või"
     errors:
       array?: "must be an array."
       decimal?: "must be a decimal."
@@ -362,7 +368,7 @@ et:
           range: "must be one of: %{list_left} - %{list_right}."
       int?: "must be an integer."
       key?: "is missing."
-      not_found: "not found."
+      not_found: "ei leitud."
       rules:
         copy_workflow_from:
           workflow_missing: "has no own workflow."
@@ -381,13 +387,13 @@ et:
       type?: "must be %{type}."
     rules:
       copy_workflow_from: "Type for workflow copy"
-      enabled: "Enabled"
+      enabled: "Sees"
       depth: "Depth"
       item: "Item"
-      label: "Label"
-      score: "Score"
-      short: "Short name"
-      parent: "Parent"
+      label: "Silt"
+      weight: "Weight"
+      short: "Lühinimi"
+      parent: "Pärineb teemast"
       blueprint: "Pattern blueprint"
   global_search:
     title:
@@ -450,7 +456,7 @@ et:
     lists:
       active: "Aktiivsed projektid"
       my: "Minu projektid"
-      favorited: "Favorite projects"
+      favorited: "Lemmikprojektid"
       archived: "Arhiveeritud projektid"
       shared: "Jagatud projektide nimekiri"
       my_lists: "My project lists"
@@ -523,6 +529,8 @@ et:
       versions:
         no_results_title_text: There are currently no versions for the project.
         no_results_content_text: Loo uus versioon
+        work_packages_graph: Work packages graph
+        show_work_packages: Show work packages
       storage:
         no_results_title_text: There is no additional recorded disk space consumed by this project.
       work_package_priorities:
@@ -635,8 +643,8 @@ et:
     sessions:
       session_name: "%{browser_name} %{browser_version} on %{os_name}"
       browser: "Veebilehitseja"
-      expires: "Expires"
-      last_connection: "Last connection"
+      expires: "Aegub"
+      last_connection: "Viimati sisselogitud"
       device: "Seade / OS"
       unknown_browser: "tundmatu veebilehitseja"
       unknown_os: "unknown operating system"
@@ -1320,8 +1328,6 @@ et:
         inclusion: "is not set to one of the allowed values."
         inclusion_nested: "is not set to one of the allowed values at path '%{path}'."
         invalid: "on vigane."
-        invalid_characters: "contains invalid characters."
-        not_allowed_custom_fields_referenced: "contains custom fields that are not allowed: %{custom_fields}."
         invalid_url: "is not a valid URL."
         invalid_url_scheme: "is not a supported protocol (allowed: %{allowed_schemes})."
         less_than_or_equal_to: "must be less than or equal to %{count}."
@@ -1379,6 +1385,13 @@ et:
           referenced_in_other_fields_html:
             one: "%{name} is used in project attribute calculation %{links}."
             other: "%{name} is used in project attribute calculations: %{links}."
+          attributes:
+            formula:
+              blank: "Formula can't be blank."
+              invalid: "Formula is invalid."
+              invalid_characters: "Only numeric values, mathematical operators and project attributes of type integer, float, calculated value and weighted list are allowed."
+              not_allowed_custom_fields_referenced: "The attribute %{custom_fields} cannot be used because it leads to a circular reference; one attribute depends on the other."
+              format: "%{message}"
         custom_fields_project:
           attributes:
             project_ids:
@@ -1703,6 +1716,7 @@ et:
       issue_priority:
         one: "Prioriteet"
         other: "Prioriteedid"
+      meeting_participant: "Meeting participant"
       member: "Liige"
       news: "Uudised"
       notification:
@@ -1731,7 +1745,7 @@ et:
       user: "Kasutaja"
       version: "Versioon"
       workflow: "Töövoog"
-      work_package: "Tööpakett"
+      work_package: "Teema"
       wiki: "Viki"
       wiki_page: "Viki leht"
   errors:
@@ -1777,7 +1791,7 @@ et:
       subproject: "Kaasa alamprojektid"
       time_entry: "Kulutatud aeg"
       wiki_edit: "Viki"
-      work_package: "Tööpaketid"
+      work_package: "Teemad"
     project_phase:
       activated: "aktiveeritud"
       added_date: "set to %{date}"
@@ -1795,7 +1809,7 @@ et:
     attachments: "Manused"
     actor: "Actor"
     action: "Tegevus"
-    api_key: "API key"
+    api_key: "Veebiteenuse API võti"
     author: "Autor"
     avatar: "Profiilipilt"
     base: "Üldine tõrge:"
@@ -1838,7 +1852,7 @@ et:
     public: "Avalik"
     principal: "Kasutaja või rühm"
     #kept for backwards compatibility
-    issue: "Tööpakett"
+    issue: "Teema"
     journal: "Päevik"
     journal_notes: "Kommentaar"
     lastname: "Perekonnanimi"
@@ -2201,11 +2215,11 @@ et:
     features:
       baseline_comparison: Baseline Comparisons
       board_view: Advanced Boards
-      calculated_values: Calculated Values
+      calculated_values: Calculated values
       conditional_highlighting: Conditional Highlighting
       internal_comments: Internal Comments
       custom_actions: Custom Actions
-      custom_field_hierarchies: Custom fields of type hierarchy
+      custom_field_hierarchies: Hierarchies
       customize_life_cycle: Customize Life Cycle
       date_alerts: Date Alerts
       define_custom_style: Custom theme and logo
@@ -2221,6 +2235,7 @@ et:
       sso_auth_providers: Single Sign-On
       team_planner_view: Team Planner View
       virus_scanning: Antivirus Scanning
+      weighted_item_lists: Weighted item lists
       work_package_query_relation_columns: Work Package Query Relation Columns
       work_package_sharing: Share work packages with external users
       work_package_subject_generation: Work Package Subject Generation
@@ -2267,15 +2282,17 @@ et:
       readonly_work_packages:
         description: "Mark work packages as read-only for specific statuses."
       custom_field_hierarchies:
-        description: "Hierarchy custom fields allow organizing hierarchical structures in work packages by making use of multi-level select lists."
+        description: "Hierarchy custom fields allow organizing hierarchical structures in work packages and projects by making use of multi-level select lists."
       date_alerts:
         description: "With date alerts, you will be notified of upcoming start or finish dates so that you never miss or forget an important deadline."
+      weighted_item_lists:
+        description: "Weighted item lists allow you to create a list with underlying numeric values associated."
       work_package_sharing:
         description: "Share work packages with users who are not members of the project."
       project_list_sharing:
         description: "Share project lists with individual users."
       calculated_values:
-        description: "Calculated Values allow you to create a mathematical formula based attribute using numeric values and other project attributes and custom fields."
+        description: "Calculated values allow you to create a mathematical formula based attribute using numeric values and other project attributes and custom fields."
       define_custom_style:
         title: "Custom color theme and logo"
         more_info: "Note: the used logo will be publicly accessible."
@@ -2559,6 +2576,9 @@ et:
       selected: "Selected"
     include_sub_items: "Include sub-items"
     no_results_text: "No results"
+  toggle_switch:
+    label_on: "On"
+    label_off: "Off"
   general_csv_decimal_separator: "."
   general_csv_encoding: "UTF-8"
   general_csv_separator: ","
@@ -2585,15 +2605,15 @@ et:
         header: "Read about new features and product updates."
         learn_about: "Learn more about all new features"
         #We need to include the version to invalidate outdated translations in other locales
-        "16_5":
+        "16_6":
           new_features_title: >
             The release contains various new features and improvements, such as:
           new_features_list:
-            line_0: Add work packages to a meeting section in the Meetings tab.
-            line_1: Choose color mode more conveniently with “Increase contrast” checkboxes.
-            line_2: Filter projects by last update.
-            line_3: Jump to highlighted target elements from deep links.
-            line_4: Confirm critical actions with more accessible danger dialogs.
+            line_0: Calculated values for project evaluation and scoring (Enterprise add-on).
+            line_1: Project attributes type hierarchy.
+            line_2: Performance updates with great impact.
+            line_3: New index page for Documents module.
+            line_4: Possibility to change parent of a custom field item.
     links:
       upgrade_enterprise_edition: "Upgrade to Enterprise edition"
       postgres_migration: "Migrating your installation to PostgreSQL"
@@ -2828,7 +2848,7 @@ et:
   label_select_main_menu_item: Vali uus peamenüü valik
   label_required_disk_storage: "Required disk storage"
   label_send_invitation: Saada kutse
-  label_calculated_value: "Calculated Value"
+  label_calculated_value: "Calculated value"
   label_change_parent: "Change parent"
   label_change_plural: "Muutused"
   label_change_properties: "Muuda andmeid"
@@ -2918,6 +2938,7 @@ et:
   label_duplicate: "duplicate"
   label_duplicates: "duplikaadid"
   label_edit: "Muuda"
+  label_edit_attribute: "Edit attribute"
   label_edit_x: "Edit: %{x}"
   label_enable_multi_select: "Võimalda mitmene valik"
   label_enabled_project_custom_fields: "Enabled custom fields"
@@ -3009,7 +3030,7 @@ et:
   label_invite_user: "Invite user"
   label_item: "Item"
   label_item_plural: "Items"
-  label_scored_list: "Scored list"
+  label_weighted_item_list: "Weighted item list"
   label_share: "Jaga"
   label_share_project_list: "Jaga projektide nimekirja"
   label_share_work_package: "Jaga tööpaketti"
@@ -3040,7 +3061,7 @@ et:
   label_link_url: "Link (URL)"
   label_list: "Nimistu"
   label_loading: "Laadimine..."
-  label_locked: "locked"
+  label_locked: "lukustatud"
   label_lock_user: "Lukusta kasutaja"
   label_logged_as: "Logitud sisse kui"
   label_login: "Logi sisse"
@@ -3050,7 +3071,7 @@ et:
   label_custom_export_footer: "Custom export footer image"
   label_custom_export_font_regular: "Regular"
   label_custom_export_font_bold: "Bold"
-  label_custom_export_font_italic: "Italic"
+  label_custom_export_font_italic: "Krusiiv"
   label_custom_export_font_bold_italic: "Bold Italic"
   label_custom_export_cover_overlay: "Custom export cover background overlay"
   label_custom_export_cover_text_color: "Teksti värv"
@@ -3344,6 +3365,7 @@ et:
   label_user_search: "Otsi kasutajat"
   label_user_settings: "Kasutaja seaded"
   label_users_settings: "Kasutajate seaded"
+  label_value_x: "Value: %{x}"
   label_version_new: "Uus versioon"
   label_version_edit: "Muuda versiooni"
   label_version_plural: "Versioonid"
@@ -3379,7 +3401,7 @@ et:
   label_wiki_show_submenu_item: "Näita kui alammenüüd (<--) "
   label_wiki_start: "Esileht"
   label_work: "Töö"
-  label_work_package: "Tööpakett"
+  label_work_package: "Teema"
   label_work_package_attachments: "Work package attachments"
   label_work_package_category_new: "Uus kategooria"
   label_work_package_category_plural: "Teema kategooriad"
@@ -3388,7 +3410,7 @@ et:
   label_work_package_new: "Uus teema"
   label_work_package_edit: "Muuda teemat %{name}"
   label_work_package_plural: "Teemad"
-  label_work_package_status: "Tööpaketi olek"
+  label_work_package_status: "Teema olek"
   label_work_package_status_new: "Uus olek"
   label_work_package_status_plural: "Teemade olekud"
   label_work_package_types: "Work package types"
@@ -3448,7 +3470,7 @@ et:
       errors:
         no_project_context: "Calling create_work_package_link macro from outside project context."
         invalid_type: "No type found with name '%{type}' in project '%{project}'."
-      link_name: "Uus tööpakett"
+      link_name: "Uus teema"
       link_name_type: "New %{type_name}"
   mail:
     actions: "Tegevused"
@@ -3818,6 +3840,7 @@ et:
     default: "-"
   project:
     archive:
+      title: "Archive project"
       are_you_sure: "Are you sure you want to archive the project '%{name}'?"
       archived: "Archived"
     count:
@@ -3825,7 +3848,7 @@ et:
       one: "1 projekt"
       other: "%{count} projekti"
     destroy:
-      title: "Delete project"
+      title: "Kustuta projekt"
       heading: "Permanently delete this project?"
       confirmation_message_for_subprojects_html:
         zero: >
@@ -3851,7 +3874,7 @@ et:
       remove_from_templates: "Remove from templates"
   project_module_activity: "Tegevus"
   project_module_forums: "Foorumid"
-  project_module_work_package_tracking: "Tööpaketid"
+  project_module_work_package_tracking: "Teemad"
   project_module_news: "Uudised"
   project_module_repository: "Hoidla"
   project_module_wiki: "Viki"
@@ -4288,7 +4311,7 @@ et:
   status_invited: ktsutud
   status_locked: lukustatud
   status_registered: registreeritud
-  status_deleted: deleted
+  status_deleted: kustutatud
   #Used in array.to_sentence.
   support:
     array:

@@ -99,8 +99,7 @@ module ApplicationHelper
 
   def delete_link(url, options = {})
     options = {
-      method: :delete,
-      data: { confirm: I18n.t(:text_are_you_sure) },
+      data: { turbo_method: :delete, turbo_confirm: I18n.t(:text_are_you_sure) },
       class: "icon icon-delete"
     }.merge(options)
 
@@ -199,10 +198,10 @@ module ApplicationHelper
 
   def time_tag(time)
     text = distance_of_time_in_words(Time.now, time)
-    if @project and @project.module_enabled?("activity")
+    if @project&.module_enabled?("activity") # rubocop:disable Rails/HelperInstanceVariable
       link_to(text, { controller: "/activities",
                       action: "index",
-                      project_id: @project,
+                      project_id: @project, # rubocop:disable Rails/HelperInstanceVariable
                       from: time.to_date },
               title: format_time(time))
     else
@@ -303,7 +302,7 @@ module ApplicationHelper
 
   def body_data_attributes(local_assigns)
     {
-      controller: "application auto-theme-switcher hover-card-trigger beforeunload external-links",
+      controller: "application auto-theme-switcher hover-card-trigger beforeunload external-links highlight-target-element",
       relative_url_root: root_path,
       overflowing_identifier: ".__overflowing_body",
       rendered_at: Time.zone.now.iso8601,
@@ -453,10 +452,10 @@ module ApplicationHelper
     end
   end
 
-  # To avoid the menu flickering, disable it
-  # by default unless we're in test mode
-  def initial_menu_styles(side_displayed)
-    Rails.env.test? || !side_displayed ? "" : "display:none"
+  # To avoid FOUC (menu flickering / dark mode on logout), hide page
+  # wrapper on load except in test environment.
+  def initial_menu_styles
+    Rails.env.test? || "display:none"
   end
 
   def initial_menu_classes(side_displayed, show_decoration)

@@ -56,7 +56,7 @@ sv:
     custom_styles:
       color_theme: "Färgtema"
       color_theme_custom: "(Anpassad)"
-      tab_interface: "Interface"
+      tab_interface: "Gränssnitt"
       tab_branding: "Branding"
       tab_pdf_export_styles: "PDF export styles"
       tab_pdf_export_font: "PDF export font"
@@ -162,6 +162,11 @@ sv:
         expired: "Expired on %{date}"
         revoked: "Revoked on %{date}"
         title: "Access token table"
+    workflows:
+      tabs:
+        default_transitions: "Default transitions"
+        user_author: "User is author"
+        user_assignee: "User is assignee"
   authentication:
     login_and_registration: "Login and registration"
   announcements:
@@ -300,7 +305,7 @@ sv:
         placeholder:
           label: "Item label"
           short: "Kort namn"
-          score: "Score"
+          weight: "Weight"
       notice:
         remember_items_and_projects: "Remember to set items and projects in the respective tabs for this custom field."
       hierarchy:
@@ -317,9 +322,10 @@ sv:
     reorder_alphabetical: "Reorder values alphabetically"
     reorder_confirmation: "Warning: The current order of available values will be lost. Continue?"
     placeholder_version_select: "Work package or project selection is required first"
+    calculated_field_not_editable: "Non-editable attribute. This value is calculated automatically."
     instructions:
-      is_required: "Mark the custom field as required. This will make it mandatory to fill in the field when creating new or updating existing resources."
-      is_required_for_project: "Check to enable this attribute and make it required in all projects. It cannot be deactived for individual projects."
+      is_required: "Mark the custom field as required. This will make it mandatory to fill in the field when creating new resources. Existing resources will not require a value when being updated."
+      is_required_for_project: "Check to enable this attribute and make it required in all projects. It cannot be deactived for individual projects. Existing projects will not require a value when being updated."
       is_for_all: "Mark the custom field as available in all existing and new projects."
       multi_select: "Allows the user to assign multiple values to this custom field."
       searchable: "Include the field values when using the global search functionality."
@@ -334,22 +340,22 @@ sv:
       no_results_content_text: Skapa ett nytt anpassat fält
   calculated_values:
     error_dialog:
-      title: "Error with Calculated Value"
+      title: "Error with Calculated value"
     errors:
-      unknown: "An unknown error occurred. Please review the formula for this Calculated Value."
-      mathematical: "A mathematical error occurred during calculation."
-      missing_value: The attribute "%{custom_field_name}" is required by this Calculated Value but is empty.
-      disabled_value: The attribute "%{custom_field_name}" is required by this Calculated Value but is disabled for the project.
+      unknown: "An unknown error occurred. Please review the formula for this Calculated value."
+      mathematical: "The mathematical formula leads to an error. Please review the project calculation attribute and try again."
+      missing_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is empty.
+      disabled_value: The attribute "%{custom_field_name}" is required by this Calculated value, but is disabled for the project.
   concatenation:
     single: "eller"
   danger_dialog:
     confirmation_live_message_checked: "The button to proceed is now active."
     confirmation_live_message_unchecked: "The button to proceed is now inactive. You need to tick the checkbox to continue."
   op_dry_validation:
-    or: "or"
+    or: "eller"
     errors:
       array?: "must be an array."
-      decimal?: "must be a decimal."
+      decimal?: "måste vara en decimal."
       defined: "must not be defined."
       eql?: "must be equal to %{left}."
       filled?: "must be filled."
@@ -361,8 +367,8 @@ sv:
           default: "must be one of: %{list}."
           range: "must be one of: %{list_left} - %{list_right}."
       int?: "must be an integer."
-      key?: "is missing."
-      not_found: "not found."
+      key?: "saknas."
+      not_found: "hittades inte."
       rules:
         copy_workflow_from:
           workflow_missing: "has no own workflow."
@@ -381,13 +387,13 @@ sv:
       type?: "must be %{type}."
     rules:
       copy_workflow_from: "Type for workflow copy"
-      enabled: "Enabled"
-      depth: "Depth"
-      item: "Item"
-      label: "Label"
-      score: "Score"
-      short: "Short name"
-      parent: "Parent"
+      enabled: "Aktiverad"
+      depth: "Djup"
+      item: "Objekt"
+      label: "Etikett"
+      weight: "Weight"
+      short: "Kort namn"
+      parent: "Överordnad"
       blueprint: "Pattern blueprint"
   global_search:
     title:
@@ -450,7 +456,7 @@ sv:
     lists:
       active: "Aktiva projekt"
       my: "Mina projekt"
-      favorited: "Favorite projects"
+      favorited: "Favoritprojekt"
       archived: "Arkiverade projekt"
       shared: "Shared project lists"
       my_lists: "Mina projektlistor"
@@ -523,6 +529,8 @@ sv:
       versions:
         no_results_title_text: Det finns för närvarande inga versioner av projektet.
         no_results_content_text: Skapa en ny version
+        work_packages_graph: Graf för arbetspaket
+        show_work_packages: Show work packages
       storage:
         no_results_title_text: There is no additional recorded disk space consumed by this project.
       work_package_priorities:
@@ -635,8 +643,8 @@ sv:
     sessions:
       session_name: "%{browser_name} %{browser_version} on %{os_name}"
       browser: "Webbläsare"
-      expires: "Expires"
-      last_connection: "Last connection"
+      expires: "Upphör"
+      last_connection: "Senaste inloggning"
       device: "Enhet / OS"
       unknown_browser: "okänd webbläsare"
       unknown_os: "okänt operativsystem"
@@ -1042,7 +1050,7 @@ sv:
       enterprise_trial:
         company: "Företag"
       favorite:
-        favorited: "Item"
+        favorited: "Objekt"
       grids/grid:
         page: "Sida"
         row_count: "Antal rader"
@@ -1320,8 +1328,6 @@ sv:
         inclusion: "inte är inställd på ett av de tillåtna värdena."
         inclusion_nested: "is not set to one of the allowed values at path '%{path}'."
         invalid: "är ogiltig."
-        invalid_characters: "contains invalid characters."
-        not_allowed_custom_fields_referenced: "contains custom fields that are not allowed: %{custom_fields}."
         invalid_url: "är inte ett giltigt URL."
         invalid_url_scheme: "är inte ett tillåtet protokoll (tillåtna: %{allowed_schemes})."
         less_than_or_equal_to: "måste vara mindre än eller lika med %{count}."
@@ -1379,6 +1385,13 @@ sv:
           referenced_in_other_fields_html:
             one: "%{name} is used in project attribute calculation %{links}."
             other: "%{name} is used in project attribute calculations: %{links}."
+          attributes:
+            formula:
+              blank: "Formula can't be blank."
+              invalid: "Formula is invalid."
+              invalid_characters: "Only numeric values, mathematical operators and project attributes of type integer, float, calculated value and weighted list are allowed."
+              not_allowed_custom_fields_referenced: "The attribute %{custom_fields} cannot be used because it leads to a circular reference; one attribute depends on the other."
+              format: "%{message}"
         custom_fields_project:
           attributes:
             project_ids:
@@ -1703,6 +1716,7 @@ sv:
       issue_priority:
         one: "Prioritet"
         other: "Priorities"
+      meeting_participant: "Meeting participant"
       member: "Medlem"
       news: "Nyheter"
       notification:
@@ -1719,7 +1733,7 @@ sv:
       reminder: "Påminnelse"
       role:
         one: "Roll"
-        other: "Roller"
+        other: "Roll"
       scim_client:
         one: "SCIM-klient"
         other: "SCIM-klienter"
@@ -1768,7 +1782,7 @@ sv:
           one: "<i>%{count} timme</i>"
           other: "<i>%{count} timmar</i>"
         updated: "changed from %{old_value} to %{value}"
-        logged_for: "Logged for"
+        logged_for: "Loggad för"
     filter:
       changeset: "Uppdateringar"
       message: "Forum"
@@ -1795,7 +1809,7 @@ sv:
     attachments: "Bilagor"
     actor: "Actor"
     action: "Åtgärd"
-    api_key: "API key"
+    api_key: "API-nyckel"
     author: "Upphovsman"
     avatar: "Avatar"
     base: "Allmänt fel:"
@@ -2130,7 +2144,7 @@ sv:
         one: "En dag"
         other: "%{count} dagar"
       x_minutes:
-        one: "1 minut"
+        one: "v minut"
         other: "%{count} minuter"
       x_minutes_abbreviated:
         one: "1 min"
@@ -2201,11 +2215,11 @@ sv:
     features:
       baseline_comparison: Baseline Comparisons
       board_view: Advanced Boards
-      calculated_values: Calculated Values
+      calculated_values: Calculated values
       conditional_highlighting: Conditional Highlighting
       internal_comments: Interna kommentarer
       custom_actions: Anpassade åtgärder
-      custom_field_hierarchies: Custom fields of type hierarchy
+      custom_field_hierarchies: Hierarchies
       customize_life_cycle: Customize Life Cycle
       date_alerts: Date Alerts
       define_custom_style: Custom theme and logo
@@ -2221,6 +2235,7 @@ sv:
       sso_auth_providers: Single Sign-On
       team_planner_view: Team Planner View
       virus_scanning: Antivirus Scanning
+      weighted_item_lists: Weighted item lists
       work_package_query_relation_columns: Work Package Query Relation Columns
       work_package_sharing: Share work packages with external users
       work_package_subject_generation: Work Package Subject Generation
@@ -2231,7 +2246,7 @@ sv:
       plan_title: "Enterprise %{plan} add-on"
       plan_name: "%{plan} enterprise plan"
       plan_text_html: "Available starting with the %{plan_name}."
-      unlimited: "Unlimited"
+      unlimited: "Obegränsad"
       already_have_token: >
         Already have a token? Add it using the button below to upgrade to the booked Enterprise plan.
       hide_banner: "Hide this banner"
@@ -2267,15 +2282,17 @@ sv:
       readonly_work_packages:
         description: "Mark work packages as read-only for specific statuses."
       custom_field_hierarchies:
-        description: "Hierarchy custom fields allow organizing hierarchical structures in work packages by making use of multi-level select lists."
+        description: "Hierarchy custom fields allow organizing hierarchical structures in work packages and projects by making use of multi-level select lists."
       date_alerts:
         description: "With date alerts, you will be notified of upcoming start or finish dates so that you never miss or forget an important deadline."
+      weighted_item_lists:
+        description: "Weighted item lists allow you to create a list with underlying numeric values associated."
       work_package_sharing:
         description: "Share work packages with users who are not members of the project."
       project_list_sharing:
         description: "Share project lists with individual users."
       calculated_values:
-        description: "Calculated Values allow you to create a mathematical formula based attribute using numeric values and other project attributes and custom fields."
+        description: "Calculated values allow you to create a mathematical formula based attribute using numeric values and other project attributes and custom fields."
       define_custom_style:
         title: "Custom color theme and logo"
         more_info: "Obs: logotypen som används kommer att vara allmänt tillgänglig."
@@ -2559,6 +2576,9 @@ sv:
       selected: "Selected"
     include_sub_items: "Include sub-items"
     no_results_text: "Inga resultat"
+  toggle_switch:
+    label_on: "On"
+    label_off: "Off"
   general_csv_decimal_separator: ","
   general_csv_encoding: "UTF-8"
   general_csv_separator: ";"
@@ -2582,18 +2602,18 @@ sv:
       upsell:
         title: "Upgrade to Enterprise edition"
       new_features:
-        header: "Read about new features and product updates."
+        header: "Läs om nya funktioner och produktuppdateringar."
         learn_about: "Learn more about all new features"
         #We need to include the version to invalidate outdated translations in other locales
-        "16_5":
+        "16_6":
           new_features_title: >
             The release contains various new features and improvements, such as:
           new_features_list:
-            line_0: Add work packages to a meeting section in the Meetings tab.
-            line_1: Choose color mode more conveniently with “Increase contrast” checkboxes.
-            line_2: Filter projects by last update.
-            line_3: Jump to highlighted target elements from deep links.
-            line_4: Confirm critical actions with more accessible danger dialogs.
+            line_0: Calculated values for project evaluation and scoring (Enterprise add-on).
+            line_1: Project attributes type hierarchy.
+            line_2: Performance updates with great impact.
+            line_3: New index page for Documents module.
+            line_4: Possibility to change parent of a custom field item.
     links:
       upgrade_enterprise_edition: "Upgrade to Enterprise edition"
       postgres_migration: "Migrera din installation till PostgreSQL"
@@ -2822,14 +2842,14 @@ sv:
   label_calendars_and_dates: "Calendars and dates"
   label_calendar_show: "Visa kalendern"
   label_category: "Kategori"
-  label_completed: Slutförda
+  label_completed: Slutförd
   label_consent_settings: "Användarsamtycken"
   label_wiki_menu_item: Wiki menyalternativ
   label_select_main_menu_item: Välj ny huvudmenypost
   label_required_disk_storage: "Erfordrat lagringsutrymme"
   label_send_invitation: Skicka inbjudan
-  label_calculated_value: "Calculated Value"
-  label_change_parent: "Change parent"
+  label_calculated_value: "Calculated value"
+  label_change_parent: "Ändra överordnad"
   label_change_plural: "Förändringar"
   label_change_properties: "Ändra egenskaper"
   label_change_status: "Ändra status"
@@ -2918,6 +2938,7 @@ sv:
   label_duplicate: "dublett"
   label_duplicates: "dubblett av"
   label_edit: "Redigera"
+  label_edit_attribute: "Edit attribute"
   label_edit_x: "Redigera: %{x}"
   label_enable_multi_select: "Växla multival"
   label_enabled_project_custom_fields: "Aktiverade anpassade fält"
@@ -3009,7 +3030,7 @@ sv:
   label_invite_user: "Bjud in användare"
   label_item: "Objekt"
   label_item_plural: "Objekt"
-  label_scored_list: "Scored list"
+  label_weighted_item_list: "Weighted item list"
   label_share: "Dela"
   label_share_project_list: "Dela projektlista"
   label_share_work_package: "Share work package"
@@ -3050,7 +3071,7 @@ sv:
   label_custom_export_footer: "Custom export footer image"
   label_custom_export_font_regular: "Vanlig"
   label_custom_export_font_bold: "Bold"
-  label_custom_export_font_italic: "Italic"
+  label_custom_export_font_italic: "Kursiv"
   label_custom_export_font_bold_italic: "Bold Italic"
   label_custom_export_cover_overlay: "Custom export cover background overlay"
   label_custom_export_cover_text_color: "Textfärg"
@@ -3344,6 +3365,7 @@ sv:
   label_user_search: "Sök efter användare"
   label_user_settings: "Användarinställningar"
   label_users_settings: "Användarinställningar"
+  label_value_x: "Value: %{x}"
   label_version_new: "Ny version"
   label_version_edit: "Redigera version"
   label_version_plural: "Versioner"
@@ -3818,6 +3840,7 @@ sv:
     default: "-"
   project:
     archive:
+      title: "Archive project"
       are_you_sure: "Är du säker på att du vill arkivera projektet '%{name}'?"
       archived: "Arkiverad"
     count:
@@ -4343,7 +4366,7 @@ sv:
   text_database_allows_tsv: "Databasen tillåter TSVector (tillval)"
   text_default_administrator_account_changed: "Standardadministratörskontot har ändrats"
   text_default_encoding: "Standard: UTF-8"
-  text_destroy: "Radera"
+  text_destroy: "Ta bort"
   text_destroy_with_associated: "Det finns ytterligare objekt kopplade med det/de arbetspaket som ska tas bort. Dessa objekt är av följande typer:"
   text_destroy_what_to_do: "Vad vill du göra?"
   text_diff_truncated: "... Denna diff trunkerades eftersom den överskrider den maximala storleken som kan visas."

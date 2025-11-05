@@ -45,7 +45,8 @@ OpenProject::FeatureDecisions.add :built_in_oauth_applications,
                                   description: "Allows the display and use of built-in OAuth applications."
 
 OpenProject::FeatureDecisions.add :calculated_value_project_attribute,
-                                  description: "Allows the use of calculated values as a project attribute."
+                                  description: "Allows the use of calculated values as a project attribute.",
+                                  force_active: true
 
 OpenProject::FeatureDecisions.add :oidc_group_sync,
                                   description: "Allows to synchronize groups from OpenID Connect providers",
@@ -65,16 +66,11 @@ OpenProject::FeatureDecisions.add :minutes_styling_meeting_pdf,
                                   description: "Allow exporting a meeting with FITKO styling. " \
                                                "See #65124 for details."
 
-OpenProject::FeatureDecisions.add :scored_list_custom_fields,
-                                  description: "Enables the use of the custom field type 'Scored List', which lets " \
-                                               "the admin add scores to list items."
-
 OpenProject::FeatureDecisions.add :portfolio_models,
                                   description: "Enables the creation and management of portfolio and program work spaces."
 
-OpenProject::FeatureDecisions.add :change_hierarchy_item_parent,
-                                  description: "Enables a functionality to change the parent of a hierarchy item of " \
-                                               "custom fields of type hierarchy and scored list."
+OpenProject::FeatureDecisions.add :new_project_overview,
+                                  description: "Enables the new project overview experience."
 
 OpenProject::FeatureDecisions.add :wp_activity_tab_lazy_pagination,
                                   description: "Enables lazy pagination for the activity tab."
