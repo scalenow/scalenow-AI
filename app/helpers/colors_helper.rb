@@ -68,25 +68,12 @@ module ColorsHelper
   end
 
   # Render the highlighting color for the project phase definition.
-  # On top of the normal classes as done for other resources, we also add a class based on the
-  # base64 encoded name of the project phase definition.
-  #
-  # The class name is based on the project phase definition's name, which is guaranteed to be unique.
-  #
-  # That way the frontend does not have to load the definitions to get the color.
-  # Normalize to ASCII to handle Unicode characters, then the = signs in the base64 string are replaced
-  # to make it a valid class name.
-  # This needs to be kept in sync with the ProjectPhaseDisplayField#phaseIcon method in the front end.
   def project_phase_color_css
     Project::PhaseDefinition.includes(:color).find_each do |definition|
       resource_color_css("project_phase_definition", definition, inline_foreground: true)
 
-      # Transliterate to ASCII to handle Unicode characters (š -> s, etc), then base64 encode
-      normalized_name = I18n.transliterate(definition.name)
-      encoded_name = Base64.strict_encode64(normalized_name).tr("=", "_")
-
       set_foreground_colors_for(
-        class_name: ".#{hl_inline_class('project_phase_definition', encoded_name)}",
+        class_name: ".#{hl_inline_class('project_phase_definition', definition.id)}",
         color: definition.color
       )
     end
