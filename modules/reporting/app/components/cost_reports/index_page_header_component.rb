@@ -31,6 +31,7 @@
 module CostReports
   class IndexPageHeaderComponent < ApplicationComponent
     include ApplicationHelper
+    include Widget::ReportingWidget::RenderWidgetInstanceMethods
 
     def initialize(query:, project: nil)
       super
@@ -39,30 +40,21 @@ module CostReports
       @user =  User.current
     end
 
-    def page_title
-      I18n.t(:label_meeting_plural)
-    end
-
     def breadcrumb_items
-      [parent_element,
-       { href: url_for({ controller: "cost_reports", action: :index, project_id: @project }),
-         text: I18n.t(:cost_reports_title) },
-       current_breadcrumb_element]
-    end
-
-    def parent_element
-      if @project.present?
-        { href: project_overview_path(@project.id), text: @project.name }
-      else
-        { href: home_path, text: helpers.organization_name }
-      end
+      [
+        ({ href: project_overview_path(@project.id), text: @project.name } if @project.present?),
+        { href: module_path,
+          text: I18n.t(:cost_reports_title),
+          skip_for_mobile: !current_section || current_section.header.blank? },
+        current_breadcrumb_element
+      ].compact
     end
 
     def current_breadcrumb_element
       return I18n.t(:label_new_report) unless @query.persisted?
 
       if current_section && current_section.header.present?
-        I18n.t("menus.breadcrumb.nested_element", section_header: current_section.header, title: @query.name).html_safe
+        helpers.nested_breadcrumb_element(current_section.header, @query.name)
       else
         I18n.t(:label_new_report)
       end
@@ -78,6 +70,10 @@ module CostReports
 
     def show_export_button?
       @user.allowed_in_any_work_package?(:export_work_packages, in_project: @project)
+    end
+
+    def module_path
+      @project.present? ? cost_reports_path(@project) : global_cost_reports_path
     end
   end
 end

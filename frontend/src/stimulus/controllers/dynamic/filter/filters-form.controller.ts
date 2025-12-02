@@ -43,9 +43,9 @@ interface InternalFilterValue {
   value:string[];
 }
 
-export default class FiltersFormController extends Controller {
-  static paramsToCopy = ['sortBy', 'columns', 'query_id', 'per_page'];
+type FilterFunc<T> = (_value:T) => boolean;
 
+export default class FiltersFormController extends Controller {
   static targets = [
     'filterFormToggle',
     'filterForm',
@@ -74,6 +74,8 @@ export default class FiltersFormController extends Controller {
   declare readonly singleDayTargets:HTMLInputElement[];
   declare readonly simpleValueTargets:HTMLInputElement[];
 
+  declare readonly hasFilterFormToggleTarget:boolean;
+
   autoReloadTargets:HTMLElement[];
 
   static values = {
@@ -81,16 +83,20 @@ export default class FiltersFormController extends Controller {
     outputFormat: { type: String, default: 'params' },
     performTurboRequests: { type: Boolean, default: false },
     clearButtonId: String,
+    urlPathName: String,
   };
 
   declare displayFiltersValue:boolean;
   declare outputFormatValue:string;
   declare performTurboRequestsValue:boolean;
   declare readonly clearButtonIdValue:string;
+  declare urlPathNameValue:string;
+
+  private boundListener = this.sendForm.bind(this);
 
   initialize() {
     // Initialize runs anytime an element with a controller connected to the DOM for the first time
-    this.sendForm = debounce(this.sendForm.bind(this), 300);
+    this.sendForm = debounce(this.boundListener, 300);
     this.autoReloadTargets = [
       ...this.simpleValueTargets,
       ...this.operatorTargets,
@@ -113,9 +119,9 @@ export default class FiltersFormController extends Controller {
     if (this.performTurboRequestsValue) {
       this.autoReloadTargets.forEach((target) => {
         if (target instanceof HTMLInputElement) {
-          target.addEventListener('input', this.sendForm.bind(this));
+          target.addEventListener('input', this.boundListener);
         } else {
-          target.addEventListener('change', this.sendForm.bind(this));
+          target.addEventListener('change', this.boundListener);
         }
       });
     }
@@ -130,9 +136,9 @@ export default class FiltersFormController extends Controller {
     if (this.performTurboRequestsValue) {
       this.autoReloadTargets.forEach((target) => {
         if (target instanceof HTMLInputElement) {
-          target.removeEventListener('input', this.sendForm.bind(this));
+          target.removeEventListener('input', this.boundListener);
         } else {
-          target.removeEventListener('change', this.sendForm.bind(this));
+          target.removeEventListener('change', this.boundListener);
         }
       });
     }
@@ -148,8 +154,10 @@ export default class FiltersFormController extends Controller {
   }
 
   displayFiltersValueChanged() {
-    this.toggleButtonActive();
-    this.toggleFilterFormVisible();
+    if (this.hasFilterFormToggleTarget){
+      this.toggleButtonActive();
+      this.toggleFilterFormVisible();
+    }
   }
 
   toggleButtonActive() {
@@ -225,12 +233,15 @@ export default class FiltersFormController extends Controller {
     ];
 
     selectors.some((selector) => {
-      const target = element.querySelector(selector) as HTMLElement;
+      const target = element.querySelector<HTMLElement>(selector);
 
       if (target) {
-        target.focus();
-        // We have found and focused our element, abort the iteration.
-        return true;
+        window.setTimeout(() => {
+          target.focus();
+
+          // We have found and focused our element, abort the iteration.
+          return true;
+        }, 250);
       }
 
       return false;
@@ -256,7 +267,7 @@ export default class FiltersFormController extends Controller {
     // it is focused. This handler will find the sibling input of the clear button inside the
     // PrimerTextField and triggers the input in order to notify the auto-reloading filter mechanism.
     const element = event.currentTarget as HTMLElement;
-    const primerTextField = element.closest('primer-text-field') as PrimerTextFieldElement;
+    const primerTextField = element.closest<PrimerTextFieldElement>('primer-text-field')!;
     const inputElement = primerTextField.inputElement;
 
     const inputEvent = new Event('input', {
@@ -316,27 +327,23 @@ export default class FiltersFormController extends Controller {
   }
 
   sendForm() {
-    const params = new URLSearchParams();
-    params.append('filters', this.buildFiltersParam(this.parseFilters()));
+    const params = new URLSearchParams(window.location.search);
+    const newFilters = this.buildFiltersParam(this.parseFilters());
 
-    const currentParams = new URLSearchParams(window.location.search);
-
-    if (params.get('filters') === currentParams.get('filters')) {
+    if (newFilters === params.get('filters')) {
       // Some fields may be triggered via the input event and the change event too.
       // This early return will prevent firing request when the filter params are not changed.
       return;
     }
 
-    const ajaxIndicator = document.querySelector('#ajax-indicator') as HTMLElement;
+    // Remove the page parameter when changing filters, so that pagination resets
+    params.delete('page');
+    params.set('filters', newFilters);
+    const ajaxIndicator = document.querySelector<HTMLElement>('#ajax-indicator')!;
     ajaxIndicator.style.display = '';
 
-    FiltersFormController.paramsToCopy.forEach((name) => {
-      if (currentParams.has(name)) {
-        params.append(name, currentParams.get(name) as string);
-      }
-    });
-
-    const url = `${window.location.pathname}?${params.toString()}`;
+    const pathName = this.urlPathNameValue || window.location.pathname;
+    const url = `${pathName}?${params.toString()}`;
 
     if (this.performTurboRequestsValue) {
       fetch(url, {
@@ -389,7 +396,7 @@ export default class FiltersFormController extends Controller {
     const filters:InternalFilterValue[] = [];
 
     advancedFilters.forEach((filter) => {
-      const filterName = filter.getAttribute('data-filter-name') as string;
+      const filterName = filter.getAttribute('data-filter-name')!;
       const filterType = filter.getAttribute('data-filter-type');
       const parsedOperator = this.findTargetByName(filterName, this.operatorTargets)?.value;
       const valueContainer = this.findTargetByName(filterName, this.filterValueContainerTargets);
@@ -432,14 +439,14 @@ export default class FiltersFormController extends Controller {
   private readonly dateFilterTypes = ['datetime_past', 'date'];
 
   private parseFilterValue(valueContainer:HTMLElement, filterName:string, filterType:string, operator:string) {
-    const checkbox = valueContainer.querySelector('input[type="checkbox"]') as HTMLInputElement;
+    const checkbox = valueContainer.querySelector<HTMLInputElement>('input[type="checkbox"]');
 
     if (checkbox) {
       return [checkbox.checked ? 't' : 'f'];
     }
 
     if (valueContainer.dataset.filterAutocomplete === 'true') {
-      return (valueContainer.querySelector('input[name="value"]') as HTMLInputElement)?.value.split(',');
+      return (valueContainer.querySelector<HTMLInputElement>('input[name="value"]'))?.value.split(',');
     }
 
     if (this.operatorsWithoutValues.includes(operator)) {
@@ -506,7 +513,7 @@ export default class FiltersFormController extends Controller {
   private findTargetByName<T extends HTMLElement>(
     filterName:string,
     targets:T[],
-    targetFilter?:(target:T) => boolean,
+    targetFilter?:FilterFunc<T>,
   ):T | undefined {
     return this.findTargetBy(
       filterName,
@@ -519,16 +526,16 @@ export default class FiltersFormController extends Controller {
   private findTargetById<T extends HTMLElement>(
     filterName:string,
     targets:T[],
-    targetFilter?:(target:T) => boolean,
+    targetFilter?:FilterFunc<T>,
   ):T | undefined {
     return this.findTargetBy(filterName, (target:T) => target.id, targets, targetFilter);
   }
 
   private findTargetBy<T extends HTMLElement>(
     attributeValue:string,
-    attributeGetter:(target:T) => string | null,
+    attributeGetter:(_target:T) => string | null,
     targets:T[],
-    targetFilter?:(target:T) => boolean,
+    targetFilter?:FilterFunc<T>,
   ):T | undefined {
     return targets.find((target) => {
       return attributeGetter(target) === attributeValue && (!targetFilter || targetFilter(target));

@@ -73,6 +73,9 @@ export class ResourceChangeset<T extends HalResource = HalResource> {
   /** Flag whether this is currently being saved */
   public inFlight = false;
 
+  /** Flag whether to validate all custom fields */
+  public validateCustomFields = false;
+
   /** Keep a reference to the original resource */
   protected _pristineResource:T;
 
@@ -401,6 +404,12 @@ export class ResourceChangeset<T extends HalResource = HalResource> {
       }
     });
 
+    // Validate all custom fields if the flag is set
+    if (this.validateCustomFields) {
+      plainPayload._meta ??= {};
+      plainPayload._meta!.validateCustomFields = true;
+    }
+
     return plainPayload;
   }
 
@@ -488,7 +497,7 @@ export class ResourceChangeset<T extends HalResource = HalResource> {
   protected setNewDefaults(form:FormResource) {
     _.each(form.payload, (val:unknown, key:string) => {
       const fieldSchema:IFieldSchema|null = this.schema.ofProperty(key);
-      if (!fieldSchema?.writable) {
+      if (!fieldSchema?.writable && !fieldSchema?.required) {
         return;
       }
 

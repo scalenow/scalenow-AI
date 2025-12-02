@@ -41,28 +41,22 @@ module Meetings
       if current_item.present?
         current_item.title
       else
-        I18n.t(:label_meeting_plural)
+        I18n.t(:label_my_meetings)
       end
     end
 
     def breadcrumb_items
-      [parent_element,
-       { href: url_for({ controller: "meetings", action: :index, project_id: @project }),
-         text: I18n.t(:label_meeting_plural) },
-       current_breadcrumb_element]
-    end
-
-    def parent_element
-      if @project.present?
-        { href: project_overview_path(@project.id), text: @project.name }
-      else
-        { href: home_path, text: helpers.organization_name }
-      end
+      [
+        ({ href: project_overview_path(@project.id), text: @project.name } if @project.present?),
+        { href: url_for({ controller: "meetings", action: :index, project_id: @project }),
+          text: I18n.t(:label_meeting_plural), skip_for_mobile: first_menu_item? },
+        current_breadcrumb_element
+      ].compact
     end
 
     def current_breadcrumb_element
       if section_present?
-        I18n.t("menus.breadcrumb.nested_element", section_header: current_section.header, title: page_title).html_safe
+        helpers.nested_breadcrumb_element(current_section.header, page_title)
       else
         page_title
       end
@@ -84,8 +78,12 @@ module Meetings
       return @current_item if defined?(@current_item)
 
       @current_item = Meetings::Menu
-                        .new(project: @project, params:)
+                        .new(project: @project, params: params.merge(current_href: request.path))
                         .selected_menu_item
+    end
+
+    def first_menu_item?
+      current_item&.href == (@project.present? ? project_meetings_path(@project.identifier) : meetings_path)
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -97,8 +99,7 @@ module ApplicationHelper
 
   def delete_link(url, options = {})
     options = {
-      method: :delete,
-      data: { confirm: I18n.t(:text_are_you_sure) },
+      data: { turbo_method: :delete, turbo_confirm: I18n.t(:text_are_you_sure) },
       class: "icon icon-delete"
     }.merge(options)
 
@@ -124,7 +125,7 @@ module ApplicationHelper
   end
 
   def project_nested_ul(projects, &)
-    s = ""
+    s = +""
     if projects.any?
       ancestors = []
       Project.project_tree(projects) do |project, _level|
@@ -189,21 +190,18 @@ module ApplicationHelper
     I18n.t(label, author: link_to_user(author), age: time_tag(created)).html_safe
   end
 
-  def authoring_at(created, author)
+  def authoring_at(creation_date, author)
     return if author.nil?
 
-    I18n.t(:"js.label_added_time_by",
-           author: html_escape(author.name),
-           age: created,
-           authorLink: user_path(author)).html_safe
+    I18n.t(:label_added_by_on, author: link_to_user(author), date: creation_date).html_safe
   end
 
   def time_tag(time)
     text = distance_of_time_in_words(Time.now, time)
-    if @project and @project.module_enabled?("activity")
+    if @project&.module_enabled?("activity") # rubocop:disable Rails/HelperInstanceVariable
       link_to(text, { controller: "/activities",
                       action: "index",
-                      project_id: @project,
+                      project_id: @project, # rubocop:disable Rails/HelperInstanceVariable
                       from: time.to_date },
               title: format_time(time))
     else
@@ -218,6 +216,12 @@ module ApplicationHelper
     highlighted.each_line do |line|
       yield highlighted.html_safe? ? line.html_safe : line
     end
+  end
+
+  # Backward compatibility helper for secure_headers gem migration
+  # Rails built-in CSP equivalent of nonced_javascript_tag
+  def nonced_javascript_tag(**, &)
+    javascript_tag(nonce: true, **, &)
   end
 
   def to_path_param(path)
@@ -239,11 +243,13 @@ module ApplicationHelper
     css = ["theme-#{OpenProject::CustomStyles::Design.identifier}"]
 
     if controller_path && action_name
-      css << ("controller-#{controller_path}")
-      css << ("action-#{action_name}")
+      css << "controller-#{controller_path}"
+      css << "action-#{action_name}"
     end
 
-    css << "ee-banners-#{EnterpriseToken.show_banners? ? 'visible' : 'hidden'}"
+    if EnterpriseToken.hide_banners?
+      css << "ee-banners-hidden"
+    end
 
     css << "env-#{Rails.env}"
 
@@ -265,35 +271,38 @@ module ApplicationHelper
   end
 
   def lang_options_for_select(blank = true)
-    auto =
-      if blank && (valid_languages - all_languages) == (all_languages - valid_languages)
-        [["(auto)", ""]]
-      else
-        []
-      end
+    options = valid_languages.map { |lang| [*translate_language(lang), { lang: }] }
+    options.sort_by!(&:first)
 
-    mapped_languages = valid_languages.map { |lang| translate_language(lang) }
+    if blank && valid_languages.to_set == all_languages.to_set
+      options.unshift([I18n.t(:label_auto_option), ""])
+    end
 
-    auto + mapped_languages.sort_by(&:last)
+    options
   end
 
   def all_lang_options_for_select
     all_languages
       .map { |lang| translate_language(lang) }
-      .sort_by(&:last)
+      .sort_by(&:first)
   end
 
   def theme_options_for_select
-    options = [
-      [t("themes.light"), "light"],
-      [t("themes.light_high_contrast"), "light_high_contrast"],
-      [t("themes.dark"), "dark"]
+    [
+      [I18n.t("themes.light"), "light"],
+      [I18n.t("themes.dark"), "dark"],
+      [I18n.t("themes.sync_with_os"), "sync_with_os"]
     ]
+  end
+
+  def comment_sort_order_options
+    [[I18n.t("activities.work_packages.activity_tab.label_sort_asc"), "asc"],
+     [I18n.t("activities.work_packages.activity_tab.label_sort_desc"), "desc"]]
   end
 
   def body_data_attributes(local_assigns)
     {
-      controller: "application",
+      controller: "application auto-theme-switcher hover-card-trigger beforeunload external-links highlight-target-element",
       relative_url_root: root_path,
       overflowing_identifier: ".__overflowing_body",
       rendered_at: Time.zone.now.iso8601,
@@ -303,11 +312,25 @@ module ApplicationHelper
   end
 
   def user_theme_data_attributes
-    mode, _theme_suffix = User.current.pref.theme.split("_", 2)
-    {
-      color_mode: mode,
-      "#{mode}_theme": User.current.pref.theme
+    pref = User.current.pref
+    theme = pref.theme
+
+    theme_options = {
+      auto_theme_switcher_theme_value: theme,
+      auto_theme_switcher_desktop_light_high_contrast_logo_class: "op-logo--link_high_contrast",
+      auto_theme_switcher_mobile_white_logo_class: "op-logo--icon_white"
     }
+
+    if pref.sync_with_os_theme?
+      theme_options[:auto_theme_switcher_force_light_contrast_value] = pref.force_light_theme_contrast?
+      theme_options[:auto_theme_switcher_force_dark_contrast_value] = pref.force_dark_theme_contrast?
+    else
+      theme_options[:color_mode] = theme
+      theme_options[:"#{theme}_theme"] = theme
+      theme_options[:auto_theme_switcher_increase_contrast_value] = pref.increase_theme_contrast?
+    end
+
+    theme_options
   end
 
   def highlight_default_language(lang_options)
@@ -324,6 +347,12 @@ module ApplicationHelper
     options.reverse_merge!(builder: TabularFormBuilder, html: {})
     options[:html][:class] = "form" unless options[:html].has_key?(:class)
     form_for(record, options, &)
+  end
+
+  def labelled_tabular_form_with(model: false, scope: nil, url: nil, format: nil, **options, &)
+    options.reverse_merge!(builder: TabularFormBuilder, html: {})
+    options[:html][:class] = "form" unless options[:html].has_key?(:class)
+    form_with(model:, scope:, url:, format:, **options, &)
   end
 
   def back_url_hidden_field_tag(use_referer: true)
@@ -393,9 +422,9 @@ module ApplicationHelper
   end
 
   def calendar_for(*_args)
-    ActiveSupport::Deprecation.warn(
+    ActiveSupport::Deprecation.new.warn(
       "calendar_for has been removed. Please use the opce-basic-single-date-picker angular component instead",
-      caller
+      caller_locations
     )
   end
 
@@ -427,16 +456,16 @@ module ApplicationHelper
     end
   end
 
-  # To avoid the menu flickering, disable it
-  # by default unless we're in test mode
-  def initial_menu_styles(side_displayed)
-    Rails.env.test? || !side_displayed ? "" : "display:none"
+  # To avoid FOUC (menu flickering / dark mode on logout), hide page
+  # wrapper on load except in test environment.
+  def initial_menu_styles
+    Rails.env.test? || "display:none"
   end
 
   def initial_menu_classes(side_displayed, show_decoration)
     classes = "can-hide-navigation"
-    classes << " nosidebar" unless side_displayed
-    classes << " nomenus" unless show_decoration
+    classes += " nosidebar" unless side_displayed
+    classes += " nomenus" unless show_decoration
 
     classes
   end
@@ -468,14 +497,12 @@ module ApplicationHelper
     end
   end
 
-  def link_to_content_update(text, url_params = {}, html_options = {})
-    link_to(text, url_params, html_options.reverse_merge(target: "_top"))
+  def link_to_content_update(name, options = {}, html_options = {}, &)
+    link_to(name, options, html_options.reverse_merge(target: "_top"), &)
   end
 
   def password_complexity_requirements
     rules = OpenProject::Passwords::Evaluator.rules_description
-    # use 0..0, so this doesn't fail if rules is an empty string
-    rules[0] = rules[0..0].upcase
 
     s = raw "<em>" + OpenProject::Passwords::Evaluator.min_length_description + "</em>"
     s += raw "<br /><em>" + rules + "</em>" unless rules.empty?

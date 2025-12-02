@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,8 +30,24 @@
 
 Rails.application.routes.draw do
   resources :projects, only: [] do
-    resources :documents, only: %i[create new index]
+    resources :documents, only: %i[create new index] do
+      collection do
+        get :menu, to: "documents/menus#show"
+        get :search
+      end
+    end
   end
 
   resources :documents, except: %i[create new index]
+
+  namespace :admin do
+    namespace :settings do
+      resources :document_categories, except: [:show] do
+        member do
+          put :move
+          get :reassign
+        end
+      end
+    end
+  end
 end

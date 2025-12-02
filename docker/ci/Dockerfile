@@ -1,16 +1,16 @@
 # syntax=docker/dockerfile:1.4
 ARG RUBY_VERSION
-FROM ruby:${RUBY_VERSION}-bookworm
+FROM ruby:${RUBY_VERSION}-trixie
 
-ENV NODE_VERSION="20.9.0"
-ENV BUNDLER_VERSION="2.5.13"
+ENV NODE_VERSION="22.21.0"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV BUNDLE_WITHOUT="development:production:docker"
 
-ENV PGVERSION=13
-RUN wget --quiet -O- https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-  echo "deb http://apt.postgresql.org/pub/repos/apt bookworm-pgdg main" > /etc/apt/sources.list.d/pgdg.list
-
+ENV PGVERSION=17
+RUN apt-get update -qq && \
+  apt-get install -y wget gnupg lsb-release curl && \
+  wget --quiet -O- https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgrsql.gpg - && \
+  echo "deb [signed-by=/usr/share/keyrings/postgrsql.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg  main" > /etc/apt/sources.list.d/pgdg.list
 ENV CHROME_SOURCE_URL="https://dl.google.com/dl/linux/direct/google-chrome-stable_current_amd64.deb"
 RUN --mount=type=cache,target=/var/cache/apt export f="/tmp/chrome.deb" && wget --no-verbose -O $f $CHROME_SOURCE_URL && \
   apt-get update -qq && apt-get install -y "$f" postgresql-$PGVERSION postgresql-client-$PGVERSION time imagemagick default-jre-headless firefox-esr && \
@@ -18,7 +18,7 @@ RUN --mount=type=cache,target=/var/cache/apt export f="/tmp/chrome.deb" && wget 
 
 RUN curl -L https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz -o - | tar xJf - -C /usr/local --strip=1 && node --version
 
-RUN rm -rf /usr/local/bundle && gem install bundler --version "$BUNDLER_VERSION" --no-document
+RUN rm -rf /usr/local/bundle && gem install bundler --no-document
 
 ENV APP_USER=dev
 ENV APP_PATH=/app

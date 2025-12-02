@@ -27,10 +27,11 @@
 //++
 
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { ConfigurationResource } from 'core-app/features/hal/resources/configuration-resource';
 import { ApiV3Service } from 'core-app/core/apiv3/api-v3.service';
+import { type DurationFormat } from 'core-app/shared/helpers/chronic_duration';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigurationService {
@@ -49,6 +50,10 @@ export class ConfigurationService {
 
   public commentsSortedInDescendingOrder():boolean {
     return this.userPreference('commentSortDescending');
+  }
+
+  public disableKeyboardShortcuts():boolean {
+    return this.userPreference('disableKeyboardShortcuts');
   }
 
   public warnOnLeavingUnsaved():boolean {
@@ -87,6 +92,10 @@ export class ConfigurationService {
     return this.systemPreference('perPageOptions');
   }
 
+  public get allowedLinkProtocols():string[]|null {
+    return this.systemPreference('allowedLinkProtocols') || null;
+  }
+
   public dateFormatPresent():boolean {
     return !!this.systemPreference('dateFormat');
   }
@@ -95,7 +104,7 @@ export class ConfigurationService {
     return this.systemPreference('dateFormat');
   }
 
-  public durationFormat():string {
+  public durationFormat():DurationFormat {
     return this.systemPreference('durationFormat');
   }
 
@@ -140,6 +149,14 @@ export class ConfigurationService {
 
   public get activeFeatureFlags():string[] {
     return this.systemPreference<string[]>('activeFeatureFlags');
+  }
+
+  public get availableFeatures():string[] {
+    return this.systemPreference<string[]>('availableFeatures');
+  }
+
+  public get triallingFeatures():string[] {
+    return this.systemPreference<string[]>('triallingFeatures');
   }
 
   private loadConfiguration() {

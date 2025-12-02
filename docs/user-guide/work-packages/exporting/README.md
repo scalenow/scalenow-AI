@@ -33,6 +33,18 @@ You can choose which columns will be displayed in the table (excluding long text
 
 Some formats such as PDF will limit the number of columns available due to limitations of the PDF rendering engine to avoid overflowing the available space.
 
+#### Save export format
+
+Export settings can be saved for custom (all non-default) work package queries. This allows you to easily share export settings with your team and save time in the future. 
+
+To save export settings adjust the export to your liking and check the **Save setting** checkbox before triggering an export. Clicking the **Export** button will trigger the adjustments to a work package query. The checkbox will remain checked for the next export.
+
+![Checkbox to save export settings in work packages export modal in OpenProject](openproject-user-guide-wp-export-settings-save-checkbox.png)
+
+> [!TIP]
+>
+> If the query is public, other users can edit it and save the export settings. If you want to prevent other users from adjusting the export settings, you need to create a private work package query. 
+
 ### Export format options
 
 OpenProject has multiple file format options for exporting work packages, including PDF, XLS and CSV. See below what each format entails.
@@ -40,6 +52,12 @@ OpenProject has multiple file format options for exporting work packages, includ
 ### PDF export
 
 OpenProject has multiple options for exporting work packages in PDF format. These include table, report and Gantt chart. 
+
+> [!TIP]
+>
+> OpenProject PDF export supports commonly used character sets, including multilingual fonts with different alphabets, various symbols (mathematical, technical) and emojis.
+>
+![Example of a PDF export in OpenProject that includes lorem ipsum text in multiple languages and mathematical symbols](openproject-user-guide-wp-export-multilingual-symbols-example.png)
 
 #### PDF Table
 
@@ -88,8 +106,7 @@ If you select the **Include images** option, your PDF Report will include the im
 
 #### Gantt chart PDF
 
-> [!NOTE]
-> Gantt chart PDF export is an Enterprise add-on and can only be used with [Enterprise cloud](../../../enterprise-guide/enterprise-cloud-guide) or [Enterprise on-premises](../../../enterprise-guide/enterprise-on-premises-guide). An upgrade from the free Community edition is easy and helps support OpenProject.
+[feature: gantt_pdf_export ]
 
 You can export Gantt charts directly from the work packages module by selecting the respective option, or from the Gantt charts module by doing the same.
 
@@ -128,7 +145,6 @@ If you activate the **Include relations** option, additional columns to list eac
 
 The OpenProject XLS export currently does not respect all options in the work package view being exported from:
 
-- The order of work packages in a manually sorted query is not respected. This is a known limitation ([Ticket](https://community.openproject.org/projects/openproject/work_packages/34971/activity)).
 - The hierarchy of work packages as displayed in the work package view. The exported XLS is always in "flat" mode.
 - The description is exported in 'raw' format, so it may contain HTML tags.
 
@@ -151,16 +167,48 @@ If you select the **Include descriptions** option, the work package description 
 
 The OpenProject CSV export currently does not respect all options in the work package view being exported from:
 
-- The order of work packages in a manually sorted query is not respected. This is a known limitation ([Ticket](https://community.openproject.org/projects/openproject/work_packages/34971/activity)).
 - The hierarchy of work packages as displayed in the work package view. The exported CSV is always in "flat" mode.
 - The description is exported in 'raw' format, so it may contain HTML tags.
 
 ## Export single work package
 
-It is also possible to export single work packages in PDF and Atom format. To do that, click on the settings icon in the top right corner and select the preferred format from the dropdown menu.
+It is also possible to export single work packages in PDF and Atom formats. To do that, click on the settings icon in the top right corner and select either the **Generate PDF** or the **Download Atom** option from the dropdown menu.
 
-![OpenProject_single_work_package_export_options](openProject_single_work_package_export_options.png)
+![Single work package export options in OpenProject](openproject_user_guide_work_package_export_options.png)
 
-An exported PDF file will include all the work package fields that are [configured in the work package form](../../../system-admin-guide/manage-work-packages/work-package-types/#work-package-form-configuration-enterprise-add-on), regardless of whether they are filled out or not.
+### Export single work package in PDF format
 
-Atom Export includes a work package Title, Author, a link to the work package and work package activities.
+If you select **Generate PDF**, a modal will open, where you can adjust the following: 
+
+- **Template** is a dropdown menu showing all of the options currently enabled. At moment possible template options include:
+
+  - *Attributes and description* - this template lists all the work package attributes [configured in the work package form](../../../system-admin-guide/manage-work-packages/work-package-types/#work-package-form-configuration-enterprise-add-on), regardless whether they are filled out or not.
+  - *Contract* - this template includes work package details formatted to the standard German contract form.
+    
+> [!TIP] 
+> You can define which templates are enabled for specific work package types in the [administration settings](../../../system-admin-guide/manage-work-packages/work-package-types).
+
+- **Hyphenation** - if selected, a break line will be included into the export between word for improved layout.
+
+- **Language and hyphenation** - a dropdown menu showing languages to be used for hyphenation. The selection does not change the language used in the PDF export.
+
+- **Footer text**, which is displayed in the PDF export. Footer position depends on the template. You can adjust the suggested footer text.
+
+  - If *Attributes and description* template is selected, the project name will be suggested for the footer. This text will be placed at the center of the footer. 
+  - If *Contract* template is selected, the work package subject will be suggested as the footer text. This text will be placed at the right corner of the footer.
+  
+- **Page orientation**, which allows selecting *Portrait* or *Landscape* layout of the pages in the PDF.  
+
+![PDF generation modal for export of single work packages in OpenProject](openproject_user_guide_work_package_export_pdf_modal.png)
+
+Click the **Download** button to generate the PDF export. 
+
+> [!NOTE]
+>
+> Layout of the PDF export follows the [work package configuration form](../../../system-admin-guide/manage-work-packages/work-package-types/#work-package-form-configuration-enterprise-add-on) defined for specific work package types. 
+
+![Example of a single work package PDF export in OpenProject](openproject-user-guide-single-pdf-export.png)
+
+### Export single work package in Atom format
+
+If you select **Download Atom** options, the extracted file will download automatically. Atom Export includes a work package Title, Author, a link to the work package and work package activities.

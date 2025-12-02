@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -48,7 +50,7 @@ module ::Query::Results::Sums
   private
 
   def sums_by_group_id
-    sums_select(true).inject({}) do |result, group_sum|
+    sums_select(grouped: true).inject({}) do |result, group_sum|
       result[group_sum["group_id"]] = {}
 
       query.summed_up_columns.each do |column|
@@ -59,7 +61,7 @@ module ::Query::Results::Sums
     end
   end
 
-  def sums_select(grouped = false)
+  def sums_select(grouped: false)
     select = if grouped
                ["work_packages.group_id"]
              else
@@ -117,11 +119,17 @@ module ::Query::Results::Sums
         []
       end
 
-    group_statement + summed_columns
+    group_statement + summed_columns + counted_summed_columns
   end
 
   def summed_columns
     query.summed_up_columns.filter_map(&:summable_work_packages_select).map { |c| "SUM(#{c}) #{c}" }
+  end
+
+  def counted_summed_columns
+    query.summed_up_columns
+         .select(&:summable_work_packages_count_select)
+         .map { |col| "COUNT(#{col.name}) #{col.name}_count" }
   end
 
   def callable_summed_up_columns

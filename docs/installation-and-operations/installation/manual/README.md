@@ -96,8 +96,8 @@ Lastly, revert to the previous system user:
 
 ## Installation of Ruby
 
-The are several possibilities to install Ruby on your machine. 
-We will use [rbenv](https://github.com/rbenv/rbenv). 
+There are several possibilities to install Ruby on your machine.
+We will use [rbenv](https://github.com/rbenv/rbenv).
 Please be aware that the actual installation of a specific Ruby version takes some time to finish.
 
 ```shell
@@ -110,19 +110,19 @@ Please be aware that the actual installation of a specific Ruby version takes so
 ```
 
 We suggest you install the version we require in [.ruby-version](https://github.com/opf/openproject/blob/dev/.ruby-version).
-Read the first line e.g. `3.3.4` and install that version.
+Read the first line e.g. `3.4.7` and install that version.
 
 ```shell
-[openproject@host] rbenv install 3.3.4
+[openproject@host] rbenv install 3.4.7
 [openproject@host] rbenv rehash
-[openproject@host] rbenv global 3.3.4
+[openproject@host] rbenv global 3.4.7
 ```
 
 To check our Ruby installation we run `ruby --version`. It should output
 something very similar to:
 
 ```text
-ruby 3.3.4 (2024-07-09 revision be1089c8ec) [arm64-darwin23]
+ruby 3.4.7 (2025-10-08 revision 7a5688e2a2) +PRISM [arm64-darwin25]
 ```
 
 ## Installation of Node
@@ -149,7 +149,7 @@ time to finish.
 To check our Node installation we run `node --version`. It should output something very similar to:
 
 ```text
-v20.9.0
+v22.21.0
 ```
 
 ## Installation of OpenProject
@@ -159,7 +159,7 @@ with OpenProject. For more information, see [github.com/opf/openproject](https:/
 
 ```shell
 [openproject@host] cd ~
-[openproject@host] git clone https://github.com/opf/openproject.git --branch stable/9 --depth 1
+[openproject@host] git clone https://github.com/opf/openproject.git --branch stable/16 --depth 1
 [openproject@host] cd openproject
 # Ensure rubygems is up-to-date for bundler 2
 [openproject@host] gem update --system

@@ -2,7 +2,7 @@
 
 # -- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2023 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -58,14 +58,6 @@ module WorkPackages
 
         def show_only_changes?
           filter == :only_changes
-        end
-
-        def desc_sorting?
-          journal_sorting == "desc"
-        end
-
-        def asc_sorting?
-          journal_sorting == "asc"
         end
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -29,7 +31,7 @@
 require "spec_helper"
 require_relative "../principals/shared_memberships_examples"
 
-RSpec.describe "user memberships through user page", :js, :with_cuprite do
+RSpec.describe "user memberships through user page", :js, :selenium do
   include_context "principal membership management context"
 
   shared_let(:principal) { create(:user, firstname: "Foobar", lastname: "Blabla") }
@@ -53,8 +55,12 @@ RSpec.describe "user memberships through user page", :js, :with_cuprite do
         # Remove the global role from the user
         principal_page.remove_global_role!(global_role.id)
 
+        wait_for_network_idle
+
         # Verify that it is gone
-        principal_page.expect_global_roles([])
+        retry_block do
+          principal_page.expect_global_roles([])
+        end
       end
     end
   end

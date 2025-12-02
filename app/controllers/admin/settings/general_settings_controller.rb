@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -29,6 +31,20 @@
 module Admin::Settings
   class GeneralSettingsController < ::Admin::SettingsController
     menu_item :settings_general
+
+    def settings_params
+      super.tap do |settings|
+        settings["allowed_link_protocols"] = settings["allowed_link_protocols"]
+          .split(/\r?\n/)
+          .map { |protocol| protocol.strip.downcase.gsub(/[^a-z0-9+\-.]+/, "") }
+      end
+    end
+
+    def extra_permitted_filters
+      # attachment_whitelist is normally permitted as an array parameter.
+      # Explicitly permit it as a string here.
+      [:allowed_link_protocols]
+    end
 
     def show
       super

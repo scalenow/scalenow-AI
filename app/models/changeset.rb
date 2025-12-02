@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -187,7 +189,7 @@ class Changeset < ApplicationRecord
     @next ||= Changeset.where(["id > ? AND repository_id = ?", id, repository_id]).order(Arel.sql("id ASC")).first
   end
 
-  # Creates a new Change from it's common parameters
+  # Creates a new Change from its common parameters
   def create_change(change)
     Change.create(changeset: self,
                   action: change[:action],

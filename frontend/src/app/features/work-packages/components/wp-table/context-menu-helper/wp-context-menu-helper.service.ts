@@ -42,6 +42,7 @@ export type WorkPackageAction = {
   indexBy?:(actions:WorkPackageAction[]) => number,
   link?:string;
   href?:string;
+  hidden?:boolean;
 };
 
 @Injectable()
@@ -60,10 +61,10 @@ export class WorkPackageContextMenuHelperService {
       href: this.PathHelper.workPackagesBulkMovePath(),
     },
     {
-      text: I18n.t('js.work_packages.bulk_actions.copy'),
+      text: I18n.t('js.work_packages.bulk_actions.duplicate'),
       key: 'copy',
       link: 'copy',
-      href: this.PathHelper.workPackagesBulkCopyPath(),
+      href: this.PathHelper.workPackagesBulkDuplicatePath(),
     },
     {
       text: I18n.t('js.work_packages.bulk_actions.delete'),
@@ -217,7 +218,7 @@ export class WorkPackageContextMenuHelperService {
       });
       allowedActions.push({
         key: 'relation-follows',
-        text: I18n.t('js.relation_buttons.add_follower'),
+        text: I18n.t('js.relation_buttons.add_successor'),
         link: 'addRelation',
       });
     }

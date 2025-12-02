@@ -36,19 +36,20 @@ See COPYRIGHT and LICENSE files for more details.
     <div class="col-lg-3 col-md-4 col-sm-6">
       <div class="form--field">
         <%= styled_label_tag "time_entry_activities_project_#{activity.id}_active", activity.name %>
-        <div class="form--field-container" >
+        <div class="form--field-container">
           <%= hidden_field_tag "time_entry_activities_project[][activity_id]",
-                              activity.id %>
+                               activity.id %>
           <%= styled_check_box_tag "time_entry_activities_project[][active]",
-                                  1,
-                                  activity.active_in_project?(@project),
-                                  id: "time_entry_activities_project_#{activity.id}_active" %>
+                                   1,
+                                   activity.active_in_project?(@project),
+                                   id: "time_entry_activities_project_#{activity.id}_active" %>
         </div>
       </div>
     </div>
+
   <% end %>
 </div>
 
 <div class="generic-table--action-buttons m-0 mt-3">
-  <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0' %>
+  <%= styled_button_tag t(:button_save), class: "-primary -with-icon icon-checkmark" %>
 </div>

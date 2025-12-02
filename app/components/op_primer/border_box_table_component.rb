@@ -43,7 +43,7 @@ module OpPrimer
       #
       # This results in the description columns to be hidden on mobile
       def mobile_columns(*names)
-        return @mobile_columns || columns if names.empty?
+        return Array(@mobile_columns || columns) if names.empty?
 
         @mobile_columns = names.map(&:to_sym)
       end
@@ -54,7 +54,7 @@ module OpPrimer
       #
       # This results in the description columns to be hidden on mobile
       def mobile_labels(*names)
-        return @mobile_labels if names.empty?
+        return Array(@mobile_labels) if names.empty?
 
         @mobile_labels = names.map(&:to_sym)
       end
@@ -82,13 +82,14 @@ module OpPrimer
     end
 
     def column_title(name)
-      header = headers.find { |h| h[0] == name }
-      header ? header[1][:caption] : nil
+      _, header_options = headers.assoc(name)
+      header_options&.dig(:caption)
     end
 
     def header_classes(column)
       classes = [heading_class]
       classes << "op-border-box-grid--main-column" if main_column?(column)
+      classes << "op-border-box-grid--heading-action" if column == :actions
 
       classes.join(" ")
     end
@@ -103,6 +104,10 @@ module OpPrimer
     end
 
     def has_actions?
+      false
+    end
+
+    def has_footer?
       false
     end
 
@@ -132,6 +137,14 @@ module OpPrimer
 
     def blank_icon
       nil
+    end
+
+    def action_row_header_content
+      nil
+    end
+
+    def footer
+      raise ArgumentError, "Need to provide footer content"
     end
   end
 end

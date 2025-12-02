@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # -- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -46,6 +48,10 @@ module OpenProject
       end
 
       def project_with_search_icon
+        render_with_template
+      end
+
+      def color
         render_with_template
       end
     end

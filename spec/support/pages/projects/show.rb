@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -33,11 +35,9 @@ module Pages
     class Show < ::Pages::Page
       attr_reader :project
 
-      # rubocop:disable Lint/MissingSuper
       def initialize(project)
         @project = project
       end
-      # rubocop:enable Lint/MissingSuper
 
       def path
         project_path(project)
@@ -53,33 +53,67 @@ module Pages
 
       def expect_no_visible_sidebar
         expect_angular_frontend_initialized
-        expect(page).to have_no_css(".op-grid-page--grid-container")
+        expect(page).to have_no_css(".Layout-sidebar")
       end
 
-      def within_async_loaded_sidebar(&)
-        within "#project-custom-fields-sidebar" do
-          expect(page).to have_css("[data-test-selector='project-custom-fields-sidebar-async-content']")
-          yield
-        end
+      def expect_visible_sidebar
+        expect_angular_frontend_initialized
+        expect(page).to have_css(".Layout-sidebar")
+      end
+
+      def within_project_attributes_sidebar(&)
+        within_test_selector("project-custom-fields-sidebar", &)
       end
 
       def within_custom_field_section_container(section, &)
-        within("[data-test-selector='project-custom-field-section-#{section.id}']", &)
+        within_test_selector("project-custom-field-section-#{section.id}", &)
       end
 
       def within_custom_field_container(custom_field, &)
-        within("[data-test-selector='project-custom-field-#{custom_field.id}']", &)
+        within_test_selector("project-custom-field-#{custom_field.id}", &)
       end
 
-      def open_edit_dialog_for_section(section)
-        within_async_loaded_sidebar do
-          scroll_to_element(page.find("[data-test-selector='project-custom-field-section-#{section.id}']"))
-          within_custom_field_section_container(section) do
-            page.find("[data-test-selector='project-custom-field-section-edit-button']").click
+      def expect_no_custom_field(custom_field)
+        expect(page).to have_no_css("[data-test-selector='project-custom-field-#{custom_field.id}']")
+      end
+
+      def open_edit_dialog_for_custom_field(custom_field)
+        within_project_attributes_sidebar do
+          scroll_to_element(page.find("[data-test-selector='project-custom-field-#{custom_field.id}']"))
+          within_custom_field_container(custom_field) do
+            # Link and user type custom fields might contain a clickable link inside the edit container.
+            # Use JavaScript to directly trigger the click event on the container to avoid nested links.
+            # Once we create the project custom field inline editing, this can be reverted to a normal
+            # capybara click method call.
+            page.execute_script(
+              "document.querySelector('[data-test-selector=\"project-custom-field-edit-button-#{custom_field.id}\"]').click()"
+            )
           end
         end
 
-        expect(page).to have_css("[data-test-selector='async-dialog-content']", wait: 5)
+        wait_for_size_animation_completion("[data-test-selector='async-dialog-content']")
+
+        Components::Projects::ProjectCustomFields::EditDialog.new(project, custom_field)
+      end
+
+      def open_edit_dialog_for_life_cycle(life_cycle, wait_angular: false)
+        within_life_cycle_sidebar do
+          page.find("[data-test-selector='project-life-cycle-edit-button-#{life_cycle.id}']").click
+        end
+
+        Components::Projects::ProjectLifeCycle::EditDialog.new.tap do |dialog|
+          dialog.expect_open
+
+          expect_angular_frontend_initialized if wait_angular
+        end
+      end
+
+      def within_life_cycle_sidebar(&)
+        within_test_selector("project-life-cycle-sidebar-async-content", &)
+      end
+
+      def within_life_cycle_container(life_cycle, &)
+        within("[data-test-selector='project-life-cycle-#{life_cycle.id}']", &)
       end
 
       def expand_text(custom_field)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -40,7 +42,7 @@ module Redmine
           cattr_accessor :customizable_options
           self.customizable_options = options
 
-          # we are validating custom_values manually in :validate_custom_values
+          # We are validating custom_values manually in :validate_custom_values
           # N.B. the default for validate should be false, however specs seem to think differently
           has_many :custom_values, -> {
             includes(:custom_field)
@@ -49,7 +51,9 @@ module Redmine
              dependent: :delete_all,
              validate: false,
              autosave: true
-          validate :validate_custom_values
+
+          validation_options = options[:validate_on] ? { on: options[:validate_on] } : {}
+          validate :validate_custom_values, **validation_options
           send :include, Redmine::Acts::Customizable::InstanceMethods
 
           before_save :ensure_custom_values_complete
@@ -123,26 +127,13 @@ module Redmine
           custom_field_values(all:).select { |cv| cv.custom_field_id == id.to_i }
         end
 
-        def custom_field_values(all: false)
-          custom_field_values_cache[custom_field_cache_key] ||= begin
-            current_custom_fields = all ? all_available_custom_fields : available_custom_fields
-            current_custom_fields.flat_map do |custom_field|
-              existing_cvs = custom_values.select { |v| v.custom_field_id == custom_field.id }
-
-              if existing_cvs.empty?
-                build_default_custom_values(custom_field)
-              else
-                existing_cvs
-              end
-            end
-          end
-        end
+        def custom_field_values(all: false) = cached_custom_field_values[all ? :all_available : :available]
 
         # Override to extend the cache key for caching @custom_field_values_cache.
         #
         # In some cases, the implementing class has a changing list of custom field values
         # depending on certain attributes. When those attributes are changed, the cache can
-        # be kept up to date by including them in the overriden custom_field_cache_key method.
+        # be kept up to date by including them in the overridden custom_field_cache_key method.
         #
         # i.e.: The work package custom field values are changing based on the project_id and type_id.
         # The only way to keep the cache updated is to include those ids in the cache key.
@@ -153,8 +144,8 @@ module Redmine
         ##
         # Maps custom_values into a hash that can be passed to attributes
         # but keeps multivalue custom fields as array values
-        def custom_value_attributes
-          custom_field_values.each_with_object({}) do |cv, hash|
+        def custom_value_attributes(all: false)
+          custom_field_values(all:).each_with_object({}) do |cv, hash|
             key = cv.custom_field_id
             value = cv.value
 
@@ -171,19 +162,20 @@ module Redmine
           custom_field_values.reject(&:admin_only?)
         end
 
-        def custom_value_for(c)
-          field_id = (c.is_a?(CustomField) ? c.id : c.to_i)
-          values = custom_field_values.select { |v| v.custom_field_id == field_id }
+        def custom_value_for(custom_field)
+          raise ArgumentError, "Expected a CustomField, got #{custom_field.class}" unless custom_field.is_a?(CustomField)
 
-          if values.size > 1
+          values = custom_field_values.select { |v| v.custom_field_id == custom_field.id }
+
+          if custom_field.multi_value?
             values.sort_by { |v| v.id.to_i } # need to cope with nil
           else
             values.first
           end
         end
 
-        def typed_custom_value_for(c)
-          cvs = custom_value_for(c)
+        def typed_custom_value_for(custom_field)
+          cvs = custom_value_for(custom_field)
 
           case cvs
           when Array
@@ -195,8 +187,8 @@ module Redmine
           end
         end
 
-        def formatted_custom_value_for(c)
-          cvs = custom_value_for(c)
+        def formatted_custom_value_for(custom_field)
+          cvs = custom_value_for(custom_field)
 
           case cvs
           when Array
@@ -211,7 +203,7 @@ module Redmine
         def ensure_custom_values_complete
           return unless custom_values.loaded? && (custom_values.any?(&:changed?) || custom_value_destroyed)
 
-          self.custom_values = custom_field_values
+          self.custom_values = custom_field_values(all: true)
         end
 
         def reload(*args)
@@ -231,33 +223,28 @@ module Redmine
           custom_values.each { |cv| cv.destroy unless custom_field_values.include?(cv) }
         end
 
-        # Builds custom values for all custom fields for which no custom value already exists.
-        # The value of that newly build value is set to the default value which can also be nil.
-        # Calling this should only be necessary if additional custom fields are made available
-        # after custom_field_values has already been called as that method will also build custom values
-        # (with their default values set) for all custom values for which no prior value existed.
-        def set_default_values!
-          new_values = {}
-
-          available_custom_fields.each do |custom_field|
-            if custom_values.none? { |cv| cv.custom_field_id == custom_field.id }
-              new_values[custom_field.id] = custom_field.default_value
-            end
+        def custom_values_to_validate
+          if persisted?
+            @custom_values_to_validate ||= []
+          else
+            custom_field_values
           end
-
-          self.custom_field_values = new_values
         end
 
-        def custom_field_values_to_validate
-          custom_field_values
+        def custom_values_to_validate=(custom_values)
+          @custom_values_to_validate = Array(custom_values)
         end
 
         def validate_custom_values
-          set_default_values! if new_record?
-          custom_field_values_to_validate
-            .reject(&:marked_for_destruction?)
+          custom_values_to_validate
+            .uniq
+            .reject { |cv| cv.marked_for_destruction? || cv.calculated_value? }
             .select(&:invalid?)
             .each { |custom_value| add_custom_value_errors! custom_value }
+        end
+
+        def activate_custom_field_validations!
+          self.custom_values_to_validate = custom_field_values
         end
 
         # Build the changes hash similar to ActiveRecord::Base#changes,
@@ -267,7 +254,7 @@ module Redmine
             next cfv_changes unless cfv.changed?
 
             # In order to construct a valid changes hash, we need to find the old value if it exists.
-            # Otherwise set it to nil.
+            # Otherwise, set it to nil.
             cfv_was = custom_value_was_for(cfv)
             value_was = cfv_was&.value
 
@@ -276,6 +263,7 @@ module Redmine
 
             # Skip when the new value is the default value
             next cfv_changes if value_was.nil? && cfv.default?
+
             cfv_changes.merge("custom_field_#{cfv.custom_field_id}" => [value_was, cfv.value])
           end
         end
@@ -331,6 +319,29 @@ module Redmine
         attr_accessor :custom_value_destroyed
 
         private
+
+        def custom_field_values_cache
+          @custom_field_values_cache ||= {}
+        end
+
+        def cached_custom_field_values
+          custom_field_values_cache[custom_field_cache_key] ||= {
+            all_available: uncached_custom_field_values_by_field(all_available_custom_fields),
+            available: uncached_custom_field_values_by_field(available_custom_fields)
+          }
+        end
+
+        def uncached_custom_field_values_by_field(custom_fields)
+          custom_fields.flat_map do |custom_field|
+            existing_cvs = custom_values.select { |v| v.custom_field_id == custom_field.id }
+
+            if existing_cvs.empty?
+              build_default_custom_values(custom_field)
+            else
+              existing_cvs
+            end
+          end
+        end
 
         def build_default_custom_values(custom_field)
           if custom_field.multi_value? && custom_field.default_value.present?
@@ -389,7 +400,7 @@ module Redmine
         end
 
         # Explicitly touch the customizable if
-        # there where only changes to custom_values (added or removed).
+        # there were only changes to custom_values (added or removed).
         # Particularly important for caching.
         def touch_customizable
           touch if !saved_changes? && custom_values.loaded? && (custom_values.any?(&:saved_changes?) || custom_value_destroyed)
@@ -428,19 +439,15 @@ module Redmine
                                                  custom_field_id:,
                                                  value:)
 
-          custom_field_values.push(new_custom_value)
+          cached_custom_field_values.each_value { it.push new_custom_value }
         end
 
         def remove_custom_value(custom_value)
           return unless custom_value
 
           custom_value.mark_for_destruction
-          custom_field_values.delete custom_value
+          cached_custom_field_values.each_value { it.delete custom_value }
           self.custom_value_destroyed = true
-        end
-
-        def custom_field_values_cache
-          @custom_field_values_cache ||= {}
         end
 
         module AddClassMethods

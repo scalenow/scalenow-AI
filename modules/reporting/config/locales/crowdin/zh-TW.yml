@@ -45,10 +45,12 @@ zh-TW:
   label_greater: ">"
   label_is_not_project_with_subprojects: "不是 (包括子專案)"
   label_is_project_with_subprojects: "是 (包括子專案)"
-  label_work_package_attributes: "工作項目屬性"
+  label_is_work_package_with_descendants: "是（包括繼任）"
+  label_is_not_work_package_with_descendants: "不是（包括繼任）"
+  label_work_package_attributes: "工作套件屬性"
   label_less: "<"
   label_logged_by_reporting: "記錄者"
-  label_money: "現金價值"
+  label_money: "金額"
   label_month_reporting: "月"
   label_new_report: "新建成本報表"
   label_open: "開啟"
@@ -69,7 +71,7 @@ zh-TW:
   label_filter_add: "新增篩選條件"
   label_filter_plural: "篩選條件"
   label_group_by: "分類"
-  label_group_by_add: "新增分組依據屬性"
+  label_group_by_add: "新增群組欄位"
   label_inactive: "«不活動»"
   label_no: "否"
   label_none: "(沒有資料)"
@@ -86,8 +88,18 @@ zh-TW:
   validation_failure_date: "不是一個有效日期"
   validation_failure_integer: "不是一個有效的整數"
   export:
+    timesheet:
+      title: "您的時間表PDF匯出"
+      button: "匯出 PDF 時間表"
+      timesheet: "時間表"
+      time: "時間"
+      sums_hours: 加總
+      overview_per_user_total: "總覽： 每位使用者的總時數"
+      overview_per_user_day: "總覽： 每位使用者每天的使用時數"
     cost_reports:
       title: "您的成本報表(以XLS匯出)"
+      start_time: "開始時間"
+      end_time: "結束時間"
   reporting:
     group_by:
       selected_columns: "選擇列"

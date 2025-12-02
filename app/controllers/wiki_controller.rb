@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -98,6 +100,7 @@ class WikiController < ApplicationController
     end
 
     @editable = editable?
+    @show_create = show_create?
   end
 
   def new; end
@@ -277,9 +280,9 @@ class WikiController < ApplicationController
 
   # Removes a wiki page and its history
   # Children can be either set as root pages, removed or reassigned to another parent page
-  def destroy
+  def destroy # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     unless editable?
-      flash[:error] = I18n.t(:error_unable_delete_wiki)
+      flash.now[:error] = I18n.t(:error_unable_delete_wiki)
       return render_403
     end
 
@@ -306,12 +309,11 @@ class WikiController < ApplicationController
     end
     @page.destroy
 
+    flash[:notice] = I18n.t(:notice_successful_delete)
     if page = @wiki.find_page(@wiki.start_page) || @wiki.pages.first
-      flash[:notice] = I18n.t(:notice_successful_delete)
-      redirect_to action: "index", project_id: @project, id: page
+      redirect_to action: "index", project_id: @project, id: page, status: :see_other
     else
-      flash[:notice] = I18n.t(:notice_successful_delete)
-      redirect_to project_path(@project)
+      redirect_to project_path(@project), status: :see_other
     end
   end
 
@@ -337,6 +339,10 @@ class WikiController < ApplicationController
     return unless default_item
 
     :"no-menu-item-#{default_item.menu_identifier}"
+  end
+
+  def show_create?
+    @editable && @page && User.current.allowed_in_project?(:edit_wiki_pages, @project)
   end
 
   private
@@ -367,8 +373,6 @@ class WikiController < ApplicationController
     @project = Project.find(params[:project_id])
     @wiki = @project.wiki
     render_404 unless @wiki
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 
   # Finds or created the wiki page associated
@@ -410,14 +414,6 @@ class WikiController < ApplicationController
   # Returns true if the current user is allowed to edit the page, otherwise false
   def editable?(page = @page)
     page.editable_by?(User.current)
-  end
-
-  def default_breadcrumb
-    Wiki.model_name.human
-  end
-
-  def show_local_breadcrumb
-    @page&.ancestors&.any?
   end
 
   def redirect_to_show

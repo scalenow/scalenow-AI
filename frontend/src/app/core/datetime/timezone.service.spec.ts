@@ -26,10 +26,8 @@
 // See COPYRIGHT and LICENSE files for more details.
 //++
 
-/* jshint expr: true */
-
 import { TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { PathHelperService } from 'core-app/core/path-helper/path-helper.service';
 import { I18nService } from 'core-app/core/i18n/i18n.service';
 import { ConfigurationService } from 'core-app/core/config/configuration.service';
@@ -47,16 +45,15 @@ describe('TimezoneService', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-      ],
-      providers: [
+    imports: [],
+    providers: [
         { provide: I18nService, useValue: {} },
         { provide: ConfigurationService, useValue: ConfigurationServiceStub },
         PathHelperService,
         TimezoneService,
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+    ]
+});
 
     timezoneService = TestBed.inject(TimezoneService);
   };

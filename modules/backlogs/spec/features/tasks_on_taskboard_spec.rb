@@ -30,7 +30,7 @@ require "spec_helper"
 require_relative "../support/pages/taskboard"
 
 RSpec.describe "Tasks on taskboard", :js,
-               with_cuprite: false do
+               :selenium do
   let!(:project) do
     create(:project,
            types: [story, task, other_story],
@@ -238,11 +238,13 @@ RSpec.describe "Tasks on taskboard", :js,
                    text: "Burndown Chart")
 
     # Tasks can get a color per assigned user
-    visit my_settings_path
+    visit my_interface_path
 
     fill_in "Task color", with: "#FBC4B3"
 
-    click_button "Save"
+    click_button "Update backlogs module"
+
+    expect_and_dismiss_flash(message: "Account was successfully updated.")
 
     taskboard_page.visit!
 

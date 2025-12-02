@@ -28,12 +28,23 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-<% html_title t('team_planner.label_new_team_planner') %>
-<%= toolbar title: t('team_planner.label_new_team_planner'), title_class: "color-orange" %>
-<%= labelled_tabular_form_for @view, url: { controller: '/team_planner/team_planner', action: 'create' }, :html => {:id => 'team-planner-form'} do |f| -%>
-  <%= render :partial => 'form', :locals => {:f => f} %>
-  <%= styled_button_tag t(:button_create), class: '-primary custom-secondary-button rounded-border m-0 mr-2 px-3' %>
-  <%= link_to t(:button_cancel), { controller: 'team_planner/team_planner', action: 'overview' },
-              class: 'button rounded-border m-0 px-3' %>
+<% html_title t("team_planner.label_new_team_planner") %>
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title { t("team_planner.label_new_team_planner") }
+    header.with_breadcrumbs(
+      [
+        ({ href: project_overview_path(@project.id), text: @project.name} if @project),
+        t("team_planner.label_new_team_planner")
+      ].compact
+    )
+  end
+%>
+
+<%= labelled_tabular_form_for @view, url: { controller: "/team_planner/team_planner", action: "create" }, html: { id: "team-planner-form" } do |f| -%>
+  <%= render partial: "form", locals: { f: f } %>
+  <%= styled_button_tag t(:button_create), class: "-primary" %>
+  <%= link_to t(:button_cancel), { controller: "team_planner/team_planner", action: "overview" },
+              class: "button" %>
 <% end %>
 </div>

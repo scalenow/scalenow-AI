@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -98,5 +100,10 @@ RSpec.describe ColorsController do
       colors_path
     end
     it_behaves_like "a controller action with require_admin"
+
+    it "redirects with 303 See Other" do
+      expect(fetch).to have_http_status(:see_other)
+      expect(fetch).to redirect_to(colors_path)
+    end
   end
 end

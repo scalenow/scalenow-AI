@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -48,7 +50,7 @@ class WorkPackages::BulkController < ApplicationController
 
     if @call.success?
       flash[:notice] = t(:notice_successful_update)
-      redirect_back_or_default(controller: "/work_packages", action: :index, project_id: @project)
+      redirect_back_or_default({ controller: "/work_packages", action: :index, project_id: @project })
     else
       flash[:error] = bulk_error_message(@work_packages, @call)
       setup_edit
@@ -116,10 +118,6 @@ class WorkPackages::BulkController < ApplicationController
 
   def user
     current_user
-  end
-
-  def default_breadcrumb
-    I18n.t(:label_work_package_plural)
   end
 
   def transform_attributes(attributes)

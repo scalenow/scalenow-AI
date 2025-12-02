@@ -37,10 +37,7 @@ RSpec.describe "/oauth_clients/:oauth_client_id/ensure_connection endpoint", :we
   shared_let(:oauth_client) { storage.oauth_client }
 
   before do
-    Storages::Peripherals::Registry.stub(
-      "#{storage}.queries.auth_check",
-      ->(_) { ServiceResult.success }
-    )
+    Storages::Adapters::Registry.stub("#{storage}.queries.user", ->(_) { Success() })
   end
 
   describe "#ensure_connection" do
@@ -65,9 +62,9 @@ RSpec.describe "/oauth_clients/:oauth_client_id/ensure_connection endpoint", :we
           let(:nonce) { "57a17c3f-b2ed-446e-9dd8-651ba3aec37d" }
 
           before do
-            Storages::Peripherals::Registry.stub(
-              "#{storage}.queries.auth_check",
-              ->(_) { ServiceResult.failure(errors: Storages::StorageError.new(code: :unauthorized)) }
+            Storages::Adapters::Registry.stub(
+              "#{storage}.queries.user",
+              ->(_) { Failure(Storages::Adapters::Results::Error.new(code: :missing_token, source: self)) }
             )
 
             allow(SecureRandom).to receive(:uuid).and_call_original.ordered
@@ -139,6 +136,7 @@ RSpec.describe "/oauth_clients/:oauth_client_id/ensure_connection endpoint", :we
           let!(:oauth_client_token) do
             create(:oauth_client_token, oauth_client:, user:)
           end
+          let!(:remote_identity) { create(:remote_identity, user:, integration: storage) }
 
           before do
             stub_request(:get, "#{storage.host}ocs/v1.php/cloud/user")

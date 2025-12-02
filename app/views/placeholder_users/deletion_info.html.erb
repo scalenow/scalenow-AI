@@ -28,20 +28,23 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <% name = @placeholder_user.name %>
-<% html_title(t(:label_administration), "#{ t('placeholder_users.deletion_info.heading', name: name)}") -%>
+<% html_title(t(:label_administration), t("placeholder_users.deletion_info.heading", name: name).to_s) -%>
 
 <%= labelled_tabular_form_for(
-        :placeholder_user,
-        url: placeholder_user_path(@placeholder_user),
-        html: {
-            method: :delete,
-            class: 'form danger-zone',
-        }) do %>
+      :placeholder_user,
+      url: placeholder_user_path(@placeholder_user),
+      html: {
+        method: :delete,
+        class: "form danger-zone"
+      }
+    ) do %>
   <div class='wiki'>
     <section class="form--section">
       <h3 class="form--section-title rounded-border">
-        <%= t('placeholder_users.deletion_info.heading',
-              name: content_tag(:em, name))
+        <%= t(
+              "placeholder_users.deletion_info.heading",
+              name: content_tag(:em, name)
+            )
             .html_safe %>
       </h3>
 
@@ -53,16 +56,17 @@ See COPYRIGHT and LICENSE files for more details.
         <span><%= t("placeholder_users.deletion_info.irreversible") %></span>
       </p>
       <p>
-        <%= t("placeholder_users.deletion_info.confirmation",
+        <%= t(
+              "placeholder_users.deletion_info.confirmation",
               name: content_tag(:em, name, class: "danger-zone--expected-value")
             ).html_safe %>
       </p>
       <div class="danger-zone--verification">
-        <input type="text" name="name_verification"/>
-        <%= styled_button_tag '', class: '-primary custom-secondary-button rounded-border', disabled: true do
-          concat content_tag :i, '', class: 'button--icon icon-delete'
-          concat content_tag :span, t(:button_delete), class: 'button--text'
-        end %>
+        <input type="text" name="name_verification">
+        <%= styled_button_tag "", class: "-primary", disabled: true do
+              concat content_tag :i, "", class: "button--icon icon-delete"
+              concat content_tag :span, t(:button_delete), class: "button--text"
+            end %>
       </div>
     </section>
   </div>

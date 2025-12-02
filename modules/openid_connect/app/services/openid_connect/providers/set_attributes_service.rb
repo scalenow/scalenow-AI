@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -44,7 +46,20 @@ module OpenIDConnect
 
         super
 
+        update_string_list(:grant_types_supported, delimiter: " ")
+        update_string_list(:group_regexes, delimiter: "\n")
         update_available_state
+      end
+
+      # This is a workaround for UI where users edit a single input field or text area, but are indeed editing
+      # an array of items
+      def update_string_list(attribute, delimiter:)
+        return unless params[attribute].is_a? String
+
+        model.public_send(
+          "#{attribute}=",
+          params[attribute].split(delimiter)
+        )
       end
 
       def update_available_state

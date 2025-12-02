@@ -37,25 +37,20 @@ import {
   ViewChild,
 } from '@angular/core';
 import { WorkPackageResource } from 'core-app/features/hal/resources/work-package-resource';
-import {
-  debounceTime,
-  filter,
-} from 'rxjs/operators';
+import { filter, throttleTime } from 'rxjs/operators';
 import { UntilDestroyedMixin } from 'core-app/shared/helpers/angular/until-destroyed.mixin';
 import { ApiV3Service } from 'core-app/core/apiv3/api-v3.service';
 import { WorkPackageRelationsService } from './wp-relations.service';
 import { PathHelperService } from 'core-app/core/path-helper/path-helper.service';
 import { TurboRequestsService } from 'core-app/core/turbo/turbo-requests.service';
 import { renderStreamMessage } from '@hotwired/turbo';
-import {
-  HalEventsService,
-  RelatedWorkPackageEvent,
-} from 'core-app/features/hal/services/hal-events.service';
+import { HalEventsService } from 'core-app/features/hal/services/hal-events.service';
 
 @Component({
   selector: 'wp-relations',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './wp-relations.template.html',
+  standalone: false,
 })
 export class WorkPackageRelationsComponent extends UntilDestroyedMixin implements OnInit, AfterViewInit, OnDestroy {
   @Input() public workPackage:WorkPackageResource;
@@ -92,16 +87,12 @@ export class WorkPackageRelationsComponent extends UntilDestroyedMixin implement
       .halEvents
       .events$
       .pipe(
-        filter((e:RelatedWorkPackageEvent) => {
-          return e.eventType === 'association'
-            && e.id.toString() === this.workPackage.id?.toString()
-            && e.relationType !== 'parent';
-        }),
-        debounceTime(500),
+        filter((e) => e.eventType === 'association' || e.eventType === 'updated'),
+        throttleTime(1000, undefined, { leading: true, trailing: true }),
         this.untilDestroyed(),
       )
       .subscribe(() => {
-        this.updateRelationsTab();
+        this.updateRelationsTabAndCounter();
       });
 
     /*
@@ -118,14 +109,12 @@ export class WorkPackageRelationsComponent extends UntilDestroyedMixin implement
     document.addEventListener('turbo:submit-end', this.turboFrameListener);
   }
 
-  public updateCounter() {
-    const url = this.PathHelper.workPackageUpdateCounterPath(this.workPackage.id!, 'relations');
-    void this.turboRequests.request(url);
-  }
-
-  private updateFrontendData(event:CustomEvent) {
+  private async updateFrontendData(event:CustomEvent) {
     if (event) {
-      const form = event.target as HTMLFormElement;
+      // A turbo:submit-end event *has* a `formSubmission` property, but I do not
+      // know how to avoid the eslint type warning. Please if you know, fix it.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const form = event.detail.formSubmission.formElement as HTMLFormElement;
       const updateWorkPackage = !!form.dataset?.updateWorkPackage;
 
       if (updateWorkPackage) {
@@ -136,23 +125,22 @@ export class WorkPackageRelationsComponent extends UntilDestroyedMixin implement
             .work_packages
             .id(this.workPackage.id!)
             .refresh();
-          this.halEvents.push(this.workPackage, { eventType: 'updated' });
 
           // Refetch relations
-          void this.wpRelations.require(this.workPackage.id!, true);
-
-          this.updateCounter();
+          await this.wpRelations.require(this.workPackage.id!, true);
+          this.halEvents.push(this.workPackage, { eventType: 'updated' });
         }
       }
     }
   }
 
-  private updateRelationsTab() {
+  private updateRelationsTabAndCounter() {
     void this.turboRequests.requestStream(this.turboFrameSrc)
       .then((result) => {
         renderStreamMessage(result.html);
       });
 
-    this.updateCounter();
+    const url = this.PathHelper.workPackageUpdateCounterPath(this.workPackage.id!, 'relations');
+    void this.turboRequests.request(url);
   }
 }

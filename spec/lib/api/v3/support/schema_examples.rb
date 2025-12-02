@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -78,6 +80,16 @@ RSpec.shared_examples_for "has basic schema properties" do
               .at_path("#{path}/description/raw")
     else
       expect(subject).not_to have_json_path("#{path}/description")
+    end
+  end
+
+  it "indicates if it has a formula" do
+    if defined?(formula)
+      expect(subject)
+        .to be_json_eql(formula.to_json)
+              .at_path("#{path}/formula")
+    else
+      expect(subject).not_to have_json_path("#{path}/formula")
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -29,7 +31,9 @@
 require "spec_helper"
 require "features/page_objects/notification"
 
-RSpec.describe "Upload attachment to documents", :js,
+RSpec.describe "Upload attachment to documents",
+               :js,
+               :selenium,
                with_settings: {
                  journal_aggregation_time_minutes: 0
                } do
@@ -59,7 +63,7 @@ RSpec.describe "Upload attachment to documents", :js,
     it "can upload an image" do
       visit new_project_document_path(project)
 
-      expect(page).to have_css("#new_document", wait: 10)
+      expect(page).to have_css('[data-test-selector="new-document"]', wait: 10)
       SeleniumHubWaiter.wait
       select(category.name, from: "Category")
       fill_in "Title", with: "New documentation"
@@ -77,10 +81,8 @@ RSpec.describe "Upload attachment to documents", :js,
       perform_enqueued_jobs do
         click_on "Create"
 
-        # Expect it to be present on the index page
-        expect(page).to have_css(".document-category-elements--header", text: "New documentation")
-        expect(page).to have_css("#content img", count: 1)
-        expect(page).to have_content("Image uploaded on creation")
+        # Wait for redirect to index and document to appear in list
+        expect(page).to have_link("New documentation", wait: 10)
       end
 
       document = Document.last
@@ -88,7 +90,7 @@ RSpec.describe "Upload attachment to documents", :js,
 
       # Expect it to be present on the show page
       SeleniumHubWaiter.wait
-      find(".document-category-elements--header a", text: "New documentation").click
+      click_link "New documentation"
       expect(page).to have_current_path "/documents/#{document.id}", wait: 10
       expect(page).to have_css("#content img", count: 1)
       expect(page).to have_content("Image uploaded on creation")

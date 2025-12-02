@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -65,6 +67,10 @@ Rails.application.config.after_initialize do
       "Ldap::SynchronizationJob": {
         cron: "30 23 * * *",
         class: Ldap::SynchronizationJob.name
+      },
+      "RecurringMeetings::InitNextOccurrenceWatchdogJob": {
+        cron: "11 05 * * *",
+        class: RecurringMeetings::InitNextOccurrenceWatchdogJob.name
       }
     }
   )

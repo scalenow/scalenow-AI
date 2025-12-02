@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -126,7 +128,7 @@ RSpec.describe PlaceholderUsers::MembershipsController do
           }
         }
 
-        expect(response).to have_http_status :found
+        expect(response).to have_http_status :see_other
         expect(placeholder_user.reload.memberships).to be_empty
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -241,7 +243,7 @@ RSpec.describe OpenProject::AccessControl do
 
     subject(:dependencies) do
       described_class.modules
-                     .find { _1[:name] == :dependent_module }[:dependencies]
+                     .find { it[:name] == :dependent_module }[:dependencies]
     end
 
     it "can store specified dependencies" do
@@ -374,6 +376,20 @@ RSpec.describe OpenProject::AccessControl do
         end
       end
     end
+
+    describe "sorting by label" do
+      before do
+        allow(I18n).to receive(:t, &:to_s)
+      end
+
+      it "is not sorted by default" do
+        expect(described_class.available_project_modules).to eq(%i[project_module mixed_module dependent_module])
+      end
+
+      it "is sorted when requested" do
+        expect(described_class.available_project_modules(sorted: true)).to eq(%i[dependent_module mixed_module project_module])
+      end
+    end
   end
 
   describe ".contract_actions_map" do
@@ -465,7 +481,7 @@ RSpec.describe OpenProject::AccessControl do
                          permissible_on: :project
         end
       end
-      permission_to_disable = described_class.permissions.find { _1.name == :disabled_permission }
+      permission_to_disable = described_class.permissions.find { it.name == :disabled_permission }
       permission_to_disable.disable!
     end
 

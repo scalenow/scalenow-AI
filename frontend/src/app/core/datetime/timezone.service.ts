@@ -29,8 +29,7 @@
 import { Injectable } from '@angular/core';
 import { ConfigurationService } from 'core-app/core/config/configuration.service';
 import { I18nService } from 'core-app/core/i18n/i18n.service';
-import * as moment from 'moment-timezone';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment-timezone';
 import { outputChronicDuration } from '../../shared/helpers/chronic_duration';
 
 @Injectable({ providedIn: 'root' })
@@ -130,6 +129,18 @@ export class TimezoneService {
 
   public toISODuration(input:string|number, unit:'hours'|'days'):string {
     return moment.duration(input, unit).toISOString();
+  }
+
+  public utcDateToLocalDate(date:Date):Date {
+    return new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+  }
+
+  public utcDateToISODateString(date:Date):string {
+    return moment.utc(date).format('YYYY-MM-DD');
+  }
+
+  public utcDatesToISODateStrings(dates:Date[]):string[] {
+    return dates.map((date) => this.utcDateToISODateString(date));
   }
 
   public formattedDuration(durationString:string, unit:'hour'|'days' = 'hour'):string {

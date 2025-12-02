@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -32,12 +33,13 @@ module MeetingAgendaItems
     include OpTurbo::Streamable
     include OpPrimer::ComponentHelpers
 
-    def initialize(meeting:, meeting_section: nil, disabled: false)
+    def initialize(meeting:, meeting_section: nil, disabled: false, current_occurrence: nil)
       super
 
       @meeting = meeting
       @meeting_section = meeting_section
       @disabled = @meeting.closed? || disabled
+      @current_occurrence = current_occurrence
     end
 
     private

@@ -63,6 +63,7 @@ module API
                    max_length: nil,
                    regular_expression: nil,
                    options: {},
+                   formula: nil,
                    show_if: true,
                    description: nil,
                    deprecated: nil)
@@ -77,6 +78,7 @@ module API
                                    max_length,
                                    regular_expression,
                                    options,
+                                   formula,
                                    location,
                                    description,
                                    deprecated)
@@ -134,7 +136,6 @@ module API
                                            writable: default_writable_property(property),
                                            attribute_group: nil,
                                            show_if: true)
-
           getter = ->(*) do
             schema_with_allowed_collection_getter(type,
                                                   name_source,
@@ -266,7 +267,6 @@ module API
                      current_user:,
                      self_link: nil,
                      form_embedded: false)
-
         self.form_embedded = form_embedded
         self.self_link = self_link
 
@@ -301,6 +301,7 @@ module API
                                  max_length,
                                  regular_expression,
                                  options,
+                                 formula,
                                  location,
                                  description,
                                  deprecated)
@@ -319,6 +320,7 @@ module API
         schema.max_length = max_length
         schema.regular_expression = regular_expression
         schema.options = options
+        schema.formula = formula
 
         schema
       end
@@ -357,7 +359,6 @@ module API
                                                 attribute_group,
                                                 values_callback,
                                                 allowed_values_getter)
-
         wrapped_link_factory = if link_factory
                                  ->(value) { instance_exec(value, &link_factory) }
                                else

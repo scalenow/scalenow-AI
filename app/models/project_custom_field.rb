@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -31,10 +33,11 @@ class ProjectCustomField < CustomField
                                             inverse_of: :custom_fields
   has_many :project_custom_field_project_mappings, class_name: "ProjectCustomFieldProjectMapping", foreign_key: :custom_field_id,
                                                    dependent: :destroy, inverse_of: :project_custom_field
+  has_many :projects, through: :project_custom_field_project_mappings
 
   acts_as_list column: :position_in_custom_field_section, scope: [:custom_field_section_id]
 
-  after_save :activate_required_field_in_all_projects
+  after_save :activate_required_field_in_all_projects, if: :required?
 
   validates :custom_field_section_id, presence: true
 
@@ -71,13 +74,9 @@ class ProjectCustomField < CustomField
   end
 
   def activate_required_field_in_all_projects
-    return unless required?
-
-    already_activated_in_project_ids = ProjectCustomFieldProjectMapping.where(custom_field_id: id).pluck(:project_id)
-
-    mappings = Project.where.not(id: already_activated_in_project_ids).map do |project|
-      { project_id: project.id, custom_field_id: id }
-    end
-    ProjectCustomFieldProjectMapping.create!(mappings)
+    ProjectCustomFieldProjectMapping.upsert_all(
+      Project.pluck(:id).map { |project_id| { project_id:, custom_field_id: id } },
+      unique_by: %i[custom_field_id project_id]
+    )
   end
 end

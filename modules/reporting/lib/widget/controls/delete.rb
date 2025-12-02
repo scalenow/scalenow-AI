@@ -27,7 +27,7 @@
 #++
 
 class Widget::Controls::Delete < Widget::Controls
-  def render
+  def render # rubocop:disable Metrics/AbcSize
     return "" if @subject.new_record? or !@options[:can_delete]
 
     button = link_to(I18n.t(:button_delete),
@@ -41,8 +41,8 @@ class Widget::Controls::Delete < Widget::Controls
       url_opts[request_forgery_protection_token] = form_authenticity_token # if protect_against_forgery?
       opt1 = link_to I18n.t(:button_delete),
                      url_for(url_opts),
-                     method: :delete,
-                     class: "button -danger icon-context icon-delete custom-secondary-button rounded-border"
+                     data: { turbo_method: :delete },
+                     class: "button -danger icon-context icon-delete"
       opt2 = link_to I18n.t(:button_cancel),
                      "#",
                      id: "query-icon-delete-cancel",

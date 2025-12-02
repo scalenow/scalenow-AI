@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -35,7 +37,6 @@ class ForumsController < ApplicationController
   accept_key_auth :show
 
   include SortHelper
-  include WatchersHelper
   include PaginationHelper
 
   def index
@@ -119,15 +120,13 @@ class ForumsController < ApplicationController
   def destroy
     @forum.destroy
     flash[:notice] = I18n.t(:notice_successful_delete)
-    redirect_to action: "index"
+    redirect_to action: "index", status: :see_other
   end
 
   private
 
   def find_forum
     @forum = @project.forums.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 
   def new_forum

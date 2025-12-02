@@ -19,7 +19,7 @@ get:
       type: string
   - description: |-
       JSON specifying sort criteria.
-      Accepts the same format as returned by the [queries](https://www.openproject.org/docs/api/endpoints/queries/) endpoint and allows all the filters and sortBy supported by the project list end point.
+      Accepts the same format as returned by the [queries](https://www.openproject.org/docs/api/endpoints/queries/) endpoint and allows all the filters and sortBy supported by the project list endpoint.
     example: '[["id", "asc"]]'
     in: query
     name: sortBy
@@ -101,7 +101,7 @@ get:
                       format: markdown
                       html: "<p>Everything super <strong>fine</strong></p>"
                       raw: Everything super **fine**
-                    type: 
+                    type:
                     updatedAt: '2016-02-29T12:50:20+00:00'
                 _links:
                   self:
@@ -133,7 +133,7 @@ get:
   - Projects
   description: |-
     Lists projects which can become parent to another project. Only sound candidates are returned.
-    For instance a project cannot become parent of itself or it's children.
+    For instance a project cannot become parent of itself or its children.
 
     To specify the project for which a parent is queried for, the `of` parameter can be provided. If no `of`
     parameter is provided, a new project is assumed. Then, the check for the hierarchy is omitted as a new project cannot be

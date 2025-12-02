@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -36,8 +37,7 @@ module Meetings
 
     def wrapper_data_attributes
       {
-        controller: "expandable-list",
-        "application-target": "dynamic"
+        controller: "expandable-list"
       }
     end
 
@@ -45,10 +45,11 @@ module Meetings
       super
 
       @meeting = meeting
+      @project = meeting.project
     end
 
     def elements
-      @elements ||= @meeting.invited_or_attended_participants.sort
+      @elements ||= @meeting.participants.sort
     end
 
     def count
@@ -70,10 +71,6 @@ module Meetings
       if participant.attended?
         flex.with_column(ml: 1) do
           render(Primer::Beta::Text.new(font_size: :small, color: :subtle)) { t("description_attended").capitalize }
-        end
-      elsif participant.invited?
-        flex.with_column(ml: 1) do
-          render(Primer::Beta::Text.new(font_size: :small, color: :subtle)) { t("description_invite").capitalize }
         end
       end
     end

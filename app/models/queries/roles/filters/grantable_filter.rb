@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -30,6 +32,10 @@
 class Queries::Roles::Filters::GrantableFilter < Queries::Roles::Filters::RoleFilter
   def type
     :list
+  end
+
+  def human_name
+    I18n.t(:label_role_grantable)
   end
 
   def where

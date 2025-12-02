@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,7 +29,7 @@
 
 module MeetingSections
   class BaseContract < ::ModelContract
-    include ModifiableItem
+    include EditableItem
 
     def self.model
       MeetingSection
@@ -38,5 +39,6 @@ module MeetingSections
 
     attribute :title
     attribute :position
+    attribute :backlog
   end
 end

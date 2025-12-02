@@ -83,6 +83,7 @@ class ProgressEditField < EditField
   end
 
   def clear
+    move_caret_to_end_of_input
     super(with_backspace: true)
   end
 
@@ -110,15 +111,16 @@ class ProgressEditField < EditField
   def focus
     return if focused?
 
-    input_element.click
-    input_element.click if status_field? # to close the dropdown
+    page.evaluate_script("arguments[0].focus()", input_element)
     wait_for_preview_to_complete
   end
 
   # Wait for the popover preview to be refreshed.
   # Preview occurs on field blur or change.
   def wait_for_preview_to_complete
-    sleep 0.110 # the preview on popover has a debounce of 100ms
+    # The preview on popover has a debounce that must be kept in sync here.
+    # See frontend/src/stimulus/controllers/dynamic/work-packages/dialog/preview.controller.ts
+    sleep 0.210
     if using_cuprite?
       wait_for_network_idle # Wait for preview to finish
     end
@@ -208,6 +210,10 @@ class ProgressEditField < EditField
     input_element.evaluate_script("this.selectionStart == this.value.length;")
   end
 
+  def move_caret_to_end_of_input
+    page.evaluate_script("arguments[0].setSelectionRange(arguments[0].value.length, arguments[0].value.length)", input_element)
+  end
+
   def expect_trigger_field_disabled
     expect(trigger_element).to be_disabled
   end
@@ -279,7 +285,7 @@ class ProgressEditField < EditField
   def input_aria_related_element(describedby:)
     input_element["aria-describedby"]
       .split
-      .find { _1.start_with?("#{describedby}-") }
+      .find { it.start_with?("#{describedby}-") }
       &.then { |id| find(id:) }
   end
 end

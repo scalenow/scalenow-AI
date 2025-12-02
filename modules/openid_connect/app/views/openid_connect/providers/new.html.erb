@@ -3,13 +3,15 @@
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render Primer::OpenProject::PageHeader.new do |header|
-    header.with_title(classes: "color-orange") { t("openid_connect.providers.label_add_new") }
-    header.with_breadcrumbs([{ href: admin_index_path, text: t(:label_administration) },
-                             { href: admin_settings_authentication_path, text: t(:label_authentication) },
-                             { href: openid_connect_providers_path, text: t("openid_connect.providers.plural") },
-                             t("openid_connect.providers.label_add_new")])
+    header.with_title { t("openid_connect.providers.label_add_new") }
+    header.with_breadcrumbs(
+      [{ href: admin_index_path, text: t(:label_administration) },
+       { href: admin_settings_authentication_path, text: t(:label_authentication) },
+       { href: openid_connect_providers_path, text: t("openid_connect.providers.plural") },
+       t("openid_connect.providers.label_add_new")]
+    )
   end
 %>
 
-<%= render(OpenIDConnect::Providers::ViewComponent.new(@provider, edit_mode: true, edit_state: :name)) %>
+<%= render(OpenIDConnect::Providers::ViewComponent.new(@provider, new_mode: true, edit_state: :name)) %>
 </div>

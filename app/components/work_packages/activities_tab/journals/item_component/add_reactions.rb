@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2023 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -33,12 +35,21 @@ module WorkPackages
         include ApplicationHelper
         include OpPrimer::ComponentHelpers
         include OpTurbo::Streamable
+        include WorkPackages::ActivitiesTab::StimulusControllers
 
         def initialize(journal:, grouped_emoji_reactions:)
           super
 
           @journal = journal
           @grouped_emoji_reactions = grouped_emoji_reactions || {}
+        end
+
+        def self.menu_id(journal)
+          "reactions-menu-#{journal.id}"
+        end
+
+        def menu_id
+          self.class.menu_id(journal)
         end
 
         def render?
@@ -73,7 +84,7 @@ module WorkPackages
         def wrapper_uniq_by = journal.id
 
         def current_user_can_react?
-          User.current.allowed_in_work_package?(:add_work_package_notes, work_package)
+          User.current.allowed_in_work_package?(:add_work_package_comments, work_package)
         end
 
         def current_user_cannot_react? = !current_user_can_react?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,16 +28,17 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-class WorkPackages::UpdateAncestorsService
+class WorkPackages::UpdateAncestorsService < BaseServices::BaseCallable
   attr_accessor :user,
                 :initiator_work_package
 
   def initialize(user:, work_package:)
+    super()
     self.user = user
     self.initiator_work_package = work_package
   end
 
-  def call(attributes)
+  def perform(attributes)
     updated_work_packages = update_current_and_former_ancestors(attributes)
 
     set_journal_note(ancestors(updated_work_packages))
@@ -57,7 +60,7 @@ class WorkPackages::UpdateAncestorsService
   end
 
   def ancestors(work_packages)
-    work_packages.reject { initiator?(_1) }
+    work_packages.reject { initiator?(it) }
   end
 
   def update_current_and_former_ancestors(attributes)
@@ -71,8 +74,15 @@ class WorkPackages::UpdateAncestorsService
       end
   end
 
+  def changes?(work_package)
+    changes_before = work_package.changes
+    yield
+    changes_after = work_package.changes
+    changes_before != changes_after
+  end
+
   def save_updated_work_packages(updated_work_packages)
-    updated_initiators, updated_ancestors = updated_work_packages.partition { initiator?(_1) }
+    updated_initiators, updated_ancestors = updated_work_packages.partition { initiator?(it) }
 
     # Send notifications for initiator updates
     success = updated_initiators.all? { |wp| wp.save(validate: false) }
@@ -101,6 +111,7 @@ class WorkPackages::UpdateAncestorsService
       #
       %i[estimated_hours remaining_hours status status_id] => :derive_total_estimated_and_remaining_hours,
       %i[estimated_hours remaining_hours done_ratio status status_id] => :derive_done_ratio,
+      %i[] => :switch_to_automatic_mode,
       %i[ignore_non_working_days] => :derive_ignore_non_working_days
     }.each do |derivative_attributes, method|
       if attributes.intersect?(derivative_attributes + %i[parent parent_id])
@@ -122,10 +133,9 @@ class WorkPackages::UpdateAncestorsService
   def compute_derived_done_ratio(work_package, loader)
     return if no_children?(work_package, loader)
 
-    case Setting.total_percent_complete_mode
-    when "work_weighted_average"
+    if WorkPackage.work_weighted_average_mode?
       calculate_work_weighted_average_percent_complete(work_package)
-    when "simple_average"
+    elsif WorkPackage.simple_average_mode?
       calculate_simple_average_percent_complete(work_package, loader)
     end
   end
@@ -157,6 +167,36 @@ class WorkPackages::UpdateAncestorsService
       .children_of(work_package)
       .filter(&:included_in_totals_calculation?)
       .map { |child| child.derived_done_ratio || child.done_ratio || 0 }
+  end
+
+  # Switches the direct parent of the initiator to automatic scheduling mode if
+  # it is manually scheduled and has no direct or indirect predecessors and no
+  # other children.
+  #
+  # This method is called only when parent or parent_id attribute of the
+  # initiator work package has been changed
+  def switch_to_automatic_mode(work_package, loader) # rubocop:disable Metrics/AbcSize
+    # it only applies to the initiator's direct parent
+    return if initiator_work_package.parent_id.nil?
+    return if initiator_work_package.parent_id != work_package.id
+
+    # it does not apply if the child was deleted
+    return if initiator_work_package.destroyed?
+
+    # it only applies if there is no bulk duplicate in progress: if it's a copy, the copy must stay exact
+    return if state.bulk_duplicate_in_progress
+
+    # it only applies if the parent is manually scheduled
+    return if work_package.schedule_automatically?
+
+    # it only applies if the parent has no other children
+    return if loader.children_of(work_package).count != 1
+
+    # it only applies if the parent has no direct or indirect predecessors
+    return if Relation.used_for_scheduling_of(work_package).any?
+
+    # it can switch to automatic scheduling mode
+    work_package.schedule_manually = false
   end
 
   # Sets the ignore_non_working_days to true if any descendant has its value set to true.
@@ -209,9 +249,7 @@ class WorkPackages::UpdateAncestorsService
   end
 
   def ignore_non_working_days_of_descendants(ancestor, loader)
-    children = loader
-                 .children_of(ancestor)
-                 .reject(&:schedule_manually)
+    children = loader.children_of(ancestor)
 
     if children.any?
       children.any?(&:ignore_non_working_days)

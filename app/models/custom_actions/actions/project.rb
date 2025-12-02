@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -32,6 +34,10 @@ class CustomActions::Actions::Project < CustomActions::Actions::Base
   PRIORITY = 10
 
   def self.key
+    :project
+  end
+
+  def type
     :project
   end
 

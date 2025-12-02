@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # -- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,9 +29,10 @@
 # ++
 class Submenu
   include Rails.application.routes.url_helpers
+
   attr_reader :view_type, :project, :params
 
-  def initialize(view_type:, project: nil, params: nil)
+  def initialize(view_type:, params:, project: nil)
     @view_type = view_type
     @project = project
     @params = params
@@ -37,10 +40,10 @@ class Submenu
 
   def menu_items
     [
-      OpenProject::Menu::MenuGroup.new(header: I18n.t("js.label_starred_queries"), children: starred_queries),
-      OpenProject::Menu::MenuGroup.new(header: I18n.t("js.label_default_queries"), children: default_queries),
-      OpenProject::Menu::MenuGroup.new(header: I18n.t("js.label_global_queries"), children: global_queries),
-      OpenProject::Menu::MenuGroup.new(header: I18n.t("js.label_custom_queries"), children: custom_queries)
+      menu_group(header: I18n.t("js.label_starred_queries"), children: starred_queries),
+      menu_group(header: I18n.t("js.label_default_queries"), children: default_queries),
+      menu_group(header: I18n.t("js.label_global_queries"), children: global_queries),
+      menu_group(header: I18n.t("js.label_custom_queries"), children: custom_queries)
     ]
   end
 
@@ -108,13 +111,18 @@ class Submenu
     { query_id: id }
   end
 
-  def menu_item(title:, icon_key: nil, count: nil, show_enterprise_icon: false, query_params: {})
+  def menu_group(header:, children:)
+    OpenProject::Menu::MenuGroup.new(header:, children:)
+  end
+
+  def menu_item(title:, icon_key: nil, count: nil, show_enterprise_icon: false,
+                query_params: {}, selected: selected?(query_params), href: query_path(query_params))
     OpenProject::Menu::MenuItem.new(title:,
-                                    href: query_path(query_params),
+                                    href:,
                                     icon: icon_map.fetch(icon_key, icon_key),
                                     count:,
-                                    selected: selected?(query_params),
-                                    favored: favored?(query_params),
+                                    selected:,
+                                    favorited: favorited?(query_params),
                                     show_enterprise_icon:)
   end
 
@@ -126,14 +134,14 @@ class Submenu
       end
     end
 
-    if query_params.empty? && (%i[filters query_props query_id name].any? { |k| params.key? k })
+    if query_params.empty? && %i[filters query_props query_id name].any? { params.key?(it) }
       return false
     end
 
     true
   end
 
-  def favored?(_query_params)
+  def favorited?(_query_params)
     false
   end
 
@@ -143,5 +151,9 @@ class Submenu
 
   def query_path(query_params)
     raise NotImplementedError
+  end
+
+  def url_helpers
+    @url_helpers ||= OpenProject::StaticRouting::StaticRouter.new.url_helpers
   end
 end

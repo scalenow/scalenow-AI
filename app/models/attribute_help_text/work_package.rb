@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -49,7 +51,7 @@ class AttributeHelpText::WorkPackage < AttributeHelpText
 
   def self.visible_condition(user)
     visible_cf_names = WorkPackageCustomField
-                       .visible_by_user(user)
+                       .manageable_by_user(user)
                        .pluck(:id)
                        .map { |id| "custom_field_#{id}" }
 

@@ -27,7 +27,6 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-
 <% html_title(t(:label_administration), "#{t(:label_edit)} #{User.model_name.human} #{h(@user.name)}") -%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
@@ -35,5 +34,5 @@ See COPYRIGHT and LICENSE files for more details.
 
 <%= render Users::EditPageHeaderComponent.new(user: @user, current_user:, tabs: tabs) %>
 
-<%= render_tabs tabs, with_tab_nav: false %>
+<%= render_tabs tabs %>
 </div>

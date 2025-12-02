@@ -31,12 +31,17 @@
 require_relative "identifier"
 require_relative "column_type/generic"
 require_relative "column_type/with_identifier_metadata"
+require_relative "column_type/days_counting"
 require_relative "column_type/duration"
 require_relative "column_type/hierarchy"
+require_relative "column_type/identifier"
 require_relative "column_type/percentage"
-require_relative "column_type/properties"
+require_relative "column_type/predecessor_relations"
+require_relative "column_type/related_to_relations"
 require_relative "column_type/schedule"
+require_relative "column_type/scheduling_mode"
 require_relative "column_type/status"
+require_relative "column_type/successor_relations"
 require_relative "column_type/subject"
 
 module TableHelpers
@@ -51,10 +56,15 @@ module TableHelpers
       done_ratio: ColumnType::Percentage,
       derived_done_ratio: ColumnType::Percentage,
       hierarchy: ColumnType::Hierarchy,
-      properties: ColumnType::Properties,
+      ignore_non_working_days: ColumnType::DaysCounting,
+      identifier: ColumnType::Identifier,
+      predecessor_relations: ColumnType::PredecessorRelations,
+      related_to_relations: ColumnType::RelatedToRelations,
       schedule: ColumnType::Schedule,
+      schedule_manually: ColumnType::SchedulingMode,
       status: ColumnType::Status,
       subject: ColumnType::Subject,
+      successor_relations: ColumnType::SuccessorRelations,
       __fallback__: ColumnType::Generic
     }.freeze
 
@@ -88,9 +98,17 @@ module TableHelpers
         :due_date
       when /.*MTWTFSS.*/
         :schedule
-      when /\s*properties\s*/
-        :properties
-      when /status/, /hierarchy/
+      when /\s*days counting\s*/
+        :ignore_non_working_days
+      when /\s*scheduling mode\s*/
+        :schedule_manually
+      when /\s*predecessors\s*/
+        :predecessor_relations
+      when /\s*successors\s*/
+        :successor_relations
+      when /\s*relate[ds][ _]to\s*/
+        :related_to_relations
+      when /status/, /hierarchy/, /identifier/
         to_identifier(header)
       else
         attribute = to_identifier(header)

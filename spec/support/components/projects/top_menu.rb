@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -54,6 +56,11 @@ module Components
         within(".op-project-list-modal--header") do
           find('[data-test-selector="spot-toggle--option"]', text: mode).click
         end
+      end
+
+      def expect_current_mode(mode)
+        expect(page).to have_css('[data-test-selector="spot-toggle--option"][data-qa-active-toggle="true"]',
+                                 text: mode)
       end
 
       def expect_current_project(name)
@@ -118,6 +125,22 @@ module Components
           expect(page)
             .to have_css("#{hierarchy_selector} #{autocompleter_item_title_selector}", text: item_name)
         end
+      end
+
+      def expect_project_create_button
+        expect(page).to have_css(".spot-action-bar--action.-primary", text: "Project")
+      end
+
+      def expect_no_project_create_button
+        expect(page).to have_no_css(".spot-action-bar--action.-primary", text: "Project")
+      end
+
+      def expect_project_list_button
+        expect(page).to have_css(".spot-action-bar--action", text: "Project lists")
+      end
+
+      def expect_no_project_list_button
+        expect(page).to have_no_css(".spot-action-bar--action.-primary", text: "Project lists")
       end
 
       def autocompleter_item_selector

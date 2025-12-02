@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -39,19 +41,34 @@ module Storages
       end
 
       def render?
-        @storage.automatically_managed?
+        @storage.automatic_management_enabled?
       end
 
-      def notification_status
-        if @storage.health_notifications_should_be_sent?
-          { icon: :"bell-slash",
-            label: I18n.t("storages.health_email_notifications.unsubscribe"),
-            description: I18n.t("storages.health_email_notifications.description_subscribed") }
+      private
+
+      def health_status_indicator
+        case @storage.health_status
+        when "healthy"
+          { scheme: :success, label: I18n.t("storages.health.label_healthy") }
+        when "unhealthy"
+          { scheme: :danger, label: I18n.t("storages.health.label_error") }
         else
-          { icon: :bell,
-            label: I18n.t("storages.health_email_notifications.subscribe"),
-            description: I18n.t("storages.health_email_notifications.description_unsubscribed") }
+          { scheme: :attention, label: I18n.t("storages.health.label_pending") }
         end
+      end
+
+      # This method returns the health identifier, description and the time since when the error occurs in a
+      # formatted manner. e.g. "Not found: Outbound request destination not found since 12/07/2023 03:45 PM"
+      def formatted_health_reason
+        identifier = @storage.health_reason_identifier.tr("_", " ").strip
+        description = @storage.health_reason_description
+
+        if description.present?
+          identifier.capitalize!
+          identifier << ": #{description}"
+        end
+
+        "#{identifier} #{I18n.t('storages.health.since', datetime: helpers.format_time(@storage.health_changed_at))}"
       end
     end
   end

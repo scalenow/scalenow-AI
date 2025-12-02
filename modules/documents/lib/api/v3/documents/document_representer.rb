@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -46,6 +48,8 @@ module API
         property :title
 
         formattable_property :description
+
+        property :content_binary
 
         date_time_property :created_at
         date_time_property :updated_at

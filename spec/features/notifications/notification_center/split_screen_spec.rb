@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
-RSpec.describe "Split screen in the notification center", :js, :with_cuprite do
+RSpec.describe "Split screen in the notification center", :js do
   let(:global_html_title) { Components::HtmlTitle.new }
   let(:center) { Pages::Notifications::Center.new }
   let(:split_screen) { Pages::PrimerizedSplitWorkPackage.new work_package }
@@ -67,7 +69,7 @@ RSpec.describe "Split screen in the notification center", :js, :with_cuprite do
       split_screen.switch_to_tab tab: "relations"
       split_screen.expect_tab :relations
       relations_tab = Components::WorkPackages::Relations.new(work_package)
-      relations_tab.expect_no_relation work_package
+      relations_tab.expect_no_relations
 
       # Navigate to full view and back
       wp_full = split_screen.switch_to_fullscreen
@@ -93,12 +95,16 @@ RSpec.describe "Split screen in the notification center", :js, :with_cuprite do
 
       global_html_title.expect_first_segment "Notifications"
 
-      # Html title should be updated with next WP data after making the current one as read
-      second_title = "#{second_work_package.type.name}: #{second_work_package.subject} (##{second_work_package.id})"
+      # Reopen the split screen and mark it as read
       center.click_item notification
-      sleep 0.25 # Wait after the item has been clicked to not be interpreted as a double click
+      # Ensure the split screen is open before marking the notification as read
+      global_html_title.expect_first_segment first_title
       center.mark_notification_as_read notification
-      global_html_title.expect_first_segment second_title
+
+      # Having marked the other notification as read, the next notification should open up automatically
+      # and the html title should change accordingly.
+      second_title = "#{second_work_package.type.name}: #{second_work_package.subject} (##{second_work_package.id})"
+      global_html_title.expect_first_segment "#{second_title} | Notifications"
 
       # After making all notifications as read, html title should show the base route
       center.mark_notification_as_read second_notification

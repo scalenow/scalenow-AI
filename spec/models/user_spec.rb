@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -45,6 +47,13 @@ RSpec.describe User do
           author: user,
           project:,
           status:)
+  end
+
+  describe "Associations" do
+    it { is_expected.to have_many(:emoji_reactions).dependent(:destroy) }
+    it { is_expected.to have_many(:reminders).with_foreign_key(:creator_id).dependent(:destroy).inverse_of(:creator) }
+    it { is_expected.to have_many(:oauth_grants).with_foreign_key(:resource_owner_id).dependent(:delete_all) }
+    it { is_expected.to have_many(:oauth_applications).dependent(:destroy) }
   end
 
   describe "with long but allowed attributes" do
@@ -332,7 +341,7 @@ RSpec.describe User do
         it { is_expected.to eq "SmithJohn" }
       end
 
-      context "for lastname_coma_firstname", with_settings: { user_format: :lastname_coma_firstname } do
+      context "for lastname_comma_firstname", with_settings: { user_format: :lastname_comma_firstname } do
         it { is_expected.to eq "Smith, John" }
       end
 
@@ -350,8 +359,8 @@ RSpec.describe User do
 
       let(:user) { described_class.select_for_name(formatter).last }
 
-      context "for lastname_coma_firstname" do
-        let(:formatter) { :lastname_coma_firstname }
+      context "for lastname_comma_firstname" do
+        let(:formatter) { :lastname_comma_firstname }
 
         it { is_expected.to eq "Smith, John" }
       end
@@ -365,17 +374,38 @@ RSpec.describe User do
   end
 
   describe "#authentication_provider" do
-    before do
-      user.identity_url = "test_provider:veryuniqueid"
-      user.save!
+    let!(:authentication_provider) { create(:oidc_provider) }
+
+    context "when there is a link between user and auth provider" do
+      let(:user) { create(:user, authentication_provider:) }
+
+      it "returns the provider when there is a link" do
+        expect(user.authentication_provider).to eql(authentication_provider)
+      end
     end
 
-    it "returns the internal provider slug" do
-      expect(user.authentication_provider).to eql("test_provider")
+    context "when there is no link" do
+      it "returns nil" do
+        expect(user.authentication_provider).to be_nil
+      end
+    end
+  end
+
+  describe "#human_authentication_provider" do
+    let!(:authentication_provider) { create(:oidc_provider) }
+
+    context "when there is a link between user and auth provider" do
+      let(:user) { create(:user, authentication_provider:) }
+
+      it "returns a human readable name" do
+        expect(user.human_authentication_provider).to eql(authentication_provider.display_name)
+      end
     end
 
-    it "creates a human readable name" do
-      expect(user.human_authentication_provider).to eql("Test Provider")
+    context "when no provider exists" do
+      it "returns nil" do
+        expect(user.human_authentication_provider).to be_nil
+      end
     end
   end
 
@@ -467,7 +497,7 @@ RSpec.describe User do
 
   describe "#uses_external_authentication?" do
     context "with identity_url" do
-      let(:user) { build(:user, identity_url: "test_provider:veryuniqueid") }
+      let(:user) { create(:user, identity_url: "test_provider:veryuniqueid") }
 
       it "returns true" do
         expect(user).to be_uses_external_authentication
@@ -1050,8 +1080,9 @@ RSpec.describe User do
   end
 
   it_behaves_like "acts_as_customizable included" do
-    let(:model_instance) { user }
-    let(:custom_field) { create(:user_custom_field, :string) }
+    let!(:model_instance) { create(:user) }
+    let!(:new_model_instance) { user }
+    let!(:custom_field) { create(:user_custom_field, :string) }
   end
 
   describe ".available_custom_fields" do

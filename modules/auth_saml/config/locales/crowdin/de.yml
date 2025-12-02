@@ -1,11 +1,11 @@
 de:
-  activemodel:
+  activerecord:
     attributes:
       saml/provider:
         display_name: Name
         identifier: Kennung
         secret: Geheim
-        scope: Geltungsbereich
+        scope: Scope
         assertion_consumer_service_url: ACS (Assertion Consumer Service) URL
         limit_self_registration: Selbstregistrierung begrenzen
         sp_entity_id: Entity-ID des Services
@@ -23,7 +23,6 @@ de:
         digest_method: Digest-Algorithmus
         format: "Format"
         icon: "Benutzerdefiniertes Symbol"
-  activerecord:
     errors:
       models:
         saml/provider:
@@ -57,15 +56,17 @@ de:
       label_mapping: Zuordnung
       label_requested_attribute_for: "Angefordertes Attribut für: %{attribute}"
       no_results_table: Es wurden noch keine SAML-Identitätsanbieter definiert.
+      notice_created: Ein neuer SAML-Identitätsanbieter wurde erfolgreich erstellt.
       plural: SAML-Identitätsanbieter
       singular: SAML-Identitätsanbieter
       requested_attributes: Angeforderte Attribute
-      attribute_mapping: Attributzuordnung
+      attribute_mapping: Zuordnen von Attributen
       attribute_mapping_text: >
         Die folgenden Felder steuern, welche vom SAML-Identitätsanbieter bereitgestellten Attribute verwendet werden, um Benutzerattribute in scalenow-AI bereitzustellen
       metadata:
         dialog: "Dies ist die URL, unter der die scalenow-AI SAML-Metadaten verfügbar sind. Sie können sie auch verwenden, um Ihren Identitätsanbieter zu konfigurieren:"
-      upsale:
+      upsell:
+        title: "Single Sign-On (SSO) mit SAML"
         description: scalenow-AI mit einem SAML-Identitätsanbieter verbinden
       request_attributes:
         title: 'Angeforderte Attribute'

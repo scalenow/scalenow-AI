@@ -37,11 +37,11 @@ RSpec.describe API::V3::Storages::StorageRepresenter, "parsing" do
 
   subject(:parsed) { representer.from_hash parsed_hash }
 
-  describe "OneDrive/SharePoint" do
+  describe "OneDrive" do
     let(:storage) { build_stubbed(:one_drive_storage) }
     let(:parsed_hash) do
       {
-        "name" => "My SharePoint",
+        "name" => "My OneDrive",
         "tenantId" => "e36f1dbc-fdae-427e-b61b-0d96ddfb81a4",
         "_links" => {
           "type" => {
@@ -53,7 +53,7 @@ RSpec.describe API::V3::Storages::StorageRepresenter, "parsing" do
 
     context "with basic attributes" do
       it "is parsed correctly" do
-        expect(parsed).to have_attributes(name: "My SharePoint",
+        expect(parsed).to have_attributes(name: "My OneDrive",
                                           tenant_id: "e36f1dbc-fdae-427e-b61b-0d96ddfb81a4",
                                           provider_type: "Storages::OneDriveStorage")
 
@@ -91,6 +91,28 @@ RSpec.describe API::V3::Storages::StorageRepresenter, "parsing" do
           expect(parsed).not_to be_automatically_managed
           expect(parsed).to be_health_notifications_enabled
         end
+      end
+    end
+
+    context "with SSO authentication" do
+      before do
+        parsed_hash["_links"]["authenticationMethod"] = {
+          "href" => "urn:openproject-org:api:v3:storages:authenticationMethod:OAuth2SSO"
+        }
+        parsed_hash["storageAudience"] = "the-new-storage-audience"
+        parsed_hash["tokenExchangeScope"] = "one-scope two-scope"
+      end
+
+      it "parses the authentication method" do
+        expect(parsed.authentication_method).to eq("oauth2_sso")
+      end
+
+      it "parses the storage audience" do
+        expect(parsed.storage_audience).to eq("the-new-storage-audience")
+      end
+
+      it "parses the token exchange scope" do
+        expect(parsed.token_exchange_scope).to eq("one-scope two-scope")
       end
     end
 

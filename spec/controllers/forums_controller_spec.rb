@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -168,10 +170,11 @@ RSpec.describe ForumsController do
       end
     end
 
-    it "requests destruction and redirect" do
+    it "deletes the forum and redirects with 303 See Other" do
       expect(forum).to receive(:destroy)
-      delete :destroy, params: { project_id: project.id, id: 1 }
-      expect(response).to be_redirect
+      delete :destroy, params: { project_id: project.identifier, id: 1 }
+      expect(response).to have_http_status(:see_other)
+      expect(response).to redirect_to(project_forums_path(project))
     end
   end
 

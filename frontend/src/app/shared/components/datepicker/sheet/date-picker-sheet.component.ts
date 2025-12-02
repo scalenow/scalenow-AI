@@ -54,11 +54,11 @@ import { DeviceService } from 'core-app/core/browser/device.service';
   selector: 'op-datepicker-sheet',
   templateUrl: './date-picker-sheet.component.html',
   styleUrls: [
-    '../styles/datepicker.modal.sass',
     './date-picker-sheet.component.sass',
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class OpDatePickerSheetComponent implements AfterViewInit, OnChanges {
   @HostBinding('class.op-datepicker-sheet') className = true;

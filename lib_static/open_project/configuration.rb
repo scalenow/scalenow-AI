@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -133,7 +135,8 @@ module OpenProject
 
         define_singleton_method :"#{definition.name}?" do
           if definition.format != :boolean
-            ActiveSupport::Deprecation.warn "Calling #{self}.#{definition.name}? is deprecated since it is not a boolean", caller
+            ActiveSupport::Deprecation.new.warn "Calling #{self}.#{definition.name}? is deprecated since it is not a boolean",
+                                                caller_locations
           end
           TRUE_VALUES.include? self[definition.name]
         end

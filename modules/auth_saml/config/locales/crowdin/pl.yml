@@ -1,10 +1,10 @@
 pl:
-  activemodel:
+  activerecord:
     attributes:
       saml/provider:
         display_name: Nazwa
         identifier: Identyfikator
-        secret: Tajny klucz
+        secret: Klucz tajny
         scope: Zakres
         assertion_consumer_service_url: Adres URL usługi ACS (Assertion consumer service)
         limit_self_registration: Ogranicz samodzielną rejestrację
@@ -22,8 +22,7 @@ pl:
         signature_method: Algorytm sygnatury
         digest_method: Algorytm skrótu
         format: "Format"
-        icon: "Niestandardowa ikona"
-  activerecord:
+        icon: "Ikona niestandardowa"
     errors:
       models:
         saml/provider:
@@ -57,6 +56,7 @@ pl:
       label_mapping: Mapowanie
       label_requested_attribute_for: "Wymagany atrybut dla: %{attribute}"
       no_results_table: Jeszcze nie zdefiniowano żadnych dostawców tożsamości SAML.
+      notice_created: Nowy dostawca tożsamości SAML został utworzony.
       plural: Dostawcy tożsamości SAML
       singular: Dostawca tożsamości SAML
       requested_attributes: Wymagane atrybuty
@@ -65,7 +65,8 @@ pl:
         Następujące pola kontroli atrybutów dostarczonych przez dostawcę tożsamości SAML są używane do dostarczania atrybutów użytkownika w scalenow-AI
       metadata:
         dialog: "To jest adres URL, gdzie dostępne są metadane scalenow-AI SAML. Opcjonalnie użyj go, aby skonfigurować swojego dostawcę tożsamości:"
-      upsale:
+      upsell:
+        title: "Logowanie jednokrotne (SSO) przy użyciu SAML"
         description: Połącz scalenow-AI z dostawcą tożsamości SAML
       request_attributes:
         title: 'Wymagane atrybuty'

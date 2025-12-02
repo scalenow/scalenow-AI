@@ -28,21 +28,22 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 <% layout = local_assigns[:layout] %>
 
-<% html_title(layout== "my" ? t(:label_my_account) : t(:label_administration), "#{ t('account.deletion_info.heading', name: @user.name)}") -%>
+<% html_title(layout == "my" ? t(:label_my_account) : t(:label_administration), t("account.deletion_info.heading", name: @user.name).to_s) -%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%= render ::Users::DeletePageHeaderComponent.new(layout: layout, user: @user) %>
 
 <%= labelled_tabular_form_for(
-        :user,
-        url: user_path(@user),
-        html: {
-            method: :delete, class: 'confirm_required form danger-zone',
-            data: password_confirmation_data_attribute
-        }) do %>
+      :user,
+      url: user_path(@user),
+      html: {
+        method: :delete, class: "confirm_required form danger-zone",
+        data: password_confirmation_data_attribute
+      }
+    ) do %>
   <div class='wiki'>
     <section class="form--section">
-      <h3 class="form--section-title rounded-border">
+      <h3 class="form--section-title">
         <%= t('account.deletion_info.heading', name: "<em>#{h(@user.name)}</em>").html_safe %>
       </h3>
 
@@ -58,12 +59,14 @@ See COPYRIGHT and LICENSE files for more details.
         <span><%= t("account.deletion_info.info.#{User.current == @user ? 'self' : 'other'}") %></span>
       </p>
       <p>
-        <%= t("account.deletion_info.login_verification.#{User.current == @user ? 'self' : 'other'}",
-              name: "<em class=\"danger-zone--expected-value\">#{h(@user.login)}</em>").html_safe %>
+        <%= t(
+              "account.deletion_info.login_verification.#{User.current == @user ? 'self' : 'other'}",
+              name: "<em class=\"danger-zone--expected-value\">#{h(@user.login)}</em>"
+            ).html_safe %>
       </p>
       <div class="danger-zone--verification">
         <input type="text" name="login_verification"/>
-        <%= styled_button_tag '', class: '-primary custom-secondary-button rounded-border', disabled: true do
+        <%= styled_button_tag '', class: '-primary', disabled: true do
           concat content_tag :i, '', class: 'button--icon icon-delete'
           concat content_tag :span, t(:button_delete), class: 'button--text'
         end %>

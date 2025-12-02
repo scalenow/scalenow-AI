@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -94,15 +96,7 @@ module OAuth
         flash[:error] = t(:error_can_not_delete_entry)
       end
 
-      redirect_to action: :index
-    end
-
-    protected
-
-    def default_breadcrumb; end
-
-    def show_local_breadcrumb
-      false
+      redirect_to action: :index, status: :see_other
     end
 
     private
@@ -115,8 +109,6 @@ module OAuth
 
     def find_app
       @application = ::Doorkeeper::Application.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render_404
     end
   end
 end

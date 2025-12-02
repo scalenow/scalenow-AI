@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,6 +29,7 @@
 #++
 
 require "active_support/core_ext/integer/time"
+require "appsignal" # we will need it to test it in `spec/lib/open_project/appsignal_spec.rb`
 
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
@@ -121,4 +124,7 @@ Rails.application.configure do
 
   # Speed up tests by lowering BCrypt's cost function
   BCrypt::Engine.cost = BCrypt::Engine::MIN_COST
+
+  # use ActiveJob test adapter
+  config.active_job.queue_adapter = :test
 end

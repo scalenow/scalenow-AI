@@ -8,6 +8,7 @@
         url: 'Nyttelast-URL'
         secret: 'Hemmelig signaturnøkkel'
         events: 'Hendelser'
+        enabled: 'Aktivert'
         projects: 'Aktiverte prosjekter'
       webhooks/log:
         event_name: 'Navn på hendelse'
@@ -30,6 +31,8 @@
       events:
         created: "Opprettet"
         updated: "Oppdatert"
+        comment: "Kommentar"
+        internal_comment: "Internal comment"
       explanation:
         text: >
           Ved forekomst av en hendelse som oppretting av en arbeidspakke eller en oppdatering fra et prosjekt, vil scalenow-AI sende en POST-forespørsel til de konfigurerte nettendepunktene. Ofte blir hendelsen sendt etter at %{link} er godkjent.

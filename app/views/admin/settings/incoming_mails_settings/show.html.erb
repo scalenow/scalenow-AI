@@ -32,29 +32,36 @@ See COPYRIGHT and LICENSE files for more details.
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
   <%=
     render(Primer::OpenProject::PageHeader.new) do |header|
-      header.with_title(classes: "color-orange") { t(:'label_incoming_emails') }
-      header.with_breadcrumbs([{ href: admin_index_path, text: t(:label_administration) },
-                              { href: admin_settings_aggregation_path, text: t(:"menus.admin.mails_and_notifications") },
-                              t(:'label_incoming_emails')])
+      header.with_title(classes: "color-orange") { t(:label_incoming_emails) }
+      header.with_breadcrumbs(
+        [
+          { href: admin_index_path, text: t(:label_administration) },
+          { href: admin_settings_aggregation_path, text: t(:"menus.admin.mails_and_notifications") },
+          t(:label_incoming_emails)
+        ]
+      )
     end
   %>
 
   <%= styled_form_tag(admin_settings_incoming_mails_path, method: :patch) do %>
     <section class="form--section m-0">
       <div class="form--field">
-        <%= setting_text_area :mail_handler_body_delimiters, rows: 5, container_class: '-wide' %>
+        <%= setting_text_area :mail_handler_body_delimiters, rows: 5, container_class: "-wide" %>
         <div class="form--field-instructions"><%= t(:text_line_separated) %></div>
       </div>
+
       <div class="form--field">
-        <%= setting_text_field :mail_handler_body_delimiter_regex, container_class: '-wide' %>
+        <%= setting_text_field :mail_handler_body_delimiter_regex, container_class: "-wide" %>
         <div class="form--field-instructions"><%= t(:text_regexp_multiline) %></div>
       </div>
+
       <div class="form--field">
-        <%= setting_text_area :mail_handler_ignore_filenames, rows: 5, container_class: '-wide' %>
-        <div class="form--field-instructions"><%= t('incoming_mails.ignore_filenames') %></div>
+        <%= setting_text_area :mail_handler_ignore_filenames, rows: 5, container_class: "-wide" %>
+        <div class="form--field-instructions"><%= t("incoming_mails.ignore_filenames") %></div>
       </div>
     </section>
 
-    <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+    <%= styled_button_tag t(:button_save),
+          class: "-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3" %>
   <% end %>
 </div>

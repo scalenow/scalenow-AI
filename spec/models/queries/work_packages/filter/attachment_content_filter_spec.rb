@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -41,11 +43,16 @@ RSpec.describe Queries::WorkPackages::Filter::AttachmentContentFilter do
       let(:work_package) { create(:work_package) }
       let(:text) { "lorem ipsum" }
       let(:attachment) { create(:attachment, container: work_package) }
+      let(:plaintext_file_handler) do
+        Plaintext::Resolver.file_handlers.find { |h| h.accept? attachment.content_type }.tap do |plaintext_file_handler|
+          if plaintext_file_handler.nil?
+            fail "Plaintext::FileHandler not found for content type #{attachment.content_type}"
+          end
+        end
+      end
 
       before do
-        allow_any_instance_of(Plaintext::Resolver).to receive(:text).and_return(text)
-        allow(attachment).to receive(:readable?).and_return(true)
-        attachment.reload
+        allow(plaintext_file_handler).to receive(:text).and_return(text)
       end
 
       it "finds WP through attachment content" do
@@ -59,6 +66,7 @@ RSpec.describe Queries::WorkPackages::Filter::AttachmentContentFilter do
     it_behaves_like "basic query filter" do
       let(:type) { :text }
       let(:class_key) { :attachment_content }
+      let(:human_name) { "Attachment content" }
 
       describe "#available?" do
         it "is available" do

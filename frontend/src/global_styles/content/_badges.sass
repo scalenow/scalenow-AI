@@ -27,8 +27,7 @@
 //++
 
 $badge-diameter: 1.25rem
-$badge-background: var(--buttonCounter-default-bgColor-rest)
-$badge-secondary-background: var(--buttonCounter-default-bgColor-rest)
+$badge-background: var(--bgColor-neutral-muted)
 $badge-color: var(--fgColor-default)
 
 @mixin badge-layout($diameter: $badge-diameter)
@@ -40,6 +39,7 @@ $badge-color: var(--fgColor-default)
   color: $color
 
 .badge
+  font-size: var(--text-body-size-small)
   display: inline-flex
   align-items: center
   justify-content: center

@@ -29,10 +29,10 @@
 #++
 
 class WorkPackage::PDFExport::DocumentGenerator < Exports::Exporter
-  include WorkPackage::PDFExport::Common::Common
-  include WorkPackage::PDFExport::Common::Attachments
-  include WorkPackage::PDFExport::Common::Logo
-  include WorkPackage::PDFExport::Common::Macro
+  include Exports::PDF::Common::Common
+  include Exports::PDF::Common::Attachments
+  include Exports::PDF::Common::Logo
+  include Exports::PDF::Common::Macro
   include WorkPackage::PDFExport::Generator::Generator
 
   attr_accessor :pdf
@@ -52,26 +52,25 @@ class WorkPackage::PDFExport::DocumentGenerator < Exports::Exporter
   end
 
   def setup_page!
-    self.pdf = get_pdf(current_language)
+    self.pdf = get_pdf
   end
 
   def export!
     render_doc
     success(pdf.render)
   rescue StandardError => e
-    Rails.logger.error { "Failed to generate PDF: #{e} #{e.message}}." }
+    Rails.logger.error "Failed to generate PDF export:  #{e.message}:\n#{e.backtrace.join("\n")}"
     error(I18n.t(:error_pdf_failed_to_export, error: e.message))
+  ensure
+    delete_all_resized_images
   end
 
   def render_doc
     generate_doc!(
-      apply_markdown_field_macros(work_package.description || "", work_package),
+      apply_markdown_field_macros(work_package.description || "",
+                                  { work_package:, project: work_package.project, user: User.current }),
       "contracts.yml"
     )
-  end
-
-  def hyphenation_language
-    options[:hyphenation]
   end
 
   def heading

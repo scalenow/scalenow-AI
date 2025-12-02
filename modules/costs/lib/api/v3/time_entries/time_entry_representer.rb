@@ -93,10 +93,32 @@ module API
 
         associated_resource :project
 
+        associated_resource :entity,
+                            getter: ::API::V3::TimeEntries::EntityRepresenterFactory.create_getter_lambda(:entity),
+                            setter: ::API::V3::TimeEntries::EntityRepresenterFactory.create_setter_lambda(:entity),
+                            link: ::API::V3::TimeEntries::EntityRepresenterFactory.create_link_lambda(:entity)
+
+        # TODO: DEPRECATED!
         associated_resource :work_package,
-                            link_title_attribute: :subject
+                            skip_render: ->(*) { represented.entity_type != "WorkPackage" },
+                            getter: ->(*) { represented.entity if represented.entity_type == "WorkPackage" },
+                            setter: ::API::V3::TimeEntries::EntityRepresenterFactory.create_setter_lambda(:entity)
 
         associated_resource :user
+
+        date_time_property :start_time,
+                           exec_context: :decorator,
+                           getter: ->(*) {
+                             datetime_formatter.format_datetime(represented.start_timestamp, allow_nil: true)
+                           },
+                           if: ->(*) { TimeEntry.can_track_start_and_end_time? }
+
+        date_time_property :end_time,
+                           exec_context: :decorator,
+                           getter: ->(*) {
+                             datetime_formatter.format_datetime(represented.end_timestamp, allow_nil: true)
+                           },
+                           if: ->(*) { TimeEntry.can_track_start_and_end_time? }
 
         associated_resource :activity,
                             representer: TimeEntriesActivityRepresenter,
@@ -129,10 +151,39 @@ module API
                                                                          allow_nil: true)
         end
 
-        self.to_eager_load = [:work_package,
-                              :user,
-                              :activity,
-                              { project: :enabled_modules }]
+        def start_time=(value) # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+          ts = datetime_formatter.parse_datetime(value, "start_time", allow_nil: true)
+
+          if ts.nil?
+            represented.start_time = nil
+            return
+          end
+
+          tz_specific_time = if represented.user_id.present? && represented.user_id != current_user.id
+                               user = User.visible.find_by(id: represented.user_id)
+                               if user
+                                 ts.in_time_zone(user.time_zone)
+                               else
+                                 ts.in_time_zone(current_user.time_zone)
+                               end
+                             else
+                               ts.in_time_zone(current_user.time_zone)
+                             end
+
+          if tz_specific_time.to_date == represented.spent_on
+            represented.start_time = tz_specific_time.strftime("%H:%M")
+          else
+            raise API::Errors::Validation.new("start_time",
+                                              I18n.t("api_v3.errors.validation.start_time_different_date",
+                                                     spent_on: represented.spent_on,
+                                                     start_time: tz_specific_time.to_date))
+          end
+        end
+
+        self.to_eager_load = [:user, :activity, { project: :enabled_modules }, { custom_values: :custom_field }]
+
+        # entity is a polymorphic association and thus can't be eager-loaded, but it can be preloaded
+        self.to_preload = [:entity]
       end
     end
   end

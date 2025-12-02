@@ -7,12 +7,12 @@ import { ApiV3Service } from 'core-app/core/apiv3/api-v3.service';
 import { IanBellService } from 'core-app/features/in-app-notifications/bell/state/ian-bell.service';
 import { populateInputsFromDataset } from 'core-app/shared/components/dataset-inputs';
 
-
 @Component({
   selector: 'opce-in-app-notification-bell',
   templateUrl: './in-app-notification-bell.component.html',
   styleUrls: ['./in-app-notification-bell.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class InAppNotificationBellComponent implements OnInit {
   @Input() interval = 50000;
@@ -22,6 +22,8 @@ export class InAppNotificationBellComponent implements OnInit {
   unreadCount$:Observable<number>;
 
   unreadCountText$:Observable<number|string>;
+
+  public bellDisplayLimit = 99;
 
   constructor(
     readonly elementRef:ElementRef,
@@ -35,7 +37,7 @@ export class InAppNotificationBellComponent implements OnInit {
 
   // enable other parts of the application to trigger an immediate update
   // e.g. a stimulus controller
-  // currently used by the new activities tab which does it's own polling
+  // currently used by the new activities tab which does its own polling
   // and receives updates from the backend earlier than the polling in the bell component
   @HostListener('document:ian-update-immediate')
   triggerImmediateUpdate() {
@@ -64,20 +66,12 @@ export class InAppNotificationBellComponent implements OnInit {
       .unreadCount$
       .pipe(
         map((count) => {
-          if (count > 99) {
-            return '99+';
-          }
-
-          if (count <= 0) {
+          if (count > this.bellDisplayLimit || count <= 0) {
             return '';
           }
 
           return count;
         }),
       );
-  }
-
-  notificationsPath():string {
-    return this.pathHelper.notificationsPath();
   }
 }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -35,30 +37,72 @@ module OpenProject
         end
 
         def help_link
-          OpenProject::Configuration.force_help_link.presence || static_links[:user_guides]
+          OpenProject::Configuration.force_help_link.presence || static_links[:user_guides][:href]
         end
 
-        delegate :[], to: :links
-
-        def links
-          @links ||= static_links.merge(dynamic_links)
+        def cache_key
+          @cache_key ||= OpenProject::Cache::CacheKey.expand(links)
         end
 
-        def url_for(item)
-          links.dig(item, :href)
+        def label_for(*path)
+          key = links.dig(*path, :label)
+          return if key.nil?
+
+          I18n.t(key)
+        end
+
+        def url_for(*path, localize_url: true, url_params: {})
+          href = links.dig(*path, :href)
+          return if href.nil?
+
+          if localize_url && website_link?(href)
+            url_with_query(href, **url_params, go_to_locale: I18n.locale)
+          else
+            url_with_query(href, **url_params)
+          end
         end
 
         def has?(name)
           @links.key? name
         end
 
+        def website_link?(url)
+          url&.start_with?(website_url)
+        end
+
+        def website_url
+          links[:website][:href]
+        end
+
+        def reset_cache
+          @cache_key = nil
+          @links = nil
+          @static_links = nil
+        end
+
         private
+
+        def links
+          @links ||= static_links.merge(dynamic_links)
+        end
+
+        def url_with_query(href, **params)
+          return href if params.empty?
+
+          url = Addressable::URI.parse(href)
+          url.query_values = (url.query_values || {}).merge(params)
+          url.to_s
+        end
 
         def dynamic_links
           dynamic = {
             help: {
               href: "#",
               label: "top_menu.help_and_support"
+            },
+            current_release_notes: {
+              href: current_release_notes_link,
+              label: :label_release_notes
             }
           }
 
@@ -72,248 +116,16 @@ module OpenProject
           dynamic
         end
 
+        def current_release_notes_link
+          version = OpenProject::VERSION.to_semver(separator: "-", include_special: false)
+          "https://www.openproject.org/docs/release-notes/#{version}"
+        end
+
         def static_links
-          {
-            upsale: {
-              href: "#",
-              label: "homescreen.links.upgrade_enterprise_edition"
-            },
-            upsale_benefits_features: {
-              href: "#",
-              label: "noscript_learn_more"
-            },
-            upsale_benefits_installation: {
-              href: "#",
-              label: "noscript_learn_more"
-            },
-            upsale_benefits_security: {
-              href: "#",
-              label: "noscript_learn_more"
-            },
-            upsale_benefits_support: {
-              href: "#",
-              label: "noscript_learn_more"
-            },
-            upsale_get_quote: {
-              href: "#",
-              label: "admin.enterprise.get_quote"
-            },
-            user_guides: {
-              href: "https://scalenowai.com/user-guide-2/",
-              label: "homescreen.links.user_guides"
-            },
-            installation_guides: {
-              href: "#",
-              label: :label_installation_guides
-            },
-            packager_installation: {
-              href: "#",
-              label: "Packaged installation"
-            },
-            docker_installation: {
-              href: "#",
-              label: "Docker installation"
-            },
-            manual_installation: {
-              href: "#",
-              label: "Manual installation"
-            },
-            upgrade_guides: {
-              href: "#",
-              label: :label_upgrade_guides
-            },
-            postgres_migration: {
-              href: "#",
-              label: :"homescreen.links.postgres_migration"
-            },
-            postgres_13_upgrade: {
-              href: "#"
-            },
-            configuration_guide: {
-              href: "#",
-              label: "links.configuration_guide"
-            },
-            contact: {
-              href: "#",
-              label: "links.get_in_touch"
-            },
-            glossary: {
-              href: "https://scalenowai.com/glossary/",
-              label: "homescreen.links.glossary"
-            },
-            shortcuts: {
-              href: "#",
-              label: "homescreen.links.shortcuts"
-            },
-            forums: {
-              href: "https://scalenowai.com/scaled-agile-framework/",
-              label: "Scaled Agile Framework"
-            },
-            enterprise_support_as_community: {
-              href: "https://scalenowai.com/support/",
-              label: "Support"
-            },
-            enterprise_support: {
-              href: "https://scalenowai.com/support/",
-              label: "Support"
-            },
-            website: {
-              href: "https://www.scalenowai.com",
-              label: "label_openproject_website"
-            },
-            newsletter: {
-              href: "https://scalenowai.com/",
-              label: "Newsletter"
-            },
-            blog: {
-              href: "https://scalenowai.com/post/",
-              label: "homescreen.links.blog"
-            },
-            blog_article_progress_changes: {
-              href: "#",
-              label: "Significant changes to progress and work estimates"
-            },
-            release_notes: {
-              href: "https://scalenowai.com/termsofservice/",
-              label: "Terms of Service"
-            },
-            release_notes_14_0_1: {
-              href: "#",
-              label: "Release notes for OpenProject 14.0.1"
-            },
-            data_privacy: {
-              href: "https://scalenowai.com/australian-privacy-principles-apps/",
-              label: :label_privacy_policy
-            },
-            digital_accessibility: {
-              href: "https://scalenowai.com/aiservice/",
-              label: "AI Usage"
-            },
-            report_bug: {
-              href: "https://github.com/scalenow/scalenow-AI/issues",
-              label: :label_report_bug
-            },
-            roadmap: {
-              href: "https://scalenowai.com/",
-              label: :label_development_roadmap
-            },
-            crowdin: {
-              href: "https://scalenow.com.au/casestudies.html",
-              label: "Case Studies"
-            },
-            api_docs: {
-              href: "https://scalenowai.com/use-cases/",
-              label: "Use Cases"
-            },
-            text_formatting: {
-              href: "#",
-              label: :setting_text_formatting
-            },
-            oauth_authorization_code_flow: {
-              href: "#",
-              label: "oauth.flows.authorization_code"
-            },
-            client_credentials_code_flow: {
-              href: "#",
-              label: "oauth.flows.client_credentials"
-            },
-            ldap_encryption_documentation: {
-              href: "#"
-            },
-            origin_mdn_documentation: {
-              href: "#"
-            },
-            security_badge_documentation: {
-              href: "#"
-            },
-            date_format_settings_documentation: {
-              href: "#"
-            },
-            chargebee: {
-              href: "#"
-            },
-            webinar_videos: {
-              href: "#"
-            },
-            get_started_videos: {
-              href: "#"
-            },
-            openproject_docs: {
-              href: "#"
-            },
-            contact_us: {
-              href: "#"
-            },
-            pricing: {
-              href: "#"
-            },
-            progress_tracking_docs: {
-              href: "#"
-            },
-            enterprise_docs: {
-              form_configuration: {
-                href: "#"
-              },
-              attribute_highlighting: {
-                href: "#"
-              },
-              boards: {
-                href: "#"
-              },
-              custom_field_projects: {
-                href: "#"
-              },
-              custom_field_multiselect: {
-                href: "#"
-              },
-              status_read_only: {
-                href: "#"
-              }
-            },
-            sysadmin_docs: {
-              saml: {
-                href: "#"
-              },
-              oidc: {
-                href: "#"
-              },
-              oidc_claims: {
-                href: "#"
-              },
-              oidc_acr_values: {
-                href: "#"
-              }
-            },
-            storage_docs: {
-              setup: {
-                href: "#"
-              },
-              nextcloud_setup: {
-                href: "#"
-              },
-              one_drive_setup: {
-                href: "#"
-              },
-              one_drive_drive_id_guide: {
-                href: "#"
-              },
-              nextcloud_oauth_application: {
-                href: "#"
-              },
-              one_drive_oauth_application: {
-                href: "#"
-              },
-              troubleshooting: {
-                href: "#"
-              }
-            },
-            ical_docs: {
-              href: "#"
-            },
-            integrations: {
-              href: "#"
-            }
-          }
+          @static_links ||= begin
+            yaml = Rails.root.join("config/static_links.yml").read
+            YAML.safe_load(yaml, permitted_classes: [Symbol], symbolize_names: true)
+          end
         end
       end
     end

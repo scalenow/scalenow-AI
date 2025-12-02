@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -99,6 +101,14 @@ module Accounts::Registration
       Rails.logger.error "Authorization request failed: #{error}"
       show_error error
     end
+  end
+
+  def redirect_omniauth_register_modal(user, auth_hash)
+    # Store a timestamp so we can later make sure that authentication information can
+    # only be reused for a short time.
+    session[:auth_source_registration] = auth_hash.merge(omniauth: true, timestamp: Time.current)
+    @user = user
+    render template: "/account/register"
   end
 
   def respond_for_registered_user(user)

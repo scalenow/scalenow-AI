@@ -45,7 +45,7 @@ import {
 } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -102,6 +102,7 @@ import { TimezoneService } from 'core-app/core/datetime/timezone.service';
     OpWorkPackagesCalendarService,
     OpCalendarService,
   ],
+  standalone: false,
 })
 export class WorkPackagesCalendarComponent extends UntilDestroyedMixin implements OnInit {
   @ViewChild(FullCalendarComponent) ucCalendar:FullCalendarComponent;
@@ -400,7 +401,11 @@ export class WorkPackagesCalendarComponent extends UntilDestroyedMixin implement
       const startDate = this.workPackagesCalendar.eventDate(workPackage, 'start');
       const endDate = this.workPackagesCalendar.eventDate(workPackage, 'due');
 
-      const exclusiveEnd = moment(endDate).add(1, 'days').format('YYYY-MM-DD');
+      const exclusiveEnd = endDate && moment(endDate).add(1, 'days').format('YYYY-MM-DD');
+      // An event is visible on the calendar only if it has a start date.
+      // That's why the end date is used as event start date if the work package
+      // does not have a proper start date.
+      const visibleStart = startDate || endDate;
 
       const typeToBgClassMap: { [key: number]: string } = {
         1: "bg-primary-subtle",
@@ -416,7 +421,7 @@ export class WorkPackagesCalendarComponent extends UntilDestroyedMixin implement
 
       return {
         title: workPackage.subject,
-        start: startDate,
+        start: visibleStart,
         editable: this.workPackagesCalendar.dateEditable(workPackage),
         durationEditable: this.workPackagesCalendar.eventDurationEditable(workPackage),
         end: exclusiveEnd,

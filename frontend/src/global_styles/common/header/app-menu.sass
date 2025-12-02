@@ -1,5 +1,4 @@
 .op-app-menu
-  list-style: none
   display: flex
   margin: 0
   height: 100%
@@ -39,10 +38,6 @@
     min-width: 0px
     padding: 0 var(--main-menu-x-spacing)
 
-    @media screen and (max-width: $breakpoint-sm)
-      padding: 0 8px
-
-    .op-app-menu--item_dropdown-open &,
     &:hover
       text-decoration: none
       background: rgba(255, 127, 93, 0.12)
@@ -88,3 +83,6 @@
       left: 0
       right: 0
       width: 100vw
+
+  &--items
+    margin-left: 0

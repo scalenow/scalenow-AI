@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -51,6 +53,10 @@ class Queries::WorkPackages::Filter::ManualSortFilter <
 
   def self.key
     :manual_sort
+  end
+
+  def human_name
+    I18n.t("activerecord.attributes.query.manual_sorting")
   end
 
   def ar_object_filter?

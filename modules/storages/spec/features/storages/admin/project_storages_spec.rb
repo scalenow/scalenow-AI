@@ -34,8 +34,7 @@ require_module_spec_helper
 # We decrease the notification polling interval because some portions of the JS code rely on something triggering
 # the Angular change detection. This is usually done by the notification polling, but we don't want to wait
 RSpec.describe "Admin lists project mappings for a storage",
-               :js, :storage_server_helpers, :webmock, :with_cuprite,
-               with_settings: { notifications_polling_interval: 1_000 } do
+               :js, :storage_server_helpers, :webmock, with_settings: { notifications_polling_interval: 1_000 } do
   shared_let(:admin) { create(:admin, preferences: { time_zone: "Etc/UTC" }) }
   shared_let(:non_admin) { create(:user) }
 
@@ -46,7 +45,7 @@ RSpec.describe "Admin lists project mappings for a storage",
   shared_let(:oauth_client_token) { create(:oauth_client_token, oauth_client: storage.oauth_client, user: admin) }
 
   shared_let(:remote_identity) do
-    create(:remote_identity, oauth_client: storage.oauth_client, user: admin, origin_user_id: "admin")
+    create(:remote_identity, auth_source: storage.oauth_client, integration: storage, user: admin, origin_user_id: "admin")
   end
 
   shared_let(:archived_project_project_storage) do
@@ -158,7 +157,7 @@ RSpec.describe "Admin lists project mappings for a storage",
         find(".ng-option-label", text: project.name).click
         check "Include sub-projects"
 
-        expect(page.find_by_id("storages_project_storage_project_folder_mode_automatic")).to be_checked
+        expect(page).to have_checked_field("storages_project_storage_project_folder_mode_automatic")
 
         click_on "Add"
       end
@@ -182,8 +181,11 @@ RSpec.describe "Admin lists project mappings for a storage",
     it "links to the delete page of a storage" do
       page.find_test_selector("storage-delete-button").click
 
-      expect(page).to have_text("DELETE FILE STORAGE")
-      expect(page).to have_current_path("#{confirm_destroy_admin_settings_storage_path(storage)}?utf8=%E2%9C%93")
+      within_test_selector("op-storages--destroy-confirm-dialog") do
+        expect(page).to have_text("Delete file storage")
+        expect(page).to have_unchecked_field("I understand that this deletion cannot be reversed")
+        expect(page).to have_button("Delete permanently", disabled: true)
+      end
     end
 
     describe "Linking a project to a storage with a manually managed folder" do
@@ -206,7 +208,8 @@ RSpec.describe "Admin lists project mappings for a storage",
             find(".ng-option-label", text: project.name).click
             check "Include sub-projects"
 
-            expect(page.find_by_id("storages_project_storage_project_folder_mode_automatic")).to be_checked
+            expect(page)
+              .to have_checked_field("storages_project_storage_project_folder_mode_automatic")
 
             choose "Existing folder with manually managed permissions"
             wait_for { page }.to have_text("No selected folder")
@@ -252,7 +255,8 @@ RSpec.describe "Admin lists project mappings for a storage",
               click_on "Add"
 
               expect(page).to have_text("Please select a folder.")
-              expect(page.find_by_id("storages_project_storage_project_folder_mode_manual")).to be_checked
+              expect(page)
+                .to have_checked_field("storages_project_storage_project_folder_mode_manual")
               expect(page).to have_text("No selected folder")
             end
           end
@@ -328,7 +332,7 @@ RSpec.describe "Admin lists project mappings for a storage",
         end
       end
 
-      context "with OneDrive/Sharepoint with AMPF enabled" do
+      context "with OneDrive with AMPF enabled" do
         let(:storage) { create(:one_drive_storage_configured, :as_automatically_managed) }
         let(:project_storage) { create(:project_storage, storage:) }
 
@@ -365,7 +369,7 @@ RSpec.describe "Admin lists project mappings for a storage",
         page.within("dialog") do
           expect(page).to have_text("Remove project from #{storage.name}")
           expect(page).to have_text("this storage has an automatically managed project folder")
-          click_on "Close"
+          click_on "Cancel"
         end
 
         expect(page).to have_text(project.name)
@@ -394,7 +398,7 @@ RSpec.describe "Admin lists project mappings for a storage",
         page.within("dialog") do
           expect(page).to have_button("Remove", disabled: true)
           Retryable.repeat_until_success do
-            check "Please, confirm you understand and want to remove this file storage from this project"
+            check "Please, confirm you understand and want to remove this file storage from this project", allow_label_click: true
             expect(page).to have_button("Remove", disabled: false) # ensure button is clickable
             click_on "Remove"
           end

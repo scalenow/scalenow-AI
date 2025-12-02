@@ -26,7 +26,7 @@
 // See COPYRIGHT and LICENSE files for more details.
 //++
 
-/***** Auto-complete ****
+/***** Auto-complete ****/
 
 div.autocomplete
   position: absolute
@@ -67,6 +67,20 @@ div.autocomplete
     .ng-select-container
       border-color: var(--content-form-error-color)
 
+  &.ng-select-disabled
+    .ng-select-container,
+    .ng-select-container .ng-value-container input
+      background-color: var(--control-bgColor-disabled) !important
+      border-color: var(--control-borderColor-disabled) !important
+      box-shadow: none !important
+      color: var(--control-fgColor-disabled) !important
+      cursor: not-allowed !important
+      opacity: 1
+      -webkit-text-fill-color: var(--control-fgColor-disabled)
+
+    &.ng-select-searchable .ng-select-container .ng-value-container .ng-input
+      opacity: 0
+
   .ng-value-container
     min-height: 2rem
     width: calc(100% - 30px)
@@ -104,6 +118,7 @@ div.autocomplete
 
 // Override some basic styles to ensure that ngSelect matches the current theme
 .ng-select-container,
+.ng-optgroup:not(.ng-option-marked, .ng-option-disabled),
 .ng-option:not(.ng-option-marked, .ng-option-disabled),
 .ng-dropdown-panel,
 .ng-dropdown-panel-items,
@@ -147,7 +162,7 @@ div.autocomplete
 .ng-option-label
   vertical-align: top
 
-.ng-option
+.ng-option, .ng-optgroup
   line-height: 22px
   font-size: var(--body-font-size)
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -29,6 +31,7 @@ require "spec_helper"
 require_relative "../shared_expectations"
 
 RSpec.describe CustomActions::Actions::CustomField do
+  let(:scope) { instance_double(ActiveRecord::Relation) }
   let(:list_custom_field) do
     build_stubbed(:list_wp_custom_field,
                   custom_options: [build_stubbed(:custom_option, value: "A"),
@@ -261,7 +264,7 @@ RSpec.describe CustomActions::Actions::CustomField do
 
       it "is :associated_property" do
         expect(instance.type)
-          .to be(:associated_property)
+          .to be(:user)
       end
 
       describe "current_user special value" do
@@ -406,9 +409,14 @@ RSpec.describe CustomActions::Actions::CustomField do
       let(:versions) { [z_version, a_version, m_version] }
 
       before do
+        allow(scope)
+          .to receive(:references)
+                .with(:project)
+                .and_return(versions)
+
         allow(Version)
           .to receive(:systemwide)
-          .and_return(versions)
+          .and_return(scope)
       end
 
       context "for a non required field" do
@@ -445,8 +453,12 @@ RSpec.describe CustomActions::Actions::CustomField do
       before do
         allow(Principal)
           .to receive(:in_visible_project_or_me)
-          .with(User.current)
-          .and_return(users)
+                .with(User.current)
+                .and_return(scope)
+
+        allow(scope)
+          .to receive(:select)
+                .and_return(users)
       end
 
       context "for a non required field" do
@@ -519,8 +531,12 @@ RSpec.describe CustomActions::Actions::CustomField do
       before do
         allow(Principal)
           .to receive(:in_visible_project_or_me)
-          .with(User.current)
-          .and_return(users)
+                .with(User.current)
+                .and_return(scope)
+
+        allow(scope)
+          .to receive(:select)
+                .and_return(users)
       end
 
       it_behaves_like "associated custom action validations" do
@@ -541,9 +557,14 @@ RSpec.describe CustomActions::Actions::CustomField do
       end
 
       before do
+        allow(scope)
+          .to receive(:references)
+                .with(:project)
+                .and_return(versions)
+
         allow(Version)
           .to receive(:systemwide)
-          .and_return(versions)
+          .and_return(scope)
       end
 
       it_behaves_like "associated custom action validations" do
@@ -560,8 +581,8 @@ RSpec.describe CustomActions::Actions::CustomField do
       it_behaves_like "bool custom action validations" do
         let(:allowed_values) do
           [
-            { true: OpenProject::Database::DB_VALUE_TRUE },
-            { false: OpenProject::Database::DB_VALUE_FALSE }
+            { true => OpenProject::Database::DB_VALUE_TRUE },
+            { false => OpenProject::Database::DB_VALUE_FALSE }
           ]
         end
       end
@@ -644,6 +665,76 @@ RSpec.describe CustomActions::Actions::CustomField do
           expect(work_package)
             .to have_received(custom_field.attribute_setter)
                   .with(Date.current)
+        end
+      end
+    end
+
+    describe "custom field validation" do
+      let(:custom_field) { create(:string_wp_custom_field) }
+      let(:work_package) { create(:work_package) }
+      let(:custom_value) { work_package.custom_value_for(custom_field) }
+
+      before do
+        # Ensure the work package has the custom field
+        work_package.project.work_package_custom_fields << custom_field
+        work_package.type.custom_fields << custom_field
+        work_package.reload # Reload to pick up the new custom field associations
+      end
+
+      it "adds the custom value to custom_values_to_validate when applying the action" do
+        # Create the action instance for our created custom field
+        action_instance = described_class.for(custom_field.attribute_name).new
+        action_instance.values = ["test value"]
+
+        # Initially, custom_values_to_validate should be empty for persisted work packages
+        expect(work_package.custom_values_to_validate).to eq([])
+
+        action_instance.apply(work_package)
+
+        # After applying, the custom value should be added to validation
+        expect(work_package.custom_values_to_validate).to include(custom_value)
+        expect(work_package.custom_values_to_validate.size).to eq(1)
+      end
+
+      it "does not add to custom_values_to_validate if work package doesn't respond to the setter" do
+        # Create a work package that doesn't have this custom field
+        other_work_package = create(:work_package)
+        action_instance = described_class.for(custom_field.attribute_name).new
+        action_instance.values = ["test value"]
+
+        expect(other_work_package.custom_values_to_validate).to be_empty
+
+        action_instance.apply(other_work_package)
+
+        # Should remain empty since the setter doesn't exist
+        expect(other_work_package.custom_values_to_validate).to be_empty
+      end
+
+      context "with multiple custom actions" do
+        let(:another_custom_field) { create(:string_wp_custom_field) }
+        let(:another_instance) { described_class.for(another_custom_field.attribute_name).new }
+
+        before do
+          work_package.project.work_package_custom_fields << another_custom_field
+          work_package.type.custom_fields << another_custom_field
+        end
+
+        it "accumulates custom values in custom_values_to_validate" do
+          action_instance = described_class.for(custom_field.attribute_name).new
+          action_instance.values = ["first value"]
+          another_instance.values = ["second value"]
+
+          expect(work_package.custom_values_to_validate).to be_empty
+
+          action_instance.apply(work_package)
+          expect(work_package.custom_values_to_validate.size).to eq(1)
+
+          another_instance.apply(work_package)
+          expect(work_package.custom_values_to_validate.size).to eq(2)
+
+          # Should contain custom values for both fields
+          custom_field_ids = work_package.custom_values_to_validate.map(&:custom_field_id)
+          expect(custom_field_ids).to contain_exactly(custom_field.id, another_custom_field.id)
         end
       end
     end

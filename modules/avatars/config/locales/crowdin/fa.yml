@@ -1,9 +1,9 @@
 #English strings go here
 fa:
   plugin_openproject_avatars:
-    name: "چهرک‌ها"
+    name: "آواتارها"
     description: >-
-      This plugin allows scalenow-AI users to upload a picture to be used as an avatar or use registered images from Gravatar.
+      این پلاگین به کاربران scalenow-AI اجازه می‌دهد تا تصویری را بارگذاری کنند که به عنوان یک آواتار یا از تصاویر ثبت‌شده از Gravatar استفاده شود.
   label_avatar: "چهرک"
   label_avatar_plural: "آواتارها"
   label_current_avatar: "آواتار فعلی"
@@ -32,7 +32,7 @@ fa:
     text_local_avatar_over_gravatar: |
       اگر یکی تنظیم کنید، این آواتار شخصی به اولویت نسبت به گراواتار بالا استفاده می‌شود.
     text_your_current_gravatar: |
-      scalenow-AI از گراواتار یا در صورت وجود تصویر یا آیکون پیش‌فرض شما یکی را استفاده می‌کند. گراواتار فعلی به شکل زیر است:
+       scalenow-AI از گراواتار یا در صورت وجود تصویر یا آیکون پیش‌فرض شما یکی را استفاده می‌کند. گراواتار فعلی به شکل زیر است:
     settings:
       enable_gravatars: 'چهرکنماد (شناسایی چهرک جهانی) کاربر را کارآ کنید'
       gravatar_default: "تصویر گراواتار پیش‌فرض"

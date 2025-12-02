@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -61,7 +63,8 @@ RSpec.describe WorkPackage do
         val = custom_field.custom_options.find { |co| co.value == value }.try(:id)
 
         work_package.custom_field_values = { custom_field.id => val || value }
-        work_package.save if save
+        work_package.custom_values_to_validate = work_package.custom_field_values
+        work_package.save(context: :saving_custom_fields) if save
       end
     end
 
@@ -82,12 +85,12 @@ RSpec.describe WorkPackage do
       context "creating a cf value" do
         it "updates the updated_at attribute" do
           expect { change_custom_field_value(work_package, custom_field.possible_values.first) }
-            .to change { work_package.updated_at }
+            .to change(work_package, :updated_at)
         end
 
         it "updates the lock_version attribute" do
           expect { change_custom_field_value(work_package, custom_field.possible_values.first) }
-            .to change { work_package.lock_version }.by(1)
+            .to change(work_package, :lock_version).by(1)
         end
       end
 
@@ -98,12 +101,12 @@ RSpec.describe WorkPackage do
 
         it "updates the updated_at attribute" do
           expect { change_custom_field_value(work_package, nil) }
-            .to change { work_package.updated_at }
+            .to change(work_package, :updated_at)
         end
 
         it "updates the lock_version attribute" do
           expect { change_custom_field_value(work_package, nil) }
-            .to change { work_package.lock_version }.by(1)
+            .to change(work_package, :lock_version).by(1)
         end
       end
 
@@ -114,12 +117,12 @@ RSpec.describe WorkPackage do
 
         it "updates the updated_at attribute" do
           expect { change_custom_field_value(work_package, custom_field.possible_values.last) }
-            .to change { work_package.updated_at }
+            .to change(work_package, :updated_at)
         end
 
         it "updates the lock_version attribute" do
           expect { change_custom_field_value(work_package, custom_field.possible_values.last) }
-            .to change { work_package.lock_version }.by(1)
+            .to change(work_package, :lock_version).by(1)
         end
       end
 
@@ -132,7 +135,7 @@ RSpec.describe WorkPackage do
           work_package.subject = "new subject"
 
           expect { change_custom_field_value(work_package, custom_field.possible_values.last) }
-            .to change { work_package.lock_version }.by(1)
+            .to change(work_package, :lock_version).by(1)
         end
       end
     end
@@ -152,7 +155,7 @@ RSpec.describe WorkPackage do
             end
 
             describe "error message" do
-              before { work_package.save }
+              before { work_package.save(context: :saving_custom_fields) }
 
               subject { work_package.errors[custom_field_key] }
 
@@ -163,7 +166,7 @@ RSpec.describe WorkPackage do
 
             describe "symbols_for" do
               before do
-                work_package.save
+                work_package.save(context: :saving_custom_fields)
               end
 
               it "stores the symbol" do
@@ -173,7 +176,7 @@ RSpec.describe WorkPackage do
             end
 
             describe "work package attribute update" do
-              subject { work_package.save }
+              subject { work_package.save(context: :saving_custom_fields) }
 
               it { is_expected.to be_falsey }
             end
@@ -225,7 +228,7 @@ RSpec.describe WorkPackage do
         end
 
         context "save" do
-          subject { work_package.typed_custom_value_for(custom_field.id) }
+          subject { work_package.typed_custom_value_for(custom_field) }
 
           it { is_expected.to eq("PostgreSQL") }
         end
@@ -239,7 +242,7 @@ RSpec.describe WorkPackage do
           work_package.reload
         end
 
-        subject { work_package.typed_custom_value_for(custom_field.id) }
+        subject { work_package.typed_custom_value_for(custom_field) }
 
         it { is_expected.to eql("PostgreSQL") }
       end
@@ -272,7 +275,7 @@ RSpec.describe WorkPackage do
             work_package.type = type_feature
           end
 
-          subject { WorkPackage.find(work_package.id).typed_custom_value_for(custom_field) }
+          subject { described_class.find(work_package.id).typed_custom_value_for(custom_field) }
 
           it { is_expected.to eq("PostgreSQL") }
         end
@@ -309,12 +312,12 @@ RSpec.describe WorkPackage do
         end
 
         subject do
-          wp = WorkPackage.new.tap do |i|
+          wp = described_class.new.tap do |i|
             i.attributes = { project: }
           end
           wp.attributes = attribute_hash
 
-          wp.custom_value_for(custom_field_2.id).value
+          wp.custom_value_for(custom_field_2).value
         end
 
         it { is_expected.to eql(OpenProject::Database::DB_VALUE_TRUE) }
@@ -336,7 +339,7 @@ RSpec.describe WorkPackage do
 
       describe "value" do
         let(:relevant_journal) do
-          work_package.journals.find { |j| j.customizable_journals.size > 0 }
+          work_package.journals.find { |j| !j.customizable_journals.empty? }
         end
 
         subject { relevant_journal.customizable_journals.first.value }
@@ -390,10 +393,11 @@ RSpec.describe WorkPackage do
 
       it "works for the max length validation" do
         work_package.custom_field_values.first.value = "12345"
+        work_package.custom_values_to_validate = work_package.custom_field_values
 
         # don't want to see I18n::MissingInterpolationArgument specifically
-        expect { work_package.valid? }.not_to raise_error
-        expect(work_package.valid?).to be_falsey
+        expect { work_package.valid?(:saving_custom_fields) }.not_to raise_error
+        expect(work_package).not_to be_valid(:saving_custom_fields)
 
         expect(work_package.errors.full_messages.first)
           .to eq "PIN is too long (maximum is 4 characters)."

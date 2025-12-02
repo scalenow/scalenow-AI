@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -38,10 +40,24 @@ module OpPrimer
       system_arguments[:test_selector] ||= "op-primer-flash-message"
       system_arguments[:dismiss_scheme] ||= :remove
       system_arguments[:dismiss_label] ||= I18n.t(:button_close)
+      system_arguments[:data] ||= {}
+      system_arguments[:data]["flash-target"] = "flash"
 
       @autohide = system_arguments[:scheme] == :success && system_arguments[:dismiss_scheme] != :none
 
       super
+    end
+
+    def render_as_turbo_stream(...)
+      return unless render?
+
+      super
+    end
+
+    private
+
+    def render?
+      trimmed_content.present?
     end
   end
 end

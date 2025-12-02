@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,7 +30,7 @@
 
 require "spec_helper"
 
-RSpec.describe "Invite user modal", :js, :with_cuprite do
+RSpec.describe "Invite user modal", :js do
   let!(:standard) { create(:standard_global_role) }
   let!(:project) { create(:project) }
   let!(:work_package) { create(:work_package, project:) }
@@ -57,10 +59,10 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
   end
 
   shared_examples "invites the principal to the project" do |skip_project_autocomplete = false|
+    let(:modal_actions) { modal.run_all_steps(skip_project_autocomplete:) }
+
     it "invites that principal to the project" do
-      perform_enqueued_jobs do
-        modal.run_all_steps(skip_project_autocomplete:)
-      end
+      perform_enqueued_jobs { modal_actions }
 
       assignee_field.expect_inactive!
       assignee_field.expect_display_value added_principal.name
@@ -109,8 +111,8 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
     before do
       wp_page.visit!
 
-      find(".op-app-menu--item-action.op-quick-add-menu--button").click
-      find(".invite-user-menu-item.op-menu--item-action", text: "Invite user", wait: 5).click
+      page.find_test_selector("quick-add-menu-button").click
+      page.find_test_selector("quick-add-menu-item", text: "Invite user", wait: 5).click
     end
 
     it "does show you all users email address" do
@@ -181,9 +183,9 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
 
       before do
         wp_page.visit!
-
-        assignee_field.activate!
-
+        retry_block do
+          assignee_field.activate!
+        end
         find(".ng-dropdown-footer button", text: "Invite", wait: 10).click
       end
 
@@ -225,6 +227,21 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
             let(:added_principal) { principal }
             let(:mail_membership_recipients) { [principal] }
           end
+
+          context "when the required list CF value is missing" do
+            let(:list_cf) do
+              create(:user_custom_field,
+                     :list,
+                     name: "List",
+                     is_required: true,
+                     editable: false)
+            end
+
+            it_behaves_like "invites the principal to the project" do
+              let(:added_principal) { principal }
+              let(:mail_membership_recipients) { [principal] }
+            end
+          end
         end
       end
 
@@ -239,6 +256,58 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
             let(:added_principal) { User.find_by!(mail: principal.mail) }
             let(:mail_invite_recipients) { [added_principal] }
             let(:mail_membership_recipients) { [added_principal] }
+          end
+
+          context "with a required list user CF" do
+            let(:current_user) { create(:admin) }
+            let(:list_cf) do
+              create(:user_custom_field,
+                     :list,
+                     name: "List",
+                     is_required: true,
+                     editable: false,
+                     default_option: "A")
+            end
+
+            before do
+              list_cf
+            end
+
+            it_behaves_like "invites the principal to the project" do
+              let(:added_principal) { User.find_by!(mail: principal.mail) }
+              let(:mail_invite_recipients) { [added_principal] }
+              let(:mail_membership_recipients) { [added_principal] }
+            end
+
+            context "when the required list CF value is missing" do
+              let(:string_cf) { create(:user_custom_field, :string, name: "Department", is_required: true) }
+
+              before do
+                string_cf
+              end
+
+              it_behaves_like "invites the principal to the project" do
+                let(:added_principal) { User.find_by!(mail: principal.mail) }
+                let(:mail_invite_recipients) { [added_principal] }
+                let(:mail_membership_recipients) { [added_principal] }
+                let(:modal_actions) do
+                  modal.expect_open
+                  modal.project_step
+                  modal.principal_step
+
+                  modal.expect_error_displayed("Department can't be blank")
+                  modal.within_modal do
+                    fill_in "Department", with: "Engineering"
+                  end
+
+                  modal.click_next
+                  modal.confirmation_step
+                  modal.click_modal_button "Send invitation"
+                  modal.expect_text "#{principal.mail} was invited!"
+                  modal.click_modal_button "Continue"
+                end
+              end
+            end
           end
         end
 
@@ -270,7 +339,7 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
                    roles: [role_no_permissions])
           end
 
-          it "disables projects for which you do not have rights", with_cuprite: false do
+          it "disables projects for which you do not have rights", :js, :selenium do
             ngselect = modal.open_select_in_step ".ng-select-container"
             expect(ngselect).to have_text "#{project_no_permissions.name}\nYou are not allowed to invite members to this project"
           end
@@ -281,7 +350,7 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
           # Use admin to ensure all projects are visible
           let(:current_user) { create(:admin) }
 
-          it "disables projects for which you do not have rights", with_cuprite: false do
+          it "disables projects for which you do not have rights", :js do
             ngselect = modal.open_select_in_step ".ng-select-container"
             expect(ngselect).to have_no_text archived_project
           end
@@ -340,12 +409,46 @@ RSpec.describe "Invite user modal", :js, :with_cuprite do
 
       describe "inviting groups" do
         let(:group_user) { create(:user) }
-        let(:principal) { create(:group, name: "MY NEW GROUP", members: [group_user]) }
+        let!(:principal) { create(:group, name: "MY NEW GROUP", members: [group_user]) }
 
         it_behaves_like "invites the principal to the project" do
           let(:added_principal) { principal }
           # Groups get no invite mail themselves but their members do
           let(:mail_membership_recipients) { [group_user] }
+        end
+
+        context "with a required group custom field" do
+          let(:current_user) { create(:admin) }
+          let(:list_cf) do
+            create(:group_custom_field,
+                   :list,
+                   name: "Department",
+                   is_required: true,
+                   editable: false,
+                   default_option: "A")
+          end
+
+          before do
+            list_cf
+          end
+
+          it_behaves_like "invites the principal to the project" do
+            let(:added_principal) { principal }
+            let(:mail_membership_recipients) { [group_user] }
+          end
+
+          context "when the required group CF value is missing" do
+            let(:string_cf) { create(:group_custom_field, :string, name: "Team Type", is_required: true) }
+
+            before do
+              string_cf
+            end
+
+            it_behaves_like "invites the principal to the project" do
+              let(:added_principal) { principal }
+              let(:mail_membership_recipients) { [group_user] }
+            end
+          end
         end
       end
     end

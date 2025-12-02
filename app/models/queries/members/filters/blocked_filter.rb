@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,6 +30,10 @@
 
 class Queries::Members::Filters::BlockedFilter < Queries::Members::Filters::MemberFilter
   include Queries::Filters::Shared::UserBlockedFilter
+
+  def human_name
+    I18n.t(:status_blocked)
+  end
 
   def joins
     :principal

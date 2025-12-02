@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -76,6 +78,10 @@ module Pages
       page.within(".principal-#{user.id}", &)
     end
 
+    def in_user_hover_card(user, &)
+      page.within_test_selector("user-hover-card-#{user.id}", wait: 5, &)
+    end
+
     ##
     # Adds the given user to this project.
     #
@@ -105,7 +111,7 @@ module Pages
     end
 
     def click_row_action!(row, action)
-      action_menu_button = row.find(:link_or_button) { _1.has_selector?("svg.octicon-kebab-horizontal") }
+      action_menu_button = row.find(:link_or_button) { it.has_selector?("svg.octicon-kebab-horizontal") }
 
       action_menu_button.click
 

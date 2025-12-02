@@ -106,14 +106,13 @@ class Projects::IndexPageHeaderComponent < ApplicationComponent
     query.persisted?
   end
 
-  def can_toggle_favor? = query.persisted?
+  def can_toggle_favorite? = query.persisted?
 
-  def currently_favored? = query.favored_by?(current_user)
+  def currently_favorited? = query.favorited_by?(current_user)
 
   def breadcrumb_items
     [
-      { href: home_path, text: helpers.organization_name },
-      { href: projects_path, text: t(:label_project_plural) },
+      { href: projects_path, text: t(:label_project_plural), skip_for_mobile: first_menu_item? },
       current_breadcrumb_element
     ]
   end
@@ -122,7 +121,7 @@ class Projects::IndexPageHeaderComponent < ApplicationComponent
     return page_title if query.name.blank?
 
     if current_section && current_section.header.present?
-      I18n.t("menus.breadcrumb.nested_element", section_header: current_section.header, title: query.name).html_safe
+      helpers.nested_breadcrumb_element(current_section.header, query.name)
     else
       page_title
     end
@@ -136,6 +135,11 @@ class Projects::IndexPageHeaderComponent < ApplicationComponent
       .selected_menu_group
   end
 
+  def first_menu_item?
+    current_item = current_section&.children&.select { |x| x.selected == true }&.first
+    current_item&.title == ::ProjectQueries::Static.query(ProjectQueries::Static::DEFAULT).name
+  end
+
   def header_save_action(header:, message:, label:, href:, method: nil)
     header.with_action_text { message }
 
@@ -143,7 +147,10 @@ class Projects::IndexPageHeaderComponent < ApplicationComponent
       mobile_icon: nil, # Do not show on mobile as it is already part of the menu
       mobile_label: nil,
       href:,
-      data: { "turbo-stream": true, method: },
+      data: {
+        turbo_stream: true,
+        turbo_method: method
+      },
       target: ""
     ) do
       render(
@@ -162,7 +169,10 @@ class Projects::IndexPageHeaderComponent < ApplicationComponent
       label:,
       href:,
       content_arguments: {
-        data: { "turbo-stream": true, method: }
+        data: {
+          turbo_stream: true,
+          turbo_method: method
+        }
       }
     ) do |item|
       item.with_leading_visual_icon(icon: :"op-save")

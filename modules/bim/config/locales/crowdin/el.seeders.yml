@@ -107,7 +107,7 @@ el:
             item_2:
               name: Tasks
             item_3:
-              name: Team planner
+              name: Προγραμματισμός Ομάδας
           boards:
             bcf:
               name: Simple drag'n drop workflow
@@ -169,7 +169,7 @@ el:
             item_2:
               name: Tasks
             item_3:
-              name: Team planner
+              name: Προγραμματισμός Ομάδας
           project-overview:
             widgets:
               item_0:
@@ -256,7 +256,7 @@ el:
 
                     *   Create a useful overview of the results
                     *   Check what has been done and summarize the results
-                    *   Communicate all the relevant results with the customer
+                    *   Communicate all the relevant results with the customer
                     *   Identify the fundamental boundary conditions of the project
 
                     ## Description
@@ -271,7 +271,7 @@ el:
 
                     *   Create a useful overview of the results
                     *   Check what has been done and summarize the results
-                    *   Communicate all the relevant results with the customer
+                    *   Communicate all the relevant results with the customer
                     *   Identify the fundamental boundary conditions of the project
 
                     ## Description
@@ -423,7 +423,7 @@ el:
             item_2:
               name: Tasks
             item_3:
-              name: Team planner
+              name: Προγραμματισμός Ομάδας
           project-overview:
             widgets:
               item_0:
@@ -696,7 +696,7 @@ el:
             item_6:
               name: Tasks
             item_7:
-              name: Team planner
+              name: Προγραμματισμός Ομάδας
           boards:
             bcf:
               name: BCF issues

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,7 +29,7 @@
 
 module MeetingAgendaItems
   class DeleteContract < ::DeleteContract
-    include ModifiableItem
+    include EditableItem
 
     delete_permission :manage_agendas
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,6 +30,7 @@
 
 class Storages::Admin::ProjectStoragesController < Projects::SettingsController
   include Storages::OAuthAccessGrantable
+  include OpTurbo::ComponentStream
 
   model_object Storages::ProjectStorage
 
@@ -57,38 +60,6 @@ class Storages::Admin::ProjectStoragesController < Projects::SettingsController
     render template: "/storages/project_settings/new"
   end
 
-  def create
-    service_result = ::Storages::ProjectStorages::CreateService
-                       .new(user: current_user)
-                       .call(permitted_storage_settings_params)
-    @project_storage = service_result.result
-
-    if service_result.success?
-      flash[:notice] = I18n.t(:notice_successful_create)
-      redirect_to_project_storages_path_with_oauth_access_grant_confirmation
-    else
-      @available_storages = available_storages
-      render "/storages/project_settings/new"
-    end
-  end
-
-  def oauth_access_grant
-    @project_storage = @object
-    storage = @project_storage.storage
-    auth_state = ::Storages::Peripherals::StorageInteraction::Authentication
-                   .authorization_state(storage:, user: current_user)
-
-    if auth_state == :connected
-      redirect_to(external_file_storages_project_settings_project_storages_path)
-    else
-      open_redirect_to_storage_authorization_with(
-        callback_url: external_file_storages_project_settings_project_storages_url(project_id: @project_storage.project_id),
-        storage: @project_storage.storage,
-        callback_modal_for: :project_storage
-      )
-    end
-  end
-
   def edit
     @project_storage = @object
     @project_storage.project_folder_mode = project_folder_mode_from_params if project_folder_mode_from_params.present?
@@ -101,6 +72,37 @@ class Storages::Admin::ProjectStoragesController < Projects::SettingsController
     render "/storages/project_settings/edit"
   end
 
+  def create
+    service_result = ::Storages::ProjectStorages::CreateService
+                       .new(user: current_user)
+                       .call(permitted_storage_settings_params)
+    @project_storage = service_result.result
+
+    if service_result.success?
+      flash[:notice] = I18n.t(:notice_successful_create)
+      redirect_to_project_storages_path_with_oauth_access_grant_confirmation(@project_storage.storage)
+    else
+      @available_storages = available_storages
+      render "/storages/project_settings/new"
+    end
+  end
+
+  def oauth_access_grant
+    @project_storage = @object
+    storage = @project_storage.storage
+    auth_state = ::Storages::Adapters::Authentication.authorization_state(storage:, user: current_user)
+
+    if auth_state == :connected
+      redirect_to(external_file_storages_project_settings_project_storages_path)
+    else
+      open_redirect_to_storage_authorization_with(
+        callback_url: external_file_storages_project_settings_project_storages_url(project_id: @project_storage.project_id),
+        storage: @project_storage.storage,
+        callback_modal_for: :project_storage
+      )
+    end
+  end
+
   def update
     service_result = ::Storages::ProjectStorages::UpdateService
                        .new(user: current_user, model: @object)
@@ -109,7 +111,7 @@ class Storages::Admin::ProjectStoragesController < Projects::SettingsController
     if service_result.success?
       @project_storage = service_result.result
       flash[:notice] = I18n.t(:notice_successful_update)
-      redirect_to_project_storages_path_with_oauth_access_grant_confirmation
+      redirect_to_project_storages_path_with_oauth_access_grant_confirmation(@project_storage.storage)
     else
       @project_storage = @object
       render "/storages/project_settings/edit"
@@ -126,9 +128,7 @@ class Storages::Admin::ProjectStoragesController < Projects::SettingsController
   end
 
   def destroy_info
-    @project_storage_to_destroy = @object
-
-    render "/storages/project_settings/destroy_info"
+    respond_with_dialog Storages::ProjectStorages::Projects::DestroyConfirmationDialogComponent.new(storage: @object)
   end
 
   private
@@ -148,14 +148,11 @@ class Storages::Admin::ProjectStoragesController < Projects::SettingsController
   end
 
   def available_storages
-    Storages::Storage
-      .visible
-      .not_enabled_for_project(@project)
-      .select(&:configured?)
+    Storages::Storage.visible.not_enabled_for_project(@project).select(&:configured?)
   end
 
-  def redirect_to_project_storages_path_with_oauth_access_grant_confirmation
-    if storage_oauth_access_granted?(storage: @project_storage.storage)
+  def redirect_to_project_storages_path_with_oauth_access_grant_confirmation(storage)
+    if storage.oauth_access_granted?(User.current)
       redirect_to external_file_storages_project_settings_project_storages_path
     else
       redirect_to_project_storages_path_with_nudge_modal

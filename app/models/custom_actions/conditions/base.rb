@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -43,6 +45,12 @@ class CustomActions::Conditions::Base
   def allowed_values
     associated
       .map { |value, label| { value:, label: } }
+  end
+
+  def value_objects
+    values.map do |value|
+      allowed_values.find { |v| v[:value] == value }
+    end
   end
 
   def human_name

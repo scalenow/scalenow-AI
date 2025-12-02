@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -32,6 +34,28 @@ module OpTurbo
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: flash_component.render_as_turbo_stream(view_context:, action: :flash), status:
+        end
+
+        yield(format) if format_block
+      end
+    end
+
+    def respond_with_flash_error(message:, status: :unprocessable_entity, &format_block)
+      respond_to do |format|
+        format.turbo_stream do
+          render_error_flash_message_via_turbo_stream(message:)
+          respond_with_turbo_streams(status:)
+        end
+
+        yield(format) if format_block
+      end
+    end
+
+    def respond_with_flash_success(message:, status: :ok, &format_block)
+      respond_to do |format|
+        format.turbo_stream do
+          render_success_flash_message_via_turbo_stream(message:)
+          respond_with_turbo_streams(status:)
         end
 
         yield(format) if format_block

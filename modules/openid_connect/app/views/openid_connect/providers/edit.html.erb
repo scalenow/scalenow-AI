@@ -1,16 +1,17 @@
-<% page_title = t('openid_connect.providers.label_edit', name: @provider.display_name) %>
-<% local_assigns[:additional_breadcrumb] = @provider.display_name %>
+<% page_title = t("openid_connect.providers.label_edit", name: @provider.display_name) %>
 
 <% html_title(t(:label_administration), page_title) -%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render Primer::OpenProject::PageHeader.new do |header|
-    header.with_title(classes: "color-orange") { @provider.display_name }
-    header.with_breadcrumbs([{ href: admin_index_path, text: t(:label_administration) },
-                             { href: admin_settings_authentication_path, text: t(:label_authentication) },
-                             { href: openid_connect_providers_path, text: t("openid_connect.providers.plural") },
-                             @provider.display_name])
+    header.with_title { @provider.display_name }
+    header.with_breadcrumbs(
+      [{ href: admin_index_path, text: t(:label_administration) },
+       { href: admin_settings_authentication_path, text: t(:label_authentication) },
+       { href: openid_connect_providers_path, text: t("openid_connect.providers.plural") },
+       @provider.display_name]
+    )
     header.with_action_button(
       tag: :a,
       scheme: :danger,
@@ -30,10 +31,14 @@
 <%=
   render(Primer::Alpha::Layout.new(stacking_breakpoint: :md)) do |content|
     content.with_main do
-      render(OpenIDConnect::Providers::ViewComponent.new(@provider,
-                                                         view_mode: :edit,
-                                                         edit_mode: @edit_mode,
-                                                         edit_state: @edit_state))
+      render(
+        OpenIDConnect::Providers::ViewComponent.new(
+          @provider,
+          view_mode: :edit,
+          new_mode: @new_mode,
+          edit_state: @edit_state
+        )
+      )
     end
 
     if @provider.persisted?

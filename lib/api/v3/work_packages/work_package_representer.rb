@@ -137,11 +137,9 @@ module API
              cache_if: -> { export_work_packages_allowed? } do
           next if represented.new_record?
 
-          next unless OpenProject::FeatureDecisions.generate_pdf_from_work_package_active?
-
           {
             href: generate_pdf_dialog_work_package_path(id: represented.id),
-            type: "application/pdf",
+            type: "text/vnd.turbo-stream.html",
             title: "Generate PDF"
           }
         end
@@ -182,7 +180,7 @@ module API
           next unless represented.type_id
 
           {
-            href: edit_type_path(represented.type_id, tab: "form_configuration"),
+            href: edit_type_form_configuration_path(represented.type_id),
             type: "text/html",
             title: "Configure form"
           }
@@ -291,7 +289,7 @@ module API
         end
 
         link :addComment,
-             cache_if: -> { current_user.allowed_in_work_package?(:add_work_package_notes, represented) } do
+             cache_if: -> { current_user.allowed_in_work_package?(:add_work_package_comments, represented) } do
           {
             href: api_v3_paths.work_package_activities(represented.id),
             method: :post,
@@ -310,7 +308,10 @@ module API
              cache_if: -> { view_time_entries_allowed? } do
           next if represented.new_record?
 
-          filters = [{ work_package_id: { operator: "=", values: [represented.id.to_s] } }]
+          filters = [
+            { entity_type: { operator: "=", values: ["WorkPackage"] } },
+            { entity_id: { operator: "=", values: [represented.id.to_s] } }
+          ]
 
           {
             href: api_v3_paths.path_for(:time_entries, filters:),
@@ -489,6 +490,56 @@ module API
 
         associated_resource :project
 
+        resource :project_phase,
+                 link_cache_if: -> { any_phase_active_in_project? && view_project_phase_allowed? },
+                 link: ->(*) {
+                   if phase_set_and_active?
+                     {
+                       href: api_v3_paths.project_phase(project_phase.id),
+                       title: project_phase.name
+                     }
+                   else
+                     {
+                       href: nil,
+                       title: nil
+                     }
+                   end
+                 },
+                 getter: ->(*) do
+                   if embed_links && phase_set_and_active? && view_project_phase_allowed?
+                     API::V3::ProjectPhases::ProjectPhaseRepresenter.create(
+                       project_phase, current_user:
+                     )
+                   end
+                 end,
+                 setter: ->(fragment:, **) do
+                   link = ::API::Decorators::LinkObject.new(represented,
+                                                            path: :project_phases,
+                                                            property_name: :project_phase,
+                                                            setter: :project_phase_id=)
+
+                   link.from_hash(fragment)
+
+                   represented.project_phase_definition_id = Project::Phase
+                                                               .where(id: represented.project_phase_id)
+                                                               .pick(:definition_id)
+                                                               .to_s
+                 end
+
+        link :projectPhaseDefinition do
+          if phase_set_and_active? && view_project_phase_allowed?
+            {
+              href: api_v3_paths.project_phase_definition(represented.project_phase_definition_id),
+              title: project_phase.name
+            }
+          else
+            {
+              href: nil,
+              title: nil
+            }
+          end
+        end
+
         associated_resource :status
 
         associated_resource :author,
@@ -597,55 +648,90 @@ module API
 
         # Permissions
         def current_user_watcher?
-          @current_user_watcher ||= represented.watchers.any? { |w| w.user_id == current_user.id }
+          return @current_user_watcher if defined?(@current_user_watcher)
+
+          @current_user_watcher = represented.watchers.any? { |w| w.user_id == current_user.id }
         end
 
         def current_user_update_allowed?
-          @current_user_update_allowed ||=
+          return @current_user_update_allowed if defined?(@current_user_update_allowed)
+
+          @current_user_update_allowed =
             current_user.allowed_in_work_package?(:edit_work_packages, represented) ||
               current_user.allowed_in_project?(:change_work_package_status, represented.project) ||
               current_user.allowed_in_project?(:assign_versions, represented.project)
         end
 
         def view_time_entries_allowed?
-          @view_time_entries_allowed ||=
+          return @view_time_entries_allowed if defined?(@view_time_entries_allowed)
+
+          @view_time_entries_allowed =
             current_user.allowed_in_project?(:view_time_entries, represented.project) ||
             view_own_time_entries_allowed?
         end
 
         def view_own_time_entries_allowed?
-          @view_own_time_entries_allowed ||= if represented.new_record?
-                                               current_user.allowed_in_any_work_package?(:view_own_time_entries,
-                                                                                         in_project: represented.project)
-                                             else
-                                               current_user.allowed_in_work_package?(:view_own_time_entries, represented)
-                                             end
+          return @view_own_time_entries_allowed if defined?(@view_own_time_entries_allowed)
+
+          @view_own_time_entries_allowed = if represented.new_record?
+                                             current_user.allowed_in_any_work_package?(:view_own_time_entries,
+                                                                                       in_project: represented.project)
+                                           else
+                                             current_user.allowed_in_work_package?(:view_own_time_entries, represented)
+                                           end
         end
 
         def log_time_allowed?
-          @log_time_allowed ||=
+          return @log_time_allowed if defined?(@log_time_allowed)
+
+          @log_time_allowed =
             current_user.allowed_in_project?(:log_time, represented.project) ||
               current_user.allowed_in_work_package?(:log_own_time, represented)
         end
 
         def view_budgets_allowed?
-          @view_budgets_allowed ||= current_user.allowed_in_project?(:view_budgets, represented.project)
+          return @view_budgets_allowed if defined?(@view_budgets_allowed)
+
+          @view_budgets_allowed = current_user.allowed_in_project?(:view_budgets, represented.project)
+        end
+
+        def view_project_phase_allowed?
+          return @view_project_phase_allowed if defined?(@view_project_phase_allowed)
+
+          @view_project_phase_allowed = current_user.allowed_in_project?(:view_project_phases, represented.project)
         end
 
         def export_work_packages_allowed?
-          @export_work_packages_allowed ||=
-            current_user.allowed_in_work_package?(:export_work_packages, represented)
+          return @export_work_packages_allowed if defined?(@export_work_packages_allowed)
+
+          @export_work_packages_allowed = current_user.allowed_in_work_package?(:export_work_packages, represented)
         end
 
         def add_work_packages_allowed?
-          @add_work_packages_allowed ||=
-            current_user.allowed_in_project?(:add_work_packages, represented.project)
+          return @add_work_packages_allowed if defined?(@add_work_packages_allowed)
+
+          @add_work_packages_allowed = current_user.allowed_in_project?(:add_work_packages, represented.project)
+        end
+
+        def project_phase
+          return @project_phase if defined?(@project_phase)
+
+          @project_phase = represented.project_phase
+        end
+
+        def phase_set_and_active?
+          project_phase&.active?
+        end
+
+        def any_phase_active_in_project?
+          represented.project.phases.any?(&:active?)
         end
 
         def relations
           self_path = api_v3_paths.work_package_relations(represented.id)
           visible_relations = represented
-            .visible_relations(current_user)
+            .relations
+            .visible(current_user)
             .includes(::API::V3::Relations::RelationCollectionRepresenter.to_eager_load)
 
           ::API::V3::Relations::RelationCollectionRepresenter.new(visible_relations,

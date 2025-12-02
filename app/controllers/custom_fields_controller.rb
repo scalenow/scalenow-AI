@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -30,14 +32,17 @@ class CustomFieldsController < ApplicationController
   include CustomFields::SharedActions # share logic with ProjectCustomFieldsControlller
   layout "admin"
 
+  # rubocop:disable Rails/LexicallyScopedActionFilter
   before_action :require_admin
   before_action :find_custom_field, only: %i(edit update destroy delete_option reorder_alphabetical)
   before_action :prepare_custom_option_position, only: %i(update create)
   before_action :find_custom_option, only: :delete_option
+  before_action :validate_enterprise_token, only: %i(create)
+  # rubocop:enable Rails/LexicallyScopedActionFilter
 
   def index
     # loading wp cfs exclicity to allow for eager loading
-    @custom_fields_by_type = CustomField.all
+    @custom_fields_by_type = CustomField
       .where.not(type: ["WorkPackageCustomField", "ProjectCustomField"])
       .group_by { |f| f.class.name }
 
@@ -58,16 +63,14 @@ class CustomFieldsController < ApplicationController
 
   protected
 
-  def default_breadcrumb; end
-
-  def show_local_breadcrumb
-    false
+  def validate_enterprise_token
+    if params.dig(:custom_field, :field_format) == "hierarchy" && !EnterpriseToken.allows_to?(:custom_field_hierarchies)
+      render_403
+    end
   end
 
   def find_custom_field
     @custom_field = CustomField.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 
   def check_custom_field

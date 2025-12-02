@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -45,6 +47,10 @@ module Queries::Filters::Shared::AnyUserNameAttributeFilter
 
     def email_field_allowed?
       User.current.allowed_globally?(:view_user_email)
+    end
+
+    def human_name
+      I18n.t(:label_filter_any_name_attribute)
     end
 
     private

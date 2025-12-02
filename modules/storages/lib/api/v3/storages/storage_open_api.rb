@@ -33,21 +33,23 @@ class API::V3::Storages::StorageOpenAPI < API::OpenProjectAPI
 
   using Storages::Peripherals::ServiceResultRefinements
 
+  helpers do
+    def auth_strategy
+      Storages::Adapters::Registry.resolve("#{@storage}.authentication.user_bound").call(current_user, @storage)
+    end
+  end
+
   resources :open do
     get do
-      auth_strategy = Storages::Peripherals::StorageInteraction::AuthenticationStrategies::OAuthUserToken
-                        .strategy
-                        .with_user(current_user)
-
-      Storages::Peripherals::Registry
+      Storages::Adapters::Registry
         .resolve("#{@storage}.queries.open_storage")
-        .call(storage: @storage, auth_strategy:)
-        .match(
-          on_success: ->(url) do
+        .call(storage: @storage, auth_strategy:, input_data: nil)
+        .either(
+          ->(url) do
             redirect url, body: "The requested resource can be viewed at #{url}"
             status 303
           end,
-          on_failure: ->(error) { raise_error(error) }
+          ->(error) { raise_error(error) }
         )
     end
   end

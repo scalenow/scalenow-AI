@@ -30,8 +30,12 @@
 
 class RemoteIdentity < ApplicationRecord
   belongs_to :user
-  belongs_to :oauth_client, class_name: "OAuthClient"
+  belongs_to :auth_source, polymorphic: true
+  belongs_to :integration, polymorphic: true
 
-  validates :user, uniqueness: { scope: :oauth_client }
-  validates :origin_user_id, :user, :oauth_client, presence: true
+  validates :user, uniqueness: { scope: %i[auth_source integration] }
+  validates :origin_user_id, :user, :auth_source, :integration, presence: true
+
+  # FIXME: This needs a better name - 2025.03.18 @mereghost
+  scope :of_user_and_client, ->(user, client, integration) { find_by(user:, auth_source: client, integration:) }
 end

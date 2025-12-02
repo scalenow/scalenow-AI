@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -34,6 +36,10 @@ class Queries::WorkPackages::Filter::RequiresFilter <
 
   def relation_type
     ::Relation::TYPE_REQUIRES
+  end
+
+  def human_name
+    I18n.t(:label_requires)
   end
 
   private

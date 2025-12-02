@@ -1,3 +1,33 @@
+# frozen_string_literal: true
+
+#-- copyright
+# OpenProject is an open source project management software.
+# Copyright (C) the OpenProject GmbH
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License version 3.
+#
+# OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+# Copyright (C) 2006-2013 Jean-Philippe Lang
+# Copyright (C) 2010-2013 the ChiliProject Team
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# See COPYRIGHT and LICENSE files for more details.
+#++
+
 module OpenProject
   module Common
     # @hidden
@@ -20,7 +50,7 @@ module OpenProject
           header.with_action_icon_button(icon: :trash, mobile_icon: :trash, label: "Delete", scheme: :danger)
 
           header.with_action_menu(menu_arguments: { anchor_align: :end },
-                                  button_arguments: { icon: "op-kebab-vertical", "aria-label": "Menu" }) do |menu|
+                                  button_arguments: { icon: "kebab-horizontal", "aria-label": "Menu" }) do |menu|
             menu.with_item(label: "Subitem 1") do |item|
               item.with_leading_visual_icon(icon: :paste)
             end
@@ -63,7 +93,7 @@ module OpenProject
           if with_actions
             header.with_action_icon_button(icon: "pencil", mobile_icon: "pencil", label: "Edit")
             header.with_action_menu(menu_arguments: { anchor_align: :end },
-                                    button_arguments: { icon: "op-kebab-vertical",
+                                    button_arguments: { icon: "kebab-horizontal",
                                                         "aria-label": "Menu" }) do |menu, _button|
               menu.with_item(label: "Subitem 1") do |item|
                 item.with_leading_visual_icon(icon: :unlock)

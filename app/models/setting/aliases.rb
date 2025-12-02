@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -50,6 +52,14 @@ class Setting
     # Port from host_name if set
     def optional_port_from_host_name
       Setting.host_name&.split(":")&.[](1)
+    end
+
+    ##
+    # Get the names of working days
+    # @return [Array<String>] the names of the working days
+    def working_day_names
+      weekdays = %i[monday tuesday wednesday thursday friday saturday sunday]
+      Setting.working_days.map { |day| weekdays[day - 1] }
     end
   end
 end

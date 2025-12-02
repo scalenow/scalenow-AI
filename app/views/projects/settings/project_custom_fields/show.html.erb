@@ -28,12 +28,12 @@ See COPYRIGHT and LICENSE files for more details.
 ++#%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-<div data-turbo="true">
- <%= render Projects::Settings::ProjectCustomFieldSections::IndexPageHeaderComponent.new(project: @project) %>
+<%= render(Projects::Settings::ProjectCustomFieldSections::IndexPageHeaderComponent.new(project: @project)) %>
 
-  <%= render(Projects::Settings::ProjectCustomFieldSections::IndexComponent.new(
-    project: @project,
-    project_custom_field_sections: @project_custom_field_sections,
-  )) %>
-</div>
+<%= render(
+      Projects::Settings::ProjectCustomFieldSections::IndexComponent.new(
+        project: @project,
+        project_custom_field_sections: @project_custom_field_sections
+      )
+    ) %>
 </div>

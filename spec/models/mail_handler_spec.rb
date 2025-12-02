@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,7 +30,7 @@
 
 require "spec_helper"
 
-RSpec.describe MailHandler do
+RSpec.describe IncomingEmails::MailHandler do # rubocop:disable RSpec/SpecFilePathFormat
   # we need these run first so the anonymous and system users are created and
   # there is a default work package priority to save any work packages
   shared_let(:anno_user) { User.anonymous }
@@ -146,7 +148,7 @@ RSpec.describe MailHandler do
   end
 
   shared_context "with a reply to a wp mention" do
-    let(:permissions) { %i[add_work_package_notes view_work_packages] }
+    let(:permissions) { %i[add_work_package_comments view_work_packages] }
     let!(:user) do
       create(:user,
              mail: "j.doe@openproject.org",
@@ -168,7 +170,7 @@ RSpec.describe MailHandler do
   end
 
   shared_context "with a reply to a wp mention with attributes" do
-    let(:permissions) { %i[add_work_package_notes view_work_packages edit_work_packages work_package_assigned] }
+    let(:permissions) { %i[add_work_package_comments view_work_packages edit_work_packages work_package_assigned] }
     let(:role) do
       create(:project_role, permissions:)
     end
@@ -272,6 +274,9 @@ RSpec.describe MailHandler do
 
   shared_context "with a new work package with attributes with additional spaces" do
     let(:permissions) { %i[add_work_packages assign_versions work_package_assigned] }
+    let(:role) do
+      create(:project_role, permissions:)
+    end
     let!(:user) do
       create(:user,
              mail: "JSmith@somenet.foo",
@@ -294,6 +299,21 @@ RSpec.describe MailHandler do
     let!(:high_priority) do
       create(:priority_high)
     end
+    let!(:version) { create(:version, name: "alpha", project:) }
+    let!(:original_status) do
+      create(:default_status)
+    end
+    let!(:resolved_status) do
+      create(:status,
+             name: "Resolved") do |status|
+        create(:workflow,
+               old_status: original_status,
+               new_status: status,
+               role:,
+               type: feature_type)
+      end
+    end
+
     let(:submit_options) { {} }
 
     subject do
@@ -708,8 +728,8 @@ RSpec.describe MailHandler do
             expect do
               expect(subject.author).to be_active
               expect(subject.author.mail).to eq("foo@example.org")
-              expect(subject.author.firstname).to eq("\xc3\x84\xc3\xa4".force_encoding("UTF-8"))
-              expect(subject.author.lastname).to eq("\xc3\x96\xc3\xb6".force_encoding("UTF-8"))
+              expect(subject.author.firstname).to eq((+"\xc3\x84\xc3\xa4").force_encoding("UTF-8"))
+              expect(subject.author.lastname).to eq((+"\xc3\x96\xc3\xb6").force_encoding("UTF-8"))
             end.to change(User, :count).by(1)
           end
         end
@@ -726,7 +746,7 @@ RSpec.describe MailHandler do
           end
 
           it "ignores the email" do
-            expect(results).to eq [false]
+            expect(results).to eq [nil]
           end
 
           it "does not respond with an error email" do
@@ -736,7 +756,7 @@ RSpec.describe MailHandler do
 
         context "with unknown_user: 'accept' and permission check present" do
           let(:expected) do
-            "MailHandler: work_package could not be created by Anonymous due to " \
+            "MailHandler: work_package could not be created by Anonymous due to " \
               '#["Type was attempted to be written but is not writable.", ' \
               '"Project was attempted to be written but is not writable.", ' \
               '"Subject was attempted to be written but is not writable.", ' \
@@ -763,8 +783,9 @@ RSpec.describe MailHandler do
               work_package
             end
 
-            it "rejects the email" do
-              expect(work_package).to be false
+            it "rejects the email, and does not save the work package" do
+              expect(work_package).to be_new_record
+              expect(work_package.errors).not_to be_empty
             end
 
             it "logs the error" do
@@ -1171,6 +1192,57 @@ RSpec.describe MailHandler do
             .to eql "This is a html-only email."
         end
       end
+
+      context "for a wp with attribute keys" do
+        include_context "with a new work package with attributes with additional spaces"
+        it_behaves_like "work package created"
+
+        subject do
+          submit_email("wp_with_attribute_keys.eml", allow_override: ["category"])
+        end
+
+        it "sets the description" do
+          expect(subject.description).to eq("Some description here")
+          expect(subject.subject).to eq("New ticket with full attributes")
+          expect(subject.type).to eq(feature_type)
+          expect(subject.status).to eq(resolved_status)
+          expect(subject.version).to eq(version)
+          expect(subject.priority).to eq(urgent_priority)
+          expect(subject.assigned_to).to eq(user)
+          expect(subject.responsible).to eq(user)
+          expect(subject.start_date).to eq(Date.parse("2025-01-01"))
+          expect(subject.due_date).to eq(Date.parse("2025-12-31"))
+          expect(subject.estimated_hours).to eq(20)
+          expect(subject.remaining_hours).to eq(10.5)
+          expect(subject.category).to eq(stock_category)
+        end
+
+        context "with the user having a german locale" do
+          before do
+            user.update!(language: "de")
+          end
+
+          subject do
+            submit_email("wp_with_attributes_i18n_de.eml", allow_override: ["category"])
+          end
+
+          it "sets the description" do
+            expect(subject.description).to eq("Beschreibung würde hier stehen.")
+            expect(subject.subject).to eq("Neues Arbeitspaket")
+            expect(subject.type).to eq(feature_type)
+            expect(subject.status).to eq(resolved_status)
+            expect(subject.version).to eq(version)
+            expect(subject.priority).to eq(urgent_priority)
+            expect(subject.assigned_to).to eq(user)
+            expect(subject.responsible).to eq(user)
+            expect(subject.start_date).to eq(Date.parse("2025-01-01"))
+            expect(subject.due_date).to eq(Date.parse("2025-12-31"))
+            expect(subject.estimated_hours).to eq(20)
+            expect(subject.remaining_hours).to eq(10.5)
+            expect(subject.category).to eq(stock_category)
+          end
+        end
+      end
     end
 
     context "when sending a reply to work package mail" do
@@ -1495,27 +1567,6 @@ RSpec.describe MailHandler do
     end
   end
 
-  describe "#cleanup_body" do
-    let(:input) do
-      "Subject:foo\nDescription:bar\n" \
-        ">>> myserver.example.org 2016-01-27 15:56 >>>\n... (Email-Body) ..."
-    end
-    let(:handler) { described_class.send :new }
-
-    context "with regex delimiter" do
-      before do
-        allow(Setting).to receive(:mail_handler_body_delimiter_regex).and_return(">>>.+?>>>.*")
-        allow(handler).to receive(:plain_text_body).and_return(input)
-        allow(handler).to receive(:cleaned_up_text_body).and_call_original
-      end
-
-      it "removes the irrelevant lines" do
-        expect(handler.send(:cleaned_up_text_body)).to eq("Subject:foo\nDescription:bar")
-        expect(handler).to have_received(:cleaned_up_text_body)
-      end
-    end
-  end
-
   private
 
   def read_email(filename)
@@ -1523,7 +1574,7 @@ RSpec.describe MailHandler do
   end
 
   def submit_email(filename, options = {})
-    MailHandler.receive(read_email(filename), options)
+    IncomingEmails::MailHandler.receive(read_email(filename), options)
   end
 
   def work_package_created(work_package)

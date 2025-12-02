@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -33,6 +35,9 @@ class SysController < ActionController::Base
 
   before_action :check_enabled
   before_action :require_basic_auth, only: [:repo_auth]
+
+  # disable CSRF protection since the Sys API does not use sessions
+  skip_before_action :verify_authenticity_token
 
   def repo_auth
     project = Project.find_by(identifier: params[:repository])

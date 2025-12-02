@@ -26,8 +26,6 @@
 // See COPYRIGHT and LICENSE files for more details.
 //++
 
-/*jshint expr: true*/
-
 import { GitActionsService } from './git-actions.service';
 import { WorkPackageResource } from "core-app/features/hal/resources/work-package-resource";
 import { TestBed, waitForAsync } from '@angular/core/testing';
@@ -66,7 +64,7 @@ describe('GitActionsService', function() {
   });
 
 
-  it('it produces a branch name, commit message, and a git command', () => {
+  it('produces a branch name, commit message, and a git command', () => {
     const wp = createWorkPackage();
     expect(service.branchName(wp)).toEqual('user-story/42-find-the-question');
     expect(service.commitMessage(wp)).toEqual(`[#42] Find the question

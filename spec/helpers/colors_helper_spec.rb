@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # -- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -40,6 +42,28 @@ RSpec.describe ColorsHelper do
   describe "#hl_background_class" do
     it "returns the correct class name" do
       expect(helper.hl_background_class("foo_bar", model)).to eq("__hl_background_foo_bar_5")
+    end
+  end
+
+  describe "#icon_for_color" do
+    context "with nil color" do
+      it "renders nothing" do
+        expect(helper.icon_for_color(nil)).to be_blank
+      end
+    end
+
+    context "with valid color" do
+      it "renders a color preview" do
+        expect(helper.icon_for_color(Color.new(hexcode: "#ff00ff"))).to be_html_eql %{
+          <span class="color--preview " style="background-color: #FF00FF;border-color: #80008050"> </span>
+        }.squish
+      end
+    end
+
+    context "with invalid color (invalid hexcode)" do
+      it "renders nothing" do
+        expect(helper.icon_for_color(Color.new(hexcode: "#ffXXff"))).to be_blank
+      end
     end
   end
 end

@@ -8,6 +8,7 @@ ar:
         url: 'Payload URL'
         secret: 'Signature secret'
         events: 'الأحداث'
+        enabled: 'Enabled'
         projects: 'المشاريع الممكنة'
       webhooks/log:
         event_name: 'اسم الحدث'
@@ -30,6 +31,8 @@ ar:
       events:
         created: "تم إنشاؤه"
         updated: "محدث"
+        comment: "تعليق"
+        internal_comment: "Internal comment"
       explanation:
         text: >
           Upon the occurrence of an event like the creation of a work package or an update on a project, scalenow-AI will send a POST request to the configured web endpoints. Oftentimes, the event is sent after the %{link} has passed.

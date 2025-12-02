@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -33,23 +35,14 @@ class WorkPackageRelationsTabController < ApplicationController
   before_action :authorize_global
 
   def index
-    @children = WorkPackage.where(parent_id: @work_package.id)
-    @relations = @work_package
-      .relations
-      .includes(:to, :from)
-
-    component = WorkPackageRelationsTab::IndexComponent.new(
-      work_package: @work_package,
-      relations: @relations,
-      children: @children
-    )
+    component = WorkPackageRelationsTab::IndexComponent.new(work_package: @work_package)
 
     respond_to do |format|
       format.html do
         render(component, layout: false)
       end
       format.turbo_stream do
-        replace_via_turbo_stream(component:)
+        replace_via_turbo_stream(component:, method: "morph")
         render turbo_stream: turbo_streams
       end
     end
@@ -60,7 +53,5 @@ class WorkPackageRelationsTabController < ApplicationController
   def set_work_package
     @work_package = WorkPackage.find(params[:work_package_id])
     @project = @work_package.project # required for authorization via before_action
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 end

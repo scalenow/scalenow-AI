@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -55,13 +57,14 @@ class WorkflowsController < ApplicationController
   end
 
   def update
+    tab = params[:tab] || "always"
     call = Workflows::BulkUpdateService
-           .new(role: @role, type: @type)
-           .call(params["status"])
+           .new(role: @role, type: @type, tab:)
+           .call(permitted_status_params)
 
     if call.success?
       flash[:notice] = I18n.t(:notice_successful_update)
-      redirect_to action: "edit", role_id: @role, type_id: @type
+      redirect_to action: "edit", role_id: @role, type_id: @type, tab:
     end
   end
 
@@ -91,10 +94,6 @@ class WorkflowsController < ApplicationController
         redirect_to action: "copy", source_type_id: @source_type, source_role_id: @source_role
       end
     end
-  end
-
-  def show_local_breadcrumb
-    false
   end
 
   private
@@ -147,5 +146,13 @@ class WorkflowsController < ApplicationController
     else
       roles
     end
+  end
+
+  def permitted_status_params
+    return {} if params["status"].blank?
+
+    params["status"]
+      .to_unsafe_h
+      .select { |key, value| /\A\d+\z/.match?(key) && value.keys.all? { /\A\d+\z/.match?(it) } }
   end
 end

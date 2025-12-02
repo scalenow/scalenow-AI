@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -163,11 +165,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  # Silence the following warning
-  # "Rails couldn't infer whether you are using multiple databases from your database.yml"
-  # This is deprecated in 7.1. and the warning got removed.
-  config.active_record.suppress_multiple_database_warning = true
 
   if OpenProject::Configuration.enable_internal_assets_server?
     config.public_file_server.enabled = true

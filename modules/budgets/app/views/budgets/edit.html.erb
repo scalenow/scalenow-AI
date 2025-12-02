@@ -29,7 +29,16 @@ See COPYRIGHT and LICENSE files for more details.
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <% html_title "#{t(:label_edit)} #{t(:label_budget_id, id: @budget.id)}: #{@budget.subject}" %>
-<%= toolbar title: t(:label_budget_id, id: @budget.id), title_class: "color-orange" %>
 
-<%= render :partial => 'edit' %>
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title { t(:label_budget_id, id: @budget.id) }
+    header.with_breadcrumbs(
+      [{ href: project_overview_path(@project.id), text: @project.name },
+       { href: projects_budgets_path(@project.id), text: t(:label_budget_plural) },
+       t(:label_budget_id, id: @budget.id)]
+    )
+  end
+%>
+<%= render partial: "edit" %>
 </div>

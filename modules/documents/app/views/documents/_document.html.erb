@@ -27,16 +27,16 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<!-- <h4 class="document-category-elements--header"><%= link_to h(document.title), :controller => '/documents', :action => 'show', :id => document %></h4>
-<p class="document-category-elements--date"><em><%= format_time(document.updated_at) %></em></p>
-
-<div class="wiki op-uc-container">
-	<%= format_text(document.description) %>
-</div> -->
-
-<tr>
+<!-- <tr>
 	<td class=""><%= link_to h(document.title), :controller => '/documents', :action => 'show', :id => document %></td>
 	<td class=""><%= format_text(document.description) %></td>
 	<td class=""><%= format_time(document.created_at) %></td>
 	<td class=""><%= format_time(document.updated_at) %></td>
-</tr>
+</tr> -->
+
+<h4 class="document-category-elements--header"><%= link_to h(document.title), controller: "/documents", action: "show", id: document %></h4>
+<p class="document-category-elements--date"><em><%= format_time(document.updated_at) %></em></p>
+
+<div class="wiki op-uc-container">
+  <%= format_text(document, :description) %>
+</div>

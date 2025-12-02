@@ -28,11 +28,17 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-RSpec::Matchers.define :have_enterprise_banner do |**args|
+RSpec::Matchers.define :have_enterprise_banner do |plan, **args|
   include TestSelectorFinders
 
   match do |page|
-    page.has_selector?(test_selector("op-enterprise-banner"), **args)
+    if plan
+      plan_name = I18n.t("ee.upsell.plan_name", plan: plan.capitalize)
+      expected_text = I18n.t("ee.upsell.plan_text_html", plan_name:)
+      args[:text] = expected_text
+    end
+
+    page.find(test_selector("op-enterprise-banner"), **args)
   end
 
   match_when_negated do |page|
@@ -40,10 +46,17 @@ RSpec::Matchers.define :have_enterprise_banner do |**args|
   end
 
   failure_message do
-    "expected page to have Enterprise edition banner"
+    <<~MESSAGE
+      Expected page to have Enterprise banner, but it is absent or invisible.
+    MESSAGE
   end
 
   failure_message_when_negated do
-    "expected page not to have Enterprise edition banner"
+    banner_text = page.find(test_selector("op-enterprise-banner")).text
+    <<~MESSAGE
+      Expected page not to have Enterprise banner, but it is present and visible.
+      Enterprise banner text:
+        #{banner_text.gsub("\n", "\n  ")}
+    MESSAGE
   end
 end

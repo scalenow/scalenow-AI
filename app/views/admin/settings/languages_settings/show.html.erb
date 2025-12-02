@@ -33,22 +33,26 @@ See COPYRIGHT and LICENSE files for more details.
   <%=
     render(Primer::OpenProject::PageHeader.new) do |header|
       header.with_title(classes: "color-orange") { t(:label_languages) }
-      header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
-                               { href: admin_settings_general_path, text: t(:label_system_settings) },
-                               t(:label_languages)])
+      header.with_breadcrumbs(
+        [
+          { href: admin_index_path, text: t("label_administration") },
+          { href: admin_settings_general_path, text: t(:label_system_settings) },
+          t(:label_languages)
+        ]
+      )
     end
   %>
-  
+
   <%= styled_form_tag(admin_settings_languages_path, method: :patch) do %>
     <section class="form--section m-0">
       <div class="form--field" id="setting_available_languages">
-        <%= setting_multiselect :available_languages, highlight_default_language(all_lang_options_for_select), classes: "horizontal-checkboxes" %>
+        <%= setting_multiselect :available_languages,
+              highlight_default_language(all_lang_options_for_select) %>
       </div>
     </section>
 
     <%= styled_button_tag t(:button_save),
-                          class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3',
-                          disabled: !Setting.available_languages_writable?
-    %>
+          class: "-primary -with-icon icon-checkmark",
+          disabled: !Setting.available_languages_writable? %>
   <% end %>
 </div>

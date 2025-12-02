@@ -1,105 +1,48 @@
-<%#-- copyright
-OpenProject is an open source project management software.
-Copyright (C) the OpenProject GmbH
+<%#
+  -- copyright
+  OpenProject is an open source project management software.
+  Copyright (C) the OpenProject GmbH
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License version 3.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License version 3.
 
-OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
-Copyright (C) 2006-2013 Jean-Philippe Lang
-Copyright (C) 2010-2013 the ChiliProject Team
+  OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+  Copyright (C) 2006-2013 Jean-Philippe Lang
+  Copyright (C) 2010-2013 the ChiliProject Team
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License
+  as published by the Free Software Foundation; either version 2
+  of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-See COPYRIGHT and LICENSE files for more details.
+  See COPYRIGHT and LICENSE files for more details.
 
-++#%>
+  ++#
+%>
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-<%= toolbar title: t(:label_document_plural), title_class: "color-orange" do %>
-  <% if authorize_for(:documents, :new) %>
-    <li class="toolbar-item">
-      <%= link_to({:controller => '/documents', :action => 'new', :project_id => @project},
-                  { class: 'button -primary custom-secondary-button rounded-border',
-                    aria: {label: t(:label_document_new)},
-                    title: t(:label_document_new)}) do %>
-        <%= op_icon('button--icon icon-add') %>
-        <span class="button--text"><%= t('activerecord.models.document') %></span>
-      <% end %>
-    </li>
-  <% end %>
-<% end %>
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title { t("documents.page_header.heading") }
+    header.with_breadcrumbs(
+      [{ href: project_overview_path(@project.id), text: @project.name },
+       t(:label_document_plural)]
+    )
+  end
+%>
 
-<% if @grouped.empty? %>
-  <%= no_results_box %>
-<% end %>
+<%= render(Documents::SubHeaderComponent.new(query: @query, project: @project)) %>
 
-<% @grouped.keys.sort.each do |group| %>
-  <%= augmented_collapsible_section title: group do %>
-    <div class="table-responsive table-card mt-3 mb-1 manual-table">
-      <table class="table align-middle table-nowrap" id="customerTable">
-        <thead class="table-light">
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created at</th>
-            <th>Updated at</th>
-          </tr>
-        </thead>
+<%= render(Documents::ListComponent.new(@documents, project: @project)) %>
 
-        <tbody class="list form-check-all">
-          <%= render :partial => 'documents/document', :collection => @grouped[group] %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-<% end %>
-
-<% content_for :sidebar do %>
-  <%= form_tag({}, :method => :get, class: 'sidebar--document-sort') do %>
-    <fieldset class="form--fieldset">
-      <legend class="form--fieldset-legend"><%= t(:label_group_by) %></legend>
-      <p>
-        <%= radio_button_tag 'group_by', 'category', (@group_by == 'category'), class: 'submit-this-form' %>
-      <label for="group_by_category">
-        <%= Document.human_attribute_name(:category) %>
-      </label><br />
-        <%= radio_button_tag 'group_by', 'date', (@group_by == 'date'), class: 'submit-this-form' %>
-      <label for="group_by_date">
-        <%= t(:label_date) %>
-      </label><br />
-        <%= radio_button_tag 'group_by', 'title', (@group_by == 'title'), class: 'submit-this-form' %>
-      <label for="group_by_title">
-        <%= Document.human_attribute_name(:title) %>
-      </label><br />
-        <%= radio_button_tag 'group_by', 'author', (@group_by == 'author'), class: 'submit-this-form' %>
-      <label for="group_by_author">
-        <%= t 'documents.label_attachment_author' %>
-      </label>
-      </p>
-    </fieldset>
-  <% end %>
-<% end %>
-
-<%= nonced_javascript_tag do %>
-  jQuery(function($) {
-    $('.submit-this-form').click(function() {
-      $(this).closest('form').submit();
-    });
-  });
-<% end %>
-
-<% html_title(t(:label_document_plural)) -%>
+<% html_title(t(:label_document_plural)) %>
 </div>

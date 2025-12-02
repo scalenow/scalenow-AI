@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -35,22 +37,37 @@ module OpenProject::Documents
     register "openproject-documents",
              author_url: "http://www.openproject.org",
              bundled: true do
-      menu :project_menu,
-           :documents,
-           { controller: "/documents", action: "index" },
-           caption: :label_document_plural,
-           before: :members,
-           icon: "note"
+      ::Redmine::MenuManager.map(:project_menu) do |menu|
+        menu.push :documents,
+                  { controller: "/documents", action: "index" },
+                  caption: :label_document_plural,
+                  before: :members,
+                  icon: "note"
+
+        menu.push :documents_sub_menu,
+                  { controller: "/documents", action: "index" },
+                  parent: :documents,
+                  partial: "documents/menus/menu",
+                  caption: :label_document_plural
+      end
 
       project_module :documents do |_map|
         permission :view_documents,
-                   { documents: %i[index show download] },
+                   { documents: %i[index search show download],
+                     "documents/menus": %i[show] },
                    permissible_on: :project
         permission :manage_documents,
                    { documents: %i[new create edit update destroy] },
                    permissible_on: :project,
                    require: :loggedin
       end
+
+      menu :admin_menu,
+           :document_categories,
+           { controller: "/admin/settings/document_categories", action: :index },
+           if: ->(_) { User.current.admin? },
+           caption: :"documents.label_categories",
+           parent: :files
 
       Redmine::Search.register :documents
     end
@@ -79,7 +96,8 @@ module OpenProject::Documents
     additional_permitted_attributes search: %i(documents)
 
     config.to_prepare do
-      Enumeration.register_subclass(DocumentCategory)
+      # Load Enumeration descendants due to STI
+      DocumentCategory
     end
   end
 end

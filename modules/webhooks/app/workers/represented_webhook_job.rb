@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -48,7 +50,7 @@ class RepresentedWebhookJob < WebhookJob
   end
 
   def accepted_in_project?
-    webhook.enabled_for_project?(resource.project_id)
+    webhook.enabled_for_project?(project_id)
   end
 
   def request_signature(request_body)
@@ -64,26 +66,31 @@ class RepresentedWebhookJob < WebhookJob
     }
   end
 
-  def payload_key
-    raise NotImplementedError
+  def represented_payload
+    payload_representer_class
+      .create(resource, current_user: User.current, embed_links: true)
   end
 
-  def represented_payload
-    User.system.run_given do |user|
-      payload_representer_class
-        .create(resource, current_user: user, embed_links: true)
-        .to_hash # to_hash needs to be called within the system user block
-    end
+  def payload_key
+    raise NotImplementedError
   end
 
   def payload_representer_class
     raise NotImplementedError
   end
 
+  def project_id # rubocop:disable Rails/Delegate
+    resource.project_id
+  end
+
   def request_body
-    {
-      :action => event_name,
-      payload_key => represented_payload
-    }.to_json
+    # to_json needs to be called within the system user block in order to
+    # have all the custom field visibility permissions set up correctly.
+    User.system.run_given do
+      {
+        action: event_name,
+        payload_key => represented_payload
+      }.to_json
+    end
   end
 end

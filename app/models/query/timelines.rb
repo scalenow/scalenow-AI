@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -30,7 +32,7 @@ module Query::Timelines
   extend ActiveSupport::Concern
 
   included do
-    enum timeline_zoom_level: { days: 0, weeks: 1, months: 2, quarters: 3, years: 4, auto: 5 }
+    enum :timeline_zoom_level, { days: 0, weeks: 1, months: 2, quarters: 3, years: 4, auto: 5 }
     validates :timeline_zoom_level, inclusion: { in: timeline_zoom_levels.keys }
 
     serialize :timeline_labels, type: Hash

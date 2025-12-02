@@ -31,9 +31,9 @@ require "open3"
 
 module OpenProject
   module VERSION # :nodoc:
-    MAJOR = 15
-    MINOR = 1
-    PATCH = 0
+    MAJOR = 16
+    MINOR = 6
+    PATCH = 1
 
     class << self
       # Used by semver to define the special version (if any).
@@ -97,8 +97,14 @@ module OpenProject
 
       def to_s; STRING end
 
-      def to_semver
-        [MAJOR, MINOR, PATCH].join(".") + special
+      def to_semver(separator: ".", include_special: true)
+        base = [MAJOR, MINOR, PATCH].join(separator)
+
+        if include_special
+          base + special
+        else
+          base
+        end
       end
 
       private

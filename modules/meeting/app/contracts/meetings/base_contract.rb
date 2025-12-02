@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -41,5 +42,17 @@ module Meetings
     attribute :start_date
     attribute :start_time
     attribute :start_time_hour
+    attribute :template
+    attribute :notify
+
+    validate :template_requires_series
+
+    private
+
+    def template_requires_series
+      if model.template && model.recurring_meeting_id.nil?
+        errors.add(:template, :invalid)
+      end
+    end
   end
 end

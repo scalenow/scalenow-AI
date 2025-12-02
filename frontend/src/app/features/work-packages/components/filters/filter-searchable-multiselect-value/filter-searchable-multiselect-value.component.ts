@@ -41,6 +41,7 @@ import { MAGIC_FILTER_AUTOCOMPLETE_PAGE_SIZE } from 'core-app/core/apiv3/helpers
   selector: 'op-filter-searchable-multiselect-value',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './filter-searchable-multiselect-value.component.html',
+  standalone: false,
 })
 export class FilterSearchableMultiselectValueComponent extends UntilDestroyedMixin implements OnInit {
   @Input() public filter:QueryFilterInstanceResource;
@@ -63,6 +64,12 @@ export class FilterSearchableMultiselectValueComponent extends UntilDestroyedMix
   initialRequest$:Observable<CollectionResource>;
 
   itemTracker = (item:HalResource):string => item.href || item.id || item.name;
+
+  groupByFn = (item:HalResource):string|null => {
+    if (!this.isVersionResource) return null;
+    const project = item.definingProject as HalResource | undefined;
+    return project?.name || this.I18n.t('js.project.not_available');
+  };
 
   compareByHref = compareByHref;
 
@@ -209,5 +216,10 @@ export class FilterSearchableMultiselectValueComponent extends UntilDestroyedMix
   private get isUserResource() {
     const type = _.get(this.filter.currentSchema, 'values.type', null) as string;
     return type && type.indexOf('User') > 0;
+  }
+
+  private get isVersionResource() {
+    const type = _.get(this.filter.currentSchema, 'values.type', null) as string;
+    return type && type.indexOf('Version') > 0;
   }
 }

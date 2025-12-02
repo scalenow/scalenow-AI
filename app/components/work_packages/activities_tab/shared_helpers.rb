@@ -2,7 +2,7 @@
 
 # -- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2023 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -31,20 +31,40 @@
 module WorkPackages
   module ActivitiesTab
     module SharedHelpers
-      def truncated_user_name(user)
+      extend ActiveSupport::Concern
+
+      included do
+        include WorkPackages::ActivitiesTab::JournalSortingInquirable
+      end
+
+      def truncated_user_name(user, hover_card: false)
+        helpers.primer_link_to_user(user, scheme: :primary, font_weight: :bold, hover_card:)
+      end
+
+      def activity_anchor_link(journal)
+        auto_scrolling_controller = WorkPackages::ActivitiesTab::StimulusControllers.auto_scrolling_stimulus_controller
+
         render(Primer::Beta::Link.new(
-                 href: user_url(user),
-                 target: "_blank",
-                 scheme: :primary,
+                 href: activity_url(journal),
+                 scheme: :secondary,
                  underline: false,
-                 font_weight: :bold
+                 font_size: :small,
+                 data: {
+                   test_selector: "activity-anchor-link",
+                   turbo: false,
+                   action: "click->#{auto_scrolling_controller}#setAnchor:prevent",
+                   "#{auto_scrolling_controller}-id-param": journal_activity_id(journal),
+                   "#{auto_scrolling_controller}-anchor-name-param": activity_anchor_name
+                 }
                )) do
-          user.name
+          journal_updated_at_formatted_time(journal)
         end
       end
 
-      def journal_sorting
-        User.current.preference&.comments_sorting || OpenProject::Configuration.default_comment_sort_order
+      def journal_updated_at_formatted_time(journal)
+        render(Primer::Beta::Text.new(font_size: :small, color: :subtle, mt: 1)) do
+          format_time(journal.updated_at)
+        end
       end
 
       def activity_url(journal)
@@ -52,7 +72,15 @@ module WorkPackages
       end
 
       def activity_anchor(journal)
-        "#activity-#{journal.sequence_version}"
+        "##{activity_anchor_name}-#{journal_activity_id(journal)}"
+      end
+
+      def activity_anchor_name
+        "comment"
+      end
+
+      def journal_activity_id(journal)
+        journal.id
       end
     end
   end

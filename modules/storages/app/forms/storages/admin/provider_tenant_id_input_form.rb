@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -43,9 +45,9 @@ module Storages::Admin
     private
 
     def caption
-      href = ::OpenProject::Static::Links[:storage_docs][:one_drive_oauth_application][:href]
+      href = ::OpenProject::Static::Links.url_for(:storage_docs, :one_drive_oauth_application)
       I18n.t("storages.instructions.one_drive.tenant_id",
-             application_link_text: render(Primer::Beta::Link.new(href:, target: "_blank")) do
+             application_link_text: render(Primer::Beta::Link.new(href:, underline: true, target: "_blank")) do
                I18n.t("storages.instructions.one_drive.application_link_text")
              end)
     end

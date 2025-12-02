@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -24,7 +26,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-# ++
+#++
 
 class Queries::Projects::Selects::Default < Queries::Selects::Base
   KEYS = %i[id identifier status_explanation hierarchy name public description].freeze
@@ -34,6 +36,6 @@ class Queries::Projects::Selects::Default < Queries::Selects::Base
   end
 
   def self.all_available
-    KEYS.map { new(_1) }
+    KEYS.map { new(it) }
   end
 end

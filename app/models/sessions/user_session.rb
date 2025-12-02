@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -33,6 +35,8 @@ module Sessions
   class UserSession < ::ApplicationRecord
     self.table_name = "sessions"
 
+    belongs_to :user
+
     scope :for_user, ->(user) do
       user_id = user.is_a?(User) ? user.id : user.to_i
 
@@ -41,6 +45,14 @@ module Sessions
 
     scope :non_user, -> do
       where(user_id: nil)
+    end
+
+    scope :autologged, -> do
+      where(id: ::Sessions::AutologinSessionLink.select(:session_id))
+    end
+
+    scope :not_autologged, -> do
+      where.not(id: ::Sessions::AutologinSessionLink.select(:session_id))
     end
 
     ##

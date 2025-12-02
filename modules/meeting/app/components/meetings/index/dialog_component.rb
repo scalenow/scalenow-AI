@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -33,26 +34,31 @@ module Meetings
     include OpTurbo::Streamable
     include OpPrimer::ComponentHelpers
 
-    def initialize(meeting:, project:, type:)
+    def initialize(meeting:, project:, copy_from: nil)
       super
 
       @meeting = meeting
       @project = project
-      @type = type
+      @copy_from = copy_from
     end
 
     private
 
     def render?
-      if @project
-        User.current.allowed_in_project?(:create_meetings, @project)
-      else
-        User.current.allowed_in_any_project?(:create_meetings)
-      end
+      permission = @meeting.persisted? ? :edit_meetings : :create_meetings
+      @project ? User.current.allowed_in_project?(permission, @project) : User.current.allowed_in_any_project?(permission)
     end
 
     def title
-      @type == :new ? I18n.t("label_meeting_new_dynamic") : "Copy meeting"
+      return I18n.t(:label_meeting_copy) if @copy_from
+      return I18n.t(:label_meeting_edit) if @meeting.persisted?
+
+      case @meeting
+      when RecurringMeeting
+        I18n.t("label_meeting_new_recurring")
+      else
+        I18n.t("label_meeting_new_dynamic")
+      end
     end
   end
 end

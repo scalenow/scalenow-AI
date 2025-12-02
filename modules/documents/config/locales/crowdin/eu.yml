@@ -26,6 +26,10 @@ eu:
   activerecord:
     models:
       document: "Dokumentua"
+    attributes:
+      document:
+        content_binary: "Content binary"
+        title: "Title"
   activity:
     filter:
       document: "Dokumentuak"
@@ -33,11 +37,32 @@ eu:
   default_doc_category_user: "Erabiltzaile dokumentazioa"
   enumeration_doc_categories: "Dokumentuen kategoriak"
   documents:
+    page_header:
+      heading: "All documents"
+    subheader:
+      filter:
+        label: "Document name filter"
+        placeholder: "Type here to search document names"
+    documents_list_blank_slate:
+      heading: "There are no documents yet"
+      description: "There are no documents in this view. You can click the button below to add one."
+    index_page:
+      name: "Name"
+      type: "Type"
+      updated_at: "Last edited"
+    menu:
+      all: "All documents"
+      types: "Types"
     label_attachment_author: "Eranskinaren egilea"
+    label_categories: "Categories"
+    new_category: "New category"
   label_document_added: "Dokumentua gehituta"
   label_document_new: "Dokumentu berria"
   label_document_plural: "Dokumentuak"
   label_documents: "Dokumentuak"
+  label_document_title: "Title"
+  label_document_description: "Description"
+  label_document_category: "Category"
   permission_manage_documents: "Kudeatu dokumentuak"
   permission_view_documents: "Ikusi dokumentuak"
   project_module_documents: "Dokumentuak"

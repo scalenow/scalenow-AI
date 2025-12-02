@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -36,6 +37,20 @@ module Meetings
       super
 
       @meeting = meeting
+    end
+
+    private
+
+    def email_updates_mode_selector
+      OpPrimer::EmailUpdatesModeSelectorComponent.new(
+        enabled: @meeting.notify?,
+        path: toggle_notifications_dialog_project_meeting_path(@meeting.project, @meeting),
+        title: I18n.t("meeting.notifications.sidepanel.title"),
+        enabled_description: I18n.t("meeting.notifications.sidepanel.description.enabled"),
+        disabled_description: I18n.t("meeting.notifications.sidepanel.description.disabled"),
+        alt_text: I18n.t("meeting.notifications.sidepanel.description.change_via_template"),
+        show_button: !@meeting.recurring? || @meeting.templated?
+      )
     end
   end
 end

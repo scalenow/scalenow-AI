@@ -21,6 +21,7 @@ A major change in version 15.0 is the overall look-and-feel of the [Activity tab
 This is a big bundle of new features that will greatly improve communication and interaction within OpenProject, making it simpler, more effective and more fun.
 
 Related features in 15.0:
+
 - [Change the design of the Activity panel to Primer](https://community.openproject.org/wp/54733)
 - [Emoji reactions to work package comments](https://community.openproject.org/wp/40437)
 - [Continuously update the notification center. Don't ask for loading updates.](https://community.openproject.org/wp/58253)
@@ -31,7 +32,8 @@ Let's take a closer look at the three biggest changes concerning this feature bu
 
 #### A new timeline design for the Activity tab of work packages
 
-Apart from some obvious design changes that all fit GitHub's Primer design system, users will benefit from some great new features, such as: 
+Apart from some obvious design changes that all fit GitHub's Primer design system, users will benefit from some great new features, such as:
+
 - The comment box being a fixed element anchored to the bottom of the split screen area.
 - Filtering the Activity panel with options to either show everything, changes only or comments only.
 - Ordering to either newest on top or newest at the bottom.
@@ -88,11 +90,12 @@ Before version 15.0, users could choose whether their email address was displaye
 
 With OpenProject 15.0, we are pleased to release another great improvement for our project lists: Clicking on the table headers in a project list now gives you a quick action menu that not only allows you to sort in descending or ascending order, but also to filter or change, remove or add a column. You can still find the same actions in the top-right menu button, but now these actions are much quicker to access. [Read more about the configuration for project lists in our user guide](../../user-guide/projects/project-lists/#configure-project-lists-view).
 
-![Gif showing how quickly you can now change rows in project lists by clicking on the headers](quick_action_table_headers.gif)
+![video showing how quickly you can now change rows in project lists by clicking on the headers](https://openproject-docs.s3.eu-central-1.amazonaws.com/videos/OpenProject_15_0_quick_action_table_headers.mp4)
 
 ### Experience simplified design settings with fewer sidebar design variables needed
 
 Before version 15.0, the design configuration in the administration was very complex as there were many variables to be defined. This is why with OpenProject 15.0, the following design colors cannot be customized anymore:
+
 - Header font
 - Header font on hover
 - Header border
@@ -230,6 +233,7 @@ For more information, please see our updated guides on these topics:
 A very special thank you goes to the City of Cologne for sponsoring parts of this release. Also a big thanks to our Community members for reporting bugs and helping us identify and provide fixes. Special thanks for reporting and finding bugs go to Bill Bai, Sam Yelman, Knight Chang, Gábor Alexovics, Gregor Buergisser, Andrey Dermeyko, Various Interactive, Clayton Belcher, Александр Татаринцев, and Keno Krewer.
 
 Last but not least, we are very grateful for our very engaged translation contributors on Crowdin, who translated quite a few OpenProject strings! This release we would like to highlight
+
 - [Alexander Aleschenko](https://crowdin.com/profile/top4ek), for a great number of translations into Russian.
 - [Alin Marcu](https://crowdin.com/profile/deconfcom), for a great number of translations into Romanian.
 - [hmmftg](https://crowdin.com/profile/hmmftg), for a great number of translations into Persian.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # --copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -39,20 +41,36 @@ require_relative "../../lib_static/open_project/feature_decisions"
 #     OpenProject::FeatureDecisions.add :some_flag
 #   end
 
-OpenProject::FeatureDecisions.add :primerized_work_package_activities
 OpenProject::FeatureDecisions.add :built_in_oauth_applications,
                                   description: "Allows the display and use of built-in OAuth applications."
 
-OpenProject::FeatureDecisions.add :generate_pdf_from_work_package,
-                                  description: "Allows to generate a PDF document from a work package description. " \
-                                               "See #45896 for details."
+OpenProject::FeatureDecisions.add :calculated_value_project_attribute,
+                                  description: "Allows the use of calculated values as a project attribute.",
+                                  force_active: true
 
-# TODO: Remove once the feature flag primerized_work_package_activities is removed altogether
-OpenProject::FeatureDecisions.define_singleton_method(:primerized_work_package_activities_active?) do
-  Rails.env.production? ||
-    (Setting.exists?("feature_primerized_work_package_activities_active") &&
-      Setting.send(:feature_primerized_work_package_activities_active?))
-end
+OpenProject::FeatureDecisions.add :oidc_group_sync,
+                                  description: "Allows to synchronize groups from OpenID Connect providers",
+                                  force_active: true
 
-OpenProject::FeatureDecisions.add :stages_and_gates,
-                                  description: "Enables the under construction feature of stages and gates."
+OpenProject::FeatureDecisions.add :scim_api,
+                                  description: "Enables SCIM API.",
+                                  force_active: true
+
+OpenProject::FeatureDecisions.add :block_note_editor,
+                                  description: "Enables the block note editor for rich text fields where available."
+
+OpenProject::FeatureDecisions.add :beta_widgets,
+                                  description: "Enables BETA versions of widgets."
+
+OpenProject::FeatureDecisions.add :minutes_styling_meeting_pdf,
+                                  description: "Allow exporting a meeting with FITKO styling. " \
+                                               "See #65124 for details."
+
+OpenProject::FeatureDecisions.add :portfolio_models,
+                                  description: "Enables the creation and management of portfolio and program work spaces."
+
+OpenProject::FeatureDecisions.add :new_project_overview,
+                                  description: "Enables the new project overview experience."
+
+OpenProject::FeatureDecisions.add :wp_activity_tab_lazy_pagination,
+                                  description: "Enables lazy pagination for the activity tab."

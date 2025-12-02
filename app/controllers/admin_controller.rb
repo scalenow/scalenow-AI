@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -43,7 +45,7 @@ class AdminController < ApplicationController
       condition = node.condition
 
       name === :admin_overview ||
-        (condition && !condition.call) ||
+        (condition && !condition.call(nil)) ||
         hidden_admin_menu_items.include?(name.to_s)
     end
 
@@ -65,7 +67,7 @@ class AdminController < ApplicationController
     @plugins = Redmine::Plugin.not_bundled.sort
   end
 
-  def test_email
+  def test_email # rubocop:disable Metrics/AbcSize
     raise_delivery_errors = ActionMailer::Base.raise_delivery_errors
     # Force ActionMailer to raise delivery errors so we can catch it
     ActionMailer::Base.raise_delivery_errors = true
@@ -76,7 +78,7 @@ class AdminController < ApplicationController
       flash[:error] = I18n.t(:notice_email_error, value: Redmine::CodesetUtil.replace_invalid_utf8(e.message.dup))
     end
     ActionMailer::Base.raise_delivery_errors = raise_delivery_errors
-    redirect_to admin_settings_mail_notifications_path
+    redirect_to admin_settings_mail_notifications_path, status: :see_other
   end
 
   def info
@@ -93,12 +95,6 @@ class AdminController < ApplicationController
     @checklist += jemalloc_active_checks
 
     @storage_information = OpenProject::Storage.mount_information
-  end
-
-  def default_breadcrumb; end
-
-  def show_local_breadcrumb
-    false
   end
 
   private

@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -69,8 +69,8 @@ module TableHelpers
         work_packages_data
             .slice(0, data[:index])
             .reverse
-            .find { _1[:hierarchy_indent] < hierarchy_indent }
-            .then { _1&.fetch(:identifier) }
+            .find { it[:hierarchy_indent] < hierarchy_indent }
+            .then { it&.fetch(:identifier) }
       end
     end
   end

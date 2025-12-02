@@ -28,7 +28,9 @@
 
 .router--work-packages-full-view:not(.router--work-packages-full-create)
   @include extended-content--bottom
-  @include extended-content--right
+
+  @media screen and (min-width: $breakpoint-sm)
+    @include extended-content--right
 
 .work-packages--show-view
   display: flex
@@ -47,7 +49,7 @@
 
   &--split-left
     overflow-y: auto
-    overflow-x: hidden
+    overflow-x: clip
     flex: 2
     position: relative
     @include styled-scroll-bar
@@ -128,6 +130,11 @@
     #toolbar-items
       margin-left: 0
 
+@media only screen and (max-width: $breakpoint-md)
+  .work-packages--subject-type-row
+    flex-wrap: wrap
+    overflow: hidden
+
 #work-packages-index
   .op-uc-link_permalink
     display: none
@@ -145,6 +152,8 @@
   line-height: 24px
 
 .work-packages--type-selector:not(.wp-new-top-row--element)
+  max-width: 100%
+  @include text-shortener()
   .inline-edit--display-field
     padding-right: 5px !important
     // Remove left padding from type

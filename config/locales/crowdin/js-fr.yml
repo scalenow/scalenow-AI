@@ -72,7 +72,7 @@ fr:
     button_confirm: "Confirmer"
     button_continue: "Continuer"
     button_copy: "Copier"
-    button_copy_to_clipboard: "Copier dans le presse-papier"
+    button_copy_to_clipboard: "Copier dans le presse-papiers"
     button_copy_link_to_clipboard: "Copier le lien dans le presse-papiers"
     button_copy_to_other_project: "Dupliquer dans un autre projet"
     button_custom-fields: "Champs personnalisés"
@@ -88,6 +88,8 @@ fr:
     button_list_view: "Vue en liste"
     button_show_view: "Affichage plein écran"
     button_log_time: "Afficher l'horodatage"
+    button_start_timer: "Démarrer le suivi du temps"
+    button_stop_timer: "Arrêter le suivi du temps"
     button_more: "Plus"
     button_open_details: "Ouvrir la vue détaillée"
     button_close_details: "Fermer la vue détaillée"
@@ -103,7 +105,6 @@ fr:
     button_settings: "Paramètres"
     button_uncheck_all: "Tout désélectionner"
     button_update: "Mettre à jour"
-    button_export-pdf: "Télécharger le PDF"
     button_export-atom: "Télécharger Atom"
     button_generate_pdf: "Générer un fichier PDF"
     button_create: "Créer"
@@ -189,7 +190,7 @@ fr:
           without_type: "Créer un lot de travaux"
           with_type: "Créer un lot de travaux (Type : %{typename})"
         embedded_table:
-          button: "Intégrer le lot de travaux"
+          button: "Intégrer le tableau du lot de travaux"
           text: "[Placeholder] Tableau du lot de travaux intégré"
         embedded_calendar:
           text: "[Placeholder] Calendrier embarqué"
@@ -203,67 +204,6 @@ fr:
         edit_query: "Modifier la requête"
         new_group: "Nouveau groupe"
         reset_to_defaults: "Rétablir les valeurs par défaut"
-      enterprise:
-        text_reprieve_days_left: "%{days} jours avant la fin de la période de grâce"
-        text_expired: "expiré"
-        trial:
-          confirmation: "Confirmation de l'adresse e-mail"
-          confirmation_info: >
-            Nous vous avons envoyé un e-mail le %{date} à l'adresse %{email}. Veuillez vérifier votre boîte de réception et cliquer sur le lien de confirmation fourni pour commencer votre essai de 14 jours.
-          form:
-            general_consent: >
-              J'accepte les <a target="_blank" href="%{link_terms}">conditions d'utilisation</a> et la <a target="_blank" href="%{link_privacy}">politique de confidentialité</a>.
-            invalid_email: "Adresse e-mail invalide"
-            label_company: "Société"
-            label_first_name: "Prénom"
-            label_last_name: "Nom de famille"
-            label_domain: "Domaine"
-            label_subscriber: "Abonné"
-            label_maximum_users: "Nombre maximal d’utilisateurs actif"
-            label_starts_at: "Commence à"
-            label_expires_at: "Expire le"
-            receive_newsletter: Je veux recevoir la <a target="_blank" href="%{link}">newsletter scalenow-AI</a>.
-            taken_domain: Il ne peut y avoir qu'un seul essai actif par domaine.
-            domain_mismatch: Le nom d'hôte de la requête actuelle ne correspond pas au nom d'hôte configuré. Veuillez vérifier les paramètres de votre système.
-            taken_email: Chaque utilisateur ne peut créer qu'un essai.
-          email_not_received: "Vous n'avez pas reçu d'e-mail ? Vous pouvez renvoyer l'e-mail avec le lien à droite."
-          try_another_email: "Ou essayez avec une autre adresse e-mail."
-          next_steps: "Prochaines étapes"
-          resend_link: "Renvoyer"
-          resend_success: "L'e-mail a été renvoyé. Veuillez vérifier vos e-mails et cliquer sur le lien de confirmation fourni."
-          resend_warning: "Impossible de renvoyer l'e-mail."
-          session_timeout: "Votre session a expiré. Veuillez rafraîchir la page ou renvoyer l'e-mail."
-          status_label: "Statut :"
-          status_confirmed: "confirmé"
-          status_waiting: "e-mail envoyé - en attente de confirmation"
-          test_ee: "Essayez gratuitement la version Entreprise pendant 14 jours"
-          quick_overview: "Obtenez un aperçu rapide de la gestion de projets et de la collaboration en équipe avec la version Entreprise d'scalenow-AI."
-        upsale:
-          become_hero: "Devenez un héros !"
-          enterprise_info_html: "%{feature_title} est un module de la version <span class='spot-icon spot-icon_inline spot-icon_enterprise-addons'></span>Enterprise."
-          upgrade_info: "Veuillez passer à une offre payante pour l'activer et commencer à l'utiliser dans votre équipe."
-          benefits:
-            description: "Quels sont les avantages de l'édition Entreprise autohébergée ?"
-            high_security: "Fonctionnalités de sécurité"
-            high_security_text: "Authentification unique (SAML, OpenID Connect, CAS), groupes LDAP."
-            installation: "Assistance à l'installation"
-            installation_text: "Des ingénieurs logiciel expérimentés vous guident à travers le processus complet d'installation et de configuration de votre propre infrastructure."
-            premium_features: "Add-ons Entreprise"
-            premium_features_text: "Tableaux agiles, thème et logo personnalisés, graphiques, flux de travail intelligents avec actions personnalisées, recherche en plein texte des pièces jointes de lots de travaux et champs personnalisés à choix multiples"
-            professional_support: "Support professionnel"
-            professional_support_text: "Obtenez une assistance fiable et disponible de la part d'ingénieurs d'assistance expérimentés qui ont une connaissance approfondie de la mise en œuvre d'scalenow-AI dans des environnements critiques pour l'entreprise."
-          button_start_trial: "Commencer l'essai gratuit"
-          button_upgrade: "Mettre à niveau maintenant"
-          button_contact_us: "Contactez-nous pour une démo"
-          button_book_now: "Réserver maintenant"
-          confidence: >
-            Nous fournissons la confiance d'un logiciel de gestion de projet de classe entreprise testé et supporté - en Open Source et un avec esprit ouvert.
-          link_quote: "Obtenir un devis"
-          more_info: "Plus d'informations"
-          text: >
-            La version Entreprise d'scalenow-AI s'appuie sur la version Community. Elle comprend des add-ons Entreprise et un support professionnel principalement destiné aux organisations comptant plus de 10 utilisateurs gérant des projets critiques avec scalenow-AI.
-          unlimited: "Illimité"
-          you_contribute: "Les développeurs aussi ont besoin de payer leurs factures. En passant à la version Entreprise, vous soutiendrez cet effort communautaire open source et contribuerez à son développement, sa maintenance et son amélioration continue."
       working_days:
         calendar:
           empty_state_header: "Jours non travaillés"
@@ -274,13 +214,13 @@ fr:
         change_button: "Enregistrer et reprogrammer"
         change_title: "Changer les jours travaillés"
         removed_title: "Vous supprimerez les jours suivants de la liste des jours non travaillés :"
-        change_description: "La modification des jours de la semaine qui sont considérés comme des jours travaillés ou des jours non travaillés peut affecter les jours de début et de fin de tous les lots de travaux de tous les projets dans ce cas."
+        change_description: "La modification des jours de la semaine considérés comme des jours ouvrables ou des jours non ouvrables peut affecter les jours de début et de fin de tous les lots de travaux et les cycles de vie de tous les projets dans ce cas."
         warning: >
-          Les modifications pourraient prendre un certain temps pour être appliquées. Vous serez averti(e) lorsque tous les lots de travaux pertinents auront été mis à jour.
+          Les modifications peuvent prendre un certain temps avant de prendre effet. Vous serez informé(e) lorsque tous les lots de travaux et cycles de vie des projets concernés auront été mis à jour.
           Voulez-vous continuer ?
       work_packages_settings:
         warning_progress_calculation_mode_change_from_status_to_field_html: >-
-          Passer du mode de calcul de la progression basé sur le statut au mode basé sur le travail transformera <i>% réalisé</i> en champ librement modifiable. Si vous complétez les champs <i>Travail</i> et <i>Travail restant</i>, ils seront également liés à <i>% réalisé</i>. Changer le champ <i>Travail restant</i> peut alors changer le <i>% réalisé</i>.
+          Passer du mode de calcul de la progression basé sur le statut au mode basé sur le travail transformera <i>% réalisé</i> en champ librement modifiable. Si vous complétez les champs <i>Travail</i> et <i>Travail restant</i>, ils seront également liés à <i>% réalisé</i>. Changer le champ <i>Travail restant</i> peut alors changer le <i>% réalisé</i>.
         warning_progress_calculation_mode_change_from_field_to_status_html: >-
           Passer du mode de calcul de la progression basé sur le travail au mode basé sur le statut entraînera la perte de toutes les valeurs de <i>% réalisé</i> existantes et leur remplacement par les valeurs associées à chaque statut. Les valeurs existantes pour <i>Travail restant</i> peuvent également être recalculées pour refléter ce changement. Cette action est irréversible.
     custom_actions:
@@ -299,7 +239,7 @@ fr:
       more_values_not_shown: "Il y a %{total} résultats supplémentaires, effectuez une recherche pour filtrer les résultats."
       description:
         text_open_filter: "Ouvrir ce filtre avec la touche « ALT » et les touches fléchées."
-        text_close_filter: "Pour sélectionner une entrée, laissez le focus par exemple en appuyant sur Entrée. Pour quitter sans filtre, sélectionnez la première entrée (vide)."
+        text_close_filter: "Pour sélectionner une entrée, laissez le focus par exemple en appuyant sur enter. Pour quitter sans filtre, sélectionnez la première entrée (vide)."
       noneElement: "(aucun)"
       time_zone_converted:
         two_values: "%{from} - %{to} dans votre heure locale."
@@ -350,17 +290,6 @@ fr:
         format:
           date: "%{attribute} n’est pas une date valide. Format attendu : AAAA-MM-JJ."
         general: "Une erreur s'est produite."
-    homescreen:
-      blocks:
-        new_features:
-          text_new_features: "En savoir plus sur les nouvelles fonctionnalités et les mises à jour des produits."
-          learn_about: "En savoir plus sur les nouvelles fonctionnalités"
-          #Include the version to invalidate outdated translations in other locales.
-          #Otherwise, e.g. chinese might still have the translations for 10.0 in the 12.0 release.
-          "15_1":
-            standard:
-              new_features_html: >
-                Cette version apporte diverses fonctionnalités et améliorations, par exemple <br> <ul class="%{list_styling_class}"> <li>Champs personnalisés de type hiérarchique (module Enterprise).</li> <li>Refonte de l'onglet Relations dans les lots de travaux.</li> <li>Refonte de la page d'index des réunions.</li> <li>Sauts de page manuels dans les exportations de lots de travaux PDF.</li> <li>Mode Zen pour les listes de projets.</li> </ul>
     ical_sharing_modal:
       title: "S'abonner au calendrier"
       inital_setup_error_message: "Une erreur est survenue lors de la récupération des données."
@@ -386,7 +315,8 @@ fr:
     label_added_time_by: 'Ajouté par <a href="%{authorLink}">%{author}</a> le %{age}'
     label_ago: "il y a"
     label_all: "tous"
-    label_all_uppercase: "Tout"
+    label_all_projects: "Tous les projets"
+    label_all_uppercase: "Tous"
     label_all_work_packages: "tous les lots de travaux"
     label_and: "et"
     label_ascending: "Croissant"
@@ -433,7 +363,6 @@ fr:
     label_filename: "Fichier"
     label_filesize: "Taille"
     label_general: "Général"
-    label_global_roles: "Rôles globaux"
     label_greater_or_equal: ">="
     label_group: "Groupe"
     label_group_by: "Grouper par"
@@ -454,14 +383,15 @@ fr:
     label_less_or_equal: "<="
     label_less_than_ago: "il y a moins de quelques jours"
     label_loading: "Chargement…"
-    label_mail_notification: "Notifications par e-mail"
+    label_mail_notification: "Notifications par courriel"
     label_manage_columns: "Gérer et réorganiser les colonnes"
     label_me: "moi"
     label_meeting_agenda: "Ordre du jour"
-    label_meeting_minutes: "Compte-rendu"
+    label_meeting_minutes: "Minutes"
     label_menu_collapse: "réduire"
     label_menu_expand: "développer"
     label_more_than_ago: "il y a plus de quelques jours"
+    label_moderate_comment: "Modérer le commentaire"
     label_next: "Suivante"
     label_no_color: "Aucune couleur"
     label_no_data: "Aucune donnée à afficher"
@@ -495,7 +425,6 @@ fr:
     label_repository_plural: "Dépôts"
     label_save_as: "Enregistrer sous"
     label_search_columns: "Rechercher une colonne"
-    label_select_project: "Sélectionner un projet"
     label_select_watcher: "Sélectionner un observateur…"
     label_selected_filter_list: "Filtres sélectionnés"
     label_show_attributes: "Afficher tous les attributs"
@@ -506,7 +435,7 @@ fr:
     label_sort_lower: "Déplacer vers le bas"
     label_sorting: "Tri"
     label_spent_time: "Temps passé"
-    label_star_query: "Favori"
+    label_star_query: "Favoris"
     label_press_enter_to_save: "Appuyer sur \"entrée\" pour enregistrer."
     label_public_query: "Public"
     label_sum: "Total"
@@ -565,7 +494,7 @@ fr:
     label_version_plural: "Versions"
     label_view_has_changed: "Cette vue a des changements non sauvegardés. Cliquez pour les enregistrer."
     help_texts:
-      show_modal: "Afficher l’aide de l’attribut de saisie de texte"
+      show_modal: "Afficher le texte d'aide"
     onboarding:
       buttons:
         skip: "Passer"
@@ -621,17 +550,15 @@ fr:
         prioritized: "Priorisé"
         dateAlert: "Alarmes"
         shared: "Partagé"
+        reminder: "Rappel"
       date_alerts:
         milestone_date: "Date jalon"
         overdue: "En retard"
-        overdue_since: "depuis %{difference_in_days}"
-        property_today: "est aujourd’hui"
-        property_is: "est dans %{difference_in_days}"
-        property_was: "était il y a %{difference_in_days}"
-        property_is_deleted: "est supprimé"
-        upsale:
-          title: "Alarmes"
-          description: "Avec les alarmes, vous serez informé(e) à l'approche des dates de début ou de fin vous concernant afin de ne jamais manquer ou oublier une échéance importante."
+        overdue_since: "depuis %{difference_in_days}."
+        property_today: "a lieu aujourd'hui."
+        property_is: "a lieu dans %{difference_in_days}."
+        property_was: "avait lieu il y a %{difference_in_days}."
+        property_is_deleted: "a été supprimée."
       center:
         label_actor_and: "et"
         and_more_users:
@@ -642,6 +569,7 @@ fr:
           with_current_filter: "Il n'y a pas de notifications dans cette vue pour le moment"
         mark_all_read: "Tout marquer comme lu"
         mark_as_read: "Marquer comme lu"
+        mark_all_read_confirmation: "Ceci marquera toutes les notifications de cette vue comme lues. Voulez-vous continuer ?"
         text_update_date_by: "%{date} par"
         total_count_warning: "Affichage des %{newest_count} notifications les plus récentes. %{more_count} autres ne sont pas affichées."
         empty_state:
@@ -653,6 +581,8 @@ fr:
         new_notifications:
           message: "Il y a de nouvelles notifications."
           link_text: "Cliquez ici pour les télécharger."
+      reminders:
+        note: "Note : « %{note} »"
       settings:
         change_notification_settings: 'Vous pouvez modifier vos <a target="_blank" href="%{url}">paramètres de notification</a> pour vous assurer de ne jamais manquer une mise à jour importante.'
         title: "Paramètres de notifications"
@@ -673,7 +603,7 @@ fr:
           mentioned:
             title: "Mentionné"
             description: "Recevoir une notification chaque fois que quelqu'un me mentionne n'importe où"
-          assignee: "Assigné"
+          assignee: "Assigné à"
           responsible: "Responsable"
           shared: "Partagé"
           watched: "Observateur"
@@ -687,12 +617,11 @@ fr:
             title: "Participant"
             description: "Notifications pour toute activité sur les lots de travaux vous concernant (assigné, responsable ou observateur)."
           delayed:
-            title: "Non participants"
+            title: "Non participant"
             description: "Notifications additionnelles lors d'activités sur tous les projets."
           date_alerts:
-            title: "Alarmes"
+            title: "Alertes de date"
             description: "Notifications automatiques lorsque des dates importantes approchent pour les lots de travaux ouverts vous concernant (assigné, responsable ou observateur)."
-            teaser_text: "Avec les alarmes, vous serez informé(e) à l'approche des dates de début ou de fin vous concernant afin de ne jamais manquer ou oublier une échéance importante."
           overdue: En cas de retard
         project_specific:
           title: "Paramètres de notification spécifiques au projet"
@@ -705,9 +634,12 @@ fr:
       title: "Confirmez votre mot de passe pour continuer"
     pagination:
       no_other_page: "Vous êtes sur la seule page."
+      pages_skipped: "Pages ignorées."
+      page_navigation: "Navigation par pagination"
+      per_page_navigation: 'Sélection des éléments par page'
       pages:
-        next: "Avancer à la page suivante"
-        previous: "Revenir à la page précédente"
+        page_number: Page %{number}
+        show_per_page: Afficher %{number} par page
     placeholders:
       default: "-"
       subject: "Saisir le sujet ici"
@@ -715,17 +647,13 @@ fr:
       description: "Description: Cliquez pour modifier..."
       relation_description: "Cliquez pour ajouter la description pour cette relation"
     project:
-      required_outside_context: >
-        Veuillez choisir un projet pour créer le lot de travaux et voir tous les attributs. Vous pouvez seulement sélectionner des projets ayant le type ci-dessus activé.
-      context: "Contexte du projet"
-      click_to_switch_to_project: "Projet : %{projectname}"
-      confirm_template_load: "Changer de modèle rechargera la page et vous perdrez toutes les entrées de ce formulaire. Continuer ?"
-      use_template: "Utiliser le modèle"
-      no_template_selected: "(aucun)"
-      copy:
-        copy_options: "Options de copie"
       autocompleter:
         label: "Remplissage automatique du projet"
+      click_to_switch_to_project: "Projet : %{projectname}"
+      context: "Contexte du projet"
+      not_available: "Projet N/D"
+      required_outside_context: >
+        Veuillez choisir un projet pour créer le lot de travaux et voir tous les attributs. Vous pouvez seulement sélectionner des projets ayant le type ci-dessus activé.
     reminders:
       settings:
         daily:
@@ -740,6 +668,7 @@ fr:
         immediate:
           title: "Envoyez-moi un rappel par e-mail"
           mentioned: "Immédiatement quand quelqu'un me @mentionne"
+          personal_reminder: "Immédiatement lorsque je reçois un rappel personnel"
         alerts:
           title: "Alertes par e-mail pour les autres éléments (qui ne sont pas des lots de travaux)"
           explanation: >
@@ -758,8 +687,10 @@ fr:
           first_day: "Premier jour"
           last_day: "Dernier jour"
     text_are_you_sure: "Êtes-vous sûr ?"
+    text_are_you_sure_to_cancel: "Vous avez des modifications non enregistrées sur cette page. Voulez-vous vraiment les supprimer ?"
+    breadcrumb: "Fil d'Ariane"
     text_data_lost: "Toutes les données saisies seront perdues."
-    text_user_wrote: "%{value} écrit :"
+    text_user_wrote: "%{value} écrit:"
     types:
       attribute_groups:
         error_duplicate_group_name: "Le nom %{group} est utilisé plus d’une fois. Les noms de groupe doivent être uniques."
@@ -771,21 +702,17 @@ fr:
         upgrade_to_ee_text: "Waouh ! Si vous avez besoin de cette fonctionnalité, vous êtes un véritable pro ! Cela vous dérangerait-il de soutenir les développeurs Open Source en devenant un client de la version Entreprise ?"
         more_information: "Plus d'informations"
         nevermind: "Peu importe"
-      edit:
-        form_configuration: "Configuration du formulaire"
-        projects: "Projets"
-        settings: "Paramètres"
     time_entry:
       work_package_required: "Nécessite d'abord la sélection d'un lot de travaux."
       title: "Consigner temps"
       tracking: "Suivi du temps"
       stop: "Arrêter"
     timer:
-      start_new_timer: "Démarrer une nouvelle minuterie"
-      timer_already_running: "Pour démarrer une nouvelle minuterie, vous devez d'abord arrêter la minuterie actuelle :"
-      timer_already_stopped: "Aucune minuterie active pour ce lot de travaux, l'avez-vous arrêtée dans une autre fenêtre ?"
+      start_new_timer: "Démarrer un nouveau suivi du temps"
+      timer_already_running: "Pour démarrer un nouveau suivi du temps, vous devez d'abord arrêter le suivi actuel :"
+      timer_already_stopped: "Aucun suivi du temps n'est actif pour ce lot de travaux, l'avez-vous arrêté dans une autre fenêtre ?"
       tracking_time: "Temps de suivi"
-      button_stop: "Arrêter la minuterie actuelle"
+      button_stop: "Arrêter le suivi du temps actuel"
     two_factor_authentication:
       label_two_factor_authentication: "Authentification à deux facteurs"
     watchers:
@@ -797,6 +724,7 @@ fr:
       typeahead_placeholder: Rechercher les observateurs potentiels
     relation_labels:
       parent: "Parent"
+      child: "Enfant"
       children: "Enfants"
       relates: "En relation avec"
       duplicates: "Duplique"
@@ -826,16 +754,16 @@ fr:
       add_new_child: "Créer un nouvel enfant"
       create_new: "Créer nouveau"
       add_existing: "Ajouter existant"
-      add_existing_child: "Ajouter un enfant existant"
+      add_existing_child: "Ajouter un enfant"
       remove_child: "Supprimer enfant"
       add_new_relation: "Créer une nouvelle relation"
       add_existing_relation: "Ajouter une relation existante"
       update_description: "Définir ou mettre à jour la description de cette relation"
       toggle_description: "Alterner la description de relation"
       update_relation: "Cliquez pour modifier le type de relation"
-      add_follower: "Ajouter un successeur"
       show_relations: "Afficher les relations"
       add_predecessor: "Ajouter un prédécesseur"
+      add_successor: "Ajouter un successeur"
       remove: "Supprimer la relation"
       save: "Enregistrer la relation"
       abort: "Interrompre"
@@ -845,6 +773,7 @@ fr:
     autocompleter:
       placeholder: "Taper pour rechercher"
       notFoundText: "Aucun élément trouvé"
+      search: "Recherche"
       project:
         placeholder: "Sélectionnez le projet"
     repositories:
@@ -852,8 +781,6 @@ fr:
       select_branch: "Sélectionner une branche"
     field_value_enter_prompt: "Saisissez une valeur pour « %{field} »"
     project_menu_details: "Détails"
-    scheduling:
-      manual: "Planification manuelle"
     sort:
       sorted_asc: "Tri par ordre croissant appliqué, "
       sorted_dsc: "Tri par ordre décroissant appliqué, "
@@ -867,7 +794,7 @@ fr:
     tl_toolbar:
       zooms: "Niveau de zoom"
       outlines: "Niveau de hiérarchie"
-    upsale:
+    upsell:
       ee_only: "Add-on de l'édition entreprise"
     wiki_formatting:
       strong: "Gras"
@@ -892,24 +819,15 @@ fr:
         mixed: "Mixte"
     work_packages:
       bulk_actions:
-        move: "Changement de projet en bloc"
         edit: "Édition en bloc"
-        copy: "Copier en bloc"
         delete: "Supprimer en bloc"
+        duplicate: "Duplication groupée"
+        move: "Changement de projet en bloc"
       button_clear: "Effacer"
       comment_added: "Le commentaire a été ajouté avec succès."
       comment_send_failed: "Une erreur s'est produite. Impossible de soumettre le commentaire."
       comment_updated: "Le commentaire a été mis à jour avec succès."
       confirm_edit_cancel: "Êtes-vous sûr de vouloir annuler l'édition du lot de travaux ?"
-      datepicker_modal:
-        automatically_scheduled_parent: "Planification automatique. Les dates sont dérivées des relations."
-        manually_scheduled: "La planification manuelle est activée, toutes les relations sont ignorées."
-        start_date_limited_by_relations: "Les dates de début et de fin disponibles sont limitées par les relations."
-        changing_dates_affects_follow_relations: "La modification de ces dates affectera les dates des lots de travaux connexes."
-        click_on_show_relations_to_open_gantt: 'Cliquez sur « %{button_name} » pour avoir une vue d''ensemble de GANTT.'
-        show_relations: "Afficher les relations"
-        ignore_non_working_days:
-          title: "Jours ouvrés seulement"
       description_filter: "Filtrer"
       description_enter_text: "Saisir texte"
       description_options_hide: "Masquer les options"
@@ -948,8 +866,8 @@ fr:
         header_no_type: "Nouveau lot de travaux (type non encore spécifié)"
         header_with_parent: "Nouveau %{type} (enfant de %{parent_type} #%{id})"
         button: "Créer"
-      copy:
-        title: "Copier le lot de travaux"
+      duplicate:
+        title: "Dupliquer les lots de travaux"
       hierarchy:
         show: "Afficher le mode hiérarchie"
         hide: "Masquer le mode hiérarchie"
@@ -1026,8 +944,8 @@ fr:
         hierarchy_disabled_by_group_by: "Le mode hiérarchie est désactivé, car les résultats sont groupés par %{column}."
         sort_ascending: "Trier par ordre croissant"
         sort_descending: "Trier par ordre décroissant"
-        move_column_left: "Déplacer la colonne à gauche"
-        move_column_right: "Déplacer la colonne à droite"
+        move_column_left: "Déplacer la colonne de gauche"
+        move_column_right: "Déplacer le colonne de droite"
         hide_column: "Masquer la colonne"
         insert_columns: "Insérer des colonnes"
         filters: "Filtres"
@@ -1043,19 +961,29 @@ fr:
           not_found: "Cette vue n'existe pas"
           duplicate_query_title: "Le nom de cette vue existe déjà. Changer quand même ?"
         text_no_results: "Aucune vue correspondante n'a été trouvée."
+      reminders:
+        button_label: "Définir un rappel"
+        title:
+          new: "Définir un rappel"
+          edit: "Modifier un rappel"
+        subtitle: "Vous recevrez une notification pour ce lot de travaux au moment choisi."
+        presets:
+          tomorrow: "Demain"
+          three_days: "Dans 3 jours"
+          week: "Dans une semaine"
+          month: "Dans un mois"
+          custom: "À une date/heure particulière"
       scheduling:
         is_parent: "Les dates de ce lot de travaux sont automatiquement déduites de ses enfants. Activez la « Planification manuelle » pour définir les dates."
         is_switched_from_manual_to_automatic: "Les dates de ce lot de travaux peuvent avoir besoin d'être recalculées après avoir passé de la planification manuelle à la planification automatique en raison de relations avec d'autres lots de travaux."
       sharing:
         title: "Partager le lot de travaux"
         show_all_users: "Afficher tous les utilisateurs avec lesquels le lot de travaux a été partagé"
-        upsale:
-          description: "Partagez les lots de travaux avec des utilisateurs qui ne sont pas membres du projet."
       table:
         configure_button: "Configurer le tableau du lot de travaux"
         summary: "Tableau avec lignes de lots de travaux et colonnes d’attributs de lots de travaux."
         text_inline_edit: "La plupart des cellules de ce tableau sont des boutons qui activent la fonctionnalité d'édition en ligne de l’attribut."
-        text_sort_hint: "Avec les liens dans les entêtes de tableau, vous pouvez trier, regrouper, réorganiser, supprimer et ajouter des colonnes."
+        text_sort_hint: "Avec les liens dans les en-têtes de tableau vous pouvez trier, regrouper, réorganiser, supprimer et ajouter des colonnes."
         text_select_hint: "Les boîtes de sélection doivent être ouvertes avec la touche « ALT » et les flèches directionelles."
       table_configuration:
         button: "Configurer ce tableau du lot de travaux"
@@ -1075,7 +1003,7 @@ fr:
           none: "Pas de surlignement"
           inline: "Attribut(s) en surbrillance"
           inline_all: "Tous les attributs"
-          entire_row_by: "Ligne entière selon"
+          entire_row_by: "Ligne entière par"
           status: "Statut"
           priority: "Priorité"
           type: "Type"
@@ -1084,11 +1012,7 @@ fr:
           automatic: "Automatique"
           manually: "Manuellement"
           warning: "Vous perdrez votre tri précédent lors de l'activation du mode de tri automatique."
-        columns_help_text: "Utilisez le champ de saisie ci-dessus pour ajouter des colonnes à votre vue de tableau. Vous pouvez glisser-déposer les colonnes pour les réorganiser."
-        upsale:
-          attribute_highlighting: "Vous avez besoin de lots de travaux qui sortent du lot ?"
-          relation_columns: "Besoin de voir les relations sur la liste des lots de travaux ?"
-          check_out_link: "Découvrez l’édition Entreprise."
+        columns_help_text: "Utilisez le champ de saisie ci-dessus pour ajouter des colonnes à votre vue table. Vous pouvez glisser-déposer les colonnes pour les réorganiser."
         relation_filters:
           filter_work_packages_by_relation_type: "Filtrer les lots de travaux par type de relation"
       tabs:
@@ -1147,6 +1071,8 @@ fr:
     notice_successful_delete: "Suppression réussie."
     notice_successful_update: "Mise à jour réussie."
     notice_job_started: "tâche démarrée."
+    no_job_id: "Aucun ID de tâche n'a été renvoyé par le serveur."
+    invalid_job_response: "Réponse invalide du serveur."
     notice_bad_request: "Mauvaise requête."
     relations:
       empty: Aucune relation n'existe
@@ -1179,6 +1105,7 @@ fr:
       child_work_packages:
         one: "un lot de travaux enfant"
         other: "%{count} lots de travaux enfant"
+      hour_string: "%{hours} h"
       hour:
         one: "1h"
         other: "%{count} h"
@@ -1199,7 +1126,6 @@ fr:
       current_project_and_all_descendants: "Dans ce projet + sous-projets"
       current_project: "Pour ce projet"
       recently_viewed: "Consultés récemment"
-      search: "Recherche"
       title:
         all_projects: "tous les projets"
         project_and_subprojects: "et tous les sous-projets"
@@ -1233,9 +1159,9 @@ fr:
           description: "Permissions basées sur le rôle attribué dans le projet sélectionné"
         group:
           title: "Groupe"
-          description: "Permissions basées sur le rôle attribué dans le projet sélectionné"
+          description: "Permissions basées sur le rôle assigné dans le projet sélectionné"
         placeholder:
-          title: "Utilisateur de remplacement"
+          title: "Utilisateur fictif"
           title_no_ee: "Utilisateur fictif (add-on de la version Entreprise uniquement)"
           description: "N'a pas d'accès au projet et aucun e-mail n'est envoyé."
           description_no_ee: 'N''a pas accès au projet et aucun e-mail n''est envoyé. <br>Consultez la <a href="%{eeHref}" target="_blank">version Entreprise</a>.'
@@ -1246,7 +1172,7 @@ fr:
         already_member_message: "Déjà membre de %{project}"
         no_results_user: "Aucun utilisateur n'a été trouvé"
         invite_user: "Invité :"
-        no_results_placeholder: "Aucuns utilisateurs fictifs n'a été trouvé"
+        no_results_placeholder: "Aucun utilisateur fictif n'a été trouvé"
         create_new_placeholder: "Créer un nouveau utilisateur fictif :"
         no_results_group: "Aucun groupe n'a été trouvé"
         next_button: "Suivante"
@@ -1290,24 +1216,24 @@ fr:
       selected_filter:
         all: "Tous les projets"
         selected: "Uniquement la sélection"
-      search_placeholder: "Rechercher un projet..."
+      search_placeholder: "Recherche de projets..."
+      search_placeholder_favorites: "Recherche de favoris..."
       include_subprojects: "inclure tous les sous-projets"
       tooltip:
         include_all_selected: "Projet déjà inclus puisque Include tous les sous-projets sont activés."
         current_project: "Ceci est le projet dans lequel vous vous trouvez actuellement."
         does_not_match_search: "Le projet ne correspond pas aux critères de recherche."
       no_results: "Aucun projet ne correspond à vos critères de recherche."
+      no_favorite_results: "Aucun projet favori ne correspond à vos critères de recherche."
     baseline:
       toggle_title: "Référence"
       clear: "Effacer"
       apply: "Appliquer"
       header_description: "Mettre en évidence les modifications apportées à cette liste depuis n'importe quel point dans le passé."
-      enterprise_header_description: "Mettre en évidence les modifications apportées à cette liste depuis n'importe quel point dans le passé avec la version Enterprise."
       show_changes_since: "Afficher les modifications depuis"
-      baseline_comparison: "Comparaison de Référence"
       help_description: "Fuseau horaire de référence pour la Référence."
       time_description: "Dans votre fuseau horaire : %{datetime}"
-      time: "Heure"
+      time: "Heure "
       from: "De"
       to: "À"
       drop_down:
@@ -1346,5 +1272,3 @@ fr:
       waiting_subtitle:
         network_off: "Un problème de réseau est survenu."
         network_on: "Le réseau est à nouveau disponible. Nous essayons."
-        timeout: >
-          scalenow-AI n'a pas pu vous donner accès au dossier du projet dans le délai imparti. Veuillez réessayer.<br><br> Si ce problème persiste, veuillez contacter votre administrateur scalenow-AI pour vérifier le <a href="#">statut de santé de l'espace de stockage de fichiers</a>.

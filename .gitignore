@@ -114,7 +114,6 @@ npm-debug.log*
 node_modules/
 
 # Ignore global package-lock.json that generates
-/package-lock.json
 plaintext.yml
 structure.sql
 
@@ -133,6 +132,8 @@ structure.sql
 # local user override
 lefthook-local.yml
 .rubocop-local.yml
+
+/.lefthook-local/
 
 frontend/package-lock.json
 

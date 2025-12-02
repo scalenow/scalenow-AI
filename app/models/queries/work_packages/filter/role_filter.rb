@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -67,7 +69,9 @@ class Queries::WorkPackages::Filter::RoleFilter < Queries::WorkPackages::Filter:
   private
 
   def roles
-    ::Role.givable
+    Role
+      .includes(:role_permissions)
+      .where(role_permissions: { permission: "work_package_assigned" })
   end
 
   def operator_for_filtering

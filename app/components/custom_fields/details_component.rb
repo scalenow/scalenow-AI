@@ -30,15 +30,37 @@
 #
 module CustomFields
   class DetailsComponent < ApplicationComponent
+    include ApplicationHelper
+    include EnterpriseHelper
     include OpPrimer::ComponentHelpers
     include OpTurbo::Streamable
 
     alias_method :custom_field, :model
 
-    def has_no_items_or_projects?
-      custom_field.field_format_hierarchy? &&
+    def persisted_cf_has_no_items_or_projects?
+      custom_field.persisted? &&
+        custom_field.hierarchical_list? &&
         custom_field.hierarchy_root.children.empty? &&
         custom_field.projects.empty?
+    end
+
+    def form_url
+      model.new_record? ? custom_fields_path : custom_field_path(model)
+    end
+
+    def form_method
+      model.new_record? ? :post : :put
+    end
+
+    def enterprise_addon
+      @enterprise_addon ||= case custom_field.field_format
+                            when "hierarchy"
+                              { key: :custom_field_hierarchies, image: "enterprise/hierarchies.png" }
+                            when "weighted_item_list"
+                              { key: :weighted_item_lists, image: "enterprise/weighted_item_lists.png" }
+                            else
+                              raise "Custom fields of format #{custom_field.field_format} are not supported by #{self.class.name}"
+                            end
     end
   end
 end

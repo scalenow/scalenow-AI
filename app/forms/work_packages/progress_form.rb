@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # -- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -173,7 +175,7 @@ class WorkPackages::ProgressForm < ApplicationForm
 
   def field_value(name)
     errors = @work_package.errors.where(name)
-    if (user_value = errors.map { |error| error.options[:value] }.find { !_1.nil? })
+    if (user_value = errors.map { |error| error.options[:value] }.find { !it.nil? })
       user_value
     elsif name == :done_ratio
       as_percent(@work_package.public_send(name))
@@ -197,8 +199,12 @@ class WorkPackages::ProgressForm < ApplicationForm
   end
 
   def default_field_options(name)
-    data = { "work-packages--progress--preview-target": "progressInput",
-             action: "work-packages--progress--preview#markFieldAsTouched" }
+    data = {
+      "work-packages--progress--preview-target": "fieldInput",
+      action: "work-packages--progress--preview#markFieldAsTouched " \
+              "work-packages--progress--preview#debouncedPreview " \
+              "blur->work-packages--progress--preview#debouncedPreview"
+    }
 
     if @focused_field == name
       data[:focus] = "true"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -75,7 +77,7 @@ class RolesController < ApplicationController
 
     if @call.success?
       flash[:notice] = I18n.t(:notice_successful_update)
-      redirect_to action: "index"
+      redirect_to action: "index", status: :see_other
     else
       render action: :edit, status: :unprocessable_entity
     end
@@ -107,7 +109,7 @@ class RolesController < ApplicationController
 
     if calls.all?(&:success?)
       flash[:notice] = I18n.t(:notice_successful_update)
-      redirect_to action: "index"
+      redirect_to action: "index", status: :see_other
     else
       @calls = calls
       @permissions = visible_permissions
@@ -147,10 +149,6 @@ class RolesController < ApplicationController
 
   def roles_scope
     Role.visible.ordered_by_builtin_and_position
-  end
-
-  def show_local_breadcrumb
-    false
   end
 
   def new_params

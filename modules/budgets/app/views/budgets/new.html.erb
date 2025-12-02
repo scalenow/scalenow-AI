@@ -29,15 +29,25 @@ See COPYRIGHT and LICENSE files for more details.
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <% html_title(t(:label_budget_new)) %>
-<%= toolbar title: t(:label_budget_new), title_class: "color-orange" %>
+
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title { t(:label_budget_new) }
+    header.with_breadcrumbs(
+      [{ href: project_overview_path(@project.id), text: @project.name },
+       { href: projects_budgets_path(@project.id), text: t(:label_budget_plural) },
+       t(:label_budget_new)]
+    )
+  end
+%>
 
 <%= labelled_tabular_form_for @budget,
-                              :url => projects_budgets_path(@project),
-                              :as => :budget,
-                              :html => {:multipart => true, :id => 'budget_form'} do |f| %>
-    <%= render :partial => 'form', :locals => {:f => f} %>
-    <%= styled_button_tag t(:button_create), class: '-with-icon icon-checkmark custom-secondary-button rounded-border m-0 mr-2', 'data-test-selector': 'budgets-create-button' %>
-    <%= styled_button_tag t(:button_create_and_continue), :name => 'continue',
-          class: 'button -primary custom-secondary-button rounded-border m-0'%>
+                              url: projects_budgets_path(@project),
+                              as: :budget,
+                              html: { multipart: true, id: "budget_form" } do |f| %>
+    <%= render partial: "form", locals: { f: f } %>
+    <%= styled_button_tag t(:button_create), class: "-with-icon icon-checkmark", "data-test-selector": "budgets-create-button" %>
+    <%= styled_button_tag t(:button_create_and_continue), name: "continue",
+                                                          class: "button -primary" %>
 <% end %>
 </div>

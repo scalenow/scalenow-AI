@@ -3,12 +3,13 @@ nl:
   js:
     team_planner:
       add_existing: 'Bestaande toevoegen'
+      label_team_planner_plural: 'Team planners'
       add_existing_title: 'Bestaande werkpakketten toevoegen'
       create_label: 'Team planner'
       create_title: 'Maak een nieuwe teamplanner'
       unsaved_title: 'Naamloze teamplanner'
       no_data: 'Voeg taakontvangers toe om uw team planner op te zetten.'
-      add_assignee: 'Assignee'
+      add_assignee: 'Toegewezene'
       remove_assignee: 'Verwijder verantwoordelijke'
       two_weeks: '2-week'
       one_week: '1-week'

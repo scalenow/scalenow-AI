@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -30,7 +32,6 @@ module Admin::Settings
   class ProjectCustomFieldsController < ::Admin::SettingsController
     include CustomFields::SharedActions
     include OpTurbo::ComponentStream
-    include OpTurbo::DialogStreamHelper
     include FlashMessagesOutputSafetyHelper
     include Admin::Settings::ProjectCustomFields::ComponentStreams
 
@@ -48,22 +49,21 @@ module Admin::Settings
     before_action :find_unlink_project_custom_field_mapping, only: :unlink
     # rubocop:enable Rails/LexicallyScopedActionFilter
 
-    def show_local_breadcrumb
-      false
-    end
-
     def index
+      @allow_custom_field_creation = @project_custom_field_sections.any?
+
       respond_to :html
     end
 
     def show
       # quick fixing redirect issue from perform_update
-      # perform_update is always redirecting to the show action altough configured otherwise
+      # perform_update is always redirecting to the show action although configured otherwise
       render :edit
     end
 
     def new
-      @custom_field = ProjectCustomField.new(custom_field_section_id: params[:custom_field_section_id])
+      @custom_field = ProjectCustomField.new(custom_field_section_id: params[:custom_field_section_id],
+                                             field_format: params[:field_format])
 
       respond_to :html
     end
@@ -82,7 +82,7 @@ module Admin::Settings
 
     def link
       create_service = ProjectCustomFieldProjectMappings::BulkCreateService
-                         .new(user: current_user, projects: @projects, project_custom_field: @custom_field,
+                         .new(user: current_user, projects: @projects, model: @custom_field,
                               include_sub_projects: include_sub_projects?)
                          .call
 
@@ -114,38 +114,48 @@ module Admin::Settings
     end
 
     def move
-      call = CustomFields::UpdateService.new(user: current_user, model: @custom_field).call(
+      result = CustomFields::UpdateService.new(user: current_user, model: @custom_field).call(
         move_to: params[:move_to]&.to_sym
       )
 
-      if call.success?
+      if result.success?
         update_sections_via_turbo_stream(project_custom_field_sections: @project_custom_field_sections)
       else
-        # TODO: handle error
+        render_error_flash_message_via_turbo_stream(
+          message: join_flash_messages(result.errors)
+        )
       end
 
       respond_with_turbo_streams
     end
 
     def drop
-      call = ::ProjectCustomFields::DropService.new(user: current_user, project_custom_field: @custom_field).call(
+      result = ::ProjectCustomFields::DropService.new(user: current_user, project_custom_field: @custom_field).call(
         target_id: params[:target_id],
         position: params[:position]
       )
 
-      if call.success?
-        drop_success_streams(call)
+      if result.success?
+        drop_success_streams(result)
       else
-        # TODO: handle error
+        render_error_flash_message_via_turbo_stream(
+          message: join_flash_messages(result.errors)
+        )
       end
 
       respond_with_turbo_streams
     end
 
     def destroy
-      @custom_field.destroy
+      result = CustomFields::DeleteService.new(user: current_user, model: @custom_field).call
 
-      update_section_via_turbo_stream(project_custom_field_section: @custom_field.project_custom_field_section)
+      if result.success?
+        update_section_via_turbo_stream(project_custom_field_section: @custom_field.project_custom_field_section.reload)
+      else
+        render_error_flash_message_via_turbo_stream(
+          message: join_flash_messages(result.errors)
+        )
+      end
 
       respond_with_turbo_streams
     end
@@ -212,8 +222,6 @@ module Admin::Settings
 
     def find_custom_field
       @custom_field = ProjectCustomField.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render_404
     end
 
     def drop_success_streams(call)

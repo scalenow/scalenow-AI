@@ -46,25 +46,26 @@ module Admin
 
         def new_item_path
           position = model.children.any? ? model.children.last.sort_order + 1 : 0
+          custom_field_id = root.custom_field_id
 
-          new_child_custom_field_item_path(root.custom_field_id, model, position:)
+          if project_custom_field_context?
+            new_child_admin_settings_project_custom_field_item_path(custom_field_id, model, position:)
+          else
+            new_child_custom_field_item_path(custom_field_id, model, position:)
+          end
         end
 
         def children
           list = model.children
           return list unless @new_item
 
-          position = @new_item.sort_order&.to_i
-
-          if position
-            list[0...position] + [@new_item] + list[position..]
-          else
-            list + [@new_item]
-          end
+          # Sort by sort order. But if there is a new item, sort it to be before the other
+          # item that has the same sort order.
+          list.sort { |a, b| [a.sort_order.to_i, a.id.to_i] <=> [b.sort_order.to_i, b.id.to_i] }
         end
 
         def item_header
-          render(Primer::Beta::Breadcrumbs.new) do |loaf|
+          render(Primer::Beta::Breadcrumbs.new(data: { test_selector: "hierarchy-breadcrumbs" })) do |loaf|
             slices.each do |slice|
               loaf.with_item(href: slice[:href], target: nil) { slice[:label] }
             end
@@ -93,14 +94,28 @@ module Admin
 
         private
 
-        def slices
-          nodes = ::CustomFields::Hierarchy::HierarchicalItemService.new.get_branch(item: model).value!
+        def project_custom_field_context?
+          root.custom_field.is_a?(ProjectCustomField)
+        end
 
-          nodes.map do |item|
-            if item.root?
-              { href: custom_field_items_path(root.custom_field_id), label: root.custom_field.name }
+        def branch(item)
+          ::CustomFields::Hierarchy::HierarchicalItemService.new.get_branch(item:).value!
+        end
+
+        def slices # rubocop:disable Metrics/AbcSize
+          custom_field = root.custom_field
+
+          branch(model).map do |item|
+            if project_custom_field_context?
+              if item.root?
+                { href: admin_settings_project_custom_field_items_path(custom_field.id), label: custom_field.name }
+              else
+                { href: admin_settings_project_custom_field_item_path(custom_field.id, item), label: item.label }
+              end
+            elsif item.root?
+              { href: custom_field_items_path(custom_field.id), label: custom_field.name }
             else
-              { href: custom_field_item_path(root.custom_field_id, item), label: item.label }
+              { href: custom_field_item_path(custom_field.id, item), label: item.label }
             end
           end
         end

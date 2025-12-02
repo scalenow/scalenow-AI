@@ -53,7 +53,6 @@ module Projects
     def sub_header_data_attributes
       {
         controller: "filter--filters-form",
-        "application-target": "dynamic",
         "filter--filters-form-perform-turbo-requests-value": true,
         "filter--filters-form-clear-button-id-value": clear_button_id
       }
@@ -70,6 +69,41 @@ module Projects
 
     def clear_button_id
       "project-filters-form-clear-button"
+    end
+
+    def new_workspace_path(type)
+      case type
+      when Project.workspace_types[:project]
+        new_project_path
+      when Project.workspace_types[:portfolio]
+        new_portfolio_path
+      when Project.workspace_types[:program]
+        new_program_path
+      end
+    end
+
+    def new_workspace_label(type)
+      I18n.t(:"label_#{type}")
+    end
+
+    def allowed_new_workspace_types
+      allowed_types = []
+      allowed_types << Project.workspace_types[:project] if @current_user.allowed_globally?(:add_project)
+      allowed_types << Project.workspace_types[:portfolio] if @current_user.allowed_globally?(:add_portfolios) && OpenProject::FeatureDecisions.portfolio_models_active?
+      allowed_types << Project.workspace_types[:program] if @current_user.allowed_globally?(:add_programs) && OpenProject::FeatureDecisions.portfolio_models_active?
+      allowed_types
+    end
+
+    def for_a_single_new_allowed_type
+      return unless allowed_new_workspace_types.length == 1
+
+      yield allowed_new_workspace_types[0]
+    end
+
+    def for_multiple_new_allowed_types
+      return unless allowed_new_workspace_types.length > 1
+
+      yield allowed_new_workspace_types
     end
   end
 end

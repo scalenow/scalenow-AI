@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -40,6 +42,7 @@ class CustomFields::Inputs::Base::Autocomplete::SingleValueInput < CustomFields:
     {
       multiple: false,
       decorated: decorated?,
+      focusDirectly: false,
       append_to:
     }
   end

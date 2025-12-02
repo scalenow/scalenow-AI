@@ -13,7 +13,8 @@
       end
 
       user_row_grid.with_area(:avatar, tag: :div) do
-        render(Users::AvatarComponent.new(user: principal, show_name: false, size: :medium))
+        render(Users::AvatarComponent.new(user: principal, show_name: false, size: :medium,
+                                          hover_card: { active: true }))
       end
 
       user_row_grid.with_area(:user_details, tag: :div, classes: 'ellipsis') do
@@ -29,9 +30,9 @@
       if share_editable?
         user_row_grid.with_area(:remove, tag: :div) do
           form_with url: url_for([entity, share]), method: :delete do
-            render(Primer::Beta::IconButton.new(icon: "trash",
+            render(Primer::Beta::IconButton.new(icon: :x,
                                                 type: :submit,
-                                                scheme: :danger,
+                                                scheme: :invisible,
                                                 "aria-label": I18n.t('sharing.remove'),
                                                 test_selector: 'op-share-dialog--remove'))
           end

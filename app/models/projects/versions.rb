@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -51,7 +53,7 @@ module Projects::Versions
       Version.shared_with(self)
     end
 
-    # Returns all versions a work package can be assigned to.  Opposed to
+    # Returns all versions a work package can be assigned to. Opposed to
     # #shared_versions this returns an array of Versions, not a scope.
     #
     # The main benefit is in scenarios where work packages' projects are eager
@@ -66,10 +68,10 @@ module Projects::Versions
     def assignable_versions(only_open: true)
       if only_open
         @assignable_versions ||=
-          shared_versions.references(:project).with_status_open.order_by_semver_name.to_a
+          shared_versions.references(:project).with_status_open.order(:name).to_a
       else
         @assignable_versions_including_non_open ||= # rubocop:disable Naming/MemoizedInstanceVariableName
-          shared_versions.references(:project).order_by_semver_name.to_a
+          shared_versions.references(:project).order(:name).to_a
       end
     end
   end

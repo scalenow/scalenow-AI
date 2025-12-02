@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -42,6 +44,9 @@
 #
 # It also adds retry logic to the job.
 class Mails::MailerJob < ActionMailer::MailDeliveryJob
+  include JobPriority
+  queue_with_priority :high
+
   include SharedJobSetup
 
   # Retry mailing jobs 14 times with polynomial backoff (retries for ~ 1.5 days).

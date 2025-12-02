@@ -1,13 +1,14 @@
 ro:
   plugin_openproject_webhooks:
-    name: "scalenow-AI Webhooks"
-    description: "Provides a plug-in API to support scalenow-AI webhooks for better 3rd party integration."
+    name: "Webhook-uri scalenow-AI"
+    description: "Oferă un plug-in API pentru a sprijini scalenow-AI webhooks pentru o mai bună integrare a terților."
   activerecord:
     attributes:
       webhooks/webhook:
         url: 'URL de încărcare utilă'
         secret: 'Secretul semnăturii'
         events: 'Evenimente'
+        enabled: 'Activat'
         projects: 'Proiecte activate'
       webhooks/log:
         event_name: 'Numele evenimentului'
@@ -30,6 +31,8 @@ ro:
       events:
         created: "Creat pe"
         updated: "Actualizat"
+        comment: "Comentariu"
+        internal_comment: "Comentariu intern"
       explanation:
         text: >
           La apariția unui eveniment, cum ar fi crearea unui pachet de lucru sau o actualizare a unui proiect, scalenow-AI va trimite o cerere POST către punctele finale web configurate. De multe ori, evenimentul este trimis după ce a trecut %{link}.

@@ -23,7 +23,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
 #++
@@ -45,28 +45,34 @@ module CustomFields
       end
 
       # Insert a new node on the hierarchy tree at a desired position or at the end if no sort_order is passed.
+      # @param contract_class [Class<CustomFields::Hierarchy::InsertListItemContract>, Class<CustomFields::Hierarchy::InsertWeightedItemContract>]
+      #   the params validation contract class
       # @param parent [CustomField::Hierarchy::Item] the parent of the node
       # @param label [String] the node label/name that must be unique at the same tree level
       # @param short [String] an alias for the node
+      # @param weight [Decimal] a numeric value for the node
       # @param sort_order [Integer] the position into which insert the item.
       # @return [Success(CustomField::Hierarchy::Item), Failure(Dry::Validation::Result), Failure(ActiveModel::Errors)]
-      def insert_item(parent:, label:, short: nil, sort_order: nil)
-        CustomFields::Hierarchy::InsertItemContract
+      def insert_item(contract_class:, parent:, label:, short: nil, weight: nil, sort_order: nil)
+        contract_class
           .new
-          .call({ parent:, label:, short: }.compact)
+          .call({ parent:, label:, short:, weight: })
           .to_monad
           .bind { |validation| create_child_item(validation:, sort_order:) }
       end
 
       # Updates an item/node
+      # @param contract_class [Class<CustomFields::Hierarchy::UpdateListItemContract>, Class<CustomFields::Hierarchy::UpdateWeightedItemContract>]
+      #   the params validation contract class
       # @param item [CustomField::Hierarchy::Item] the item to be updated
       # @param label [String] the node label/name that must be unique at the same tree level
       # @param short [String] an alias for the node
+      # @param weight [Decimal] a numeric value for the node
       # @return [Success(CustomField::Hierarchy::Item), Failure(Dry::Validation::Result), Failure(ActiveModel::Errors)]
-      def update_item(item:, label: nil, short: nil)
-        CustomFields::Hierarchy::UpdateItemContract
+      def update_item(contract_class:, item:, label: nil, short: nil, weight: nil)
+        contract_class
           .new
-          .call({ item:, label:, short: }.compact)
+          .call({ item:, label:, short:, weight: })
           .to_monad
           .bind { |attributes| update_item_attributes(item:, attributes:) }
       end
@@ -77,7 +83,18 @@ module CustomFields
       def delete_branch(item:)
         return Failure(:item_is_root) if item.root?
 
-        item.destroy ? Success() : Failure(item.errors)
+        # We need to remember item_ids and custom_field and pass them separately
+        # to update_calculated_values_for_hierarchy, as after destroying the
+        # item, the methods will not return expected value (will return empty
+        # list and nil)
+        item_ids = item.self_and_descendant_ids
+        custom_field = item.root&.custom_field
+        if item.destroy
+          update_calculated_values_for_hierarchy(item_ids:, custom_field:)
+          Success()
+        else
+          Failure(item.errors)
+        end
       end
 
       # Gets all nodes in a tree from the item/node back to the root.
@@ -93,11 +110,9 @@ module CustomFields
       # @param include_self [Boolean] flag
       # @return [Success(Array<CustomField::Hierarchy::Item>)]
       def get_descendants(item:, include_self: true)
-        if include_self
-          Success(item.self_and_descendants)
-        else
-          Success(item.descendants)
-        end
+        result = item.self_and_descendants_preordered
+        result = result.offset(1) unless include_self
+        Success(result)
       end
 
       # Move an item/node to a new parent item/node
@@ -105,7 +120,10 @@ module CustomFields
       # @param new_parent [CustomField::Hierarchy::Item] the new parent of the node
       # @return [Success(CustomField::Hierarchy::Item)]
       def move_item(item:, new_parent:)
-        Success(new_parent.append_child(item))
+        updated_item = new_parent.append_child(item)
+        update_position_cache(new_parent.root)
+
+        Success(updated_item)
       end
 
       # Reorder the item along its siblings.
@@ -116,7 +134,6 @@ module CustomFields
         return Success() if item.siblings.empty?
 
         new_sort_order = [0, new_sort_order.to_i].max
-
         return Success() if item.sort_order == new_sort_order
 
         update_item_order(item:, new_sort_order:)
@@ -129,6 +146,10 @@ module CustomFields
         raise NotImplementedError
       end
 
+      # Returns a hash of Item => { Item => [Item] }
+      # @param item [CustomField::Hierarchy::Item] the start node
+      # @param depth [Integer] limits the max depth of the hash. see {ClosureTree#hash_tree}
+      # @return [Success({CustomField::Hierarchy::Item => Array, Hash})]
       def hashed_subtree(item:, depth:)
         if depth >= 0
           Success(item.hash_tree(limit_depth: depth + 1))
@@ -137,6 +158,10 @@ module CustomFields
         end
       end
 
+      # Checks if an item is a descendant of another node
+      # @param item [CustomField::Hierarchy::Item] the item to be tested
+      # @param parent [CustomField::Hierarchy::Item] the node to be checked against
+      # @return [Success, Failure]
       def descendant_of?(item:, parent:)
         item.descendant_of?(parent) ? Success() : Failure()
       end
@@ -147,6 +172,7 @@ module CustomFields
         item = CustomField::Hierarchy::Item.create(custom_field: custom_field)
         return Failure(item.errors) if item.new_record?
 
+        update_position_cache(item)
         Success(item)
       end
 
@@ -157,15 +183,34 @@ module CustomFields
         item = validation[:parent].children.create(**attributes)
         return Failure(item.errors) if item.new_record?
 
-        Success(item)
+        update_position_cache(item.root)
+        Success(item.reload)
       end
 
       def update_item_attributes(item:, attributes:)
-        if item.update(label: attributes[:label], short: attributes[:short])
+        if item.update(label: attributes[:label], short: attributes[:short], weight: attributes[:weight])
+          if item.weight_previously_changed?
+            # Only changes to item are of interest, so no need to pass descendant ids
+            update_calculated_values_for_hierarchy(item_ids: item.id, custom_field: item.root&.custom_field)
+          end
           Success(item)
         else
           Failure(item.errors)
         end
+      end
+
+      # Recalculates Calculated Values in all projects that use the hierarchy's custom field
+      def update_calculated_values_for_hierarchy(item_ids:, custom_field:)
+        return unless custom_field&.field_format_weighted_item_list?
+
+        custom_field.class.customized_class
+          .where(custom_values: custom_field.custom_values.where(value: item_ids))
+          .find_each do |customized|
+            affected_cfs = customized.available_custom_fields.affected_calculated_fields([custom_field.id])
+
+            customized.calculate_custom_fields(affected_cfs)
+            customized.save if customized.changed_for_autosave?
+          end
       end
 
       def update_item_order(item:, new_sort_order:)
@@ -175,6 +220,37 @@ module CustomFields
         else
           target_item = item.siblings.last
           target_item.append_sibling(item)
+        end
+
+        update_position_cache(item.root)
+      end
+
+      def update_position_cache(root)
+        sql = <<-SQL.squish
+          UPDATE hierarchical_items
+          SET position_cache = subquery.position
+          FROM (
+            SELECT hi.id
+                  , SUM((1 + COALESCE(anc.sort_order, 0)) *
+                      POWER(count_max.total_descendants, count_max.max_gens - depths.generations)) AS position
+            FROM hierarchical_items hi
+                 INNER JOIN hierarchical_item_hierarchies hih ON hi.id = hih.descendant_id
+                 JOIN hierarchical_item_hierarchies anc_h ON anc_h.descendant_id = hih.descendant_id
+                 JOIN hierarchical_items anc ON anc.id = anc_h.ancestor_id
+                 JOIN hierarchical_item_hierarchies depths ON depths.ancestor_id = #{root.id} AND depths.descendant_id = anc.id
+               , (
+                SELECT COUNT(1) AS total_descendants, MAX(generations) + 1 AS max_gens
+                FROM hierarchical_items hi
+                    INNER JOIN hierarchical_item_hierarchies hih ON hi.id = hih.ancestor_id
+                WHERE ancestor_id = #{root.id}
+                ) count_max
+            WHERE hih.ancestor_id = #{root.id}
+            GROUP BY hi.id) as subquery
+          WHERE hierarchical_items.id = subquery.id;
+        SQL
+
+        OpenProject::Mutex.with_advisory_lock(CustomField::Hierarchy::Item, "position_update_anc_#{root.id}") do
+          CustomField::Hierarchy::Item.connection.exec_update(sql)
         end
       end
     end

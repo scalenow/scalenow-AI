@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -34,7 +34,7 @@ module OpenIDConnect
       include OpTurbo::Streamable
       include OpPrimer::ComponentHelpers
 
-      options :view_mode, :edit_state, :edit_mode
+      options :view_mode, :edit_state, :new_mode
 
       alias_method :provider, :model
     end

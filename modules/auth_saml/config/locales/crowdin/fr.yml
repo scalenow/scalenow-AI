@@ -1,11 +1,11 @@
 fr:
-  activemodel:
+  activerecord:
     attributes:
       saml/provider:
         display_name: Nom
         identifier: Identifiant
         secret: Secret
-        scope: Portée
+        scope: Périmètre
         assertion_consumer_service_url: URL ACS (Assertion Consumer Service)
         limit_self_registration: Limiter l'inscription automatique
         sp_entity_id: ID de l'entité de service
@@ -14,7 +14,7 @@ fr:
         idp_sso_service_url: Point de terminaison de connexion du fournisseur d'identité
         idp_slo_service_url: Point de terminaison de déconnexion du fournisseur d'identité
         idp_cert: Certificat public du fournisseur d'identité
-        authn_requests_signed: Signer les requêtes AuthnRequests SAML
+        authn_requests_signed: Signer les requêtes SAML AuthnRequests
         want_assertions_signed: Exiger des réponses signées
         want_assertions_encrypted: Exiger des réponses chiffrées
         certificate: Certificat utilisé par scalenow-AI pour les requêtes SAML
@@ -23,7 +23,6 @@ fr:
         digest_method: Algorithme de chiffrement
         format: "Format"
         icon: "Icône personnalisée"
-  activerecord:
     errors:
       models:
         saml/provider:
@@ -57,6 +56,7 @@ fr:
       label_mapping: Mapping
       label_requested_attribute_for: "Attribut demandé pour : %{attribute}"
       no_results_table: Aucun fournisseur d'identité SAML n'a encore été défini.
+      notice_created: Un nouveau fournisseur d'identité SAML a été créé avec succès.
       plural: Fournisseurs d'identité SAML
       singular: Fournisseur d'identité SAML
       requested_attributes: Attributs demandés
@@ -65,7 +65,8 @@ fr:
         Les champs suivants contrôlent quels attributs fournis par le fournisseur d'identité SAML sont utilisés pour fournir des attributs d'utilisateur dans scalenow-AI
       metadata:
         dialog: "Il s'agit de l'URL où les métadonnées SAML d'scalenow-AI sont disponibles. Vous pouvez également l'utiliser pour configurer votre fournisseur d'identité :"
-      upsale:
+      upsell:
+        title: "Authentification unique (SSO) avec SAML"
         description: Connecter scalenow-AI à un fournisseur d'identité SAML
       request_attributes:
         title: 'Attributs demandés'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -36,7 +37,7 @@ class MeetingAgendaItem::Presenter < ApplicationForm
         defaultData: true,
         component: "opce-user-autocompleter",
         url: ::API::V3::Utilities::PathHelper::ApiV3Path.principals,
-        filters: [{ name: "type", operator: "=", values: %w[User Group] },
+        filters: [{ name: "type", operator: "=", values: %w[User] },
                   { name: "member", operator: "=", values: [@builder.object.meeting.project_id] },
                   { name: "status", operator: "=", values: [Principal.statuses[:active], Principal.statuses[:invited]] }],
         searchKey: "any_name_attribute",

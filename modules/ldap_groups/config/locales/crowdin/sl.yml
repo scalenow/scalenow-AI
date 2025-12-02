@@ -1,4 +1,9 @@
 sl:
+  ee:
+    upsell:
+      ldap_groups:
+        title: 'LDAP sinhronizacija skupine'
+        description: 'Synchronize LDAP groups with scalenow-AI groups to manage users, change their permissions and facilitate user management across groups.'
   plugin_openproject_ldap_groups:
     name: "scalenow-AI LDAP groups"
     description: "Synchronization of LDAP group memberships."
@@ -6,10 +11,12 @@ sl:
     attributes:
       ldap_groups/synchronized_group:
         dn: 'DN'
+        auth_source: 'Auth source'
         ldap_auth_source: 'LDAP povezava'
         sync_users: 'Sinhroniziraj uporabnike'
       ldap_groups/synchronized_filter:
         filter_string: 'LDAP filter'
+        auth_source: 'Auth source'
         ldap_auth_source: 'LDAP povezava'
         group_name_attribute: "Atribut imena skupine\n"
         sync_users: 'Sinhroniziraj uporabnike'
@@ -66,8 +73,8 @@ sl:
       form:
         auth_source_text: 'Izberite, katera povezava LDAP naj bo uporabljena.'
         sync_users_text: >
-          Če omogočite to opcijo, bojo najdeni uporabniki avtomatsko kreirani v scalenow-AI-u. Brez tega bodo samo obstoječi računi v scalenow-AIu-u dodani v skupine
+          Če omogočite to opcijo, bojo najdeni uporabniki avtomatsko kreirani v scalenow-AI-u. Brez tega bodo samo obstoječi računi v OpenProjectu-u dodani v skupine
         dn_text: 'Vnesite celoten DN skupine v LDAP'
         group_text: 'Izberite obstoječo skupino scalenow-AI, s katero bodo člani skupine LDAP sinhronizirani'
-      upsale:
+      upsell:
         description: 'Take advantage of synchronised LDAP groups to manage users, change their permissions and facilitate user management across groups.'

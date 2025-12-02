@@ -136,6 +136,99 @@ RSpec.describe OpenIDConnect::ConfigurationMapper, type: :model do
     end
   end
 
+  describe "claims" do
+    subject { result["claims"] }
+
+    let(:parsed_hash) do
+      {
+        "id_token" => {
+          "roles" => {
+            "essential" => true,
+            "values" => ["openproject.login"]
+          }
+        }
+      }
+    end
+
+    context "when provided as string" do
+      let(:configuration) { { claims: parsed_hash.to_json } }
+
+      it "outputs as a string", :aggregate_failures do
+        expect(subject).to be_a String
+        expect(JSON.parse(subject)).to eq(parsed_hash)
+      end
+    end
+
+    context "when provided as Hash" do
+      let(:configuration) { { claims: parsed_hash } }
+
+      it "converts to string", :aggregate_failures do
+        expect(subject).to be_a String
+        expect(JSON.parse(subject)).to eq(parsed_hash)
+      end
+    end
+
+    context "when not provided" do
+      let(:configuration) { {} }
+
+      it { is_expected.to be_blank }
+    end
+  end
+
+  describe "sync_groups" do
+    subject { result["sync_groups"] }
+
+    context "when 'false'" do
+      let(:configuration) { { sync_groups: "false" } }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context "when 'true'" do
+      let(:configuration) { { sync_groups: "true" } }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context "when not provided" do
+      let(:configuration) { {} }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "groups_claim" do
+    subject { result["groups_claim"] }
+
+    context "when provided" do
+      let(:configuration) { { groups_claim: "foobar" } }
+
+      it { is_expected.to eq("foobar") }
+    end
+
+    context "when not provided" do
+      let(:configuration) { {} }
+
+      it { is_expected.to be_blank }
+    end
+  end
+
+  describe "grant_types_supported" do
+    subject { result }
+
+    context "when provided" do
+      let(:configuration) { { grant_types_supported: "a b" } }
+
+      it { is_expected.to include("grant_types_supported" => "a b") }
+    end
+
+    context "when not provided" do
+      let(:configuration) { { foo: "bar" } }
+
+      it { is_expected.not_to have_key("grant_types_supported") }
+    end
+  end
+
   %w[authorization_endpoint token_endpoint userinfo_endpoint end_session_endpoint jwks_uri].each do |key|
     describe "setting #{key}" do
       subject { result }

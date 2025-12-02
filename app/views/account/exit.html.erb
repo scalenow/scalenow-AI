@@ -27,12 +27,10 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
-<% # LOCALS
-  fail ArgumentError, 'missing instructions' unless defined? instructions
-%>
+<%# LOCALS
+  fail ArgumentError, "missing instructions" unless defined? instructions %>
 
 <% html_title t(:label_login) %>
-<% breadcrumb_paths(t(:label_login)) %>
 <%= call_hook :view_account_login_top %>
 
 <%
@@ -46,7 +44,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <div id="login-form" class="form -bordered bg-white rounded-border mt-0" style="border-color: #000;">
   <h1><%= I18n.t(:label_login) %></h1>
-  <hr class="form--separator" />
+  <hr class="form--separator">
   <p><%= instruction_text.html_safe %></p>
 </div>
 <%= call_hook :view_account_login_bottom %>

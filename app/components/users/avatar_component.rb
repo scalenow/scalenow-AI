@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -32,7 +34,8 @@ module Users
     include AvatarHelper
     include OpPrimer::ComponentHelpers
 
-    def initialize(user:, show_name: true, link: true, size: "default", classes: "", title: nil, name_classes: "")
+    def initialize(user:, show_name: true, link: true, size: "default", classes: "", title: nil, name_classes: "",
+                   hover_card: { active: true })
       super
 
       @user = user
@@ -40,6 +43,7 @@ module Users
       @link = link
       @size = size
       @title = title
+      @hover_card = hover_card
       @classes = classes
       @name_classes = name_classes
     end
@@ -49,14 +53,19 @@ module Users
     end
 
     def call
-      helpers.avatar(
-        @user,
+      options = {
         size: @size,
         link: @link,
         hide_name: !@show_name,
         title: @title,
         class: @classes,
-        name_classes: @name_classes
+        name_classes: @name_classes,
+        hover_card: @hover_card
+      }
+
+      helpers.avatar(
+        @user,
+        **options
       )
     end
   end

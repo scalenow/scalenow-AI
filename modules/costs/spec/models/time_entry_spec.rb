@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -43,7 +45,7 @@ RSpec.describe TimeEntry do
   end
   let(:user) { create(:user) }
   let(:user2) { create(:user) }
-  let(:date) { Date.today }
+  let(:date) { Time.zone.today }
   let(:rate) { build(:cost_rate) }
   let!(:hourly_one) { create(:hourly_rate, valid_from: 2.days.ago, project:, user:) }
   let!(:hourly_three) { create(:hourly_rate, valid_from: 4.days.ago, project:, user:) }
@@ -56,7 +58,7 @@ RSpec.describe TimeEntry do
   let(:time_entry) do
     create(:time_entry,
            project:,
-           work_package:,
+           entity: work_package,
            spent_on: date,
            hours:,
            start_time: start_time,
@@ -69,7 +71,7 @@ RSpec.describe TimeEntry do
   let(:time_entry2) do
     create(:time_entry,
            project:,
-           work_package:,
+           entity: work_package,
            spent_on: date,
            hours:,
            user:,
@@ -78,13 +80,27 @@ RSpec.describe TimeEntry do
   end
 
   def ensure_membership(project, user, permissions)
-    create(:member,
-           project:,
-           user:,
-           roles: [create(:project_role, permissions:)])
+    member = Member.find_by(principal: user, project: project)
+
+    if member
+      member.roles << create(:project_role, permissions:)
+    else
+      create(:member,
+             project:,
+             user:,
+             roles: [create(:project_role, permissions:)])
+    end
   end
 
-  describe "#hours" do
+  describe "#entity=" do
+    it "allows setting an entity via GlobalID" do
+      meeting = create(:meeting)
+      time_entry.entity = meeting.to_gid.to_s
+      expect(time_entry.entity).to eq(meeting)
+    end
+  end
+
+  describe "#hours=" do
     formats = { "2" => 2.0,
                 "21.1" => 21.1,
                 "2,1" => 2.1,
@@ -104,9 +120,24 @@ RSpec.describe TimeEntry do
 
     formats.each do |from, to|
       it "formats '#{from}'" do
-        t = TimeEntry.new(hours: from)
+        t = described_class.new(hours: from)
         expect(t.hours)
           .to eql to
+      end
+    end
+  end
+
+  describe "#start_time=" do
+    formats = {
+      "720" => 720,
+      "12:00" => 720,
+      "13:37" => 817
+    }
+
+    formats.each do |from, to|
+      it "formats '#{from}'" do
+        t = described_class.new(start_time: from)
+        expect(t.start_time).to eql(to)
       end
     end
   end
@@ -124,7 +155,6 @@ RSpec.describe TimeEntry do
   describe "given rate" do
     before do
       allow(User).to receive(:current).and_return(user)
-      @default_example = time_entry2
     end
 
     it "returns the current costs depending on the number of hours" do
@@ -137,7 +167,7 @@ RSpec.describe TimeEntry do
 
     it "updates cost if a new rate is added at the end" do
       time_entry.user = User.current
-      time_entry.spent_on = Time.now
+      time_entry.spent_on = Time.zone.now
       time_entry.hours = 1
       time_entry.save!
       expect(time_entry.costs).to eq(hourly_one.rate)
@@ -171,7 +201,7 @@ RSpec.describe TimeEntry do
 
     it "updates cost if a spent_on changes" do
       time_entry.hours = 1
-      (5.days.ago.to_date..Date.today).each do |time|
+      (5.days.ago.to_date..Time.zone.today).each do |time|
         time_entry.spent_on = time.to_date
         time_entry.save!
         expect(time_entry.costs).to eq(time_entry.user.rate_at(time, project.id).rate)
@@ -203,92 +233,93 @@ RSpec.describe TimeEntry do
   end
 
   describe "default rate" do
+    let(:default_example) { time_entry2 }
+
     before do
       allow(User).to receive(:current).and_return(user)
-      @default_example = time_entry2
     end
 
     it "returns the current costs depending on the number of hours" do
       101.times do |hours|
-        @default_example.hours = hours
-        @default_example.save!
-        expect(@default_example.costs).to eq(@default_example.rate.rate * hours)
+        default_example.hours = hours
+        default_example.save!
+        expect(default_example.costs).to eq(default_example.rate.rate * hours)
       end
     end
 
     it "updates cost if a new rate is added at the end" do
-      @default_example.user = user2
-      @default_example.spent_on = Time.now.to_date
-      @default_example.hours = 1
-      @default_example.save!
-      expect(@default_example.costs).to eq(default_hourly_one.rate)
+      default_example.user = user2
+      default_example.spent_on = Time.zone.now.to_date
+      default_example.hours = 1
+      default_example.save!
+      expect(default_example.costs).to eq(default_hourly_one.rate)
       (hourly = DefaultHourlyRate.new.tap do |dhr|
         dhr.valid_from = 1.day.ago.to_date
         dhr.rate       = 1.0
         dhr.user       = user2
       end).save!
-      @default_example.reload
-      expect(@default_example.rate).not_to eq(default_hourly_one)
-      expect(@default_example.costs).to eq(hourly.rate)
+      default_example.reload
+      expect(default_example.rate).not_to eq(default_hourly_one)
+      expect(default_example.costs).to eq(hourly.rate)
     end
 
     it "updates cost if a new rate is added in between" do
-      @default_example.user = user2
-      @default_example.spent_on = 3.days.ago.to_date
-      @default_example.hours = 1
-      @default_example.save!
-      expect(@default_example.costs).to eq(default_hourly_three.rate)
+      default_example.user = user2
+      default_example.spent_on = 3.days.ago.to_date
+      default_example.hours = 1
+      default_example.save!
+      expect(default_example.costs).to eq(default_hourly_three.rate)
       (hourly = DefaultHourlyRate.new.tap do |dhr|
         dhr.valid_from = 3.days.ago.to_date
         dhr.rate       = 1.0
         dhr.user       = user2
       end).save!
-      @default_example.reload
-      expect(@default_example.rate).not_to eq(default_hourly_three)
-      expect(@default_example.costs).to eq(hourly.rate)
+      default_example.reload
+      expect(default_example.rate).not_to eq(default_hourly_three)
+      expect(default_example.costs).to eq(hourly.rate)
     end
 
     it "updates cost if a spent_on changes" do
-      @default_example.hours = 1
-      (5.days.ago.to_date..Date.today).each do |time|
-        @default_example.spent_on = time.to_date
-        @default_example.save!
-        expect(@default_example.costs).to eq(@default_example.user.rate_at(time, project.id).rate)
+      default_example.hours = 1
+      (5.days.ago.to_date..Time.zone.today).each do |time|
+        default_example.spent_on = time.to_date
+        default_example.save!
+        expect(default_example.costs).to eq(default_example.user.rate_at(time, project.id).rate)
       end
     end
 
     it "updates cost if a rate is removed" do
-      @default_example.spent_on = default_hourly_one.valid_from
-      @default_example.hours = 1
-      @default_example.save!
-      expect(@default_example.costs).to eq(default_hourly_one.rate)
+      default_example.spent_on = default_hourly_one.valid_from
+      default_example.hours = 1
+      default_example.save!
+      expect(default_example.costs).to eq(default_hourly_one.rate)
       default_hourly_one.destroy
-      @default_example.reload
-      expect(@default_example.costs).to eq(default_hourly_three.rate)
+      default_example.reload
+      expect(default_example.costs).to eq(default_hourly_three.rate)
       default_hourly_three.destroy
-      @default_example.reload
-      expect(@default_example.costs).to eq(default_hourly_five.rate)
+      default_example.reload
+      expect(default_example.costs).to eq(default_hourly_five.rate)
     end
 
     it "is able to switch between default hourly rate and hourly rate" do
-      @default_example.user = user2
-      @default_example.rate = default_hourly_one
-      @default_example.save!
-      @default_example.reload
-      expect(@default_example.rate).to eq(default_hourly_one)
+      default_example.user = user2
+      default_example.rate = default_hourly_one
+      default_example.save!
+      default_example.reload
+      expect(default_example.rate).to eq(default_hourly_one)
 
       (rate = HourlyRate.new.tap do |hr|
         hr.valid_from = 10.days.ago.to_date
         hr.rate       = 1337.0
-        hr.user       = @default_example.user
+        hr.user       = default_example.user
         hr.project    = project
       end).save!
 
-      @default_example.reload
-      expect(@default_example.rate).to eq(rate)
+      default_example.reload
+      expect(default_example.rate).to eq(rate)
       rate.destroy
-      @default_example.reload
-      expect(@default_example.rate).to eq(default_hourly_one)
+      default_example.reload
+      expect(default_example.rate).to eq(default_hourly_one)
     end
 
     describe "#costs_visible_by?" do
@@ -304,7 +335,7 @@ RSpec.describe TimeEntry do
           time_entry.user = user
         end
 
-        it { expect(time_entry.costs_visible_by?(user)).to be_truthy }
+        it { expect(time_entry).to be_costs_visible_by(user) }
       end
 
       describe "WHEN the time_entry is assigned to the user " \
@@ -315,7 +346,7 @@ RSpec.describe TimeEntry do
           time_entry.user = user
         end
 
-        it { expect(time_entry.costs_visible_by?(user)).to be_falsey }
+        it { expect(time_entry).not_to be_costs_visible_by(user) }
       end
 
       describe "WHEN the time_entry is assigned to another user " \
@@ -326,7 +357,7 @@ RSpec.describe TimeEntry do
           time_entry.user = user
         end
 
-        it { expect(time_entry.costs_visible_by?(user2)).to be_truthy }
+        it { expect(time_entry).to be_costs_visible_by(user2) }
       end
 
       describe "WHEN the time_entry is assigned to another user " \
@@ -337,7 +368,7 @@ RSpec.describe TimeEntry do
           time_entry.user = user
         end
 
-        it { expect(time_entry.costs_visible_by?(user2)).to be_falsey }
+        it { expect(time_entry).not_to be_costs_visible_by(user2) }
       end
     end
   end
@@ -349,7 +380,7 @@ RSpec.describe TimeEntry do
       end
 
       it "is visible" do
-        expect(time_entry.visible_by?(user)).to be_falsey
+        expect(time_entry).not_to be_visible_by(user)
       end
     end
 
@@ -359,7 +390,7 @@ RSpec.describe TimeEntry do
       end
 
       it "is visible" do
-        expect(time_entry.visible_by?(user)).to be_truthy
+        expect(time_entry).to be_visible_by(user)
       end
     end
 
@@ -372,7 +403,7 @@ RSpec.describe TimeEntry do
       end
 
       it "is visible" do
-        expect(time_entry.visible_by?(user)).to be_truthy
+        expect(time_entry).to be_visible_by(user)
       end
     end
 
@@ -385,34 +416,28 @@ RSpec.describe TimeEntry do
       end
 
       it "is visible" do
-        expect(time_entry.visible_by?(user)).to be_falsey
+        expect(time_entry).not_to be_visible_by(user)
       end
     end
   end
 
   describe ".can_track_start_and_end_time?" do
-    context "with the feature flag enabled", with_flag: { track_start_and_end_times_for_time_entries: true } do
-      context "with the setting enabled", with_settings: { allow_tracking_start_and_end_times: true } do
-        it { expect(described_class).to be_can_track_start_and_end_time }
-      end
-
-      context "with the setting disabled", with_settings: { allow_tracking_start_and_end_times: false } do
-        it { expect(described_class).not_to be_can_track_start_and_end_time }
-      end
+    context "with the setting enabled", with_settings: { allow_tracking_start_and_end_times: true } do
+      it { expect(described_class).to be_can_track_start_and_end_time }
     end
 
-    context "with the feature flag disabled", with_flag: { track_start_and_end_times_for_time_entries: false } do
-      context "with the setting enabled", with_settings: { allow_tracking_start_and_end_times: true } do
-        it { expect(described_class).not_to be_can_track_start_and_end_time }
-      end
-
-      context "with the setting disabled", with_settings: { allow_tracking_start_and_end_times: false } do
-        it { expect(described_class).not_to be_can_track_start_and_end_time }
-      end
+    context "with the setting disabled", with_settings: { allow_tracking_start_and_end_times: false } do
+      it { expect(described_class).not_to be_can_track_start_and_end_time }
     end
   end
 
   describe "validations" do
+    it "allows the correct entity types" do
+      expect(described_class::ALLOWED_ENTITY_TYPES).to contain_exactly("WorkPackage", "Meeting")
+    end
+
+    it { is_expected.to validate_inclusion_of(:entity_type).in_array(described_class::ALLOWED_ENTITY_TYPES).allow_blank }
+
     describe "start_time" do
       it "allows blank values" do
         time_entry.start_time = nil
@@ -424,6 +449,17 @@ RSpec.describe TimeEntry do
         expect(time_entry).to be_valid
       end
 
+      it "allows string time values" do
+        time_entry.start_time = "12:00"
+        expect(time_entry).to be_valid
+      end
+
+      it "does not allow times > 23:59" do
+        time_entry.start_time = "26:00"
+        expect(time_entry).not_to be_valid
+        expect(time_entry.errors.full_messages).to include("Start time must be between 00:00 and 23:59.")
+      end
+
       it "does not allow non integer values" do
         time_entry.start_time = 1.5
         expect(time_entry).not_to be_valid
@@ -433,9 +469,7 @@ RSpec.describe TimeEntry do
         time_entry.start_time = -42
         expect(time_entry).not_to be_valid
       end
-    end
 
-    describe "start_time and end_time" do
       context "when enforcing times" do
         before do
           allow(described_class).to receive(:must_track_start_and_end_time?).and_return(true)
@@ -450,6 +484,23 @@ RSpec.describe TimeEntry do
 
           expect(time_entry).to be_valid
         end
+      end
+    end
+
+    describe "comments" do
+      it "allows blank values" do
+        time_entry.comments = ""
+        expect(time_entry).to be_valid
+      end
+
+      it "allows values with a length of 1000 characters" do
+        time_entry.comments = "a" * 1000
+        expect(time_entry).to be_valid
+      end
+
+      it "does not allow values with a length of >1000 characters" do
+        time_entry.comments = "a" * 1001
+        expect(time_entry).not_to be_valid
       end
     end
   end
@@ -485,6 +536,11 @@ RSpec.describe TimeEntry do
       expect(time_entry.end_timestamp).to be_nil
     end
 
+    it "returns nil if hours are nil" do
+      time_entry.hours = nil
+      expect(time_entry.end_timestamp).to be_nil
+    end
+
     it "generates a proper timestamp from the stored information" do
       time_entry.start_time = 8 * 60
       time_entry.hours = 2.5
@@ -496,7 +552,29 @@ RSpec.describe TimeEntry do
   end
 
   describe ".must_track_start_and_end_time?" do
-    context "with the feature flag enabled", with_flag: { track_start_and_end_times_for_time_entries: true } do
+    context "when the EnterpriseToken does not allow enforcement", with_ee: [] do
+      context "with the allow setting enabled", with_settings: { allow_tracking_start_and_end_times: true } do
+        context "with the enforce setting enabled", with_settings: { enforce_tracking_start_and_end_times: true } do
+          it { expect(described_class).not_to be_must_track_start_and_end_time }
+        end
+
+        context "with the enforce setting disabled", with_settings: { enforce_tracking_start_and_end_times: false } do
+          it { expect(described_class).not_to be_must_track_start_and_end_time }
+        end
+      end
+
+      context "with the allow setting disabled", with_settings: { allow_tracking_start_and_end_times: false } do
+        context "with the enforce setting enabled", with_settings: { enforce_tracking_start_and_end_times: true } do
+          it { expect(described_class).not_to be_must_track_start_and_end_time }
+        end
+
+        context "with the enforce setting disabled", with_settings: { enforce_tracking_start_and_end_times: false } do
+          it { expect(described_class).not_to be_must_track_start_and_end_time }
+        end
+      end
+    end
+
+    context "when the EnterpriseToken allows enforcement", with_ee: [:time_entry_time_restrictions] do
       context "with the allow setting enabled", with_settings: { allow_tracking_start_and_end_times: true } do
         context "with the enforce setting enabled", with_settings: { enforce_tracking_start_and_end_times: true } do
           it { expect(described_class).to be_must_track_start_and_end_time }
@@ -517,27 +595,73 @@ RSpec.describe TimeEntry do
         end
       end
     end
+  end
 
-    context "with the feature flag disabled", with_flag: { track_start_and_end_times_for_time_entries: false } do
-      context "with the allow setting enabled", with_settings: { allow_tracking_start_and_end_times: true } do
-        context "with the enforce setting enabled", with_settings: { enforce_tracking_start_and_end_times: true } do
-          it { expect(described_class).not_to be_must_track_start_and_end_time }
-        end
-
-        context "with the enforce setting disabled", with_settings: { enforce_tracking_start_and_end_times: false } do
-          it { expect(described_class).not_to be_must_track_start_and_end_time }
-        end
-      end
-
-      context "with the allow setting disabled", with_settings: { allow_tracking_start_and_end_times: false } do
-        context "with the enforce setting enabled", with_settings: { enforce_tracking_start_and_end_times: true } do
-          it { expect(described_class).not_to be_must_track_start_and_end_time }
-        end
-
-        context "with the enforce setting disabled", with_settings: { enforce_tracking_start_and_end_times: false } do
-          it { expect(described_class).not_to be_must_track_start_and_end_time }
-        end
-      end
+  describe "deprecated work package association" do
+    it "ignores the deprecated work package association" do
+      expect(described_class.ignored_columns).to include("work_package_id")
     end
+
+    it "allows access to the work package" do
+      allow(OpenProject::Deprecation).to receive(:replaced)
+
+      time_entry.entity = work_package
+      expect(time_entry.work_package).to eq(work_package)
+
+      time_entry.entity = create(:meeting)
+      expect(time_entry.work_package).to be_nil
+
+      expect(OpenProject::Deprecation).to have_received(:replaced).twice.with(:work_package, :entity, any_args)
+    end
+
+    it "allows access to the work package ID" do
+      allow(OpenProject::Deprecation).to receive(:replaced)
+
+      time_entry.entity = work_package
+      expect(time_entry.work_package_id).to eq(work_package.id)
+
+      time_entry.entity = create(:meeting)
+      expect(time_entry.work_package_id).to be_nil
+
+      expect(OpenProject::Deprecation).to have_received(:replaced).twice.with(:work_package_id, :entity_id, any_args)
+    end
+
+    it "allows setting the work package" do
+      allow(OpenProject::Deprecation).to receive(:replaced)
+
+      time_entry.work_package = work_package
+      expect(time_entry.entity).to eq(work_package)
+
+      expect(OpenProject::Deprecation).to have_received(:replaced).with(:work_package=, :entity=, any_args)
+    end
+
+    it "allows setting the work package ID" do
+      allow(OpenProject::Deprecation).to receive(:replaced)
+
+      time_entry.entity_type = nil # to make sure that we properly set it
+      time_entry.work_package_id = work_package.id
+      expect(time_entry.entity).to eq(work_package)
+      expect(time_entry.entity_type).to eq("WorkPackage")
+      expect(time_entry.entity_id).to eq(work_package.id)
+
+      expect(OpenProject::Deprecation).to have_received(:replaced).with(:work_package_id=, :entity_id=, any_args)
+    end
+  end
+
+  it_behaves_like "acts_as_customizable included" do
+    let!(:model_instance) { time_entry }
+    let!(:new_model_instance) do
+      build(:time_entry,
+            project:,
+            entity: work_package,
+            spent_on: date,
+            hours:,
+            start_time: start_time,
+            user:,
+            time_zone: user.time_zone,
+            rate: hourly_one,
+            comments: "lorem")
+    end
+    let!(:custom_field) { create(:time_entry_custom_field, :string, is_required: false) }
   end
 end

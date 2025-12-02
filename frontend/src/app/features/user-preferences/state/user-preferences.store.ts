@@ -36,6 +36,7 @@ function createInitialState():IUserPreference {
   return {
     autoHidePopups: true,
     commentSortDescending: false,
+    disableKeyboardShortcuts: false,
     timeZone: null,
     warnOnLeavingUnsaved: true,
     notifications: [],
@@ -46,6 +47,7 @@ function createInitialState():IUserPreference {
     workdays: [1, 2, 3, 4, 5],
     immediateReminders: {
       mentioned: false,
+      personalReminder: false,
     },
     pauseReminders: {
       enabled: false,

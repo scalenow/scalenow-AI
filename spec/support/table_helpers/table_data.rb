@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -43,8 +45,8 @@ module TableHelpers
         attributes = columns.reduce({}) do |attrs, column|
           attrs.merge!(column.attributes_for_work_package(work_package))
         end
-        row = columns.to_h { [_1.title, nil] }
-        identifier = to_identifier(work_package.subject)
+        row = columns.to_h { [it.title, nil] }
+        identifier = Registry.find_identifier(work_package) || to_identifier(work_package.subject)
         {
           attributes:,
           row:,
@@ -79,36 +81,108 @@ module TableHelpers
     end
 
     def create_work_packages
-      work_packages_by_identifier = Factory.new(self).create
-      Table.new(work_packages_by_identifier)
+      work_packages_by_identifier, relations = Factory.new(self).create
+      Registry.store(work_packages_by_identifier)
+      Table.new(work_packages_by_identifier, relations)
+    end
+
+    def hierarchy_levels
+      identifiers = work_packages_data.pluck(:identifier)
+      parents = work_packages_data.pluck(:attributes).pluck(:parent)
+      identifier_parent_tuples = identifiers.zip(parents)
+      levels = {}
+      iterations = 0
+      while identifier_parent_tuples.any? && iterations < identifier_parent_tuples.size
+        identifier, parent = identifier_parent_tuples.shift
+        if parent.nil?
+          levels[identifier] = 0
+          iterations = 0
+        elsif levels.has_key?(parent)
+          levels[identifier] = levels[parent] + 1
+          iterations = 0
+        else
+          identifier_parent_tuples.push([identifier, parent])
+          iterations += 1
+        end
+      end
+      levels
+    end
+
+    def children_by_parent(parent_identifier)
+      work_packages_data
+        .filter { it.dig(:attributes, :parent) == parent_identifier }
+        .pluck(:identifier)
     end
 
     def order_like!(other_table)
-      ordered_identifiers = other_table.work_package_identifiers
-      extra_identifiers = work_package_identifiers - ordered_identifiers
       @work_packages_data = work_packages_data
-        .index_by { _1[:identifier] }
-        .values_at(*(ordered_identifiers + extra_identifiers))
+        .index_by { it[:identifier] }
+        .values_at(*identifiers_ordered_like(other_table))
         .compact
     end
 
+    def identifiers_ordered_like(other_table, parent_identifier = nil, acc = [])
+      other_children = other_table.children_by_parent(parent_identifier)
+      own_children = children_by_parent(parent_identifier)
+      ordered_children = other_children.intersection(own_children) + own_children.difference(other_children)
+      ordered_children.each do |identifier|
+        acc << identifier
+        identifiers_ordered_like(other_table, identifier, acc)
+      end
+      acc
+    end
+
+    class Registry
+      class << self
+        def store(work_packages_by_identifier)
+          work_packages_by_identifier.each do |identifier, work_package|
+            identifiers_by_work_package_id[work_package.id] = identifier
+          end
+        end
+
+        def find_identifier(work_package)
+          identifiers_by_work_package_id[work_package.id]
+        end
+
+        def identifiers_by_work_package_id
+          @identifiers_by_work_package_id ||= {}
+        end
+      end
+    end
+
     class Factory
-      attr_reader :table_data, :work_packages_by_identifier
+      include Identifier
+
+      attr_reader :table_data, :work_packages_by_identifier, :relations
 
       def initialize(table_data)
         @table_data = table_data
         @work_packages_by_identifier = {}
+        @relations = []
       end
 
       def create
+        warn_for_existing_work_packages_with_same_identifier
         table_data.work_package_identifiers.each do |identifier|
           create_work_package(identifier)
         end
         # create relations only after having created all work packages
         table_data.work_package_identifiers.each do |identifier| # rubocop:disable Style/CombinableLoops
-          create_follows_relations(identifier)
+          create_relations(identifier)
         end
-        work_packages_by_identifier
+        [work_packages_by_identifier, relations]
+      end
+
+      def warn_for_existing_work_packages_with_same_identifier
+        existing_identifiers = WorkPackage.pluck(:subject).map { |subject| to_identifier(subject) }
+        identical_identifiers = existing_identifiers & table_data.work_package_identifiers
+        if identical_identifiers.any?
+          puts <<~MESSAGE
+            [let_work_packages] Warning: existing work packages with identical identifiers found: #{identical_identifiers.map(&:inspect).join(', ')}
+            [let_work_packages] This can cause failures when checking work package with `expect_work_packages(WorkPackage.all)`"
+          MESSAGE
+          puts "[let_work_packages] Current example is #{RSpec.current_example.location}" if RSpec.current_example
+        end
       end
 
       def create_work_package(identifier)
@@ -122,18 +196,29 @@ module TableHelpers
         end
       end
 
-      def create_follows_relations(identifier)
-        relations = work_package_relations(identifier)
-        relations.each do |relation|
-          predecessor = work_packages_by_identifier[relation[:predecessor].to_sym]
-          follower = work_packages_by_identifier[identifier]
-          FactoryBot.create(
-            :follows_relation,
-            from: follower,
-            to: predecessor,
-            lag: relation[:lag]
+      def create_relations(identifier)
+        work_package_relations(identifier).each do |relation|
+          to = find_work_package_by_name(relation[:with])
+          from = work_packages_by_identifier[identifier]
+          extra_attributes = { lag: relation[:lag] }.compact
+          relations << FactoryBot.create(
+            :relation,
+            relation_type: relation[:type],
+            from:,
+            to:,
+            **extra_attributes
           )
         end
+      end
+
+      def find_work_package_by_name(name)
+        identifier = to_identifier(name)
+        work_package = work_packages_by_identifier[identifier]
+        if work_package.nil?
+          raise "Work package with name #{name.inspect} (identifier: #{identifier.inspect}) not found. " \
+                "Available work package identifiers: #{work_packages_by_identifier.keys}."
+        end
+        work_package
       end
 
       def lookup_parent(identifier)
@@ -164,7 +249,7 @@ module TableHelpers
       end
 
       def work_package_relations(identifier)
-        work_package_data(identifier)[:relations] || []
+        work_package_data(identifier)[:relations]&.values || []
       end
     end
   end

@@ -30,20 +30,25 @@
 
 import * as Turbo from '@hotwired/turbo';
 import { Controller } from '@hotwired/stimulus';
+import { useMeta } from 'stimulus-use';
 
 export default class extends Controller {
   static values = {
     cancelUrl: String,
+    autofocus: Boolean,
   };
 
   declare cancelUrlValue:string;
+  declare autofocusValue:boolean;
 
-  static targets = ['titleInput', 'notesInput', 'notesAddButton'];
-  declare readonly titleInputTarget:HTMLInputElement;
+  static targets = ['notesInput'];
   declare readonly notesInputTarget:HTMLInputElement;
-  declare readonly notesAddButtonTarget:HTMLInputElement;
+
+  static metaNames = ['csrf-token'];
+  declare readonly csrfToken:string;
 
   connect():void {
+    useMeta(this, { suffix: false });
     this.focusInput();
     this.addNotes();
   }
@@ -51,10 +56,11 @@ export default class extends Controller {
   focusInput():void {
     const titleInput = this.element.querySelector('input[name="meeting_agenda_item[title]"]');
 
-    this.element.scrollIntoView({ block: 'center' });
-    if (titleInput) {
-      (titleInput as HTMLInputElement).focus();
-      this.setCursorAtEnd(titleInput as HTMLInputElement);
+    if (titleInput && this.autofocusValue) {
+      setTimeout(() => {
+        (titleInput as HTMLInputElement).focus();
+        this.setCursorAtEnd(titleInput as HTMLInputElement);
+      }, 25); // Magic number - unsure why, but fixes the issue of focus sometimes not being on the input
     }
   }
 
@@ -62,7 +68,7 @@ export default class extends Controller {
     const response = await fetch(this.cancelUrlValue, {
       method: 'GET',
       headers: {
-        'X-CSRF-Token': (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement).content,
+        'X-CSRF-Token': this.csrfToken,
         Accept: 'text/vnd.turbo-stream.html',
       },
     });

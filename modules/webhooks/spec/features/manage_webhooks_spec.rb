@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe "Manage webhooks through UI", :js do
+RSpec.describe "Manage webhooks through UI", :js, :selenium do
   before do
     login_as user
   end
@@ -74,8 +74,10 @@ RSpec.describe "Manage webhooks through UI", :js do
 
       SeleniumHubWaiter.wait
       # Delete webhook
-      find(".webhooks--outgoing-webhook-row-#{webhook.id} .icon-delete").click
-      page.driver.browser.switch_to.alert.accept
+
+      accept_confirm do
+        find(".webhooks--outgoing-webhook-row-#{webhook.id} .icon-delete").click
+      end
 
       expect_flash(message: I18n.t(:notice_successful_delete))
       expect(page).to have_css(".generic-table--empty-row")

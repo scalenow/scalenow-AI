@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -30,6 +32,12 @@ module ErrorsHelper
   def render_400(options = {}) # rubocop:disable Naming/VariableNumber
     unset_template_magic
     render_error({ message: :notice_bad_request, status: 400 }.merge(options))
+    false
+  end
+
+  def render_402(options = {}) # rubocop:disable Naming/VariableNumber
+    unset_template_magic
+    render_error({ message: :notice_requires_enterprise_token, status: 402 }.merge(options))
     false
   end
 

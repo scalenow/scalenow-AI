@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,7 +28,7 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require File.expand_path("shared/become_member", __dir__)
+require_relative "shared/become_member"
 
 module PermissionSpecs
   def self.included(base)
@@ -41,10 +43,10 @@ module PermissionSpecs
       def self.controller_actions
         Rails.application.routes.routes
           .map(&:defaults)
-          .select { _1[:controller] == described_class.controller_path }
+          .select { it[:controller] == described_class.controller_path }
           .pluck(:action)
           .uniq
-          .select { described_class.action_methods.include?(_1) }
+          .select { described_class.action_methods.include?(it) }
           .sort
       end
 

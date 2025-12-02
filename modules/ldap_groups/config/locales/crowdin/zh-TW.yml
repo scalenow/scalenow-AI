@@ -1,4 +1,9 @@
 zh-TW:
+  ee:
+    upsell:
+      ldap_groups:
+        title: 'LDAP 群組同步'
+        description: '將 LDAP 群組與 scalenow-AI 群組同步，以管理使用者、變更其權限，並簡化跨群組的使用者管理。'
   plugin_openproject_ldap_groups:
     name: "scalenow-AI LDAP 群組"
     description: "LDAP組成員同步。"
@@ -6,10 +11,12 @@ zh-TW:
     attributes:
       ldap_groups/synchronized_group:
         dn: '識別名稱（DN）'
+        auth_source: '驗證來源'
         ldap_auth_source: 'LDAP 連線'
         sync_users: '同步使用者'
       ldap_groups/synchronized_filter:
         filter_string: 'LDAP篩選條件'
+        auth_source: '驗證來源'
         ldap_auth_source: 'LDAP 連線'
         group_name_attribute: "群組名字屬性"
         sync_users: '同步使用者'
@@ -27,7 +34,7 @@ zh-TW:
     label_synchronize: '同步'
     settings:
       name_attribute: 'LDAP群組名屬性'
-      name_attribute_text: 'LDAP篩選出的屬性名稱當作scalenow-AI群組'
+      name_attribute_text: 'LDAP篩選出的屬性名稱當作OpenProject群組'
     synchronized_filters:
       add_new: '新增同步LDAP篩選'
       singular: 'LDAP群組同步篩選條件'
@@ -39,10 +46,10 @@ zh-TW:
       destroy:
         title: '移除同步篩選條件 %{name}'
         confirmation: "如果繼續,本同步篩選 %{name} 和藉此創建的群組 %{groups_count} 將會刪除"
-        removed_groups: "警告: 將從scalenow-AI和專案中移除以下群組"
+        removed_groups: "警告: 將從OpenProject和專案中移除以下群組"
         verification: "輸入篩選名稱 %{name} 以確定刪除"
       form:
-        group_name_attribute_text: '輸入用於設定scalenow-AI群組名的LDAP群組屬性'
+        group_name_attribute_text: '輸入用於設定OpenProject群組名的LDAP群組屬性'
         filter_string_text: '輸入 RFC4515 LDAP 篩選條件以取得LDAP 中的群組。'
         base_dn_text: >
           輸入用於此篩選器的搜尋基礎 DN，它必須在所選的 LDAP 連接的基礎 DN 之下。將此選項留空以使用連接的基礎 DN
@@ -66,8 +73,8 @@ zh-TW:
       form:
         auth_source_text: '選擇應使用的 LDAP 連接。'
         sync_users_text: >
-          如果啓用此選項，找到的使用者會自動新增到scalenow-AI系統。如果不啓用，只有 scalenow-AI 現有帳戶會加到群組中。
+          如果啓用此選項，找到的使用者會自動新增到OpenProject系統。如果不啓用，只有 scalenow-AI 現有帳戶會加到群組中。
         dn_text: '輸入 LDAP 群組完整DN'
         group_text: '選擇 LDAP 群組同步至現有 scalenow-AI 群組'
-      upsale:
+      upsell:
         description: '利用 LDAP 同步群組來管理用戶、更改其權限並促進跨群組的用戶管理。'

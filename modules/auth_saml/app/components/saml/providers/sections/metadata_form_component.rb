@@ -2,7 +2,7 @@
 
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -30,8 +30,8 @@
 #
 module Saml::Providers::Sections
   class MetadataFormComponent < FormComponent
-    def initialize(provider, edit_mode: nil)
-      super(provider, edit_state: :metadata, edit_mode:, form_class: nil, heading: nil)
+    def initialize(provider, new_mode: nil)
+      super(provider, edit_state: :metadata, new_mode:, form_class: nil, heading: nil)
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -29,7 +31,7 @@
 require "spec_helper"
 require_relative "mock_global_permissions"
 
-RSpec.describe "Global role: Global role CRUD", :js, :with_cuprite do
+RSpec.describe "Global role: Global role CRUD", :js do
   # Scenario: Global Role creation
   # Given there is the global permission "glob_test" of the module "global_group"
   include_context "with mocked global permissions", [["glob_test", { project_module: "global_group" }]]
@@ -43,14 +45,16 @@ RSpec.describe "Global role: Global role CRUD", :js, :with_cuprite do
   it "can create global role with that perm" do
     # When I go to the new page of "Role"
     visit new_role_path
-    # Then I should not see block with "#global_permissions"
-    expect(page).to have_no_css(".form--fieldset-legend", text: "GLOBAL")
+
+    expect(page).to have_unchecked_field "Global role"
+    # Then I should not see region with global permissions
+    expect(page).not_to have_region "Global"
     # When I check "Global role"
     check "Global role"
-    # Then I should see block with "#global_permissions"
-    expect(page).to have_css(".form--fieldset-legend", text: "GLOBAL")
+    # Then I should see region with global permissions
+    expect(page).to have_region "Global"
     # And I should see "Global group"
-    expect(page).to have_text "GLOBAL GROUP"
+    expect(page).to have_region "Global group"
     # And I should see "Glob test"
     expect(page).to have_text "Glob test"
     # And I should not see "Issues can be assigned to this role"

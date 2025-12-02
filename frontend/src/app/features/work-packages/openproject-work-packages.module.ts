@@ -89,9 +89,6 @@ import {
   WorkPackageReplacementLabelComponent,
 } from 'core-app/features/work-packages/components/wp-edit/wp-edit-field/wp-replacement-label.component';
 import {
-  NewestActivityOnOverviewComponent,
-} from 'core-app/features/work-packages/components/wp-single-view-tabs/activity-panel/activity-on-overview.component';
-import {
   WorkPackageActivityTabComponent,
 } from 'core-app/features/work-packages/components/wp-single-view-tabs/activity-panel/activity-tab.component';
 import { OpenprojectAttachmentsModule } from 'core-app/shared/components/attachments/openproject-attachments.module';
@@ -141,7 +138,7 @@ import {
   WpTableConfigurationDisplaySettingsTabComponent,
 } from 'core-app/features/work-packages/components/wp-table/configuration-modal/tabs/display-settings-tab.component';
 import {
-  WpTableConfigurationFiltersTab,
+  WpTableConfigurationFiltersTabComponent,
 } from 'core-app/features/work-packages/components/wp-table/configuration-modal/tabs/filters-tab.component';
 import {
   WpTableConfigurationSortByTabComponent,
@@ -234,7 +231,6 @@ import {
   WorkPackageViewDropdownMenuDirective,
 } from 'core-app/shared/components/op-context-menu/handlers/wp-view-dropdown-menu.directive';
 import { HalEventsService } from 'core-app/features/hal/services/hal-events.service';
-import { OpenprojectProjectsModule } from 'core-app/features/projects/openproject-projects.module';
 import {
   WorkPackageNotificationService,
 } from 'core-app/features/work-packages/services/notifications/work-package-notification.service';
@@ -294,22 +290,13 @@ import {
 } from 'core-app/features/work-packages/components/wp-breadcrumb/wp-breadcrumb.component';
 import { UserLinkComponent } from 'core-app/shared/components/user-link/user-link.component';
 import {
-  WorkPackageCommentComponent,
-} from 'core-app/features/work-packages/components/work-package-comment/work-package-comment.component';
-import {
   WorkPackageWatcherButtonComponent,
 } from 'core-app/features/work-packages/components/wp-watcher-button/wp-watcher-button.component';
-import {
-  WorkPackageCommentFieldComponent,
-} from 'core-app/features/work-packages/components/work-package-comment/wp-comment-field.component';
-import { WpResizerDirective } from 'core-app/shared/components/resizer/resizer/wp-resizer.component';
+import { WpResizerComponent } from 'core-app/shared/components/resizer/resizer/wp-resizer.component';
 import {
   GroupDescriptor,
   WorkPackageSingleViewComponent,
 } from 'core-app/features/work-packages/components/wp-single-view/wp-single-view.component';
-import {
-  RevisionActivityComponent,
-} from 'core-app/features/work-packages/components/wp-activity/revision/revision-activity.component';
 import {
   WorkPackageCopySplitViewComponent,
 } from 'core-app/features/work-packages/components/wp-copy/wp-copy-split-view.component';
@@ -317,13 +304,6 @@ import {
   WorkPackageFormAttributeGroupComponent,
 } from 'core-app/features/work-packages/components/wp-form-group/wp-attribute-group.component';
 import { WorkPackagesGridComponent } from 'core-app/features/work-packages/components/wp-grid/wp-grid.component';
-import {
-  ActivityEntryComponent,
-} from 'core-app/features/work-packages/components/wp-activity/activity-entry.component';
-import { ActivityLinkComponent } from 'core-app/features/work-packages/components/wp-activity/activity-link.component';
-import {
-  UserActivityComponent,
-} from 'core-app/features/work-packages/components/wp-activity/user/user-activity.component';
 import {
   WorkPackageSplitViewToolbarComponent,
 } from 'core-app/features/work-packages/components/wp-details/wp-details-toolbar.component';
@@ -408,6 +388,12 @@ import {
 import { OpenprojectTimeEntriesModule } from 'core-app/shared/components/time_entries/openproject-time-entries.module';
 import { RecentItemsService } from 'core-app/core/recent-items.service';
 import {
+  WorkPackageReminderButtonComponent,
+} from 'core-app/features/work-packages/components/wp-buttons/wp-reminder-button/wp-reminder-button.component';
+import {
+  WorkPackageReminderModalComponent,
+} from 'core-app/features/work-packages/components/wp-reminder-modal/wp-reminder.modal';
+import {
   WorkPackageShareButtonComponent,
 } from 'core-app/features/work-packages/components/wp-buttons/wp-share-button/wp-share-button.component';
 import {
@@ -416,6 +402,11 @@ import {
 import {
   WorkPackageSplitViewEntryComponent,
 } from 'core-app/features/work-packages/routing/wp-split-view/wp-split-view-entry.component';
+import { OpWpDatePickerModalComponent } from 'core-app/shared/components/datepicker/wp-date-picker-modal/wp-date-picker.modal';
+import { OpenprojectEnterpriseModule } from 'core-app/features/enterprise/openproject-enterprise.module';
+import {
+  WorkPackageReminderContextMenuDirective,
+} from 'core-app/features/work-packages/components/wp-buttons/wp-reminder-button/wp-reminder-context-menu.directive';
 
 @NgModule({
   imports: [
@@ -431,8 +422,6 @@ import {
 
     OpenprojectBcfModule,
 
-    OpenprojectProjectsModule,
-
     OpenprojectModalModule,
 
     OpenprojectAutocompleterModule,
@@ -446,6 +435,7 @@ import {
     OpenprojectStoragesModule,
 
     WorkPackageIsolatedQuerySpaceDirective,
+    OpenprojectEnterpriseModule,
   ],
   providers: [
     // Notification service
@@ -521,7 +511,7 @@ import {
     WorkPackagesTableConfigMenuComponent,
     WorkPackageTablePaginationComponent,
 
-    WpResizerDirective,
+    WpResizerComponent,
 
     WorkPackageTableSumsRowController,
 
@@ -579,13 +569,6 @@ import {
     WorkPackageTimerButtonComponent,
 
     // Activity Tab
-    NewestActivityOnOverviewComponent,
-    WorkPackageCommentComponent,
-    WorkPackageCommentFieldComponent,
-    ActivityEntryComponent,
-    UserActivityComponent,
-    RevisionActivityComponent,
-    ActivityLinkComponent,
     WorkPackageActivityTabComponent,
 
     // Watchers wp-tab-wrapper
@@ -612,6 +595,8 @@ import {
     WorkPackageBreadcrumbComponent,
     WorkPackageSplitViewToolbarComponent,
     WorkPackageWatcherButtonComponent,
+    WorkPackageReminderButtonComponent,
+    WorkPackageReminderContextMenuDirective,
     WorkPackageShareButtonComponent,
     WorkPackageSubjectComponent,
 
@@ -622,7 +607,7 @@ import {
     WpTableConfigurationModalComponent,
     WpTableConfigurationColumnsTabComponent,
     WpTableConfigurationDisplaySettingsTabComponent,
-    WpTableConfigurationFiltersTab,
+    WpTableConfigurationFiltersTabComponent,
     WpTableConfigurationSortByTabComponent,
     WpTableConfigurationTimelinesTabComponent,
     WpTableConfigurationHighlightingTabComponent,
@@ -632,6 +617,7 @@ import {
     SaveQueryModalComponent,
     WpDestroyModalComponent,
     WorkPackageShareModalComponent,
+    WorkPackageReminderModalComponent,
 
     // CustomActions
     WpCustomActionComponent,
@@ -655,6 +641,8 @@ import {
     OpBaselineComponent,
     OpBaselineLoadingComponent,
     OpBaselineLegendsComponent,
+
+    OpWpDatePickerModalComponent,
   ],
   exports: [
     WorkPackagesTableComponent,
@@ -667,7 +655,7 @@ import {
     WorkPackageFilterContainerComponent,
     QueryFiltersComponent,
 
-    WpResizerDirective,
+    WpResizerComponent,
     WorkPackageBreadcrumbComponent,
     WorkPackageBreadcrumbParentComponent,
     WorkPackageSplitViewToolbarComponent,
@@ -676,7 +664,7 @@ import {
 
     // Modals
     WpTableConfigurationModalComponent,
-    WpTableConfigurationFiltersTab,
+    WpTableConfigurationFiltersTabComponent,
 
     // Needed so that e.g. IFC can access it.
     WorkPackageCreateButtonComponent,
@@ -686,6 +674,7 @@ import {
     WorkPackageSingleViewComponent,
     WorkPackageSplitViewComponent,
     BackButtonComponent,
+    OpWpDatePickerModalComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

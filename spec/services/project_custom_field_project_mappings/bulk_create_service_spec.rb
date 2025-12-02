@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,145 +29,126 @@
 #++
 
 require "spec_helper"
+require_relative "../bulk_services/project_mappings/behaves_like_bulk_project_mapping_create_service"
 
 RSpec.describe ProjectCustomFieldProjectMappings::BulkCreateService do
-  shared_let(:project_custom_field) { create(:project_custom_field) }
+  it_behaves_like "BulkServices project mappings create service" do
+    shared_let(:project_custom_field) { create(:project_custom_field) }
 
-  context "with admin permissions" do
-    let(:user) { create(:admin) }
+    let(:model) { project_custom_field }
+    let(:model_mapping_class) { ProjectCustomFieldProjectMapping }
+    let(:model_foreign_key_id) { :custom_field_id }
+    let(:required_permission) { :select_project_custom_fields }
+  end
 
-    context "with a single project" do
-      let(:project) { create(:project) }
-      let(:instance) { described_class.new(user:, projects: [project], project_custom_field:) }
+  describe "calculated values",
+           with_ee: %i[calculated_values],
+           with_flag: { calculated_value_project_attribute: true } do
+    using CustomFieldFormulaReferencing
 
-      it "creates the mappings" do
-        expect { instance.call }.to change(ProjectCustomFieldProjectMapping, :count).by(1)
+    shared_let(:user) { create(:admin) }
 
-        aggregate_failures "creates the mapping for the correct project and custom field" do
-          expect(ProjectCustomFieldProjectMapping.last.project).to eq(project)
-          expect(ProjectCustomFieldProjectMapping.last.project_custom_field).to eq(project_custom_field)
+    shared_let(:project_a) { create(:project) }
+    shared_let(:project_b) { create(:project) }
+    shared_let(:project_bb) { create(:project, parent: project_b) }
+    shared_let(:project_c) { create(:project) }
+    shared_let(:all_projects) { [project_a, project_b, project_bb, project_c] }
+
+    shared_let(:project_custom_field_section) { create(:project_custom_field_section) }
+    shared_let(:static) { create(:integer_project_custom_field, project_custom_field_section:) }
+    shared_let(:calculated) do
+      create(:calculated_value_project_custom_field, :skip_validations, formula: "#{static} * 7", project_custom_field_section:)
+    end
+    shared_let(:enabled) do
+      create(:calculated_value_project_custom_field, :skip_validations, formula: "11", project_custom_field_section:)
+    end
+    shared_let(:disabled) do
+      create(:calculated_value_project_custom_field, :skip_validations, formula: "13", project_custom_field_section:)
+    end
+
+    let(:projects) { [project_a, project_b] }
+    let(:instance) { described_class.new(user:, model: custom_field, projects:, include_sub_projects:) }
+
+    before do
+      User.current = user
+
+      all_projects.each do |project|
+        create(:custom_value, custom_field: enabled, value: "11", customized: project)
+      end
+    end
+
+    context "when enabling referenced static field" do
+      let(:custom_field) { static }
+
+      before do
+        all_projects.each.with_index(1) do |project, i|
+          # create first with blank value to skip auto enabling it
+          create(:custom_value, custom_field: static, value: nil, customized: project).update_columns(value: i)
+
+          create(:project_custom_field_project_mapping, project:, project_custom_field: calculated)
+        end
+      end
+
+      context "when enabling including sub projects" do
+        let(:include_sub_projects) { true }
+
+        it "recalculates the value for enabled projects including sub projects" do
+          expect(instance.call).to be_success
+
+          expect(project_a.custom_value_attributes).to eq(static.id => "1", calculated.id => "7", enabled.id => "11")
+          expect(project_b.custom_value_attributes).to eq(static.id => "2", calculated.id => "14", enabled.id => "11")
+          expect(project_bb.custom_value_attributes).to eq(static.id => "3", calculated.id => "21", enabled.id => "11")
+          expect(project_c.custom_value_attributes).to eq(calculated.id => nil, enabled.id => "11")
+        end
+      end
+
+      context "when enabling not including sub projects" do
+        let(:include_sub_projects) { false }
+
+        it "recalculates the value for enabled projects including sub projects" do
+          expect(instance.call).to be_success
+
+          expect(project_a.custom_value_attributes).to eq(static.id => "1", calculated.id => "7", enabled.id => "11")
+          expect(project_b.custom_value_attributes).to eq(static.id => "2", calculated.id => "14", enabled.id => "11")
+          expect(project_bb.custom_value_attributes).to eq(calculated.id => nil, enabled.id => "11")
+          expect(project_c.custom_value_attributes).to eq(calculated.id => nil, enabled.id => "11")
         end
       end
     end
 
-    context "with subprojects" do
-      let(:projects) { create_list(:project, 2) }
-      let!(:subproject) { create(:project, parent: projects.first) }
-      let!(:subproject2) { create(:project, parent: subproject) }
+    context "when enabling calculated field" do
+      let(:custom_field) { calculated }
 
-      it "creates the mappings for the project and sub-projects" do
-        create_service = described_class.new(user:, projects: projects.map(&:reload), project_custom_field:,
-                                             include_sub_projects: true)
-
-        expect { create_service.call }.to change(ProjectCustomFieldProjectMapping, :count).by(4)
-
-        aggregate_failures "creates the mapping for the correct project and custom field" do
-          expect(ProjectCustomFieldProjectMapping.where(project_custom_field:).pluck(:project_id))
-            .to contain_exactly(*projects.map(&:id), subproject.id, subproject2.id)
+      before do
+        all_projects.each.with_index(1) do |project, i|
+          create(:custom_value, custom_field: static, value: i, customized: project)
         end
       end
-    end
 
-    context "with multiple projects including subprojects" do
-      let(:project) { create(:project) }
-      let!(:subproject) { create(:project, parent: project) }
+      context "when enabling including sub projects" do
+        let(:include_sub_projects) { true }
 
-      it "creates the mappings for the project and sub-projects" do
-        create_service = described_class.new(user:, projects: [project.reload, subproject], project_custom_field:,
-                                             include_sub_projects: true)
+        it "recalculates the value for enabled projects including sub projects" do
+          expect(instance.call).to be_success
 
-        expect { create_service.call }.to change(ProjectCustomFieldProjectMapping, :count).by(2)
-
-        aggregate_failures "creates the mapping for the correct project and custom field" do
-          expect(ProjectCustomFieldProjectMapping.where(project_custom_field:).pluck(:project_id))
-            .to contain_exactly(project.id, subproject.id)
+          expect(project_a.custom_value_attributes).to eq(static.id => "1", calculated.id => "7", enabled.id => "11")
+          expect(project_b.custom_value_attributes).to eq(static.id => "2", calculated.id => "14", enabled.id => "11")
+          expect(project_bb.custom_value_attributes).to eq(static.id => "3", calculated.id => "21", enabled.id => "11")
+          expect(project_c.custom_value_attributes).to eq(static.id => "4", enabled.id => "11")
         end
       end
-    end
 
-    context "with duplicates" do
-      let(:project) { create(:project) }
-      let(:instance) { described_class.new(user:, projects: [project, project], project_custom_field:) }
+      context "when enabling not including sub projects" do
+        let(:include_sub_projects) { false }
 
-      it "creates the mappings only once" do
-        expect { instance.call }.to change(ProjectCustomFieldProjectMapping, :count).by(1)
+        it "recalculates the value for enabled projects including sub projects" do
+          expect(instance.call).to be_success
 
-        aggregate_failures "creates the mapping for the correct project and custom field" do
-          expect(ProjectCustomFieldProjectMapping.last.project).to eq(project)
-          expect(ProjectCustomFieldProjectMapping.last.project_custom_field).to eq(project_custom_field)
+          expect(project_a.custom_value_attributes).to eq(static.id => "1", calculated.id => "7", enabled.id => "11")
+          expect(project_b.custom_value_attributes).to eq(static.id => "2", calculated.id => "14", enabled.id => "11")
+          expect(project_bb.custom_value_attributes).to eq(static.id => "3", enabled.id => "11")
+          expect(project_c.custom_value_attributes).to eq(static.id => "4", enabled.id => "11")
         end
-      end
-    end
-  end
-
-  context "with non-admin but sufficient permissions" do
-    let(:user) do
-      create(:user,
-             member_with_permissions: {
-               project => %w[
-                 view_work_packages
-                 edit_project
-                 select_project_custom_fields
-               ]
-             })
-    end
-
-    let(:project) { create(:project) }
-    let(:instance) { described_class.new(user:, projects: [project], project_custom_field:) }
-
-    it "creates the mappings" do
-      expect { instance.call }.to change(ProjectCustomFieldProjectMapping, :count).by(1)
-
-      aggregate_failures "creates the mapping for the correct project and custom field" do
-        expect(ProjectCustomFieldProjectMapping.last.project).to eq(project)
-        expect(ProjectCustomFieldProjectMapping.last.project_custom_field).to eq(project_custom_field)
-      end
-    end
-  end
-
-  context "without sufficient permissions" do
-    let(:user) do
-      create(:user,
-             member_with_permissions: {
-               project => %w[
-                 view_work_packages
-                 edit_project
-               ]
-             })
-    end
-    let(:project) { create(:project) }
-    let(:instance) { described_class.new(user:, projects: [project], project_custom_field:) }
-
-    it "does not create the mappings" do
-      expect { instance.call }.not_to change(ProjectCustomFieldProjectMapping, :count)
-      expect(instance.call).to be_failure
-    end
-  end
-
-  context "with empty projects" do
-    let(:user) { create(:admin) }
-    let(:instance) { described_class.new(user:, projects: [], project_custom_field:) }
-
-    it "does not create the mappings" do
-      service_result = instance.call
-      expect(service_result).to be_failure
-      expect(service_result.errors).to eq("not found")
-    end
-  end
-
-  context "with archived projects" do
-    let(:user) { create(:admin) }
-    let(:archived_project) { create(:project, active: false) }
-    let(:active_project) { create(:project) }
-
-    let(:instance) { described_class.new(user:, projects: [archived_project, active_project], project_custom_field:) }
-
-    it "only creates mappins for the active project" do
-      expect { instance.call }.to change(ProjectCustomFieldProjectMapping, :count).by(1)
-
-      aggregate_failures "creates the mapping for the correct project and custom field" do
-        expect(ProjectCustomFieldProjectMapping.where(project_custom_field:).pluck(:project_id))
-          .to contain_exactly(active_project.id)
       end
     end
   end

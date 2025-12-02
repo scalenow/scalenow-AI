@@ -4,12 +4,17 @@
   [href]="notificationsPath()"
 >
   <op-icon icon-classes="bx bx-bell fs-22" style="line-height: 14px;"></op-icon>
-  <ng-container *ngIf="(unreadCount$ | async) as unreadCount">
-    <span
-      *ngIf="unreadCount !== 0"
-      class="op-ian-bell--indicator"
-      data-test-selector="op-ian-notifications-count"
-      [textContent]="unreadCountText$ | async"
-    ></span>
-  </ng-container>
+
+  @if ((unreadCount$ | async); as unreadCount) {
+    @if (unreadCount !== 0) {
+      <span
+        [ngClass]="{
+          'op-ian-bell--indicator': true,
+          'op-ian-bell--indicator_max': unreadCount > bellDisplayLimit
+        }"
+        data-test-selector="op-ian-notifications-count"
+        [innerHTML]="unreadCountText$ | async"
+      ></span>
+    }
+  }
 </a>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,9 +28,10 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
+# rubocop:disable Metrics/CollectionLiteralLength
 module Settings
   class Definition
-    ENV_PREFIX = "OPENPROJECT_".freeze
+    ENV_PREFIX = "OPENPROJECT_"
     AR_BOOLEAN_TYPE = ActiveRecord::Type::Boolean.new
     DEFINITIONS = {
       activity_days_default: {
@@ -40,9 +43,14 @@ module Settings
         default: nil
       },
       after_login_default_redirect_url: {
-        description: "Override URL to which logged in users are redirected instead of the My page",
+        description: "Override URL to which logged in users are redirected instead of the Home page",
         format: :string,
         default: nil
+      },
+      allowed_link_protocols: {
+        format: :array,
+        description: "Allowed protocols for links in the WYSIWYG editor and formatted texts",
+        default: []
       },
       apiv3_cors_enabled: {
         description: "Enable CORS headers for APIv3 server responses",
@@ -96,6 +104,10 @@ module Settings
       attachments_grace_period: {
         description: "Time in minutes to wait before uploaded files not attached to any container are removed",
         default: 180
+      },
+      antivirus_scan_available: {
+        description: "Virus scanning option selectable in the UI",
+        default: true
       },
       antivirus_scan_mode: {
         description: "Virus scanning option for files uploaded to OpenProject",
@@ -324,6 +336,10 @@ module Settings
         description: "Default sort order for activities",
         default: "asc"
       },
+      disable_keyboard_shortcuts: {
+        description: "Whether keyboard short cuts should be disabled (e.g. for better screen reader support)",
+        default: false
+      },
       default_language: {
         default: "en",
         allowed: -> { Redmine::I18n.all_languages }
@@ -404,9 +420,13 @@ module Settings
         allowed: %w[standard bim]
       },
       ee_manager_visible: {
-        description: "Show or hide the Enterprise configuration page and enterprise banners",
+        description: "Show the Enterprise configuration page",
         default: true,
         writable: false
+      },
+      ee_hide_banners: {
+        description: "Hide the Enterprise enterprise banners",
+        default: false
       },
       enable_internal_assets_server: {
         description: "Serve assets through the Rails internal asset server",
@@ -444,7 +464,7 @@ module Settings
         default: false
       },
       enabled_projects_columns: {
-        default: %w[favored name project_status public created_at latest_activity_at required_disk_space],
+        default: %w[favorited name project_status public created_at latest_activity_at required_disk_space],
         allowed: -> { ProjectQuery.new.available_selects.map { |s| s.attribute.to_s } }
       },
       enabled_scm: {
@@ -463,7 +483,7 @@ module Settings
       },
       enterprise_plan: {
         description: "Default EE selected plan",
-        default: "enterprise-on-premises---euro---1-year",
+        default: "enterprise-on-premises---basic---euro---1-year",
         writable: false
       },
       feeds_enabled: {
@@ -547,6 +567,14 @@ module Settings
         description: "Additional allowed host names for the application.",
         default: []
       },
+      collaborative_editing_hocuspocus_url: {
+        format: :string,
+        default: nil,
+        description: "The URL of the hocuspocus server used by BlockNoteJS editor to enable collaborative editing.",
+        default_by_env: {
+          development: "wss://hocuspocus.local"
+        }
+      },
       hours_per_day: {
         description: "This will define what is considered a “day” when displaying duration in a more natural way " \
                      "(for example, if a day is 8 hours, 32 hours would be 4 days).",
@@ -604,6 +632,11 @@ module Settings
       },
       journal_aggregation_time_minutes: {
         default: 5
+      },
+      large_instance_wp_allowed_to_sql: {
+        description: "When querying for allowed work packages, use SQL better suited for instances " \
+                     "with a larger set of work packages, projects, members and users",
+        default: true
       },
       ldap_force_no_page: {
         description: "Force LDAP to respond as a single page, in case paged responses do not work with your server.",
@@ -701,8 +734,9 @@ module Settings
         default: 60000
       },
       oauth_allow_remapping_of_existing_users: {
-        description: "When set to false, prevent users from other identity providers to take over accounts connected " \
-                     "to another identity provider.",
+        description: "When set to false, prevent users from other identity providers to take over accounts " \
+                     "that exist in OpenProject.",
+        format: :boolean,
         default: true
       },
       omniauth_direct_login_provider: {
@@ -715,10 +749,6 @@ module Settings
         format: :string,
         default: nil,
         writable: false # this changes a global variable and must therefore not be writable at runtime
-      },
-      onboarding_video_url: {
-        description: "Onboarding guide instructional video URL",
-        default: "https://player.vimeo.com/video/163426858?autoplay=1"
       },
       onboarding_enabled: {
         description: "Enable or disable onboarding guided tour for new users",
@@ -841,6 +871,10 @@ module Settings
         allowed: (0..),
         default: 20
       },
+      opentelemetry_enabled: {
+        description: "Enable OpenTelemetry metrics",
+        default: false
+      },
       rate_limiting: {
         default: {},
         description: "Configure rate limiting for various endpoint rules. See configuration documentation for details."
@@ -956,8 +990,22 @@ module Settings
         format: :hash,
         string_values: true
       },
+      seed_design: {
+        description: "Seed enterprise-edition theme colors and logos through ENV",
+        writable: false,
+        default: nil,
+        format: :hash,
+        string_values: true
+      },
+      seed_enterprise_token: {
+        description: "Seed enterprise-edition token through ENV",
+        writable: false,
+        format: :string,
+        default: nil
+      },
       self_registration: {
-        default: 2
+        default: 2,
+        format: :integer
       },
       sendmail_arguments: {
         description: "Arguments to call sendmail with in case it is configured as outgoing email setup",
@@ -1089,6 +1137,17 @@ module Settings
         },
         writable: false
       },
+      metrics: {
+        description: "
+          Publish a reduced set of puma metrics on a separate port for Prometheus consumption,
+          providing autoscaling hints
+        ".squish,
+        default: {
+          "enabled" => false,
+          "port" => 9394
+        },
+        writable: false
+      },
       sys_api_enabled: {
         description: "Enable internal system API for setting up managed repositories",
         default: false
@@ -1133,9 +1192,10 @@ module Settings
         default: {
           "workers" => 2,
           "timeout" => Rails.env.production? ? 120 : 0,
-          "wait_timeout" => 10,
+          "wait_timeout" => 30,
           "min_threads" => 4,
-          "max_threads" => 16
+          "max_threads" => 16,
+          "term_on_timeout" => 1
         },
         writable: false
       },
@@ -1311,6 +1371,8 @@ module Settings
       # @param [nil] env_alias Alternative for the default env name to also look up. E.g. with the alias set to
       #  `OPENPROJECT_2FA` for a definition with the name `two_factor_authentication`, the value is fetched
       #  from the ENV OPENPROJECT_2FA as well.
+      # @param [TrueClass|FalseClass] disallow_override Disables the usual possibility of overriding the value
+      #   from ENV or configuration file.
       def add(name,
               default:,
               default_by_env: {},
@@ -1319,7 +1381,8 @@ module Settings
               writable: true,
               allowed: nil,
               env_alias: nil,
-              string_values: false)
+              string_values: false,
+              disallow_override: false)
         name = name.to_sym
         return if exists?(name)
 
@@ -1332,7 +1395,7 @@ module Settings
                          allowed:,
                          env_alias:,
                          string_values:)
-        override_value(definition)
+        override_value(definition) unless disallow_override
         all[name] = definition
       end
 
@@ -1599,3 +1662,4 @@ module Settings
     end
   end
 end
+# rubocop:enable Metrics/CollectionLiteralLength

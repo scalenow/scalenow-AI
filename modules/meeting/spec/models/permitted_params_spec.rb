@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -26,14 +27,14 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require File.dirname(__FILE__) + "/../spec_helper"
+require_relative "../spec_helper"
 
 RSpec.describe PermittedParams do
   let(:user) { build_stubbed(:user) }
 
   describe "#search" do
     it "permits its whitelisted params" do
-      acceptable_params = { messages: 1 }
+      acceptable_params = { filter: :messages }
 
       permitted = ActionController::Parameters.new(acceptable_params).permit!
       params = ActionController::Parameters.new(acceptable_params)

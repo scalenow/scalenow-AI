@@ -62,15 +62,25 @@ ordered-list:
   spacing: 3mm
   padding-bottom: 3mm
 
-ordered-list-point:
+ordered_list_point:
   spanning: true
+  list_style_type: decimal
 
 ordered-list-point-1:
   template: '(<number>)'
 
-ordered-list-point-2:
+ordered_list_point_2:
   template: '<number>)'
-  alphabetical: true
+  list_style_type: lower-latin
+
+ordered_list_point_3:
+  list_style_type: lower-roman
+
+ordered_list_point_4:
+  list_style_type: upper-latin
+
+ordered_list_point_5:
+  list_style_type: upper-roman
 
 hrule:
   margin-top: 2mm
@@ -109,19 +119,28 @@ table:
   header:
     styles: [ 'bold' ]
     background-color: 'F0F0F0'
-    size: 10
+    size: 11
   cell:
-    no-border: true
     padding: 1mm
-    size: 9
+    size: 11
 
-headless-table:
+html_table:
   margin-top: 2mm
   margin-bottom: 4mm
+  header:
+    styles: [ 'bold' ]
+    background-color: 'F0F0F0'
+    size: 11
+    border-width: 0.25
+    border-color: '000000'
+    no_border: true
   cell:
-    no-border: true
     padding: 1mm
-    size: 9
+    size: 11
+    border-width: 0.25
+    border-color: '000000'
+    no_border: true
+    valign: middle
 
 blockquote:
   background-color: 'f4f9ff'
@@ -211,10 +230,11 @@ codeblock:
   margin-bottom: 2mm
 
 image:
-  max-width: 50mm
-  margin: 2mm
   margin-bottom: 3mm
   align: "center"
+  caption:
+    size: 8
+    align: "center"
 
 image-classes:
   small:

@@ -34,17 +34,15 @@ cs:
           name: Šedá (tmavá)
         item_13:
           name: Černá
-      life_cycle_colors:
+      project_phase_colors:
         item_0:
-          name: PM2 Orange
+          name: PM2 oranžová
         item_1:
-          name: PM2 Purple
+          name: PM2 Červená
         item_2:
-          name: PM2 Red
-        item_3:
           name: PM2 Magenta
-        item_4:
-          name: PM2 Green Yellow
+        item_3:
+          name: PM2 Zelená Žlutá
       document_categories:
         item_0:
           name: Dokumentace
@@ -79,23 +77,20 @@ cs:
         item_0:
           name: Manažer zaměstnanců a projektů
         item_1:
-          name: Standard global role
+          name: Standardní globální role
     standard:
-      life_cycles:
+      project_phases:
         item_0:
-          name: Initiating
+          name: Zahájení
         item_1:
-          name: Ready for Planning
+          name: Plánování
+          start_gate: Připraveno k plánování
         item_2:
-          name: Planning
+          name: Provádění
+          start_gate: Připraveno k provedení
         item_3:
-          name: Ready for Executing
-        item_4:
-          name: Executing
-        item_5:
-          name: Ready for Closing
-        item_6:
-          name: Closing
+          name: Uzavření
+          start_gate: Připraveno k uzavření
       priorities:
         item_0:
           name: Nízká
@@ -430,7 +425,7 @@ cs:
         item_1:
           name: Milník
         item_2:
-          name: Fáze
+          name: Summary task
         item_3:
           name: Funkce
         item_4:

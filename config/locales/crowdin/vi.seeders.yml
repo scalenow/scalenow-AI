@@ -7,15 +7,15 @@ vi:
     common:
       colors:
         item_0:
-          name: Lam (tối)
+          name: Xanh dương (tối)
         item_1:
-          name: Lam
+          name: Xanh dương
         item_2:
-          name: Lam (sáng)
+          name: Xanh dương (sáng)
         item_3:
-          name: Lục (sáng)
+          name: Xanh lá cây (sáng)
         item_4:
-          name: Lục (tối)
+          name: Xanh lá cây (tối)
         item_5:
           name: Vàng
         item_6:
@@ -23,7 +23,7 @@ vi:
         item_7:
           name: Đỏ
         item_8:
-          name: Tía
+          name: Đỏ tươi
         item_9:
           name: Trắng
         item_10:
@@ -31,25 +31,23 @@ vi:
         item_11:
           name: Xám
         item_12:
-          name: Xám (tối)
+          name: Màu xám (tối)
         item_13:
           name: Đen
-      life_cycle_colors:
+      project_phase_colors:
         item_0:
           name: PM2 Orange
         item_1:
-          name: PM2 Purple
-        item_2:
           name: PM2 Red
-        item_3:
+        item_2:
           name: PM2 Magenta
-        item_4:
+        item_3:
           name: PM2 Green Yellow
       document_categories:
         item_0:
           name: Tài liệu
         item_1:
-          name: Đặc tả
+          name: Đặc điểm kỹ thuật
         item_2:
           name: Khác
       project_query_roles:
@@ -66,9 +64,9 @@ vi:
           name: Người xem gói công việc
       project_roles:
         item_0:
-          name: Không phải thành viên
+          name: Không là thành viên
         item_1:
-          name: Vô danh
+          name: Ẩn danh
         item_2:
           name: Thành viên
         item_3:
@@ -77,30 +75,27 @@ vi:
           name: Quản trị dự án
       global_roles:
         item_0:
-          name: Quản lý nhân sự và dự án
+          name: Nhân viên và quản lý dự án
         item_1:
           name: Standard global role
     standard:
-      life_cycles:
+      project_phases:
         item_0:
           name: Initiating
         item_1:
-          name: Ready for Planning
+          name: Lập kế hoạch
+          start_gate: Ready for Planning
         item_2:
-          name: Planning
-        item_3:
-          name: Ready for Executing
-        item_4:
           name: Executing
-        item_5:
-          name: Ready for Closing
-        item_6:
+          start_gate: Ready for Executing
+        item_3:
           name: Closing
+          start_gate: Ready for Closing
       priorities:
         item_0:
           name: Thấp
         item_1:
-          name: Bình thường
+          name: Bình Thường
         item_2:
           name: Cao
         item_3:
@@ -108,26 +103,26 @@ vi:
       projects:
         demo-project:
           name: Dự án demo
-          status_explanation: Tất cả các nhiệm vụ đang đúng tiến độ. Những người liên quan đều biết nhiệm vụ của mình. Hệ thống đã được thiết lập hoàn chỉnh.
+          status_explanation: Tất cả các nhiệm vụ đang theo đúng tiến độ. Những người liên quan biết nhiệm vụ của họ. Hệ thống đã được thiết lập hoàn chỉnh.
           description: Đây là tóm tắt ngắn gọn về mục tiêu của dự án demo này.
           news:
             item_0:
-              title: Chào mừng bạn đến với dự án demo của bạn
+              title: Chào mừng đến với dự án mẫu của bạn
               summary: |
                 Chúng tôi rất vui vì bạn đã tham gia.
-                Trong mô-đun này, bạn có thể thông báo tin tức dự án cho các thành viên trong nhóm của bạn.
+                Trong mô-đun này, bạn có thể truyền đạt tin tức dự án đến các thành viên trong nhóm của bạn.
               description: Tin tức hiện tại
           categories:
-            item_0: Danh mục 1 (để thay đổi trong Cài đặt Dự án)
+            item_0: Danh mục 1 (cần thay đổi trong cài đặt Dự án)
           queries:
             item_0:
               name: Kế hoạch dự án
             item_1:
-              name: Các cột mốc
+              name: Các mốc thời gian
             item_2:
               name: Nhiệm vụ
             item_3:
-              name: Lập kế hoạch nhóm
+              name: Lịch trình nhóm
           boards:
             kanban:
               name: Bảng Kanban
@@ -170,10 +165,10 @@ vi:
                     Hãy cho chúng tôi biết nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ. Liên hệ với chúng tôi: [support[at]openproject.com](mailto:support@openproject.com).
               item_5:
                 options:
-                  name: Nhiệm vụ
+                  name: Work Packages
               item_6:
                 options:
-                  name: Các cột mốc
+                  name: Các mốc thời gian
           work_packages:
             item_0:
               subject: Bắt đầu dự án
@@ -226,14 +221,14 @@ vi:
             Thêm thông tin: [https://www.openproject.org/docs/user-guide/wiki/](https://www.openproject.org/docs/user-guide/wiki/)
         scrum-project:
           name: Dự án Scrum
-          status_explanation: Tất cả các nhiệm vụ đang đúng tiến độ. Những người liên quan đều biết nhiệm vụ của mình. Hệ thống đã được thiết lập hoàn chỉnh.
+          status_explanation: Tất cả các nhiệm vụ đang theo đúng tiến độ. Những người liên quan biết nhiệm vụ của họ. Hệ thống đã được thiết lập hoàn chỉnh.
           description: Đây là tóm tắt ngắn gọn về mục tiêu của dự án Scrum demo này.
           news:
             item_0:
               title: Chào mừng bạn đến với dự án Scrum demo của bạn
               summary: |
                 Chúng tôi rất vui vì bạn đã tham gia.
-                Trong mô-đun này, bạn có thể thông báo tin tức dự án cho các thành viên trong nhóm của bạn.
+                Trong mô-đun này, bạn có thể truyền đạt tin tức dự án đến các thành viên trong nhóm của bạn.
           versions:
             item_0:
               name: Danh sách lỗi
@@ -292,12 +287,12 @@ vi:
             item_3:
               name: Sprint 2
           categories:
-            item_0: Danh mục 1 (để thay đổi trong Cài đặt Dự án)
+            item_0: Danh mục 1 (cần thay đổi trong cài đặt Dự án)
           queries:
             item_0:
               name: Kế hoạch dự án
             item_1:
-              name: Danh sách sản phẩm
+              name: Product backlog
             item_2:
               name: Sprint 1
             item_3:
@@ -341,7 +336,7 @@ vi:
                     Hãy cho chúng tôi biết nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ. Liên hệ với chúng tôi: [support[at]openproject.com](mailto:support@openproject.com).
               item_5:
                 options:
-                  name: Nhiệm vụ
+                  name: Work Packages
               item_6:
                 options:
                   name: Kế hoạch dự án
@@ -446,40 +441,40 @@ vi:
         item_0:
           name: Mới
         item_1:
-          name: Đang chỉ định
+          name: Trong quá trình đặc tả
         item_2:
-          name: Đã chỉ định
+          name: được chỉ định
         item_3:
           name: Đã xác nhận
         item_4:
-          name: Cần lên lịch
+          name: Sẽ được xếp lịch
         item_5:
-          name: Đã lên lịch
+          name: Đã xếp lịch
         item_6:
-          name: Đang tiến hành
+          name: Đang xử lý
         item_7:
           name: Đã phát triển
         item_8:
-          name: Đang kiểm thử
+          name: Trong quá trình thử nghiệm
         item_9:
-          name: Đã kiểm thử
+          name: Đã kiểm tra
         item_10:
-          name: Kiểm thử thất bại
+          name: Kiểm tra thất bại
         item_11:
           name: Đã đóng
         item_12:
-          name: Tạm dừng
+          name: Đang chờ
         item_13:
-          name: Bị từ chối
+          name: Đã từ chối
       time_entry_activities:
         item_0:
           name: Quản lý
         item_1:
-          name: Chỉ định
+          name: Đặc điểm kỹ thuật
         item_2:
           name: Phát triển
         item_3:
-          name: Kiểm thử
+          name: Thử nghiệm
         item_4:
           name: Hỗ trợ
         item_5:
@@ -488,13 +483,13 @@ vi:
         item_0:
           name: Nhiệm vụ
         item_1:
-          name: Cột mốc
+          name: Milestone
         item_2:
-          name: Giai đoạn
+          name: Summary task
         item_3:
           name: Tính năng
         item_4:
-          name: Epic
+          name: Sử thi
         item_5:
           name: Câu chuyện người dùng
         item_6:

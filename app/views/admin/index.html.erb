@@ -26,7 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
+<% html_title(t(:label_administration), t(:label_overview)) -%>
 
+<%=
+  render(Primer::OpenProject::PageHeader.new) do |header|
+    header.with_title { t(:label_overview) }
+    header.with_breadcrumbs(
+      [{ href: admin_index_path, text: t(:label_administration), skip_for_mobile: true },
+       t(:label_overview)]
+    )
+  end
+%>
 <div class="row">
   <% @menu_nodes.sort_by(&:caption).zip(@images).each_slice(4) do |menu_node_group| %>
     <% menu_node_group.each do |menu_node, image| %>

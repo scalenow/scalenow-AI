@@ -29,7 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <% content_for :header_tags do %>
-  <%= auto_discovery_link_tag(:atom, controller: '/activities', action: 'index', user_id: @user, format: :atom, key: User.current.rss_key) %>
+  <%= auto_discovery_link_tag(:atom, controller: "/activities", action: "index", user_id: @user, format: :atom, key: User.current.rss_key) %>
   <%= call_hook :users_show_head %>
 <% end %>
 

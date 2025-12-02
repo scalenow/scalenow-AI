@@ -32,10 +32,10 @@ See COPYRIGHT and LICENSE files for more details.
 <%= render Workflows::PageHeaderComponent.new(state: :show) %>
 
 <% if @workflow_counts.any? %>
-  <div class="autoscroll">
+
     <div class="generic-table--container">
       <div class="generic-table--results-container">
-        <table class="generic-table" data-controller="table-highlighting">
+        <table class="generic-table workflow-table" data-controller="table-highlighting" id="workflow_summary">
           <colgroup>
             <col data-highlight="false">
             <col>
@@ -45,14 +45,14 @@ See COPYRIGHT and LICENSE files for more details.
             <col>
             <col data-highlight="false">
           </colgroup>
-          <thead>
+          <thead class="-sticky">
             <tr>
               <th><div class="generic-table--empty-header"></div></th>
               <% @workflow_counts.first.last.each do |role, count| %>
                 <th>
                   <div class="generic-table--sort-header-outer">
                     <div class="generic-table--sort-header">
-                        <%= content_tag(role.builtin? ? 'em' : 'span', h(role.name)) %>
+                        <%= content_tag(role.builtin? ? "em" : "span", h(role.name)) %>
                     </div>
                   </div>
                 </th>
@@ -65,7 +65,7 @@ See COPYRIGHT and LICENSE files for more details.
                 <td><%= h type %></td>
                 <% roles.each do |role, count| -%>
                   <td>
-                    <%= link_to((count > 0 ? count : content_tag(:span, '', class: "icon-close icon-context icon-button")), {action: 'edit', role_id: role, type_id: type}, title: t(:button_edit)) %>
+                    <%= link_to((count > 0 ? count : content_tag(:span, "", class: "icon-close icon-context icon-button")), { action: "edit", role_id: role, type_id: type }, title: t(:button_edit)) %>
                   </td>
                 <% end -%>
               </tr>
@@ -75,7 +75,7 @@ See COPYRIGHT and LICENSE files for more details.
 
       </div>
     </div>
-  </div>
+
 <% else %>
   <%= no_results_box %>
 <% end %>

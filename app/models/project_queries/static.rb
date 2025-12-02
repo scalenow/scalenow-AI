@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # -- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,13 +29,13 @@
 # ++
 
 class ProjectQueries::Static
-  ACTIVE = "active".freeze
-  MY = "my".freeze
-  FAVORED = "favored".freeze
-  ARCHIVED = "archived".freeze
-  ON_TRACK = "on_track".freeze
-  OFF_TRACK = "off_track".freeze
-  AT_RISK = "at_risk".freeze
+  ACTIVE = "active"
+  MY = "my"
+  FAVORITED = "favorited"
+  ARCHIVED = "archived"
+  ON_TRACK = "on_track"
+  OFF_TRACK = "off_track"
+  AT_RISK = "at_risk"
 
   DEFAULT = ACTIVE
 
@@ -44,8 +46,8 @@ class ProjectQueries::Static
         static_query_active
       when MY
         static_query_my
-      when FAVORED
-        static_query_favored
+      when FAVORITED
+        static_query_favorited
       when ARCHIVED
         static_query_archived
       when ON_TRACK
@@ -71,9 +73,9 @@ class ProjectQueries::Static
       end
     end
 
-    def static_query_favored
-      list_with(:"projects.lists.favored") do |query|
-        query.where("favored", "=", OpenProject::Database::DB_VALUE_TRUE)
+    def static_query_favorited
+      list_with(:"projects.lists.favorited") do |query|
+        query.where("favorited", "=", OpenProject::Database::DB_VALUE_TRUE)
       end
     end
 

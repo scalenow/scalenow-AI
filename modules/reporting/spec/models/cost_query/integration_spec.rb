@@ -26,20 +26,20 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
+require_relative "../../spec_helper"
 
 RSpec.describe CostQuery, :reporting_query_helper do
   minimal_query
 
   let!(:project1) { create(:project_with_types) }
   let!(:work_package1) { create(:work_package, project: project1) }
-  let!(:time_entry1) { create(:time_entry, work_package: work_package1, project: project1) }
-  let!(:time_entry2) { create(:time_entry, work_package: work_package1, project: project1) }
+  let!(:time_entry1) { create(:time_entry, entity: work_package1, project: project1) }
+  let!(:time_entry2) { create(:time_entry, entity: work_package1, project: project1) }
 
   let!(:project2) { create(:project_with_types) }
   let!(:work_package2) { create(:work_package, project: project2) }
-  let!(:time_entry3) { create(:time_entry, work_package: work_package2, project: project2) }
-  let!(:time_entry4) { create(:time_entry, work_package: work_package2, project: project2) }
+  let!(:time_entry3) { create(:time_entry, entity: work_package2, project: project2) }
+  let!(:time_entry4) { create(:time_entry, entity: work_package2, project: project2) }
 
   before do
     create(:admin)

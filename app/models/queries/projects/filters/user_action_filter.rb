@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -33,6 +35,10 @@ class Queries::Projects::Filters::UserActionFilter < Queries::Projects::Filters:
 
   def type
     :list_all
+  end
+
+  def human_name
+    "User action" # API only
   end
 
   def where

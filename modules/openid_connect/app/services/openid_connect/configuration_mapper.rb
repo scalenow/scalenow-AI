@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -47,7 +49,7 @@ module OpenIDConnect
         "host" => options["host"],
         "port" => options["port"],
         "scheme" => options["scheme"],
-        "claims" => options["claims"],
+        "claims" => extract_claims(options["claims"]),
         "tenant" => options["tenant"],
         "post_logout_redirect_uri" => options["post_logout_redirect_uri"],
         "limit_self_registration" => options["limit_self_registration"],
@@ -59,15 +61,27 @@ module OpenIDConnect
         "userinfo_endpoint" => extract_url(options, "userinfo_endpoint"),
         "end_session_endpoint" => extract_url(options, "end_session_endpoint"),
         "jwks_uri" => extract_url(options, "jwks_uri"),
+        "grant_types_supported" => options["grant_types_supported"],
         "mapping_login" => options.dig("attribute_map", "login"),
-        "mapping_mail" => options.dig("attribute_map", "email"),
-        "mapping_firstname" => options.dig("attribute_map", "first_name"),
-        "mapping_lastname" => options.dig("attribute_map", "last_name"),
-        "mapping_admin" => options.dig("attribute_map", "admin")
+        "mapping_email" => options.dig("attribute_map", "email"),
+        "mapping_first_name" => options.dig("attribute_map", "first_name"),
+        "mapping_last_name" => options.dig("attribute_map", "last_name"),
+        "mapping_admin" => options.dig("attribute_map", "admin"),
+        "sync_groups" => options["sync_groups"] == "true",
+        "groups_claim" => options["groups_claim"]
       }.compact
     end
 
     private
+
+    def extract_claims(claims_value)
+      case claims_value
+      when Hash
+        claims_value.to_json
+      else
+        claims_value.to_s
+      end
+    end
 
     def extract_scope(value)
       return if value.blank?

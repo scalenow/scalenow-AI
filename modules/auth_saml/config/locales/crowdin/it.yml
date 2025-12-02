@@ -1,5 +1,5 @@
 it:
-  activemodel:
+  activerecord:
     attributes:
       saml/provider:
         display_name: Nome
@@ -23,7 +23,6 @@ it:
         digest_method: Algoritmo di digest
         format: "Formato"
         icon: "Icona personalizzata"
-  activerecord:
     errors:
       models:
         saml/provider:
@@ -57,6 +56,7 @@ it:
       label_mapping: Mappatura
       label_requested_attribute_for: "Attributo richiesto per: %{attribute}"
       no_results_table: Nessun fornitore di identità SAML è stato ancora definito.
+      notice_created: È stato creato con successo un nuovo provider di identità SAML.
       plural: Fornitori di identità SAML
       singular: Fornitore di identità SAML
       requested_attributes: Attributi richiesti
@@ -65,7 +65,8 @@ it:
         I seguenti campi controllano quali attributi forniti dal fornitore di identità SAML vengono utilizzati per fornire attributi utente in scalenow-AI
       metadata:
         dialog: "Questo è l'URL dove sono disponibili i metadati di scalenow-AI SAML. Usalo opzionalmente per configurare il tuo fornitore di identità:"
-      upsale:
+      upsell:
+        title: "Single Sign-On (SSO) con SAML"
         description: Connetti scalenow-AI a un fornitore di identità SAML
       request_attributes:
         title: 'Attributi richiesti'

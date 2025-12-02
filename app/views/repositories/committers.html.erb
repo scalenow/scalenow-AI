@@ -27,7 +27,18 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-<%= toolbar title: t(:label_repository), title_class: "color-orange" %>
+<%=
+  render Primer::OpenProject::PageHeader.new do |header|
+    header.with_title { t(:label_user_plural) }
+    header.with_breadcrumbs(
+      [{ href: project_overview_path(@project.id), text: @project.name },
+       { href: project_settings_general_path(@project.id), text: I18n.t("label_project_settings") },
+       { href: project_settings_repository_path, text: t(:label_repository) },
+       t(:label_user_plural)]
+    )
+  end
+%>
+
 <%= simple_format(t(:text_repository_usernames_mapping)) %>
 <% if @committers.empty? %>
   <% no_results_box %>
@@ -66,10 +77,10 @@ See COPYRIGHT and LICENSE files for more details.
             <% i = 0 -%>
             <% @committers.each do |committer, user_id| -%>
               <tr>
-                <td><%=h committer %></td>
+                <td><%= h committer %></td>
                 <td>
                   <%= hidden_field_tag "committers[#{i}][]", committer %>
-                  <%= select_tag "committers[#{i}][]", content_tag('option', "-- #{t(:actionview_instancetag_blank_option)} --", value: '') + options_from_collection_for_select(@users, 'id', 'name', user_id.to_i) %>
+                  <%= select_tag "committers[#{i}][]", content_tag("option", "-- #{t(:actionview_instancetag_blank_option)} --", value: "") + options_from_collection_for_select(@users, "id", "name", user_id.to_i) %>
                 </td>
               </tr>
               <% i += 1 -%>
@@ -79,10 +90,10 @@ See COPYRIGHT and LICENSE files for more details.
 
       </div>
     </div>
-    <hr class="form--separator" />
+    <hr class="form--separator">
     <p>
-      <%= submit_tag t(:button_update), class: 'button -primary custom-secondary-button rounded-border m-0 px-3' %>
-      <%= link_to project_settings_repository_path(@project.id), class: 'button rounded-border m-0 px-3' do %>
+      <%= submit_tag t(:button_update), class: "button -primary" %>
+      <%= link_to project_settings_repository_path(@project.id), class: "button" do %>
         <span class="button--text"><%= t(:button_cancel) %></span>
       <% end %>
     </p>

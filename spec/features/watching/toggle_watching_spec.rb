@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -52,7 +54,8 @@ RSpec.describe "Toggle watching", :js do
        click_link(I18n.t("button_watch"))
        expect(page).to have_link(I18n.t("button_unwatch"))
 
-       SeleniumHubWaiter.wait
+       wait_for_network_idle
+
        click_link(I18n.t("button_unwatch"))
        expect(page).to have_link(I18n.t("button_watch"))
      end

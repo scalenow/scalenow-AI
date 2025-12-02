@@ -29,19 +29,20 @@
 #++
 #
 module Storages::Admin::Forms
-  class GeneralInfoFormComponent < ApplicationComponent
-    include OpPrimer::ComponentHelpers
-    include OpTurbo::Streamable
-
-    alias_method :storage, :model
-
-    options form_method: :post,
-            submit_button_disabled: false
-
+  class GeneralInfoFormComponent < StorageFormComponent
     def self.wrapper_key = :storage_general_info_section
 
+    options submit_button_disabled: false
+
     def form_url
-      options[:form_url] || default_form_url
+      query = { origin_component: "general_information" }
+      query[:continue_wizard] = storage.id if in_wizard
+
+      if storage.persisted?
+        admin_settings_storage_path(storage, query)
+      else
+        admin_settings_storages_path(query)
+      end
     end
 
     def submit_button_options
@@ -60,12 +61,11 @@ module Storages::Admin::Forms
 
     private
 
-    def default_form_url
-      case form_method
-      when :get, :post
-        admin_settings_storages_path
-      when :patch, :put
-        admin_settings_storage_path(storage)
+    def form_method
+      if storage.persisted?
+        :patch
+      else
+        :post
       end
     end
 
@@ -87,14 +87,14 @@ module Storages::Admin::Forms
       I18n.t(
         "storages.instructions.#{provider_type}.provider_configuration",
         application_link_text: application_link_text_for(
-          ::OpenProject::Static::Links[:storage_docs][:"#{provider_type}_oauth_application"][:href],
+          ::OpenProject::Static::Links.url_for(:storage_docs, :"#{provider_type}_oauth_application"),
           I18n.t("storages.instructions.#{provider_type}.application_link_text")
         )
       ).html_safe
     end
 
     def application_link_text_for(href, link_text)
-      render(Primer::Beta::Link.new(href:, target: "_blank")) { link_text }
+      render(Primer::Beta::Link.new(href:, target: "_blank", underline: true)) { link_text }
     end
   end
 end

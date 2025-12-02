@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -59,11 +61,7 @@ module Projects::Copy
 
       attributes = member
                      .attributes.dup.except("id", "project_id", "created_at", "updated_at")
-                     .merge(role_ids:,
-                            project: target,
-                            # This is magic for now. The settings has been set before in the Projects::CopyService
-                            # It would be better if this was not sneaked in but rather passed in as a parameter.
-                            send_notifications: ActionMailer::Base.perform_deliveries)
+                     .merge(role_ids:, project: target)
 
       Members::CreateService
         .new(user: User.current, contract_class: EmptyContract)

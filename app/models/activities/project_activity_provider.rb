@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,7 +29,7 @@
 #++
 
 class Activities::ProjectActivityProvider < Activities::BaseActivityProvider
-  activity_provider_for type: "project_attributes",
+  activity_provider_for type: "project_details",
                         permission: :view_project
 
   def event_query_projection

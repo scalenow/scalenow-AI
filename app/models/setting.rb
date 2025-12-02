@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -93,7 +95,7 @@ class Setting < ApplicationRecord
           definition = Settings::Definition[:#{name}]
 
           if definition.format != :boolean
-            ActiveSupport::Deprecation.warn "Calling #{self}.#{name}? is deprecated since it is not a boolean", caller
+            ActiveSupport::Deprecation.new.warn "Calling #{self}.#{name}? is deprecated since it is not a boolean", caller_locations
           end
 
           value = self[:#{name}]
@@ -335,12 +337,14 @@ class Setting < ApplicationRecord
   def self.deserialize(name, value)
     definition = Settings::Definition[name]
 
-    if definition.serialized? && value.is_a?(String)
+    if definition.nil?
+      nil
+    elsif definition.serialized? && value.is_a?(String)
       deserialize_hash(value)
-    elsif value != "".freeze && !value.nil?
+    elsif value != "" && !value.nil?
       read_formatted_setting(value, definition.format)
-    else
-      definition.format == :string ? value : nil
+    elsif definition.format == :string
+      value
     end
   end
 

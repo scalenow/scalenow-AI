@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -59,10 +61,6 @@ RSpec.describe Projects::SetAttributesService, type: :model do
   end
 
   describe "call" do
-    let(:call_attributes) do
-      {}
-    end
-
     before do
       allow(project)
         .to receive(:valid?)

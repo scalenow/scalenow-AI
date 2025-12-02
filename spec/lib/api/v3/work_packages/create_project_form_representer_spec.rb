@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -24,7 +26,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 # See COPYRIGHT and LICENSE files for more details.
-#++require 'rspec'
+#++
 
 require "spec_helper"
 
@@ -161,7 +163,7 @@ RSpec.describe API::V3::WorkPackages::CreateProjectFormRepresenter do
 
         it "has a link to configure the form" do
           expected = {
-            href: "/types/#{type.id}/edit?tab=form_configuration",
+            href: edit_type_form_configuration_path(type),
             type: "text/html",
             title: "Configure form"
           }

@@ -21,9 +21,9 @@
 #++
 ro:
   plugin_openproject_reporting:
-    name: "scalenow-AI Reporting"
-    description: "This plugin allows creating custom cost reports with filtering and grouping created by the scalenow-AI Time and costs plugin."
-  button_save_report_as: "Save report as..."
+    name: "Raport scalenow-AI"
+    description: "Acest plugin permite crearea de rapoarte de costuri personalizate cu filtrare şi grupare create de scalenow-AI Time şi de plugin-ul costuri."
+  button_save_report_as: "Salvează raportul ca..."
   comments: "Comentariu"
   cost_reports_title: "Timp și costuri"
   label_cost_report: "Raport de cost"
@@ -45,6 +45,8 @@ ro:
   label_greater: ">"
   label_is_not_project_with_subprojects: "nu este (incluzând subproiecte)"
   label_is_project_with_subprojects: "este (incluzând subproiecte)"
+  label_is_work_package_with_descendants: "este (include descendenții)"
+  label_is_not_work_package_with_descendants: "nu este (include descendenții)"
   label_work_package_attributes: "Atribute pachet de lucru"
   label_less: "<"
   label_logged_by_reporting: "Logat ca"
@@ -66,13 +68,13 @@ ro:
   label_year_reporting: "An (consumat)"
   label_count: "Număr"
   label_filter: "Filtrează"
-  label_filter_add: "Adăugare filtru"
+  label_filter_add: "Adaugă filtru"
   label_filter_plural: "Filtre"
   label_group_by: "Grupează după"
-  label_group_by_add: "Adaugă atributul Grupare-după"
+  label_group_by_add: "Adaugă atributul Grupează-după"
   label_inactive: "Inactiv"
   label_no: "Nu"
-  label_none: "Sincronizați datele"
+  label_none: "(fără date)"
   label_no_reports: "Nu există încă rapoarte de costuri."
   label_report: "Raportare"
   label_yes: "Da"
@@ -86,8 +88,18 @@ ro:
   validation_failure_date: "nu e o dată validă"
   validation_failure_integer: "nu e un întreg valid"
   export:
+    timesheet:
+      title: "Export foi de timp PDF"
+      button: "Exportă fișier PDF de timp"
+      timesheet: "Foi de pontaj"
+      time: "Timp"
+      sums_hours: Sume
+      overview_per_user_total: "Prezentare: Total ore per utilizator"
+      overview_per_user_day: "Prezentare: Ore pe utilizator pe zi"
     cost_reports:
-      title: "Exportul dumneavoastră de rapoarte de costuri XLS"
+      title: "Exportul tău de rapoarte de costuri XLS"
+      start_time: "Dată început"
+      end_time: "Ora de încheiere"
   reporting:
     group_by:
       selected_columns: "Coloane selectate"

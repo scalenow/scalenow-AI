@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -69,7 +71,7 @@ module BasicData
         settings["commit_fix_status_id"] = status_closed.try(:id)
 
         # Add the current locale to the list of available languages
-        settings["available_languages"] = (Setting.available_languages + [I18n.locale.to_s]).uniq.sort
+        settings["available_languages"] = (Setting.available_languages + [I18n.locale]).map(&:to_s).uniq.sort
 
         settings.compact
       end

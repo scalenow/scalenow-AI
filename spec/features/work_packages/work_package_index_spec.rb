@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,7 +30,7 @@
 
 require "spec_helper"
 
-RSpec.describe "Work Packages", "index view", :js, :with_cuprite do
+RSpec.describe "Work Packages", "index view", :js do
   shared_let(:user) { create(:admin) }
   shared_let(:project) { create(:project, enabled_module_names: %w[work_package_tracking]) }
 
@@ -60,7 +62,8 @@ RSpec.describe "Work Packages", "index view", :js, :with_cuprite do
       visit project_path(project)
 
       within("#content") do
-        expect(page).to have_content("Overview")
+        # TODO: change to `have_heading "Project home"` when `new_project_overview` feature flag is removed.
+        expect(page).to have_heading "Overview"
       end
 
       within("#main-menu") do

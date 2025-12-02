@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 require "text/hyphen"
 
@@ -24,7 +26,6 @@ RSpec.describe WorkPackage::PDFExport::DocumentGenerator do
   end
   let(:shared_options) do
     {
-      header_text_right: "A text on the right of the header",
       footer_text_center: "A text in the center of the footer"
     }
   end
@@ -37,6 +38,7 @@ RSpec.describe WorkPackage::PDFExport::DocumentGenerator do
   end
   let(:export_time) { DateTime.new(2023, 6, 30, 23, 59) }
   let(:export_time_formatted) { format_time(export_time, include_date: true) }
+  let(:export_date_formatted) { format_date(export_time) }
   let(:export_pdf) do
     Timecop.freeze(export_time) do
       export.export!
@@ -55,10 +57,9 @@ RSpec.describe WorkPackage::PDFExport::DocumentGenerator do
       expected_result = [
         "This is a test description with an macro:",
         user.name,
-        export_time_formatted,
+        export_date_formatted,
         "A text in the center of the footer",
-        "Page 1 of 1",
-        "A text on the right of the header"
+        "Page 1 of 1"
       ]
       result = pdf
       expect(result.join(" ")).to eq(expected_result.join(" "))
@@ -67,8 +68,8 @@ RSpec.describe WorkPackage::PDFExport::DocumentGenerator do
     describe "with a request for a PDF with hyphenation and no header/footer text" do
       let(:options) do
         {
-          hyphenation: "en_us",
-          header_text_right: "",
+          hyphenation: "1",
+          hyphenation_language: "en_us",
           footer_text_center: ""
         }
       end
@@ -80,7 +81,7 @@ RSpec.describe WorkPackage::PDFExport::DocumentGenerator do
         expected_result = [
           "honorificabilitudinitatibus honorificabilitudinitatibus honorificabilitudinitatibus " \
           "honorificabili ­ tudinitatibus honorificabilitudinitatibus honorificabilitudinitatibus",
-          export_time_formatted,
+          export_date_formatted,
           "Page 1 of 1"
         ]
         result = pdf

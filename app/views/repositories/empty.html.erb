@@ -33,6 +33,8 @@ See COPYRIGHT and LICENSE files for more details.
 
 <%= no_results_box %>
 
-<%= call_hook(:repositories_below_empty_warning,
-    { repository: @repository, project: @project }) %>
+<%= call_hook(
+      :repositories_below_empty_warning,
+      { repository: @repository, project: @project }
+    ) %>
 </div>

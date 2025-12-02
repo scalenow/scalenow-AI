@@ -36,6 +36,11 @@ Additionally, you can now add a description to add further information about the
 
 ![Screenshot showing the new Relations tab in a work package](openproject-15-1-relations.png)
 
+> [!TIP]
+> As a workaround you can [include a table of related work packages to work package forms (Enterprise add-on)](../../system-admin-guide/manage-work-packages/work-package-types/#add-table-of-related-work-packages-to-a-work-package-form-enterprise-add-on). Under this table you can directly create new children work packages or link existing ones. 
+
+![A table of related work packages in OpenProject](open_project_admin_related_wp_table.png)
+
 [Read all about work package relations and hierarchies in our user guide](../../user-guide/work-packages/work-package-relations-hierarchies/).
 
 ### Redesign of the Meetings index page
@@ -48,7 +53,7 @@ Here's an example screenshot of the redesigned Meetings index page:
 
 ![Example screenshot of the redesigned Meetings index page](openproject-15-1-meetings.png)
 
-[Learn what is possible with OpenProject's Dynamic Meetings to improve collaboration with your colleagues](../../user-guide/meetings/dynamic-meetings/).
+[Learn what is possible with OpenProject's dynamic meetings to improve collaboration with your colleagues](../../user-guide/meetings/).
 
 ### Manual page breaks in PDF work package exports
 
@@ -138,6 +143,7 @@ A very special thank you goes to Deutsche Bahn and City of Cologne for sponsorin
 Also, a big thanks to our Community members for reporting bugs and helping us identify and provide fixes. Special thanks for reporting and finding bugs go to Bill Bai, Sam Yelman, Knight Chang, Gábor Alexovics, Gregor Buergisser, Andrey Dermeyko, Various Interactive, Clayton Belcher, Александр Татаринцев, and Keno Krewer.
 
 Last but not least, we are very grateful for our very engaged translation contributors on Crowdin, who translated quite a few OpenProject strings! This release we would like to highlight
+
 - [Alexander Aleschenko](https://crowdin.com/profile/top4ek), for a great number of translations into Russian.
 - [José Helbert Pina](https://crowdin.com/profile/GZTranslations), for a great number of translations into Portuguese.
 - [BigSeung](https://crowdin.com/profile/BigSeung), for a great number of translations into Korean.

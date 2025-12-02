@@ -20,21 +20,36 @@
 #See COPYRIGHT and LICENSE files for more details.
 #++
 ja:
-  button_add_deploy_target: Add deploy target
-  label_deploy_target: Deploy target
-  label_deploy_target_new: New deploy target
-  label_deploy_target_plural: Deploy targets
-  label_github_integration: GitHub Integration
-  notice_deploy_target_created: Deploy target created
-  notice_deploy_target_destroyed: Deploy target deleted
+  attributes:
+    additions_count: "追加数"
+    deletions_count: "削除数"
+    comments_count: "コメント数"
+    github_html_url: "プルリクエストURL"
+    github_app_owner_avatar_url: "オーナーのアバターURL"
+    review_comments_count: "レビューコメント数"
+    github: "GitHub 識別子"
+    github_avatar_url: "アバター URL"
+    github_updated_at: "更新日時"
+    github_login: "GitHubログイン"
+    host: "ホスト"
+    labels: "ラベル"
+    repository: "リポジトリ"
+    changed_files_count: "変更されたファイル"
+  button_add_deploy_target: デプロイ先を追加
+  label_deploy_target: デプロイ先
+  label_deploy_target_new: 新しいデプロイ先
+  label_deploy_target_plural: デプロイ先
+  label_github_integration: GitHubとの連携
+  notice_deploy_target_created: デプロイ先が作成されました
+  notice_deploy_target_destroyed: デプロイ先が削除されました
   plugin_openproject_github_integration:
-    name: "scalenow-AI GitHub Integration"
-    description: "Integrates scalenow-AI and GitHub for a better workflow"
+    name: "scalenow-AI GitHub 統合"
+    description: "OpenProjectとGitHubを統合してワークフローを改善"
   project_module_github: "GitHub"
   permission_show_github_content: "GitHub コンテンツを表示する"
-  permission_introspection: Read running scalenow-AI core version and build SHA
+  permission_introspection: OpenProjectコアバージョンの読み込みとSHAのビルド
   text_deploy_target_type_info: >
-    So far we only support scalenow-AI itself.
+    これまでのところ、OpenProjectそのもののみをサポートしています。
   text_deploy_target_api_key_info: >
-    An scalenow-AI [API key](docs_url) belonging to a user who has the global introspection permission.
-  text_pull_request_deployed_to: "%{pr_link} deployed to %{deploy_target_link}"
+    グローバルイントロスペクション権限を持つユーザーに属する scalenow-AI [API キー](docs_url) 。
+  text_pull_request_deployed_to: "%{pr_link} は %{deploy_target_link} にデプロイされました"

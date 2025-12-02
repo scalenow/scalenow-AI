@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -41,6 +43,7 @@ FactoryBot.define do
     enabled_module_names { OpenProject::AccessControl.available_project_modules }
     public { false }
     templated { false }
+    workspace_type { "project" }
 
     callback(:after_build) do |project, evaluator|
       disabled_modules = Array(evaluator.disable_modules).map(&:to_s)

@@ -40,10 +40,14 @@
   input
     border-radius: var(--borderRadius-medium)
 
-action-menu
-  anchored-position
-    ul
-      margin-left: 0
+  // Currently we cannot morph the angular datepicker input field, and we have no way to set the
+  // validation error border on the input. However we can morph the input's wrapper element, thus
+  // adding this parent wrapper rule we can display the red border on the input.
+  &-input-wrap[invalid='true'] input:not(:focus)
+    border-color: var(--control-borderColor-danger)
+
+  &-spacingWrapper > :empty
+    display: none
 
 .UnderlineNav
   @include no-visible-scroll-bar
@@ -57,26 +61,34 @@ ul.SegmentedControl
   padding: 0
 
 /* Remove margin-left: 2rem from Breadcrumbs */
-#breadcrumb,
 page-header,
 sub-header,
 .op-work-package-details-tab-component,
-.tabnav
+.UnderlineNav,
+.tabnav,
+.Box-header,
+action-menu anchored-position
   ol, ul
     margin-left: 0
 
-#breadcrumb
-  .breadcrumb-item.breadcrumb-item-selected
-    a
-      pointer-events: none
+ul.SegmentedControl,
+.Box > ul:not(.op-uc-list)
+  margin-left: 0
 
 .op-primer-adjustments__toggle-switch--hidden-loading-indicator
   .ToggleSwitch-statusIcon
     display: none
 
 .Overlay
+  &--size-large-portrait
+    --overlay-height: 800px !important
+    --overlay-width: 640px !important
+
   &-body_autocomplete_height
-    min-height: 300px
+    min-height: 320px
+
+  &--size-xlarge-maximized-empty-footer
+    min-height: 534px
 
 // For some specific cases like progress form in small screens,
 // we need to change the direction of elements to column,
@@ -87,14 +99,19 @@ sub-header,
       flex-direction: column
       row-gap: 1rem
 
-.Button.op-app-header--primer-button,
-.Button.op-app-header--primer-button .Button-visual
-  color: var(--header-item-font-color)
-  width: auto
+.Button.op-app-header--primer-button
+  align-self: center
+  min-width: var(--control-medium-size)
 
   &:hover
-    background: var(--header-item-bg-hover-color)
     color: var(--header-item-font-hover-color)
+
+  &:not(.Button--primary),
+  &:not(.Button--primary) svg
+    color: var(--header-item-font-color)
+
+  svg
+    align-self: center
 
 // Prototypical CKEditor adjustments to better match Primer styles
 .ck-editor-primer-adjusted
@@ -124,3 +141,14 @@ sub-header,
 .generic-table
   .generic-table--action-menu-button
     min-width: max-content !important
+
+.FormControl-label:has(.op-attribute-help-text)
+  @extend .op-attribute-label
+
+  // the width of a space between the label text and asterisk
+  > :not(.op-attribute-help-text)::before
+    content: "\00a0"
+
+  // we override ordering to display help text after the asterisk
+  > .op-attribute-help-text
+    order: 1

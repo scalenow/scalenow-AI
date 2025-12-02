@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,7 +29,9 @@
 class EnvDataSeeder < CompositeSeeder
   def data_seeder_classes
     [
-      EnvData::LdapSeeder
+      EnvData::CustomDesignSeeder,
+      EnvData::LdapSeeder,
+      EnvData::TokenSeeder
     ]
   end
 

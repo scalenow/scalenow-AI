@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -27,19 +29,21 @@
 #++
 
 require "support/components/autocompleter/ng_select_autocomplete_helpers"
+require "support/flash/expectations"
 
 module Components
   module WorkPackages
     class Relations
       include Capybara::DSL
       include Capybara::RSpecMatchers
+      include Flash::Expectations
       include RSpec::Matchers
       include RSpec::Wait
       include ::Components::Autocompleter::NgSelectAutocompleteHelpers
 
       attr_reader :work_package
 
-      def initialize(work_package)
+      def initialize(work_package = nil)
         @work_package = work_package
       end
 
@@ -54,54 +58,104 @@ module Components
         end
       end
 
+      def expect_tab_is_loaded
+        # Search the current window in order to avoid within scope restrictions
+        within_window(page.current_window) do
+          within("wp-relations-tab") do
+            expect(page).to have_no_css("op-content-loader")
+          end
+        end
+      end
+
       def expect_add_relation_button
-        expect(page).to have_test_selector("new-relation-action-menu")
+        expect(page).to have_test_selector("add-relation-action-menu")
       end
 
       def expect_no_add_relation_button
-        expect(page).not_to have_test_selector("new-relation-action-menu")
+        expect_tab_is_loaded # Make sure the tab is loaded before checking non existing elements
+        expect(page).not_to have_test_selector("add-relation-action-menu")
       end
 
       def find_row(relatable)
         actual_relatable = find_relatable(relatable)
-        page.find_test_selector("op-relation-row-#{actual_relatable.id}", wait: 5)
+        page.find_test_selector("op-relation-row-visible-#{actual_relatable.id}", wait: 5)
+      end
+
+      def find_ghost_row(relatable)
+        actual_relatable = find_relatable(relatable)
+        page.find_test_selector("op-relation-row-ghost-#{actual_relatable.id}", wait: 5)
       end
 
       def find_some_row(text:)
         page.find("[data-test-selector^='op-relation-row']", text:, wait: 5)
       end
 
-      def expect_row(work_package)
-        find_row(work_package)
-      end
-
       def expect_no_row(relatable)
+        expect_tab_is_loaded # Make sure the tab is loaded before checking non existing elements
         actual_relatable = find_relatable(relatable)
-        expect(page).not_to have_test_selector("op-relation-row-#{actual_relatable.id}")
+        expect(page).not_to have_test_selector("op-relation-row-visible-#{actual_relatable.id}"),
+                            "expected no relation row for work package " \
+                            "##{actual_relatable.id} #{actual_relatable.subject.inspect}"
       end
 
       def select_relation_type(relation_type)
-        page.find_test_selector("new-relation-action-menu").click
-
-        within page.find_by_id("new-relation-action-menu-list") do
+        within_add_relation_action_menu(relation_type:) do
           click_link_or_button relation_type
         end
       end
 
+      def expect_new_relation_type(relation_type)
+        within_add_relation_action_menu(relation_type:) do
+          expect(page).to have_link(relation_type, wait: 1)
+        end
+      end
+
+      def expect_no_new_relation_type(relation_type)
+        within_add_relation_action_menu(relation_type:) do
+          expect(page).to have_no_link(relation_type, wait: 1)
+        end
+      end
+
+      def expect_no_add_menu_sub_menu
+        within(add_relation_action_menu) do
+          expect(page).to have_no_link("add_relation_sub_menu", wait: 1)
+        end
+      end
+
+      def open_add_relation_action_menu
+        return if add_relation_action_menu.visible?
+
+        new_relation_button.click
+      end
+
+      def open_relation_sub_menu
+        return if add_relation_sub_menu.visible?
+
+        new_relation_sub_menu_button.click
+      end
+
+      def add_relation_action_menu
+        action_menu_id = new_relation_button["aria-controls"]
+        page.find(id: action_menu_id, visible: :all)
+      end
+
+      def add_relation_sub_menu
+        action_menu_id = new_relation_sub_menu_button["aria-controls"]
+        page.find(id: action_menu_id, visible: :all)
+      end
+
+      def new_relation_button
+        page.find(id: "add-relation-action-menu-button")
+      end
+
+      def new_relation_sub_menu_button
+        page.find(id: "add-relation-sub-menu-button")
+      end
+
       def remove_relation(relatable)
         actual_relatable = find_relatable(relatable)
-        relatable_row = find_row(actual_relatable)
 
-        retry_block do
-          SeleniumHubWaiter.wait
-          within(relatable_row) do
-            relatable_action_menu(actual_relatable).click
-            relatable_delete_button(actual_relatable).click
-          end
-
-          # Expect relation to be gone
-          expect_no_row(relatable)
-        end
+        remove_relation_with_work_package(actual_relatable)
       end
 
       def relatable_action_menu(relatable)
@@ -119,6 +173,11 @@ module Components
         expect(page).not_to have_test_selector("op-relation-row-#{actual_relatable.id}-action-menu")
       end
 
+      def relatable_edit_button(relatable)
+        actual_relatable = find_relatable(relatable)
+        page.find_test_selector("op-relation-row-#{actual_relatable.id}-edit-button")
+      end
+
       def relatable_delete_button(relatable)
         actual_relatable = find_relatable(relatable)
         page.find_test_selector("op-relation-row-#{actual_relatable.id}-delete-button")
@@ -132,6 +191,10 @@ module Components
       def expect_no_relatable_delete_button(relatable)
         actual_relatable = find_relatable(relatable)
         expect(page).not_to have_test_selector("op-relation-row-#{actual_relatable.id}-delete-button")
+      end
+
+      def add_predecessor(work_package)
+        add_relation(type: :follows, relatable: work_package)
       end
 
       def add_relation(type:, relatable:, description: nil)
@@ -151,16 +214,13 @@ module Components
         expect(page).to have_text(modal_heading_label)
 
         # Enter the query and select the child
-        autocomplete_field = page.find_test_selector("work-package-relation-form-to-id")
-        select_autocomplete(autocomplete_field,
-                            query: relatable.subject,
-                            results_selector: "body")
+        search_in_autocompleter(relatable)
 
         if description.present?
           fill_in "Description", with: description
         end
 
-        click_link_or_button "Save"
+        click_link_or_button "Add"
 
         wait_for_reload if using_cuprite?
 
@@ -174,19 +234,11 @@ module Components
         find_row(target_wp)
       end
 
-      def add_description_to_relation(relatable, description)
-        open_relation_dialog(relatable)
-
-        within "##{WorkPackageRelationsTab::WorkPackageRelationDialogComponent::DIALOG_ID}" do
-          expect(page).to have_field("Work package", readonly: true)
-          expect(page).to have_field("Description")
-
-          fill_in "Description", with: description
-
-          click_link_or_button "Save"
-
-          wait_for_reload if using_cuprite?
-        end
+      def search_in_autocompleter(relatable)
+        autocomplete_field = page.find_test_selector("work-package-relation-form-to-id")
+        select_autocomplete(autocomplete_field,
+                            query: relatable.subject,
+                            results_selector: "body")
       end
 
       def edit_relation_description(relatable, description)
@@ -204,13 +256,24 @@ module Components
         end
       end
 
-      def open_relation_dialog(relatable)
-        actual_relatable = find_relatable(relatable)
-        relation_row = find_row(actual_relatable)
+      def edit_lag_of_relation(relatable, lag)
+        open_relation_dialog(relatable)
 
-        within relation_row do
-          page.find_test_selector("op-relation-row-#{actual_relatable.id}-action-menu").click
-          page.find_test_selector("op-relation-row-#{actual_relatable.id}-edit-button").click
+        within "##{WorkPackageRelationsTab::WorkPackageRelationDialogComponent::DIALOG_ID}" do
+          expect(page).to have_field("Work package", readonly: true)
+          expect(page).to have_field("Lag")
+
+          fill_in "Lag", with: lag
+
+          click_link_or_button "Save"
+
+          wait_for_reload if using_cuprite?
+        end
+      end
+
+      def open_relation_dialog(relatable)
+        open_action_menu_with_work_package(relatable) do
+          relatable_edit_button(relatable).click
         end
 
         wait_for_reload if using_cuprite?
@@ -220,12 +283,28 @@ module Components
         find_row(relatable)
       end
 
+      def expect_closest_relation(relatable)
+        expect(find_row(relatable)).to have_primer_label("Closest", scheme: :primary)
+      end
+
+      def expect_not_closest_relation(relatable)
+        expect(find_row(relatable)).to have_no_primer_label("Closest", scheme: :primary)
+      end
+
+      def expect_ghost_relation(relatable)
+        find_ghost_row(relatable)
+      end
+
       def expect_relation_by_text(text)
         find_some_row(text:)
       end
 
       def expect_no_relation(relatable)
         expect_no_row(relatable)
+      end
+
+      def expect_no_relations
+        expect(page).to have_test_selector("no-relations-blankslate", text: "This work package does not have any relations yet.")
       end
 
       def add_parent(query, work_package)
@@ -249,6 +328,7 @@ module Components
       end
 
       def expect_no_parent
+        expect_tab_is_loaded # Make sure the tab is loaded before checking non existing elements
         expect(page).not_to have_test_selector "op-wp-breadcrumb-parent", wait: 10
       end
 
@@ -257,21 +337,8 @@ module Components
         find(".wp-relation--parent-remove").click
       end
 
-      def open_children_autocompleter
-        retry_block do
-          next if page.has_selector?(".wp-relations--children .ng-input input")
-
-          SeleniumHubWaiter.wait
-          page.find_test_selector("op-wp-inline-create-reference",
-                                  text: I18n.t("js.relation_buttons.add_existing_child")).click
-
-          # Security check to be sure that the autocompleter has finished loading
-          page.find ".wp-relations--children .ng-input input"
-        end
-      end
-
       def children_table
-        page.find_test_selector("op-relation-group-children")
+        page.find_test_selector("op-relation-group-child")
       end
 
       def add_existing_child(work_package)
@@ -281,14 +348,38 @@ module Components
           select_relation_type "Child"
         end
 
-        within "##{WorkPackageRelationsTab::AddWorkPackageChildFormComponent::DIALOG_ID}" do
-          autocomplete_field = page.find_test_selector("work-package-child-form-id")
+        within "##{WorkPackageRelationsTab::AddWorkPackageHierarchyFormComponent::DIALOG_ID}" do
+          autocomplete_field = page.find_test_selector("work-package-hierarchy-form-id")
           select_autocomplete(autocomplete_field,
                               query: work_package.subject,
                               results_selector: "body")
 
           click_link_or_button "Save"
         end
+        expect_and_dismiss_flash(message: "Successful update.")
+      end
+
+      def add_parent_relation(work_package)
+        SeleniumHubWaiter.wait
+
+        retry_block do
+          select_relation_type "Parent"
+        end
+
+        within "##{WorkPackageRelationsTab::AddWorkPackageHierarchyFormComponent::DIALOG_ID}" do
+          autocomplete_field = page.find_test_selector("work-package-hierarchy-form-id")
+          select_autocomplete(autocomplete_field,
+                              query: work_package.subject,
+                              results_selector: "body")
+
+          click_link_or_button "Save"
+        end
+        expect_and_dismiss_flash(message: "Successful update.")
+      end
+
+      def expect_parent_relation(work_package)
+        expect_relation_group(Relation::TYPE_PARENT)
+        find_row(work_package)
       end
 
       def relations_group
@@ -300,7 +391,7 @@ module Components
       end
 
       def expect_child(work_package)
-        expect_row(work_package)
+        find_row(work_package)
       end
 
       def expect_not_child(work_package)
@@ -308,14 +399,45 @@ module Components
       end
 
       def remove_child(work_package)
-        child_wp_row = find_row(work_package)
+        remove_relation_with_work_package(work_package)
+      end
 
-        within(child_wp_row) do
-          relatable_action_menu(work_package).click
-          relatable_delete_button(work_package).click
+      # Removes the parent using the parent relation item (not using the cross
+      # button from hierarchy breadcrumb at the top)
+      def remove_parent_relation(work_package)
+        remove_relation_with_work_package(work_package)
+      end
+
+      private
+
+      def within_add_relation_action_menu(relation_type:, &)
+        open_add_relation_action_menu
+        open_relation_sub_menu unless first_level_relation?(relation_type)
+        within(add_relation_action_menu, &)
+      end
+
+      def remove_relation_with_work_package(relatable)
+        open_action_menu_with_work_package(relatable) do
+          accept_confirm do
+            relatable_delete_button(relatable).click
+          end
         end
 
-        expect_no_row(work_package)
+        expect_no_row(relatable)
+      end
+
+      def open_action_menu_with_work_package(relatable)
+        retry_block do
+          relatable_row = find_row(relatable)
+          within(relatable_row) do
+            relatable_action_menu(relatable).click
+            yield
+          end
+        end
+      end
+
+      def first_level_relation?(relation_type)
+        ["Related To", "Create new child", "Child", "Parent", "Predecessor (before)", "Successor (after)"].include?(relation_type)
       end
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,6 +30,10 @@
 
 class CustomActions::Actions::Responsible < CustomActions::Actions::Base
   include CustomActions::Actions::Strategies::MeAssociated
+
+  def type
+    :user
+  end
 
   def available_principles
     User

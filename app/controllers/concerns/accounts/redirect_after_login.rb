@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -48,15 +50,15 @@ module Accounts::RedirectAfterLogin
   end
 
   def default_redirect
-    if (url = OpenProject::Configuration.after_login_default_redirect_url)
+    if (url = Setting.after_login_default_redirect_url)
       redirect_back_or_default url
     else
-      redirect_back_or_default my_page_path
+      redirect_back_or_default home_path
     end
   end
 
   def first_login_redirect
-    if (url = OpenProject::Configuration.after_first_login_redirect_url)
+    if (url = Setting.after_first_login_redirect_url)
       redirect_back_or_default url
     else
       redirect_back_or_default home_url(first_time_user: true)

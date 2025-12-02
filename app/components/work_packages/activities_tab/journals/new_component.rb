@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2023 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -33,18 +35,21 @@ module WorkPackages
         include ApplicationHelper
         include OpPrimer::ComponentHelpers
         include OpTurbo::Streamable
+        include WorkPackages::ActivitiesTab::StimulusControllers
 
-        def initialize(work_package:, journal: nil, form_hidden_initially: true)
+        def initialize(work_package:, filter:, last_server_timestamp:, journal: nil, form_hidden_initially: true)
           super
 
           @work_package = work_package
+          @filter = filter
+          @last_server_timestamp = last_server_timestamp
           @journal = journal
           @form_hidden_initially = form_hidden_initially
         end
 
         private
 
-        attr_reader :work_package, :form_hidden_initially
+        attr_reader :work_package, :filter, :last_server_timestamp, :form_hidden_initially
 
         def journal
           @journal || Journal.new(journable: work_package)
@@ -56,6 +61,22 @@ module WorkPackages
 
         def form_row_display_value
           form_hidden_initially ? :none : :block
+        end
+
+        def adding_internal_comment_allowed?
+          EnterpriseToken.allows_to?(:internal_comments) &&
+            work_package.project.enabled_internal_comments &&
+            User.current.allowed_in_project?(:add_internal_comments, work_package.project)
+        end
+
+        def learn_more_static_link_url
+          ::OpenProject::Static::Links.url_for(:enterprise_features, :internal_comments)
+        end
+
+        def confirm_dialog_data_attributes
+          {
+            internal_comment_stimulus_controller("-target") => "confirmationDialog"
+          }
         end
       end
     end

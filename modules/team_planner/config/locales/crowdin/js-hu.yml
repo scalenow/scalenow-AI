@@ -2,13 +2,14 @@
 hu:
   js:
     team_planner:
-      add_existing: 'Létező hozzáadása'
+      add_existing: 'Létező tartalom hozzáadása'
+      label_team_planner_plural: 'Csoport tervezők'
       add_existing_title: 'Meglévő munkacsomagok hozzáadása'
       create_label: 'Csoport tervező'
       create_title: 'Új csoport tervező létrehozása'
       unsaved_title: 'Névtelen csoport tervező'
       no_data: 'Add assignees to set up your team planner.'
-      add_assignee: 'Assignee'
+      add_assignee: 'Megbízott'
       remove_assignee: 'Megbízott eltávolítása'
       two_weeks: '2 hét'
       one_week: '1 hét'

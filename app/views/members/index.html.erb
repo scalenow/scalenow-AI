@@ -29,13 +29,13 @@ See COPYRIGHT and LICENSE files for more details.
 <% html_title t(:label_member_plural) -%>
 
 <div class="bg-white mb-4 rounded-border" style="padding: 20px;border: 1px solid #000;">
-<% content_controller "members-form", dynamic: true %>
+<% content_controller "members-form" %>
 
 <%# content_for :content_header do %>
   <%= render ::Members::IndexPageHeaderComponent.new(project: @project) %>
   <%= render ::Members::IndexSubHeaderComponent.new(project: @project, filter_options: @members_filter_options) %>
 
-  <%= error_messages_for 'member' %>
+  <%= error_messages_for "member" %>
 
   <div>
     <% if @roles.any? %>
@@ -43,9 +43,9 @@ See COPYRIGHT and LICENSE files for more details.
                  locals: { project: @project, roles: @roles } %>
     <% else %>
       <p>
-        <%= I18n.t('text_no_roles_defined') %>
+        <%= I18n.t("text_no_roles_defined") %>
       </p>
-      <%= link_to I18n.t('button_back'), :back, class: 'button' %>
+      <%= link_to I18n.t("button_back"), :back, class: "button" %>
     <% end %>
   </div>
 <%# end %>

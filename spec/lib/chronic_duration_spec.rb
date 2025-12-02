@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copied from https://gitlab.com/gitlab-org/ruby/gems/gitlab-chronic-duration
 # version 0.12.0
 #
@@ -31,7 +33,7 @@
 require "rspec_helper"
 require "chronic_duration"
 
-INACCURATE_FORMATS = %i[days_and_hours hours_only].freeze
+INACCURATE_FORMATS = %i[days_and_hours hours_only hours_and_minutes hours_colon_minutes].freeze
 
 RSpec.describe ChronicDuration do
   describe ".parse" do
@@ -111,6 +113,57 @@ RSpec.describe ChronicDuration do
       expect(described_class.parse("5", default_unit: "minutes")).to eq(300)
     end
 
+    # Tests for intelligent unit inference
+    context "when using intelligent unit inference" do
+      it "interprets subsequent numbers without units as next smaller unit" do
+        expect(described_class.parse("2 hours 15", default_unit: "hours")).to eq(8100) # 2h 15m = 8100s
+      end
+
+      it "handles multiple numbers without units in descending order" do
+        expect(described_class.parse("2 hours 15 30", default_unit: "hours")).to eq(8130) # 2h 15m 30s = 8130s
+      end
+
+      it "works with different starting units" do
+        expect(described_class.parse("1 day 5", default_unit: "days")).to eq(104400) # 1d 5h = 104400s
+        expect(described_class.parse("3 minutes 45", default_unit: "minutes")).to eq(225) # 3m 45s = 225s
+        expect(described_class.parse("1 week 2", default_unit: "weeks")).to eq(777600) # 1w 2d = 777600s
+      end
+
+      it "falls back to default unit when no previous unit exists" do
+        expect(described_class.parse("5", default_unit: "minutes")).to eq(300) # 5m = 300s
+        expect(described_class.parse("10", default_unit: "hours")).to eq(36000) # 10h = 36000s
+      end
+
+      it "handles mixed explicit and implicit units" do
+        expect(described_class.parse("1 hour 30 20 seconds", default_unit: "hours")).to eq(5420) # 1h 30m 20s = 5420s
+      end
+
+      it "keeps using smallest unit when already at seconds" do
+        expect(described_class.parse("3 minutes 45 10", default_unit: "minutes")).to eq(235) # 3m 45s 10s = 235s
+      end
+
+      it "works with fractional numbers" do
+        expect(described_class.parse("2.5 hours 30", default_unit: "hours")).to eq(10800) # 2.5h 30m = 10800s
+        expect(described_class.parse("1 hour 15.5", default_unit: "hours")).to eq(4530) # 1h 15.5m = 4530s
+      end
+
+      it "maintains backward compatibility with existing formats" do
+        expect(described_class.parse("2 hours 20 minutes")).to eq(8400) # Explicit units should still work
+        expect(described_class.parse("1 day 5 hours 30 minutes")).to eq(106200) # Multiple explicit units
+      end
+
+      it "handles edge cases correctly" do
+        # Multiple numbers without units at the beginning (should use default)
+        expect(described_class.parse("5 10", default_unit: "minutes")).to eq(900) # 5m + 10m = 900s
+
+        # Unit at the end with numbers before - first number uses default, then intelligent inference kicks in
+        expect(described_class.parse("2 15 minutes")).to eq(902) # 2s (default) + 15m = 902s
+
+        # Unit at beginning gets implicit "1", then intelligent inference
+        expect(described_class.parse("minutes 2 15")).to eq(77) # 1m + 2s + 15s = 77s
+      end
+    end
+
     exemplars.each do |k, v|
       it "parses a duration like #{k}" do
         expect(described_class.parse(k)).to eq(v)
@@ -151,6 +204,8 @@ RSpec.describe ChronicDuration do
           long: "1 minute 20 seconds",
           days_and_hours: "0.02h",
           hours_only: "0.02h",
+          hours_and_minutes: "1m",
+          hours_colon_minutes: "0:02 h",
           chrono: "1:20"
         },
       (60 + 20.51) =>
@@ -161,6 +216,8 @@ RSpec.describe ChronicDuration do
           long: "1 minute 20.51 seconds",
           days_and_hours: "0.02h",
           hours_only: "0.02h",
+          hours_and_minutes: "1m",
+          hours_colon_minutes: "0:02 h",
           chrono: "1:20.51"
         },
       (60 + 20.51928) =>
@@ -171,6 +228,8 @@ RSpec.describe ChronicDuration do
           long: "1 minute 20.51928 seconds",
           days_and_hours: "0.02h",
           hours_only: "0.02h",
+          hours_and_minutes: "1m",
+          hours_colon_minutes: "0:02 h",
           chrono: "1:20.51928"
         },
       ((4 * 3600) + 60 + 1) =>
@@ -181,6 +240,8 @@ RSpec.describe ChronicDuration do
           long: "4 hours 1 minute 1 second",
           days_and_hours: "4.02h",
           hours_only: "4.02h",
+          hours_and_minutes: "4h 1m",
+          hours_colon_minutes: "4:02 h",
           chrono: "4:01:01"
         },
       ((2 * 3600) + (20 * 60)) =>
@@ -191,6 +252,8 @@ RSpec.describe ChronicDuration do
           long: "2 hours 20 minutes",
           days_and_hours: "2.33h",
           hours_only: "2.33h",
+          hours_and_minutes: "2h 20m",
+          hours_colon_minutes: "2:20 h",
           chrono: "2:20:00"
         },
       ((8 * 24 * 3600) + (3 * 3600) + (30 * 60)) =>
@@ -201,6 +264,8 @@ RSpec.describe ChronicDuration do
           long: "8 days 3 hours 30 minutes",
           days_and_hours: "8d 3.5h",
           hours_only: "195.5h",
+          hours_and_minutes: "195h 30m",
+          hours_colon_minutes: "195:30 h",
           chrono: "8:03:30:00"
         },
       ((6 * 30 * 24 * 3600) + (24 * 3600)) =>
@@ -211,6 +276,8 @@ RSpec.describe ChronicDuration do
           long: "6 months 1 day",
           days_and_hours: "181d 0h",
           hours_only: "4344h",
+          hours_and_minutes: "4344h",
+          hours_colon_minutes: "4344:00 h",
           chrono: "6:01:00:00:00" # Yuck. FIXME
         },
       ((365.25 * 24 * 3600) + (24 * 3600)).to_i =>
@@ -221,6 +288,8 @@ RSpec.describe ChronicDuration do
           long: "1 year 1 day",
           days_and_hours: "366d 0h",
           hours_only: "8790h",
+          hours_and_minutes: "8790h",
+          hours_colon_minutes: "8790:00 h",
           chrono: "1:00:01:00:00:00"
         },
       ((3 * 365.25 * 24 * 3600) + (24 * 3600)).to_i =>
@@ -231,6 +300,8 @@ RSpec.describe ChronicDuration do
           long: "3 years 1 day",
           days_and_hours: "1096d 0h",
           hours_only: "26322h",
+          hours_and_minutes: "26322h",
+          hours_colon_minutes: "26322:00 h",
           chrono: "3:00:01:00:00:00"
         },
       ((6 * 365.25 * 24 * 3600) + (3 * 3600)).to_i =>
@@ -241,6 +312,8 @@ RSpec.describe ChronicDuration do
           long: "6 years 3 hours",
           days_and_hours: "2191d 3h",
           hours_only: "52599h",
+          hours_and_minutes: "52599h",
+          hours_colon_minutes: "52599:00 h",
           chrono: "6:00:00:03:00:00"
         },
       (3600 * 24 * 30 * 18) =>
@@ -251,6 +324,8 @@ RSpec.describe ChronicDuration do
           long: "18 months",
           days_and_hours: "540d 0h",
           hours_only: "12960h",
+          hours_and_minutes: "12960h",
+          hours_colon_minutes: "12960:00 h",
           chrono: "18:00:00:00:00"
         }
     }
@@ -271,6 +346,7 @@ RSpec.describe ChronicDuration do
         default: "0 secs",
         long: "0 seconds",
         days_and_hours: "0h",
+        hours_colon_minutes: "0:00 h",
         chrono: "0"
       },
       false =>
@@ -280,6 +356,7 @@ RSpec.describe ChronicDuration do
         default: nil,
         long: nil,
         days_and_hours: "0h",
+        hours_colon_minutes: "0:00 h",
         chrono: "0"
       }
     }

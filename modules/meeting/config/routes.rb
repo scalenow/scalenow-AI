@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -28,9 +30,42 @@
 
 Rails.application.routes.draw do
   resources :projects, only: %i[] do
-    resources :meetings, only: %i[index new create show] do
+    resources :meetings do
       collection do
+        get :new_dialog
         get "menu" => "meetings/menus#show"
+      end
+
+      member do
+        get :copy
+        get :check_for_updates
+        get :cancel_edit
+        get :download_ics
+        put :update_title
+        get :details_dialog
+        put :update_details
+        put :change_state
+        post :notify
+        get :history
+        get :delete_dialog
+        get :generate_pdf_dialog
+        get :toggle_notifications_dialog
+        post :toggle_notifications
+      end
+    end
+
+    resources :recurring_meetings do
+      member do
+        get :details_dialog
+        get :download_ics
+        get :delete_dialog
+        get :delete_scheduled_dialog
+        post :init
+        delete :destroy_scheduled
+        post :template_completed
+        post :notify
+        post :end_series
+        get :end_series_dialog
       end
     end
   end
@@ -47,29 +82,26 @@ Rails.application.routes.draw do
       collection do
         get :dialog, controller: "work_package_meetings_tab", action: :add_work_package_to_meeting_dialog
         post :create, controller: "work_package_meetings_tab", action: :add_work_package_to_meeting
+        get :refresh_form, controller: "work_package_meetings_tab", action: :refresh_form
       end
     end
   end
 
-  namespace :meetings do
-    resource :menu, only: %[show]
+  resources :recurring_meetings, only: %i[index show new create] do
+    collection do
+      get :humanize_schedule, controller: "recurring_meetings/schedule", action: :humanize_schedule
+    end
   end
 
-  resources :meetings do
-    get :new_dialog, on: :collection
-    member do
-      get :check_for_updates
-      get :cancel_edit
-      get :download_ics
-      put :update_title
-      get :details_dialog
-      put :update_details
-      get :participants_dialog
-      put :update_participants
-      put :change_state
-      post :notify
-      get :history
+  resources :meetings, only: %i[index show new create] do
+    collection do
+      get :new_dialog
+      get "menu" => "meetings/menus#show"
+      get :fetch_timezone
+
+      get "ical/:token", controller: "meetings/ical", action: :index, as: "ical_feed"
     end
+
     resources :agenda_items, controller: "meeting_agenda_items" do
       collection do
         get :new, action: :new, as: :new
@@ -79,17 +111,39 @@ Rails.application.routes.draw do
         get :cancel_edit
         put :drop
         put :move
+        get :move_to_next_dialog, action: :move_to_next_meeting_dialog
+        post :move_to_next, action: :move_to_next_meeting
+        put :move_to_section_dialog
+        post :move_to_section
       end
     end
     resources :sections, controller: "meeting_sections" do
+      collection do
+        post :clear_backlog
+        get :clear_backlog_dialog
+      end
+      member do
+        post :cancel_edit
+        put :drop
+        put :move
+      end
+    end
+    resources :outcomes, controller: "meeting_outcomes" do
       collection do
         get :new, action: :new, as: :new
         get :cancel_new
       end
       member do
         get :cancel_edit
-        put :drop
-        put :move
+      end
+    end
+    resources :participants, controller: "meeting_participants" do
+      collection do
+        get :manage_participants_dialog
+        post :mark_all_attended
+      end
+      member do
+        post :toggle_attendance
       end
     end
 
@@ -125,10 +179,7 @@ Rails.application.routes.draw do
     end
 
     member do
-      get :copy
-      match "/:tab" => "meetings#show", :constraints => { tab: /(agenda|minutes)/ },
-            :via => :get,
-            :as => "tab"
+      get "/:tab" => "meetings#show", :constraints => { tab: /(agenda|minutes)/ }, :as => "tab"
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -45,6 +47,11 @@ FactoryBot.define do
           .call(ids: members.map(&:id), send_notifications: false)
           .on_failure { |call| raise call.message }
       end
+    end
+
+    factory :group_marked_for_deletion do
+      lastname { "DeletedGroup" }
+      status { Group.statuses[:deleted] }
     end
   end
 end

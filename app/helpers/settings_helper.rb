@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -75,6 +77,14 @@ module SettingsHelper
       styled_text_field_tag("settings[#{setting}]",
                             Setting.send(setting),
                             disabled_setting_option(setting).merge(options))
+    end
+  end
+
+  def setting_url_field(setting, options = {})
+    setting_field_wrapper(setting, options) do
+      styled_url_field_tag("settings[#{setting}]",
+                           Setting.send(setting),
+                           disabled_setting_option(setting).merge(options))
     end
   end
 

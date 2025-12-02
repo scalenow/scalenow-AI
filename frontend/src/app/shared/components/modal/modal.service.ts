@@ -26,7 +26,7 @@
 // See COPYRIGHT and LICENSE files for more details.
 //++
 
-import { ComponentType, PortalInjector } from '@angular/cdk/portal';
+import { ComponentType } from '@angular/cdk/portal';
 import {
   Injectable,
   InjectionToken,
@@ -65,6 +65,26 @@ export class OpModalService {
 
       this.close();
     });
+  }
+
+  /**
+   * Checks whether there is currently an active modal. Only shows the requested modal if this is not the case.
+   * Will return null if showing the modal is denied.
+   * @see show
+   */
+  public showIfNotActive<T extends OpModalComponent>(
+    modal:ComponentType<T>,
+    injector:Injector|'global',
+    locals:Record<string, unknown> = {},
+    notFullscreen = false,
+    mobileTopPosition = false,
+    target = PortalOutletTarget.Default,
+  ):Observable<T>|null {
+    if (this.activeModalInstance$.value) {
+      return null;
+    }
+
+    return this.show(modal, injector, locals, notFullscreen, mobileTopPosition, target);
   }
 
   /**
@@ -121,13 +141,15 @@ export class OpModalService {
    * This allows callers to pass data into the newly created modal.
    */
   private injectorFor(injector:Injector, data:Record<string, unknown>) {
-    const injectorTokens = new WeakMap();
     // Pass the service because otherwise we're getting a cyclic dependency between the portal
     // host service and the bound portal
     data.service = this;
 
-    injectorTokens.set(OpModalLocalsToken, data);
-
-    return new PortalInjector(injector, injectorTokens);
+    return Injector.create({
+      providers: [
+        { provide: OpModalLocalsToken, useValue: data },
+      ],
+      parent: injector,
+    });
   }
 }

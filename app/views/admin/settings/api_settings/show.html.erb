@@ -1,42 +1,27 @@
 <%#-- copyright
 OpenProject is an open source project management software.
-Copyright (C) the OpenProject GmbH
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License version 3.
-
-OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
-Copyright (C) 2006-2013 Jean-Philippe Lang
-Copyright (C) 2010-2013 the ChiliProject Team
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
-See COPYRIGHT and LICENSE files for more details.
-
+...
 ++#%>
+
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-  <%=
-    render(Primer::OpenProject::PageHeader.new) do |header|
-      header.with_title(classes: "color-orange") { t(:label_api_access_key_type) }
-      header.with_breadcrumbs([{ href: admin_index_path, text: t("label_administration") },
-                              { href: admin_settings_api_path, text: t("menus.admin.api_and_webhooks") },
-                              t(:label_api_access_key_type)])
-    end
-  %>
+
+  <%= render(Primer::OpenProject::PageHeader.new) do |header| %>
+    <% header.with_title(classes: "color-orange") do %>
+      <%= t(:label_api_access_key_type) %>
+    <% end %>
+
+    <% header.with_breadcrumbs(
+      [
+        { href: admin_index_path, text: t("label_administration") },
+        { href: admin_settings_api_path, text: t("menus.admin.api_and_webhooks"), skip_for_mobile: true },
+        t(:label_api_access_key_type)
+      ]
+    ) %>
+  <% end %>
 
   <%= styled_form_tag(admin_settings_api_path, method: :patch) do %>
+
+    <!-- === REST API SETTINGS === -->
     <section class="form--section m-0">
       <div class="row">
         <div class="col-md-4">
@@ -44,29 +29,33 @@ See COPYRIGHT and LICENSE files for more details.
             <%= setting_check_box :rest_api_enabled %>
           </div>
         </div>
+
         <div class="col-md-4">
           <div class="form--field mb-3 api_number_field">
-            <%= setting_number_field :apiv3_max_page_size, min: 50 %>
+            <%= setting_number_field :apiv3_max_page_size, min: 50, container_class: "-slim" %>
             <div class="form--field-instructions">
               <p><%= t(:setting_apiv3_max_page_instructions_html) %></p>
             </div>
           </div>
         </div>
+
         <div class="col-md-4">
           <div class="form--field">
-            <%= setting_check_box :apiv3_write_readonly_attributes, container_class: '-slim' %>
+            <%= setting_check_box :apiv3_write_readonly_attributes, container_class: "-slim" %>
             <div class="form--field-instructions">
               <p><%= t(:setting_apiv3_write_readonly_attributes_instructions_html,
-                      api_documentation_link: static_link_to(:api_docs)
-                    ) %></p>
+                       api_documentation_link: static_link_to(:api_docs)) %></p>
             </div>
           </div>
         </div>
       </div>
 
+
+      <!-- === API DOCUMENTATION SETTINGS === -->
       <fieldset class="form--fieldset">
         <legend class="form--fieldset-legend"><%= I18n.t("setting_apiv3_docs") %></legend>
       </fieldset>
+
       <div class="row">
         <div class="col-md-4">
           <div class="form--field mb-3 api_checkbox api_number_field">
@@ -78,42 +67,54 @@ See COPYRIGHT and LICENSE files for more details.
         </div>
       </div>
 
+
+      <!-- === CORS SETTINGS === -->
       <fieldset class="form--fieldset">
-        <legend class="form--fieldset-legend">Cross-Origin Resource Sharing (CORS)</legend>
+        <legend class="form--fieldset-legend"><%= I18n.t("setting_apiv3_cors_title") %></legend>
       </fieldset>
+
       <div class="row">
         <div class="col-md-4">
           <div class="form--field mb-3 api_checkbox">
             <%= setting_check_box :apiv3_cors_enabled %>
           </div>
         </div>
+
         <div class="col-md-4">
           <div class="form--field mb-3 api_number_field">
-            <%= setting_text_area :apiv3_cors_origins, rows: 5 %>
+            <%= setting_text_area :apiv3_cors_origins, rows: 5, container_class: "-wide" %>
             <div class="form--field-instructions">
               <p><%= t(:text_line_separated) %></p>
-              <p><%= t(:setting_apiv3_cors_origins_text_html, origin_link: ::OpenProject::Static::Links[:origin_mdn_documentation][:href]) %></p>
+              <p><%= t(
+                       :setting_apiv3_cors_origins_text_html,
+                       origin_link: ::OpenProject::Static::Links.url_for(:origin_mdn_documentation)
+                     ) %></p>
             </div>
           </div>
         </div>
       </div>
-      <%= styled_button_tag t(:button_save), class: '-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3' %>
+
+      <%= styled_button_tag t(:button_save),
+                            class: "-primary -with-icon icon-checkmark custom-secondary-button rounded-border m-0 px-3" %>
+
     </section>
 
   <% end %>
 
+  <!-- custom CSS preserved -->
   <style>
-    .form--section .api_checkbox .form--label{
+    .form--section .api_checkbox .form--label {
       max-width: 95%;
     }
-    .form--section .api_checkbox .form--field-container{
+    .form--section .api_checkbox .form--field-container {
       max-width: 6%;
     }
-    .api_number_field  .form--field-instructions{
+    .api_number_field .form--field-instructions {
       margin-left: 0;
       padding-top: 10px;
       width: 100%;
       max-width: 100%;
     }
   </style>
+
 </div>

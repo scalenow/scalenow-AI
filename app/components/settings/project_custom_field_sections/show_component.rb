@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -38,6 +40,7 @@ module Settings
 
         @project_custom_field_section = project_custom_field_section
         @project_custom_fields = project_custom_field_section.custom_fields
+
         @first_and_last = first_and_last
       end
 
@@ -113,8 +116,12 @@ module Settings
                        scheme: :danger,
                        href: admin_settings_project_custom_field_section_path(@project_custom_field_section),
                        form_arguments: {
-                         method: :delete, data: { confirm: t("text_are_you_sure"), "turbo-stream": true,
-                                                  test_selector: "project-custom-field-section-delete" }
+                         method: :delete,
+                         data: {
+                           turbo_confirm: t(:text_are_you_sure),
+                           turbo_stream: true,
+                           test_selector: "project-custom-field-section-delete"
+                         }
                        }) do |item|
           item.with_leading_visual_icon(icon: :trash)
         end
@@ -136,6 +143,19 @@ module Settings
           else
             @project_custom_field_section.last?
           end
+      end
+
+      def action_menu_item_for_custom_field_format(menu, format)
+        menu.with_item(
+          label: helpers.label_for_custom_field_format(format.name),
+          tag: :a,
+          href: new_admin_settings_project_custom_field_path(
+            field_format: format.name,
+            custom_field_section_id: @project_custom_field_section.id
+          ),
+          content_arguments: { data: { turbo: "false",
+                                       test_selector: "new-project-custom-field-in-section-button-#{format.name}" } }
+        )
       end
     end
   end

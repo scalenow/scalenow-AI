@@ -4,6 +4,7 @@ module Grids::Configuration
             "work_packages_graph",
             "project_description",
             "project_status",
+            "project_status_beta",
             "subprojects",
             "work_packages_calendar",
             "work_packages_overview",
@@ -22,13 +23,12 @@ module Grids::Configuration
         user.allowed_in_project?(:manage_public_queries, project)
     }
 
-    queries_permission_and_ee_lambda = ->(user, project) {
-      save_or_manage_queries_lambda.call(user, project) &&
-        EnterpriseToken.allows_to?(:grid_widget_wp_graph)
-    }
-
     view_work_packages_lambda = ->(user, project) {
       user.allowed_in_any_work_package?(:view_work_packages, in_project: project)
+    }
+
+    view_beta_widgets = ->(_user, _project) {
+      OpenProject::FeatureDecisions.beta_widgets_active?
     }
 
     widget_strategy "work_packages_table" do
@@ -42,9 +42,13 @@ module Grids::Configuration
     widget_strategy "work_packages_graph" do
       after_destroy remove_query_lambda
 
-      allowed queries_permission_and_ee_lambda
+      allowed save_or_manage_queries_lambda
 
       options_representer "::API::V3::Grids::Widgets::ChartOptionsRepresenter"
+    end
+
+    widget_strategy "project_status_beta" do
+      allowed view_beta_widgets
     end
 
     widget_strategy "custom_text" do

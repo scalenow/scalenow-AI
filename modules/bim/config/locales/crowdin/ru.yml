@@ -9,6 +9,7 @@ ru:
     label_bcf: 'BCF'
     label_imported_failed: 'Неудачный импорт тем BCF'
     label_imported_successfully: 'Успешно импортированные темы BCF'
+    label_bcf_issue_associated: "Связанная проблема BCF"
     issues: "Замечания"
     recommended: 'рекомендуется'
     not_recommended: 'не рекомендуется'
@@ -83,6 +84,12 @@ ru:
         ifc_attachment: "Файл IFC"
         is_default: "Модель по умолчанию"
         attachments: "Файл IFC"
+      bim/bcf/issue:
+        bcf_comment: "Комментарий BCF"
+        bim_snippet: "Сниппет BIM"
+        reference_links: "Референсные ссылки"
+        stage: "Этап"
+        viewpoint: "Точка просмотра"
     errors:
       models:
         bim/ifc_models/ifc_model:
@@ -96,8 +103,8 @@ ru:
           invalid_clipping_planes: "недопустимые вырезки планов."
           invalid_components: "недопустимые компоненты."
           invalid_lines: "недопустимые строки."
-          invalid_orthogonal_camera: "Ортогональная камера недоступна"
-          invalid_perspective_camera: "Перспективная камера недоступна."
+          invalid_orthogonal_camera: "недопустимая ортогональ камеры."
+          invalid_perspective_camera: "недопустимый ракурс камеры."
           mismatching_guid: "Руководство json_viewpoint не совпадает с руководством модели."
           no_json: "Некорректно структурированный json."
           snapshot_type_unsupported: "snapshot_type должен быть 'png' или 'jpg'."

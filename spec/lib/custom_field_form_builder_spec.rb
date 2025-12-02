@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -43,8 +45,9 @@ RSpec.describe CustomFieldFormBuilder do
   describe "#custom_field" do
     let(:options) { { class: "custom-class" } }
 
+    let(:field_format) { "bool" }
     let(:custom_field) do
-      build_stubbed(:custom_field)
+      build_stubbed(:custom_field, field_format:)
     end
     let(:custom_value) do
       build_stubbed(:custom_value, customized: resource, custom_field:)
@@ -56,6 +59,8 @@ RSpec.describe CustomFieldFormBuilder do
     let(:resource) do
       build_stubbed(:user)
     end
+
+    let(:scope) { instance_double(ActiveRecord::Relation) }
 
     before do
       without_partial_double_verification do
@@ -91,9 +96,7 @@ RSpec.describe CustomFieldFormBuilder do
     end
 
     context "for a date custom field" do
-      before do
-        custom_field.field_format = "date"
-      end
+      let(:field_format) { "date" }
 
       it_behaves_like "wrapped in container", "field-container" do
         let(:container_count) { 2 }
@@ -114,9 +117,7 @@ RSpec.describe CustomFieldFormBuilder do
     end
 
     context "for a text custom field" do
-      before do
-        custom_field.field_format = "text"
-      end
+      let(:field_format) { "text" }
 
       it_behaves_like "wrapped in container", "text-area-container" do
         let(:container_count) { 2 }
@@ -136,9 +137,7 @@ RSpec.describe CustomFieldFormBuilder do
     end
 
     context "for a string custom field" do
-      before do
-        custom_field.field_format = "string"
-      end
+      let(:field_format) { "string" }
 
       it_behaves_like "wrapped in container", "text-field-container" do
         let(:container_count) { 2 }
@@ -149,15 +148,14 @@ RSpec.describe CustomFieldFormBuilder do
           <input class="custom-class form--text-field"
                  id="user#{custom_field.id}"
                  name="user[#{custom_field.id}]"
-                 type="text" />
+                 type="text"
+                 value="" />
         }).at_path("input")
       end
     end
 
     context "for an int custom field" do
-      before do
-        custom_field.field_format = "int"
-      end
+      let(:field_format) { "int" }
 
       it_behaves_like "wrapped in container", "text-field-container" do
         let(:container_count) { 2 }
@@ -174,9 +172,7 @@ RSpec.describe CustomFieldFormBuilder do
     end
 
     context "for a float custom field" do
-      before do
-        custom_field.field_format = "float"
-      end
+      let(:field_format) { "float" }
 
       it_behaves_like "wrapped in container", "text-field-container" do
         let(:container_count) { 2 }
@@ -252,6 +248,8 @@ RSpec.describe CustomFieldFormBuilder do
     end
 
     context "for a user custom field" do
+      let(:field_format) { "user" }
+
       let(:project) { build_stubbed(:project) }
       let(:user1) { build_stubbed(:user) }
       let(:user2) { build_stubbed(:user) }
@@ -259,8 +257,6 @@ RSpec.describe CustomFieldFormBuilder do
       let(:resource) { project }
 
       before do
-        custom_field.field_format = "user"
-
         without_partial_double_verification do
           allow(project)
             .to receive(custom_field.attribute_getter)
@@ -268,8 +264,14 @@ RSpec.describe CustomFieldFormBuilder do
         end
 
         allow(project)
-          .to(receive(:principals))
-          .and_return([user1, user2])
+          .to receive(:principals)
+                .and_return(scope)
+
+        allow(scope)
+          .to receive_messages(
+            select: [user1, user2],
+            includes: scope
+          )
       end
 
       it_behaves_like "wrapped in container", "select-container" do
@@ -310,6 +312,8 @@ RSpec.describe CustomFieldFormBuilder do
     end
 
     context "for a version custom field" do
+      let(:field_format) { "version" }
+
       let(:project) { build_stubbed(:project) }
       let(:version1) { build_stubbed(:version) }
       let(:version2) { build_stubbed(:version) }
@@ -317,8 +321,6 @@ RSpec.describe CustomFieldFormBuilder do
       let(:resource) { project }
 
       before do
-        custom_field.field_format = "version"
-
         without_partial_double_verification do
           allow(project)
             .to receive(custom_field.attribute_getter)
@@ -326,6 +328,10 @@ RSpec.describe CustomFieldFormBuilder do
 
           allow(project)
             .to receive(:shared_versions)
+                  .and_return(scope)
+
+          allow(scope)
+            .to receive(:references)
                   .and_return([version1, version2])
         end
       end
@@ -341,8 +347,12 @@ RSpec.describe CustomFieldFormBuilder do
                   name="user[#{custom_field.id}]"
                   no_label="true">
             <option value="" label=" "></option>
-            <option value="#{version1.id}">#{version1.name}</option>
-            <option value="#{version2.id}">#{version2.name}</option>
+            <optgroup label="#{version1.project.name}">
+              <option value="#{version1.id}">#{version1.name}</option>
+            </optgroup>
+            <optgroup label="#{version2.project.name}">
+              <option value="#{version2.id}">#{version2.name}</option>
+            </optgroup>
           </select>
         }).at_path("select")
       end
@@ -359,8 +369,12 @@ RSpec.describe CustomFieldFormBuilder do
                     name="user[#{custom_field.id}]"
                     no_label="true">
               <option value="">--- Please select ---</option>
-              <option value="#{version1.id}">#{version1.name}</option>
-              <option value="#{version2.id}">#{version2.name}</option>
+              <optgroup label="#{version1.project.name}">
+                <option value="#{version1.id}">#{version1.name}</option>
+              </optgroup>
+              <optgroup label="#{version2.project.name}">
+                <option value="#{version2.id}">#{version2.name}</option>
+              </optgroup>
             </select>
           }).at_path("select")
         end

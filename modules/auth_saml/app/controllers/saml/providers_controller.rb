@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Saml
   class ProvidersController < ::ApplicationController
     include OpTurbo::ComponentStream
@@ -6,7 +8,7 @@ module Saml
     menu_item :plugin_saml
 
     before_action :require_admin
-    before_action :check_ee
+    before_action :check_ee, except: %i[index]
     before_action :find_provider, only: %i[show edit import_metadata update confirm_destroy destroy]
     before_action :check_provider_writable, only: %i[update import_metadata]
     before_action :set_edit_state, only: %i[create edit update import_metadata]
@@ -18,11 +20,7 @@ module Saml
     def edit
       respond_to do |format|
         format.turbo_stream do
-          component = Saml::Providers::ViewComponent.new(@provider,
-                                                         view_mode: :edit,
-                                                         edit_mode: @edit_mode,
-                                                         edit_state: @edit_state)
-          update_via_turbo_stream(component:)
+          update_view_component(view_mode: :edit, new_mode: @new_mode, edit_state: @edit_state)
           scroll_into_view_via_turbo_stream("saml-providers-edit-form", behavior: :instant)
           render turbo_stream: turbo_streams
         end
@@ -30,17 +28,7 @@ module Saml
       end
     end
 
-    def show
-      respond_to do |format|
-        format.turbo_stream do
-          component = Saml::Providers::ViewComponent.new(@provider,
-                                                         view_mode: :show)
-          update_via_turbo_stream(component:)
-          render turbo_stream: turbo_streams
-        end
-        format.html
-      end
-    end
+    def show; end
 
     def new
       @provider = ::Saml::Provider.new
@@ -51,10 +39,10 @@ module Saml
       @provider = call.result
 
       if call.success?
-        if @edit_mode || @provider.last_metadata_update.present?
+        if @new_mode || @provider.last_metadata_update.present?
           redirect_to edit_saml_provider_path(@provider,
                                               anchor: "saml-providers-edit-form",
-                                              edit_mode: @edit_mode,
+                                              new_mode: @new_mode,
                                               edit_state: :configuration)
         else
           redirect_to saml_provider_path(@provider)
@@ -88,7 +76,7 @@ module Saml
         .call(update_params)
 
       if call.success?
-        flash[:notice] = I18n.t(:notice_successful_update) unless @edit_mode
+        flash[:notice] = I18n.t(:notice_successful_update) unless @new_mode
         successful_save_response
       else
         @provider = call.result
@@ -106,7 +94,7 @@ module Saml
       if call.success?
         flash[:notice] = I18n.t(:notice_successful_delete)
       else
-        flash[:error] = I18n.t(:error_failed_to_delete_entry)
+        flash[:error] = call.errors.full_messages
       end
 
       redirect_to action: :index
@@ -115,23 +103,21 @@ module Saml
     private
 
     def successful_save_response
+      if @new_mode && !@next_edit_state
+        flash[:notice] = I18n.t("saml.providers.notice_created")
+        return redirect_to saml_provider_path(@provider)
+      end
+
       respond_to do |format|
         format.turbo_stream do
-          update_via_turbo_stream(
-            component: Saml::Providers::ViewComponent.new(
-              @provider,
-              edit_mode: @edit_mode,
-              edit_state: @next_edit_state,
-              view_mode: :show
-            )
-          )
+          update_view_component(new_mode: @new_mode, edit_state: @next_edit_state, view_mode: :show)
           render turbo_stream: turbo_streams
         end
         format.html do
-          if @edit_mode && @next_edit_state
+          if @next_edit_state
             redirect_to edit_saml_provider_path(@provider,
                                                 anchor: "saml-providers-edit-form",
-                                                edit_mode: true,
+                                                new_mode: @new_mode,
                                                 edit_state: @next_edit_state)
           else
             redirect_to saml_provider_path(@provider)
@@ -140,17 +126,12 @@ module Saml
       end
     end
 
-    def check_ee
-      unless EnterpriseToken.allows_to?(:sso_auth_providers)
-        render template: "/saml/providers/upsale"
-        false
-      end
+    def update_view_component(new_mode:, edit_state:, view_mode:)
+      update_via_turbo_stream(component: Saml::Providers::ViewComponent.new(@provider, new_mode:, edit_state:, view_mode:))
     end
 
-    def default_breadcrumb; end
-
-    def show_local_breadcrumb
-      false
+    def check_ee
+      redirect_to action: :index unless EnterpriseToken.allows_to?(:sso_auth_providers)
     end
 
     def update_provider_metadata_call
@@ -183,8 +164,6 @@ module Saml
 
     def find_provider
       @provider = Saml::Provider.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render_404
     end
 
     def check_provider_writable
@@ -196,7 +175,7 @@ module Saml
 
     def set_edit_state
       @edit_state = params[:edit_state].to_sym if params.key?(:edit_state)
-      @edit_mode = ActiveRecord::Type::Boolean.new.cast(params[:edit_mode])
+      @new_mode = ActiveRecord::Type::Boolean.new.cast(params[:new_mode])
       @next_edit_state = params[:next_edit_state].to_sym if params.key?(:next_edit_state)
     end
   end

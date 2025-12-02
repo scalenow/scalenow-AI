@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -57,12 +59,12 @@ module OpenProject::Bim
                    dependencies: %i[view_ifc_models],
                    contract_actions: { ifc_models: %i[create update destroy] }
         permission :view_linked_issues,
-                   { "bim/bcf/issues": %i[index] },
+                   {},
                    permissible_on: :project,
                    dependencies: %i[view_work_packages],
                    contract_actions: { bcf: %i[read] }
         permission :manage_bcf,
-                   { "bim/bcf/issues": %i[index upload prepare_import configure_import perform_import] },
+                   { "bim/bcf/issues": %i[upload prepare_import configure_import perform_import] },
                    permissible_on: :project,
                    dependencies: %i[view_linked_issues
                                     view_work_packages
@@ -107,6 +109,18 @@ module OpenProject::Bim
                   { controller: "/bim/ifc_models/ifc_models", action: "defaults" },
                   parent: :ifc_models,
                   partial: "/bim/menus/menu"
+      end
+
+      ::Redmine::MenuManager.map(:account_menu) do |menu|
+        menu.push(:revit_add_in,
+                  "",
+                  caption: :"js.revit.revit_add_in_settings",
+                  icon: "op-view-modal",
+                  html: {
+                    id: "user-menu--revit-add-in-entry",
+                    classes: "d-none"
+                  },
+                  after: :administration)
       end
     end
 
@@ -215,7 +229,9 @@ module OpenProject::Bim
 
     config.to_prepare do
       Doorkeeper.configuration.scopes.add(:bcf_v2_1)
+    end
 
+    config.before_initialize do
       unless defined? OpenProject::Authentication::Scope::BCF_V2_1
         OpenProject::Authentication::Scope::BCF_V2_1 = :bcf_v2_1
       end

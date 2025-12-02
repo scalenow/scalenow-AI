@@ -18,6 +18,7 @@ import { UrlParamsService } from 'core-app/core/navigation/url-params.service';
   styleUrls: ['./in-app-notification-entry.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class InAppNotificationEntryComponent implements OnInit {
   @HostBinding('class.op-ian-item') className = true;
@@ -29,6 +30,7 @@ export class InAppNotificationEntryComponent implements OnInit {
   workPackage$:Observable<WorkPackageResource>|null = null;
 
   showDateAlert = false;
+  hasReminderAlert = false;
 
   loading$ = this.storeService.query.selectLoading();
 
@@ -62,19 +64,15 @@ export class InAppNotificationEntryComponent implements OnInit {
     const href = this.notification._links.resource?.href;
     this.workPackageId = href && HalResource.matchFromLink(href, 'work_packages');
 
-    this.showDateAlert = this.hasActiveDateAlert();
+    this.hasReminderAlert = this.hasNotificationReason('reminder');
+    this.showDateAlert = this.hasNotificationReason('dateAlert');
     this.buildTranslatedReason();
     this.buildProject();
     this.loadWorkPackage();
   }
 
-  private hasActiveDateAlert():boolean {
-    if (this.urlParams.get('filter') === 'reason' && this.urlParams.get('name') === 'date_alert') {
-      return true;
-    }
-
-    const dateAlerts = this.aggregatedNotifications.filter((notification) => notification.reason === 'dateAlert');
-    return dateAlerts.length === this.aggregatedNotifications.length;
+  private hasNotificationReason(reason:string):boolean {
+    return this.aggregatedNotifications.some((notification) => notification.reason === reason);
   }
 
   private loadWorkPackage() {

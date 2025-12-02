@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -111,20 +113,16 @@ class NewsController < ApplicationController
       call.apply_flash_message!(flash)
     end
 
-    redirect_to action: "index", project_id: @project
+    redirect_to action: "index", project_id: @project, status: :see_other
   end
 
   private
 
   def find_news_object
     @news = @object = News.find(params[:id].to_i)
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 
   def find_project
     @project = Project.find(params[:project_id])
-  rescue ActiveRecord::RecordNotFound
-    render_404
   end
 end

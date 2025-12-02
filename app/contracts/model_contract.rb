@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -48,7 +50,7 @@ class ModelContract < BaseContract
   # This of course is only true if that contract validates the model and
   # if the model has an errors object.
   def valid?(context = nil)
-    model.valid? if validate_model?
+    model.valid?(context) if validate_model?
 
     contract_valid?(context, clear_errors: !validate_model?)
   end
@@ -61,7 +63,8 @@ class ModelContract < BaseContract
   #   Clearing would then be done in the #valid? method by calling model.valid?
   # * Checks for readonly attributes being changed
   def contract_valid?(context = nil, clear_errors: false)
-    current_context, self.validation_context = validation_context, context # rubocop:disable Style/ParallelAssignment
+    current_context = validation_context
+    self.validation_context = context
 
     errors.clear if clear_errors
 

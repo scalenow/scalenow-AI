@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
-# Copyright (C) 2012-2024 the OpenProject GmbH
+# Copyright (C) the OpenProject GmbH
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License version 3.
@@ -64,6 +66,12 @@ module OpenIDConnect
         attribute :"mapping_#{attr}"
       end
 
+      attribute :groups_claim
+      validates :groups_claim, presence: true, if: -> { model.sync_groups? }
+
+      attribute :group_regexes
+      validate :group_regexes_parseable
+
       private
 
       def path_attribute?(attr)
@@ -76,6 +84,17 @@ module OpenIDConnect
         JSON.parse(claims)
       rescue JSON::ParserError
         errors.add(:claims, :not_json)
+      end
+
+      def group_regexes_parseable
+        invalid_lines = group_regexes.each_with_index.filter_map do |r, i|
+          Regexp.new(r)
+          nil
+        rescue RegexpError
+          i + 1
+        end
+
+        errors.add(:group_regexes, :regex_list_invalid, invalid_lines: invalid_lines.to_sentence) if invalid_lines.any?
       end
     end
   end

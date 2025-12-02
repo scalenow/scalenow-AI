@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -104,8 +106,6 @@ RSpec.describe CustomValue do
     before do
       allow(User).to receive(:current).and_return build_stubbed(:admin)
     end
-
-    RSpec::Matchers.define_negated_matcher :not_be_default, :be_default
 
     shared_examples "returns true for generated custom value" do
       describe "for a generated custom value" do

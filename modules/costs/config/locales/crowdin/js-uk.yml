@@ -21,12 +21,15 @@
 #++
 uk:
   js:
+    text_are_you_sure: "Ви впевненені?"
+    myTimeTracking:
+      noSpecificTime: "Немає визначеного часу"
     work_packages:
       property_groups:
         costs: "Витрати"
       properties:
         overallCosts: "Загальні витрати"
-        spentUnits: "Витрачені частини"
+        spentUnits: "Витрачені одиниці"
     button_log_costs: "Витрати на одиницю"
     label_hour: "година"
     label_hours: "годин(и)"

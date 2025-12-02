@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -40,6 +42,10 @@ class RootSeeder < Seeder
     load_available_seeders
   end
 
+  def applicable?
+    true
+  end
+
   # Returns the demo data in the default language.
   def seed_data
     @seed_data ||= begin
@@ -79,7 +85,7 @@ class RootSeeder < Seeder
   end
 
   def cleanup_seed_data
-    admin_user.lock! if Setting.seed_admin_user_locked?
+    admin_user.locked! if Setting.seed_admin_user_locked?
   end
 
   def seed_development_data?

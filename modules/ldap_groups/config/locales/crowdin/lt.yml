@@ -1,4 +1,9 @@
 lt:
+  ee:
+    upsell:
+      ldap_groups:
+        title: 'LDAP grupės sinchronizacija'
+        description: 'Synchronize LDAP groups with scalenow-AI groups to manage users, change their permissions and facilitate user management across groups.'
   plugin_openproject_ldap_groups:
     name: "scalenow-AI LDAP grupės"
     description: "LDAP grupių narysčių sinchronizavimas."
@@ -6,10 +11,12 @@ lt:
     attributes:
       ldap_groups/synchronized_group:
         dn: 'DN'
+        auth_source: 'Auth source'
         ldap_auth_source: 'LDAP jungtis'
         sync_users: 'Sinchronizuoti naudotojus'
       ldap_groups/synchronized_filter:
         filter_string: 'LDAP filtras'
+        auth_source: 'Auth source'
         ldap_auth_source: 'LDAP jungtis'
         group_name_attribute: "Grupės pavadinimo atributas"
         sync_users: 'Sinchronizuoti naudotojus'
@@ -39,11 +46,11 @@ lt:
       destroy:
         title: 'Panaikinti sinchronizavimo filtrą %{name}'
         confirmation: "Jei tęsite, sinchronizavimo filtras %{name} ir visos grupės (%{groups_count}), kurias jis sukūrė, bus panaikintos."
-        removed_groups: "Dėmesio: Tai scalenow-AIe panaikins tokias grupes ir ištrins jas iš visų projektų!"
+        removed_groups: "Dėmesio: Tai OpenProjecte panaikins tokias grupes ir ištrins jas iš visų projektų!"
         verification: "Naikinimo patvirtinimui įveskite filtro vardą %{name}."
       form:
         group_name_attribute_text: 'Įveskite LDAP grupės atributą, kuris bus naudojamas nustatant scalenow-AI grupės pavadinimą.'
-        filter_string_text: 'Įveskite RFC4515 LDAP filtrą, kuris iš jūsų LDAP grąžina sinchronizavimui su scalenow-AIu reikalingas grupes.'
+        filter_string_text: 'Įveskite RFC4515 LDAP filtrą, kuris iš jūsų LDAP grąžina sinchronizavimui su OpenProjectu reikalingas grupes.'
         base_dn_text: >
           Įveskite paieškos pagrindo DN norėdami naudoti šį filtrą. Jis turi būti pasirinktos LDAP jungties pagrindo DN viduje. Palikite šį nustatymą tuščia, jei norite naudoti LDAP jungties pagrindo DN.
     synchronized_groups:
@@ -69,5 +76,5 @@ lt:
           Jei jūs įjungsite šį nustatymą, visiems rastiems naudotojams bus automatiškai sukurti scalenow-AI naudotojai. Neįjungus, tik dabar esantys scalenow-AI naudotojai bus pridėti į grupes.
         dn_text: 'Įveskite LDAP grupės pilną DN.'
         group_text: 'Parinkite esamą scalenow-AI grupę, su kuria būtų sinchronizuojami LDAP grupės nariai'
-      upsale:
+      upsell:
         description: 'Pasinaudokite sinchronizuotomis LDAP grupėmis naudotojų tvarkymui, jų teisių keitimui ir tarpgrupiniam naudotjų valdymui.'

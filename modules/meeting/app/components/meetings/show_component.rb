@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #-- copyright
 # OpenProject is an open source project management software.
 # Copyright (C) the OpenProject GmbH
@@ -31,11 +32,20 @@ module Meetings
     include ApplicationHelper
     include OpPrimer::ComponentHelpers
 
-    def initialize(meeting:, project:)
+    def initialize(meeting:)
       super
 
       @meeting = meeting
-      @project = project
+      @project = meeting.project
+    end
+
+    private
+
+    def show_page_data_attributes
+      {
+        turbo: true,
+        controller: "meetings--drag-and-drop meetings--submit"
+      }
     end
   end
 end

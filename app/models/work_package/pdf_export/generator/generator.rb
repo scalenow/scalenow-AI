@@ -29,6 +29,7 @@
 #++
 
 require "md_to_pdf/core"
+require "md_to_pdf/hyphen"
 
 module WorkPackage::PDFExport::Generator::Generator
   class MD2PDFGenerator
@@ -38,6 +39,7 @@ module WorkPackage::PDFExport::Generator::Generator
 
     def initialize(styling_yml)
       symbol_yml = symbolize(styling_yml)
+      symbol_yml[:page][:font] = Exports::PDF::Common::View::default_font
       validate_schema!(symbol_yml, styles_schema)
       @styles = MarkdownToPDF::Styles.new(symbol_yml)
       init_options({ auto_generate_header_ids: false })
@@ -65,7 +67,7 @@ module WorkPackage::PDFExport::Generator::Generator
                  .merge(@styles.default_fields)
                  .merge(options)
       doc = parse_frontmatter_markdown(markdown, fields)
-      @hyphens = Text::Hyphen.new(language: options[:language], left: 2, right: 2) if options[:language].present?
+      @hyphens = Hyphen.new(options[:language], true) if options[:language].present?
       render_doc(doc)
     end
 
@@ -89,7 +91,7 @@ module WorkPackage::PDFExport::Generator::Generator
     def hyphenate(text)
       return text if @hyphens.nil?
 
-      @hyphens.visualize(text, Prawn::Text::SHY)
+      @hyphens.hyphenate(text)
     end
 
     def handle_mention_html_tag(tag, node, opts)
@@ -134,7 +136,7 @@ module WorkPackage::PDFExport::Generator::Generator
       if src == logo_image_filename
         logo_image_filename
       else
-        attachment_image_filepath(work_package, src)
+        attachment_image_filepath(src)
       end
     })
   end
@@ -157,7 +159,7 @@ module WorkPackage::PDFExport::Generator::Generator
       pdf_footer_3: I18n.t("pdf_generator.page_nr_footer", page: "<page>", total: "<total>"),
       pdf_header_logo: logo_image_filename,
       pdf_header: heading
-    }
+    }.compact
     # rubocop:enable Naming/VariableNumber
   end
 
