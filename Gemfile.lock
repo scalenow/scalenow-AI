@@ -1406,6 +1406,7 @@ GEM
       activerecord (>= 6.1)
     stringex (2.8.6)
     stringio (3.1.7)
+    stripe (18.0.1)
     structured_warnings (0.5.0)
     svg-graph (2.2.2)
     swd (2.0.3)
@@ -1524,7 +1525,6 @@ PLATFORMS
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin
-  ruby
   x86-linux-gnu
   x86-linux-musl
   x86_64-darwin
@@ -1668,6 +1668,7 @@ DEPENDENCIES
   pg (~> 1.6.2)
   plaintext (~> 0.3.2)
   prawn (~> 2.4)
+  pry
   pry-byebug (~> 3.11.0)
   pry-rails (~> 0.3.6)
   pry-rescue (~> 1.6.0)
@@ -1724,6 +1725,7 @@ DEPENDENCIES
   stackprof
   store_attribute (~> 2.0)
   stringex (~> 2.8.5)
+  stripe
   structured_warnings (~> 0.5.0)
   svg-graph (~> 2.2.0)
   sys-filesystem (~> 1.5.0)
@@ -2227,6 +2229,7 @@ CHECKSUMS
   store_attribute (2.0.1) sha256=643655e4800655b58379e8b01bd524f5586093a9d88698483ac8762cda25b5ab
   stringex (2.8.6) sha256=c7b382d2b2a47a1e1646f256df201c48d487d6296fbb289d76802f67f5e929c4
   stringio (3.1.7) sha256=5b78b7cb242a315fb4fca61a8255d62ec438f58da2b90be66048546ade4507fa
+  stripe (18.0.1)
   structured_warnings (0.5.0) sha256=864aca5a4d6b63cd3a948f9dcd7f5498af1cf42bcf4fd75e2c315b7d77a30583
   svg-graph (2.2.2) sha256=f928866403055e6539afdfdab5f6268d108b2abc9f002e0fc51b16511809513a
   swd (2.0.3) sha256=4cdbe2a4246c19f093fce22e967ec3ebdd4657d37673672e621bf0c7eb770655
