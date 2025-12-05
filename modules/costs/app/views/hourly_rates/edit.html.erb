@@ -29,9 +29,6 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), "#{t(:label_edit)} #{I18n.t((@project.nil? ? :caption_default_rate_history_for : :caption_rate_history_for), user: ' ')} #{@user.name}" %>
 
-<<<<<<< HEAD
-<%= toolbar title_class: "color-orange", title: (@project.nil? ? t(:caption_default_rate_history_for, user: @user.name) :  t(:caption_rate_history_for_project, user: @user.name, project: @project.name) ) %>
-=======
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%
   breadcrumb_items = if @project
@@ -51,7 +48,6 @@ See COPYRIGHT and LICENSE files for more details.
     )
   end
 %>
->>>>>>> stable/16
 
 <%- default_rate = @user.current_default_rate -%>
 <% if default_rate %>

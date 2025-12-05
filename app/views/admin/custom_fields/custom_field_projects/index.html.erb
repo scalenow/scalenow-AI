@@ -29,6 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), "#{CustomField.model_name.human} #{h @custom_field.name}", t(:label_project_plural) %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(
     Admin::CustomFields::EditFormHeaderComponent.new(
@@ -69,3 +70,4 @@ See COPYRIGHT and LICENSE files for more details.
     )
   end
 %>
+</div>

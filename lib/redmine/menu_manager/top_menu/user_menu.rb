@@ -74,7 +74,7 @@ module Redmine::MenuManager::TopMenu::UserMenu
   def lateral_user_menu_button(dialog, avatar)
     options = {
       scheme: :invisible,
-      classes: "op-app-header--primer-button op-app-menu--item",
+      classes: "op-app-header--primer-button op-app-menu--item profile-menu-button",
       test_selector: "op-app-header--user-menu-button"
     }
 

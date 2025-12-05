@@ -115,7 +115,7 @@ module Redmine::MenuManager::TopMenu::HelpMenu
                              rel: "noopener"
                            },
                            test_selector: "op-menu--item-action")
-      menu_group.with_item(**link_options_for(:shortcuts))
+      # menu_group.with_item(**link_options_for(:shortcuts))
       menu_group.with_item(**link_options_for(:forums))
       menu_group.with_item(**link_options_for(
         EnterpriseToken.active? ? :enterprise_support : :enterprise_support_as_community
@@ -169,6 +169,8 @@ module Redmine::MenuManager::TopMenu::HelpMenu
   def link_options_for(key, options = {})
     href = OpenProject::Static::Links.url_for(key, url_params: options[:url_params] || {})
     label = OpenProject::Static::Links.label_for(key)
+    label = "Use Cases" if key == :api_docs
+    label = "Scaled Agile Framework" if key == :forums
 
     {
       href: href,

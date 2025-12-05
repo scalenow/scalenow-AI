@@ -29,6 +29,8 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), "#{t(:label_edit)} #{t(:label_work_package_types)} #{h @type.name}" %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%= render ::Types::EditPageHeaderComponent.new(type: @type, tabs: types_tabs) %>
 
 <%= render WorkPackageTypes::ProjectsComponent.new(@type, projects: @projects) %>
+</div>

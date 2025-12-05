@@ -16314,6 +16314,7 @@ span.flatpickr-weekday {
 
 .navbar-brand-box {
   background: #fff;
+  padding: 0 !important;
   /* position: fixed;
   top: 0;
   left: 0;
@@ -16790,4 +16791,41 @@ h5.version.icon-modules::before {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
   border-bottom: 0 !important;
+}
+
+.icon-cancel, .icon-save, .icon-delete, .icon-undo, .Button--danger {
+  border-radius: 33px !important;
+}
+
+.homescreen-page {
+  .editable-toolbar-title--fixed {
+    font-size: 24px !important;
+  }
+
+  .widget-boxes .widget-box {
+    padding: 16px !important;
+    border: 1px solid #000 !important;
+    border-radius: 33px !important;
+  }
+}
+
+#op-app-header--help-menu-button, .notification-bell-icon {
+  padding: 20px !important;
+}
+
+#menu-toggle--collapse-button {
+  padding: 20px 12px !important;
+}
+
+.profile-menu-button {
+  padding: 8px !important;
+}
+
+.Button--invisible:hover:not(:disabled,.Button--inactive) {
+  background-color: #ff7f5d1f !important;
+  border-radius: 33px !important;
+}
+
+.button_form {
+  left: 0 !important;
 }

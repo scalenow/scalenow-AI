@@ -52,7 +52,7 @@ module Homescreen
     end
 
     def title
-      I18n.t(link[:label], scope: "homescreen.links")
+      link[:label] == :forums ? "Scaled Agile Framework" : I18n.t(link[:label], scope: "homescreen.links")
     end
   end
 end

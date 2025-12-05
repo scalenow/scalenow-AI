@@ -223,12 +223,12 @@ module OpenProject
     config.good_job.cron = {
       trial_reminder: {
         cron: "0 0 * * *", # Runs daily at 0 AM
-        class: "TrialReminderJob",
+        class: "TrialReminderJob"
       },
       expire_trial: {
         cron: "0 0 * * *", # Runs daily at 0 AM
-        class: "ExpireTrialJob",
-      },
+        class: "ExpireTrialJob"
+      }
     }
 
     config.action_controller.asset_host = OpenProject::Configuration::AssetHost.value

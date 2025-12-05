@@ -62,21 +62,12 @@
       </div>
     }
     <button
-      class="button op-reminder-settings-daily-time--add"
+      class="button op-reminder-settings-daily-time--add rounded-border mb-0"
       type="button"
       [disabled]="nonAddable$ | async"
       (click)="addTime(selectedTimes)">
       <i class="button--icon icon-add"></i>
       <span class="button--text">{{text.addTime}}</span>
     </button>
-  </div>
-
-  <button
-    class="button op-reminder-settings-daily-time--add rounded-border mb-0"
-    type="button"
-    [disabled]="nonAddable$ | async"
-    (click)="addTime(selectedTimes)">
-    <i class="button--icon icon-add"></i>
-    <span class="button--text">{{text.addTime}}</span>
-  </button>
-</ng-container>
+  </ng-container>
+}

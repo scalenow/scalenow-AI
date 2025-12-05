@@ -27,6 +27,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%= render(Settings::ProjectWorkPackages::HeaderComponent.new(@project)) %>
 
 <% if EnterpriseToken.allows_to?(:internal_comments) %>
@@ -46,3 +47,4 @@ See COPYRIGHT and LICENSE files for more details.
     video: "enterprise/internal_comments.mp4"
   )) %>
 <% end %>
+</div>

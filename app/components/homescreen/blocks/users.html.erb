@@ -2,14 +2,19 @@
   <p class="widget-box--additional-info"><%= t("homescreen.additional.users") %></p>
 
   <% unless @newest_users.empty? %>
-  <ul class="widget-box--arrow-links">
+  <div class="vstack gap-3">
     <% @newest_users.each do |user| %>
-      <li>
-        <%= link_to_user user %>
-        <small>(<%= format_date(user.created_at) %>)</small>
-      </li>
+      <div class="d-flex align-items-center">
+        <div class="avatar-xs flex-shrink-0 me-3">
+          <%= render(Users::AvatarComponent.new(user: user, show_name: false)) %>
+        </div>
+
+        <div class="flex-grow-1">
+          <p class="fs-13 m-0"><%= link_to_user(user, class: "text-body d-block") %></p>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
   <% end %>
 
   <div class="widget-box--buttons">

@@ -28,87 +28,87 @@
  * ++
  */
 
-import { Controller } from '@hotwired/stimulus';
-import { debounce } from 'lodash';
-import morphdom from 'morphdom';
+// import { Controller } from '@hotwired/stimulus';
+// import { debounce } from 'lodash';
+// import morphdom from 'morphdom';
 
-interface TurboBeforeFrameRenderEventDetail {
-  render:(currentElement:HTMLElement, newElement:HTMLElement) => void;
-}
+// interface TurboBeforeFrameRenderEventDetail {
+//   render:(currentElement:HTMLElement, newElement:HTMLElement) => void;
+// }
 
-export default class PreviewProgressController extends Controller {
-  static targets = [
-    'form', 'progressInput',
-  ];
+// export default class PreviewProgressController extends Controller {
+//   static targets = [
+//     'form', 'progressInput',
+//   ];
 
-  declare readonly progressInputTargets:HTMLInputElement[];
-  declare readonly formTarget:HTMLFormElement;
+//   declare readonly progressInputTargets:HTMLInputElement[];
+//   declare readonly formTarget:HTMLFormElement;
 
-  private debouncedPreview:(event:Event) => void;
-  private frameMorphRenderer:(event:CustomEvent<TurboBeforeFrameRenderEventDetail>) => void;
+//   private debouncedPreview:(event:Event) => void;
+//   private frameMorphRenderer:(event:CustomEvent<TurboBeforeFrameRenderEventDetail>) => void;
 
-  connect() {
-    this.debouncedPreview = debounce((event:Event) => { void this.preview(event); }, 500);
-    // TODO: Ideally morphing in this single controller should not be necessary.
-    // Turbo supports morphing, by adding the <turbo-frame refresh="morph"> attribute.
-    // However, it has a bug, and it doesn't morphs when reloading the frame via javascript.
-    // See https://github.com/hotwired/turbo/issues/1161 . Once the issue is solved, we can remove
-    // this code and just use <turbo-frame refresh="morph"> instead.
-    this.frameMorphRenderer = (event:CustomEvent<TurboBeforeFrameRenderEventDetail>) => {
-      event.detail.render = (currentElement:HTMLElement, newElement:HTMLElement) => {
-        morphdom(currentElement, newElement, { childrenOnly: true });
-      };
-    };
+//   connect() {
+//     this.debouncedPreview = debounce((event:Event) => { void this.preview(event); }, 500);
+//     // TODO: Ideally morphing in this single controller should not be necessary.
+//     // Turbo supports morphing, by adding the <turbo-frame refresh="morph"> attribute.
+//     // However, it has a bug, and it doesn't morphs when reloading the frame via javascript.
+//     // See https://github.com/hotwired/turbo/issues/1161 . Once the issue is solved, we can remove
+//     // this code and just use <turbo-frame refresh="morph"> instead.
+//     this.frameMorphRenderer = (event:CustomEvent<TurboBeforeFrameRenderEventDetail>) => {
+//       event.detail.render = (currentElement:HTMLElement, newElement:HTMLElement) => {
+//         morphdom(currentElement, newElement, { childrenOnly: true });
+//       };
+//     };
 
-    this.progressInputTargets.forEach((target) => {
-      target.addEventListener('input', this.debouncedPreview);
-    });
+//     this.progressInputTargets.forEach((target) => {
+//       target.addEventListener('input', this.debouncedPreview);
+//     });
 
-    const turboFrame = this.formTarget.closest('turbo-frame') as HTMLFrameElement;
-    turboFrame.addEventListener('turbo:before-frame-render', this.frameMorphRenderer);
-  }
+//     const turboFrame = this.formTarget.closest('turbo-frame') as HTMLFrameElement;
+//     turboFrame.addEventListener('turbo:before-frame-render', this.frameMorphRenderer);
+//   }
 
-  disconnect() {
-    this.progressInputTargets.forEach((target) => target.removeEventListener('input', this.debouncedPreview));
-    const turboFrame = this.formTarget.closest('turbo-frame') as HTMLFrameElement;
-    turboFrame.removeEventListener('turbo:before-frame-render', this.frameMorphRenderer);
-  }
+//   disconnect() {
+//     this.progressInputTargets.forEach((target) => target.removeEventListener('input', this.debouncedPreview));
+//     const turboFrame = this.formTarget.closest('turbo-frame') as HTMLFrameElement;
+//     turboFrame.removeEventListener('turbo:before-frame-render', this.frameMorphRenderer);
+//   }
 
-  async preview(event:Event) {
-    const field = event.target as HTMLInputElement;
-    const form = this.formTarget;
-    const formData = new FormData(form) as unknown as undefined;
-    const formParams = new URLSearchParams(formData);
-    const wpParams = [
-      ['work_package[remaining_hours]', formParams.get('work_package[remaining_hours]') || ''],
-      ['work_package[estimated_hours]', formParams.get('work_package[estimated_hours]') || ''],
-      ['work_package[status_id]', formParams.get('work_package[status_id]') || ''],
-      ['field', field.name ?? 'estimatedTime'],
-      ['work_package[remaining_hours_touched]', formParams.get('work_package[remaining_hours_touched]') || ''],
-      ['work_package[estimated_hours_touched]', formParams.get('work_package[estimated_hours_touched]') || ''],
-      ['work_package[status_id_touched]', formParams.get('work_package[status_id_touched]') || ''],
-    ];
+//   async preview(event:Event) {
+//     const field = event.target as HTMLInputElement;
+//     const form = this.formTarget;
+//     const formData = new FormData(form) as unknown as undefined;
+//     const formParams = new URLSearchParams(formData);
+//     const wpParams = [
+//       ['work_package[remaining_hours]', formParams.get('work_package[remaining_hours]') || ''],
+//       ['work_package[estimated_hours]', formParams.get('work_package[estimated_hours]') || ''],
+//       ['work_package[status_id]', formParams.get('work_package[status_id]') || ''],
+//       ['field', field.name ?? 'estimatedTime'],
+//       ['work_package[remaining_hours_touched]', formParams.get('work_package[remaining_hours_touched]') || ''],
+//       ['work_package[estimated_hours_touched]', formParams.get('work_package[estimated_hours_touched]') || ''],
+//       ['work_package[status_id_touched]', formParams.get('work_package[status_id_touched]') || ''],
+//     ];
 
-    const wpPath = this.ensureValidPathname(form.action);
+//     const wpPath = this.ensureValidPathname(form.action);
 
-    const editUrl = `${wpPath}/edit?${new URLSearchParams(wpParams).toString()}`;
-    const turboFrame = this.formTarget.closest('turbo-frame') as HTMLFrameElement;
+//     const editUrl = `${wpPath}/edit?${new URLSearchParams(wpParams).toString()}`;
+//     const turboFrame = this.formTarget.closest('turbo-frame') as HTMLFrameElement;
 
-    if (turboFrame) {
-      turboFrame.src = editUrl;
-    }
-  }
+//     if (turboFrame) {
+//       turboFrame.src = editUrl;
+//     }
+//   }
 
-  // Ensures that on create forms, there is an "id" for the un-persisted
-  // work package when sending requests to the edit action for previews.
-  private ensureValidPathname(formAction:string):string {
-    const wpPath = new URL(formAction);
+//   // Ensures that on create forms, there is an "id" for the un-persisted
+//   // work package when sending requests to the edit action for previews.
+//   private ensureValidPathname(formAction:string):string {
+//     const wpPath = new URL(formAction);
 
-    if (wpPath.pathname.endsWith('/work_packages/progress')) {
-      // Replace /work_packages/progress with /work_packages/new/progress
-      wpPath.pathname = wpPath.pathname.replace('/work_packages/progress', '/work_packages/new/progress');
-    }
+//     if (wpPath.pathname.endsWith('/work_packages/progress')) {
+//       // Replace /work_packages/progress with /work_packages/new/progress
+//       wpPath.pathname = wpPath.pathname.replace('/work_packages/progress', '/work_packages/new/progress');
+//     }
 
-    return wpPath.toString();
-  }
-}
+//     return wpPath.toString();
+//   }
+// }

@@ -29,6 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), ScimClient.model_name.human(count: 2) %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     header.with_title { ScimClient.model_name.human(count: 2) }
@@ -60,3 +61,4 @@ See COPYRIGHT and LICENSE files for more details.
 ) do
   render(Admin::ScimClients::TableComponent.new(rows: @scim_clients))
 end %>
+</div>

@@ -33,7 +33,7 @@ class Widget::Controls::Delete < Widget::Controls
     button = link_to(I18n.t(:button_delete),
                      "#",
                      id: "query-icon-delete",
-                     class: "button icon-context icon-delete rounded-border")
+                     class: "button icon-context icon-delete")
     popup = content_tag :div, id: "delete_form", style: "display:none", class: "button_form" do
       question = content_tag :p, I18n.t(:label_really_delete_question)
 
@@ -46,7 +46,7 @@ class Widget::Controls::Delete < Widget::Controls
       opt2 = link_to I18n.t(:button_cancel),
                      "#",
                      id: "query-icon-delete-cancel",
-                     class: "button icon-context icon-cancel rounded-border"
+                     class: "button icon-context icon-cancel"
       opt1 + opt2
 
       question + opt1 + opt2

@@ -99,7 +99,7 @@
         [attr.data-group-name]="group.name"
         [ngClass]="'__overflowing_' + group.id"
         [attr.data-overflowing-identifier]="'.__overflowing_' + group.id"
-        class="attributes-group __overflowing_element_container widget-box -thin bg-white rounded-border m-0"
+        class="attributes-group __overflowing_element_container widget-box -thin bg-white rounded-border p-4 m-0"
         style="border: 1px solid #000;"
         >
         @if (group.isolated) {
@@ -129,7 +129,7 @@
 
 @if (isNewResource) {
   <div
-    class="work-packages--storages widget-box -thin bg-white rounded-border m-0"
+    class="work-packages--storages widget-box -thin bg-white rounded-border p-4 m-0"
       style="border: 1px solid #000;"
     >
     @if (workPackage.$links.attachments) {

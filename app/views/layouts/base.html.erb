@@ -82,9 +82,9 @@ See COPYRIGHT and LICENSE files for more details.
         <h1 class="sr-only"><%= t(:label_main_menu) %></h1>
         <%# <opce-main-menu-resizer></opce-main-menu-resizer> %>
         <div id="menu-sidebar">
-          <div class="navbar-brand-box">
-            <div class="op-app-header--center">
-              <%= render_top_menu_center %>
+          <div class="navbar-brand-box pl-1">
+            <div class="op-logo--link">
+              <%#= render_top_menu_center %>
             </div>
           </div>
           <div class="main-menu--top-container">
@@ -92,9 +92,9 @@ See COPYRIGHT and LICENSE files for more details.
               flex.with_column(overflow: :hidden) do
                 render_projects_top_menu_node
               end
-              flex.with_column(text_align: :right, flex: :auto) do
-                render(OpenProject::Common::MainMenuToggleComponent.new(expanded: true))
-              end
+              # flex.with_column(text_align: :right, flex: :auto) do
+              #   render(OpenProject::Common::MainMenuToggleComponent.new(expanded: true))
+              # end
             end %>
 
             <%= render(
@@ -126,11 +126,11 @@ See COPYRIGHT and LICENSE files for more details.
     <div class="col-xxl-10 col-md-9 second-container" style="<%= !User.current.logged? || !(side_displayed && show_decoration) ? 'width: 100%; padding: 0 !important;' : '' %>">
     <% if show_decoration && User.current.logged? %>
       <header class="op-app-header<%= " op-app-header_development" if OpenProject::Configuration.development_highlight_enabled? %>">
-        <div class="op-app-header--start">
+        <div class="op-app-header--start align-items-center">
           <h1 class="sr-only">
             <%= t(:label_top_menu) %>
           </h1>
-          <opce-main-menu-toggle></opce-main-menu-toggle>
+          <%= render(OpenProject::Common::MainMenuToggleComponent.new(expanded: true)) %>
           <a href="" class="sr-only skip-navigation-link"
             id="skip-navigation--content"
             aria-label="<%= I18n.t("js.work_packages.jump_marks.label_content") %>">
@@ -170,14 +170,14 @@ See COPYRIGHT and LICENSE files for more details.
         <h1 class="sr-only accessibility-helper"><%= t(:label_content) %></h1>
         <% if content_for?(:content_header) %>
           <div id="content-header">
-            <%= render(OpenProject::Common::MainMenuToggleComponent.new(expanded: false)) %>
+            <%#= render(OpenProject::Common::MainMenuToggleComponent.new(expanded: false)) %>
 
             <%= content_for :content_header %>
           </div>
         <% end %>
 
         <div id="content-body">
-          <%= render(OpenProject::Common::MainMenuToggleComponent.new(expanded: false)) unless content_for?(:content_header) %>
+          <%#= render(OpenProject::Common::MainMenuToggleComponent.new(expanded: false)) unless content_for?(:content_header) %>
 
           <%= content_for :content_body %>
           <% unless local_assigns[:no_layout_yield] %>

@@ -29,6 +29,8 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), "#{CustomField.model_name.human} #{h @custom_field.name}", t(:label_item_plural) %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%= render(Admin::CustomFields::EditFormHeaderComponent.new(custom_field: @custom_field, selected: :items)) %>
 
 <%= render(Admin::CustomFields::Hierarchy::ItemComponent.new(item: @active_item, show_edit_form: true)) %>
+</div>

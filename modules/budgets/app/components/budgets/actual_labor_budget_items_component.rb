@@ -81,7 +81,7 @@ class Budgets::ActualLaborBudgetItemsComponent < ApplicationComponent
 
   def consolidate_time_entries(time_entries)
     time_entries.inject(Hash.new) do |results, entry|
-      result ||= results[entry.user.id.to_s] = empty_time_entry(entry)
+      result ||= results[entry.user&.id.to_s] = empty_time_entry(entry)
 
       result.overridden_costs += entry.real_costs
       result.hours += entry.hours

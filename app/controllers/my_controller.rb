@@ -42,7 +42,8 @@ class MyController < ApplicationController
   before_action :check_password_confirmation, only: %i[update_account]
   skip_before_action :require_subscription, only: %i[subscription]
 
-
+  no_authorization_required! :account,
+                             :subscription,
                              :update_account,
                              :locale,
                              :interface,

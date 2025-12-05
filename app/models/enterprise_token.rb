@@ -54,11 +54,13 @@ class EnterpriseToken < ApplicationRecord
     end
 
     def allows_to?(feature)
-      active_tokens.any? { |token| Authorization::EnterpriseService.new(token).call(feature).result }
+      true
+      # active_tokens.any? { |token| Authorization::EnterpriseService.new(token).call(feature).result }
     end
 
     def active?
-      active_tokens.any?
+      true
+      # active_tokens.any?
     end
 
     def trial_only?
@@ -67,14 +69,6 @@ class EnterpriseToken < ApplicationRecord
 
     def available_features
       active_tokens.map(&:available_features).inject(Set.new, :|)
-    end
-
-    def show_banners?
-      false
-    end
-
-    def set_current_token
-      token = EnterpriseToken.order(Arel.sql('created_at DESC')).first
     end
 
     def non_trialling_features
@@ -172,6 +166,7 @@ class EnterpriseToken < ApplicationRecord
 
   def allows_to?(action)
     true
+    # Authorization::EnterpriseService.new(self).call(action).result
   end
 
   delegate :clear_current_tokens_cache, to: :EnterpriseToken
@@ -188,7 +183,8 @@ class EnterpriseToken < ApplicationRecord
   end
 
   def expired?(reprieve: true)
-    token_object.expired?(reprieve:)
+    false
+    # token_object.expired?(reprieve:)
   end
 
   def statuses
@@ -215,6 +211,9 @@ class EnterpriseToken < ApplicationRecord
   # The domain is only validated for tokens from version 2.0 onwards.
   def invalid_domain?
     false
+    # return false unless token_object&.validate_domain?
+
+    # !token_object.valid_domain?(Setting.host_name)
   end
 
   def unlimited_users?

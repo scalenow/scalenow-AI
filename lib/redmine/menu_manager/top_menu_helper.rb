@@ -47,8 +47,7 @@ module Redmine::MenuManager::TopMenuHelper
     #   render_logo
     # ]
     # items << render_logo_icon unless custom_logo?
-    items = [render_top_menu_search, render_ai_menu]
-    items
+    [render_top_menu_search, render_ai_menu]
   end
 
   def render_top_menu_center
@@ -109,32 +108,36 @@ module Redmine::MenuManager::TopMenuHelper
     end
   end
 
-  def generate_ai_menu
-    content_tag(:ul, class: "op-app-menu--dropdown op-menu drop-down--modules", id: "ai-menu", "aria-expanded": true, style: "display: none") do
-      AI_TOOLS.map do |name, details|
-        result = has_access_to_tool?(name)
-        url = tool_url(name)
-        url = '#' if name == 'openinterpreter'
-
-        if result[:access]
-          content_tag(:li, class: "main-menu-item", "data-name": name.parameterize) do
-            link_to(url, class: "#{name.parameterize}-menu-item op-menu--item-action", title: details[:display_name], "data-test-selector": "op-menu--item-action") do
-              content_tag(:span, details[:display_name], class: "op-menu--item-title") +
-                content_tag(:span, nil, class: "ellipsis")
-            end
-          end
-        end
-      end.join.html_safe
-    end
-  end
-
   def render_ai_menu
-    content_tag :div, class: "op-app-menu--item op-app-menu--item_has-dropdown" do
-      link_to('#', title: "AI Menu", 'aria-haspopup': true, class: "op-app-menu--item-action ", span_class: "op-app-menu--item-title ") do
-        image_tag("ai.png", width: 30, height: 30) +
-        content_tag(:span, "", class: "op-app-menu--item-title ")
-      end +
-      generate_ai_menu
+    render Primer::Alpha::ActionMenu.new(
+      classes: "op-app-menu--item",
+      menu_id: "op-app-header--ai-menu",
+      pl: 2,
+      anchor_align: :start
+    ) do |menu|
+      menu.with_show_button(
+        icon: nil,
+        scheme: :invisible,
+        classes: "op-app-header--primer-button p-0",
+        "aria-label": "AI Menu"
+      ) do
+        image_tag("ai.png", width: 30, height: 30)
+      end
+
+      menu.with_group do |menu_group|
+        AI_TOOLS.each do |name, details|
+          result = has_access_to_tool?(name)
+          next unless result[:access]
+
+          url = (name == "openinterpreter" ? "#" : tool_url(name))
+
+          menu_group.with_item(
+            href: url,
+            label: details[:display_name],
+            test_selector: "ai-menu-item-#{name.parameterize}"
+          )
+        end
+      end
     end
   end
 
@@ -148,10 +151,10 @@ module Redmine::MenuManager::TopMenuHelper
                                      classes: "op-app-menu--item",
                                      position: :relative,
                                      px: 1)) do
-      concat(render(Primer::Beta::IconButton.new(icon: :inbox,
+      concat(render(Primer::Beta::IconButton.new(icon: :bell,
                                                  tag: :a,
                                                  href: notifications_path,
-                                                 classes: "op-app-header--primer-button op-ian-bell",
+                                                 classes: "op-app-header--primer-button op-ian-bell notification-bell-icon",
                                                  scheme: :invisible,
                                                  test_selector: "op-ian-bell",
                                                  aria: { label: I18n.t(:label_notification_center_plural) })))

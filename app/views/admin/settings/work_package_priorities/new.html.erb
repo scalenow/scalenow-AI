@@ -28,6 +28,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 <% html_title t(:label_administration), I18n.t("projects.settings.work_package_priorities.new_label") %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     header.with_title { I18n.t("projects.settings.work_package_priorities.new_label") }
@@ -46,3 +47,4 @@ See COPYRIGHT and LICENSE files for more details.
 <%= settings_primer_form_with(model: @enumeration, scope: :enumeration, url: url_for(action: :create)) do |f| %>
   <%= render(Admin::Enumerations::ItemForm.new(f)) %>
 <% end %>
+</div>

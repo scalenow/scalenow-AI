@@ -28,7 +28,6 @@
 # See COPYRIGHT and LICENSE files for more details.
 #++
 
-# rubocop:disable Metrics/CollectionLiteralLength
 module Settings
   class Definition
     ENV_PREFIX = "OPENPROJECT_"
@@ -76,7 +75,7 @@ module Settings
         default: false
       },
       app_title: {
-        default: "OpenProject"
+        default: "scalenow-AI"
       },
       attachment_max_size: {
         default: 5120
@@ -110,7 +109,7 @@ module Settings
         default: true
       },
       antivirus_scan_mode: {
-        description: "Virus scanning option for files uploaded to OpenProject",
+        description: "Virus scanning option for files uploaded to scalenow-AI",
         format: :symbol,
         default: :disabled,
         allowed: %i[disabled clamav_socket clamav_host]
@@ -290,7 +289,7 @@ module Settings
       consent_info: {
         default: {
           en: "## Consent\n\nYou need to agree to the [privacy and security policy]" +
-            "(https://www.openproject.org/data-privacy-and-security/) of this OpenProject instance."
+            "(https://scalenowai.com/australian-privacy-principles-apps/) of this scalenow-AI instance."
         }
       },
       # Indicates whether or not users need to consent to something such as privacy policy.
@@ -415,7 +414,7 @@ module Settings
       edition: {
         format: :string,
         default: "standard",
-        description: "OpenProject edition mode",
+        description: "scalenow-AI edition mode",
         writable: false,
         allowed: %w[standard bim]
       },
@@ -657,7 +656,7 @@ module Settings
         default: false
       },
       log_level: {
-        description: "Set the OpenProject logger level",
+        description: "Set the scalenow-AI logger level",
         default: Rails.env.development? ? "debug" : "info",
         allowed: %w[debug info warn error fatal],
         writable: false
@@ -735,7 +734,7 @@ module Settings
       },
       oauth_allow_remapping_of_existing_users: {
         description: "When set to false, prevent users from other identity providers to take over accounts " \
-                     "that exist in OpenProject.",
+                     "that exist in scalenow-AI.",
         format: :boolean,
         default: true
       },
@@ -795,14 +794,14 @@ module Settings
         writable: false
       },
       rails_cache_store: {
-        description: "Set cache store implementation to use with OpenProject",
+        description: "Set cache store implementation to use with scalenow-AI",
         format: :symbol,
         default: :file_store,
         writable: false,
         allowed: %i[file_store memcache redis]
       },
       rails_relative_url_root: {
-        description: "Set a URL prefix / base path to run OpenProject under, e.g., host.tld/openproject",
+        description: "Set a URL prefix / base path to run scalenow-AI under, e.g., host.tld/scalenow-ai",
         default: "",
         writable: false
       },
@@ -940,7 +939,7 @@ module Settings
         writable: false
       },
       scm_local_checkout_path: {
-        default: "repositories", # relative to OpenProject directory
+        default: "repositories", # relative to scalenow-AI directory
         writable: false
       },
       scm_subversion_command: {
@@ -975,7 +974,7 @@ module Settings
       },
       seed_admin_user_name: {
         description: "Name to set for the initially created admin user.",
-        default: "OpenProject Admin",
+        default: "scalenow-AI Admin",
         writable: false
       },
       seed_admin_user_password_reset: {
@@ -1036,7 +1035,7 @@ module Settings
         default: 120
       },
       show_community_links: {
-        description: "Enable or disable links to OpenProject community instances",
+        description: "Enable or disable links to scalenow-AI community instances",
         default: true
       },
       show_product_version: {
@@ -1115,7 +1114,7 @@ module Settings
       },
       software_name: {
         description: "Override software application name",
-        default: "OpenProject"
+        default: "scalenow-AI"
       },
       software_url: {
         description: "Override software application URL",
@@ -1249,7 +1248,7 @@ module Settings
       },
       youtube_channel: {
         description: "Link to YouTube channel in help menu",
-        default: "https://www.youtube.com/c/OpenProjectCommunity"
+        default: "https://youtube.com/@scalenowai"
       }
     }.freeze
 
@@ -1439,7 +1438,7 @@ module Settings
             if file_config.is_a? Hash
               file_config
             else
-              warn "#{filename} is not a valid OpenProject configuration file, ignoring."
+              warn "#{filename} is not a valid scalenow-AI configuration file, ignoring."
             end
           end
 
@@ -1664,4 +1663,3 @@ module Settings
     end
   end
 end
-# rubocop:enable Metrics/CollectionLiteralLength

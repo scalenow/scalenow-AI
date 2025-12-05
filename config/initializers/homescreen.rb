@@ -84,19 +84,9 @@ OpenProject::Static::Homescreen.manage :links do |links|
     },
     # {
     #   label: :shortcuts,
-    #   icon: "icon-context icon-shortcuts",
-    #   url: link_hash[:shortcuts][:href]
+    #   icon: "op-shortcuts",
+    #   url_key: :shortcuts
     # },
-    {
-      label: "Scaled Agile Framework",
-      icon: "icon-context icon-forums",
-      url: link_hash[:forums][:href]
-    },
-    {
-      label: :shortcuts,
-      icon: "op-shortcuts",
-      url_key: :shortcuts
-    },
     {
       label: :forums,
       icon: "comment-discussion",

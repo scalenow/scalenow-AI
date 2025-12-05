@@ -1,14 +1,5 @@
 <% html_title(t(:label_administration), t("ldap_groups.synchronized_groups.destroy.title")) -%>
 
-<<<<<<< HEAD
-<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
-<%= styled_form_tag({ action: :destroy, ldap_group_id: @group.id },
-                    class: 'danger-zone',
-                    method: :delete) do %>
-  <section class="form--section">
-    <h3 class="form--section-title rounded-border">
-      <%= t('ldap_groups.synchronized_groups.destroy.title', name: @group.dn) %>
-=======
 <div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%= styled_form_tag(
       { action: :destroy, ldap_group_id: @group.id },
@@ -16,9 +7,8 @@
       method: :delete
     ) do %>
   <section class="form--section">
-    <h3 class="form--section-title">
+    <h3 class="form--section-title rounded-border">
       <%= t("ldap_groups.synchronized_groups.destroy.title", name: @group.dn) %>
->>>>>>> stable/16
     </h3>
     <p>
     </p>

@@ -1,3 +1,4 @@
+<div class="bg-white p-4 mb-4 rounded-border h-100" style="border: 1px solid #000;">
 <% helpers.html_title t(:label_my_time_tracking), "#{t("label_#{mode}")} #{t(:label_calendar)} #{I18n.l(date)}" -%>
 <%= flex_layout(data: wrapper_data, classes: "my-time-tracking-calendar-view") do |calendar_page| %>
   <% calendar_page.with_row { render(My::TimeTracking::HeaderComponent.new(mode:, date:, view_mode: :calendar)) } %>
@@ -12,3 +13,4 @@
     <% end %>
   <% end %>
 <% end %>
+</div>

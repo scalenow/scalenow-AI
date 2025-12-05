@@ -36,10 +36,10 @@ GIT
 
 GIT
   remote: https://github.com/opf/omniauth-openid-connect.git
-  revision: e923d9dd14fa4ca04b98720ac2185807b263f5ed
-  ref: e923d9dd14fa4ca04b98720ac2185807b263f5ed
+  revision: f0c1ecdb26e39017a9e929af75a166c772d960bb
+  ref: f0c1ecdb26e39017a9e929af75a166c772d960bb
   specs:
-    omniauth-openid-connect (0.4.1)
+    omniauth-openid-connect (0.4.2)
       addressable (~> 2.5)
       omniauth (~> 1.6)
       openid_connect (~> 2.2.0)
@@ -1525,6 +1525,7 @@ PLATFORMS
   arm-linux-gnu
   arm-linux-musl
   arm64-darwin
+  ruby
   x86-linux-gnu
   x86-linux-musl
   x86_64-darwin
@@ -2005,7 +2006,7 @@ CHECKSUMS
   oj (3.16.11) sha256=2aab609d2bc896529bd3c70d737f591c13932a640ba6164a0f7e414efdb052b1
   okcomputer (1.19.0) sha256=8548935a82f725bdd8f2c329925a9f1a1bb2ce19ce26b47d7515665ee363b458
   omniauth (1.9.2)
-  omniauth-openid-connect (0.4.1)
+  omniauth-openid-connect (0.4.2)
   omniauth-openid_connect-providers (0.2.0)
   omniauth-saml (1.10.6) sha256=13dde22f4fd1beff0ef2d6dae576f7b68594f159990e8e886d8a02b32397afbd
   op-clamav-client (3.4.2) sha256=f28d697d11758a2ba3dc530cfdf4871a00ecd517631e8bac30dee30cd6012964
@@ -2229,7 +2230,7 @@ CHECKSUMS
   store_attribute (2.0.1) sha256=643655e4800655b58379e8b01bd524f5586093a9d88698483ac8762cda25b5ab
   stringex (2.8.6) sha256=c7b382d2b2a47a1e1646f256df201c48d487d6296fbb289d76802f67f5e929c4
   stringio (3.1.7) sha256=5b78b7cb242a315fb4fca61a8255d62ec438f58da2b90be66048546ade4507fa
-  stripe (18.0.1)
+  stripe (18.0.1) sha256=9be1f8e286b9046591496d09b83c48b3c5256b9864d67076baac3985d0cc4f22
   structured_warnings (0.5.0) sha256=864aca5a4d6b63cd3a948f9dcd7f5498af1cf42bcf4fd75e2c315b7d77a30583
   svg-graph (2.2.2) sha256=f928866403055e6539afdfdab5f6268d108b2abc9f002e0fc51b16511809513a
   swd (2.0.3) sha256=4cdbe2a4246c19f093fce22e967ec3ebdd4657d37673672e621bf0c7eb770655

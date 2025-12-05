@@ -1,226 +1,226 @@
 api_docs:
-  href: https://www.openproject.org/docs/api/
+  href: https://scalenowai.com/use-cases/
   label: :label_api_doc
 api:
   authentication_basic_auth:
-    href: https://www.openproject.org/docs/api/introduction/#api-key-through-basic-auth
+    href: "#"
 blog:
-  href: https://www.openproject.org/blog
+  href: https://scalenowai.com/post/
   label: homescreen.links.blog
 blog_article_progress_changes:
-  href: https://www.openproject.org/blog/updates-to-progress-tracking-in-14-4-based-on-user-feedback/
+  href: "#"
   label: Significant changes to progress and work estimates
 chargebee:
-  href: https://js.chargebee.com/v2/chargebee.js
+  href: "#"
 client_credentials_code_flow:
-  href: https://oauth.net/2/grant-types/client-credentials/
+  href: "#"
   label: oauth.flows.client_credentials
 configuration_guide:
-  href: https://www.openproject.org/docs/installation-and-operations/configuration/
+  href: "#"
   label: links.configuration_guide
 contact:
-  href: https://www.openproject.org/contact/
+  href: "#"
   label: links.get_in_touch
 contact_us:
-  href: https://www.openproject.org/contact/
+  href: "#"
 crowdin:
-  href: https://www.openproject.org/docs/contributions-guide/translate-openproject/
+  href: https://scalenow.com.au/casestudies.html
   label: :label_add_edit_translations
 data_privacy:
-  href: https://www.openproject.org/legal/privacy/
+  href: https://scalenowai.com/australian-privacy-principles-apps/
   label: :label_privacy_policy
 date_format_settings_documentation:
-  href: https://www.openproject.org/docs/system-admin-guide/calendars-and-dates/#date-format
+  href: "#"
 digital_accessibility:
-  href: https://www.openproject.org/de/rechtliches/erklaerung-zur-digitalen-barrierefreiheit/
+  href: https://scalenowai.com/aiservice/
   label: :label_digital_accessibility
 disable_password_login:
-  href: https://www.openproject.org/docs/installation-and-operations/configuration/#disable-password-login
+  href: "#"
 docker_installation:
-  href: https://www.openproject.org/docs/installation-and-operations/installation/docker/
+  href: "#"
   label: Docker installation
 enterprise_features:
   attribute_highlighting:
-    href: https://www.openproject.org/docs/user-guide/work-packages/work-package-table-configuration/#attribute-highlighting-enterprise-add-on
+    href: "#"
   board_view:
-    href: https://www.openproject.org/docs/user-guide/agile-boards/#action-boards-enterprise-add-on
+    href: "#"
   boards:
-    href: https://www.openproject.org/docs/user-guide/agile-boards/#action-boards-enterprise-add-on
+    href: "#"
   conditional_highlighting:
-    href: https://www.openproject.org/enterprise-edition/?op_referrer=settings-wp-attribute-highlighting#attribute-highlighting
+    href: "#"
   custom_field_hierarchies:
-    href: https://www.openproject.org/docs/system-admin-guide/custom-fields/#hierarchy-custom-field-enterprise-add-on
+    href: "#"
   custom_field_multiselect:
-    href: https://www.openproject.org/docs/system-admin-guide/custom-fields/#create-a-multi-select-custom-field
+    href: "#"
   custom_field_projects:
-    href: https://www.openproject.org/docs/system-admin-guide/custom-fields/custom-fields-projects/
+    href: "#"
   customize_life_cycle:
-    href: https://www.openproject.org/docs/system-admin-guide/projects/project-life-cycle/
+    href: "#"
   default:
-    href: https://www.openproject.org/enterprise-edition
+    href: "#"
   feature_comparison:
-    href: https://www.openproject.org/pricing/#features
+    href: "#"
   form_configuration:
-    href: https://www.openproject.org/docs/system-admin-guide/manage-work-packages/work-package-types/#work-package-form-configuration-enterprise-add-on
+    href: "#"
   internal_comments:
-    href: https://www.openproject.org/docs/user-guide/activity/#internal-comments-enterprise-add-on
+    href: "#"
   nextcloud_sso:
-    href: https://www.openproject.org/docs/system-admin-guide/integrations/nextcloud/oidc-sso
+    href: "#"
   readonly_work_packages:
-    href: https://www.openproject.org/docs/system-admin-guide/manage-work-packages/work-package-status/#create-a-new-work-package-status
+    href: "#"
   work_package_subject_generation:
-    href: https://www.openproject.org/docs/system-admin-guide/manage-work-packages/work-package-types/automatic-subjects/
+    href: "#"
 enterprise_support:
-  href: https://www.openproject.org/docs/enterprise-guide/support/
+  href: https://scalenowai.com/support/
   label: :label_enterprise_support
 enterprise_support_as_community:
-  href: https://www.openproject.org/pricing/#support
+  href: https://scalenowai.com/support/
   label: :label_enterprise_support
 enterprise_welcome_video:
-  href: https://openproject-docs.s3.eu-central-1.amazonaws.com/videos/OpenProject-Enterprise-add-ons.mp4
+  href: "#"
 forums:
-  href: https://community.openproject.org/projects/openproject/forums
+  href: https://scalenowai.com/scaled-agile-framework/
   label: homescreen.links.forums
 get_started_videos:
-  href: https://www.youtube.com/playlist?list=PLGzJ4gG7hPb8WWOWmeXqlfMfhdXReu-RJ
+  href: "#"
 glossary:
-  href: https://www.openproject.org/docs/glossary/
+  href: https://scalenowai.com/glossary/
   label: homescreen.links.glossary
 github:
-  href: https://github.com/opf/openproject
+  href: "#"
 ical_docs:
-  href: https://www.openproject.org/docs/user-guide/calendar/#subscribe-to-a-calendar
+  href: "#"
 installation_guides:
-  href: https://www.openproject.org/docs/installation-and-operations/installation/
+  href: "#"
   label: :label_installation_guides
 integrations:
-  href: https://www.openproject.org/docs/system-admin-guide/integrations/
+  href: "#"
 ldap_encryption_documentation:
-  href: https://www.rubydoc.info/gems/net-ldap/Net/LDAP#constructor_details
+  href: "#"
 manual_installation:
-  href: https://www.openproject.org/docs/installation-and-operations/installation/manual/
+  href: "#"
   label: Manual installation
 newsletter:
-  href: https://www.openproject.org/newsletter
+  href: https://scalenowai.com/
   label: homescreen.links.newsletter
 security_alerts:
-  href: https://www.openproject.org/security-and-privacy/#mailing-list
+  href: "#"
   label: homescreen.links.security_alerts
 oauth_authorization_code_flow:
-  href: https://oauth.net/2/grant-types/authorization-code/
+  href: "#"
   label: oauth.flows.authorization_code
 onboarding_video_url:
-  href: https://openproject-docs.s3.eu-central-1.amazonaws.com/videos/Getting_started_with_OpenProject.mp4
+  href: "#"
   label: top_menu.getting_started
 openproject_docs:
-  href: https://www.openproject.org/docs/
+  href: "#"
 origin_mdn_documentation:
-  href: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin
+  href: "#"
 packager_installation:
-  href: https://www.openproject.org/docs/installation-and-operations/installation/packaged/
+  href: "#"
   label: Packaged installation
 postgres_13_upgrade:
-  href: https://www.openproject.org/docs/installation-and-operations/misc/migration-to-postgresql13/
+  href: "#"
 postgres_17_upgrade:
-  href: https://www.openproject.org/docs/installation-and-operations/misc/migration-to-postgresql17/
+  href: "#"
 postgres_migration:
-  href: https://www.openproject.org/docs/installation-and-operations/misc/packaged-postgresql-migration/
+  href: "#"
   label: :homescreen.links.postgres_migration
 pricing:
-  href: https://www.openproject.org/pricing/
+  href: "#"
 progress_tracking_docs:
-  href: https://www.openproject.org/docs/user-guide/time-and-costs/progress-tracking/
+  href: "#"
 release_notes:
-  href: https://www.openproject.org/docs/release-notes/
+  href: https://scalenowai.com/termsofservice/
   label: :label_release_notes
 release_notes_14_0_1:
-  href: https://www.openproject.org/docs/release-notes/14/14-0-1/
+  href: "#"
   label: Release notes for OpenProject 14.0.1
 report_bug:
-  href: https://www.openproject.org/docs/development/report-a-bug/
+  href: https://github.com/scalenow/scalenow-AI/issues
   label: :label_report_bug
 roadmap:
-  href: https://www.openproject.org/roadmap/
+  href: https://scalenowai.com/
   label: :label_development_roadmap
 security_badge_documentation:
-  href: https://www.openproject.org/docs/system-admin-guide/information/#security-badge
+  href: "#"
 shortcuts:
-  href: https://www.openproject.org/docs/user-guide/keyboard-shortcuts-access-keys/
+  href: "#"
   label: homescreen.links.shortcuts
 storage_docs:
   health_status:
-    href: https://www.openproject.org/docs/system-admin-guide/files/external-file-storages/health-status/
+    href: "#"
   nextcloud_oauth_application:
-    href: https://apps.nextcloud.com/apps/integration_openproject
+    href: "#"
   nextcloud_setup:
-    href: https://www.openproject.org/docs/system-admin-guide/integrations/nextcloud/
+    href: "#"
   nextcloud_sso:
-    href: https://www.openproject.org/docs/system-admin-guide/integrations/nextcloud/oidc-sso
+    href: "#"
   one_drive_drive_id_guide:
-    href: https://www.openproject.org/docs/system-admin-guide/integrations/one-drive/drive-guide/
+    href: "#"
   one_drive_oauth_application:
-    href: https://portal.azure.com/
+    href: "#"
   one_drive_setup:
-    href: https://www.openproject.org/docs/system-admin-guide/integrations/one-drive/
+    href: "#"
   sharepoint_drive_id_guide:
-    href: https://www.openproject.org/docs/system-admin-guide/integrations/one-drive/drive-guide/
+    href: "#"
   sharepoint_oauth_application:
-    href: https://portal.azure.com/
+    href: "#"
   sharepoint_setup:
-    href: https://www.openproject.org/docs/system-admin-guide/integrations/one-drive/
+    href: "#"
   troubleshooting:
-    href: https://www.openproject.org/docs/user-guide/file-management/nextcloud-integration/#possible-errors-and-troubleshooting
+    href: "#"
 sysadmin_docs:
   ldap:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/ldap-connections/
+    href: "#"
   oidc:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/openid-providers/
+    href: "#"
   oidc_acr_values:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/openid-providers/#step-8-claims
+    href: "#"
   oidc_claims:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/openid-providers/#step-8-claims
+    href: "#"
   oidc_groups:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/openid-providers/#step-7-group-mapping
+    href: "#"
   saml:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/saml/
+    href: "#"
   scim:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/scim/
+    href: "#"
   scim_authentication:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/scim/#step-3-choose-an-authentication-method
+    href: "#"
   scim_jwt_authetication_method:
-    href: https://www.openproject.org/docs/system-admin-guide/authentication/scim/#c-jwt-from-identity-provider
+    href: "#"
 text_formatting:
-  href: https://www.openproject.org/docs/user-guide/wysiwyg/
+  href: "#"
   label: :setting_text_formatting
 upgrade_guides:
-  href: https://www.openproject.org/docs/installation-and-operations/operation/upgrading/
+  href: "#"
   label: :label_upgrade_guides
 upsell:
-  href: https://www.openproject.org/enterprise-edition
+  href: "#"
   label: homescreen.links.upgrade_enterprise_edition
 upsell_benefits_features:
-  href: https://www.openproject.org/enterprise-edition/#enterprise-add-ons
+  href: "#"
   label: noscript_learn_more
 upsell_benefits_installation:
-  href: https://www.openproject.org/enterprise-edition/#installation
+  href: "#"
   label: noscript_learn_more
 upsell_benefits_security:
-  href: https://www.openproject.org/enterprise-edition/#security-features
+  href: "#"
   label: noscript_learn_more
 upsell_benefits_support:
-  href: https://www.openproject.org/enterprise-edition/#professional-support
+  href: "#"
   label: noscript_learn_more
 upsell_get_quote:
-  href: https://www.openproject.org/request-quote/
+  href: "#"
   label: admin.enterprise.get_quote
 user_guides:
-  href: https://www.openproject.org/docs/user-guide/
+  href: https://scalenowai.com/user-guide-2/
   label: homescreen.links.user_guides
 user_guide:
   access_tokens:
-    href: https://www.openproject.org/docs/user-guide/account-settings/#access-tokens
+    href: "#"
 webinar_videos:
-  href: https://www.youtube.com/watch?v=un6zCm8_FT4
+  href: "#"
 website:
-  href: https://www.openproject.org
+  href: https://www.scalenowai.com
   label: label_openproject_website

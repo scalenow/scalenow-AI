@@ -111,22 +111,25 @@
         class="op-wp-calendar--notification">
       </div>
       @if (isEmpty$ | async) {
-        <div class="op-team-planner--no-data">
+        <div
+          class="op-team-planner--no-data">
           <img [src]="image.empty_state" class="op-team-planner--empty-state-image" />
           <span [textContent]="text.noData"></span>
-
           <button
             type="button"
             class="op-team-planner--empty-state-button button -primary"
             data-test-selector="op-team-planner--empty-state-button"
             (click)="showAssigneeAddRow()"
-          >
+            >
             <op-icon icon-classes="icon-add button--icon" />
-            <span class="button--text" [textContent]="text.add_assignee"></span>
+            <span
+              class="button--text"
+              [textContent]="text.add_assignee">
+            </span>
           </button>
         </div>
       }
-
+    }
 
     <div class="op-team-planner--footer" data-test-selector="op-team-planner-footer">
       @if (!(showAddAssignee$ | async) && !(dropzone$ | async)?.dragging) {

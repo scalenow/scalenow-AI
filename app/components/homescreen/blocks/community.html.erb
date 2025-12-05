@@ -3,11 +3,11 @@
     <li>
       <%= static_link_to :user_guides %>
     </li>
+    <%# <li> %>
+      <%#= static_link_to :shortcuts %>
+    <%# </li> %>
     <li>
-      <%= static_link_to :shortcuts %>
-    </li>
-    <li>
-      <%= static_link_to :forums %></li>
+      <%= static_link_to(:forums, label: 'Scaled Agile Framework') %></li>
     <li>
       <%= static_link_to(EnterpriseToken.active? ? :enterprise_support : :enterprise_support_as_community) %>
     </li>
@@ -84,7 +84,7 @@
       <%= static_link_to :crowdin %>
     </li>
     <li>
-      <%= static_link_to :api_docs %>
+      <%= static_link_to(:api_docs, label: 'Use Cases') %>
     </li>
   </ul>
 <% end %>

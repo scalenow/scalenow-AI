@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
+
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render Primer::OpenProject::PageHeader.new do |header|
     header.with_title { @version.name }
@@ -104,3 +106,4 @@ See COPYRIGHT and LICENSE files for more details.
 <%= call_hook :view_versions_show_bottom, version: @version %>
 
 <% html_title h(@version.name) %>
+</div>

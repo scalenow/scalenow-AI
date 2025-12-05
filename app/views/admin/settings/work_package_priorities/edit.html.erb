@@ -29,6 +29,7 @@ See COPYRIGHT and LICENSE files for more details.
 <% priorities_label = IssuePriority.model_name.human(count: :other) %>
 <% html_title t(:label_administration), priorities_label %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     header.with_title { @enumeration.name }
@@ -48,3 +49,4 @@ See COPYRIGHT and LICENSE files for more details.
 <%= settings_primer_form_with(model: @enumeration, scope: :enumeration, url: url_for(action: :update, id: @enumeration)) do |f| %>
   <%= render(Admin::Enumerations::ItemForm.new(f)) %>
 <% end %>
+</div>
