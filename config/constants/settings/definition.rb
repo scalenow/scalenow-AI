@@ -1118,7 +1118,7 @@ module Settings
       },
       software_url: {
         description: "Override software application URL",
-        default: "https://www.openproject.org/"
+        default: "https://www.scalenowai.com/"
       },
       sql_slow_query_threshold: {
         description: "Time limit in ms after which queries will be logged as slow queries",

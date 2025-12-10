@@ -120,6 +120,8 @@ module Redmine::MenuManager::TopMenu::HelpMenu
       menu_group.with_item(**link_options_for(
         EnterpriseToken.active? ? :enterprise_support : :enterprise_support_as_community
       ))
+      menu_group.with_item(**custom_link_for(:training))
+      menu_group.with_item(**custom_link_for(:wiki))
     end
   end
 
@@ -172,6 +174,31 @@ module Redmine::MenuManager::TopMenu::HelpMenu
     label = "Use Cases" if key == :api_docs
     label = "Scaled Agile Framework" if key == :forums
 
+    {
+      href: href,
+      label: label,
+      content_arguments: {
+        target: "_blank",
+        rel: "noopener"
+      }
+    }
+  end
+
+  LINKS = {
+    training: {
+      href: "#",
+      label: "Training"
+    },
+    wiki: {
+      href: "https://scalenowai.com.au:9001/xwiki/bin/view/Main/",
+      label: "Wiki"
+    }
+  }.freeze
+
+  def custom_link_for(key)
+    link = LINKS[key]
+    href = link[:href]
+    label = link[:label]
     {
       href: href,
       label: label,

@@ -27,6 +27,7 @@ See COPYRIGHT and LICENSE files for more details.
 
 ++#%>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render Primer::OpenProject::PageHeader.new do |header|
     header.with_title { t("project.identifier.title") }
@@ -38,7 +39,6 @@ See COPYRIGHT and LICENSE files for more details.
   end
 %>
 
-<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%= error_messages_for @project %>
 
 <%= form_for @project,
@@ -64,7 +64,7 @@ See COPYRIGHT and LICENSE files for more details.
         <%= f.submit t(:button_update), class: 'button -primary -with-icon icon-checkmark' %>
       </span>
       <span>
-        <%= link_to project_settings_general_path(@project), class: 'button' do %>
+        <%= link_to project_settings_general_path(@project), class: 'button rounded-border' do %>
           <%= op_icon('button--icon icon-cancel') %>
           <span class="button--text"><%= t(:button_cancel) %></span>
         <% end %>

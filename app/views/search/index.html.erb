@@ -32,6 +32,7 @@ See COPYRIGHT and LICENSE files for more details.
   <%= call_hook :search_index_head %>
 <% end %>
 
+<div class="bg-white p-4 mb-4 rounded-border" style="border: 1px solid #000;">
 <%=
   render(Primer::OpenProject::PageHeader.new) do |header|
     title =
@@ -113,3 +114,4 @@ See COPYRIGHT and LICENSE files for more details.
   <% end %>
   <%= render partial: "pagination", locals: { pagination_previous_date: @pagination_previous_date, pagination_next_date: @pagination_next_date } if params[:work_packages].blank? %>
 <% end %>
+</div>

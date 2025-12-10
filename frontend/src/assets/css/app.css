@@ -16793,7 +16793,7 @@ h5.version.icon-modules::before {
   border-bottom: 0 !important;
 }
 
-.icon-cancel, .icon-save, .icon-delete, .icon-undo, .Button--danger {
+.icon-cancel, .icon-save, .icon-delete, .icon-checkmark, .icon-undo, .Button--danger {
   border-radius: 33px !important;
 }
 
