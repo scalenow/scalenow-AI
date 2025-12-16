@@ -18,7 +18,7 @@ $board-list-max-width: 300px
     margin: auto
 
   &--header
-    padding: 5px 8px
+    padding: 5px 8px 5px 16px
     display: flex
     align-items: center
     max-height: 52px
@@ -57,7 +57,7 @@ $board-list-max-width: 300px
 
     // Ensure grid is only applied if button is visible
     &.-with-create-button
-      display: grid
+      // display: grid
       // In order to enable automatic scrolling within the card view,
       // it is important that second container is limited in the height, so that it is scrollable.
       grid-template: 34px minmax(0, 1fr) / 1fr

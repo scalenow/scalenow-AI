@@ -78,7 +78,7 @@
         (click)="closeMe($event)"
       ></button>
       <button
-        class="button button_no-margin -danger spot-action-bar--action"
+        class="button button_no-margin -danger spot-action-bar--action rounded-border"
         [attr.disabled]="busy || blockedDueToUnconfirmedChildren || undefined"
         (click)="confirmDeletion($event)">
         <svg trash-icon size="small" />
