@@ -61,3 +61,14 @@ See COPYRIGHT and LICENSE files for more details.
     end
   end
 %>
+
+<% unless OpenProject::FeatureDecisions.new_project_overview_active? %>
+  <style>
+    .op-project-life-cyle-section-container {
+      border: 1px solid #000;
+      border-radius: 33px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+  </style>
+<% end %>

@@ -11805,7 +11805,7 @@ div.dtr-modal div.dtr-modal-close:hover {
 }
 .flatpickr-calendar.inline .flatpickr-rContainer .flatpickr-days .dayContainer {
   width: 100%;
-  min-width: 100%;
+  /* min-width: 100%; */
   max-width: 100%;
 }
 .flatpickr-calendar.inline .flatpickr-rContainer .flatpickr-days .dayContainer .flatpickr-day {

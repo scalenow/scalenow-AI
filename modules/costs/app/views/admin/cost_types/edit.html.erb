@@ -53,7 +53,7 @@ See COPYRIGHT and LICENSE files for more details.
 <%= labelled_tabular_form_for @cost_type,
                               url: @cost_type.persisted? ? admin_cost_type_path(@cost_type) : admin_cost_types_path,
                               data: { controller: "subform" } do |f| %>
-  <%= error_messages_for "cost_type" %>
+  <%#= error_messages_for "cost_type" %>
   <%= back_url_hidden_field_tag %>
 
   <div class="form--field -required">
