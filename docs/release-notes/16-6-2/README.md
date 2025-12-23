@@ -25,6 +25,7 @@ Below you will find a complete list of all changes and bug fixes.
 - Bugfix: OpenID Connect: Claims escaped twice \[[#69079](https://community.openproject.org/wp/69079)\]
 - Bugfix: Disable editing of sendmail attributes through UI \[[#69577](https://community.openproject.org/wp/69577)\]
 
+
 <!-- END AUTOMATED SECTION -->
 <!-- Warning: Anything above this line will be automatically removed by the release script -->
 
