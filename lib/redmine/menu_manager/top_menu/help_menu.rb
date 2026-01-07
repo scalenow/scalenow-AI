@@ -186,7 +186,7 @@ module Redmine::MenuManager::TopMenu::HelpMenu
 
   LINKS = {
     training: {
-      href: "#",
+      href: "https://scalenowai.com.au:4000/my/",
       label: "Training"
     },
     wiki: {
