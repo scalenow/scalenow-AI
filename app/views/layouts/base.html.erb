@@ -43,6 +43,34 @@ See COPYRIGHT and LICENSE files for more details.
 
   <!-- Session validation script starts -->
   <script>
+    // --- 1. INSTANT REDIRECT CHECK (The "Hop") --------------------------
+    // Run this IMMEDIATELY, before the page fully loads.
+    (function checkInstantRedirect() {
+      const savedRedirect = sessionStorage.getItem("post_auth_redirect");
+
+      if (savedRedirect) {
+        // Verify we aren't already there (prevents loops)
+        if (window.location.href !== savedRedirect) {
+          console.log("⚡ [SESSION] Instant Hop! Redirecting to:", savedRedirect);
+
+          // Clear the memory
+          sessionStorage.removeItem("post_auth_redirect");
+
+          // HIDE the body so the user doesn't see the Home Page flash
+          document.documentElement.style.visibility = 'hidden';
+
+          // GO THERE NOW
+          window.location.href = savedRedirect;
+
+          // Stop the rest of the script from running
+          throw new Error("Redirecting...");
+        } else {
+          // We arrived! Clean up.
+          sessionStorage.removeItem("post_auth_redirect");
+        }
+      }
+    })();
+
     // --- Shared helpers -------------------------------------------------
 
     function deleteAllSSOCookies() {
@@ -66,15 +94,22 @@ See COPYRIGHT and LICENSE files for more details.
     function redirectToLogin(reason) {
       console.warn("🚪 [SESSION] Redirecting to login. Reason:", reason);
 
+      // 1. Capture the URL *BEFORE* we clear storage
+      const intendedUrl = window.location.href;
+
       deleteAllSSOCookies();
+
+      // 2. SAVE THE URL TO STORAGE
+      sessionStorage.setItem("post_auth_redirect", intendedUrl);
+      console.log("📍 [SESSION] Saved deep link to storage:", intendedUrl);
 
       const loginUrl =
         "https://www.scalenowai.com.au/realms/scalenowAI/protocol/openid-connect/auth"
         + "?client_id=scalenowAI"
         + "&redirect_uri=https://www.scalenowai.com.au/oauth/oidc/callback"
         + "&response_type=code"
-        + "&scope=openid%20email%20profile"
-        + "&state=rails";
+        + "&scope=openid%20email%20profile";
+        // removed hardcoded state=rails to rely on sessionStorage
 
       window.location.href = loginUrl;
     }
