@@ -190,7 +190,7 @@ module Redmine::MenuManager::TopMenu::HelpMenu
       label: "Training"
     },
     wiki: {
-      href: "https://scalenowai.com.au:9001/xwiki/bin/view/Main/",
+      href: "https://www.scalenowai.com.au:9001/xwiki/",
       label: "Wiki"
     }
   }.freeze
