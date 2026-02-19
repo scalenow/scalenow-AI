@@ -186,11 +186,11 @@ module Redmine::MenuManager::TopMenu::HelpMenu
 
   LINKS = {
     training: {
-      href: "https://scalenowai.com.au:4000/my/",
+      href: "/tools/training",
       label: "Training"
     },
     wiki: {
-      href: "https://www.scalenowai.com.au:9001/xwiki/",
+      href: "/tools/wiki",
       label: "Wiki"
     }
   }.freeze

@@ -16,3 +16,22 @@ AI_TOOLS = {
   #   plans: ["Professional", "Enterprise"]
   # }
 }.freeze
+
+PLATFORM_TOOLS = {
+  "nextcloud" => {
+    display_name: "Nextcloud",
+    url: "https://www.scalenowai.com.au:3010"
+  },
+
+  "wiki" => {
+    display_name: "XWiki",
+    url: "https://www.scalenowai.com.au:9001/xwiki/bin/view/Main/"
+  },
+
+  "training" => {
+    display_name: "Moodle",
+    url: "https://www.scalenowai.com.au:4000/my/"
+  }
+}.freeze
+
+ALL_TOOLS = AI_TOOLS.merge(PLATFORM_TOOLS).freeze

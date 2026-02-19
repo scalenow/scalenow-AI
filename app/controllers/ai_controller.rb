@@ -6,14 +6,17 @@ class AiController < ApplicationController
 
   def show
     name = params[:tool_name]
-    @tool_name = AI_TOOLS[name]&.dig(:display_name) || ""
-    @tool_link = AI_TOOLS[name]&.dig(:url) || root_path
+
+    @tool_name = ALL_TOOLS[name]&.dig(:display_name) || ""
+    @tool_link = ALL_TOOLS[name]&.dig(:url) || root_path
   end
 
   private
 
   def verify_tool_access
     tool_name = params[:tool_name]
+    return if PLATFORM_TOOLS.key?(tool_name)
+
     accessible_tools(tool_name)
   end
 end
