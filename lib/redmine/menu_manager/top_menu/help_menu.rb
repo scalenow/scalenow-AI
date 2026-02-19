@@ -203,7 +203,7 @@ module Redmine::MenuManager::TopMenu::HelpMenu
       href: href,
       label: label,
       content_arguments: {
-        target: "_blank",
+        # target: "_blank",
         rel: "noopener"
       }
     }

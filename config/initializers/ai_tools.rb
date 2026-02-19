@@ -24,12 +24,12 @@ PLATFORM_TOOLS = {
   },
 
   "wiki" => {
-    display_name: "XWiki",
+    display_name: "Wiki",
     url: "https://www.scalenowai.com.au:9001/xwiki/bin/view/Main/"
   },
 
   "training" => {
-    display_name: "Moodle",
+    display_name: "Training",
     url: "https://www.scalenowai.com.au:4000/my/"
   }
 }.freeze
