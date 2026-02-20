@@ -46,7 +46,7 @@ class Storages::ProjectStoragesController < ApplicationController
 
   def open
     @project_storage.open(current_user).match(
-      on_success: ->(url) { redirect_to url, allow_other_host: true },
+      on_success: ->(_url) { redirect_to tool_url("nextcloud"), allow_other_host: true },
       on_failure: ->(error) { show_error(error.code.to_s) }
     )
   end
