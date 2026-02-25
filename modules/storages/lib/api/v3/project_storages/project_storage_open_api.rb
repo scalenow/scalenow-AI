@@ -37,7 +37,7 @@ class API::V3::ProjectStorages::ProjectStorageOpenAPI < API::OpenProjectAPI
     get do
       @project_storage.open(current_user).match(
         on_success: ->(url) do
-          redirect url, body: "The requested resource can be viewed at #{url}"
+          redirect tool_url("nextcloud"), body: "The requested resource can be viewed at #{url}"
           status 303
         end,
         on_failure: ->(error) { raise_error(error) }
