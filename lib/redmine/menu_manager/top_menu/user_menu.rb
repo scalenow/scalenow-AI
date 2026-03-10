@@ -136,8 +136,11 @@ module Redmine::MenuManager::TopMenu::UserMenu
 
   def add_lateral_user_menu_items(list, link_items)
     link_items.each do |item|
+      href = allowed_node_url(item, nil)
+      href = "/rasa-logout" if href == "/logout"
+
       list.with_item(
-        href: allowed_node_url(item, nil),
+        href: href,
         label: item.caption,
         scheme: item.scheme || :default,
         test_selector: "op-menu--item-action",
