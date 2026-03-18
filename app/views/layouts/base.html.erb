@@ -46,6 +46,9 @@ See COPYRIGHT and LICENSE files for more details.
     // --- 1. INSTANT REDIRECT CHECK (The "Hop") --------------------------
     // Run this IMMEDIATELY, before the page fully loads.
     (function checkInstantRedirect() {
+      // If there's a hash, tokens need to be captured first — don't redirect yet
+      if (window.location.hash) return;
+
       const savedRedirect = sessionStorage.getItem("post_auth_redirect");
 
       if (savedRedirect) {
@@ -72,13 +75,25 @@ See COPYRIGHT and LICENSE files for more details.
     })();
 
     // --- Shared helpers -------------------------------------------------
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
 
     function deleteAllSSOCookies() {
-      document.cookie.split(";").forEach(cookie => {
-        const name = cookie.split("=")[0].trim();
-        document.cookie = `${name}=; Max-Age=0; path=/; domain=${window.location.hostname};`;
+      const names = ["oauth_id_token", "access_token", "session", "rack.session", "_open_project_session"];
+      names.forEach(function(name) {
+        [
+          name + "=; Max-Age=0; path=/;",
+          name + "=; Max-Age=0; path=/; secure;",
+          name + "=; Max-Age=0; path=/; secure; samesite=lax;",
+          name + "=; Max-Age=0; path=/; domain=" + window.location.hostname + ";",
+          name + "=; Max-Age=0; path=/; domain=" + window.location.hostname + "; secure;",
+          name + "=; Max-Age=0; path=/; domain=" + window.location.hostname + "; secure; samesite=lax;",
+        ].forEach(function(str) { document.cookie = str; });
       });
       sessionStorage.clear();
+      localStorage.clear();
     }
 
     function getSessionToken() {
@@ -117,8 +132,8 @@ See COPYRIGHT and LICENSE files for more details.
     function redirectToKeycloakLogout(reason) {
       console.warn("🚪 [SESSION] Redirecting to Keycloak logout. Reason:", reason);
 
-      // 1. Read id_token BEFORE clearing storage
-      const rawIdToken = sessionStorage.getItem("id_token");
+      // 1. Read id_token from sessionStorage first, cookie as fallback
+      const rawIdToken = sessionStorage.getItem("id_token") || getCookie("oauth_id_token");
 
       // Treat "null"/"undefined"/empty as "no token"
       const hasIdToken =
@@ -129,14 +144,10 @@ See COPYRIGHT and LICENSE files for more details.
       // 2. Clear storage
       sessionStorage.clear();
       localStorage.clear();
+      sessionStorage.setItem("just_logged_out", "true");
 
       // 3. Best-effort cookie cleanup
-      document.cookie.split(";").forEach(c => {
-        const name = c.split("=")[0].trim();
-        if (name) {
-          document.cookie = `${name}=; Max-Age=0; path=/; domain=${window.location.hostname}`;
-        }
-      });
+      deleteAllSSOCookies();
 
       // 4. Where to send the user AFTER Keycloak logout
       const redirectUri = encodeURIComponent("https://www.scalenowai.com.au/login");
@@ -156,6 +167,7 @@ See COPYRIGHT and LICENSE files for more details.
     }
 
     // --- Capture tokens from URL hash (after FastAPI callback) ----------
+    var _tokenCaptureComplete = false;
 
     function captureTokens() {
       if (window.location.hash) {
@@ -170,12 +182,33 @@ See COPYRIGHT and LICENSE files for more details.
         if (idToken) {
           sessionStorage.setItem("id_token", idToken);
           try {
-            const payload = JSON.parse(atob(idToken.split('.')[1]));
-            const username = payload.preferred_username
-              || (payload.email ? payload.email.split('@')[0] : "anonymous");
-            const email = payload.email || "";
-            sessionStorage.setItem("username", username);
-            sessionStorage.setItem("email", email);
+            const payload = JSON.parse(
+              atob(idToken.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))
+            );
+            const newUsername = payload.preferred_username || payload.email || "anonymous";
+            const previousUsername = sessionStorage.getItem("username");
+
+            sessionStorage.setItem("username", newUsername);
+            sessionStorage.setItem("email", payload.email || "");
+
+            if (accessToken) {
+              sessionStorage.setItem("access_token", accessToken);
+            }
+
+            // ✅ THE CORE FIX:
+            // Clean the hash FIRST so on reload we don't re-enter this block
+            window.history.replaceState(null, null, window.location.pathname);
+
+            // If user changed OR this is a fresh login after logout,
+            // force a hard reload so Firefox updates _open_project_session
+            const justLoggedOut = sessionStorage.getItem("just_logged_out");
+            if (previousUsername !== newUsername || justLoggedOut) {
+              console.warn("🔄 [SESSION] User changed or fresh login — forcing hard reload for Firefox cookie fix");
+              sessionStorage.removeItem("just_logged_out");
+              window.location.reload(true);
+              return;
+            }
+
           } catch (err) {
             console.error("❌ [SESSION] Error decoding ID token:", err);
           }
@@ -185,12 +218,17 @@ See COPYRIGHT and LICENSE files for more details.
           sessionStorage.setItem("access_token", accessToken);
         }
 
-        // Clean up URL
-        if (window.history.replaceState) {
-          window.history.replaceState(null, null, window.location.pathname);
+        window.history.replaceState(null, null, window.location.pathname);
+
+        const savedRedirect = sessionStorage.getItem("post_auth_redirect");
+        if (savedRedirect && savedRedirect !== window.location.href) {
+          sessionStorage.removeItem("post_auth_redirect");
+          window.location.href = savedRedirect;
+          return;
         }
-      } else {
-        console.log("⚠️ [SESSION] No tokens in URL hash. Using sessionStorage if available.");
+
+        _tokenCaptureComplete = true;
+        return;
       }
 
       const storedId = sessionStorage.getItem("id_token");
@@ -199,11 +237,13 @@ See COPYRIGHT and LICENSE files for more details.
       if (!storedId && !storedAccess) {
         console.log("🔒 [SESSION] No tokens at all → redirecting to login.");
         redirectToLogin("No tokens in storage");
+        return;
       }
+
+      _tokenCaptureComplete = true;
     }
 
     // --- Periodic validation against FastAPI ----------------------------
-
     async function validateSession() {
       console.log("📡 [SESSION CHECK] Calling /validate-session ...");
       const token = getSessionToken();
@@ -256,12 +296,15 @@ See COPYRIGHT and LICENSE files for more details.
     window.addEventListener("load", () => {
       console.log("🟢 [SESSION] window.load → captureTokens + first validateSession");
       captureTokens();
-      validateSession();
+      if (_tokenCaptureComplete) {
+        validateSession();
+      }
     });
 
     document.addEventListener("DOMContentLoaded", () => {
       console.log("⏱️ [SESSION] DOMContentLoaded → start periodic checks (5s)");
       setInterval(() => {
+        if (!_tokenCaptureComplete) return;
         console.log("🔁 [SESSION] Periodic session validation tick");
         validateSession();
       }, 5000);
