@@ -149,3 +149,19 @@ Rails.application.config.after_initialize do
     config.content_security_policy_nonce_directives = %w(script-src)
   end
 end
+
+Rails.application.config.content_security_policy do |policy|
+  policy.default_src :self
+  policy.base_uri :self
+  policy.connect_src :self, 'https://start.openproject-edge.com'
+  policy.font_src :self, 'https://www.ssa.gov', 'https://fonts.googleapis.com', :data
+  policy.form_action :self
+  policy.frame_ancestors :self
+  policy.frame_src :self, 'https://player.vimeo.com', 'https://releases.openproject.com/v1/check.svg', 'https://scalenowai.com.au:8501/'
+  policy.img_src '*', :data, :blob
+  policy.media_src :self
+  policy.font_src :self, "https://fonts.gstatic.com", :data
+  policy.object_src 'https://releases.openproject.com/v1/check.svg'
+  policy.script_src :self, 'https://www.ssa.gov', 'nonce-uylERCq4PpAjd2a92vK917G6Cl0AVLE6/5ttSTGPd64=', :unsafe_inline
+  policy.style_src :self, 'https://www.ssa.gov', 'https://fonts.googleapis.com', :unsafe_inline
+end

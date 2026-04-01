@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+
+  <h2 style="color: green;"> </h2>
+  <script>console.log("Reached logging.html");</script>
+  <p> </p>
+  <img src="logo.png"
+     alt=""
+     style="display:block; margin:20px auto; width:600px; height:auto;" />
+<script>
+    // Step 1: Parse the URL fragment
+    const params = new URLSearchParams(window.location.hash.slice(1));
+    const id_token = params.get('id_token');
+    const access_token = params.get('access_token');
+
+    if (id_token && access_token) {
+      // Step 2: Store tokens in sessionStorage
+      sessionStorage.setItem('id_token', id_token);
+      sessionStorage.setItem('access_token', access_token);
+
+      // Step 3: Decode the id_token payload to extract email and preferred_username
+      if (id_token.split('.').length === 3) {
+        try {
+          const base64Url = id_token.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join(''));
+          const payload = JSON.parse(jsonPayload);
+          if (payload.email) sessionStorage.setItem('email', payload.email);
+          if (payload.preferred_username) sessionStorage.setItem('username', payload.preferred_username);
+        } catch (e) {
+          console.error("Token decode failed:", e);
+        }
+      } else {
+        console.warn("id_token is not a valid JWT.");
+      }
+
+      // Step 4: Confirm token storage in dev tools
+      console.log("📦 id_token stored:", id_token);
+      console.log("📦 access_token stored:", access_token);
+      // Step 5: Delay to ensure browser finishes writing and redirect
+      setTimeout(() => {
+        const statusMsg = document.createElement("p");
+        // statusMsg.textContent = "Logging to scalenow AI";
+        document.body.appendChild(statusMsg);
+        window.location.replace("/");
+      }, 1000);
+    } else {
+      document.body.innerHTML = `
+        ❌ Failed to retrieve tokens.<br>
+        <a href="https://www.scalenowai.com.au/login">Click here to try again</a>.
+      `;
+    }
+  </script>
+</body>
+</html>

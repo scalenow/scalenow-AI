@@ -7,7 +7,7 @@ AI_TOOLS = {
   # },
   "document_analysis" => {
     display_name: "AI Agent Experience",
-    url: "https://www.scalenowai.com.au:5004",
+    url: "https://agents.scalenowai.com.au",
     plans: ["Basic", "Professional", "Enterprise"]
   }
   # "nlp" => {
@@ -19,8 +19,8 @@ AI_TOOLS = {
 
 PLATFORM_TOOLS = {
   "nextcloud" => {
-    display_name: "Nextcloud",
-    url: "https://www.scalenowai.com.au:3010"
+    display_name: "drive",
+    url: "https://drive.scalenowai.com.au/index.php/apps/user_oidc/login/1"
   },
 
   "wiki" => {

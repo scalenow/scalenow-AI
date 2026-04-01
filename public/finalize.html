@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Finalizing Login...</title>
+</head>
+<body>
+  <p>🔐 Logging you in to Finalize.html</p>
+  <script>
+    // Step 1: Parse the URL fragment
+    const params = new URLSearchParams(window.location.hash.slice(1));
+    const id_token = params.get('id_token');
+    const access_token = params.get('access_token');
+
+    if (id_token && access_token) {
+      // Step 2: Store tokens in sessionStorage
+      sessionStorage.setItem('id_token', id_token);
+      sessionStorage.setItem('access_token', access_token);
+
+      // Step 3: Decode the id_token payload to extract email and preferred_username
+      try {
+        const base64Url = id_token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        const payload = JSON.parse(jsonPayload);
+        if (payload.email) sessionStorage.setItem('email', payload.email);
+        if (payload.preferred_username) sessionStorage.setItem('username', payload.preferred_username);
+      } catch (e) {
+        console.error("Token decode failed:", e);
+      }
+
+      // Step 4: Confirm token storage in dev tools
+      console.log("📦 id_token stored:", id_token);
+      console.log("📦 access_token stored:", access_token);
+      // Step 5: Delay to ensure browser finishes writing and redirect
+      setTimeout(() => {
+        console.log("✅ Tokens stored in sessionStorage. Redirecting to NLP page...");
+        window.location.href = "/nlp.html";
+      }, 1500);  // Reduced delay to 1.5 seconds for immediate redirect
+    } else {
+      document.body.innerHTML = "❌ Failed to retrieve tokens. Please login again.";
+    }
+  </script>
+</body>
+</html>

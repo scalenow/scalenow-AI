@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Logging Out</title>
+</head>
+<body>
+  <h3>Logging out, please wait...</h3>
+  <script>
+    // Clear localStorage & sessionStorage
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Best-effort cookie cleanup — tries all attribute combinations for Firefox compatibility
+    var names = ["oauth_id_token", "access_token", "session", "rack.session", "_open_project_session"];
+    names.forEach(function(name) {
+      [
+        name + "=; Max-Age=0; path=/;",
+        name + "=; Max-Age=0; path=/; secure;",
+        name + "=; Max-Age=0; path=/; secure; samesite=lax;",
+        name + "=; Max-Age=0; path=/; domain=" + window.location.hostname + ";",
+        name + "=; Max-Age=0; path=/; domain=" + window.location.hostname + "; secure;",
+        name + "=; Max-Age=0; path=/; domain=" + window.location.hostname + "; secure; samesite=lax;",
+      ].forEach(function(str) { document.cookie = str; });
+    });
+
+    // ✅ Keycloak has already logged us out and redirected here.
+    // Just send the user to the login (or home) page of your app.
+    window.location.href = "https://www.scalenowai.com.au/login";
+    // or: window.location.href = "/";
+  </script>
+</body>
+</html>

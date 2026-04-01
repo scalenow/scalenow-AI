@@ -148,3 +148,11 @@ acme.json
 /vendor/bundle/*
 
 /config/master.key
+node_modules/
+.env
+dist/
+build/
+*.log
+tmp/
+.cache/
+.DS_Store

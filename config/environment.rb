@@ -33,3 +33,12 @@ require_relative "application"
 
 # Initialize the Rails application.
 Rails.application.initialize!
+
+Rails.application.configure do
+  config.content_security_policy do |policy|
+    policy.default_src :self
+    policy.frame_src "http://195.35.45.92:7860" # Your Gradio URL
+    policy.style_src :self, :https, "https://www.ssa.gov", "https://fonts.googleapis.com", :unsafe_inline
+    # Add other policies as needed
+  end
+end

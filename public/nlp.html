@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scalenow AI</title>
+   
+    <style>
+        /* Reset and Font Settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 15%;
+            background-color: #f9f9f9;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align items to the start */
+            padding: 20px;
+        }
+
+        .logo h2 {
+            font-size: 12px;
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0; /* Remove default padding */
+        }
+
+        nav ul li {
+            margin-bottom: 20px;
+        }
+
+        nav ul li button {
+            background: none;
+            color: #ecf0f1;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        nav ul li.active button {
+            color: #00000062;
+        }
+
+        .badge {
+            background-color: #00000069;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 8px;
+            color: #fff;
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Chat History Styles */
+        .chat-history {
+            width: 25%;
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-right: 1px solid #bdc3c7;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid #bdc3c7;
+            margin-bottom: 20px;
+        }
+
+        .history-list {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 10px; /* Added margin for spacing */
+        }
+
+        .history-item {
+            background-color: transparent;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .history-item h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #5e5d5c74;
+        }
+
+        .history-item p {
+            font-size: 13px;
+            color: #000000;
+        }
+
+        .history-item time {
+            font-size: 12px;
+            color: #95a5a6;
+        }
+
+        /* Chat Window Styles */
+        .chat-window {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .chat-header {
+            font-size: 12px; /* Smaller font size */
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        .chat-content {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 8px; /* Smaller padding */
+            margin-bottom: 20px;
+            border-radius: 8px;
+            position: relative;
+            font-size: 12px; /* Smaller font size */
+        }
+
+        .sent {
+            background-color: #f1f2f6;
+            align-self: flex-end;
+        }
+
+        .received {
+            background-color: #f0f8f8;
+            align-self: flex-start;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 5px; /* Smaller gap */
+            align-items: center;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 5px; /* Smaller padding */
+            border-radius: 15px; /* Smaller border radius */
+            border: 1px solid #bdc3c7;
+            font-size: 12px; /* Smaller font size */
+        }
+
+        .send-btn {
+            background-color: #55535274;
+            color: white;
+            border: none;
+            padding: 5px 10px; /* Smaller padding */
+            border-radius: 15px; /* Smaller border radius */
+            cursor: pointer;
+            font-size: 12px; /* Smaller font size */
+            font-weight: bold;
+        }
+
+        .message-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .message-table th,
+        .message-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .message-table th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Add Group Button Styles */
+        .add-group {
+            padding: 5px; /* Smaller padding */
+            background-color: #4d4a4a6d;
+            color: white;
+            border: none;
+            border-radius: 15px; /* Smaller border radius */
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+            font-size: 12px; /* Smaller font size */
+        }
+
+        /* Toggle Button Styles */
+        .toggle-btn {
+            background-color: #00000072; /* Set the background color */
+            color: white; /* Set the text color */
+            border: none; /* Remove border */
+            padding: 5px 10px; /* Smaller padding */
+            border-radius: 15px; /* Smaller border radius */
+            cursor: pointer; /* Change cursor to pointer */
+            font-size: 12px; /* Smaller font size */
+            transition: background-color 0.3s; /* Add transition for hover effect */
+        }
+
+        .toggle-btn:hover {
+            background-color: #67656572; /* Darker shade on hover */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                order: 1;
+            }
+
+            .chat-history {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                order: 2;
+                border-right: none;
+                border-bottom: 1px solid #bdc3c7;
+            }
+
+            .chat-window {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                order: 3;
+            }
+
+            .message {
+                font-size: 14px; /* Larger font size for mobile */
+            }
+
+            .send-btn {
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 12px; /* Adjust font size for smaller devices */
+            }
+
+            .chat-input input {
+                padding: 8px;
+            }
+
+            .send-btn {
+                padding: 8px 12px;
+            }
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border: 1px solid #bdc3c7 !important;
+            box-shadow: none;
+        }
+    </style>
+    <script>
+      // Ensure deleteAllSSOCookies is defined near the top
+      function deleteAllSSOCookies() {
+          document.cookie.split(";").forEach(cookie => {
+              const name = cookie.split("=")[0].trim();
+              document.cookie = `${name}=; Max-Age=0; path=/; domain=${window.location.hostname};`;
+          });
+          sessionStorage.clear();
+      }
+
+      async function validateSession() {
+          try {
+              const token = sessionStorage.getItem("id_token");
+              console.log("🔐 Validating session with token:", token);
+
+              const response = await fetch('https://www.scalenowai.com.au/validate-session', {
+                  method: 'GET',
+                  headers: {
+                      'Authorization': `Bearer ${token}`
+                  }
+              });
+
+              if (response.status === 401) {
+                  console.warn("🚨 Session invalid (401). Redirecting to login...");
+                  deleteAllSSOCookies();
+                  window.location.href = "https://www.scalenowai.com.au/login";
+                  return;
+              }
+
+              const data = await response.json();
+
+              if (data && data.logout === true) {
+                  console.warn("🔁 Logout type detected in token. Redirecting to login...");
+                  deleteAllSSOCookies();
+                  window.location.href = "https://www.scalenowai.com.au/login";
+                  return;
+              }
+
+              console.log("✅ Session is still valid.");
+          } catch (error) {
+              console.error("❌ Error during session validation:", error);
+              deleteAllSSOCookies();
+              window.location.href = "https://www.scalenowai.com.au/login";
+          }
+      }
+
+      setInterval(() => {
+          validateSession();
+      }, 5000);
+    </script>
+</head>
+<body>
+    <script>
+        function captureTokens() {
+            if (window.location.hash) {
+                console.log("🚀 Capturing tokens immediately...");
+                const params = new URLSearchParams(window.location.hash.substring(1));
+                const idToken = params.get("id_token");
+                const accessToken = params.get("access_token");
+
+                // Log tokens for debugging
+                console.log("🪪 ID Token:", idToken);
+                console.log("🛡️ Access Token:", accessToken);
+
+                if (idToken) {
+                    sessionStorage.setItem("id_token", idToken);
+
+                    try {
+                        const payload = JSON.parse(atob(idToken.split('.')[1]));
+                        const username = payload.preferred_username || (payload.email ? payload.email.split('@')[0] : "anonymous");
+                        const email = payload.email || "";
+
+                        sessionStorage.setItem("username", username);
+                        sessionStorage.setItem("email", email);
+
+                        console.log("✅ sessionStorage populated:", { username, email });
+                    } catch (err) {
+                        console.error("❌ Error decoding ID token:", err);
+                    }
+                }
+
+                if (accessToken) {
+                    sessionStorage.setItem("access_token", accessToken);
+                }
+
+                // Clean URL fragment
+                if (window.history.replaceState) {
+                    window.history.replaceState(null, null, window.location.pathname);
+                }
+            } else {
+                console.log("⚠️ No tokens in URL — checking sessionStorage...");
+
+                const storedId = sessionStorage.getItem("id_token");
+                const storedAccess = sessionStorage.getItem("access_token");
+
+                if (!storedId || !storedAccess) {
+                    console.log("🔒 No session — redirecting to login...");
+
+                    const loginUrl = "https://www.scalenowai.com.au/realms/scalenowAI/protocol/openid-connect/auth"
+                        + "?client_id=scalenowAI"
+                        + "&redirect_uri=https://www.scalenowai.com.au/oauth/oidc/callback"
+                        + "&response_type=code"
+                        + "&scope=openid%20email%20profile"
+                        + "&state=nlp";
+
+                    window.location.href = loginUrl;
+                }
+            }
+        }
+
+        captureTokens();
+        window.addEventListener("DOMContentLoaded", captureTokens);
+    </script>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>scalenow AI Information</h2>
+            </div>
+            <nav></nav>
+                <ul>
+                    <li>
+                        <div class="history-list">
+                            <button class="toggle-btn" onclick="toggleSection('task-list-content', 'arrow-task')">
+                                <span id="arrow-task">&#9654;</span> My Saves
+                            </button>
+                            <div class="history-content" id="task-list-content" style="display: none;">
+                                <div class="history-item">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="history-list">
+                            <button class="toggle-btn" onclick="toggleSection('prompt-library-content', 'arrow-prompt')">
+                                <span id="arrow-prompt">&#9654;</span> Prompt Library 
+                            </button>
+                            <div class="history-content" id="prompt-library-content" style="display: none;">
+                                <div class="history-item">
+                                    <p>What tasks am I working on the project</p><br>
+                                    <p>What should I work on next on the project</p><br>
+                                    <p>What task are created by me and closed</p><br>
+                                    <p>What are my urgent tasks</p><br>
+                                    <p>What are my overdue tasks</p><br>
+                                    <p>What is the current status of task no in project</p><br>
+                                    <p>What tasks are currently in progress in the project</p><br>
+                                    <p>What tasks are created by me and closed</p><br>
+                                    <p>What tasks are created by me and closed</p><br>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="history-list">
+                            <button class="toggle-btn" onclick="toggleSection('favorite', 'arrow-favorite')">
+                                <span id="arrow-favorite">&#9654;</span> Favorite 
+                            </button>
+                            <div class="history-content" id="favorite" style="display: none;">
+                                <div class="history-item">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="history-list">
+                            <button class="toggle-btn" onclick="toggleSection('history-content', 'arrow-history')">
+                                <span id="arrow-history">&#9654;</span> History 
+                            </button>
+                            <div class="history-content" id="history-content" style="display: none;">
+                                <!-- Dynamic history items will be inserted here -->
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section (Chat Window) -->
+        <div class="chat-window">
+            <div class="chat-header">
+                <img src="/images/scalenowai2.png" alt="scalenow AI Logo" style="height: 60px; vertical-align: middle;"> <!-- Adjust the height as needed -->
+              <!--  <span style="font-size: 14px; font-style: italic;"> NLP solution will work once a project is created. Please contact <a href="mailto:scalenowai@scalenowai.com">scalenowai@scalenowai.com</a> to enable the solution</span> -->
+            </div>
+            <div class="chat-content" id="chat-content">
+                <!-- Dynamic Chat Messages will be rendered here -->
+            </div>
+            
+            <!-- Combined Upload Functionality and Mode Toggle -->
+            <div class="chat-controls" style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px;">
+                <!-- Upload Functionality -->
+                
+                <!-- End of Upload Functionality -->
+
+                <!-- Mode Toggle -->
+                
+            </div>
+            <!-- End of Combined Controls -->
+
+            <div class="chat-input" style="display: flex; align-items: center; gap: 5px;">
+                <input type="text" id="user-input" placeholder="Type your message here" style="width: 200px; padding: 15px; border-radius: 15px; border: 1px solid #bdc3c7; font-size: 14px;">
+                <button class="send-btn" onclick="sendMessage()" style="padding: 5px 10px; background-color: #6e6f6fc7; color: white; border: none; border-radius: 15px; font-size: 14px;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(sectionId, arrowId) {
+            const section = document.getElementById(sectionId);
+            const arrow = document.getElementById(arrowId);
+    
+            if (section.style.display === "none") {
+                section.style.display = "block";
+                arrow.innerHTML = "&#9660;"; // Down arrow
+            } else {
+                section.style.display = "none";
+                arrow.innerHTML = "&#9654;"; // Right arrow
+            }
+        }
+
+
+        const sessionHistory = [];
+        const MAX_SESSIONS = 10;
+        const followUpStatements = ["Is there anything else you'd like to ask?", "Can I help with anything else?", "Feel free to ask more questions!"];
+        let useLLM = false; // State to track whether to use LLM or DB
+    
+        function displayMessages() {
+            const chatContent = document.getElementById('chat-content');
+            chatContent.innerHTML = ''; // Clear existing messages
+
+            sessionHistory.forEach(session => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(session.type);
+
+                // If the session contains table data, render it as a table
+                if (session.tableData) {
+                    const table = document.createElement('table');
+                    table.classList.add('message-table');
+
+                    // Table header
+                    const thead = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+                    Object.keys(session.tableData[0]).forEach(header => {
+                        const th = document.createElement('th');
+                        th.innerText = header;
+                        headerRow.appendChild(th);
+                    });
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);
+
+                    // Table body
+                    const tbody = document.createElement('tbody');
+                    session.tableData.forEach(rowData => {
+                        const row = document.createElement('tr');
+                        Object.values(rowData).forEach(cellData => {
+                            const td = document.createElement('td');
+                            td.innerText = cellData;
+                            row.appendChild(td);
+                        });
+                        tbody.appendChild(row);
+                    });
+                    table.appendChild(tbody);
+
+                    messageDiv.appendChild(table);
+                } else {
+                    messageDiv.innerText = session.text;
+                }
+
+                // Insert favorite icon for sent messages (without table)
+                if (session.type === 'sent' && !session.tableData) {
+                    const favIcon = document.createElement('span');
+                    favIcon.innerText = '⭐';
+                    favIcon.style.cursor = 'pointer';
+                    favIcon.style.marginLeft = '10px';
+                    favIcon.title = 'Add to favorites';
+                    favIcon.style.setProperty('color', session.favorite ? 'green' : '#000000', 'important');
+
+                    // Update color immediately on render based on `session.favorite`
+                    if (session.favorite) {
+                        favIcon.style.setProperty('color', 'green', 'important');
+                    }
+
+                    favIcon.onclick = () => {
+                        session.favorite = !session.favorite;
+                        favIcon.style.color = session.favorite ? 'green' : '#000000';
+                        favIcon.style.setProperty('color', session.favorite ? 'green' : '#000000', 'important');
+
+                        const favSection = document.getElementById('favorite');
+                        if (favSection) {
+                            const existing = Array.from(favSection.querySelectorAll('.history-item'));
+                            existing.forEach(item => {
+                                if (item.textContent.trim() === session.text) {
+                                    favSection.removeChild(item);
+                                }
+                            });
+
+                            if (session.favorite) {
+                                const alreadyFavorited = existing.some(item => item.textContent.trim() === session.text);
+                                if (!alreadyFavorited) {
+                                    const newFav = document.createElement('div');
+                                    newFav.className = 'history-item';
+                                    newFav.innerHTML = `<p>${session.text}</p>`;
+                                    favSection.insertBefore(newFav, favSection.firstChild);
+
+                                    const favItems = favSection.querySelectorAll('.history-item');
+                                    if (favItems.length > 10) {
+                                        favSection.removeChild(favItems[favItems.length - 1]);
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    messageDiv.appendChild(favIcon);
+
+                    // --- Insert save icon after favorite icon ---
+                    const saveIcon = document.createElement('span');
+                    saveIcon.innerText = '💾';
+                    saveIcon.style.cursor = 'pointer';
+                    saveIcon.style.marginLeft = '10px';
+                    saveIcon.title = 'Save to My Saves';
+                    saveIcon.style.setProperty('color', session.saved ? 'green' : '#000000', 'important');
+
+                    saveIcon.onclick = () => {
+                        session.saved = !session.saved;
+                        saveIcon.style.setProperty('color', session.saved ? 'green' : '#000000', 'important');
+
+                        const saveSection = document.getElementById('task-list-content');
+                        if (saveSection) {
+                            const existing = Array.from(saveSection.querySelectorAll('.history-item'));
+                            existing.forEach(item => {
+                                if (item.textContent.trim() === session.text) {
+                                    saveSection.removeChild(item);
+                                }
+                            });
+
+                            if (session.saved) {
+                                const alreadySaved = existing.some(item => item.textContent.trim() === session.text);
+                                if (!alreadySaved) {
+                                    const newSave = document.createElement('div');
+                                    newSave.className = 'history-item';
+                                    newSave.innerHTML = `<p>${session.text}</p>`;
+                                    saveSection.insertBefore(newSave, saveSection.firstChild);
+
+                                    const saveItems = saveSection.querySelectorAll('.history-item');
+                                    if (saveItems.length > 10) {
+                                        saveSection.removeChild(saveItems[saveItems.length - 1]);
+                                    }
+                                }
+                            }
+                        }
+                    };
+
+                    messageDiv.appendChild(saveIcon);
+                }
+
+                chatContent.appendChild(messageDiv);
+            });
+
+            chatContent.scrollTop = chatContent.scrollHeight; // Auto-scroll to bottom
+        }
+    
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const messageText = userInput.value.trim();
+            const username = sessionStorage.getItem("username") || "anonymous"; 
+            const email = sessionStorage.getItem("email") || "";
+
+            if (!messageText) return;
+
+            // Remove "You: " prefix (case-insensitive) if present
+            sessionHistory.push({ type: 'sent', text: messageText.replace(/^You:\s*/i, '') });
+            if (sessionHistory.length > MAX_SESSIONS) sessionHistory.shift();
+            displayMessages();
+
+            // Save to History section (show last 5 user interactions)
+            const historyContent = document.getElementById('history-content');
+
+            if (historyContent) {
+                const newEntry = document.createElement('div');
+                newEntry.className = 'history-item';
+                newEntry.innerHTML = `<p>${messageText}</p>`;
+                historyContent.insertBefore(newEntry, historyContent.firstChild);
+
+                // Keep only the latest 5 entries
+                const entries = historyContent.querySelectorAll('.history-item');
+                if (entries.length > 5) {
+                    historyContent.removeChild(entries[entries.length - 1]);
+                }
+            }
+
+            userInput.value = '';
+            userInput.focus();
+
+            const accessToken = sessionStorage.getItem("access_token");
+            fetch("https://www.scalenowai.com.au/rasa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`
+                },
+                body: JSON.stringify({
+                    sender: username,
+                    message: messageText,
+                    metadata: {
+                        username: username,
+                        email: email
+                    }
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(message => {
+                    if (message.text) {
+                        const lines = message.text.split('\n');
+                        if (lines.length > 1 && lines[0].includes('|')) {
+                            const headers = lines[0].split('|').map(header => header.trim());
+                            const rows = lines.slice(1).map(line => line.split('|').map(cell => cell.trim()));
+                            const tableData = rows.map(row => {
+                                let rowData = {};
+                                headers.forEach((header, index) => {
+                                    rowData[header] = row[index] || '';
+                                });
+                                return rowData;
+                            });
+                            sessionHistory.push({ type: 'received', tableData: tableData });
+                        } else {
+                            sessionHistory.push({ type: 'received', text: message.text });
+                        }
+                    }
+                });
+
+                if (sessionHistory.length > MAX_SESSIONS) sessionHistory.shift();
+                const randomFollowUp = followUpStatements[Math.floor(Math.random() * followUpStatements.length)];
+                sessionHistory.push({ type: 'received', text: randomFollowUp });
+                displayMessages();
+            })
+            .catch(error => {
+                console.error("Error connecting to Rasa server:", error);
+                sessionHistory.push({ type: 'received', text: "Error connecting to the server. Please try again." });
+                displayMessages();
+            });
+        }
+    </script>
+</body>
+</html>
