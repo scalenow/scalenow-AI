@@ -1,3 +1,5 @@
+<img width="256" height="256" alt="logo" src="https://github.com/user-attachments/assets/dd14124e-034b-4f27-a387-af19d7258504" />
+
  # scalenow AI Platform
 
 Overview
