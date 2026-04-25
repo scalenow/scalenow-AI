@@ -1,4 +1,4 @@
-scalenowAI Platform
+ # scalenowAI Platform
 
 Overview
 
@@ -10,85 +10,85 @@ The platform embeds AI directly into workflows, enabling intelligent automation,
 
 ⸻
 
-Why scalenowAI
+# Why scalenowAI
 
 Most organisations don’t lack tools—they lack an integrated way of working.
 
 scalenowAI addresses this by:
 
-* Eliminating tool sprawl and data silos
-* Embedding AI into business processes (not as an add-on)
-* Enabling governance, compliance, and data sovereignty by design
-* Providing a unified operating model for planning, execution, and knowledge
+#  Eliminating tool sprawl and data silos
+#  Embedding AI into business processes (not as an add-on)
+#  Enabling governance, compliance, and data sovereignty by design
+#  Providing a unified operating model for planning, execution, and knowledge
 
 ⸻
 
-Core Capabilities
+#Core Capabilities
 
-* AI-Orchestrated Workflows
+#  AI-Orchestrated Workflows
     Intelligent automation across projects, documents, and enterprise processes
-* Conversational AI Interface
+#  Conversational AI Interface
     Natural language interaction via OpenWebUI for querying data, generating insights, and executing tasks
-* Unified Collaboration & Knowledge
+#  Unified Collaboration & Knowledge
     Seamless integration of documents, knowledge bases, and project data
-* Cross-Platform Search & Intelligence
+#  Cross-Platform Search & Intelligence
     Enterprise-wide search and discovery using YaCy and AI-powered retrieval
-* Identity & Access Management
+#  Identity & Access Management
     Secure, role-based access with Keycloak SSO
-* Learning & Capability Development
+#  Learning & Capability Development
     Integrated Moodle-based LMS for onboarding, training, and continuous learning
 
 ⸻
 
-Architecture
+# Architecture
 
 scalenowAI follows a hub-and-spoke architecture, with a central orchestration layer connecting multiple enterprise systems:
 
-* Core Hub: OpenProject (Project & Portfolio Management)
-* Identity Layer: Keycloak (SSO, RBAC)
-* Collaboration Layer: Nextcloud (File Management)
-* Knowledge Layer: XWiki (Documentation & Knowledge Base)
-* Learning Layer: Moodle (LMS)
-* AI Interaction Layer: OpenWebUI + Rasa (Conversational AI)
-* Search Layer: YaCy (Federated Search)
+#  Core Hub: OpenProject (Project & Portfolio Management)
+#  Identity Layer: Keycloak (SSO, RBAC)
+#  Collaboration Layer: Nextcloud (File Management)
+#  Knowledge Layer: XWiki (Documentation & Knowledge Base)
+#  Learning Layer: Moodle (LMS)
+#  AI Interaction Layer: OpenWebUI + Rasa (Conversational AI)
+#  Search Layer: YaCy (Federated Search)
 
 This modular architecture ensures scalability, flexibility, and full control over deployment.
 
 ⸻
 
-Key Benefits
+# Key Benefits
 
-* Unified Platform – One ecosystem instead of multiple disconnected tools
-* AI Embedded by Design – Not bolted on, but integrated into workflows
-* Data Sovereignty – Full control with on-premise or hybrid deployment
-* Governance & Compliance – Built for regulated environments
-* Reduced Cost & Complexity – Open-source foundation with lower total cost of ownership
-* Scalable Architecture – From small teams to enterprise-wide deployment
-
-⸻
-
-Use Cases
-
-* Enterprise Digital Transformation
-* AI-enabled Project & Portfolio Management
-* Knowledge Management & Enterprise Search
-* Secure Collaboration in Regulated Industries
-* Workforce Training & Capability Development
-* AI-driven Decision Support
+#  Unified Platform – One ecosystem instead of multiple disconnected tools
+#  AI Embedded by Design – Not bolted on, but integrated into workflows
+#  Data Sovereignty – Full control with on-premise or hybrid deployment
+#  Governance & Compliance – Built for regulated environments
+#  Reduced Cost & Complexity – Open-source foundation with lower total cost of ownership
+#  Scalable Architecture – From small teams to enterprise-wide deployment
 
 ⸻
 
-Source Repositories
+# Use Cases
 
-* OpenProject: https://github.com/scalenow/openproject
-* Nextcloud: https://github.com/scalenow/nextcloud
-* OpenWebUI: https://github.com/scalenow/openwebui
-* XWiki: https://github.com/scalenow/xwiki
-* Moodle: https://github.com/scalenow/moodle
+#  Enterprise Digital Transformation
+#  AI-enabled Project & Portfolio Management
+#  Knowledge Management & Enterprise Search
+#  Secure Collaboration in Regulated Industries
+#  Workforce Training & Capability Development
+#  AI-driven Decision Support
 
 ⸻
 
-Getting Started
+# Source Repositories
+
+#  OpenProject: https://github.com/scalenow/openproject
+#  Nextcloud: https://github.com/scalenow/nextcloud
+#  OpenWebUI: https://github.com/scalenow/openwebui
+#  XWiki: https://github.com/scalenow/xwiki
+#  Moodle: https://github.com/scalenow/moodle
+
+⸻
+
+# Getting Started
 
 This repository provides the architecture and integration approach for scalenowAI.
 Detailed setup, deployment guides, and configurations will be added progressively.
@@ -98,21 +98,15 @@ For enterprise deployment or collaboration enquiries:
 
 ⸻
 
-Vision
+# Vision
 
 To enable organisations to operate as integrated, intelligent enterprises—where AI, workflows, knowledge, and collaboration are unified, governed, and scalable.
 
 ⸻
 
-Contributing
+# Contributing
 
 We welcome contributions aligned with our open, modular ecosystem approach.
 Please raise issues or submit pull requests for improvements, integrations, or enhancements.
 
 ⸻
-
-If you want, I can:
-
-* Make this more developer-focused (setup-heavy)
-* Add Docker/Kubernetes deployment steps
-* Or create a visual architecture diagram section for GitHub
