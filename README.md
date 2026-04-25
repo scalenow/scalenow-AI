@@ -1,4 +1,4 @@
- # scalenowAI Platform
+ # scalenow AI Platform
 
 Overview
 
