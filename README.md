@@ -16,10 +16,10 @@ Most organisations don’t lack tools—they lack an integrated way of working.
 
 scalenowAI addresses this by:
 
-#  Eliminating tool sprawl and data silos
-#  Embedding AI into business processes (not as an add-on)
-#  Enabling governance, compliance, and data sovereignty by design
-#  Providing a unified operating model for planning, execution, and knowledge
+Eliminating tool sprawl and data silos
+Embedding AI into business processes (not as an add-on)
+Enabling governance, compliance, and data sovereignty by design
+Providing a unified operating model for planning, execution, and knowledge
 
 ⸻
 
@@ -44,13 +44,13 @@ scalenowAI addresses this by:
 
 scalenowAI follows a hub-and-spoke architecture, with a central orchestration layer connecting multiple enterprise systems:
 
-#  Core Hub: OpenProject (Project & Portfolio Management)
-#  Identity Layer: Keycloak (SSO, RBAC)
-#  Collaboration Layer: Nextcloud (File Management)
-#  Knowledge Layer: XWiki (Documentation & Knowledge Base)
-#  Learning Layer: Moodle (LMS)
-#  AI Interaction Layer: OpenWebUI + Rasa (Conversational AI)
-#  Search Layer: YaCy (Federated Search)
+Core Hub: OpenProject (Project & Portfolio Management)
+Identity Layer: Keycloak (SSO, RBAC)
+Collaboration Layer: Nextcloud (File Management)
+Knowledge Layer: XWiki (Documentation & Knowledge Base)
+Learning Layer: Moodle (LMS)
+AI Interaction Layer: OpenWebUI + Rasa (Conversational AI)
+Search Layer: YaCy (Federated Search)
 
 This modular architecture ensures scalability, flexibility, and full control over deployment.
 
@@ -58,33 +58,33 @@ This modular architecture ensures scalability, flexibility, and full control ove
 
 # Key Benefits
 
-#  Unified Platform – One ecosystem instead of multiple disconnected tools
-#  AI Embedded by Design – Not bolted on, but integrated into workflows
-#  Data Sovereignty – Full control with on-premise or hybrid deployment
-#  Governance & Compliance – Built for regulated environments
-#  Reduced Cost & Complexity – Open-source foundation with lower total cost of ownership
-#  Scalable Architecture – From small teams to enterprise-wide deployment
+Unified Platform – One ecosystem instead of multiple disconnected tools
+AI Embedded by Design – Not bolted on, but integrated into workflows
+Data Sovereignty – Full control with on-premise or hybrid deployment
+Governance & Compliance – Built for regulated environments
+Reduced Cost & Complexity – Open-source foundation with lower total cost of ownership
+Scalable Architecture – From small teams to enterprise-wide deployment
 
 ⸻
 
 # Use Cases
 
-#  Enterprise Digital Transformation
-#  AI-enabled Project & Portfolio Management
-#  Knowledge Management & Enterprise Search
-#  Secure Collaboration in Regulated Industries
-#  Workforce Training & Capability Development
-#  AI-driven Decision Support
+Enterprise Digital Transformation
+AI-enabled Project & Portfolio Management
+Knowledge Management & Enterprise Search
+Secure Collaboration in Regulated Industries
+Workforce Training & Capability Development
+AI-driven Decision Support
 
 ⸻
 
 # Source Repositories
 
-#  OpenProject: https://github.com/scalenow/openproject
-#  Nextcloud: https://github.com/scalenow/nextcloud
-#  OpenWebUI: https://github.com/scalenow/openwebui
-#  XWiki: https://github.com/scalenow/xwiki
-#  Moodle: https://github.com/scalenow/moodle
+OpenProject: https://github.com/scalenow/openproject
+Nextcloud: https://github.com/scalenow/nextcloud
+OpenWebUI: https://github.com/scalenow/openwebui
+XWiki: https://github.com/scalenow/xwiki
+Moodle: https://github.com/scalenow/moodle
 
 ⸻
 
